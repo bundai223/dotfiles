@@ -1,0 +1,11 @@
+BoldAsFont=no
+Font=Ricty
+FontHeight=12
+FontSmoothing=partial
+Columns=100
+Rows=45
+Transparency=high
+OpaqueWhenFocused=no
+Locale=ja_JP
+Charset=SJIS
+FontIsBold=yes
