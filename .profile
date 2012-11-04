@@ -12,3 +12,5 @@ alias open=cygstart
 if [ -f ~/.bashrc ]; then
     . ~/.bashrc
 fi
+
+

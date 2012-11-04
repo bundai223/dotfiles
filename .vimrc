@@ -26,6 +26,11 @@ set clipboard=unnamed,autoselect
 " 改行時の自動コメントをなしに
 autocmd FileType * setlocal formatoptions-=ro
 
+" シンボリックなファイルを編集するとリンクが消されてしまうことがあったので
+" 参照先を変数に上書き
+let $MYVIMRC="$HOME/github/dotfiles/.vimrc"
+let $MYGVIMRC="$HOME/github/dotfiles/.gvimrc"
+
 
 "--------------------------------------
 " 基本的な設定
@@ -85,9 +90,9 @@ nnoremap ZZ <Nop>
 " 直前のバッファに移動
 nnoremap <Leader>b :b#<CR>
 
-" ヘッダ・ソースを開く
-nnoremap <Leader>h  :<C-u>hide edit %<.h<Return>
-nnoremap <Leader>c  :<C-u>hide edit %<.cpp<Return>
+" " ヘッダ・ソースを開く
+" nnoremap <Leader>h  :<C-u>hide edit %<.h<Return>
+" nnoremap <Leader>c  :<C-u>hide edit %<.cpp<Return>
 
 " 日付マクロ
 inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
@@ -102,7 +107,6 @@ vnoremap <silent> cx:ContinuousNumbers <C-x><CR>
 nnoremap <C-h> :<C-u>help<Space>
 
 " MYVIMRC
-" TODO: 何かうまくいかない
 nnoremap <Leader>v :e $MYVIMRC<CR>
 nnoremap <Leader>g :e $MYGVIMRC<CR>
 
