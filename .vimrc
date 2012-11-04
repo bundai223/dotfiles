@@ -270,13 +270,17 @@ if !exists("g:neosnippet#snippets_directory")
 endif
 let g:neosnippet#snippets_directory='$HOME/github/mysnip'
 
-" <TAB>でスニペット補完
-if g:neocomplcache_enable_at_startup
-    imap <expr><TAB> neosnippet#expandable() ? "\<Plug> (neosnippet_jump_or_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-endif
 
 " スニペットで単語が選択されている場合でも<TAB>で次のプレースホルダへ
-vmap <expr><TAB> neosnippet#expandable() ? "\<Plug> (neosnippet_jump_or_expand)" : "\<TAB>"
+" vmap <expr><TAB> neosnippet#expandable() ? "\<Plug> (neosnippet_jump_or_expand)" : "\<TAB>"
+
+"" <TAB>でスニペット補完
+"imap <expr><TAB> neosnippet#expandable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \: pumvisible() ? "\<C-n>" : "\<TAB>"
+"smap <expr><TAB> neosnippet#expandable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \: "\<TAB>"
 
 " ユーザー定義スニペットの編集
 " ftを指定しなければ現在のftのファイルを開く
