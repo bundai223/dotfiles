@@ -7,7 +7,7 @@ set nocompatible
 
 " 文字エンコード
 set encoding=utf-8
-set fileformat=unix
+" set fileformat=unix
 set fileformats=unix,dos
 
 " バックアップファイルの設定
@@ -323,7 +323,8 @@ endif
 
 NeoBundle 'Shougo/neobundle.vim.git'
 NeoBundle 'Shougo/neocomplcache.git'
-NeoBundle 'Shougo/neocomplcache-snippets-complete.git'
+"NeoBundle 'Shougo/neocomplcache-snippets-complete.git'
+NeoBundle 'Shougo/neosnippet.git'
 if has('win32')
   NeoBundle 'tyru/restart.vim.git'
   NeoBundle 'Shougo/neocomplcache-clang.git'
@@ -347,8 +348,9 @@ NeoBundle 'mattn/vimplenote-vim.git'
 NeoBundle 'mattn/webapi-vim.git'
 NeoBundle 'mattn/learn-vimscript.git'
 NeoBundle 'daisuzu/unite-gtags.git'
+NeoBundle 'davidhalter/jedi.git'
+NeoBundle 'davidhalter/jedi-vim.git'
 " Dart
-NeoBundle 'osyo-manga/neocomplcache-snippets-complete-dart.git'
 NeoBundle 'vim-scripts/Dart.git'
 " Graphic
 NeoBundle 'vim-scripts/opengl.vim.git'
