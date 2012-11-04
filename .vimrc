@@ -229,10 +229,6 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
-" スニペット
-imap <C-k> <Plug>(neocomplcache_snippets_expand)
-smap <C-k> <Plug>(neocomplcache_snippets_expand)
-
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -266,6 +262,28 @@ endif
 
 let g:neocomplcache_max_list=1000
 
+
+" neosnippet
+" snippet directory
+if !exists("g:neosnippet#snippets_directory")
+    let g:neosnippet#snippets_directory=""
+endif
+let g:neosnippet#snippets_directory='$HOME/github/mysnip'
+
+" <TAB>でスニペット補完
+if g:neocomplcache_enable_at_startup
+    imap <expr><TAB> neosnippet#expandable() ? "\<Plug> (neosnippet_jump_or_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+endif
+
+" スニペットで単語が選択されている場合でも<TAB>で次のプレースホルダへ
+vmap <expr><TAB> neosnippet#expandable() ? "\<Plug> (neosnippet_jump_or_expand)" : "\<TAB>"
+
+" ユーザー定義スニペットの編集
+" ftを指定しなければ現在のftのファイルを開く
+nnoremap <silent> <Leader>es :<C-u>NeoSnippetEdit 
+
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
 
 """ unite
@@ -361,7 +379,7 @@ NeoBundle 'vim-scripts/opengl.vim.git'
 NeoBundle 'vim-scripts/glsl.vim.git'
 NeoBundle 'bundai223/FX-HLSL.git'
 " private snippet
-NeoBundle 'http://github.com/bundai223/mysnip.git'
+" NeoBundle 'http://github.com/bundai223/mysnip.git'
 
 
 filetype plugin on
