@@ -251,7 +251,7 @@ let g:neocomplcache_force_overwrite_completefunc=1
 
 """ clang_complete
 let g:clang_complete_auto=0
-let g:clang_use_library=0
+let g:clang_use_library=1
 if has('win32')
   let g:clang_exec="$HOME/tool/clang/bin/clang.exe"
   let g:clang_library_path="$HOME/tool/clang/bin/"

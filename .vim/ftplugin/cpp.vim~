@@ -1,0 +1,6 @@
+" cpp setting
+if has('win')
+    set encoding=cp932
+    set fileformats=dos,unix
+endif
+
