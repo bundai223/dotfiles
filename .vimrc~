@@ -111,8 +111,8 @@ vnoremap <silent> cx:ContinuousNumbers <C-x><CR>
 nnoremap <C-h> :<C-u>help<Space>
 
 " マーク・レジスタなど確認
-nnoremap <Leader>m :<C-u>marks<CR>
-nnoremap <Leader>r :<C-u>registers<CR>
+nnoremap <Leader>m :<C-u>marks
+nnoremap <Leader>r :<C-u>registers
 
 " MYVIMRC
 nnoremap <Leader>v :e $MYVIMRC<CR>
