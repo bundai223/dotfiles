@@ -26,11 +26,8 @@ set clipboard=unnamed,autoselect
 " 改行時の自動コメントをなしに
 autocmd FileType * setlocal formatoptions-=ro
 
-" シンボリックなファイルを編集するとリンクが消されてしまうことがあったので
-" 参照先を変数に上書き
-let $MYVIMRC="$HOME/github/dotfiles/.vimrc"
-let $MYGVIMRC="$HOME/github/dotfiles/.gvimrc"
-
+let g:MYVIMRC=$HOME/github/dotfiles/.vimrc
+let g:MYGVIMRC=$HOME/github/dotfiles/.gvimrc
 
 "--------------------------------------
 " 基本的な設定
@@ -90,9 +87,9 @@ nnoremap ZZ <Nop>
 " 直前のバッファに移動
 nnoremap <Leader>b :b#<CR>
 
-" " ヘッダ・ソースを開く
-" nnoremap <Leader>h  :<C-u>hide edit %<.h<Return>
-" nnoremap <Leader>c  :<C-u>hide edit %<.cpp<Return>
+" ヘッダ・ソースを開く
+nnoremap <Leader>h  :<C-u>hide edit %<.h<Return>
+nnoremap <Leader>c  :<C-u>hide edit %<.cpp<Return>
 
 " 日付マクロ
 inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
@@ -229,6 +226,10 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
+" スニペット
+imap <C-k> <Plug>(neocomplcache_snippets_expand)
+smap <C-k> <Plug>(neocomplcache_snippets_expand)
+
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -244,47 +245,24 @@ endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-" let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|::'
+let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
-let g:neocomplcache_force_overwrite_completefunc=1
-
-""" clang_complete
-let g:clang_complete_auto=0
-let g:clang_use_library=0
 if has('win32')
-  let g:clang_exec="$HOME/tool/clang/bin/clang.exe"
-  let g:clang_library_path="$HOME/tool/clang/bin/"
+  """ neocomplcache_clang
+  let g:neocomplcache_clang_use_library=1
+elseif has('unix')
+  """ clang_complete
+  let g:neocomplcache_force_overwrite_completefunc=1
+  let g:clang_complete_auto=1
+  let g:clang_use_library=0
+  if has('win32')
+  	let g:clang_exec="$HOME/tool/clang/bin/clang.exe"
+  	let g:clang_library_path="$HOME/tool/clang/bin/"
+  endif
 endif
 
 let g:neocomplcache_max_list=1000
 
-
-" neosnippet
-" snippet directory
-if !exists("g:neosnippet#snippets_directory")
-    let g:neosnippet#snippets_directory=""
-endif
-let g:neosnippet#snippets_directory='$HOME/github/mysnip'
-
-
-" スニペットで単語が選択されている場合でも<TAB>で次のプレースホルダへ
-" vmap <expr><TAB> neosnippet#expandable() ? "\<Plug> (neosnippet_jump_or_expand)" : "\<TAB>"
-
-"" <TAB>でスニペット補完
-"imap <expr><TAB> neosnippet#expandable() ?
-" \ "\<Plug>(neosnippet_expand_or_jump)"
-" \: pumvisible() ? "\<C-n>" : "\<TAB>"
-"smap <expr><TAB> neosnippet#expandable() ?
-" \ "\<Plug>(neosnippet_expand_or_jump)"
-" \: "\<TAB>"
-
-" ユーザー定義スニペットの編集
-" ftを指定しなければ現在のftのファイルを開く
-nnoremap <silent> <Leader>es :<C-u>NeoSnippetEdit 
-
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
 
 """ unite
@@ -344,19 +322,22 @@ if has('vim_starting')
     call neobundle#rc(expand('~/.bundle'))
 endif
 
-if has('win32')
-  NeoBundle 'tyru/restart.vim.git'
-endif
 NeoBundle 'Shougo/neobundle.vim.git'
 NeoBundle 'Shougo/neocomplcache.git'
 "NeoBundle 'Shougo/neocomplcache-snippets-complete.git'
 NeoBundle 'Shougo/neosnippet.git'
+if has('win32')
+  NeoBundle 'tyru/restart.vim.git'
+  NeoBundle 'Shougo/neocomplcache-clang.git'
+elseif has('unix')
+  NeoBundle 'Rip-Rip/clang_complete.git'
+  NeoBundle 'osyo-manga/neocomplcache-clang_complete.git'
+endif
 NeoBundle 'Shougo/unite.vim.git'
 NeoBundle 'Shougo/vimproc.git'
 NeoBundle 'Shougo/vimfiler.git'
 NeoBundle 'Shougo/vimshell.git'
 NeoBundle 'Shougo/vinarise.git'
-NeoBundle 'Rip-Rip/clang_complete.git'
 NeoBundle 'tpope/vim-surround.git'
 NeoBundle 't9md/vim-quickhl.git'
 NeoBundle 'thinca/vim-quickrun.git'
@@ -377,7 +358,7 @@ NeoBundle 'vim-scripts/opengl.vim.git'
 NeoBundle 'vim-scripts/glsl.vim.git'
 NeoBundle 'bundai223/FX-HLSL.git'
 " private snippet
-" NeoBundle 'http://github.com/bundai223/mysnip.git'
+NeoBundle 'http://github.com/bundai223/mysnip.git'
 
 
 filetype plugin on
