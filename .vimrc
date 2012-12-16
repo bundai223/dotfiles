@@ -17,6 +17,7 @@ set fileformats=unix,dos
 
 " tabでスペースを挿入
 set expandtab
+set smarttab
 set tabstop=4
 set shiftwidth=4
 
