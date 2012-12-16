@@ -44,6 +44,15 @@ if has('unix')
     let $USERNAME=$USER
 endif
 
+" 履歴の保存
+if has('persistent_undo' )
+    set undodir=~/.vim/undo
+    set undofile
+endif
+
+" 起動時に前回の編集箇所から再開
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
+
 "--------------------------------------
 " 検索
 "--------------------------------------
