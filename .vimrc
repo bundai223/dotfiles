@@ -13,7 +13,7 @@ set fileformats=unix,dos
 " バックアップファイルの設定
 "set nowritebackup
 "set nobackup
-"set noswapfile
+set noswapfile
 
 " tabでスペースを挿入
 set expandtab
@@ -328,12 +328,12 @@ let g:vimfiler_safe_mode_by_default=0
 nnoremap <silent> vf : <C-u> VimFiler <CR>
 
 """ ref-vim
-nmap <Leader>ra :<C-u>Ref alc<Space>
-nmap <Leader>rr :<C-u>Ref refe<Space>
-" 表示する行数
-let g:ref_alc_start_linenumber = 39
-" 文字化けしたので文字コード設定
-let g:ref_alc_encoding = 'Shift-JIS'
+"nmap <Leader>ra :<C-u>Ref alc<Space>
+"nmap <Leader>rr :<C-u>Ref refe<Space>
+"" 表示する行数
+"let g:ref_alc_start_linenumber = 39
+"" 文字化けしたので文字コード設定
+"let g:ref_alc_encoding = 'Shift-JIS'
 
 """ gtags
 nmap     <silent> <Leader>gt  : <C-u>Gtags<Space>
@@ -350,13 +350,12 @@ if has('vim_starting')
     call neobundle#rc(expand('~/.bundle'))
 endif
 
-NeoBundle 'Shougo/neobundle.vim.git'
-NeoBundle 'Shougo/neocomplcache.git'
-NeoBundle 'Shougo/neosnippet.git'
 if has('win32')
   NeoBundle 'tyru/restart.vim.git'
 endif
-NeoBundle 'Rip-Rip/clang_complete.git'
+NeoBundle 'Shougo/neobundle.vim.git'
+NeoBundle 'Shougo/neocomplcache.git'
+NeoBundle 'Shougo/neosnippet.git'
 NeoBundle 'Shougo/unite.vim.git'
 NeoBundle 'Shougo/vimproc.git'
 NeoBundle 'Shougo/vimfiler.git'
@@ -364,26 +363,46 @@ NeoBundle 'Shougo/vimshell.git'
 NeoBundle 'Shougo/vinarise.git'
 NeoBundle 'tpope/vim-surround.git'
 NeoBundle 't9md/vim-quickhl.git'
-NeoBundle 'thinca/vim-quickrun.git'
 NeoBundle 'h1mesuke/unite-outline.git'
 NeoBundle 'tsukkee/unite-tag.git'
-NeoBundle 'thinca/vim-ref.git'
+"NeoBundle 'thinca/vim-ref.git'
+NeoBundle 'thinca/vim-quickrun.git'
 NeoBundle 'thinca/vim-localrc.git'
 NeoBundle 'mattn/vimplenote-vim.git'
 NeoBundle 'mattn/webapi-vim.git'
 NeoBundle 'mattn/learn-vimscript.git'
 NeoBundle 'daisuzu/unite-gtags.git'
-NeoBundle 'davidhalter/jedi.git'
-NeoBundle 'davidhalter/jedi-vim.git'
-" Dart
-NeoBundle 'vim-scripts/Dart.git'
-" Graphic
-NeoBundle 'vim-scripts/opengl.vim.git'
-NeoBundle 'vim-scripts/glsl.vim.git'
-NeoBundle 'bundai223/FX-HLSL.git'
 " private snippet
 NeoBundle 'bundai223/mysnip.git'
+" 言語別
+" C++11対応
+NeoBundleLazy 'vim-jp/cpp-vim'
+NeoBundleLazy 'Rip-Rip/clang_complete.git'
+" Graphic
+NeoBundleLazy 'vim-scripts/opengl.vim.git'
+NeoBundleLazy 'vim-scripts/glsl.vim.git'
+NeoBundleLazy 'bundai223/FX-HLSL.git'
+" Python
+NeoBundleLazy 'davidhalter/jedi.git'
+NeoBundleLazy 'davidhalter/jedi-vim.git'
+" Dart
+NeoBundleLazy 'vim-scripts/Dart.git'
 
+" ファイルタイプごとにプラグイン読み込み
+" cpp
+augroup NeoBundleLazyLoadCpp
+    autocmd!
+    autocmd FileType cpp NeoBundleSource
+                \ cpp-vim
+                \ clang_complete.git
+augroup END
+" Python
+augroup NeoBundleLazyLoadPy
+    autocmd!
+    autocmd FileType py NeoBundleSource
+                \ jedi.git
+                \ jedi-vim.git
+augroup END
 
 filetype plugin on
 filetype indent on
