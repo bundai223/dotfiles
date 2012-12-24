@@ -217,8 +217,9 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default' : '',
     \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+    \ 'scheme' : $HOME.'/.gosh_completions',
+    \ 'cpp' : $HOME.'/.bundle/myvim_dict/cpp.dict',
+    \ }
 
 " Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
@@ -369,6 +370,7 @@ NeoBundle 'mattn/learn-vimscript.git'
 NeoBundle 'daisuzu/unite-gtags.git'
 " private snippet
 NeoBundle 'bundai223/mysnip.git'
+NeoBundle 'bundai223/myvim_dict.git'
 " 言語別
 " C++11対応
 NeoBundleLazy 'vim-jp/cpp-vim'
