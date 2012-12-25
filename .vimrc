@@ -13,7 +13,7 @@ set fileformats=unix,dos
 " バックアップファイルの設定
 "set nowritebackup
 "set nobackup
-"set noswapfile
+set noswapfile
 
 " tabでスペースを挿入
 set expandtab
@@ -218,8 +218,9 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default' : '',
     \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+    \ 'scheme' : $HOME.'/.gosh_completions',
+    \ 'cpp' : $HOME.'/.bundle/myvim_dict/cpp.dict',
+    \ }
 
 " Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
@@ -242,28 +243,6 @@ inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
-" For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
-"inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
-"inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplcache_enable_cursor_hold_i = 1
-
-" AutoComplPop like behavior.
-"let g:neocomplcache_enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplcache_enable_auto_select = 1
-"let g:neocomplcache_disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-
-" スニペット
-imap <C-k> <Plug>(neocomplcache_snippets_expand)
-smap <C-k> <Plug>(neocomplcache_snippets_expand)
-
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -280,6 +259,23 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+
+""" neosnippet
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+
+" SuperTab like snippets behavior
+imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For snippet_complete marker
+if has('conceal')
+    set conceallevel=2 concealcursor=i
+endif
+
+" path to mysnippet
+let g:neosnippet#snippets_directory='~/.bundle/mysnip'
+
 
 """ clang_complete
 let g:neocomplcache_force_overwrite_completefunc=1
@@ -329,12 +325,12 @@ let g:vimfiler_safe_mode_by_default=0
 nnoremap <silent> vf : <C-u> VimFiler <CR>
 
 """ ref-vim
-nmap <Leader>ra :<C-u>Ref alc<Space>
-nmap <Leader>rr :<C-u>Ref refe<Space>
-" 表示する行数
-let g:ref_alc_start_linenumber = 39
-" 文字化けしたので文字コード設定
-let g:ref_alc_encoding = 'Shift-JIS'
+"nmap <Leader>ra :<C-u>Ref alc<Space>
+"nmap <Leader>rr :<C-u>Ref refe<Space>
+"" 表示する行数
+"let g:ref_alc_start_linenumber = 39
+"" 文字化けしたので文字コード設定
+"let g:ref_alc_encoding = 'Shift-JIS'
 
 """ gtags
 nmap     <silent> <Leader>gt  : <C-u>Gtags<Space>
@@ -351,13 +347,12 @@ if has('vim_starting')
     call neobundle#rc(expand('~/.bundle'))
 endif
 
-NeoBundle 'Shougo/neobundle.vim.git'
-NeoBundle 'Shougo/neocomplcache.git'
-NeoBundle 'Shougo/neosnippet.git'
 if has('win32')
   NeoBundle 'tyru/restart.vim.git'
 endif
-NeoBundle 'Rip-Rip/clang_complete.git'
+NeoBundle 'Shougo/neobundle.vim.git'
+NeoBundle 'Shougo/neocomplcache.git'
+NeoBundle 'Shougo/neosnippet.git'
 NeoBundle 'Shougo/unite.vim.git'
 NeoBundle 'Shougo/vimproc.git'
 NeoBundle 'Shougo/vimfiler.git'
@@ -365,26 +360,47 @@ NeoBundle 'Shougo/vimshell.git'
 NeoBundle 'Shougo/vinarise.git'
 NeoBundle 'tpope/vim-surround.git'
 NeoBundle 't9md/vim-quickhl.git'
-NeoBundle 'thinca/vim-quickrun.git'
 NeoBundle 'h1mesuke/unite-outline.git'
 NeoBundle 'tsukkee/unite-tag.git'
-NeoBundle 'thinca/vim-ref.git'
+"NeoBundle 'thinca/vim-ref.git'
+NeoBundle 'thinca/vim-quickrun.git'
 NeoBundle 'thinca/vim-localrc.git'
 NeoBundle 'mattn/vimplenote-vim.git'
 NeoBundle 'mattn/webapi-vim.git'
 NeoBundle 'mattn/learn-vimscript.git'
 NeoBundle 'daisuzu/unite-gtags.git'
-NeoBundle 'davidhalter/jedi.git'
-NeoBundle 'davidhalter/jedi-vim.git'
-" Dart
-NeoBundle 'vim-scripts/Dart.git'
-" Graphic
-NeoBundle 'vim-scripts/opengl.vim.git'
-NeoBundle 'vim-scripts/glsl.vim.git'
-NeoBundle 'bundai223/FX-HLSL.git'
 " private snippet
 NeoBundle 'bundai223/mysnip.git'
+NeoBundle 'bundai223/myvim_dict.git'
+" 言語別
+" C++11対応
+NeoBundleLazy 'vim-jp/cpp-vim'
+NeoBundleLazy 'Rip-Rip/clang_complete.git'
+" Graphic
+NeoBundleLazy 'vim-scripts/opengl.vim.git'
+NeoBundleLazy 'vim-scripts/glsl.vim.git'
+NeoBundleLazy 'bundai223/FX-HLSL.git'
+" Python
+NeoBundleLazy 'davidhalter/jedi.git'
+NeoBundleLazy 'davidhalter/jedi-vim.git'
+" Dart
+NeoBundleLazy 'vim-scripts/Dart.git'
 
+" ファイルタイプごとにプラグイン読み込み
+" cpp
+augroup NeoBundleLazyLoadCpp
+    autocmd!
+    autocmd FileType cpp NeoBundleSource
+                \ cpp-vim
+                \ clang_complete.git
+augroup END
+" Python
+augroup NeoBundleLazyLoadPy
+    autocmd!
+    autocmd FileType py NeoBundleSource
+                \ jedi.git
+                \ jedi-vim.git
+augroup END
 
 filetype plugin on
 filetype indent on

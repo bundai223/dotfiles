@@ -10,15 +10,10 @@ set cursorline
 " ウインドウなどの設定
 "---------------------------------
 " 表示行数
-"起動時フルスクリーン
-if has('win32')
-	au GUIEnter * simalt ~x
-elseif has('unix')
-	" 縦
-	set lines=40
-	" 横
-	set columns=124
-endif
+" 縦
+set lines=60
+" 横
+set columns=124
 
 
 " 自動折り返しなし
