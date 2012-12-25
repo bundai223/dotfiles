@@ -102,7 +102,7 @@ nnoremap ZZ <Nop>
 " imap <C-Space> <C-x><C-n>
 
 " 直前のバッファに移動
-nnoremap <Leader>b :b#<CR>
+nnoremap <Leader>B :b#<CR>
 
 " ヘッダ・ソースを開く
 nnoremap <Leader>h  :<C-u>hide edit %<.h<Return>
@@ -123,6 +123,7 @@ nnoremap <C-h> :<C-u>help<Space>
 " マーク・レジスタなど確認
 nnoremap <Leader>m :<C-u>marks<CR>
 nnoremap <Leader>r :<C-u>registers<CR>
+nnoremap <Leader>b :<C-u>buffers<CR>
 
 " MYVIMRC
 nnoremap <Leader>v :e $MYVIMRC<CR>
