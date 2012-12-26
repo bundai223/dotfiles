@@ -104,10 +104,6 @@ nnoremap ZZ <Nop>
 " 直前のバッファに移動
 nnoremap <Leader>B :b#<CR>
 
-" ヘッダ・ソースを開く
-nnoremap <Leader>h  :<C-u>hide edit %<.h<Return>
-nnoremap <Leader>c  :<C-u>hide edit %<.cpp<Return>
-
 " 日付マクロ
 inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
 inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
@@ -223,9 +219,10 @@ let g:neocomplcache_dictionary_filetype_lists = {
     \ }
 
 " Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
-endif
+let g:neocomplcache_keyword_patterns = get(g:, 'neocomplcache_keyword_patterns', {})
+" if !exists('g:neocomplcache_keyword_patterns')
+"     let g:neocomplcache_keyword_patterns = {}
+" endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 " Plugin key-mappings.
@@ -252,9 +249,10 @@ autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
+let g:neocomplcache_omni_patterns = get(g:, 'neocomplcache_omni_patterns', {})
+" if !exists('g:neocomplcache_omni_patterns')
+"   let g:neocomplcache_omni_patterns = {}
+" endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
@@ -386,20 +384,10 @@ NeoBundleLazy 'davidhalter/jedi-vim.git'
 " Dart
 NeoBundleLazy 'vim-scripts/Dart.git'
 
-" ファイルタイプごとにプラグイン読み込み
-" cpp
-augroup NeoBundleLazyLoadCpp
-    autocmd!
-    autocmd FileType cpp NeoBundleSource
-                \ cpp-vim
-                \ clang_complete.git
-augroup END
 " Python
 augroup NeoBundleLazyLoadPy
     autocmd!
     autocmd FileType py NeoBundleSource
-                \ jedi.git
-                \ jedi-vim.git
 augroup END
 
 filetype plugin on
