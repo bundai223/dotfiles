@@ -51,7 +51,7 @@ if has('persistent_undo' )
 endif
 
 " 起動時に前回の編集箇所から再開
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
+" au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
 
 "--------------------------------------
 " 検索
@@ -343,8 +343,6 @@ filetype off
 
 if has('vim_starting')
     set runtimepath+=~/.vim/neobundle.vim.git
-    set runtimepath+=~/.vim
-    set runtimepath+=~/.vim/after
 
     call neobundle#rc(expand('~/.bundle'))
 endif
