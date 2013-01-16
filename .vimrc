@@ -344,6 +344,7 @@ filetype off
 if has('vim_starting')
     set runtimepath+=~/.vim/neobundle.vim.git
     set runtimepath+=~/.vim
+    set runtimepath+=~/.vim/after
 
     call neobundle#rc(expand('~/.bundle'))
 endif
@@ -386,12 +387,6 @@ NeoBundleLazy 'davidhalter/jedi.git'
 NeoBundleLazy 'davidhalter/jedi-vim.git'
 " Dart
 NeoBundleLazy 'vim-scripts/Dart.git'
-
-" Python
-augroup NeoBundleLazyLoadPy
-    autocmd!
-    autocmd FileType py NeoBundleSource
-augroup END
 
 filetype plugin on
 filetype indent on
