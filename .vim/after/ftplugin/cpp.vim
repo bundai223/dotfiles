@@ -1,7 +1,7 @@
 " cpp setting
 if has('win')
-    set encoding=cp932
-    set fileformats=dos,unix
+    setlocal encoding=cp932
+    setlocal fileformats=dos,unix
 endif
 
 " ヘッダ・ソースを開く
