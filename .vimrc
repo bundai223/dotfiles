@@ -39,6 +39,7 @@ endif
 
 " 分割方向を指定
 set splitbelow
+"set splitright
 
 "--------------------------------------
 " 基本的な設定
