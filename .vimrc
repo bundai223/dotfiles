@@ -25,7 +25,7 @@ set shiftwidth=4
 set clipboard=unnamed,autoselect
 
 " 改行時の自動コメントをなしに
-autocmd FileType * setlocal formatoptions-=ro
+"autocmd FileType * setlocal formatoptions-=ro
 
 " シンボリックなファイルを編集するとリンクが消されてしまうことがあったので
 " 参照先を変数に上書き
@@ -36,6 +36,9 @@ let $MYGVIMRC="$HOME/github/dotfiles/.gvimrc"
 if filereadable($HOME.'.my_local_vimrc')
     source $HOME/.my_local_vimrc
 endif
+
+" 分割方向を指定
+set splitbelow
 
 "--------------------------------------
 " 基本的な設定
@@ -198,7 +201,10 @@ endif
 let g:vimshell_prompt=$USERNAME.'% '
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 let g:vimshell_split_command="split"
-nnoremap <silent> vs : <C-u> VimShell <CR>
+"let g:vimshell_popup_command=""
+"let g:vimshell_popup_height="split"
+"nnoremap <silent> vs : <C-u> VimShell <CR>
+nnoremap <silent> vs : <C-u> VimShellPop <CR>
 
 """ neocomplcache
 " Disable AutoComplPop.
