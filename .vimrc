@@ -180,6 +180,8 @@ nnoremap <Leader>t :<C-u>tags<CR>
 " 連番マクロ用
 command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
 
+" filetype 調査
+" :verbose :setlocal filetype?
 
 "--------------------------------------
 " プラグイン
@@ -389,10 +391,5 @@ NeoBundleLazy 'vim-scripts/Dart.git'
 filetype plugin on
 filetype indent on
 
-
-"--------------------------------------
-" ファイルタイプ
-"--------------------------------------
-au BufRead,BufNewFile *.fx     set filetype=fx
 
 
