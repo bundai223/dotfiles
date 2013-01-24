@@ -116,9 +116,9 @@ inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
 inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
 
 " 連番マクロ
-nnoremap <silent> co:ContinuousNumbers <C-a><CR>
-vnoremap <silent> ca:ContinuousNumbers <C-a><CR>
-vnoremap <silent> cx:ContinuousNumbers <C-x><CR>
+nnoremap <silent> co : ContinuousNumber <C-a><CR>
+vnoremap <silent> ca : ContinuousNumber <C-a><CR>
+vnoremap <silent> cx : ContinuousNumber <C-x><CR>
 
 " help補助
 nnoremap <C-h> :<C-u>help<Space>
@@ -170,6 +170,11 @@ nnoremap <Leader>t :<C-u>tags<CR>
 
 " 指定バッファとの差分
 "command! -nargs=? -complete=file Diff if '<args>'=='' | browse vertical diffsplit|else| vertical diffsplit <args>|endif
+
+" grep結果をquickfixに出力
+" **** grep -iHn -R 'target string' target_path | cw ****
+" **** vimgrep 'target string' target_path | cw ****
+"
 
 " grep
 " exp ) :Grep word ./path
@@ -356,8 +361,9 @@ if has('vim_starting')
     call neobundle#rc(expand('~/.bundle'))
 endif
 
-if has('win32')
+if has('gui')
   NeoBundle 'tyru/restart.vim.git'
+  NeoBundle 'thinca/vim-singleton.git'
 endif
 NeoBundle 'Shougo/neobundle.vim.git'
 NeoBundle 'Shougo/neocomplcache.git'
@@ -378,6 +384,7 @@ NeoBundle 'mattn/vimplenote-vim.git'
 NeoBundle 'mattn/webapi-vim.git'
 NeoBundle 'mattn/learn-vimscript.git'
 NeoBundle 'daisuzu/unite-gtags.git'
+NeoBundle 'vim-scripts/gtags.vim.git'
 " private snippet
 NeoBundle 'bundai223/mysnip.git'
 NeoBundle 'bundai223/myvim_dict.git'
@@ -398,5 +405,8 @@ NeoBundleLazy 'vim-scripts/Dart.git'
 filetype plugin on
 filetype indent on
 
-
+" singletonを有効に
+if has('gui')
+	call singleton#enable()
+endif
 
