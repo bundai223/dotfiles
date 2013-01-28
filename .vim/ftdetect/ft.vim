@@ -4,9 +4,9 @@
 "
 "=============================================================
 " direct x shader file
-au BufNewFile,BufRead *.fx setf=fx
+au BufNewFile,BufRead *.fx set filetype=fx
 
 " squirrel script
-au BufNewFile,BufRead *.nut setf=squirrel
+au BufNewFile,BufRead *.nut set filetype=squirrel
 
 
