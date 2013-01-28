@@ -1,7 +1,8 @@
 " インデントの設定
 "
 setl autoindent
-setl smartindent
+"setl smartindent
+setl cindent
 setl cinwords=if,elif,else,for,while,try,except,finally,def,class
 
 " tabの設定

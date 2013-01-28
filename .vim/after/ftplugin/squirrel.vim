@@ -6,7 +6,8 @@ endif
 
 " インデントの設定
 setl autoindent
-setl smartindent
+"setl smartindent
+setl cindent
 setl cinwords=if,else,for,foreach,while,class
 
 " tabの設定
