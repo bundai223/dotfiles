@@ -279,9 +279,9 @@ autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Enable heavy omni completion.
 let g:neocomplcache_omni_patterns = get(g:, 'neocomplcache_omni_patterns', {})
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
+"if !exists('g:neocomplcache_omni_patterns')
+"  let g:neocomplcache_omni_patterns = {}
+"endif
 let g:neocomplcache_omni_patterns.ruby     = '[^. *\t]\.\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php      = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c        = '\%(\.\|->\)\h\w*'
@@ -293,8 +293,8 @@ imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
 " SuperTab like snippets behavior
-imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+imap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For snippet_complete marker
 if has('conceal')
