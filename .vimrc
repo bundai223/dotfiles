@@ -54,8 +54,8 @@ if has('persistent_undo' )
     set undofile
 endif
 
-" 起動時に前回の編集箇所から再開
-" au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
+" LeaderをSpaceに設定
+"let mapleader=' '
 
 "--------------------------------------
 " 検索
@@ -94,12 +94,45 @@ if &t_Co > 2 || has('gui_running')
     syntax on
 endif
 
+" 挿入モード時にステータスラインの色を変更
+let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
+
+if has('syntax')
+  augroup InsertHook
+    autocmd!
+    autocmd InsertEnter * call s:StatusLine('Enter')
+    autocmd InsertLeave * call s:StatusLine('Leave')
+  augroup END
+endif
+
+let s:slhlcmd = ''
+function! s:StatusLine(mode)
+  if a:mode == 'Enter'
+    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
+    silent exec g:hi_insert
+  else
+    highlight clear StatusLine
+    silent exec s:slhlcmd
+  endif
+endfunction
+
+function! s:GetHighlight(hi)
+  redir => hl
+  exec 'highlight '.a:hi
+  redir END
+  let hl = substitute(hl, '[\r\n]', '', 'g')
+  let hl = substitute(hl, 'xxx', '', '')
+  return hl
+endfunction
+
+if has('unix') && !has('gui_running')
+  " ubuntuなどESC後にすぐ反映されない対策
+  inoremap <silent> <ESC> <ESC>
+endif
+
 "--------------------------------------
 " キーバインド
 "--------------------------------------
-" map <Nul> <C-Space>
-" map! <Nul> <C-Space>
-
 " vimスクリプトを再読み込み
 nnoremap <F8> :source %<CR>
 " ZZで全保存・全終了らしいので不可に
@@ -109,7 +142,7 @@ nnoremap ZZ <Nop>
 " imap <C-Space> <C-x><C-n>
 
 " 直前のバッファに移動
-nnoremap <Leader>B :b#<CR>
+nnoremap <Leader>b :b#<CR>
 
 " 日付マクロ
 inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
@@ -124,36 +157,24 @@ vnoremap <silent> cx : ContinuousNumber <C-x><CR>
 nnoremap <C-h> :<C-u>help<Space>
 
 " マーク・レジスタなど確認
-nnoremap <Leader>m :<C-u>marks<CR>
-nnoremap <Leader>r :<C-u>registers<CR>
-nnoremap <Leader>b :<C-u>buffers<CR>
+nnoremap <Leader>M :<C-u>marks<CR>
+nnoremap <Leader>R :<C-u>registers<CR>
+nnoremap <Leader>B :<C-u>buffers<CR>
 
 " MYVIMRC
 nnoremap <Leader>v :e $MYVIMRC<CR>
 nnoremap <Leader>g :e $MYGVIMRC<CR>
 
 " ヤンクした単語で置換
-nnoremap <silent> ciy ciw<C-r>0<Esc>:let@/=@1<CR>:noh<CR>
-nnoremap <silent> cy ce<C-r>0<Esc>:let@/=@1<CR>:noh<CR>
-nnoremap gy '0P
+nnoremap <silent>ciy  ciw<C-r>0<Esc>:let@/=@1<CR>:noh<CR>
+nnoremap <silent>cy   ce <C-r>0<Esc>:let@/=@1<CR>:noh<CR>
 
 " 移動系
 inoremap <Leader>a  <Home>
-inoremap <C-e>      <End>
-
-" 切り取り
-inoremap <C-d>      <Del>
-
-" 最後に変更した修正を選択
-nnoremap gc  '[v']
-
-" 画面分割
-nnoremap <silent> <C-x>1    :only<CR>
-nnoremap <silent> <C-x>2    :sp<CR>
-nnoremap <silent> <C-x>3    :vsp<CR>
+inoremap <Leader>e  <End>
 
 " tags-and-searches関連
-" タグに飛んだりもとったり
+" タグに飛んだりもどったり
 nnoremap t  <Nop>
 " nnoremap tt <C-]> "これはこのままでいいかな
 nnoremap tj :<C-u>tag<CR>
@@ -164,13 +185,6 @@ nnoremap <Leader>t :<C-u>tags<CR>
 "--------------------------------------
 " vim script
 "--------------------------------------
-" 差分
-" 現バッファとの差分
-"command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
-
-" 指定バッファとの差分
-"command! -nargs=? -complete=file Diff if '<args>'=='' | browse vertical diffsplit|else| vertical diffsplit <args>|endif
-
 " grep結果をquickfixに出力
 " **** grep -iHn -R 'target string' target_path | cw ****
 " **** vimgrep 'target string' target_path | cw ****
@@ -185,9 +199,6 @@ nnoremap <Leader>t :<C-u>tags<CR>
 "    execute 'vimgrep' '/' . a:args[0] . '/j ' . target
 "    if len(getqflist()) != 0 | copen | endif
 "endfunction
-
-" 連番マクロ用
-command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
 
 " filetype 調査
 " :verbose :setlocal filetype?
@@ -229,10 +240,11 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
+    \ 'default'  : '',
     \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions',
-    \ 'cpp' : $HOME.'/.bundle/myvim_dict/cpp.dict',
+    \ 'scheme'   : $HOME.'/.gosh_completions',
+    \ 'cpp'      : $HOME.'/.bundle/myvim_dict/cpp.dict',
+    \ 'squirrel' : $HOME.'/.bundle/myvim_dict/squirrel.dict',
     \ }
 
 " Define keyword.
@@ -252,28 +264,29 @@ inoremap <expr><CR>  neocomplcache#close_popup() . "\<CR>"
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-h>  neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS>   neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
+autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Enable heavy omni completion.
 let g:neocomplcache_omni_patterns = get(g:, 'neocomplcache_omni_patterns', {})
-" if !exists('g:neocomplcache_omni_patterns')
-"   let g:neocomplcache_omni_patterns = {}
-" endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby     = '[^. *\t]\.\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.php      = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c        = '\%(\.\|->\)\h\w*'
+let g:neocomplcache_omni_patterns.cpp      = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.squirrel = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
 """ neosnippet
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -312,26 +325,23 @@ let g:unite_enable_start_insert=1
 
 " source
 " バッファ一覧
-nnoremap <silent> <Leader>ub :<C-u>Unite buffer<CR>
+nnoremap <silent> <Leader>ub :<C-u>Unite -buffer-name=buffer buffer<CR>
 " ファイル一覧
 nnoremap <silent> <Leader>uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " レジスタ一覧
 nnoremap <silent> <Leader>ur :<C-u>Unite -buffer-name=register register<CR>
 " 履歴
-nnoremap <silent> <Leader>um :<C-u>Unite file_mru<CR>
-" 常用
-nnoremap <silent> <Leader>uu :<C-u>Unite buffer file_mru<CR>
+nnoremap <silent> <Leader>um :<C-u>Unite -buffer-name=history file_mru<CR>
 " アウトライン
-nnoremap <silent> <Leader>uo :<C-u>Unite outline<CR>
+nnoremap <silent> <Leader>uo :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline outline<CR>
 " タグ
-nnoremap <silent> <Leader>ut :<C-u>Unite tag/include<CR>
+nnoremap <silent> <Leader>ut :<C-u>Unite -buffer-name=tag tag/include<CR>
 " グレップ
-nnoremap <silent> <Leader>ug :<C-u>Unite grep<CR>
+nnoremap <silent> <Leader>ug :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
 " スニペット探し
-nnoremap <silent> <Leader>us :<C-u>Unite snippet<CR>
+nnoremap <silent> <Leader>us :<C-u>Unite -buffer-name=snippet snippet<CR>
 " NeoBundle更新
-nnoremap <silent> <Leader>uneo :<C-u>Unite neobundle/install:!<CR>
-
+nnoremap <silent> <Leader>un :<C-u>Unite -buffer-name=neobundle neobundle/install:!<CR>
 
 """ vimfiler
 let g:vimfiler_as_default_explorer=1
