@@ -208,7 +208,7 @@ command! -nargs=+ Vars PP filter(copy(g:), 'v:key =~# "^<args>"')
 "--------------------------------------
 " プラグイン
 "--------------------------------------
-if has('win32')
+if has('gui')
   """ Restart Vim
   nnoremap <silent> rs : <C-u> Restart <CR>
 endif
@@ -328,11 +328,21 @@ let g:clang_complete_auto   = 0
 let g:clang_auto_select     = 0
 let g:clang_use_library     = 1
 if has('win32')
-    " exp)  let g:clang_exec = '"C:\path\to\clang.exe'
-    "       let g:clang_user_options = '2> NUL || exit 0"'
+    " exp)  let g:clang_exec        = 'C:\path\to\clang.exe'
+    "       let g:clang_library_path= 'C:\path\to\(libclang.dll)'
+    "       let g:clang_user_options= '2> NUL || exit 0"'
     let g:clang_exec        = 'D:\Home\tool\clang\bin\clang.exe'
     let g:clang_library_path= 'D:\Home\tool\clang\bin\'
-    let g:clang_user_options = '2> NUL || exit 0"'
+    let g:clang_user_options= '2> NUL || exit 0"'
+    
+elseif has('unix')
+    " exp)  let g:clang_exec        = 'C:\path\to\clang'
+    "       let g:clang_library_path= 'C:\path\to\(libclang.so)'
+    "       let g:clang_user_options= '2> NUL || exit 0"'
+    let g:clang_exec        = ''
+    let g:clang_library_path= ''
+    let g:clang_user_options= '2>/dev/null || exit 0"'
+    
 endif
 
 let g:neocomplcache_max_list= 1000
