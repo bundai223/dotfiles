@@ -33,7 +33,7 @@ let $MYVIMRC="$HOME/github/dotfiles/.vimrc"
 let $MYGVIMRC="$HOME/github/dotfiles/.gvimrc"
 
 " ローカル設定を読み込む
-if filereadable($HOME.'.my_local_vimrc')
+if filereadable($HOME.'/.my_local_vimrc')
     source $HOME/.my_local_vimrc
 endif
 
@@ -331,8 +331,10 @@ if has('win32')
     " exp)  let g:clang_exec        = 'C:\path\to\clang.exe'
     "       let g:clang_library_path= 'C:\path\to\(libclang.dll)'
     "       let g:clang_user_options= '2> NUL || exit 0"'
-    let g:clang_exec        = 'D:\Home\tool\clang\bin\clang.exe'
-    let g:clang_library_path= 'D:\Home\tool\clang\bin\'
+"    let g:clang_exec        = 'D:\Home\tool\clang\bin\clang.exe'
+"    let g:clang_library_path= 'D:\Home\tool\clang\bin\'
+    let g:clang_exec        = g:my_clang_bin_path.'clang.exe'
+    let g:clang_library_path= g:my_clang_bin_path
     let g:clang_user_options= '2> NUL || exit 0"'
     
 elseif has('unix')
