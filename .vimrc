@@ -203,6 +203,8 @@ nnoremap <Leader>t :<C-u>tags<CR>
 " filetype 調査
 " :verbose :setlocal filetype?
 
+command! -nargs=+ Vars PP filter(copy(g:), 'v:key =~# "^<args>"')
+
 "--------------------------------------
 " プラグイン
 "--------------------------------------
@@ -278,23 +280,38 @@ autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
 autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Enable heavy omni completion.
-let g:neocomplcache_omni_patterns = get(g:, 'neocomplcache_omni_patterns', {})
-"if !exists('g:neocomplcache_omni_patterns')
-"  let g:neocomplcache_omni_patterns = {}
+"let g:neocomplcache_omni_patterns = get(g:, 'neocomplcache_omni_patterns', {})
+""if !exists('g:neocomplcache_omni_patterns')
+""  let g:neocomplcache_omni_patterns = {}
+""endif
+"let g:neocomplcache_omni_patterns.ruby      = '[^. *\t]\.\h\w*\|\h\w*::'
+""autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+"let g:neocomplcache_omni_patterns.php       = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplcache_omni_patterns.c         = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplcache_omni_patterns.cpp       = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+"let g:neocomplcache_omni_patterns.squirrel  = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" force omni pattern
+let g:neocomplcache_force_omni_patterns = get(g:, 'neocomplcache_force_omni_patterns', {})
+"if !exists('g:neocomplcache_force_omni_patterns')
+"  let g:neocomplcache_force_omni_patterns = {}
 "endif
-let g:neocomplcache_omni_patterns.ruby     = '[^. *\t]\.\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.php      = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c        = '\%(\.\|->\)\h\w*'
-let g:neocomplcache_omni_patterns.cpp      = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.squirrel = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.ruby      = '[^. *\t]\.\h\w*\|\h\w*::'
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+let g:neocomplcache_force_omni_patterns.php       = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.c         = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_force_omni_patterns.cpp       = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.squirrel  = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
 
 """ neosnippet
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
-" SuperTab like snippets behavior
-imap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" Tabでスニペット選択 Spaceで選択中スニペット展開
+imap <expr><Space> pumvisible() ? neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>" : "\<Space>"
+"imap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>"
+smap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>"
 
 " For snippet_complete marker
 if has('conceal')
@@ -307,14 +324,18 @@ let g:neosnippet#snippets_directory='~/.bundle/mysnip'
 
 """ clang_complete
 let g:neocomplcache_force_overwrite_completefunc=1
-let g:clang_complete_auto=1
-let g:clang_use_library=1
+let g:clang_complete_auto   = 0
+let g:clang_auto_select     = 0
+let g:clang_use_library     = 1
 if has('win32')
-	let g:clang_exec="$HOME/tool/clang/bin/clang.exe"
-	let g:clang_library_path="$HOME/tool/clang/bin/"
+    " exp)  let g:clang_exec = '"C:\path\to\clang.exe'
+    "       let g:clang_user_options = '2> NUL || exit 0"'
+    let g:clang_exec        = 'D:\Home\tool\clang\bin\clang.exe'
+    let g:clang_library_path= 'D:\Home\tool\clang\bin\'
+    let g:clang_user_options = '2> NUL || exit 0"'
 endif
 
-let g:neocomplcache_max_list=1000
+let g:neocomplcache_max_list= 1000
 
 
 
@@ -375,7 +396,7 @@ if has('gui')
   NeoBundle 'tyru/restart.vim.git'
   NeoBundle 'thinca/vim-singleton.git'
 endif
-NeoBundle 'Shougo/neobundle.vim.git'
+"NeoBundle 'Shougo/neobundle.vim.git'
 NeoBundle 'Shougo/neocomplcache.git'
 NeoBundle 'Shougo/neosnippet.git'
 NeoBundle 'Shougo/unite.vim.git'
@@ -390,6 +411,7 @@ NeoBundle 'tsukkee/unite-tag.git'
 "NeoBundle 'thinca/vim-ref.git'
 NeoBundle 'thinca/vim-quickrun.git'
 NeoBundle 'thinca/vim-localrc.git'
+NeoBundle 'thinca/vim-prettyprint.git'
 NeoBundle 'mattn/vimplenote-vim.git'
 NeoBundle 'mattn/webapi-vim.git'
 NeoBundle 'mattn/learn-vimscript.git'
