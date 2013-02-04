@@ -185,7 +185,8 @@ nnoremap <Leader>t :<C-u>tags<CR>
 "--------------------------------------
 " vim script
 "--------------------------------------
-" grep結果をquickfixに出力
+
+"" grep結果をquickfixに出力
 " **** grep -iHn -R 'target string' target_path | cw ****
 " **** vimgrep 'target string' target_path | cw ****
 "
@@ -203,7 +204,43 @@ nnoremap <Leader>t :<C-u>tags<CR>
 " filetype 調査
 " :verbose :setlocal filetype?
 
+" 変数の中身を表示
 command! -nargs=+ Vars PP filter(copy(g:), 'v:key =~# "^<args>"')
+
+" *.hを作成するときにインクルードガードを作成する
+au BufNewFile *.h call IncludeGuard()
+au BufNewFile *.h call InsertFileHeader()
+au BufNewFile *.cpp call InsertFileHeader()
+
+function! IncludeGuard()
+    let fl = getline(1)
+    if fl =~ "^#if"
+        return
+    endif
+"    let gatename = substitute(toupper(expand("%:t")), "??.", "_", "g")
+    let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+    normal! gg
+    execute "normal! i#ifndef _" . gatename . "_INCLUDED_"
+    execute "normal! o#define _" . gatename .  "_INCLUDED_\<CR>\<CR>\<CR>\<CR>"
+    execute "normal! Go#endif // _" . gatename . "_INCLUDED_\<CR>"
+    4
+endfunction
+
+function! InsertFileHeader()
+    let filename = expand("%:t")
+    normal! gg
+    execute "normal! i//**********************************************************************\<CR>"
+    execute "normal! i//! @file   " . filename . "\<CR>"
+    execute "normal! i//! @brief  describe\<CR>"
+    execute "normal! i//**********************************************************************\<CR>"
+endfunction
+
+" マクロ展開
+"function! CppRegion() range
+"  let beginmark='---beginning_of_cpp_region'
+"  let endmark='---end_of_cpp_region'
+"  exe a:firstline . "," . a:lastline ."!sed -e '" . a:firstline . "i\\\\" . nr2char(10) . beginmark . "' -e '" . a:lastline . "a\\\\".nr2char(10).endmark."' " .expand("%") . "|cpp -C|sed -ne '/" . beginmark . "/,/" .endmark . "/p'"
+"endfunction
 
 "--------------------------------------
 " プラグイン
@@ -367,7 +404,7 @@ nnoremap <silent> <Leader>ur :<C-u>Unite -buffer-name=register register<CR>
 " 履歴
 nnoremap <silent> <Leader>um :<C-u>Unite -buffer-name=history file_mru<CR>
 " アウトライン
-nnoremap <silent> <Leader>uo :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline outline<CR>
+nnoremap <silent> <Leader>uo :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline -no-quit outline<CR>
 " タグ
 nnoremap <silent> <Leader>ut :<C-u>Unite -buffer-name=tag tag/include<CR>
 " グレップ
