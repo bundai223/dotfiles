@@ -19,3 +19,11 @@ NeoBundleSource cpp-vim
 NeoBundleSource clang_complete
 
 
+" 選択範囲をifdef
+vnoremap # :call InsertIfdef()<CR>
+function! InsertIfdef() range
+	let sym = input("symbol:")
+	call append(a:firstline-1, "#ifdef " . sym) 
+	call append(a:lastline+1, "#endif // " . sym)
+endfunction
+

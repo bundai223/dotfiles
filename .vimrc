@@ -209,8 +209,8 @@ command! -nargs=+ Vars PP filter(copy(g:), 'v:key =~# "^<args>"')
 
 " *.hを作成するときにインクルードガードを作成する
 au BufNewFile *.h call IncludeGuard()
-"au BufNewFile *.h call InsertFileHeader()
-"au BufNewFile *.cpp call InsertFileHeader()
+au BufNewFile *.h call InsertFileHeader()
+au BufNewFile *.cpp call InsertFileHeader()
 
 function! IncludeGuard()
     let fl = getline(1)
@@ -229,11 +229,18 @@ endfunction
 function! InsertFileHeader()
     let filename = expand("%:t")
     normal! gg
-    execute "normal! i//**********************************************************************"
-    execute "normal! i//! @file   " . filename
-    execute "normal! i//! @brief  describe"
-    execute "normal! i//**********************************************************************"
+    execute "normal! i//**********************************************************************\<CR>"
+    execute "normal! i//! @file   " . filename . "\<CR>"
+    execute "normal! i//! @brief  describe\<CR>"
+    execute "normal! i//**********************************************************************\<CR>"
 endfunction
+
+" マクロ展開
+"function! CppRegion() range
+"  let beginmark='---beginning_of_cpp_region'
+"  let endmark='---end_of_cpp_region'
+"  exe a:firstline . "," . a:lastline ."!sed -e '" . a:firstline . "i\\\\" . nr2char(10) . beginmark . "' -e '" . a:lastline . "a\\\\".nr2char(10).endmark."' " .expand("%") . "|cpp -C|sed -ne '/" . beginmark . "/,/" .endmark . "/p'"
+"endfunction
 
 "--------------------------------------
 " プラグイン
@@ -339,9 +346,8 @@ imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
 " Tabでスニペット選択 Spaceで選択中スニペット展開
-imap <expr><Space> pumvisible() ? neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>" : "\<Space>"
-"imap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>"
-smap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>"
+"imap <expr><Space> pumvisible() ? neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>" : "\<Space>"
+"smap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>"
 
 " For snippet_complete marker
 if has('conceal')
