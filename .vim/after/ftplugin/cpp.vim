@@ -16,7 +16,7 @@ noremap <C-n> ]]
 
 " 言語用プラグインを読み込み
 NeoBundleSource cpp-vim
-NeoBundleSource clang_complete
+"NeoBundleSource clang_complete
 
 
 " 選択範囲をifdef
