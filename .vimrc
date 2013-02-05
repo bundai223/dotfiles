@@ -259,8 +259,9 @@ let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 let g:vimshell_split_command="split"
 "let g:vimshell_popup_command=""
 "let g:vimshell_popup_height="split"
-"nnoremap <silent> vs : <C-u> VimShell <CR>
-nnoremap <silent> vs : <C-u> VimShellPop <CR>
+nnoremap <silent> vs : <C-u> VimShell -popup <CR>
+nnoremap <silent> vc : <C-u> VimShellBufferDir -popup <CR>
+"nnoremap <silent> <C-Space>: <C-u> VimShellBufferDir -popup <CR>
 
 """ neocomplcache
 " Disable AutoComplPop.
@@ -431,6 +432,12 @@ nmap     <silent> <Leader>gt  : <C-u>Gtags<Space>
 nmap     <silent> <Leader>gtr : <C-u>Gtags -r<Space>
 nnoremap <silent> <Leader>gtc : <C-u>GtagsCursor<CR>
 
+""" reanimate
+nnoremap <Space>s :<C-u>ReanimateSave<Space>
+nnoremap <Space>l :<C-u>ReanimateLoad<Space>
+nnoremap <Space>L :<C-u>ReanimateLoadLatest<Space>
+
+
 """ neobundle
 filetype off
 
@@ -465,6 +472,7 @@ NeoBundle 'mattn/webapi-vim.git'
 NeoBundle 'mattn/learn-vimscript.git'
 NeoBundle 'daisuzu/unite-gtags.git'
 NeoBundle 'vim-scripts/gtags.vim.git'
+NeoBundle 'osyo-manga/vim-reanimate.git'
 " private snippet
 NeoBundle 'bundai223/mysnip.git'
 NeoBundle 'bundai223/myvim_dict.git'
