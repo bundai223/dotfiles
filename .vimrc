@@ -154,7 +154,7 @@ vnoremap <silent> ca : ContinuousNumber <C-a><CR>
 vnoremap <silent> cx : ContinuousNumber <C-x><CR>
 
 " help補助
-nnoremap <C-h> :<C-u>help<Space>
+nnoremap <C-H> :<C-u>help<Space>
 
 " マーク・レジスタなど確認
 nnoremap <Leader>M :<C-u>marks<CR>
@@ -181,6 +181,10 @@ nnoremap tj :<C-u>tag<CR>
 nnoremap tp :<C-u>pop<CR>
 "nnoremap tl :<C-u>tags<CR>
 nnoremap <Leader>t :<C-u>tags<CR>
+
+" 関数単位で移動
+noremap <C-p> [[
+noremap <C-n> ]]
 
 "--------------------------------------
 " vim script
@@ -407,7 +411,7 @@ nnoremap <silent> <Leader>um :<C-u>Unite -buffer-name=history file_mru<CR>
 " アウトライン
 nnoremap <silent> <Leader>uo :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline -no-quit outline<CR>
 " タグ
-nnoremap <silent> <Leader>ut :<C-u>Unite -buffer-name=tag tag/include<CR>
+nnoremap <silent> <Leader>ut :<C-u>Unite -buffer-name=tag tag<CR>
 " グレップ
 nnoremap <silent> <Leader>ug :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
 " スニペット探し
