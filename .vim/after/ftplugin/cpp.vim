@@ -11,8 +11,8 @@
 " keybind
 "--------------------------------------
 " ヘッダ・ソースを開く
-nnoremap <C-h> :<C-u>hide edit %<.h<Return>
-nnoremap <C-c> :<C-u>hide edit %<.cpp<Return>
+nnoremap <Leader>h :<C-u>hide edit %<.h<Return>
+nnoremap <Leader>c :<C-u>hide edit %<.cpp<Return>
 
 " 関数単位で移動
 "noremap <C-p> [[?^?s*$<CR>jz<CR>

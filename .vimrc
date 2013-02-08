@@ -155,7 +155,7 @@ vnoremap <silent> ca : ContinuousNumber <C-a><CR>
 vnoremap <silent> cx : ContinuousNumber <C-x><CR>
 
 " help補助
-nnoremap <C-H> :<C-u>help<Space>
+nnoremap <C-h> :<C-u>help<Space>
 
 " マーク・レジスタなど確認
 nnoremap <Leader>M :<C-u>marks<CR>
@@ -424,7 +424,9 @@ nnoremap <silent> <Leader>un :<C-u>Unite -buffer-name=neobundle neobundle/instal
 let g:vimfiler_as_default_explorer=1
 let g:vimfiler_safe_mode_by_default=0
 
-nnoremap <silent> vf : <C-u> VimFiler <CR>
+nnoremap <silent> vf : <C-u> VimFilerExplorer<CR>
+nnoremap <silent> vfh : <C-u> VimFilerExplorer $HOME<CR>
+"nnoremap <silent> vf : <C-u> VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit $HOME<CR>
 
 """ ref-vim
 "nmap <Leader>ra :<C-u>Ref alc<Space>
