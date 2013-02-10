@@ -73,3 +73,10 @@ function! ToggleFullScreen()
   endif
 endfunction
 
+
+" ローカル設定を読み込む
+if filereadable($HOME.'/.my_local_gvimrc')
+    source $HOME/.my_local_gvimrc
+endif
+
+
