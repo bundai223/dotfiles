@@ -1,0 +1,11 @@
+
+" デフォルトのLeaderがいつもと違う場所になっていたので
+" 再設定
+map _ <Leader>
+
+" ターミナルだとみにくいので設定
+hi Pmenu ctermbg=0
+hi PmenuSel ctermbg=4
+hi PmenuSbar ctermbg=2
+hi PmenuThumb ctermfg=3
+
