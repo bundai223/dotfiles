@@ -1,8 +1,8 @@
 BoldAsFont=yes
 Transparency=high
 OpaqueWhenFocused=no
-Columns=105
-Rows=64
+Columns=100
+Rows=34
 FontHeight=12
 Locale=ja_JP
 Charset=SJIS
