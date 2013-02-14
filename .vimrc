@@ -56,6 +56,9 @@ endif
 
 " LeaderをSpaceに設定
 "let mapleader=' '
+if has('mac')
+    map _ <Leader>
+endif
 
 "--------------------------------------
 " 検索
@@ -452,7 +455,7 @@ nnoremap <Space>L :<C-u>ReanimateLoadLatest<Space>
 filetype off
 
 if has('vim_starting')
-    set runtimepath+=~/.vim/neobundle.vim.git
+    set runtimepath+=~/.vim/neobundle.vim
 
     call neobundle#rc(expand('~/.bundle'))
 endif
