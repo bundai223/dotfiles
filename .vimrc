@@ -150,6 +150,7 @@ inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
 inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
 
 " 連番マクロ
+command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
 nnoremap <silent> co : ContinuousNumber <C-a><CR>
 vnoremap <silent> ca : ContinuousNumber <C-a><CR>
 vnoremap <silent> cx : ContinuousNumber <C-x><CR>
