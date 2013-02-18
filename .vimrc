@@ -7,7 +7,7 @@ set nocompatible
 
 " 文字エンコード
 set encoding=utf-8
-" set fileformat=unix
+set fileformat=unix
 set fileformats=unix,dos
 
 " バックアップファイルの設定
@@ -466,6 +466,7 @@ if has('gui')
   NeoBundle 'tyru/restart.vim.git'
   NeoBundle 'thinca/vim-singleton.git'
 endif
+NeoBundle 'altercation/vim-colors-solarized.git'
 "NeoBundle 'Shougo/neobundle.vim.git'
 NeoBundle 'Shougo/neocomplcache.git'
 NeoBundle 'Shougo/neosnippet.git'

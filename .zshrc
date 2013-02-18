@@ -24,3 +24,10 @@ colors
 PS1="[${USER}@${HOST%%.*} %1~]%(!.#.$) " 
 
 alias ls='ls -G'
+
+# local setting load
+if [ -f ~/.local_zshrc ]; then
+    . ~/.local_zshrc
+fi
+
+
