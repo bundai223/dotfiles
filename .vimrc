@@ -387,6 +387,14 @@ if has('win32')
     let g:clang_library_path= g:my_clang_bin_path
     let g:clang_user_options= '2> NUL || exit 0"'
     
+elseif has('mac')
+    " exp)  let g:clang_exec        = 'C:\path\to\clang'
+    "       let g:clang_library_path= 'C:\path\to\(libclang.so)'
+    "       let g:clang_user_options= '2> NUL || exit 0"'
+    let g:clang_exec        = 'clang'
+    let g:clang_library_path= '/usr/lib/'
+    let g:clang_user_options= '2>/dev/null || exit 0"'
+    
 elseif has('unix')
     " exp)  let g:clang_exec        = 'C:\path\to\clang'
     "       let g:clang_library_path= 'C:\path\to\(libclang.so)'
