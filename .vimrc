@@ -219,8 +219,7 @@ noremap <C-n> ]]
 command! -nargs=+ Vars PP filter(copy(g:), 'v:key =~# "^<args>"')
 
 " *.hを作成するときにインクルードガードを作成する
-au BufNewFile *.h call IncludeGuard()
-au BufNewFile *.h call InsertFileHeader()
+au BufNewFile *.h call InsertHeaderHeader()
 au BufNewFile *.cpp call InsertFileHeader()
 
 function! IncludeGuard()
@@ -244,6 +243,11 @@ function! InsertFileHeader()
     execute "normal! i//! @file   " . filename . "\<CR>"
     execute "normal! i//! @brief  describe\<CR>"
     execute "normal! i//**********************************************************************\<CR>"
+endfunction
+
+function! InsertHeaderHeader()
+    call IncludeGuard()
+    call InsertFileHeader()
 endfunction
 
 " マクロ展開
