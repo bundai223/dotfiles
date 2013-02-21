@@ -226,8 +226,7 @@ noremap <C-n> ]]
 command! -nargs=+ Vars PP filter(copy(g:), 'v:key =~# "^<args>"')
 
 " *.hを作成するときにインクルードガードを作成する
-au BufNewFile *.h call IncludeGuard()
-au BufNewFile *.h call InsertFileHeader()
+au BufNewFile *.h call InsertHeaderHeader()
 au BufNewFile *.cpp call InsertFileHeader()
 
 function! IncludeGuard()
@@ -251,6 +250,11 @@ function! InsertFileHeader()
     execute "normal! i//! @file   " . filename . "\<CR>"
     execute "normal! i//! @brief  describe\<CR>"
     execute "normal! i//**********************************************************************\<CR>"
+endfunction
+
+function! InsertHeaderHeader()
+    call IncludeGuard()
+    call InsertFileHeader()
 endfunction
 
 " マクロ展開
@@ -394,6 +398,14 @@ if has('win32')
     let g:clang_library_path= g:my_clang_bin_path
     let g:clang_user_options= '2> NUL || exit 0"'
     
+elseif has('mac')
+    " exp)  let g:clang_exec        = 'C:\path\to\clang'
+    "       let g:clang_library_path= 'C:\path\to\(libclang.so)'
+    "       let g:clang_user_options= '2> NUL || exit 0"'
+    let g:clang_exec        = 'clang'
+    let g:clang_library_path= '/usr/lib/'
+    let g:clang_user_options= '2>/dev/null || exit 0"'
+    
 elseif has('unix')
     " exp)  let g:clang_exec        = 'C:\path\to\clang'
     "       let g:clang_library_path= 'C:\path\to\(libclang.so)'
@@ -487,6 +499,7 @@ if has('gui')
   NeoBundle 'tyru/restart.vim.git'
   NeoBundle 'thinca/vim-singleton.git'
 endif
+NeoBundle 'altercation/vim-colors-solarized.git'
 "NeoBundle 'Shougo/neobundle.vim.git'
 NeoBundle 'Shougo/neocomplcache.git'
 NeoBundle 'Shougo/neosnippet.git'
