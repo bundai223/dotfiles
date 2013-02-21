@@ -23,9 +23,14 @@ nnoremap <Leader>c :<C-u>hide edit %<.cpp<Return>
 " script
 "--------------------------------------
 " 選択範囲をifdef
-vnoremap #  :call InsertIfdef()<CR>
+vnoremap #0 :call InsertIfZero()<CR>
+vnoremap #d :call InsertIfdef()<CR>
 vnoremap #n :call InsertIfndef()<CR>
 
+function! InsertIfZero() range
+	call append(a:firstline-1, "#if 0")
+	call append(a:lastline+1, "#endif // #if 0")
+endfunction
 function! InsertIfdef() range
 	let sym = input("symbol:")
 	call append(a:firstline-1, "#ifdef " . sym)

@@ -2,12 +2,14 @@
 "--------------------------------------
 " vimの基本的な設定
 "--------------------------------------
-scriptencoding cp932
+scriptencoding utf-8
 set nocompatible
 
 " 文字エンコード
 set encoding=utf-8
-" set fileformat=unix
+set fileencoding=utf-8
+set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+set fileformat=unix
 set fileformats=unix,dos
 
 " バックアップファイルの設定
@@ -182,12 +184,17 @@ inoremap <Leader>e  <End>
 
 " tags-and-searches関連
 " タグに飛んだりもどったり
-nnoremap t  <Nop>
+"nnoremap t  <Nop>
 " nnoremap tt <C-]> "これはこのままでいいかな
-nnoremap tj :<C-u>tag<CR>
-nnoremap tp :<C-u>pop<CR>
+"nnoremap tj :<C-u>tag<CR>
+"nnoremap tp :<C-u>pop<CR>
 "nnoremap tl :<C-u>tags<CR>
 nnoremap <Leader>t :<C-u>tags<CR>
+
+" タブ関連
+nnoremap nt :<C-u>tabnew<CR>
+nnoremap t  gt
+nnoremap T  gT
 
 " 関数単位で移動
 noremap <C-p> [[
@@ -425,6 +432,20 @@ nnoremap <silent> <Leader>ug :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
 nnoremap <silent> <Leader>us :<C-u>Unite -buffer-name=snippet snippet<CR>
 " NeoBundle更新
 nnoremap <silent> <Leader>un :<C-u>Unite -buffer-name=neobundle neobundle/install:!<CR>
+
+
+
+" unite-outline
+let s:outline_info = {
+  \ 'heading_groups': {
+  \   'namespace': ['namespace'],
+  \   'type'     : ['class', 'enum', 'struct', 'typedef'],
+  \   'function' : ['function'],
+  \   'macro'    : ['macro'],
+  \ },
+  \}
+
+
 
 """ vimfiler
 let g:vimfiler_as_default_explorer=1
