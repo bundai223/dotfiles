@@ -95,6 +95,10 @@ set number
 set list
 set listchars=tab:^\ ,trail:~
 
+" 全角スペースを表示
+highlight ZenkakuSpace cterm=underline ctermfg=red gui=underline guifg=red
+au BufNew,BufRead * match ZenkakuSpace /　/
+
 " ハイライトのオン
 if &t_Co > 2 || has('gui_running')
     syntax on
@@ -192,7 +196,7 @@ inoremap <Leader>e  <End>
 nnoremap <Leader>t :<C-u>tags<CR>
 
 " タブ関連
-nnoremap nt :<C-u>tabnew<CR>
+"nnoremap nt :<C-u>tabnew<CR>
 nnoremap t  gt
 nnoremap T  gT
 
