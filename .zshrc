@@ -1,7 +1,7 @@
 #---------------------------------------------
-# Šî–{‚Ìİ’è
+# åŸºæœ¬ã®è¨­å®š
 #---------------------------------------------
-# ‚Ç‚Á‚©‚©‚ç‚ÌƒRƒsƒy
+# ã©ã£ã‹ã‹ã‚‰ã®ã‚³ãƒ”ãƒš
 # The following lines were added by compinstall
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' list-colors ''
@@ -11,64 +11,64 @@ zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p
 zstyle ':completion:*' verbose true
 # zstyle :compinstall filename '/home/.zshrc'
 
-# •âŠ®—LŒø
+# è£œå®Œæœ‰åŠ¹
 autoload -Uz compinit
 compinit
 
 
-# ƒr[ƒv‰¹‚È‚µ
+# ãƒ“ãƒ¼ãƒ—éŸ³ãªã—
 setopt nobeep
 
 export EDITOR=vim
 
 
 #---------------------------------------------
-# —š—ğ‚Ìİ’è
+# å±¥æ­´ã®è¨­å®š
 #---------------------------------------------
 # End of lines added by compinstal
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
+HISTFILE=â€¾/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory extendedglob notify
 
-# d•¡‚·‚é—š—ğ‚Í•Û‘¶‚µ‚È‚¢
+# é‡è¤‡ã™ã‚‹å±¥æ­´ã¯ä¿å­˜ã—ãªã„
 setopt hist_ignore_dups
-# æ“ª‚ÉƒXƒy[ƒX‚ª‚ ‚é‚Æ—š—ğ•Û‘¶‚µ‚È‚¢
+# å…ˆé ­ã«ã‚¹ãƒšãƒ¼ã‚¹ãŒã‚ã‚‹ã¨å±¥æ­´ä¿å­˜ã—ãªã„
 setopt hist_ignore_space
 
 #---------------------------------------------
-# ƒL[ƒoƒCƒ“ƒh
+# ã‚­ãƒ¼ãƒã‚¤ãƒ³ãƒ‰
 #---------------------------------------------
-# vi•—
+# vié¢¨
 bindkey -v
 
-# —š—ğ•\¦
+# å±¥æ­´è¡¨ç¤º
 bindkey "^P" up-line-or-history
 bindkey "^N" down-line-or-history
 
 #
-# ˆê”Ô‰º‚ÉƒXƒe[ƒ^ƒXƒo[•\¦ƒXƒNƒŠƒvƒg
+# ä¸€ç•ªä¸‹ã«ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼è¡¨ç¤ºã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 #
 
 #---------------------------------------------
-# ƒ^[ƒ~ƒiƒ‹‚Ìƒ†[ƒU[•\¦‚ğŒ©Šµ‚ê‚½Š´‚¶‚Éİ’è
+# ã‚¿ãƒ¼ãƒŸãƒŠãƒ«ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼è¡¨ç¤ºã‚’è¦‹æ…£ã‚ŒãŸæ„Ÿã˜ã«è¨­å®š
 #---------------------------------------------
 autoload colors
 colors
-#PS1="[${USER}@${HOST%%.*} %1~]%(!.#.$) "
+#PS1="[${USER}@${HOST%%.*} %1â€¾]%(!.#.$) "
 
 PS1="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%}
 %(!.#.$) "
 
 alias ls='ls -G'
 
-# ƒ[ƒJƒ‹—pİ’è‚ğ“Ç‚İ‚Ş
-if [ -f ~/.local_zshrc ]; then
-    . ~/.local_zshrc
+# ãƒ­ãƒ¼ã‚«ãƒ«ç”¨è¨­å®šã‚’èª­ã¿è¾¼ã‚€
+if [ -f â€¾/.local_zshrc ]; then
+    . â€¾/.local_zshrc
 fi
 
-fpath=(~/.zsh/functions/ $fpath)
+fpath=(â€¾/.zsh/functions/ $fpath)
 
 
 
@@ -102,27 +102,27 @@ showmode() {
     movedown=$(($(echo "$RBUFFER" | wc -l) + ${1:-0}))
     
     # Get current row position
-    echo -n "\e[6n"
-    row="${${$(readuntil R)#*\[}%;*}"
+    echo -n "Â¥e[6n"
+    row="${${$(readuntil R)#*Â¥[}%;*}"
     
     # Are we at the bottom of the terminal?
     if [ $((row+movedown)) -gt "$LINES" ]
     then
         # Scroll terminal up one line
-        echo -n "\e[1S"
+        echo -n "Â¥e[1S"
         
         # Move cursor up one line
-        echo -n "\e[1A"
+        echo -n "Â¥e[1A"
     fi
     
     # Save cursor position
-    echo -n "\e[s"
+    echo -n "Â¥e[s"
     
     # Move cursor to start of line $movedown lines down
-    echo -n "\e[$movedown;E"
+    echo -n "Â¥e[$movedown;E"
     
     # Change font attributes
-    echo -n "\e[1m"
+    echo -n "Â¥e[1m"
     
     # Has a mode been set?
     if [ -n "$VIMODE" ]
@@ -131,14 +131,14 @@ showmode() {
         echo -n "-- $VIMODE -- "
     else
         # Clear mode line
-        echo -n "\e[0K"
+        echo -n "Â¥e[0K"
     fi
 
     # Restore font
-    echo -n "\e[0m"
+    echo -n "Â¥e[0m"
     
     # Restore cursor position
-    echo -n "\e[u"
+    echo -n "Â¥e[u"
 }
 
 clearmode() {
