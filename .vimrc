@@ -209,6 +209,9 @@ nnoremap T  gT
 noremap <C-p> [[
 noremap <C-n> ]]
 
+" カレントパスをバッファに合わせる
+nnoremap <Space><Space> :<C-u>cd %:h<CR>
+
 "--------------------------------------
 " vim script
 "--------------------------------------
