@@ -27,7 +27,7 @@ set shiftwidth=4
 set clipboard=unnamed,autoselect
 
 " 改行時の自動コメントをなしに
-"autocmd FileType * setlocal formatoptions-=ro
+autocmd FileType * setlocal formatoptions-=ro
 
 " シンボリックなファイルを編集するとリンクが消されてしまうことがあったので
 " 参照先を変数に上書き
@@ -150,8 +150,12 @@ vmap <C-j> <C-[>
 
 " vimスクリプトを再読み込み
 nnoremap <F8> :source %<CR>
+
 " ZZで全保存・全終了らしいので不可に
 nnoremap ZZ <Nop>
+
+" コマンドラインモード誤動作させがちなのでなし
+nnoremap q: <Nop>
 
 " 補完呼び出し
 " imap <C-Space> <C-x><C-n>
@@ -174,10 +178,11 @@ vnoremap <silent> cx : ContinuousNumber <C-x><CR>
 " help補助
 nnoremap <C-h> :<C-u>help<Space>
 
-" マーク・レジスタなど確認
+" マーク・レジスタなど一覧
 nnoremap <Leader>M :<C-u>marks<CR>
 nnoremap <Leader>R :<C-u>registers<CR>
 nnoremap <Leader>B :<C-u>buffers<CR>
+nnoremap <Leader>T :<C-u>tags<CR>
 
 " MYVIMRC
 nnoremap <Leader>v :e $MYVIMRC<CR>
@@ -191,17 +196,8 @@ nnoremap <silent>cy   ce <C-r>0<Esc>:let@/=@1<CR>:noh<CR>
 inoremap <Leader>a  <Home>
 inoremap <Leader>e  <End>
 
-" tags-and-searches関連
-" タグに飛んだりもどったり
-"nnoremap t  <Nop>
-" nnoremap tt <C-]> "これはこのままでいいかな
-"nnoremap tj :<C-u>tag<CR>
-"nnoremap tp :<C-u>pop<CR>
-"nnoremap tl :<C-u>tags<CR>
-nnoremap <Leader>t :<C-u>tags<CR>
-
 " タブ関連
-"nnoremap nt :<C-u>tabnew<CR>
+nnoremap <Leader>tn :<C-u>tabnew<CR>
 nnoremap t  gt
 nnoremap T  gT
 
@@ -288,8 +284,12 @@ endif
 if has('win32')
 	let g:vimshell_interactive_cygwin_path='c:/cygwin/bin'
 endif
-let g:vimshell_prompt=$USERNAME.'% '
-let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+"let g:vimshell_user_prompt='"(" . getcwd() . ") --- (" . $USERNAME . "@" . hosetname() . ")"'
+"let g:vimshell_user_prompt = '$USERNAME . " " . '
+let g:vimshell_user_prompt = '$USERNAME . "@" . hostname() . " " . fnamemodify(getcwd(), ":~")'
+let g:vimshell_prompt='$ '
+"let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+"let g:vimshell_prompt=$USERNAME.'% '
 let g:vimshell_split_command="split"
 "let g:vimshell_popup_command=""
 "let g:vimshell_popup_height="split"
@@ -511,7 +511,7 @@ if has('gui')
   NeoBundle 'tyru/restart.vim.git'
   NeoBundle 'thinca/vim-singleton.git'
 endif
-NeoBundle 'altercation/vim-colors-solarized.git'
+"NeoBundle 'altercation/vim-colors-solarized.git'
 "NeoBundle 'Shougo/neobundle.vim.git'
 NeoBundle 'Shougo/neocomplcache.git'
 NeoBundle 'Shougo/neosnippet.git'

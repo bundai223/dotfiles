@@ -50,5 +50,5 @@ endfunction
 " 言語用プラグインを読み込み
 NeoBundleSource cpp-vim
 NeoBundleSource opengl.vim
-"NeoBundleSource clang_complete
+NeoBundleSource clang_complete
 

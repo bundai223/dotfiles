@@ -27,7 +27,7 @@ export EDITOR=vim
 #---------------------------------------------
 # End of lines added by compinstal
 # Lines configured by zsh-newuser-install
-HISTFILE=‾/.histfile
+HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory extendedglob notify
@@ -41,7 +41,7 @@ setopt hist_ignore_space
 # キーバインド
 #---------------------------------------------
 # vi風
-bindkey -v
+#bindkey -v
 
 # 履歴表示
 bindkey "^P" up-line-or-history
@@ -56,7 +56,7 @@ bindkey "^N" down-line-or-history
 #---------------------------------------------
 autoload colors
 colors
-#PS1="[${USER}@${HOST%%.*} %1‾]%(!.#.$) "
+#PS1="[${USER}@${HOST%%.*} %1~]%(!.#.$) "
 
 PS1="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%}
 %(!.#.$) "
@@ -64,11 +64,11 @@ PS1="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%}
 alias ls='ls -G'
 
 # ローカル用設定を読み込む
-if [ -f ‾/.local_zshrc ]; then
-    . ‾/.local_zshrc
+if [ -f ~/.local_zshrc ]; then
+    . ~/.local_zshrc
 fi
 
-fpath=(‾/.zsh/functions/ $fpath)
+fpath=(~/.zsh/functions/ $fpath)
 
 
 
