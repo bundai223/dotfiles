@@ -288,8 +288,12 @@ endif
 if has('win32')
 	let g:vimshell_interactive_cygwin_path='c:/cygwin/bin'
 endif
-let g:vimshell_prompt=$USERNAME.'% '
-let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+"let g:vimshell_user_prompt='"(" . getcwd() . ") --- (" . $USERNAME . "@" . hosetname() . ")"'
+"let g:vimshell_user_prompt = '$USERNAME . " " . '
+let g:vimshell_user_prompt = '$USERNAME . "@" . hostname() . " " . fnamemodify(getcwd(), ":~")'
+let g:vimshell_prompt='$ '
+"let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+"let g:vimshell_prompt=$USERNAME.'% '
 let g:vimshell_split_command="split"
 "let g:vimshell_popup_command=""
 "let g:vimshell_popup_height="split"
@@ -511,7 +515,7 @@ if has('gui')
   NeoBundle 'tyru/restart.vim.git'
   NeoBundle 'thinca/vim-singleton.git'
 endif
-NeoBundle 'altercation/vim-colors-solarized.git'
+"NeoBundle 'altercation/vim-colors-solarized.git'
 "NeoBundle 'Shougo/neobundle.vim.git'
 NeoBundle 'Shougo/neocomplcache.git'
 NeoBundle 'Shougo/neosnippet.git'
