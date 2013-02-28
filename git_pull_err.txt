@@ -1,2 +1,0 @@
-From https://github.com/bundai223/dotfiles
-   f190581..c8448db  master     -> origin/master

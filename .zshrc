@@ -41,7 +41,7 @@ setopt hist_ignore_space
 # キーバインド
 #---------------------------------------------
 # vi風
-bindkey -v
+#bindkey -v
 
 # 履歴表示
 bindkey "^P" up-line-or-history
