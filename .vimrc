@@ -293,9 +293,14 @@ let g:vimshell_prompt='$ '
 let g:vimshell_split_command="split"
 "let g:vimshell_popup_command=""
 "let g:vimshell_popup_height="split"
+
+"let g:vimshell_vimshrc_path = '~/github/dotfiles/.vimshrc'
+let g:vimshell_vimshrc_path = expand('~/github/dotfiles/.vimshrc')
+
 nnoremap <silent> vs : <C-u> VimShell -popup <CR>
 nnoremap <silent> vc : <C-u> VimShellBufferDir -popup <CR>
 "nnoremap <silent> <C-Space>: <C-u> VimShellBufferDir -popup <CR>
+
 
 """ neocomplcache
 " Disable AutoComplPop.
