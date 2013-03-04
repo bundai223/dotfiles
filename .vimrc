@@ -31,8 +31,8 @@ autocmd FileType * setlocal formatoptions-=ro
 
 " シンボリックなファイルを編集するとリンクが消されてしまうことがあったので
 " 参照先を変数に上書き
-let $MYVIMRC="$HOMEhub/dotfiles/.vimrc"
-let $MYGVIMRC="$HOMEhub/dotfiles/.gvimrc"
+let $MYVIMRC="~/github/dotfiles/.vimrc"
+let $MYGVIMRC="~/github/dotfiles/.gvimrc"
 
 " ローカル設定を読み込む
 if filereadable($HOME.'/.my_local_vimrc')
@@ -458,7 +458,7 @@ nnoremap <silent> <Leader>uo :<C-u>Unite -vertical -winwidth=30 -buffer-name=out
 " グレップ
 nnoremap <silent> <Leader>ug :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
 " スニペット探し
-nnoremap <silent> <Leader>us :<C-u>Unite -buffer-name=snippet snippet<CR>
+nnoremap <silent> <Leader>us :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
 " NeoBundle更新
 nnoremap <silent> <Leader>un :<C-u>Unite -buffer-name=neobundle neobundle/install:!<CR>
 " Color Scheme
