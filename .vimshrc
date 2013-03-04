@@ -8,8 +8,8 @@ alias reload = 'vimsh ~/github/dotfiles/.vimshrc'
 alias rl = reload
 
 # file open
-alias edit = 'vim --split=tabedit $$args'
-alias e = edit
+alias vim = 'vim --split=tabedit $$args'
+alias e = vim
 
 # other
 alias ls = 'ls -a'
