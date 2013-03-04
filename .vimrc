@@ -31,8 +31,8 @@ autocmd FileType * setlocal formatoptions-=ro
 
 " シンボリックなファイルを編集するとリンクが消されてしまうことがあったので
 " 参照先を変数に上書き
-let $MYVIMRC="$HOME/github/dotfiles/.vimrc"
-let $MYGVIMRC="$HOME/github/dotfiles/.gvimrc"
+let $MYVIMRC="$HOMEhub/dotfiles/.vimrc"
+let $MYGVIMRC="$HOMEhub/dotfiles/.gvimrc"
 
 " ローカル設定を読み込む
 if filereadable($HOME.'/.my_local_vimrc')
@@ -294,8 +294,8 @@ let g:vimshell_split_command="split"
 "let g:vimshell_popup_command=""
 "let g:vimshell_popup_height="split"
 
-"let g:vimshell_vimshrc_path = '~/github/dotfiles/.vimshrc'
-let g:vimshell_vimshrc_path = expand('~/github/dotfiles/.vimshrc')
+"let g:vimshell_vimshrc_path = '~hub/dotfiles/.vimshrc'
+let g:vimshell_vimshrc_path = expand('~hub/dotfiles/.vimshrc')
 
 "nnoremap <silent> vs : <C-u> VimShell -popup <CR>
 nnoremap <silent> vs : <C-u> VimShell<CR>
@@ -365,9 +365,9 @@ autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 "let g:neocomplcache_omni_patterns.ruby      = '[^. *\t]\.\h\w*\|\h\w*::'
 ""autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 "let g:neocomplcache_omni_patterns.php       = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplcache_omni_patterns.c         = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplcache_omni_patterns.cpp       = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-"let g:neocomplcache_omni_patterns.squirrel  = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+"let g:neocomplcache_omni_patterns.c         = '[^.[:d:] *\t]\%(\.\|->\)'
+"let g:neocomplcache_omni_patterns.cpp       = '[^.[:d:] *\t]\%(\.\|->\)\|\h\w*::'
+"let g:neocomplcache_omni_patterns.squirrel  = '[^.[:d:] *\t]\%(\.\|->\)\|\h\w*::'
 
 " force omni pattern
 let g:neocomplcache_force_omni_patterns = get(g:, 'neocomplcache_force_omni_patterns', {})
@@ -377,9 +377,9 @@ let g:neocomplcache_force_omni_patterns = get(g:, 'neocomplcache_force_omni_patt
 let g:neocomplcache_force_omni_patterns.ruby      = '[^. *\t]\.\h\w*\|\h\w*::'
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 let g:neocomplcache_force_omni_patterns.php       = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_force_omni_patterns.c         = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_force_omni_patterns.cpp       = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplcache_force_omni_patterns.squirrel  = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.c         = '[^.[:d:] *\t]\%(\.\|->\)'
+let g:neocomplcache_force_omni_patterns.cpp       = '[^.[:d:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.squirrel  = '[^.[:d:] *\t]\%(\.\|->\)\|\h\w*::'
 
 
 """ neosnippet
@@ -515,54 +515,56 @@ if has('vim_starting')
 endif
 
 if has('gui')
-  NeoBundle 'tyru/restart.vim.git'
-  NeoBundle 'thinca/vim-singleton.git'
+  NeoBundle 'tyru/restart.vim'
+  NeoBundle 'thinca/vim-singleton'
 endif
-"NeoBundle 'Shougo/neobundle.vim.git'
-NeoBundle 'Shougo/neocomplcache.git'
-NeoBundle 'Shougo/neosnippet.git'
-NeoBundle 'Shougo/unite.vim.git'
-NeoBundle 'Shougo/vimproc.git'
-NeoBundle 'Shougo/vimfiler.git'
-NeoBundle 'Shougo/vimshell.git'
-NeoBundle 'Shougo/vinarise.git'
-NeoBundle 'tpope/vim-surround.git'
-NeoBundle 't9md/vim-quickhl.git'
-NeoBundle 'h1mesuke/unite-outline.git'
+NeoBundle 'tyru/coolgrep.vim'
+"NeoBundle 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/vinarise'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 't9md/vim-quickhl'
+NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'tsukkee/unite-tag.git'
-"NeoBundle 'thinca/vim-ref.git'
-NeoBundle 'thinca/vim-quickrun.git'
-NeoBundle 'thinca/vim-localrc.git'
-NeoBundle 'thinca/vim-prettyprint.git'
-NeoBundle 'mattn/vimplenote-vim.git'
-NeoBundle 'mattn/webapi-vim.git'
-NeoBundle 'mattn/learn-vimscript.git'
-NeoBundle 'daisuzu/unite-gtags.git'
-NeoBundle 'vim-scripts/gtags.vim.git'
-NeoBundle 'osyo-manga/vim-reanimate.git'
+NeoBundle 'tsukkee/unite-tag'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'thinca/vim-localrc'
+NeoBundle 'thinca/vim-prettyprint'
+NeoBundle 'mattn/vimplenote-vim'
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'mattn/learn-vimscript'
+NeoBundle 'daisuzu/unite-gtags'
+NeoBundle 'vim-scripts/gtags.vim'
+NeoBundle 'osyo-manga/vim-reanimate'
+NeoBundle 'rhysd/clever-f.vim'
 " private snippet
-NeoBundle 'bundai223/mysnip.git'
-NeoBundle 'bundai223/myvim_dict.git'
+NeoBundle 'bundai223/mysnip'
+NeoBundle 'bundai223/myvim_dict'
 " 言語別
 " C++
 NeoBundleLazy 'vim-jp/cpp-vim'
-NeoBundleLazy 'Rip-Rip/clang_complete.git'
+NeoBundleLazy 'Rip-Rip/clang_complete'
 " Graphic
-NeoBundleLazy 'vim-scripts/opengl.vim.git'
-NeoBundleLazy 'vim-scripts/glsl.vim.git'
-NeoBundleLazy 'bundai223/FX-HLSL.git'
+NeoBundleLazy 'vim-scripts/opengl.vim'
+NeoBundleLazy 'vim-scripts/glsl.vim'
+NeoBundleLazy 'bundai223/FX-HLSL'
 " Python
-NeoBundleLazy 'davidhalter/jedi.git'
-NeoBundleLazy 'davidhalter/jedi-vim.git'
+NeoBundleLazy 'davidhalter/jedi'
+NeoBundleLazy 'davidhalter/jedi-vim'
 " Dart
-NeoBundleLazy 'vim-scripts/Dart.git'
+NeoBundleLazy 'vim-scripts/Dart'
 " Color
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'altercation/solarized'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/newspaper.vim'
+NeoBundle 'w0ng/vim-hybrid'
 
 filetype plugin on
 filetype indent on
