@@ -56,7 +56,7 @@ if has('persistent_undo' )
     set undofile
 endif
 
-" LeaderをSpaceに設定
+" Leaderを設定
 "let mapleader=' '
 if has('mac')
     map _ <Leader>
@@ -197,7 +197,7 @@ inoremap <Leader>a  <Home>
 inoremap <Leader>e  <End>
 
 " タブ関連
-nnoremap <Leader>tn :<C-u>tabnew<CR>
+nnoremap <Leader>n :<C-u>tabnew<CR>
 nnoremap t  gt
 nnoremap T  gT
 
@@ -454,7 +454,7 @@ nnoremap <silent> <Leader>um :<C-u>Unite -buffer-name=history file_mru<CR>
 " アウトライン
 nnoremap <silent> <Leader>uo :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline -no-quit outline<CR>
 " タグ
-nnoremap <silent> <Leader>ut :<C-u>Unite -buffer-name=tag tag<CR>
+"nnoremap <silent> <Leader>ut :<C-u>Unite -buffer-name=tag tag<CR>
 " グレップ
 nnoremap <silent> <Leader>ug :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
 " スニペット探し
@@ -462,19 +462,9 @@ nnoremap <silent> <Leader>us :<C-u>Unite -buffer-name=snippet snippet<CR>
 " NeoBundle更新
 nnoremap <silent> <Leader>un :<C-u>Unite -buffer-name=neobundle neobundle/install:!<CR>
 " Color Scheme
-nnoremap <silent> <Leader>uc :<C-u>Unite -buffer-name=colorscheme colorscheme -auto-preview<CR>
+nnoremap <silent> <Leader>uc :<C-u>Unite -buffer-name=colorscheme -auto-preview colorscheme<CR>
 
 
-
-" unite-outline
-let s:outline_info = {
-  \ 'heading_groups': {
-  \   'namespace': ['namespace'],
-  \   'type'     : ['class', 'enum', 'struct', 'typedef'],
-  \   'function' : ['function'],
-  \   'macro'    : ['macro'],
-  \ },
-  \}
 
 
 
@@ -483,7 +473,7 @@ let g:vimfiler_as_default_explorer=1
 let g:vimfiler_safe_mode_by_default=0
 
 nnoremap <silent> vf : <C-u> VimFilerExplorer<CR>
-nnoremap <silent> vfh : <C-u> VimFilerExplorer $HOME<CR>
+nnoremap <silent> vfh : <C-u> VimFilerExplorer ~/<CR>
 "nnoremap <silent> vf : <C-u> VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit $HOME<CR>
 
 """ ref-vim
@@ -504,6 +494,11 @@ nnoremap <Space>s :<C-u>ReanimateSave<Space>
 nnoremap <Space>l :<C-u>ReanimateLoad<Space>
 nnoremap <Space>L :<C-u>ReanimateLoadLatest<Space>
 
+""" tagbar
+let g:tagbar_left=1
+let g:tagbar_width=30
+
+nnoremap <Leader>t :<C-u>TagbarToggle<CR>
 
 """ neobundle
 filetype off
@@ -519,6 +514,7 @@ if has('gui')
   NeoBundle 'thinca/vim-singleton'
 endif
 NeoBundle 'tyru/coolgrep.vim'
+NeoBundle 'kien/ctrlp.vim'
 "NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
@@ -531,17 +527,17 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 't9md/vim-quickhl'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'tsukkee/unite-tag'
+NeoBundle 'rhysd/clever-f.vim'
+"NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-prettyprint'
-NeoBundle 'mattn/vimplenote-vim'
+"NeoBundle 'mattn/vimplenote-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'mattn/learn-vimscript'
-NeoBundle 'daisuzu/unite-gtags'
+"NeoBundle 'daisuzu/unite-gtags'
 NeoBundle 'vim-scripts/gtags.vim'
 NeoBundle 'osyo-manga/vim-reanimate'
-NeoBundle 'rhysd/clever-f.vim'
 " private snippet
 NeoBundle 'bundai223/mysnip'
 NeoBundle 'bundai223/myvim_dict'
@@ -550,14 +546,14 @@ NeoBundle 'bundai223/myvim_dict'
 NeoBundleLazy 'vim-jp/cpp-vim'
 NeoBundleLazy 'Rip-Rip/clang_complete'
 " Graphic
-NeoBundleLazy 'vim-scripts/opengl.vim'
+"NeoBundleLazy 'vim-scripts/opengl.vim'
 NeoBundleLazy 'vim-scripts/glsl.vim'
-NeoBundleLazy 'bundai223/FX-HLSL'
+"NeoBundleLazy 'bundai223/FX-HLSL'
 " Python
 NeoBundleLazy 'davidhalter/jedi'
 NeoBundleLazy 'davidhalter/jedi-vim'
 " Dart
-NeoBundleLazy 'vim-scripts/Dart'
+"NeoBundleLazy 'vim-scripts/Dart'
 " Color
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'altercation/solarized'
@@ -565,6 +561,10 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'w0ng/vim-hybrid'
+
+
+
+
 
 filetype plugin on
 filetype indent on
