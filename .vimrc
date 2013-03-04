@@ -297,9 +297,9 @@ let g:vimshell_split_command="split"
 "let g:vimshell_vimshrc_path = '~/github/dotfiles/.vimshrc'
 let g:vimshell_vimshrc_path = expand('~/github/dotfiles/.vimshrc')
 
-nnoremap <silent> vs : <C-u> VimShell -popup <CR>
-nnoremap <silent> vc : <C-u> VimShellBufferDir -popup <CR>
-"nnoremap <silent> <C-Space>: <C-u> VimShellBufferDir -popup <CR>
+"nnoremap <silent> vs : <C-u> VimShell -popup <CR>
+nnoremap <silent> vs : <C-u> VimShell<CR>
+nnoremap <silent> vc : <C-u> VimShellBufferDir<CR>
 
 
 """ neocomplcache
@@ -461,6 +461,8 @@ nnoremap <silent> <Leader>ug :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
 nnoremap <silent> <Leader>us :<C-u>Unite -buffer-name=snippet snippet<CR>
 " NeoBundle更新
 nnoremap <silent> <Leader>un :<C-u>Unite -buffer-name=neobundle neobundle/install:!<CR>
+" Color Scheme
+nnoremap <silent> <Leader>uc :<C-u>Unite -buffer-name=colorscheme colorscheme -auto-preview<CR>
 
 
 
@@ -516,7 +518,6 @@ if has('gui')
   NeoBundle 'tyru/restart.vim.git'
   NeoBundle 'thinca/vim-singleton.git'
 endif
-"NeoBundle 'altercation/vim-colors-solarized.git'
 "NeoBundle 'Shougo/neobundle.vim.git'
 NeoBundle 'Shougo/neocomplcache.git'
 NeoBundle 'Shougo/neosnippet.git'
@@ -528,6 +529,7 @@ NeoBundle 'Shougo/vinarise.git'
 NeoBundle 'tpope/vim-surround.git'
 NeoBundle 't9md/vim-quickhl.git'
 NeoBundle 'h1mesuke/unite-outline.git'
+NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tsukkee/unite-tag.git'
 "NeoBundle 'thinca/vim-ref.git'
 NeoBundle 'thinca/vim-quickrun.git'
@@ -543,7 +545,7 @@ NeoBundle 'osyo-manga/vim-reanimate.git'
 NeoBundle 'bundai223/mysnip.git'
 NeoBundle 'bundai223/myvim_dict.git'
 " 言語別
-" C++11対応
+" C++
 NeoBundleLazy 'vim-jp/cpp-vim'
 NeoBundleLazy 'Rip-Rip/clang_complete.git'
 " Graphic
@@ -555,6 +557,12 @@ NeoBundleLazy 'davidhalter/jedi.git'
 NeoBundleLazy 'davidhalter/jedi-vim.git'
 " Dart
 NeoBundleLazy 'vim-scripts/Dart.git'
+" Color
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'altercation/solarized'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'vim-scripts/newspaper.vim'
 
 filetype plugin on
 filetype indent on
