@@ -34,11 +34,6 @@ autocmd FileType * setlocal formatoptions-=ro
 let $MYVIMRC="~/github/dotfiles/.vimrc"
 let $MYGVIMRC="~/github/dotfiles/.gvimrc"
 
-" ローカル設定を読み込む
-if filereadable($HOME.'/.my_local_vimrc')
-    source $HOME/.my_local_vimrc
-endif
-
 " 分割方向を指定
 set splitbelow
 "set splitright
@@ -294,8 +289,7 @@ let g:vimshell_split_command="split"
 "let g:vimshell_popup_command=""
 "let g:vimshell_popup_height="split"
 
-"let g:vimshell_vimshrc_path = '~hub/dotfiles/.vimshrc'
-let g:vimshell_vimshrc_path = expand('~hub/dotfiles/.vimshrc')
+let g:vimshell_vimshrc_path = expand('~/github/dotfiles/.vimshrc')
 
 "nnoremap <silent> vs : <C-u> VimShell -popup <CR>
 nnoremap <silent> vs : <C-u> VimShell<CR>
@@ -564,13 +558,12 @@ NeoBundle 'w0ng/vim-hybrid'
 
 
 
-
-
 filetype plugin on
 filetype indent on
 
-" singletonを有効に
-if has('gui')
-	call singleton#enable()
+
+" ローカル設定を読み込む
+if filereadable($HOME.'/.my_local_vimrc')
+    source $HOME/.my_local_vimrc
 endif
 

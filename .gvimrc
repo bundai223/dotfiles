@@ -79,9 +79,13 @@ function! ToggleFullScreen()
 endfunction
 
 
+" singletonを有効に
+if has('gui')
+    call singleton#enable()
+endif
+
 " ローカル設定を読み込む
 if filereadable($HOME.'/.my_local_gvimrc')
     source $HOME/.my_local_gvimrc
 endif
-
 

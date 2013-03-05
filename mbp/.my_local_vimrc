@@ -9,3 +9,4 @@ map _ <Leader>
 "hi PmenuSbar ctermbg=2
 "hi PmenuThumb ctermfg=3
 colorscheme molokai
+
