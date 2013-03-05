@@ -294,8 +294,8 @@ let g:vimshell_split_command="split"
 "let g:vimshell_popup_command=""
 "let g:vimshell_popup_height="split"
 
-"let g:vimshell_vimshrc_path = '~hub/dotfiles/.vimshrc'
-let g:vimshell_vimshrc_path = expand('~hub/dotfiles/.vimshrc')
+"let g:vimshell_vimshrc_path = '~/github/dotfiles/.vimshrc'
+let g:vimshell_vimshrc_path = expand('~/github/dotfiles/.vimshrc')
 
 "nnoremap <silent> vs : <C-u> VimShell -popup <CR>
 nnoremap <silent> vs : <C-u> VimShell<CR>
@@ -495,10 +495,10 @@ nnoremap <Space>l :<C-u>ReanimateLoad<Space>
 nnoremap <Space>L :<C-u>ReanimateLoadLatest<Space>
 
 """ tagbar
-let g:tagbar_left=1
-let g:tagbar_width=30
-
-nnoremap <Leader>t :<C-u>TagbarToggle<CR>
+"let g:tagbar_left=1
+"let g:tagbar_width=30
+"
+"nnoremap <Leader>t :<C-u>TagbarToggle<CR>
 
 """ neobundle
 filetype off
@@ -526,7 +526,7 @@ NeoBundle 'Shougo/vinarise'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 't9md/vim-quickhl'
 NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'majutsushi/tagbar'
+"NeoBundle 'majutsushi/tagbar'
 NeoBundle 'rhysd/clever-f.vim'
 "NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'thinca/vim-quickrun'
