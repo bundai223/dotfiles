@@ -193,8 +193,8 @@ inoremap <Leader>e  <End>
 
 " タブ関連
 nnoremap <Leader>n :<C-u>tabnew<CR>
-nnoremap t  gt
-nnoremap T  gT
+nnoremap <C-a>l  gt
+nnoremap <C-a>h  gT
 
 " 関数単位で移動
 noremap <C-p> [[
