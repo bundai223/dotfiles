@@ -4,6 +4,19 @@
 " colorscheme solarized
 colorscheme molokai
 
+" IMEの状態でカーソル色変更
+" colorschemeでの設定を上書きするため
+" colorschemeより後で記述
+"IME状態に応じたカーソル色を設定
+if has('multi_byte_ime')
+  highlight Cursor guifg=Black guibg=White gui=bold
+  highlight CursorIM guifg=NONE guibg=Violet gui=bold
+endif
+
+" 全角スペースを表示
+highlight ZenkakuSpace cterm=underline ctermfg=red gui=underline guifg=red
+au BufNew,BufRead * match ZenkakuSpace /　/
+
 set cursorline
 
 "---------------------------------
@@ -78,14 +91,12 @@ function! ToggleFullScreen()
   endif
 endfunction
 
-
-" singletonを有効に
-if has('gui')
-    call singleton#enable()
-endif
+" neobundle
+NeoBundleSource restart.vim
+NeoBundleSource vim-singleton
 
 " ローカル設定を読み込む
-if filereadable($HOME.'/.my_local_gvimrc')
-    source $HOME/.my_local_gvimrc
+if filereadable('~/.my_local_gvimrc')
+    source ~/.my_local_gvimrc
 endif
 

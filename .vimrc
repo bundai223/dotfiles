@@ -8,7 +8,9 @@ set nocompatible
 " 文字エンコード
 set encoding=utf-8
 set fileencoding=utf-8
-set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+" こいつのせいで<C-o>などでのジャンプがおかしくなってた
+" 原因はよくわからない
+"set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 set fileformat=unix
 set fileformats=unix,dos
 
@@ -46,10 +48,10 @@ if has('unix')
 endif
 
 " 履歴の保存
-if has('persistent_undo' )
-    set undodir=~/.vim/undo
-    set undofile
-endif
+"if has('persistent_undo' )
+"    set undodir=~/.vim/undo
+"    set undofile
+"endif
 
 " Leaderを設定
 "let mapleader=' '
@@ -89,10 +91,6 @@ set number
 " tab 行末spaceを表示
 set list
 set listchars=tab:^\ ,trail:~
-
-" 全角スペースを表示
-highlight ZenkakuSpace cterm=underline ctermfg=red gui=underline guifg=red
-au BufNew,BufRead * match ZenkakuSpace /　/
 
 " ハイライトのオン
 if &t_Co > 2 || has('gui_running')
@@ -142,6 +140,7 @@ endif
 imap <C-j> <C-[>
 nmap <C-j> <C-[>
 vmap <C-j> <C-[>
+cmap <C-j> <C-[>
 
 " vimスクリプトを再読み込み
 nnoremap <F8> :source %<CR>
@@ -201,7 +200,7 @@ noremap <C-p> [[
 noremap <C-n> ]]
 
 " カレントパスをバッファに合わせる
-nnoremap <Space><Space> :<C-u>cd %:h<CR>
+nnoremap <silent><Space><Space> :<C-u>cd %:h<CR>:pwd<CR>
 
 "--------------------------------------
 " vim script
@@ -260,41 +259,17 @@ function! InsertHeaderHeader()
     call InsertFileHeader()
 endfunction
 
-" マクロ展開
-"function! CppRegion() range
-"  let beginmark='---beginning_of_cpp_region'
-"  let endmark='---end_of_cpp_region'
-"  exe a:firstline . "," . a:lastline ."!sed -e '" . a:firstline . "i\\\\" . nr2char(10) . beginmark . "' -e '" . a:lastline . "a\\\\".nr2char(10).endmark."' " .expand("%") . "|cpp -C|sed -ne '/" . beginmark . "/,/" .endmark . "/p'"
-"endfunction
 
 "--------------------------------------
 " プラグイン
 "--------------------------------------
+""" Restart Vim
 if has('gui')
-  """ Restart Vim
   nnoremap <silent> rs : <C-u> Restart <CR>
 endif
 
 """ vimshell
-if has('win32')
-	let g:vimshell_interactive_cygwin_path='c:/cygwin/bin'
-endif
-"let g:vimshell_user_prompt='"(" . getcwd() . ") --- (" . $USERNAME . "@" . hosetname() . ")"'
-"let g:vimshell_user_prompt = '$USERNAME . " " . '
-let g:vimshell_user_prompt = '$USERNAME . "@" . hostname() . " " . fnamemodify(getcwd(), ":~")'
-let g:vimshell_prompt='$ '
-"let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-"let g:vimshell_prompt=$USERNAME.'% '
-let g:vimshell_split_command="split"
-"let g:vimshell_popup_command=""
-"let g:vimshell_popup_height="split"
-
-"let g:vimshell_vimshrc_path = '~/github/dotfiles/.vimshrc'
-let g:vimshell_vimshrc_path = expand('~/github/dotfiles/.vimshrc')
-
-"nnoremap <silent> vs : <C-u> VimShell -popup <CR>
 nnoremap <silent> vs : <C-u> VimShell<CR>
-nnoremap <silent> vc : <C-u> VimShellBufferDir<CR>
 
 
 """ neocomplcache
@@ -315,17 +290,13 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default'  : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme'   : $HOME.'/.gosh_completions',
-    \ 'cpp'      : $HOME.'/.bundle/myvim_dict/cpp.dict',
-    \ 'squirrel' : $HOME.'/.bundle/myvim_dict/squirrel.dict',
+    \ 'vimshell' : '~/.vimshell_hist',
+    \ 'cpp'      : '~/.bundle/myvim_dict/cpp.dict',
+    \ 'squirrel' : '~/.bundle/myvim_dict/squirrel.dict',
     \ }
 
 " Define keyword.
 let g:neocomplcache_keyword_patterns = get(g:, 'neocomplcache_keyword_patterns', {})
-" if !exists('g:neocomplcache_keyword_patterns')
-"     let g:neocomplcache_keyword_patterns = {}
-" endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 " Plugin key-mappings.
@@ -352,23 +323,8 @@ autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
 autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 
-" Enable heavy omni completion.
-"let g:neocomplcache_omni_patterns = get(g:, 'neocomplcache_omni_patterns', {})
-""if !exists('g:neocomplcache_omni_patterns')
-""  let g:neocomplcache_omni_patterns = {}
-""endif
-"let g:neocomplcache_omni_patterns.ruby      = '[^. *\t]\.\h\w*\|\h\w*::'
-""autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-"let g:neocomplcache_omni_patterns.php       = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplcache_omni_patterns.c         = '[^.[:d:] *\t]\%(\.\|->\)'
-"let g:neocomplcache_omni_patterns.cpp       = '[^.[:d:] *\t]\%(\.\|->\)\|\h\w*::'
-"let g:neocomplcache_omni_patterns.squirrel  = '[^.[:d:] *\t]\%(\.\|->\)\|\h\w*::'
-
 " force omni pattern
 let g:neocomplcache_force_omni_patterns = get(g:, 'neocomplcache_force_omni_patterns', {})
-"if !exists('g:neocomplcache_force_omni_patterns')
-"  let g:neocomplcache_force_omni_patterns = {}
-"endif
 let g:neocomplcache_force_omni_patterns.ruby      = '[^. *\t]\.\h\w*\|\h\w*::'
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 let g:neocomplcache_force_omni_patterns.php       = '[^. \t]->\h\w*\|\h\w*::'
@@ -395,47 +351,8 @@ endif
 let g:neosnippet#snippets_directory='~/.bundle/mysnip'
 
 
-""" clang_complete
-let g:neocomplcache_force_overwrite_completefunc=1
-let g:clang_complete_auto   = 0
-let g:clang_auto_select     = 0
-let g:clang_use_library     = 1
-if has('win32')
-    " exp)  let g:clang_exec        = 'C:\path\to\clang.exe'
-    "       let g:clang_library_path= 'C:\path\to\(libclang.dll)'
-    "       let g:clang_user_options= '2> NUL || exit 0"'
-"    let g:clang_exec        = 'D:\Home\tool\clang\bin\clang.exe'
-"    let g:clang_library_path= 'D:\Home\tool\clang\bin\'
-    let g:clang_exec        = g:my_clang_bin_path.'clang.exe'
-    let g:clang_library_path= g:my_clang_bin_path
-    let g:clang_user_options= '2> NUL || exit 0"'
-    
-elseif has('mac')
-    " exp)  let g:clang_exec        = 'C:\path\to\clang'
-    "       let g:clang_library_path= 'C:\path\to\(libclang.so)'
-    "       let g:clang_user_options= '2> NUL || exit 0"'
-    let g:clang_exec        = 'clang'
-    let g:clang_library_path= '/usr/lib/'
-    let g:clang_user_options= '2>/dev/null || exit 0"'
-    
-elseif has('unix')
-    " exp)  let g:clang_exec        = 'C:\path\to\clang'
-    "       let g:clang_library_path= 'C:\path\to\(libclang.so)'
-    "       let g:clang_user_options= '2> NUL || exit 0"'
-    let g:clang_exec        = ''
-    let g:clang_library_path= ''
-    let g:clang_user_options= '2>/dev/null || exit 0"'
-    
-endif
-
-let g:neocomplcache_max_list= 1000
-
-
 
 """ unite
-" 入力モードで開始
-let g:unite_enable_start_insert=1
-
 
 " source
 " バッファ一覧
@@ -448,8 +365,6 @@ nnoremap <silent> <Leader>ur :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> <Leader>um :<C-u>Unite -buffer-name=history file_mru<CR>
 " アウトライン
 nnoremap <silent> <Leader>uo :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline -no-quit outline<CR>
-" タグ
-"nnoremap <silent> <Leader>ut :<C-u>Unite -buffer-name=tag tag<CR>
 " グレップ
 nnoremap <silent> <Leader>ug :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
 " スニペット探し
@@ -464,20 +379,8 @@ nnoremap <silent> <Leader>uc :<C-u>Unite -buffer-name=colorscheme -auto-preview 
 
 
 """ vimfiler
-let g:vimfiler_as_default_explorer=1
-let g:vimfiler_safe_mode_by_default=0
-
-nnoremap <silent> vf : <C-u> VimFilerExplorer<CR>
-nnoremap <silent> vfh : <C-u> VimFilerExplorer ~/<CR>
-"nnoremap <silent> vf : <C-u> VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit $HOME<CR>
-
-""" ref-vim
-"nmap <Leader>ra :<C-u>Ref alc<Space>
-"nmap <Leader>rr :<C-u>Ref refe<Space>
-"" 表示する行数
-"let g:ref_alc_start_linenumber = 39
-"" 文字化けしたので文字コード設定
-"let g:ref_alc_encoding = 'Shift-JIS'
+"nnoremap <silent> vf : <C-u> VimFilerExplorer %:h<CR>
+nnoremap <silent> vf : <C-u> VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
 
 """ gtags
 nmap     <silent> <Leader>gt  : <C-u>Gtags<Space>
@@ -489,12 +392,6 @@ nnoremap <Space>s :<C-u>ReanimateSave<Space>
 nnoremap <Space>l :<C-u>ReanimateLoad<Space>
 nnoremap <Space>L :<C-u>ReanimateLoadLatest<Space>
 
-""" tagbar
-"let g:tagbar_left=1
-"let g:tagbar_width=30
-"
-"nnoremap <Leader>t :<C-u>TagbarToggle<CR>
-
 """ neobundle
 filetype off
 
@@ -504,59 +401,134 @@ if has('vim_starting')
     call neobundle#rc(expand('~/.bundle'))
 endif
 
-if has('gui')
-  NeoBundle 'tyru/restart.vim'
-  NeoBundle 'thinca/vim-singleton'
-endif
-NeoBundle 'tyru/coolgrep.vim'
-NeoBundle 'kien/ctrlp.vim'
-"NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc'
-NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/vinarise'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 't9md/vim-quickhl'
-NeoBundle 'h1mesuke/unite-outline'
-"NeoBundle 'majutsushi/tagbar'
-NeoBundle 'rhysd/clever-f.vim'
-"NeoBundle 'tsukkee/unite-tag'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'thinca/vim-localrc'
-NeoBundle 'thinca/vim-prettyprint'
-"NeoBundle 'mattn/vimplenote-vim'
-NeoBundle 'mattn/webapi-vim'
-NeoBundle 'mattn/learn-vimscript'
-"NeoBundle 'daisuzu/unite-gtags'
-NeoBundle 'vim-scripts/gtags.vim'
-NeoBundle 'osyo-manga/vim-reanimate'
-" private snippet
-NeoBundle 'bundai223/mysnip'
-NeoBundle 'bundai223/myvim_dict'
-" 言語別
-" C++
-NeoBundleLazy 'vim-jp/cpp-vim'
-NeoBundleLazy 'Rip-Rip/clang_complete'
-" Graphic
-"NeoBundleLazy 'vim-scripts/opengl.vim'
-NeoBundleLazy 'vim-scripts/glsl.vim'
-"NeoBundleLazy 'bundai223/FX-HLSL'
-" Python
-NeoBundleLazy 'davidhalter/jedi'
-NeoBundleLazy 'davidhalter/jedi-vim'
-" Dart
-"NeoBundleLazy 'vim-scripts/Dart'
+" repository
 " Color
-NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'altercation/solarized'
+"NeoBundle 'altercation/solarized'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'w0ng/vim-hybrid'
 
+" language
+" C++
+"NeoBundleLazy 'vim-jp/cpp-vim'
+"NeoBundleLazy 'vim-scripts/opengl.vim'
+NeoBundleLazy 'vim-scripts/glsl.vim'
+"NeoBundleLazy 'bundai223/FX-HLSL'
+
+NeoBundleLazy 'Rip-Rip/clang_complete'
+let s:bundle = neobundle#get('clang_complete')
+function! s:bundle.hooks.on_source(bundle)
+    let g:neocomplcache_force_overwrite_completefunc=1
+    let g:clang_complete_auto   = 0
+    let g:clang_auto_select     = 0
+    let g:clang_use_library     = 1
+    if has('win32')
+        " exp)  let g:clang_exec        = 'C:\path\to\clang.exe'
+        "       let g:clang_library_path= 'C:\path\to\(libclang.dll)'
+        "       let g:clang_user_options= '2> NUL || exit 0"'
+        let g:my_clang_bin_path = 'D:\Home\tool\clang\bin\'
+        let g:clang_exec        = g:my_clang_bin_path.'clang.exe'
+        let g:clang_library_path= g:my_clang_bin_path
+        let g:clang_user_options= '2> NUL || exit 0"'
+
+    elseif has('mac')
+        " exp)  let g:clang_exec        = 'C:\path\to\clang'
+        "       let g:clang_library_path= 'C:\path\to\(libclang.so)'
+        "       let g:clang_user_options= '2> NUL || exit 0"'
+        let g:clang_exec        = 'clang'
+        let g:clang_library_path= '/usr/lib/'
+        let g:clang_user_options= '2>/dev/null || exit 0"'
+
+    elseif has('unix')
+        " exp)  let g:clang_exec        = 'C:\path\to\clang'
+        "       let g:clang_library_path= 'C:\path\to\(libclang.so)'
+        "       let g:clang_user_options= '2> NUL || exit 0"'
+        let g:clang_exec        = ''
+        let g:clang_library_path= ''
+        let g:clang_user_options= '2>/dev/null || exit 0"'
+
+    endif
+
+    let g:neocomplcache_max_list= 1000
+endfunction
+
+" Python
+NeoBundleLazy 'davidhalter/jedi'
+NeoBundleLazy 'davidhalter/jedi-vim'
+
+" utl
+"NeoBundle 'tyru/coolgrep.vim'
+"NeoBundle 'kien/ctrlp.vim'
+"NeoBundle 't9md/vim-quickhl'
+NeoBundle 'rhysd/clever-f.vim'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'thinca/vim-localrc'
+NeoBundle 'thinca/vim-prettyprint'
+NeoBundle 'mattn/webapi-vim'
+"NeoBundle 'mattn/learn-vimscript'
+"NeoBundle 'vim-scripts/gtags.vim'
+NeoBundle 'osyo-manga/vim-reanimate'
+"NeoBundle 'Shougo/vinarise'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
+if has('win32')
+else
+    NeoBundle 'Shougo/vimproc'
+endif
+
+" vimfiler
+NeoBundleLazy 'Shougo/vimfiler', {
+\    'autoload' : {'commands' : ['VimFilerBufferDir'] },
+\}
+let s:bundle = neobundle#get('vimfiler')
+function! s:bundle.hooks.on_source(bundle)
+    let g:vimfiler_as_default_explorer=1
+    let g:vimfiler_safe_mode_by_default=0
+endfunction
+
+" vimshell
+NeoBundleLazy 'Shougo/vimshell', {
+\    'autoload' : {'commands' : ['VimShell'] },
+\}
+let s:bundle = neobundle#get('vimshell')
+function! s:bundle.hooks.on_source(bundle)
+    if has('win32')
+        let g:vimshell_interactive_cygwin_path='c:/cygwin/bin'
+    endif
+    let g:vimshell_user_prompt = '$USERNAME . "@" . hostname() . " " . fnamemodify(getcwd(), ":~")'
+    let g:vimshell_prompt='$ '
+    let g:vimshell_split_command="split"
+    
+    let g:vimshell_vimshrc_path = expand('~/github/dotfiles/.vimshrc')
+endfunction
+
+" unite
+NeoBundleLazy 'Shougo/unite.vim',{
+\    'autoload' : {'commands' : ['Unite', 'UniteWithBufferDir'] },
+\}
+let s:bundle = neobundle#get('unite.vim')
+function! s:bundle.hooks.on_source(bundle)
+    " 入力モードで開始
+    let g:unite_enable_start_insert=1
+endfunction
+
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'h1mesuke/unite-outline'
+
+" private snippet
+NeoBundle 'bundai223/mysnip'
+NeoBundle 'bundai223/myvim_dict'
+
+NeoBundleLazy 'tyru/restart.vim'
+
+NeoBundleLazy 'thinca/vim-singleton'
+let s:bundle = neobundle#get('vim-singleton')
+function! s:bundle.hooks.on_source(bundle)
+    " singletonを有効に
+    call singleton#enable()
+endfunction
 
 
 filetype plugin on
@@ -564,7 +536,7 @@ filetype indent on
 
 
 " ローカル設定を読み込む
-if filereadable($HOME.'/.my_local_vimrc')
-    source $HOME/.my_local_vimrc
+if filereadable('~/.my_local_vimrc')
+    source ~/.my_local_vimrc
 endif
 
