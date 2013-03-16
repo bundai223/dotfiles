@@ -536,7 +536,7 @@ filetype indent on
 
 
 " ローカル設定を読み込む
-if filereadable('~/.my_local_vimrc')
+if filereadable(expand('~/.my_local_vimrc'))
     source ~/.my_local_vimrc
 endif
 

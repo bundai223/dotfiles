@@ -96,7 +96,7 @@ NeoBundleSource restart.vim
 NeoBundleSource vim-singleton
 
 " ローカル設定を読み込む
-if filereadable('~/.my_local_gvimrc')
+if filereadable(expand('~/.my_local_gvimrc'))
     source ~/.my_local_gvimrc
 endif
 
