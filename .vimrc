@@ -12,7 +12,11 @@ set fileencoding=utf-8
 " 原因はよくわからない
 "set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 set fileformat=unix
-set fileformats=unix,dos
+if has('win32')
+    set fileformats=dos,unix
+else
+    set fileformats=unix
+endif
 
 " バックアップファイルの設定
 "set nowritebackup
@@ -365,6 +369,8 @@ nnoremap <silent> <Leader>ur :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> <Leader>um :<C-u>Unite -buffer-name=history file_mru<CR>
 " アウトライン
 nnoremap <silent> <Leader>uo :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline -no-quit outline<CR>
+"nnoremap <silent> <Leader>ut :<C-u>Unite -vertical -winwidth=30 -buffer-name=todo -no-quit todo<CR>
+nnoremap <silent> <Leader>ut :<C-u>Unite -buffer-name=todo -no-quit todo<CR>
 " グレップ
 nnoremap <silent> <Leader>ug :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
 " スニペット探し
@@ -470,7 +476,7 @@ NeoBundle 'mattn/webapi-vim'
 "NeoBundle 'mattn/learn-vimscript'
 "NeoBundle 'vim-scripts/gtags.vim'
 NeoBundle 'osyo-manga/vim-reanimate'
-"NeoBundle 'Shougo/vinarise'
+NeoBundle 'Shougo/vinarise'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 if has('win32')
@@ -512,6 +518,46 @@ let s:bundle = neobundle#get('unite.vim')
 function! s:bundle.hooks.on_source(bundle)
     " 入力モードで開始
     let g:unite_enable_start_insert=1
+
+    " Unite TODO ================================
+    let s:unite_source_todo = {
+    \   'name' : 'todo'
+    \}
+    function! s:unite_source_todo.async_gather_candidates(args, context)
+
+        " まず前回のキャッシュをクリア
+        let a:context.source.unite__cached_candidates = []
+
+        let self.bufNo = get(self, 'bufNo', bufnr('#'))
+        let bufNo = self.bufNo
+        let lines  = getbufline(bufNo, 1, '$')
+        let path   = expand('#' . bufNo . ':p')
+
+        " TODOの行をリストアップ
+        let candidate_list = []
+        let line_index = 0
+        for line in lines
+            let index = match(line, 'TODO')
+            if 0 <= index
+                call add(candidate_list, [line_index, line[index : -1]])
+            endif
+            let line_index = line_index + 1
+        endfor
+
+        let format = '%' . strlen(line_index) . 'd: %s'
+        let result = map(candidate_list, '{
+                    \   "word"          : printf(format, v:val[0], v:val[1]),
+                    \   "source"        : "todo",
+                    \   "kind"          : "jump_list",
+                    \   "action__path"  : path,
+                    \   "action__line"  : v:val[0] + 1,
+                    \}')
+        return result
+    endfunction
+
+    call unite#define_source(s:unite_source_todo)
+    unlet s:unite_source_todo
+    " ===========================================
 endfunction
 
 NeoBundle 'ujihisa/unite-colorscheme'
