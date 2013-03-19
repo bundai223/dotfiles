@@ -9,7 +9,7 @@ colorscheme molokai
 " colorschemeより後で記述
 "IME状態に応じたカーソル色を設定
 if has('multi_byte_ime')
-  highlight Cursor guifg=Black guibg=White gui=bold
+  highlight Cursor guifg=Black guibg=#cccccc gui=bold
   highlight CursorIM guifg=NONE guibg=Violet gui=bold
 endif
 

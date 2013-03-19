@@ -521,15 +521,27 @@ function! s:bundle.hooks.on_source(bundle)
 
     " Unite TODO ================================
     let s:unite_source_todo = {
-    \   'name' : 'todo'
+    \   'name' : 'todo',
+    \   'hooks': {},
     \}
-    function! s:unite_source_todo.async_gather_candidates(args, context)
+
+    function! s:get_SID()
+      return matchstr(expand('<sfile>'), '<SNR>\d\+_')
+    endfunction
+    let s:SID = s:get_SID()
+    delfunction s:get_SID
+
+    function! s:Todo_source_hooks_on_init(args, context)
+        let a:context.source__todo_target_bufno = bufnr('%')
+"        let g:aaaaaaaaaaaaaaaaa = bufnr('#') . ' : ' . expand('#' . bufnr('#') . ':p')
+    endfunction
+
+    function! s:Todo_source_async_gather_candidate(args, context)
 
         " まず前回のキャッシュをクリア
         let a:context.source.unite__cached_candidates = []
 
-        let self.bufNo = get(self, 'bufNo', bufnr('#'))
-        let bufNo = self.bufNo
+        let bufNo = a:context.source__todo_target_bufno
         let lines  = getbufline(bufNo, 1, '$')
         let path   = expand('#' . bufNo . ':p')
 
@@ -554,6 +566,9 @@ function! s:bundle.hooks.on_source(bundle)
                     \}')
         return result
     endfunction
+
+    let s:unite_source_todo.hooks.on_init           = function(s:SID . 'Todo_source_hooks_on_init')
+    let s:unite_source_todo.async_gather_candidates = function(s:SID . 'Todo_source_async_gather_candidate')
 
     call unite#define_source(s:unite_source_todo)
     unlet s:unite_source_todo
