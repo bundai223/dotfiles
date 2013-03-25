@@ -2,7 +2,7 @@
 
 # path setting
 PATH=/usr/local/bin:$PATH
-
+PATH=/usr/local/share/python:$PATH
 # utility
 LABO_ROOT=~/labo
 LABO_GFX_ROOT=$LABO_ROOT/graphic
