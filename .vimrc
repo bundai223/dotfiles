@@ -189,6 +189,12 @@ nnoremap <silent>cy   ce <C-r>0<Esc>:let@/=@1<CR>:noh<CR>
 " 移動系
 inoremap <Leader>a  <Home>
 inoremap <Leader>e  <End>
+"imap <C-H>  <Home>
+"imap <C-L>  <End>
+"nmap <C-H>  <Home>
+"nmap <C-L>  <End>
+"vmap <C-H>  <Home>
+"vmap <C-L>  <End>
 
 " タブ関連
 nnoremap <Leader>n :<C-u>tabnew<CR>
@@ -359,6 +365,7 @@ let g:neosnippet#snippets_directory='~/.bundle/mysnip'
 nnoremap <silent> <Leader>ub :<C-u>Unite -buffer-name=buffer buffer<CR>
 " ファイル一覧
 nnoremap <silent> <Leader>uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> <Leader>ud :<C-u>Unite -input=/Home/github/dotfiles/. -buffer-name=dotfiles file<CR>
 " レジスタ一覧
 nnoremap <silent> <Leader>ur :<C-u>Unite -buffer-name=register register<CR>
 " 履歴
@@ -405,7 +412,7 @@ endif
 
 " repository
 " Color
-"NeoBundle 'altercation/solarized'
+NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/newspaper.vim'
@@ -475,10 +482,7 @@ NeoBundle 'osyo-manga/vim-reanimate'
 NeoBundle 'Shougo/vinarise'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
-if has('win32')
-else
-    NeoBundle 'Shougo/vimproc'
-endif
+NeoBundle 'Shougo/vimproc'
 
 " vimfiler
 NeoBundleLazy 'Shougo/vimfiler', {

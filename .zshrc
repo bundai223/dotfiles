@@ -9,18 +9,26 @@ zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character t
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' verbose true
-# zstyle :compinstall filename '/home/.zshrc'
+# 小文字は大文字とごっちゃで検索できる
+# 大文字は小文字と区別される
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# cdで表示しない例外設定
+zstyle ':completion:*:*:cd:*' ignored-patterns '.svn|.git'
 
 # 補完有効
 autoload -Uz compinit
 compinit
 
 
-# ビープ音なし
-setopt nobeep
+
+setopt nobeep               # ビープ音なし
+setopt ignore_eof           # C-dでログアウトしない
+setopt rm_star_silent       # rm *で確認ださない
+setopt no_auto_param_slash  # 自動で末尾に/を補完しない
+setopt auto_pushd           # cd履歴を残す
+
 
 export EDITOR=vim
-
 
 #---------------------------------------------
 # 履歴の設定
@@ -41,15 +49,24 @@ setopt hist_ignore_space
 # キーバインド
 #---------------------------------------------
 # vi風
-#bindkey -v
-
-# 履歴表示
-bindkey "^P" up-line-or-history
-bindkey "^N" down-line-or-history
-
 #
 # 一番下にステータスバー表示スクリプト
 #
+#bindkey -v
+
+# 履歴表示
+# 履歴から入力の続きを補完
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
+bindkey "^P" history-beginning-search-backward
+bindkey "^N" history-beginning-search-forward
+
+bindkey " " magic-space
+
+
+alias ls='ls -a'
+alias lsl='ls -la'
+alias pd=popd
 
 #---------------------------------------------
 # ターミナルのユーザー表示を見慣れた感じに設定
@@ -61,7 +78,6 @@ colors
 PS1="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%}
 %(!.#.$) "
 
-alias ls='ls -G'
 
 # ローカル用設定を読み込む
 if [ -f ~/.local_zshrc ]; then
