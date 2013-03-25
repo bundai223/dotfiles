@@ -3,6 +3,10 @@
 "
 "
 "=============================================================
+" my local setting files
+au BufNewFile,BufRead *.local_zshrc set filetype=zsh
+au BufNewFile,BufRead *.local_vimrc *.local_gvimrc set filetype=vim
+
 " direct x shader file
 au BufNewFile,BufRead *.fx set filetype=fx
 " opengl shader file
