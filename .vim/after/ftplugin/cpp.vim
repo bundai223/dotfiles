@@ -23,7 +23,7 @@ nnoremap <Leader>c :<C-u>hide edit %<.cpp<Return>
 " script
 "--------------------------------------
 " 選択範囲をifdef
-vnoremap #0 :call InsertIfZero()<CR>
+vnoremap #z :call InsertIfZero()<CR>
 vnoremap #d :call InsertIfdef()<CR>
 vnoremap #n :call InsertIfndef()<CR>
 
