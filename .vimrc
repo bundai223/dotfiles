@@ -466,6 +466,10 @@ endfunction
 NeoBundleLazy 'davidhalter/jedi'
 NeoBundleLazy 'davidhalter/jedi-vim'
 
+" Haxe
+"NeoBundleLazy 'jdonaldson/vaxe'
+
+
 " utl
 "NeoBundle 'tyru/coolgrep.vim'
 "NeoBundle 'kien/ctrlp.vim'

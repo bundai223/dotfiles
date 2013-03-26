@@ -2,6 +2,7 @@
 #----------------------------------------
 # 短縮コマンド
 #----------------------------------------
+source .local_vimshrc
 
 # reload vimshrc
 alias reload = 'vimsh ~/github/dotfiles/.vimshrc'

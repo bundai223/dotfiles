@@ -1,5 +1,7 @@
 #.local_zshrc
 
+FBXSDK_ROOT=/Applications/Autodesk/FBX\ SDK/2013.3/
+
 # path setting
 PATH=/usr/local/bin:$PATH
 PATH=/usr/local/share/python:$PATH
