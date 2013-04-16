@@ -72,10 +72,10 @@ set wrapscan
 set incsearch
 " 検索文字の強調表示
 set hlsearch
-" tagの設定は各プロジェクトごとにsetlocalするべき
 " tagファイルの検索パス指定
 " カレントから親フォルダに見つかるまでたどる
-"set tags=tags;
+" tagの設定は各プロジェクトごともsetlocalする
+set tags=tags;
 
 " 検索結果をウインドウ真ん中に
 nnoremap n nzz
@@ -420,7 +420,7 @@ NeoBundle 'w0ng/vim-hybrid'
 
 " language
 " C++
-"NeoBundleLazy 'vim-jp/cpp-vim'
+NeoBundleLazy 'vim-jp/cpp-vim'
 "NeoBundleLazy 'vim-scripts/opengl.vim'
 NeoBundleLazy 'vim-scripts/glsl.vim'
 "NeoBundleLazy 'bundai223/FX-HLSL'
@@ -581,6 +581,7 @@ endfunction
 
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'bundai223/unite-outline-sources'
 
 " private snippet
 NeoBundle 'bundai223/mysnip'
