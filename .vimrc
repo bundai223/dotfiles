@@ -40,6 +40,7 @@ let $MYGVIMRC="~/github/dotfiles/.gvimrc"
 set splitbelow
 "set splitright
 
+
 "--------------------------------------
 " 基本的な設定
 "--------------------------------------
@@ -87,7 +88,8 @@ set grepprg=grep\ -nH
 " 表示の設定
 "--------------------------------------
 " 行番号表示
-set number
+"set number
+set relativenumber
 " tab 行末spaceを表示
 set list
 set listchars=tab:^\ ,trail:~
