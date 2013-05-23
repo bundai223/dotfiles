@@ -43,12 +43,9 @@ function! InsertIfndef() range
 endfunction
 
 
-"--------------------------------------
-" plugin
-"--------------------------------------
-""" neobundle
-" 言語用プラグインを読み込み
-NeoBundleSource cpp-vim
-NeoBundleSource opengl.vim
-NeoBundleSource clang_complete
+" C++マクロ展開
+function! CppRegion() range
+  exe "'<,'>!sh " . expand("~/github/dotfiles/util/cppregion.sh") . " " . expand("%") . " " . a:firstline . " " . a:lastline 
+endfunction
+
 

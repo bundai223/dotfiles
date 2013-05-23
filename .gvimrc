@@ -1,66 +1,66 @@
 "---------------------------------
-" è¦‹ãŸç›®ã®è¨­å®š
+" Œ©‚½–Ú‚Ìİ’è
 "---------------------------------
 colorscheme molokai
 
-" IMEã®çŠ¶æ…‹ã§ã‚«ãƒ¼ã‚½ãƒ«è‰²å¤‰æ›´
-" colorschemeã§ã®è¨­å®šã‚’ä¸Šæ›¸ãã™ã‚‹ãŸã‚
-" colorschemeã‚ˆã‚Šå¾Œã§è¨˜è¿°
-"IMEçŠ¶æ…‹ã«å¿œã˜ãŸã‚«ãƒ¼ã‚½ãƒ«è‰²ã‚’è¨­å®š
+" IME‚Ìó‘Ô‚ÅƒJ[ƒ\ƒ‹F•ÏX
+" colorscheme‚Å‚Ìİ’è‚ğã‘‚«‚·‚é‚½‚ß
+" colorscheme‚æ‚èŒã‚Å‹Lq
+"IMEó‘Ô‚É‰‚¶‚½ƒJ[ƒ\ƒ‹F‚ğİ’è
 if has('multi_byte_ime')
   highlight Cursor guifg=Black guibg=#cccccc gui=bold
   highlight CursorIM guifg=NONE guibg=Violet gui=bold
 endif
 
-" å…¨è§’ã‚¹ãƒšãƒ¼ã‚¹ã‚’è¡¨ç¤º
+" ‘SŠpƒXƒy[ƒX‚ğ•\¦
 highlight ZenkakuSpace cterm=underline ctermfg=red gui=underline guifg=red
-au BufNew,BufRead * match ZenkakuSpace /ã€€/
+au BufNew,BufRead * match ZenkakuSpace /@/
 
 set cursorline
 
 "---------------------------------
-" ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãªã©ã®è¨­å®š
+" ƒEƒCƒ“ƒhƒE‚È‚Ç‚Ìİ’è
 "---------------------------------
-" è¡¨ç¤ºè¡Œæ•°
-"" ç¸¦
+" •\¦s”
+"" c
 "set lines=60
-"" æ¨ª
+"" ‰¡
 "set columns=124
 
 
-" è‡ªå‹•æŠ˜ã‚Šè¿”ã—ãªã—
+" ©“®Ü‚è•Ô‚µ‚È‚µ
 set nowrap
 
 
-" gvimã®ãƒ„ãƒ¼ãƒ«ãƒãƒ¼ãªã©ã®è¨­å®š
-set guioptions-=T "ãƒ„ãƒ¼ãƒ«ãƒãƒ¼ãªã—
-set guioptions-=m "ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒãƒ¼ãªã—
-set guioptions-=r "å³ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ãªã—
+" gvim‚Ìƒc[ƒ‹ƒo[‚È‚Ç‚Ìİ’è
+set guioptions-=T "ƒc[ƒ‹ƒo[‚È‚µ
+set guioptions-=m "ƒƒjƒ…[ƒo[‚È‚µ
+set guioptions-=r "‰EƒXƒNƒ[ƒ‹ƒo[‚È‚µ
 set guioptions-=R
-set guioptions-=l "å·¦ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ãªã—
+set guioptions-=l "¶ƒXƒNƒ[ƒ‹ƒo[‚È‚µ
 set guioptions-=L
-set guioptions-=b "ä¸‹ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ãªã—
+set guioptions-=b "‰ºƒXƒNƒ[ƒ‹ƒo[‚È‚µ
 
 if has('mac')
     set transparency=25
 endif
 "---------------------------------
-" ãƒ•ã‚©ãƒ³ãƒˆè¨­å®š:
+" ƒtƒHƒ“ƒgİ’è:
 "---------------------------------
 if has('win32')
-  " Windowsç”¨
+  " Windows—p
   set guifont=MS_Gothic:h10:cSHIFTJIS
-  " è¡Œé–“éš”ã®è¨­å®š
+  " sŠÔŠu‚Ìİ’è
   set linespace=1
-  " ä¸€éƒ¨ã®UCSæ–‡å­—ã®å¹…ã‚’è‡ªå‹•è¨ˆæ¸¬ã—ã¦æ±ºã‚ã‚‹
+  " ˆê•”‚ÌUCS•¶š‚Ì•‚ğ©“®Œv‘ª‚µ‚ÄŒˆ‚ß‚é
   if has('kaoriya')
     set ambiwidth=auto
   endif
 elseif has('mac')
-"  set guifont=Osakaï¼ç­‰å¹…:h14
+"  set guifont=Osaka|“™•:h14
   set guifont=Ricty Regular:h12
 elseif has('xfontset')
-  " UNIXç”¨ (xfontsetã‚’ä½¿ç”¨)
+  " UNIX—p (xfontset‚ğg—p)
   set guifontset=a14,r14,k14
 endif
 
@@ -94,7 +94,7 @@ endfunction
 NeoBundleSource restart.vim
 NeoBundleSource vim-singleton
 
-" ãƒ­ãƒ¼ã‚«ãƒ«è¨­å®šã‚’èª­ã¿è¾¼ã‚€
+" ƒ[ƒJƒ‹İ’è‚ğ“Ç‚İ‚Ş
 if filereadable(expand('~/.my_local_gvimrc'))
     source ~/.my_local_gvimrc
 endif

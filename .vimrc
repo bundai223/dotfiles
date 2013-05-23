@@ -136,81 +136,6 @@ if has('unix') && !has('gui_running')
 endif
 
 "--------------------------------------
-" キーバインド
-"--------------------------------------
-" ESCを簡単に
-imap <C-j> <C-[>
-nmap <C-j> <C-[>
-vmap <C-j> <C-[>
-cmap <C-j> <C-[>
-
-" vimスクリプトを再読み込み
-nnoremap <F8> :source %<CR>
-
-" ZZで全保存・全終了らしいので不可に
-nnoremap ZZ <Nop>
-
-" コマンドラインモード誤動作させがちなのでなし
-nnoremap q: <Nop>
-
-" 補完呼び出し
-" imap <C-Space> <C-x><C-n>
-
-" 直前のバッファに移動
-nnoremap <Leader>b :b#<CR>
-
-" 日付マクロ
-inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
-inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
-
-" 連番マクロ
-" <C-a>で加算
-" <C-x>で減算
-command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
-nnoremap <silent> co : ContinuousNumber <C-a><CR>
-vnoremap <silent> ca : ContinuousNumber <C-a><CR>
-vnoremap <silent> cx : ContinuousNumber <C-x><CR>
-
-" help補助
-nnoremap <C-h> :<C-u>help<Space>
-
-" マーク・レジスタなど一覧
-nnoremap <Leader>M :<C-u>marks<CR>
-nnoremap <Leader>R :<C-u>registers<CR>
-nnoremap <Leader>B :<C-u>buffers<CR>
-nnoremap <Leader>T :<C-u>tags<CR>
-
-" MYVIMRC
-nnoremap <Leader>v :e $MYVIMRC<CR>
-nnoremap <Leader>g :e $MYGVIMRC<CR>
-
-" ヤンクした単語で置換
-nnoremap <silent>ciy  ciw<C-r>0<Esc>:let@/=@1<CR>:noh<CR>
-nnoremap <silent>cy   ce <C-r>0<Esc>:let@/=@1<CR>:noh<CR>
-
-" 移動系
-inoremap <Leader>a  <Home>
-inoremap <Leader>e  <End>
-"imap <C-H>  <Home>
-"imap <C-L>  <End>
-"nmap <C-H>  <Home>
-"nmap <C-L>  <End>
-"vmap <C-H>  <Home>
-"vmap <C-L>  <End>
-
-" タブ関連
-nnoremap <Leader>n :<C-u>tabnew<CR>
-nnoremap <C-a>l  gt
-nnoremap <C-a>h  gT
-
-" 関数単位で移動
-noremap <C-p> [[
-noremap <C-n> ]]
-
-" カレントパスをバッファに合わせる
-nnoremap <silent><Space><Space> :<C-u>cd %:h<CR>:pwd<CR>
-
-"--------------------------------------
 " vim script
 "--------------------------------------
 
@@ -267,141 +192,28 @@ function! InsertHeaderHeader()
     call InsertFileHeader()
 endfunction
 
+" カーソルを指定位置に移動
+"展開後 <Cursor> 位置にカーソルが移動する
+"nnoremap <expr> <A-p> _(":%s/<Cursor>/ほむ/g")
+"nnoremap <expr> <A-p> ":%s//ほむ/g\<Left>\<Left>\<Left>\<Left>\<Left>\<Left>\<Left>"
+function! s:move_cursor_pos_mapping(str, ...)
+    let left = get(a:, 1, "<Left>")
+    let lefts = join(map(split(matchstr(a:str, '.*<Cursor>\zs.*\ze'), '.\zs'), 'left'), "")
+    return substitute(a:str, '<Cursor>', '', '') . lefts
+endfunction
+
+function! _(str)
+    return s:move_cursor_pos_mapping(a:str, "\<Left>")
+endfunction
+
+" コマンド版
+"Nnoremap <A-o> :%s/<Cursor>/マミ/g
+command! -nargs=* MoveCursorPosMap execute <SID>move_cursor_pos_mapping(<q-args>)
+command! -nargs=* Nnoremap MoveCursorPosMap nnoremap <args>
+
 
 "--------------------------------------
 " プラグイン
-"--------------------------------------
-""" Restart Vim
-if has('gui')
-  nnoremap <silent> rs : <C-u> Restart <CR>
-endif
-
-""" vimshell
-nnoremap <silent> vs : <C-u> VimShell<CR>
-
-
-""" neocomplcache
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default'  : '',
-    \ 'vimshell' : '~/.vimshell_hist',
-    \ 'cpp'      : '~/.bundle/myvim_dict/cpp.dict',
-    \ 'squirrel' : '~/.bundle/myvim_dict/squirrel.dict',
-    \ }
-
-" Define keyword.
-let g:neocomplcache_keyword_patterns = get(g:, 'neocomplcache_keyword_patterns', {})
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#close_popup() . "\<CR>"
-" <TAB>: completion.
-inoremap <expr><TAB>    pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h>  neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS>   neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
-" Enable omni completion.
-autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
-autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-
-" force omni pattern
-let g:neocomplcache_force_omni_patterns = get(g:, 'neocomplcache_force_omni_patterns', {})
-let g:neocomplcache_force_omni_patterns.ruby      = '[^. *\t]\.\h\w*\|\h\w*::'
-"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-let g:neocomplcache_force_omni_patterns.php       = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_force_omni_patterns.c         = '[^.[:d:] *\t]\%(\.\|->\)'
-let g:neocomplcache_force_omni_patterns.cpp       = '[^.[:d:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplcache_force_omni_patterns.squirrel  = '[^.[:d:] *\t]\%(\.\|->\)\|\h\w*::'
-
-
-""" neosnippet
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-
-" Tabでスニペット選択 Spaceで選択中スニペット展開
-"imap <expr><Space> pumvisible() ? neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>" : "\<Space>"
-"imap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>"
-"smap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>"
-
-" For snippet_complete marker
-if has('conceal')
-    set conceallevel=2 concealcursor=i
-endif
-
-" path to mysnippet
-let g:neosnippet#snippets_directory='~/.bundle/mysnip'
-
-
-
-""" unite
-
-" source
-" バッファ一覧
-nnoremap <silent> <Leader>ub :<C-u>Unite -buffer-name=buffer buffer<CR>
-" ファイル一覧
-nnoremap <silent> <Leader>uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> <Leader>ud :<C-u>Unite -input=/Home/github/dotfiles/. -buffer-name=dotfiles file<CR>
-" レジスタ一覧
-nnoremap <silent> <Leader>ur :<C-u>Unite -buffer-name=register register<CR>
-" 履歴
-nnoremap <silent> <Leader>um :<C-u>Unite -buffer-name=history file_mru<CR>
-" アウトライン
-nnoremap <silent> <Leader>uo :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline -no-quit outline<CR>
-"nnoremap <silent> <Leader>ut :<C-u>Unite -vertical -winwidth=30 -buffer-name=todo -no-quit todo<CR>
-nnoremap <silent> <Leader>ut :<C-u>Unite -buffer-name=todo -no-quit todo<CR>
-" グレップ
-nnoremap <silent> <Leader>ug :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
-" スニペット探し
-nnoremap <silent> <Leader>us :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
-" NeoBundle更新
-nnoremap <silent> <Leader>un :<C-u>Unite -buffer-name=neobundle neobundle/install:!<CR>
-" Color Scheme
-nnoremap <silent> <Leader>uc :<C-u>Unite -buffer-name=colorscheme -auto-preview colorscheme<CR>
-
-
-
-
-
-""" vimfiler
-"nnoremap <silent> vf : <C-u> VimFilerExplorer %:h<CR>
-nnoremap <silent> vf : <C-u> VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
-
-""" gtags
-nmap     <silent> <Leader>gt  : <C-u>Gtags<Space>
-nmap     <silent> <Leader>gtr : <C-u>Gtags -r<Space>
-nnoremap <silent> <Leader>gtc : <C-u>GtagsCursor<CR>
-
-""" reanimate
-nnoremap <Space>s :<C-u>ReanimateSave<Space>
-nnoremap <Space>l :<C-u>ReanimateLoad<Space>
-nnoremap <Space>L :<C-u>ReanimateLoadLatest<Space>
 
 """ neobundle
 filetype off
@@ -422,12 +234,10 @@ NeoBundle 'w0ng/vim-hybrid'
 
 " language
 " C++
-NeoBundleLazy 'vim-jp/cpp-vim'
-"NeoBundleLazy 'vim-scripts/opengl.vim'
-NeoBundleLazy 'vim-scripts/glsl.vim'
-"NeoBundleLazy 'bundai223/FX-HLSL'
+NeoBundleLazy 'vim-jp/cpp-vim', { 'autoload': {'filetypes': ['cpp']} }
+NeoBundleLazy 'vim-scripts/opengl.vim', { 'autoload': {'filetypes': ['cpp']} }
 
-NeoBundleLazy 'Rip-Rip/clang_complete'
+NeoBundleLazy 'Rip-Rip/clang_complete', { 'autoload': {'filetypes': ['cpp']} }
 let s:bundle = neobundle#get('clang_complete')
 function! s:bundle.hooks.on_source(bundle)
     let g:neocomplcache_force_overwrite_completefunc=1
@@ -464,12 +274,26 @@ function! s:bundle.hooks.on_source(bundle)
     let g:neocomplcache_max_list= 1000
 endfunction
 
+" C#
+NeoBundleLazy 'nosami/Omnisharp', {
+\   'autoload': {'filetypes': ['cs']},
+\   'build': {
+\     'windows': 'MSBuild.exe server/OmniSharp.sln /p:Platform="Any CPU"',
+\     'mac': 'xbuild server/OmniSharp.sln',
+\     'unix': 'xbuild server/OmniSharp.sln',
+\   }
+\ }
+
 " Python
-NeoBundleLazy 'davidhalter/jedi'
-NeoBundleLazy 'davidhalter/jedi-vim'
+NeoBundleLazy 'davidhalter/jedi', { 'autoload': {'filetypes': ['cs']} }
+NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload': {'filetypes': ['cs']} }
 
 " Haxe
 "NeoBundleLazy 'jdonaldson/vaxe'
+
+" shader
+NeoBundleLazy 'vim-scripts/glsl.vim', { 'autoload': {'filetypes': ['glsl']} }
+"NeoBundleLazy 'bundai223/FX-HLSL', { 'autoload': {'filetypes': ['fx']} }
 
 
 " utl
@@ -488,7 +312,14 @@ NeoBundle 'osyo-manga/vim-reanimate'
 NeoBundle 'Shougo/vinarise'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc', {
+\   'build': {
+\     'windows': 'nmake -f Make_msvc.mak nodebug=1',
+\     'mac'    : 'make -f make_mac.mak',
+\     'unix'   : 'make -f make_unix.mak',
+\   },
+\ }
+
 
 " vimfiler
 NeoBundleLazy 'Shougo/vimfiler', {
@@ -602,6 +433,213 @@ endfunction
 filetype plugin on
 filetype indent on
 
+""" Restart Vim
+if has('gui')
+  nnoremap <silent> rs : <C-u> Restart <CR>
+endif
+
+""" vimshell
+nnoremap <silent> vs : <C-u> VimShell<CR>
+
+
+""" neocomplcache
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
+" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default'  : '',
+    \ 'vimshell' : '~/.vimshell_hist',
+    \ 'cpp'      : '~/.bundle/myvim_dict/cpp.dict',
+    \ 'squirrel' : '~/.bundle/myvim_dict/squirrel.dict',
+    \ }
+
+" Define keyword.
+let g:neocomplcache_keyword_patterns = get(g:, 'neocomplcache_keyword_patterns', {})
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <expr><CR>  neocomplcache#close_popup() . "\<CR>"
+" <TAB>: completion.
+inoremap <expr><TAB>    pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h>  neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS>   neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+" Enable omni completion.
+autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
+autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+
+" force omni pattern
+let g:neocomplcache_force_omni_patterns = get(g:, 'neocomplcache_force_omni_patterns', {})
+let g:neocomplcache_force_omni_patterns.ruby      = '[^. *\t]\.\h\w*\|\h\w*::'
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+let g:neocomplcache_force_omni_patterns.php       = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.c         = '[^.[:d:] *\t]\%(\.\|->\)'
+let g:neocomplcache_force_omni_patterns.cpp       = '[^.[:d:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.squirrel  = '[^.[:d:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.cs        = '[^.]\.\%(\u\{2,}\)\?'
+
+
+""" neosnippet
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+
+" Tabでスニペット選択 Spaceで選択中スニペット展開
+"imap <expr><Space> pumvisible() ? neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>" : "\<Space>"
+"imap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>"
+"smap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>"
+
+" For snippet_complete marker
+if has('conceal')
+    set conceallevel=2 concealcursor=i
+endif
+
+" path to mysnippet
+let g:neosnippet#snippets_directory='~/.bundle/mysnip'
+
+
+
+""" unite
+
+" source
+" バッファ一覧
+nnoremap <silent> <Leader>ub :<C-u>Unite -buffer-name=buffer buffer<CR>
+" ファイル一覧
+nnoremap <silent> <Leader>uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> <Leader>ud :<C-u>Unite -input=/Home/github/dotfiles/. -buffer-name=dotfiles file<CR>
+" レジスタ一覧
+nnoremap <silent> <Leader>ur :<C-u>Unite -buffer-name=register register<CR>
+" 履歴
+nnoremap <silent> <Leader>um :<C-u>Unite -buffer-name=history file_mru<CR>
+" アウトライン
+nnoremap <silent> <Leader>uo :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline -no-quit outline<CR>
+"nnoremap <silent> <Leader>ut :<C-u>Unite -vertical -winwidth=30 -buffer-name=todo -no-quit todo<CR>
+nnoremap <silent> <Leader>ut :<C-u>Unite -buffer-name=todo -no-quit todo<CR>
+" グレップ
+nnoremap <silent> <Leader>ug :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
+" スニペット探し
+nnoremap <silent> <Leader>us :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
+" NeoBundle更新
+nnoremap <silent> <Leader>un :<C-u>Unite -buffer-name=neobundle neobundle/install:!<CR>
+" Color Scheme
+nnoremap <silent> <Leader>uc :<C-u>Unite -buffer-name=colorscheme -auto-preview colorscheme<CR>
+
+
+""" vimfiler
+"nnoremap <silent> vf : <C-u> VimFilerExplorer %:h<CR>
+nnoremap <silent> vf : <C-u> VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
+
+""" gtags
+nmap     <silent> <Leader>gt  : <C-u>Gtags<Space>
+nmap     <silent> <Leader>gtr : <C-u>Gtags -r<Space>
+nnoremap <silent> <Leader>gtc : <C-u>GtagsCursor<CR>
+
+""" reanimate
+nnoremap <Space>s :<C-u>ReanimateSave<Space>
+nnoremap <Space>l :<C-u>ReanimateLoad<Space>
+nnoremap <Space>L :<C-u>ReanimateLoadLatest<Space>
+
+"--------------------------------------
+" キーバインド
+
+" ESCを簡単に
+imap <C-j> <C-[>
+nmap <C-j> <C-[>
+vmap <C-j> <C-[>
+cmap <C-j> <C-[>
+
+" vimスクリプトを再読み込み
+nnoremap <F8> :source %<CR>
+
+" ZZで全保存・全終了らしいので不可に
+nnoremap ZZ <Nop>
+
+" コマンドラインモード誤動作させがちなのでなし
+" TODO: 全く不完全
+nnoremap q: <Nop>
+
+" 補完呼び出し
+" imap <C-Space> <C-x><C-n>
+
+" 直前のバッファに移動
+nnoremap <Leader>b :b#<CR>
+
+" 日付マクロ
+inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
+inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
+
+" 連番マクロ
+" <C-a>で加算
+" <C-x>で減算
+command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
+nnoremap <silent> co : ContinuousNumber <C-a><CR>
+vnoremap <silent> <C-a> : ContinuousNumber <C-a><CR>
+vnoremap <silent> <C-x> : ContinuousNumber <C-x><CR>
+
+" help補助
+nnoremap <C-h> :<C-u>help<Space>
+
+" マーク・レジスタなど一覧
+" 使わない
+"nnoremap <Leader>M :<C-u>marks<CR>
+"nnoremap <Leader>R :<C-u>registers<CR>
+"nnoremap <Leader>B :<C-u>buffers<CR>
+"nnoremap <Leader>T :<C-u>tags<CR>
+
+" MYVIMRC
+nnoremap <Leader>v :e $MYVIMRC<CR>
+nnoremap <Leader>g :e $MYGVIMRC<CR>
+
+" ヤンクした単語で置換
+nnoremap <silent>ciy  ciw<C-r>0<Esc>:let@/=@1<CR>:noh<CR>
+nnoremap <silent>cy   ce <C-r>0<Esc>:let@/=@1<CR>:noh<CR>
+
+" 移動系
+inoremap <Leader>a  <Home>
+inoremap <Leader>e  <End>
+nnoremap <Leader>a  <Home>
+nnoremap <Leader>e  <End>
+
+" タブ関連
+nnoremap <Leader>n :<C-u>tabnew<CR>
+nnoremap <C-g>l  gt
+nnoremap <C-g>h  gT
+
+" 関数単位で移動
+" TODO: 用途が違う気がする
+noremap <C-p> [[
+noremap <C-n> ]]
+
+" カレントパスをバッファに合わせる
+nnoremap <silent><Space><Space> :<C-u>cd %:h<CR>:pwd<CR>
+
+" 置換
+nnoremap <expr> <Leader>s _(":s/<Cursor>//g")
+nnoremap <expr> <Leader>S _(":%s/<Cursor>//g")
 
 " ローカル設定を読み込む
 if filereadable(expand('~/.my_local_vimrc'))

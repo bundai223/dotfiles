@@ -15,11 +15,3 @@ setl expandtab
 setl shiftwidth=4
 setl softtabstop=4
 
-
-"--------------------------------------
-" plugin
-"--------------------------------------
-""" neobundle
-NeoBundleSource jedi.git
-NeoBundleSource jedi-vim.git
-
