@@ -356,60 +356,60 @@ function! s:bundle.hooks.on_source(bundle)
     " 入力モードで開始
     let g:unite_enable_start_insert=1
 
-    " Unite TODO ================================
-    let s:unite_source_todo = {
-    \   'name' : 'todo',
-    \   'hooks': {},
-    \}
+    "" Unite TODO ================================
+    "let s:unite_source_todo = {
+    "\   'name' : 'todo',
+    "\   'hooks': {},
+    "\}
 
-    function! s:get_SID()
-      return matchstr(expand('<sfile>'), '<SNR>\d\+_')
-    endfunction
-    let s:SID = s:get_SID()
-    delfunction s:get_SID
+    "function! s:get_SID()
+    "  return matchstr(expand('<sfile>'), '<SNR>\d\+_')
+    "endfunction
+    "let s:SID = s:get_SID()
+    "delfunction s:get_SID
 
-    function! s:Todo_source_hooks_on_init(args, context)
-        let a:context.source__todo_target_bufno = bufnr('%')
-"        let g:aaaaaaaaaaaaaaaaa = bufnr('#') . ' : ' . expand('#' . bufnr('#') . ':p')
-    endfunction
+    "function! s:Todo_source_hooks_on_init(args, context)
+    "    let a:context.source__todo_target_bufno = bufnr('%')
+"   "     let g:aaaaaaaaaaaaaaaaa = bufnr('#') . ' : ' . expand('#' . bufnr('#') . ':p')
+    "endfunction
 
-    function! s:Todo_source_async_gather_candidate(args, context)
+    "function! s:Todo_source_async_gather_candidate(args, context)
 
-        " まず前回のキャッシュをクリア
-        let a:context.source.unite__cached_candidates = []
+    "    " まず前回のキャッシュをクリア
+    "    let a:context.source.unite__cached_candidates = []
 
-        let bufNo = a:context.source__todo_target_bufno
-        let lines  = getbufline(bufNo, 1, '$')
-        let path   = expand('#' . bufNo . ':p')
+    "    let bufNo = a:context.source__todo_target_bufno
+    "    let lines  = getbufline(bufNo, 1, '$')
+    "    let path   = expand('#' . bufNo . ':p')
 
-        " TODOの行をリストアップ
-        let candidate_list = []
-        let line_index = 0
-        for line in lines
-            let index = match(line, 'TODO')
-            if 0 <= index
-                call add(candidate_list, [line_index, line[index : -1]])
-            endif
-            let line_index = line_index + 1
-        endfor
+    "    " TODOの行をリストアップ
+    "    let candidate_list = []
+    "    let line_index = 0
+    "    for line in lines
+    "        let index = match(line, 'TODO')
+    "        if 0 <= index
+    "            call add(candidate_list, [line_index, line[index : -1]])
+    "        endif
+    "        let line_index = line_index + 1
+    "    endfor
 
-        let format = '%' . strlen(line_index) . 'd: %s'
-        let result = map(candidate_list, '{
-                    \   "word"          : printf(format, v:val[0], v:val[1]),
-                    \   "source"        : "todo",
-                    \   "kind"          : "jump_list",
-                    \   "action__path"  : path,
-                    \   "action__line"  : v:val[0] + 1,
-                    \}')
-        return result
-    endfunction
+    "    let format = '%' . strlen(line_index) . 'd: %s'
+    "    let result = map(candidate_list, '{
+    "                \   "word"          : printf(format, v:val[0], v:val[1]),
+    "                \   "source"        : "todo",
+    "                \   "kind"          : "jump_list",
+    "                \   "action__path"  : path,
+    "                \   "action__line"  : v:val[0] + 1,
+    "                \}')
+    "    return result
+    "endfunction
 
-    let s:unite_source_todo.hooks.on_init           = function(s:SID . 'Todo_source_hooks_on_init')
-    let s:unite_source_todo.async_gather_candidates = function(s:SID . 'Todo_source_async_gather_candidate')
+    "let s:unite_source_todo.hooks.on_init           = function(s:SID . 'Todo_source_hooks_on_init')
+    "let s:unite_source_todo.async_gather_candidates = function(s:SID . 'Todo_source_async_gather_candidate')
 
-    call unite#define_source(s:unite_source_todo)
-    unlet s:unite_source_todo
-    " ===========================================
+    "call unite#define_source(s:unite_source_todo)
+    "unlet s:unite_source_todo
+    "" ===========================================
 endfunction
 
 NeoBundle 'ujihisa/unite-colorscheme'
@@ -538,7 +538,7 @@ nnoremap <silent> <Leader>um :<C-u>Unite -buffer-name=history file_mru<CR>
 " アウトライン
 nnoremap <silent> <Leader>uo :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline -no-quit outline<CR>
 "nnoremap <silent> <Leader>ut :<C-u>Unite -vertical -winwidth=30 -buffer-name=todo -no-quit todo<CR>
-nnoremap <silent> <Leader>ut :<C-u>Unite -buffer-name=todo -no-quit todo<CR>
+"nnoremap <silent> <Leader>ut :<C-u>Unite -buffer-name=todo -no-quit todo<CR>
 " グレップ
 nnoremap <silent> <Leader>ug :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
 " スニペット探し
@@ -577,10 +577,6 @@ nnoremap <F8> :source %<CR>
 
 " ZZで全保存・全終了らしいので不可に
 nnoremap ZZ <Nop>
-
-" コマンドラインモード誤動作させがちなのでなし
-" TODO: 全く不完全
-nnoremap q: <Nop>
 
 " 補完呼び出し
 " imap <C-Space> <C-x><C-n>
@@ -630,7 +626,6 @@ nnoremap <C-g>l  gt
 nnoremap <C-g>h  gT
 
 " 関数単位で移動
-" TODO: 用途が違う気がする
 noremap <C-p> [[
 noremap <C-n> ]]
 
