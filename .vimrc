@@ -285,8 +285,8 @@ NeoBundleLazy 'nosami/Omnisharp', {
 \ }
 
 " Python
-NeoBundleLazy 'davidhalter/jedi', { 'autoload': {'filetypes': ['cs']} }
-NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload': {'filetypes': ['cs']} }
+NeoBundleLazy 'davidhalter/jedi', { 'autoload': {'filetypes': ['python']} }
+NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload': {'filetypes': ['python']} }
 
 " Haxe
 "NeoBundleLazy 'jdonaldson/vaxe'
