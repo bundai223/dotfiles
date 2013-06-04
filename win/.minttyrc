@@ -5,6 +5,6 @@ Columns=100
 Rows=34
 FontHeight=12
 Locale=ja_JP
-Charset=SJIS
+Charset=UTF-8
 Font=Ricty
 FontIsBold=yes
