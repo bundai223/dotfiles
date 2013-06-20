@@ -33,8 +33,8 @@ autocmd FileType * setlocal formatoptions-=ro
 
 " シンボリックなファイルを編集するとリンクが消されてしまうことがあったので
 " 参照先を変数に上書き
-let $MYVIMRC="~/github/dotfiles/.vimrc"
-let $MYGVIMRC="~/github/dotfiles/.gvimrc"
+let $MYVIMRC="~/labo/dotfiles/.vimrc"
+let $MYGVIMRC="~/labo/dotfiles/.gvimrc"
 
 " 分割方向を指定
 set splitbelow
@@ -44,7 +44,7 @@ set completeopt=menu,preview
 " Goのpath
 if $GOROOT != ''
     set runtimepath+=$GOROOT/misc/vim
-    exe "set runtimepath+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+    exe "set runtimepath+=".globpath($GOPATH, "src/labo.com/nsf/gocode/vim")
 endif
 
 
@@ -351,7 +351,7 @@ function! s:bundle.hooks.on_source(bundle)
     let g:vimshell_prompt='$ '
     let g:vimshell_split_command="split"
     
-    let g:vimshell_vimshrc_path = expand('~/github/dotfiles/.vimshrc')
+    let g:vimshell_vimshrc_path = expand('~/labo/dotfiles/.vimshrc')
 endfunction
 
 " unite
@@ -484,7 +484,7 @@ let g:neosnippet#snippets_directory='~/.bundle/mysnip'
 nnoremap <silent> <Leader>ub :<C-u>Unite -buffer-name=buffer buffer<CR>
 " ファイル一覧
 nnoremap <silent> <Leader>uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> <Leader>ud :<C-u>Unite -input=/Home/github/dotfiles/. -buffer-name=dotfiles file<CR>
+nnoremap <silent> <Leader>ud :<C-u>Unite -input=/Home/labo/dotfiles/. -buffer-name=dotfiles file<CR>
 " レジスタ一覧
 nnoremap <silent> <Leader>ur :<C-u>Unite -buffer-name=register register<CR>
 " 履歴

@@ -7,7 +7,7 @@
 #endif
 
 # reload vimshrc
-alias reload = 'vimsh ~/github/dotfiles/.vimshrc'
+alias reload = 'vimsh ~/labo/dotfiles/.vimshrc'
 alias rl = reload
 
 # file open

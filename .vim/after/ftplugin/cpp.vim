@@ -45,7 +45,7 @@ endfunction
 
 " C++マクロ展開
 function! CppRegion() range
-  exe "'<,'>!sh " . expand("~/github/dotfiles/util/cppregion.sh") . " " . expand("%") . " " . a:firstline . " " . a:lastline 
+  exe "'<,'>!sh " . expand("~/labo/dotfiles/util/cppregion.sh") . " " . expand("%") . " " . a:firstline . " " . a:lastline 
 endfunction
 
 
