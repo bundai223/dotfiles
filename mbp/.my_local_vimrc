@@ -9,5 +9,6 @@ map _ <Leader>
 "hi PmenuSbar ctermbg=2
 "hi PmenuThumb ctermfg=3
 "colorscheme molokai
-colorscheme hybrid
+set t_Co=256
+colorscheme molokai
 
