@@ -365,7 +365,7 @@ function! s:bundle.hooks.on_source(bundle)
 endfunction
 
 NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'Shougo/unite-outline'
 NeoBundle 'bundai223/unite-outline-sources'
 NeoBundle 'bundai223/unite-picktodo'
 
