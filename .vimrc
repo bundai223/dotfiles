@@ -305,7 +305,6 @@ NeoBundleLazy 'vim-scripts/glsl.vim', { 'autoload': {'filetypes': ['glsl']} }
 "NeoBundle 'kien/ctrlp.vim'
 "NeoBundle 't9md/vim-quickhl'
 NeoBundle 'rhysd/clever-f.vim'
-NeoBundle 'tpope/vim-surround'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-prettyprint'
@@ -324,6 +323,10 @@ NeoBundle 'Shougo/vimproc', {
 \   },
 \ }
 
+" textobj
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'osyo-manga/vim-textobj-multiblock'
 
 " vimfiler
 NeoBundleLazy 'Shougo/vimfiler', {
@@ -396,7 +399,7 @@ nnoremap <silent> vs : <C-u> VimShell<CR>
 " disable AutoComplPop
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
-let g:neocomplete#enable_at_startup = 0
+let g:neocomplete#enable_at_startup = 1
 
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
@@ -511,6 +514,10 @@ nnoremap <silent> <Leader>gtc : <C-u>GtagsCursor<CR>
 nnoremap <Space>s :<C-u>ReanimateSave<Space>
 nnoremap <Space>l :<C-u>ReanimateLoad<Space>
 nnoremap <Space>L :<C-u>ReanimateLoadLatest<Space>
+
+""" textobj-multiblock
+vmap ab <Plug>(textobj-multiblock-a)
+vmap ib <Plug>(textobj-multiblock-i)
 
 "--------------------------------------
 " キーバインド
