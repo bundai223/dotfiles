@@ -232,13 +232,15 @@ if has('vim_starting')
 endif
 
 " repository
-" Color
+"=====================================
+" Color Scheme
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'w0ng/vim-hybrid'
 
+"=====================================
 " language
 " C++
 NeoBundleLazy 'vim-jp/cpp-vim', { 'autoload': {'filetypes': ['cpp']} }
@@ -300,6 +302,13 @@ NeoBundleLazy 'vim-scripts/glsl.vim', { 'autoload': {'filetypes': ['glsl']} }
 "NeoBundleLazy 'bundai223/FX-HLSL', { 'autoload': {'filetypes': ['fx']} }
 
 
+"=====================================
+" textobj
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'osyo-manga/vim-textobj-multiblock'
+
+"=====================================
 " utl
 "NeoBundle 'tyru/coolgrep.vim'
 "NeoBundle 'kien/ctrlp.vim'
@@ -323,10 +332,8 @@ NeoBundle 'Shougo/vimproc', {
 \   },
 \ }
 
-" textobj
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'kana/vim-textobj-user'
-NeoBundle 'osyo-manga/vim-textobj-multiblock'
+NeoBundle 'kana/vim-smartinput'
+NeoBundle 'kana/vim-smartchr'
 
 " vimfiler
 NeoBundleLazy 'Shougo/vimfiler', {
@@ -369,10 +376,6 @@ NeoBundle 'Shougo/unite-outline'
 NeoBundle 'bundai223/unite-outline-sources'
 NeoBundle 'bundai223/unite-picktodo'
 
-" private snippet
-NeoBundle 'bundai223/mysnip'
-NeoBundle 'bundai223/myvim_dict'
-
 NeoBundleLazy 'tyru/restart.vim'
 
 NeoBundleLazy 'thinca/vim-singleton'
@@ -381,6 +384,11 @@ function! s:bundle.hooks.on_source(bundle)
     " singletonを有効に
     call singleton#enable()
 endfunction
+
+"=====================================
+" private snippet
+NeoBundle 'bundai223/mysnip'
+NeoBundle 'bundai223/myvim_dict'
 
 
 filetype plugin on
@@ -518,6 +526,40 @@ nnoremap <Space>L :<C-u>ReanimateLoadLatest<Space>
 """ textobj-multiblock
 vmap ab <Plug>(textobj-multiblock-a)
 vmap ib <Plug>(textobj-multiblock-i)
+
+""" smart chr
+" 演算子の間に空白を入れる
+inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <': smartchr#one_of(' < ', ' << ', '<')
+inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#one_of(' > ', ' >> ', '>')
+inoremap <buffer><expr> + smartchr#one_of(' + ', '++', '+')
+inoremap <buffer><expr> - smartchr#one_of(' - ', '--', '-')
+inoremap <buffer><expr> / smartchr#one_of(' / ', '// ', '/')
+" *はポインタで使うので、空白はいれない
+inoremap <buffer><expr> & smartchr#one_of(' & ', ' && ', '&')
+inoremap <buffer><expr> % smartchr#one_of(' % ', '%')
+inoremap <buffer><expr> <Bar> smartchr#one_of(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
+inoremap <buffer><expr> , smartchr#one_of(', ', ',')
+" 3項演算子の場合は、後ろのみ空白を入れる
+inoremap <buffer><expr> ? smartchr#one_of('? ', '?')
+inoremap <buffer><expr> : smartchr#one_of(': ', '::', ':')
+
+" =の場合、単純な代入や比較演算子として入力する場合は前後にスペースをいれる。
+" 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
+inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>%\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
+				\ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
+				\ : smartchr#one_of(' = ', ' == ', '=')
+
+" 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
+inoremap <buffer><expr> } smartchr#one_of('}', '}<cr>')
+inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
+" 「->」は入力しづらいので、..で置換え
+inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
+" 行先頭での@入力で、プリプロセス命令文を入力
+inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
+
+inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' "': '"'
+" if文直後の(は自動で間に空白を入れる
+inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' (': '('
 
 "--------------------------------------
 " キーバインド
