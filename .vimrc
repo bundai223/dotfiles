@@ -1,47 +1,47 @@
 
 "--------------------------------------
-" vimã®åŸºæœ¬çš„ãªè¨­å®š
+" vim‚ÌŠî–{“I‚Èİ’è
 "--------------------------------------
 scriptencoding utf-8
 set nocompatible
 
-" æ–‡å­—ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰
+" •¶šƒGƒ“ƒR[ƒh
 set encoding=utf-8
 set fileencoding=utf-8
-" ã“ã„ã¤ã®ã›ã„ã§<C-o>ãªã©ã§ã®ã‚¸ãƒ£ãƒ³ãƒ—ãŒãŠã‹ã—ããªã£ã¦ãŸ
-" åŸå› ã¯ã‚ˆãã‚ã‹ã‚‰ãªã„
+" ‚±‚¢‚Â‚Ì‚¹‚¢‚Å<C-o>‚È‚Ç‚Å‚ÌƒWƒƒƒ“ƒv‚ª‚¨‚©‚µ‚­‚È‚Á‚Ä‚½
+" Œ´ˆö‚Í‚æ‚­‚í‚©‚ç‚È‚¢
 "set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 set fileformat=unix
 set fileformats=dos,unix
 
-" ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«ã®è¨­å®š
+" ƒoƒbƒNƒAƒbƒvƒtƒ@ƒCƒ‹‚Ìİ’è
 "set nowritebackup
 "set nobackup
 set noswapfile
 
-" tabã§ã‚¹ãƒšãƒ¼ã‚¹ã‚’æŒ¿å…¥
+" tab‚ÅƒXƒy[ƒX‚ğ‘}“ü
 set expandtab
 set smarttab
 set tabstop=4
 set shiftwidth=4
 
-" ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã™ã‚‹
+" ƒNƒŠƒbƒvƒ{[ƒh‚ğg—p‚·‚é
 set clipboard=unnamed,autoselect
 
-" æ”¹è¡Œæ™‚ã®è‡ªå‹•ã‚³ãƒ¡ãƒ³ãƒˆã‚’ãªã—ã«
+" ‰üs‚Ì©“®ƒRƒƒ“ƒg‚ğ‚È‚µ‚É
 autocmd FileType * setlocal formatoptions-=ro
 
-" ã‚·ãƒ³ãƒœãƒªãƒƒã‚¯ãªãƒ•ã‚¡ã‚¤ãƒ«ã‚’ç·¨é›†ã™ã‚‹ã¨ãƒªãƒ³ã‚¯ãŒæ¶ˆã•ã‚Œã¦ã—ã¾ã†ã“ã¨ãŒã‚ã£ãŸã®ã§
-" å‚ç…§å…ˆã‚’å¤‰æ•°ã«ä¸Šæ›¸ã
+" ƒVƒ“ƒ{ƒŠƒbƒN‚Èƒtƒ@ƒCƒ‹‚ğ•ÒW‚·‚é‚ÆƒŠƒ“ƒN‚ªÁ‚³‚ê‚Ä‚µ‚Ü‚¤‚±‚Æ‚ª‚ ‚Á‚½‚Ì‚Å
+" QÆæ‚ğ•Ï”‚Éã‘‚«
 let $MYVIMRC="~/labo/dotfiles/.vimrc"
 let $MYGVIMRC="~/labo/dotfiles/.gvimrc"
 
-" åˆ†å‰²æ–¹å‘ã‚’æŒ‡å®š
+" •ªŠ„•ûŒü‚ğw’è
 set splitbelow
 "set splitright
 
 set completeopt=menu,preview
-" Goã®path
+" Go‚Ìpath
 if $GOROOT != ''
     set runtimepath+=$GOROOT/misc/vim
     exe "set runtimepath+=".globpath($GOPATH, "src/labo.com/nsf/gocode/vim")
@@ -49,64 +49,64 @@ endif
 
 
 "--------------------------------------
-" åŸºæœ¬çš„ãªè¨­å®š
+" Šî–{“I‚Èİ’è
 "--------------------------------------
 if has('unix')
     let $USERNAME=$USER
 endif
 
-" å±¥æ­´ã®ä¿å­˜
+" —š—ğ‚Ì•Û‘¶
 "if has('persistent_undo' )
 "    set undodir=~/.vim/undo
 "    set undofile
 "endif
 
-" Leaderã‚’è¨­å®š
+" Leader‚ğİ’è
 "let mapleader=' '
 if has('mac')
     map _ <Leader>
 endif
 
 "--------------------------------------
-" æ¤œç´¢
+" ŒŸõ
 "--------------------------------------
-" æ¤œç´¢æ™‚å¤§æ–‡å­—å°æ–‡å­—ã®åŒºåˆ¥ãªã—
-" ãŸã ã—ä¸¡æ–¹å«ã‚€ã¨ãã¯åŒºåˆ¥ã™ã‚‹
+" ŒŸõ‘å•¶š¬•¶š‚Ì‹æ•Ê‚È‚µ
+" ‚½‚¾‚µ—¼•ûŠÜ‚Ş‚Æ‚«‚Í‹æ•Ê‚·‚é
 set ignorecase
 set smartcase
-" æ¤œç´¢ã‚’æœ€å¾Œã¾ã§è¡Œã£ãŸã‚‰æœ€åˆã«æˆ»ã‚‹
+" ŒŸõ‚ğÅŒã‚Ü‚Ås‚Á‚½‚çÅ‰‚É–ß‚é
 set wrapscan
-" ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ã‚¿ãƒ«ã‚µãƒ¼ãƒ
+" ƒCƒ“ƒNƒŠƒƒ“ƒ^ƒ‹ƒT[ƒ`
 set incsearch
-" æ¤œç´¢æ–‡å­—ã®å¼·èª¿è¡¨ç¤º
+" ŒŸõ•¶š‚Ì‹­’²•\¦
 set hlsearch
-" tagãƒ•ã‚¡ã‚¤ãƒ«ã®æ¤œç´¢ãƒ‘ã‚¹æŒ‡å®š
-" ã‚«ãƒ¬ãƒ³ãƒˆã‹ã‚‰è¦ªãƒ•ã‚©ãƒ«ãƒ€ã«è¦‹ã¤ã‹ã‚‹ã¾ã§ãŸã©ã‚‹
-" tagã®è¨­å®šã¯å„ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã”ã¨ã‚‚setlocalã™ã‚‹
+" tagƒtƒ@ƒCƒ‹‚ÌŒŸõƒpƒXw’è
+" ƒJƒŒƒ“ƒg‚©‚çeƒtƒHƒ‹ƒ_‚ÉŒ©‚Â‚©‚é‚Ü‚Å‚½‚Ç‚é
+" tag‚Ìİ’è‚ÍŠeƒvƒƒWƒFƒNƒg‚²‚Æ‚àsetlocal‚·‚é
 set tags=tags;
 
-" æ¤œç´¢çµæœã‚’ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦çœŸã‚“ä¸­ã«
+" ŒŸõŒ‹‰Ê‚ğƒEƒCƒ“ƒhƒE^‚ñ’†‚É
 nnoremap n nzz
 
-" å¤–éƒ¨grepã®è¨­å®š
+" ŠO•”grep‚Ìİ’è
 set grepprg=grep\ -nH
 
 "--------------------------------------
-" è¡¨ç¤ºã®è¨­å®š
+" •\¦‚Ìİ’è
 "--------------------------------------
-" è¡Œç•ªå·è¡¨ç¤º
+" s”Ô†•\¦
 "set number
 set relativenumber
-" tab è¡Œæœ«spaceã‚’è¡¨ç¤º
+" tab s––space‚ğ•\¦
 set list
 set listchars=tab:^\ ,trail:~
 
-" ãƒã‚¤ãƒ©ã‚¤ãƒˆã®ã‚ªãƒ³
+" ƒnƒCƒ‰ƒCƒg‚ÌƒIƒ“
 if &t_Co > 2 || has('gui_running')
     syntax on
 endif
 
-" æŒ¿å…¥ãƒ¢ãƒ¼ãƒ‰æ™‚ã«ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒ©ã‚¤ãƒ³ã®è‰²ã‚’å¤‰æ›´
+" ‘}“üƒ‚[ƒh‚ÉƒXƒe[ƒ^ƒXƒ‰ƒCƒ“‚ÌF‚ğ•ÏX
 let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
 
 if has('syntax')
@@ -138,7 +138,7 @@ function! s:GetHighlight(hi)
 endfunction
 
 if has('unix') && !has('gui_running')
-  " ubuntuãªã©ESCå¾Œã«ã™ãåæ˜ ã•ã‚Œãªã„å¯¾ç­–
+  " ubuntu‚È‚ÇESCŒã‚É‚·‚®”½‰f‚³‚ê‚È‚¢‘Îô
   inoremap <silent> <ESC> <ESC>
 endif
 
@@ -146,14 +146,14 @@ endif
 " vim script
 "--------------------------------------
 
-"" grepçµæœã‚’quickfixã«å‡ºåŠ›
+"" grepŒ‹‰Ê‚ğquickfix‚Éo—Í
 " **** grep -iHn -R 'target string' target_path | cw ****
 " **** vimgrep 'target string' target_path | cw ****
 "
 
 " grep
 " exp ) :Grep word ./path
-"        pathã‚’çœç•¥ã—ãŸå ´åˆã¯ã‚«ãƒ¬ãƒ³ãƒˆã‹ã‚‰å†å¸°çš„ã«
+"        path‚ğÈ—ª‚µ‚½ê‡‚ÍƒJƒŒƒ“ƒg‚©‚çÄ‹A“I‚É
 "command! -complete=file -nargs=+ Grep call s:grep([<f-args>])
 "function! s:grep(args)
 "    let target = len(a:args) > 1 ? join(a:args[1:]) : '**/*'
@@ -161,13 +161,13 @@ endif
 "    if len(getqflist()) != 0 | copen | endif
 "endfunction
 
-" filetype èª¿æŸ»
+" filetype ’²¸
 " :verbose :setlocal filetype?
 
-" å¤‰æ•°ã®ä¸­èº«ã‚’è¡¨ç¤º
+" •Ï”‚Ì’†g‚ğ•\¦
 command! -nargs=+ Vars PP filter(copy(g:), 'v:key =~# "^<args>"')
 
-" *.hã‚’ä½œæˆã™ã‚‹ã¨ãã«ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ã‚¬ãƒ¼ãƒ‰ã‚’ä½œæˆã™ã‚‹
+" *.h‚ğì¬‚·‚é‚Æ‚«‚ÉƒCƒ“ƒNƒ‹[ƒhƒK[ƒh‚ğì¬‚·‚é
 au BufNewFile *.h call InsertHeaderHeader()
 au BufNewFile *.cpp call InsertFileHeader()
 
@@ -199,10 +199,10 @@ function! InsertHeaderHeader()
     call InsertFileHeader()
 endfunction
 
-" ã‚«ãƒ¼ã‚½ãƒ«ã‚’æŒ‡å®šä½ç½®ã«ç§»å‹•
-"å±•é–‹å¾Œ <Cursor> ä½ç½®ã«ã‚«ãƒ¼ã‚½ãƒ«ãŒç§»å‹•ã™ã‚‹
-"nnoremap <expr> <A-p> _(":%s/<Cursor>/ã»ã‚€/g")
-"nnoremap <expr> <A-p> ":%s//ã»ã‚€/g\<Left>\<Left>\<Left>\<Left>\<Left>\<Left>\<Left>"
+" ƒJ[ƒ\ƒ‹‚ğw’èˆÊ’u‚ÉˆÚ“®
+"“WŠJŒã <Cursor> ˆÊ’u‚ÉƒJ[ƒ\ƒ‹‚ªˆÚ“®‚·‚é
+"nnoremap <expr> <A-p> _(":%s/<Cursor>/‚Ù‚Ş/g")
+"nnoremap <expr> <A-p> ":%s//‚Ù‚Ş/g\<Left>\<Left>\<Left>\<Left>\<Left>\<Left>\<Left>"
 function! s:move_cursor_pos_mapping(str, ...)
     let left = get(a:, 1, "<Left>")
     let lefts = join(map(split(matchstr(a:str, '.*<Cursor>\zs.*\ze'), '.\zs'), 'left'), "")
@@ -213,14 +213,14 @@ function! _(str)
     return s:move_cursor_pos_mapping(a:str, "\<Left>")
 endfunction
 
-" ã‚³ãƒãƒ³ãƒ‰ç‰ˆ
-"Nnoremap <A-o> :%s/<Cursor>/ãƒãƒŸ/g
+" ƒRƒ}ƒ“ƒh”Å
+"Nnoremap <A-o> :%s/<Cursor>/ƒ}ƒ~/g
 command! -nargs=* MoveCursorPosMap execute <SID>move_cursor_pos_mapping(<q-args>)
 command! -nargs=* Nnoremap MoveCursorPosMap nnoremap <args>
 
 
 "--------------------------------------
-" ãƒ—ãƒ©ã‚°ã‚¤ãƒ³
+" ƒvƒ‰ƒOƒCƒ“
 
 """ neobundle
 filetype off
@@ -233,6 +233,123 @@ endif
 
 " repository
 "=====================================
+" language
+" C++
+NeoBundleLazy 'vim-jp/cpp-vim', {
+            \   'autoload': {'filetypes': ['cpp']}
+            \ }
+NeoBundleLazy 'vim-scripts/opengl.vim', {
+            \   'autoload': {'filetypes': ['cpp']}
+            \ }
+NeoBundleLazy 'Rip-Rip/clang_complete', {
+            \   'autoload': {'filetypes': ['cpp']}
+            \ }
+
+" C#
+NeoBundleLazy 'nosami/Omnisharp', {
+            \   'autoload': {'filetypes': ['cs']},
+            \   'build': {
+            \     'windows': 'MSBuild.exe server/OmniSharp.sln /p:Platform="Any CPU"',
+            \     'mac': 'xbuild server/OmniSharp.sln',
+            \     'unix': 'xbuild server/OmniSharp.sln',
+            \   }
+            \ }
+
+" Python
+NeoBundleLazy 'davidhalter/jedi', {
+            \   'autoload': {'filetypes': ['python']}
+            \ }
+NeoBundleLazy 'davidhalter/jedi-vim', {
+            \   'autoload': {'filetypes': ['python']}
+            \ }
+
+" Haxe
+"NeoBundleLazy 'jdonaldson/vaxe'
+
+" shader
+NeoBundleLazy 'vim-scripts/glsl.vim', {
+            \   'autoload': {'filetypes': ['glsl']}
+            \ }
+"NeoBundleLazy 'bundai223/FX-HLSL', {
+            \   'autoload': {'filetypes': ['fx']}
+            \ }
+
+
+"=====================================
+" textobj
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'osyo-manga/vim-textobj-multiblock'
+
+"=====================================
+" utl
+NeoBundle 'h1mesuke/vim-alignta'
+"NeoBundle 'tyru/coolgrep.vim'
+"NeoBundle 'kien/ctrlp.vim'
+"NeoBundle 't9md/vim-quickhl'
+NeoBundle 'rhysd/clever-f.vim'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'thinca/vim-localrc'
+NeoBundle 'thinca/vim-prettyprint'
+NeoBundle 'mattn/webapi-vim'
+"NeoBundle 'mattn/learn-vimscript'
+"NeoBundle 'vim-scripts/gtags.vim'
+NeoBundle 'Shougo/vinarise'
+NeoBundle 'Shougo/neocomplete'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/vimproc', {
+        \   'build': {
+        \     'windows': 'nmake -f Make_msvc.mak nodebug=1',
+        \     'mac'    : 'make -f make_mac.mak',
+        \     'unix'   : 'make -f make_unix.mak',
+        \   },
+        \ }
+
+NeoBundle 'kana/vim-smartinput'
+NeoBundle 'kana/vim-smartchr'
+
+" vimfiler
+NeoBundleLazy 'Shougo/vimfiler', {
+            \   'autoload' : {'commands' : ['VimFilerBufferDir'] },
+            \ }
+" vimshell
+NeoBundleLazy 'Shougo/vimshell', {
+            \   'autoload' : {'commands' : ['VimShell'] },
+            \ }
+
+" unite
+NeoBundleLazy 'Shougo/unite.vim',{
+            \   'autoload' : {'commands' : ['Unite', 'UniteWithBufferDir'] },
+            \ }
+
+
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'Shougo/unite-outline'
+NeoBundle 'bundai223/unite-outline-sources'
+NeoBundle 'bundai223/unite-picktodo'
+
+NeoBundleLazy 'tyru/restart.vim', {
+            \   'gui' : 1,
+            \   'autoload' : {
+            \     'commands' : 'Restart'
+            \  }
+            \ }
+
+NeoBundle 'thinca/vim-singleton' , {
+        \   'gui' : 1
+        \ }
+
+"=====================================
+" private snippet
+NeoBundle 'bundai223/mysnip'
+NeoBundle 'bundai223/myvim_dict'
+
+"=====================================
+" other
+NeoBundle 'vim-jp/vital.vim'
+NeoBundle 'vim-jp/vimdoc-ja'
+
+"=====================================
 " Color Scheme
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'tomasr/molokai'
@@ -240,13 +357,8 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'w0ng/vim-hybrid'
 
-"=====================================
-" language
-" C++
-NeoBundleLazy 'vim-jp/cpp-vim', { 'autoload': {'filetypes': ['cpp']} }
-NeoBundleLazy 'vim-scripts/opengl.vim', { 'autoload': {'filetypes': ['cpp']} }
 
-NeoBundleLazy 'Rip-Rip/clang_complete', { 'autoload': {'filetypes': ['cpp']} }
+"""
 let s:bundle = neobundle#get('clang_complete')
 function! s:bundle.hooks.on_source(bundle)
     let g:clang_complete_auto   = 0
@@ -280,75 +392,12 @@ function! s:bundle.hooks.on_source(bundle)
     endif
 endfunction
 
-" C#
-NeoBundleLazy 'nosami/Omnisharp', {
-\   'autoload': {'filetypes': ['cs']},
-\   'build': {
-\     'windows': 'MSBuild.exe server/OmniSharp.sln /p:Platform="Any CPU"',
-\     'mac': 'xbuild server/OmniSharp.sln',
-\     'unix': 'xbuild server/OmniSharp.sln',
-\   }
-\ }
-
-" Python
-NeoBundleLazy 'davidhalter/jedi', { 'autoload': {'filetypes': ['python']} }
-NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload': {'filetypes': ['python']} }
-
-" Haxe
-"NeoBundleLazy 'jdonaldson/vaxe'
-
-" shader
-NeoBundleLazy 'vim-scripts/glsl.vim', { 'autoload': {'filetypes': ['glsl']} }
-"NeoBundleLazy 'bundai223/FX-HLSL', { 'autoload': {'filetypes': ['fx']} }
-
-
-"=====================================
-" textobj
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'kana/vim-textobj-user'
-NeoBundle 'osyo-manga/vim-textobj-multiblock'
-
-"=====================================
-" utl
-"NeoBundle 'tyru/coolgrep.vim'
-"NeoBundle 'kien/ctrlp.vim'
-"NeoBundle 't9md/vim-quickhl'
-NeoBundle 'rhysd/clever-f.vim'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'thinca/vim-localrc'
-NeoBundle 'thinca/vim-prettyprint'
-NeoBundle 'mattn/webapi-vim'
-"NeoBundle 'mattn/learn-vimscript'
-"NeoBundle 'vim-scripts/gtags.vim'
-NeoBundle 'osyo-manga/vim-reanimate'
-NeoBundle 'Shougo/vinarise'
-NeoBundle 'Shougo/neocomplete'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/vimproc', {
-\   'build': {
-\     'windows': 'nmake -f Make_msvc.mak nodebug=1',
-\     'mac'    : 'make -f make_mac.mak',
-\     'unix'   : 'make -f make_unix.mak',
-\   },
-\ }
-
-NeoBundle 'kana/vim-smartinput'
-NeoBundle 'kana/vim-smartchr'
-
-" vimfiler
-NeoBundleLazy 'Shougo/vimfiler', {
-\    'autoload' : {'commands' : ['VimFilerBufferDir'] },
-\}
 let s:bundle = neobundle#get('vimfiler')
 function! s:bundle.hooks.on_source(bundle)
     let g:vimfiler_as_default_explorer=1
     let g:vimfiler_safe_mode_by_default=0
 endfunction
 
-" vimshell
-NeoBundleLazy 'Shougo/vimshell', {
-\    'autoload' : {'commands' : ['VimShell'] },
-\}
 let s:bundle = neobundle#get('vimshell')
 function! s:bundle.hooks.on_source(bundle)
     if has('win32')
@@ -361,42 +410,24 @@ function! s:bundle.hooks.on_source(bundle)
     let g:vimshell_vimshrc_path = expand('~/labo/dotfiles/.vimshrc')
 endfunction
 
-" unite
-NeoBundleLazy 'Shougo/unite.vim',{
-\    'autoload' : {'commands' : ['Unite', 'UniteWithBufferDir'] },
-\}
 let s:bundle = neobundle#get('unite.vim')
 function! s:bundle.hooks.on_source(bundle)
-    " å…¥åŠ›ãƒ¢ãƒ¼ãƒ‰ã§é–‹å§‹
+    " “ü—Íƒ‚[ƒh‚ÅŠJn
     let g:unite_enable_start_insert=1
 endfunction
-
-NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'Shougo/unite-outline'
-NeoBundle 'bundai223/unite-outline-sources'
-NeoBundle 'bundai223/unite-picktodo'
-
-NeoBundleLazy 'tyru/restart.vim'
-
-NeoBundleLazy 'thinca/vim-singleton'
-let s:bundle = neobundle#get('vim-singleton')
-function! s:bundle.hooks.on_source(bundle)
-    " singletonã‚’æœ‰åŠ¹ã«
-    call singleton#enable()
-endfunction
-
-"=====================================
-" private snippet
-NeoBundle 'bundai223/mysnip'
-NeoBundle 'bundai223/myvim_dict'
-
 
 filetype plugin on
 filetype indent on
 
-""" Restart Vim
+" vital
+let g:V = vital#of('vital')
+
 if has('gui')
-  nnoremap <silent> rs : <C-u> Restart <CR>
+    " restart
+    nnoremap <silent> rs : <C-u> Restart <CR>
+
+    " singleton
+    call singleton#enable()
 endif
 
 """ vimshell
@@ -468,7 +499,7 @@ let g:neocomplete#sources#omni#input_patterns.go        = '[^.]\.\%(\u\{2,}\)\?'
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
-" Tabã§ã‚¹ãƒ‹ãƒšãƒƒãƒˆé¸æŠ Spaceã§é¸æŠä¸­ã‚¹ãƒ‹ãƒšãƒƒãƒˆå±•é–‹
+" Tab‚ÅƒXƒjƒyƒbƒg‘I‘ğ Space‚Å‘I‘ğ’†ƒXƒjƒyƒbƒg“WŠJ
 "imap <expr><Space> pumvisible() ? neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>" : "\<Space>"
 "imap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>"
 "smap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>"
@@ -484,29 +515,36 @@ let g:neosnippet#snippets_directory='~/.bundle/mysnip'
 
 
 """ unite
+" <Space>‚ğunite‚ÌƒL[‚É
+nnoremap [unite] <Nop>
+nmap <Space> [unite]
 
 " source
-" ãƒãƒƒãƒ•ã‚¡ä¸€è¦§
-nnoremap <silent> <Leader>ub :<C-u>Unite -buffer-name=buffer buffer<CR>
-" ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§
-nnoremap <silent> <Leader>uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> <Leader>ud :<C-u>Unite -input=/Home/labo/dotfiles/. -buffer-name=dotfiles file<CR>
-" ãƒ¬ã‚¸ã‚¹ã‚¿ä¸€è¦§
-nnoremap <silent> <Leader>ur :<C-u>Unite -buffer-name=register register<CR>
-" å±¥æ­´
-nnoremap <silent> <Leader>um :<C-u>Unite -buffer-name=history file_mru<CR>
-" ã‚¢ã‚¦ãƒˆãƒ©ã‚¤ãƒ³
-nnoremap <silent> <Leader>uo :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline -no-quit outline<CR>
-"nnoremap <silent> <Leader>ut :<C-u>Unite -vertical -winwidth=30 -buffer-name=todo -no-quit picktodo<CR>
-nnoremap <silent> <Leader>ut :<C-u>Unite -buffer-name=todo -no-quit picktodo<CR>
-" ã‚°ãƒ¬ãƒƒãƒ—
-nnoremap <silent> <Leader>ug :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
-" ã‚¹ãƒ‹ãƒšãƒƒãƒˆæ¢ã—
-nnoremap <silent> <Leader>us :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
-" NeoBundleæ›´æ–°
-nnoremap <silent> <Leader>un :<C-u>Unite -buffer-name=neobundle neobundle/install:!<CR>
+" ƒtƒ@ƒCƒ‹ˆê——
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> [unite]d :<C-u>Unite -input=/Home/labo/dotfiles/. -buffer-name=dotfiles file<CR>
+" —š—ğ
+nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=history file_mru<CR>
+" ƒAƒEƒgƒ‰ƒCƒ“
+nnoremap <silent> [unite]o :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline -no-quit outline<CR>
+" todo
+nnoremap <silent> [unite]t :<C-u>Unite -buffer-name=todo -no-quit picktodo<CR>
+" ƒOƒŒƒbƒv
+nnoremap <silent> [unite]g :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
+" ƒXƒjƒyƒbƒg’T‚µ
+nnoremap <silent> [unite]s :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
+" NeoBundleXV
+"nnoremap <silent> [unite]nb :<C-u>Unite -buffer-name=neobundle neobundle/install:!<CR>
+nnoremap <silent> [unite]nb :<C-u>Unite -buffer-name=neobundle neobundle/update:all -auto-quit -keep-focus -log<CR>
+" ƒoƒbƒtƒ@ˆê——
+nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
 " Color Scheme
-nnoremap <silent> <Leader>uc :<C-u>Unite -buffer-name=colorscheme -auto-preview colorscheme<CR>
+nnoremap <silent> [unite]c :<C-u>Unite -buffer-name=colorscheme -auto-preview colorscheme<CR>
+" source ˆê——
+nnoremap <silent> [unite]s :<C-u>Unite source -vertical<CR>
+
+" UniteBuffer‚Ì•œŒ³
+nnoremap <silent> [unite]r :<C-u>UniteResume<CR>
 
 
 """ vimfiler
@@ -518,87 +556,82 @@ nmap     <silent> <Leader>gt  : <C-u>Gtags<Space>
 nmap     <silent> <Leader>gtr : <C-u>Gtags -r<Space>
 nnoremap <silent> <Leader>gtc : <C-u>GtagsCursor<CR>
 
-""" reanimate
-nnoremap <Space>s :<C-u>ReanimateSave<Space>
-nnoremap <Space>l :<C-u>ReanimateLoad<Space>
-nnoremap <Space>L :<C-u>ReanimateLoadLatest<Space>
-
 """ textobj-multiblock
 vmap ab <Plug>(textobj-multiblock-a)
 vmap ib <Plug>(textobj-multiblock-i)
 
 """ smart chr
-" æ¼”ç®—å­ã®é–“ã«ç©ºç™½ã‚’å…¥ã‚Œã‚‹
+" ‰‰Zq‚ÌŠÔ‚É‹ó”’‚ğ“ü‚ê‚é
 inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <': smartchr#one_of(' < ', ' << ', '<')
 inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#one_of(' > ', ' >> ', '>')
 inoremap <buffer><expr> + smartchr#one_of(' + ', '++', '+')
 inoremap <buffer><expr> - smartchr#one_of(' - ', '--', '-')
 inoremap <buffer><expr> / smartchr#one_of(' / ', '// ', '/')
-" *ã¯ãƒã‚¤ãƒ³ã‚¿ã§ä½¿ã†ã®ã§ã€ç©ºç™½ã¯ã„ã‚Œãªã„
+" *‚Íƒ|ƒCƒ“ƒ^‚Åg‚¤‚Ì‚ÅA‹ó”’‚Í‚¢‚ê‚È‚¢
 inoremap <buffer><expr> & smartchr#one_of(' & ', ' && ', '&')
 inoremap <buffer><expr> % smartchr#one_of(' % ', '%')
 inoremap <buffer><expr> <Bar> smartchr#one_of(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
 inoremap <buffer><expr> , smartchr#one_of(', ', ',')
-" 3é …æ¼”ç®—å­ã®å ´åˆã¯ã€å¾Œã‚ã®ã¿ç©ºç™½ã‚’å…¥ã‚Œã‚‹
+" 3€‰‰Zq‚Ìê‡‚ÍAŒã‚ë‚Ì‚İ‹ó”’‚ğ“ü‚ê‚é
 inoremap <buffer><expr> ? smartchr#one_of('? ', '?')
 inoremap <buffer><expr> : smartchr#one_of(': ', '::', ':')
 
-" =ã®å ´åˆã€å˜ç´”ãªä»£å…¥ã‚„æ¯”è¼ƒæ¼”ç®—å­ã¨ã—ã¦å…¥åŠ›ã™ã‚‹å ´åˆã¯å‰å¾Œã«ã‚¹ãƒšãƒ¼ã‚¹ã‚’ã„ã‚Œã‚‹ã€‚
-" è¤‡åˆæ¼”ç®—ä»£å…¥ã¨ã—ã¦ã®å…¥åŠ›ã®å ´åˆã¯ã€ç›´å‰ã®ã‚¹ãƒšãƒ¼ã‚¹ã‚’å‰Šé™¤ã—ã¦=ã‚’å…¥åŠ›
+" =‚Ìê‡A’Pƒ‚È‘ã“ü‚â”äŠr‰‰Zq‚Æ‚µ‚Ä“ü—Í‚·‚éê‡‚Í‘OŒã‚ÉƒXƒy[ƒX‚ğ‚¢‚ê‚éB
+" •¡‡‰‰Z‘ã“ü‚Æ‚µ‚Ä‚Ì“ü—Í‚Ìê‡‚ÍA’¼‘O‚ÌƒXƒy[ƒX‚ğíœ‚µ‚Ä=‚ğ“ü—Í
 inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>%\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
 				\ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
 				\ : smartchr#one_of(' = ', ' == ', '=')
 
-" ä¸‹è¨˜ã®æ–‡å­—ã¯é€£ç¶šã—ã¦ç¾ã‚Œã‚‹ã“ã¨ãŒã¾ã‚Œãªã®ã§ã€äºŒå›ç¶šã‘ã¦å…¥åŠ›ã—ãŸã‚‰æ”¹è¡Œã™ã‚‹
+" ‰º‹L‚Ì•¶š‚Í˜A‘±‚µ‚ÄŒ»‚ê‚é‚±‚Æ‚ª‚Ü‚ê‚È‚Ì‚ÅA“ñ‰ñ‘±‚¯‚Ä“ü—Í‚µ‚½‚ç‰üs‚·‚é
 inoremap <buffer><expr> } smartchr#one_of('}', '}<cr>')
 inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
-" ã€Œ->ã€ã¯å…¥åŠ›ã—ã¥ã‚‰ã„ã®ã§ã€..ã§ç½®æ›ãˆ
+" u->v‚Í“ü—Í‚µ‚Ã‚ç‚¢‚Ì‚ÅA..‚Å’uŠ·‚¦
 inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
-" è¡Œå…ˆé ­ã§ã®@å…¥åŠ›ã§ã€ãƒ—ãƒªãƒ—ãƒ­ã‚»ã‚¹å‘½ä»¤æ–‡ã‚’å…¥åŠ›
+" sæ“ª‚Å‚Ì@“ü—Í‚ÅAƒvƒŠƒvƒƒZƒX–½—ß•¶‚ğ“ü—Í
 inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
 
 inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' "': '"'
-" ifæ–‡ç›´å¾Œã®(ã¯è‡ªå‹•ã§é–“ã«ç©ºç™½ã‚’å…¥ã‚Œã‚‹
+" if•¶’¼Œã‚Ì(‚Í©“®‚ÅŠÔ‚É‹ó”’‚ğ“ü‚ê‚é
 inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' (': '('
 
 "--------------------------------------
-" ã‚­ãƒ¼ãƒã‚¤ãƒ³ãƒ‰
+" ƒL[ƒoƒCƒ“ƒh
 
-" ESCã‚’ç°¡å˜ã«
+" ESC‚ğŠÈ’P‚É
 imap <C-j> <C-[>
 nmap <C-j> <C-[>
 vmap <C-j> <C-[>
 cmap <C-j> <C-[>
 
-" vimã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’å†èª­ã¿è¾¼ã¿
+" vimƒXƒNƒŠƒvƒg‚ğÄ“Ç‚İ‚İ
 nnoremap <F8> :source %<CR>
 
-" ZZã§å…¨ä¿å­˜ãƒ»å…¨çµ‚äº†ã‚‰ã—ã„ã®ã§ä¸å¯ã«
+" ZZ‚Å‘S•Û‘¶E‘SI—¹‚ç‚µ‚¢‚Ì‚Å•s‰Â‚É
 nnoremap ZZ <Nop>
 
-" è£œå®Œå‘¼ã³å‡ºã—
+" •âŠ®ŒÄ‚Ño‚µ
 " imap <C-Space> <C-x><C-n>
 
-" ç›´å‰ã®ãƒãƒƒãƒ•ã‚¡ã«ç§»å‹•
+" ’¼‘O‚Ìƒoƒbƒtƒ@‚ÉˆÚ“®
 nnoremap <Leader>b :b#<CR>
 
-" æ—¥ä»˜ãƒã‚¯ãƒ­
+" “ú•tƒ}ƒNƒ
 inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
 inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
 
-" é€£ç•ªãƒã‚¯ãƒ­
-" <C-a>ã§åŠ ç®—
-" <C-x>ã§æ¸›ç®—
+" ˜A”Ôƒ}ƒNƒ
+" <C-a>‚Å‰ÁZ
+" <C-x>‚ÅŒ¸Z
 command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
 nnoremap <silent> co : ContinuousNumber <C-a><CR>
 vnoremap <silent> <C-a> : ContinuousNumber <C-a><CR>
 vnoremap <silent> <C-x> : ContinuousNumber <C-x><CR>
 
-" helpè£œåŠ©
+" help•â•
 nnoremap <C-h> :<C-u>help<Space>
 
-" ãƒãƒ¼ã‚¯ãƒ»ãƒ¬ã‚¸ã‚¹ã‚¿ãªã©ä¸€è¦§
-" ä½¿ã‚ãªã„
+" ƒ}[ƒNEƒŒƒWƒXƒ^‚È‚Çˆê——
+" g‚í‚È‚¢
 "nnoremap <Leader>M :<C-u>marks<CR>
 "nnoremap <Leader>R :<C-u>registers<CR>
 "nnoremap <Leader>B :<C-u>buffers<CR>
@@ -608,33 +641,33 @@ nnoremap <C-h> :<C-u>help<Space>
 nnoremap <Leader>v :e $MYVIMRC<CR>
 nnoremap <Leader>g :e $MYGVIMRC<CR>
 
-" ãƒ¤ãƒ³ã‚¯ã—ãŸå˜èªã§ç½®æ›
+" ƒ„ƒ“ƒN‚µ‚½’PŒê‚Å’uŠ·
 nnoremap <silent>ciy  ciw<C-r>0<Esc>:let@/=@1<CR>:noh<CR>
 nnoremap <silent>cy   ce <C-r>0<Esc>:let@/=@1<CR>:noh<CR>
 
-" ç§»å‹•ç³»
+" ˆÚ“®Œn
 inoremap <Leader>a  <Home>
 inoremap <Leader>e  <End>
 nnoremap <Leader>a  <Home>
 nnoremap <Leader>e  <End>
 
-" ã‚¿ãƒ–é–¢é€£
+" ƒ^ƒuŠÖ˜A
 nnoremap <Leader>n :<C-u>tabnew<CR>
 nnoremap <C-g>l  gt
 nnoremap <C-g>h  gT
 
-" é–¢æ•°å˜ä½ã§ç§»å‹•
+" ŠÖ”’PˆÊ‚ÅˆÚ“®
 noremap <C-p> [[
 noremap <C-n> ]]
 
-" ã‚«ãƒ¬ãƒ³ãƒˆãƒ‘ã‚¹ã‚’ãƒãƒƒãƒ•ã‚¡ã«åˆã‚ã›ã‚‹
-nnoremap <silent><Space><Space> :<C-u>cd %:h<CR>:pwd<CR>
+" ƒJƒŒƒ“ƒgƒpƒX‚ğƒoƒbƒtƒ@‚É‡‚í‚¹‚é
+nnoremap <silent><Leader><Space> :<C-u>cd %:h<CR>:pwd<CR>
 
-" ç½®æ›
+" ’uŠ·
 nnoremap <expr> <Leader>s _(":s/<Cursor>//g")
 nnoremap <expr> <Leader>S _(":%s/<Cursor>//g")
 
-" ãƒ­ãƒ¼ã‚«ãƒ«è¨­å®šã‚’èª­ã¿è¾¼ã‚€
+" ƒ[ƒJƒ‹İ’è‚ğ“Ç‚İ‚Ş
 if filereadable(expand('~/.my_local_vimrc'))
     source ~/.my_local_vimrc
 endif

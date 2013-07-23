@@ -90,10 +90,6 @@ function! ToggleFullScreen()
   endif
 endfunction
 
-" neobundle
-NeoBundleSource restart.vim
-NeoBundleSource vim-singleton
-
 " ローカル設定を読み込む
 if filereadable(expand('~/.my_local_gvimrc'))
     source ~/.my_local_gvimrc

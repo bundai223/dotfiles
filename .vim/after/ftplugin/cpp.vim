@@ -5,6 +5,7 @@
 "    setlocal encoding=cp932
 "    setlocal fileformats=dos,unix
 "endif
+setlocal complete=.,w,b,u,t
 
 
 "--------------------------------------
@@ -28,18 +29,18 @@ vnoremap #d :call InsertIfdef()<CR>
 vnoremap #n :call InsertIfndef()<CR>
 
 function! InsertIfZero() range
-	call append(a:firstline-1, "#if 0")
-	call append(a:lastline+1, "#endif // #if 0")
+  call append(a:firstline-1, "#if 0")
+  call append(a:lastline+1, "#endif // #if 0")
 endfunction
 function! InsertIfdef() range
-	let sym = input("symbol:")
-	call append(a:firstline-1, "#ifdef " . sym)
-	call append(a:lastline+1, "#endif // " . sym)
+  let sym = input("symbol:")
+  call append(a:firstline-1, "#ifdef " . sym)
+  call append(a:lastline+1, "#endif // " . sym)
 endfunction
 function! InsertIfndef() range
-	let sym = input("symbol:")
-	call append(a:firstline-1, "#ifndef " . sym)
-	call append(a:lastline+1, "#endif // " . sym)
+  let sym = input("symbol:")
+  call append(a:firstline-1, "#ifndef " . sym)
+  call append(a:lastline+1, "#endif // " . sym)
 endfunction
 
 
