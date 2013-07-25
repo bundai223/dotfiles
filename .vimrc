@@ -67,7 +67,7 @@ if has('unix')
 endif
 
 if has('win32')
-elseif 
+else
   " 自前で用意したものへの path
   set path=.,/usr/include,/usr/local/include
 endif
@@ -482,21 +482,26 @@ function! s:bundle.hooks.on_source(bundle)
     " 入力モードで開始
     let g:unite_enable_start_insert=1
 endfunction
+
+" singleton
+let s:bundle = neobundle#get('vim-singleton')
+function! s:bundle.hooks.on_source(bundle)
+    call singleton#enable()
+endfunction
+
+" restart
+let s:bundle = neobundle#get('vim-singleton')
+function! s:bundle.hooks.on_source(bundle)
+    nnoremap <silent> rs : <C-u> Restart <CR>
+endfunction
 " }}}
 
 filetype plugin on
 filetype indent on
 
+
 " vital
 let g:V = vital#of('vital')
-
-if has('gui')
-    " restart
-    nnoremap <silent> rs : <C-u> Restart <CR>
-
-    " singleton
-    call singleton#enable()
-endif
 
 """ vimshell {{{
 nnoremap <silent> vs : <C-u> VimShell<CR>
@@ -730,10 +735,10 @@ command! -nargs=+ Vars PP filter(copy(g:), 'v:key =~# "^<args>"')
 " キーバインド
 
 " ESCを簡単に
-imap <C-Space> <C-[>
-nmap <C-Space> <C-[>
-vmap <C-Space> <C-[>
-cmap <C-Space> <C-[>
+imap <C-j> <C-[>
+nmap <C-j> <C-[>
+vmap <C-j> <C-[>
+cmap <C-j> <C-[>
 
 " 空行移動
 nnoremap <C-j> }
