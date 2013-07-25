@@ -591,8 +591,9 @@ nmap <Space> [unite]
 " ファイル一覧
 nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> [unite]d :<C-u>Unite -input=/Home/labo/dotfiles/. -buffer-name=dotfiles file<CR>
-" 履歴
-nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=history file_mru<CR>
+" ファイルいっぱい列挙
+"nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=history file_mru<CR>
+nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=multi file_mru file buffer<CR>
 " アウトライン
 nnoremap <silent> [unite]o :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline -no-quit outline<CR>
 " todo
@@ -602,7 +603,6 @@ nnoremap <silent> [unite]g :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
 " スニペット探し
 nnoremap <silent> [unite]s :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
 " NeoBundle更新
-"nnoremap <silent> [unite]nb :<C-u>Unite -buffer-name=neobundle neobundle/install:!<CR>
 nnoremap <silent> [unite]nb :<C-u>Unite -buffer-name=neobundle neobundle/update:all -auto-quit -keep-focus -log<CR>
 " バッファ一覧
 nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
