@@ -1,112 +1,177 @@
 
 "--------------------------------------
-" vim‚ÌŠî–{“I‚Èİ’è
-"--------------------------------------
+" vimã®åŸºæœ¬çš„ãªè¨­å®š
+
 scriptencoding utf-8
 set nocompatible
 
-" •¶šƒGƒ“ƒR[ƒh
+" helpæ—¥æœ¬èªãƒ»è‹±èªå„ªå…ˆ
+set helplang=ja,en
+" ã‚«ãƒ¼ã‚½ãƒ«ä¸‹ã®å˜èªã‚’help
+set keywordprg =:help
+
+" æ–‡å­—ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰
 set encoding=utf-8
 set fileencoding=utf-8
-" ‚±‚¢‚Â‚Ì‚¹‚¢‚Å<C-o>‚È‚Ç‚Å‚ÌƒWƒƒƒ“ƒv‚ª‚¨‚©‚µ‚­‚È‚Á‚Ä‚½
-" Œ´ˆö‚Í‚æ‚­‚í‚©‚ç‚È‚¢
+" ã“ã„ã¤ã®ã›ã„ã§<C-o>ãªã©ã§ã®ã‚¸ãƒ£ãƒ³ãƒ—ãŒãŠã‹ã—ããªã£ã¦ãŸ
+" åŸå› ã¯ã‚ˆãã‚ã‹ã‚‰ãªã„
 "set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 set fileformat=unix
-set fileformats=dos,unix
+set fileformats=unix,dos
 
-" ƒoƒbƒNƒAƒbƒvƒtƒ@ƒCƒ‹‚Ìİ’è
+" ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«ã®è¨­å®š
 "set nowritebackup
 "set nobackup
 set noswapfile
 
-" tab‚ÅƒXƒy[ƒX‚ğ‘}“ü
+" tabã§ã‚¹ãƒšãƒ¼ã‚¹ã‚’æŒ¿å…¥
 set expandtab
 set smarttab
 set tabstop=4
 set shiftwidth=4
 
-" ƒNƒŠƒbƒvƒ{[ƒh‚ğg—p‚·‚é
+" ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã™ã‚‹
 set clipboard=unnamed,autoselect
 
-" ‰üs‚Ì©“®ƒRƒƒ“ƒg‚ğ‚È‚µ‚É
-autocmd FileType * setlocal formatoptions-=ro
+" æ”¹è¡Œæ™‚ã®è‡ªå‹•ã‚³ãƒ¡ãƒ³ãƒˆã‚’ãªã—ã«
+set formatoptions-=ro
 
-" ƒVƒ“ƒ{ƒŠƒbƒN‚Èƒtƒ@ƒCƒ‹‚ğ•ÒW‚·‚é‚ÆƒŠƒ“ƒN‚ªÁ‚³‚ê‚Ä‚µ‚Ü‚¤‚±‚Æ‚ª‚ ‚Á‚½‚Ì‚Å
-" QÆæ‚ğ•Ï”‚Éã‘‚«
+" ã‚·ãƒ³ãƒœãƒªãƒƒã‚¯ãªãƒ•ã‚¡ã‚¤ãƒ«ã‚’ç·¨é›†ã™ã‚‹ã¨ãƒªãƒ³ã‚¯ãŒæ¶ˆã•ã‚Œã¦ã—ã¾ã†ã“ã¨ãŒã‚ã£ãŸã®ã§
+" å‚ç…§å…ˆã‚’å¤‰æ•°ã«ä¸Šæ›¸ã
 let $MYVIMRC="~/labo/dotfiles/.vimrc"
 let $MYGVIMRC="~/labo/dotfiles/.gvimrc"
 
-" •ªŠ„•ûŒü‚ğw’è
+" åˆ†å‰²æ–¹å‘ã‚’æŒ‡å®š
 set splitbelow
 "set splitright
 
+" backspaceã§ãªã‚“ã§ã‚‚æ¶ˆã›ã‚‹ã‚ˆã†ã«
+set backspace=indent,eol,start
+
 set completeopt=menu,preview
-" Go‚Ìpath
+" è£œå®Œã§ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ã—ãªã„
+"set completeopt=menuone,menu
+
+" foldè¨­å®š
+set foldenable
+set foldmethod=marker
+
+" Goã®path
 if $GOROOT != ''
     set runtimepath+=$GOROOT/misc/vim
     exe "set runtimepath+=".globpath($GOPATH, "src/labo.com/nsf/gocode/vim")
 endif
 
-
-"--------------------------------------
-" Šî–{“I‚Èİ’è
-"--------------------------------------
 if has('unix')
     let $USERNAME=$USER
 endif
 
-" —š—ğ‚Ì•Û‘¶
+if has('win32')
+elseif 
+  " è‡ªå‰ã§ç”¨æ„ã—ãŸã‚‚ã®ã¸ã® path
+  set path=.,/usr/include,/usr/local/include
+endif
+
+" å±¥æ­´ã®ä¿å­˜
 "if has('persistent_undo' )
 "    set undodir=~/.vim/undo
 "    set undofile
 "endif
 
-" Leader‚ğİ’è
+" Leaderã‚’è¨­å®š
 "let mapleader=' '
 if has('mac')
     map _ <Leader>
 endif
 
 "--------------------------------------
-" ŒŸõ
-"--------------------------------------
-" ŒŸõ‘å•¶š¬•¶š‚Ì‹æ•Ê‚È‚µ
-" ‚½‚¾‚µ—¼•ûŠÜ‚Ş‚Æ‚«‚Í‹æ•Ê‚·‚é
+" æ¤œç´¢
+
+" æ¤œç´¢æ™‚å¤§æ–‡å­—å°æ–‡å­—ã®åŒºåˆ¥ãªã—
+" ãŸã ã—ä¸¡æ–¹å«ã‚€ã¨ãã¯åŒºåˆ¥ã™ã‚‹
 set ignorecase
 set smartcase
-" ŒŸõ‚ğÅŒã‚Ü‚Ås‚Á‚½‚çÅ‰‚É–ß‚é
+" æ¤œç´¢ã‚’æœ€å¾Œã¾ã§è¡Œã£ãŸã‚‰æœ€åˆã«æˆ»ã‚‹
 set wrapscan
-" ƒCƒ“ƒNƒŠƒƒ“ƒ^ƒ‹ƒT[ƒ`
+" ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ã‚¿ãƒ«ã‚µãƒ¼ãƒ
 set incsearch
-" ŒŸõ•¶š‚Ì‹­’²•\¦
+" æ¤œç´¢æ–‡å­—ã®å¼·èª¿è¡¨ç¤º
 set hlsearch
-" tagƒtƒ@ƒCƒ‹‚ÌŒŸõƒpƒXw’è
-" ƒJƒŒƒ“ƒg‚©‚çeƒtƒHƒ‹ƒ_‚ÉŒ©‚Â‚©‚é‚Ü‚Å‚½‚Ç‚é
-" tag‚Ìİ’è‚ÍŠeƒvƒƒWƒFƒNƒg‚²‚Æ‚àsetlocal‚·‚é
+" tagãƒ•ã‚¡ã‚¤ãƒ«ã®æ¤œç´¢ãƒ‘ã‚¹æŒ‡å®š
+" ã‚«ãƒ¬ãƒ³ãƒˆã‹ã‚‰è¦ªãƒ•ã‚©ãƒ«ãƒ€ã«è¦‹ã¤ã‹ã‚‹ã¾ã§ãŸã©ã‚‹
+" tagã®è¨­å®šã¯å„ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã”ã¨ã‚‚setlocalã™ã‚‹
 set tags=tags;
 
-" ŒŸõŒ‹‰Ê‚ğƒEƒCƒ“ƒhƒE^‚ñ’†‚É
+" æ¤œç´¢çµæœã‚’ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦çœŸã‚“ä¸­ã«
 nnoremap n nzz
 
-" ŠO•”grep‚Ìİ’è
+" å¤–éƒ¨grepã®è¨­å®š
 set grepprg=grep\ -nH
 
 "--------------------------------------
-" •\¦‚Ìİ’è
-"--------------------------------------
-" s”Ô†•\¦
+" è¡¨ç¤ºã®è¨­å®š
+
+"èµ·å‹•æ™‚ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’æ¶ˆã™
+set shortmess& shortmess+=I
+
+" è¡Œç•ªå·è¡¨ç¤º
 "set number
 set relativenumber
-" tab s––space‚ğ•\¦
+" tab è¡Œæœ«spaceã‚’è¡¨ç¤º
 set list
 set listchars=tab:^\ ,trail:~
 
-" ƒnƒCƒ‰ƒCƒg‚ÌƒIƒ“
+" å†æç”»ã‚³ãƒãƒ³ãƒ‰å®Ÿè¡Œä¸­ã¯ãªã—
+set lazyredraw
+
+" ãƒã‚¤ãƒ©ã‚¤ãƒˆã®ã‚ªãƒ³
 if &t_Co > 2 || has('gui_running')
     syntax on
 endif
 
-" ‘}“üƒ‚[ƒh‚ÉƒXƒe[ƒ^ƒXƒ‰ƒCƒ“‚ÌF‚ğ•ÏX
+" ãƒªã‚¹ãƒˆãƒ˜ãƒƒãƒ€
+"set formatlistpat&
+"let &formatlistpat .= '\|^\s*[*+-]\s*'
+
+" ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒ©ã‚¤ãƒ³
+set ruf=%45(%12f%=\ %m%{'['.(&fenc!=''?&fenc:&enc).']'}\ %l-%v\ %p%%\ [%02B]%)
+set statusline=%f:\ %{substitute(getcwd(),'.*/','','')}\ %m%=%{(&fenc!=''?&fenc:&enc).':'.strpart(&ff,0,1)}\ %l-%v\ %p%%\ %02B
+
+" ä¸€å®šæ™‚é–“ã‚«ãƒ¼ã‚½ãƒ«ã‚’ç§»å‹•ã—ãªã„ã¨ã‚«ãƒ¼ã‚½ãƒ«ãƒ©ã‚¤ãƒ³ã‚’è¡¨ç¤º {{{
+" http://d.hatena.ne.jp/thinca/20090530/1243615055
+augroup vimrc-auto-cursorline
+  autocmd!
+  autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
+  autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
+  autocmd WinEnter * call s:auto_cursorline('WinEnter')
+  autocmd WinLeave * call s:auto_cursorline('WinLeave')
+
+  let s:cursorline_lock = 0
+  function! s:auto_cursorline(event)
+    if a:event ==# 'WinEnter'
+      setlocal cursorline
+      let s:cursorline_lock = 2
+    elseif a:event ==# 'WinLeave'
+      setlocal nocursorline
+    elseif a:event ==# 'CursorMoved'
+      if s:cursorline_lock
+        if 1 < s:cursorline_lock
+          let s:cursorline_lock = 1
+        else
+          setlocal nocursorline
+          let s:cursorline_lock = 0
+        endif
+      endif
+    elseif a:event ==# 'CursorHold'
+      setlocal cursorline
+      let s:cursorline_lock = 1
+    endif
+  endfunction
+augroup END
+set nocursorline
+" }}}
+
+" æŒ¿å…¥ãƒ¢ãƒ¼ãƒ‰æ™‚ã«ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒ©ã‚¤ãƒ³ã®è‰²ã‚’å¤‰æ›´ {{{
 let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
 
 if has('syntax')
@@ -138,22 +203,22 @@ function! s:GetHighlight(hi)
 endfunction
 
 if has('unix') && !has('gui_running')
-  " ubuntu‚È‚ÇESCŒã‚É‚·‚®”½‰f‚³‚ê‚È‚¢‘Îô
+  " ubuntuãªã©ESCå¾Œã«ã™ãåæ˜ ã•ã‚Œãªã„å¯¾ç­–
   inoremap <silent> <ESC> <ESC>
 endif
+" }}}
 
 "--------------------------------------
 " vim script
-"--------------------------------------
 
-"" grepŒ‹‰Ê‚ğquickfix‚Éo—Í
+"" grepçµæœã‚’quickfixã«å‡ºåŠ›
 " **** grep -iHn -R 'target string' target_path | cw ****
 " **** vimgrep 'target string' target_path | cw ****
 "
 
 " grep
 " exp ) :Grep word ./path
-"        path‚ğÈ—ª‚µ‚½ê‡‚ÍƒJƒŒƒ“ƒg‚©‚çÄ‹A“I‚É
+"        pathã‚’çœç•¥ã—ãŸå ´åˆã¯ã‚«ãƒ¬ãƒ³ãƒˆã‹ã‚‰å†å¸°çš„ã«
 "command! -complete=file -nargs=+ Grep call s:grep([<f-args>])
 "function! s:grep(args)
 "    let target = len(a:args) > 1 ? join(a:args[1:]) : '**/*'
@@ -161,13 +226,10 @@ endif
 "    if len(getqflist()) != 0 | copen | endif
 "endfunction
 
-" filetype ’²¸
+" filetype èª¿æŸ»
 " :verbose :setlocal filetype?
 
-" •Ï”‚Ì’†g‚ğ•\¦
-command! -nargs=+ Vars PP filter(copy(g:), 'v:key =~# "^<args>"')
-
-" *.h‚ğì¬‚·‚é‚Æ‚«‚ÉƒCƒ“ƒNƒ‹[ƒhƒK[ƒh‚ğì¬‚·‚é
+" *.hã‚’ä½œæˆã™ã‚‹ã¨ãã«ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ã‚¬ãƒ¼ãƒ‰ã‚’ä½œæˆã™ã‚‹ {{{
 au BufNewFile *.h call InsertHeaderHeader()
 au BufNewFile *.cpp call InsertFileHeader()
 
@@ -198,11 +260,12 @@ function! InsertHeaderHeader()
     call IncludeGuard()
     call InsertFileHeader()
 endfunction
+" }}}
 
-" ƒJ[ƒ\ƒ‹‚ğw’èˆÊ’u‚ÉˆÚ“®
-"“WŠJŒã <Cursor> ˆÊ’u‚ÉƒJ[ƒ\ƒ‹‚ªˆÚ“®‚·‚é
-"nnoremap <expr> <A-p> _(":%s/<Cursor>/‚Ù‚Ş/g")
-"nnoremap <expr> <A-p> ":%s//‚Ù‚Ş/g\<Left>\<Left>\<Left>\<Left>\<Left>\<Left>\<Left>"
+" ã‚«ãƒ¼ã‚½ãƒ«ã‚’æŒ‡å®šä½ç½®ã«ç§»å‹• {{{
+"å±•é–‹å¾Œ <Cursor> ä½ç½®ã«ã‚«ãƒ¼ã‚½ãƒ«ãŒç§»å‹•ã™ã‚‹
+"nnoremap <expr> <A-p> _(":%s/<Cursor>/ã»ã‚€/g")
+"nnoremap <expr> <A-p> ":%s//ã»ã‚€/g\<Left>\<Left>\<Left>\<Left>\<Left>\<Left>\<Left>"
 function! s:move_cursor_pos_mapping(str, ...)
     let left = get(a:, 1, "<Left>")
     let lefts = join(map(split(matchstr(a:str, '.*<Cursor>\zs.*\ze'), '.\zs'), 'left'), "")
@@ -213,16 +276,16 @@ function! _(str)
     return s:move_cursor_pos_mapping(a:str, "\<Left>")
 endfunction
 
-" ƒRƒ}ƒ“ƒh”Å
-"Nnoremap <A-o> :%s/<Cursor>/ƒ}ƒ~/g
+" ã‚³ãƒãƒ³ãƒ‰ç‰ˆ
+"Nnoremap <A-o> :%s/<Cursor>/ãƒãƒŸ/g
 command! -nargs=* MoveCursorPosMap execute <SID>move_cursor_pos_mapping(<q-args>)
 command! -nargs=* Nnoremap MoveCursorPosMap nnoremap <args>
-
+" }}}
 
 "--------------------------------------
-" ƒvƒ‰ƒOƒCƒ“
+" ãƒ—ãƒ©ã‚°ã‚¤ãƒ³
 
-""" neobundle
+""" neobundle {{{
 filetype off
 
 if has('vim_starting')
@@ -325,6 +388,7 @@ NeoBundleLazy 'Shougo/unite.vim',{
 
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'Shougo/unite-outline'
+NeoBundle 'osyo-manga/unite-fold'
 NeoBundle 'bundai223/unite-outline-sources'
 NeoBundle 'bundai223/unite-picktodo'
 
@@ -358,7 +422,7 @@ NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'w0ng/vim-hybrid'
 
 
-"""
+" clang_complete
 let s:bundle = neobundle#get('clang_complete')
 function! s:bundle.hooks.on_source(bundle)
     let g:clang_complete_auto   = 0
@@ -392,12 +456,14 @@ function! s:bundle.hooks.on_source(bundle)
     endif
 endfunction
 
+" vimfiler
 let s:bundle = neobundle#get('vimfiler')
 function! s:bundle.hooks.on_source(bundle)
     let g:vimfiler_as_default_explorer=1
     let g:vimfiler_safe_mode_by_default=0
 endfunction
 
+" vimshell
 let s:bundle = neobundle#get('vimshell')
 function! s:bundle.hooks.on_source(bundle)
     if has('win32')
@@ -410,11 +476,13 @@ function! s:bundle.hooks.on_source(bundle)
     let g:vimshell_vimshrc_path = expand('~/labo/dotfiles/.vimshrc')
 endfunction
 
+" unite
 let s:bundle = neobundle#get('unite.vim')
 function! s:bundle.hooks.on_source(bundle)
-    " “ü—Íƒ‚[ƒh‚ÅŠJn
+    " å…¥åŠ›ãƒ¢ãƒ¼ãƒ‰ã§é–‹å§‹
     let g:unite_enable_start_insert=1
 endfunction
+" }}}
 
 filetype plugin on
 filetype indent on
@@ -430,11 +498,11 @@ if has('gui')
     call singleton#enable()
 endif
 
-""" vimshell
+""" vimshell {{{
 nnoremap <silent> vs : <C-u> VimShell<CR>
+" }}}
 
-
-""" neocomplete
+""" neocomplete {{{
 " disable AutoComplPop
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
@@ -493,13 +561,13 @@ let g:neocomplete#sources#omni#input_patterns.cpp       = '[^.[:digit:] *\t]\%(\
 let g:neocomplete#sources#omni#input_patterns.squirrel  = '[^.[:d:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplete#sources#omni#input_patterns.cs        = '[^.]\.\%(\u\{2,}\)\?'
 let g:neocomplete#sources#omni#input_patterns.go        = '[^.]\.\%(\u\{2,}\)\?'
+" }}}
 
-
-""" neosnippet
+""" neosnippet {{{
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
-" Tab‚ÅƒXƒjƒyƒbƒg‘I‘ğ Space‚Å‘I‘ğ’†ƒXƒjƒyƒbƒg“WŠJ
+" Tabã§ã‚¹ãƒ‹ãƒšãƒƒãƒˆé¸æŠ Spaceã§é¸æŠä¸­ã‚¹ãƒ‹ãƒšãƒƒãƒˆå±•é–‹
 "imap <expr><Space> pumvisible() ? neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>" : "\<Space>"
 "imap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>"
 "smap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>"
@@ -511,163 +579,284 @@ endif
 
 " path to mysnippet
 let g:neosnippet#snippets_directory='~/.bundle/mysnip'
+" }}}
 
 
-
-""" unite
-" <Space>‚ğunite‚ÌƒL[‚É
+""" unite {{{
+" <Space>ã‚’uniteã®ã‚­ãƒ¼ã«
 nnoremap [unite] <Nop>
 nmap <Space> [unite]
 
 " source
-" ƒtƒ@ƒCƒ‹ˆê——
+" ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§
 nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> [unite]d :<C-u>Unite -input=/Home/labo/dotfiles/. -buffer-name=dotfiles file<CR>
-" —š—ğ
+" å±¥æ­´
 nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=history file_mru<CR>
-" ƒAƒEƒgƒ‰ƒCƒ“
+" ã‚¢ã‚¦ãƒˆãƒ©ã‚¤ãƒ³
 nnoremap <silent> [unite]o :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline -no-quit outline<CR>
 " todo
 nnoremap <silent> [unite]t :<C-u>Unite -buffer-name=todo -no-quit picktodo<CR>
-" ƒOƒŒƒbƒv
+" ã‚°ãƒ¬ãƒƒãƒ—
 nnoremap <silent> [unite]g :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
-" ƒXƒjƒyƒbƒg’T‚µ
+" ã‚¹ãƒ‹ãƒšãƒƒãƒˆæ¢ã—
 nnoremap <silent> [unite]s :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
-" NeoBundleXV
+" NeoBundleæ›´æ–°
 "nnoremap <silent> [unite]nb :<C-u>Unite -buffer-name=neobundle neobundle/install:!<CR>
 nnoremap <silent> [unite]nb :<C-u>Unite -buffer-name=neobundle neobundle/update:all -auto-quit -keep-focus -log<CR>
-" ƒoƒbƒtƒ@ˆê——
+" ãƒãƒƒãƒ•ã‚¡ä¸€è¦§
 nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
 " Color Scheme
 nnoremap <silent> [unite]c :<C-u>Unite -buffer-name=colorscheme -auto-preview colorscheme<CR>
-" source ˆê——
+" source ä¸€è¦§
 nnoremap <silent> [unite]s :<C-u>Unite source -vertical<CR>
 
-" UniteBuffer‚Ì•œŒ³
+""" alignta(visual)
+vnoremap <silent> [unite]aa :<C-u>Unite alignta:arguments<CR>
+vnoremap <silent> [unite]ao :<C-u>Unite alignta:options<CR>
+
+
+" UniteBufferã®å¾©å…ƒ
 nnoremap <silent> [unite]r :<C-u>UniteResume<CR>
+" }}}
 
-
-""" vimfiler
+""" vimfiler {{{
 "nnoremap <silent> vf : <C-u> VimFilerExplorer %:h<CR>
 nnoremap <silent> vf : <C-u> VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
+" }}}
 
-""" gtags
+""" gtags {{{
 nmap     <silent> <Leader>gt  : <C-u>Gtags<Space>
 nmap     <silent> <Leader>gtr : <C-u>Gtags -r<Space>
 nnoremap <silent> <Leader>gtc : <C-u>GtagsCursor<CR>
+" }}}
 
-""" textobj-multiblock
+""" textobj-multiblock {{{
 vmap ab <Plug>(textobj-multiblock-a)
 vmap ib <Plug>(textobj-multiblock-i)
+" }}}
 
-""" smart chr
-" ‰‰Zq‚ÌŠÔ‚É‹ó”’‚ğ“ü‚ê‚é
+""" smart chr {{{
+" æ¼”ç®—å­ã®é–“ã«ç©ºç™½ã‚’å…¥ã‚Œã‚‹
 inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <': smartchr#one_of(' < ', ' << ', '<')
 inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#one_of(' > ', ' >> ', '>')
 inoremap <buffer><expr> + smartchr#one_of(' + ', '++', '+')
 inoremap <buffer><expr> - smartchr#one_of(' - ', '--', '-')
 inoremap <buffer><expr> / smartchr#one_of(' / ', '// ', '/')
-" *‚Íƒ|ƒCƒ“ƒ^‚Åg‚¤‚Ì‚ÅA‹ó”’‚Í‚¢‚ê‚È‚¢
+" *ã¯ãƒã‚¤ãƒ³ã‚¿ã§ä½¿ã†ã®ã§ã€ç©ºç™½ã¯ã„ã‚Œãªã„
 inoremap <buffer><expr> & smartchr#one_of(' & ', ' && ', '&')
 inoremap <buffer><expr> % smartchr#one_of(' % ', '%')
 inoremap <buffer><expr> <Bar> smartchr#one_of(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
 inoremap <buffer><expr> , smartchr#one_of(', ', ',')
-" 3€‰‰Zq‚Ìê‡‚ÍAŒã‚ë‚Ì‚İ‹ó”’‚ğ“ü‚ê‚é
+" 3é …æ¼”ç®—å­ã®å ´åˆã¯ã€å¾Œã‚ã®ã¿ç©ºç™½ã‚’å…¥ã‚Œã‚‹
 inoremap <buffer><expr> ? smartchr#one_of('? ', '?')
 inoremap <buffer><expr> : smartchr#one_of(': ', '::', ':')
 
-" =‚Ìê‡A’Pƒ‚È‘ã“ü‚â”äŠr‰‰Zq‚Æ‚µ‚Ä“ü—Í‚·‚éê‡‚Í‘OŒã‚ÉƒXƒy[ƒX‚ğ‚¢‚ê‚éB
-" •¡‡‰‰Z‘ã“ü‚Æ‚µ‚Ä‚Ì“ü—Í‚Ìê‡‚ÍA’¼‘O‚ÌƒXƒy[ƒX‚ğíœ‚µ‚Ä=‚ğ“ü—Í
+" =ã®å ´åˆã€å˜ç´”ãªä»£å…¥ã‚„æ¯”è¼ƒæ¼”ç®—å­ã¨ã—ã¦å…¥åŠ›ã™ã‚‹å ´åˆã¯å‰å¾Œã«ã‚¹ãƒšãƒ¼ã‚¹ã‚’ã„ã‚Œã‚‹ã€‚
+" è¤‡åˆæ¼”ç®—ä»£å…¥ã¨ã—ã¦ã®å…¥åŠ›ã®å ´åˆã¯ã€ç›´å‰ã®ã‚¹ãƒšãƒ¼ã‚¹ã‚’å‰Šé™¤ã—ã¦=ã‚’å…¥åŠ›
 inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>%\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
 				\ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
 				\ : smartchr#one_of(' = ', ' == ', '=')
 
-" ‰º‹L‚Ì•¶š‚Í˜A‘±‚µ‚ÄŒ»‚ê‚é‚±‚Æ‚ª‚Ü‚ê‚È‚Ì‚ÅA“ñ‰ñ‘±‚¯‚Ä“ü—Í‚µ‚½‚ç‰üs‚·‚é
+" ä¸‹è¨˜ã®æ–‡å­—ã¯é€£ç¶šã—ã¦ç¾ã‚Œã‚‹ã“ã¨ãŒã¾ã‚Œãªã®ã§ã€äºŒå›ç¶šã‘ã¦å…¥åŠ›ã—ãŸã‚‰æ”¹è¡Œã™ã‚‹
 inoremap <buffer><expr> } smartchr#one_of('}', '}<cr>')
 inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
-" u->v‚Í“ü—Í‚µ‚Ã‚ç‚¢‚Ì‚ÅA..‚Å’uŠ·‚¦
+" ã€Œ->ã€ã¯å…¥åŠ›ã—ã¥ã‚‰ã„ã®ã§ã€..ã§ç½®æ›ãˆ
 inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
-" sæ“ª‚Å‚Ì@“ü—Í‚ÅAƒvƒŠƒvƒƒZƒX–½—ß•¶‚ğ“ü—Í
+" è¡Œå…ˆé ­ã§ã®@å…¥åŠ›ã§ã€ãƒ—ãƒªãƒ—ãƒ­ã‚»ã‚¹å‘½ä»¤æ–‡ã‚’å…¥åŠ›
 inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
 
 inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' "': '"'
-" if•¶’¼Œã‚Ì(‚Í©“®‚ÅŠÔ‚É‹ó”’‚ğ“ü‚ê‚é
+" ifæ–‡ç›´å¾Œã®(ã¯è‡ªå‹•ã§é–“ã«ç©ºç™½ã‚’å…¥ã‚Œã‚‹
 inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' (': '('
+" }}}
+
+" smartinput {{{
+call smartinput#define_rule({
+\   'at': '\s\+\%#',
+\   'char': '<CR>',
+\   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
+\   })
+
+" }}}
+
+""" alignta {{{
+let g:alignta_default_options   = '<<<0:0'
+let g:alignta_default_arguments = '\s'
+vnoremap <Leader>al :Alignta<Space>
+vnoremap <Leader>aa :Alignta<CR>
+vnoremap <Leader>ae :Alignta <<<1 =<CR>
+vnoremap <Leader>a= :Alignta <<<1 =<CR>
+vnoremap <Leader>a, :Alignta ,<CR>
+vnoremap <Leader>a> :Alignta =><CR>
+
+let g:unite_source_alignta_preset_arguments = [
+      \ ["Align at '='", '=>\='],
+      \ ["Align at ':'", '01 :'],
+      \ ["Align at '|'", '|'   ],
+      \ ["Align at ')'", '0 )' ],
+      \ ["Align at ']'", '0 ]' ],
+      \ ["Align at '}'", '}'   ],
+      \ ["Align at '>'", '0 >' ],
+      \ ["Align at '('", '0 (' ],
+      \ ["Align at '['", '0 [' ],
+      \ ["Align at '{'", '{'   ],
+      \ ["Align at '<'", '0 <' ],
+      \ ["Align first spaces", '0 \s/1' ],
+      \]
+
+let g:unite_source_alignta_preset_options = [
+      \ ["Justify Left",      '<<' ],
+      \ ["Justify Center",    '||' ],
+      \ ["Justify Right",     '>>' ],
+      \ ["Justify None",      '==' ],
+      \ ["Shift Left",        '<-' ],
+      \ ["Shift Right",       '->' ],
+      \ ["Shift Left  [Tab]", '<--'],
+      \ ["Shift Right [Tab]", '-->'],
+      \ ["Margin 0:0",        '0'  ],
+      \ ["Margin 0:1",        '01' ],
+      \ ["Margin 1:0",        '10' ],
+      \ ["Margin 1:1",        '1'  ],
+      \]
+" }}}
+
+""" PrettyPring {{{
+" å¤‰æ•°ã®ä¸­èº«ã‚’è¡¨ç¤º
+command! -nargs=+ Vars PP filter(copy(g:), 'v:key =~# "^<args>"')
+" }}}
 
 "--------------------------------------
-" ƒL[ƒoƒCƒ“ƒh
+" ã‚­ãƒ¼ãƒã‚¤ãƒ³ãƒ‰
 
-" ESC‚ğŠÈ’P‚É
-imap <C-j> <C-[>
-nmap <C-j> <C-[>
-vmap <C-j> <C-[>
-cmap <C-j> <C-[>
+" ESCã‚’ç°¡å˜ã«
+imap <C-Space> <C-[>
+nmap <C-Space> <C-[>
+vmap <C-Space> <C-[>
+cmap <C-Space> <C-[>
 
-" vimƒXƒNƒŠƒvƒg‚ğÄ“Ç‚İ‚İ
-nnoremap <F8> :source %<CR>
+" ç©ºè¡Œç§»å‹•
+nnoremap <C-j> }
+nnoremap <C-k> {
 
-" ZZ‚Å‘S•Û‘¶E‘SI—¹‚ç‚µ‚¢‚Ì‚Å•s‰Â‚É
+" vimã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’å†èª­ã¿è¾¼ã¿
+nnoremap <F5> :source %<CR>
+
+" ZZã§å…¨ä¿å­˜ãƒ»å…¨çµ‚äº†ã‚‰ã—ã„ã®ã§ä¸å¯ã«
 nnoremap ZZ <Nop>
 
-" •âŠ®ŒÄ‚Ño‚µ
-" imap <C-Space> <C-x><C-n>
-
-" ’¼‘O‚Ìƒoƒbƒtƒ@‚ÉˆÚ“®
+" ç›´å‰ã®ãƒãƒƒãƒ•ã‚¡ã«ç§»å‹•
 nnoremap <Leader>b :b#<CR>
 
-" “ú•tƒ}ƒNƒ
+" æ—¥ä»˜ãƒã‚¯ãƒ­
 inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
 inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
 
-" ˜A”Ôƒ}ƒNƒ
-" <C-a>‚Å‰ÁZ
-" <C-x>‚ÅŒ¸Z
+" é€£ç•ªãƒã‚¯ãƒ­
+" <C-a>ã§åŠ ç®—
+" <C-x>ã§æ¸›ç®—
 command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
 nnoremap <silent> co : ContinuousNumber <C-a><CR>
 vnoremap <silent> <C-a> : ContinuousNumber <C-a><CR>
 vnoremap <silent> <C-x> : ContinuousNumber <C-x><CR>
 
-" help•â•
+" helpè£œåŠ©
 nnoremap <C-h> :<C-u>help<Space>
-
-" ƒ}[ƒNEƒŒƒWƒXƒ^‚È‚Çˆê——
-" g‚í‚È‚¢
-"nnoremap <Leader>M :<C-u>marks<CR>
-"nnoremap <Leader>R :<C-u>registers<CR>
-"nnoremap <Leader>B :<C-u>buffers<CR>
-"nnoremap <Leader>T :<C-u>tags<CR>
 
 " MYVIMRC
 nnoremap <Leader>v :e $MYVIMRC<CR>
 nnoremap <Leader>g :e $MYGVIMRC<CR>
 
-" ƒ„ƒ“ƒN‚µ‚½’PŒê‚Å’uŠ·
+" ãƒ¤ãƒ³ã‚¯ã—ãŸå˜èªã§ç½®æ›
 nnoremap <silent>ciy  ciw<C-r>0<Esc>:let@/=@1<CR>:noh<CR>
 nnoremap <silent>cy   ce <C-r>0<Esc>:let@/=@1<CR>:noh<CR>
 
-" ˆÚ“®Œn
+" C-yã§ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰è²¼ã‚Šä»˜ã‘
+inoremap <C-y> <C-r>*
+
+" ç§»å‹•ç³»
 inoremap <Leader>a  <Home>
 inoremap <Leader>e  <End>
 nnoremap <Leader>a  <Home>
 nnoremap <Leader>e  <End>
 
-" ƒ^ƒuŠÖ˜A
-nnoremap <Leader>n :<C-u>tabnew<CR>
-nnoremap <C-g>l  gt
-nnoremap <C-g>h  gT
+" ã‚¿ãƒ–é–¢é€£
+nnoremap gn :<C-u>tabnew<CR>
+nnoremap ge :<C-u>tabedit<CR>
+nnoremap <A-l> gt
+nnoremap <A-h> gT
 
-" ŠÖ”’PˆÊ‚ÅˆÚ“®
+" é–¢æ•°å˜ä½ã§ç§»å‹•
 noremap <C-p> [[
 noremap <C-n> ]]
 
-" ƒJƒŒƒ“ƒgƒpƒX‚ğƒoƒbƒtƒ@‚É‡‚í‚¹‚é
+" ã‚«ãƒ¬ãƒ³ãƒˆãƒ‘ã‚¹ã‚’ãƒãƒƒãƒ•ã‚¡ã«åˆã‚ã›ã‚‹
 nnoremap <silent><Leader><Space> :<C-u>cd %:h<CR>:pwd<CR>
 
-" ’uŠ·
+" ã‚«ãƒ¬ãƒ³ãƒˆãƒ‘ã‚¹ã‚’ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰ã«ã‚³ãƒ”ãƒ¼
+command! CopyCurrentPath :call s:copy_current_path()
+nnoremap <C-\> :<C-u>CopyCurrentPath<CR>
+function! s:copy_current_path()
+    if has('win32')
+        let @*=substitute(expand('%:p'), '\\/', '\\', 'g')
+    else
+        let @*=expand('%:p')
+    endif
+endfunction
+
+" ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°æŒ‡å®šã‚ªãƒ¼ãƒ—ãƒ³
+command! -bang -complete=file -nargs=? Utf8 edit<bang> ++enc=utf-8 <args>
+command! -bang -complete=file -nargs=? Utf16 edit<bang> ++enc=utf-16 <args>
+command! -bang -complete=file -nargs=? Sjis edit<bang> ++enc=cp932 <args>
+command! -bang -complete=file -nargs=? Euc edit<bang> ++enc=eucjp <args>
+
+" ç½®æ›
 nnoremap <expr> <Leader>s _(":s/<Cursor>//g")
 nnoremap <expr> <Leader>S _(":%s/<Cursor>//g")
 
-" ƒ[ƒJƒ‹İ’è‚ğ“Ç‚İ‚Ş
+" C++ {{{
+" headerã¨sourceã‚’å…¥ã‚Œæ›¿ãˆã‚‹
+command! -nargs=0 CppHpp :call <SID>cpp_hpp()
+function! s:cpp_hpp()
+    let cpps = ['cpp', 'cc', 'cxx', 'c']
+    let hpps = ['hpp', 'h']
+    let ext  = expand('%:e')
+    let base = expand('%:r')
+
+    " ã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ã®ã¨ã
+    if count(cpps,ext) != 0
+        for hpp in hpps
+            if filereadable(base.'.'.hpp)
+                execute 'edit '.base.'.'.hpp
+                return
+            endif
+        endfor
+    endif
+
+    " ãƒ˜ãƒƒãƒ€ãƒ•ã‚¡ã‚¤ãƒ«ã®ã¨ã
+    if count(hpps,ext) != 0
+        for cpp in cpps
+            if filereadable(base.'.'.cpp)
+                execute 'edit '.base.'.'.cpp
+                return
+            endif
+        endfor
+    endif
+
+    " ãªã‘ã‚Œã° Unite ã§æ¤œç´¢
+    if executable('mdfind') && has('mac')
+        execute "Unite spotlight -input=".base
+    elseif executable('locate')
+        execute "Unite locate -input=".base
+    else
+        echoerr "not found"
+    endif
+
+endfunction
+
+" }}}
+
+" ãƒ­ãƒ¼ã‚«ãƒ«è¨­å®šã‚’èª­ã¿è¾¼ã‚€
 if filereadable(expand('~/.my_local_vimrc'))
     source ~/.my_local_vimrc
 endif

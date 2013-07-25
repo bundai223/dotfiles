@@ -12,9 +12,11 @@ setlocal complete=.,w,b,u,t
 " keybind
 "--------------------------------------
 " ヘッダ・ソースを開く
-nnoremap <Leader>h :<C-u>hide edit %<.h<Return>
-nnoremap <Leader>c :<C-u>hide edit %<.cpp<Return>
+"nnoremap <Leader>h :<C-u>hide edit %<.h<Return>
+"nnoremap <Leader>c :<C-u>hide edit %<.cpp<Return>
 
+" ヘッダファイルとソースファイルを入れ替える
+nnoremap <C-c> :<C-u>CppHpp<CR>
 " 関数単位で移動
 "noremap <C-p> [[?^?s*$<CR>jz<CR>
 "noremap <C-n> /^?s*$<CR>]]?^?s*$<CR>jz<CR>
