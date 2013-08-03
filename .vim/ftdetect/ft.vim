@@ -20,3 +20,5 @@ au BufNewFile,BufRead *.fragmentshader set filetype=glsl
 au BufNewFile,BufRead *.nut set filetype=squirrel
 
 
+au BufNewFile,BufRead *.go set filetype=go
+
