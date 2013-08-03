@@ -59,7 +59,7 @@ set foldmethod=marker
 " Goのpath
 if $GOROOT != ''
     set rtp+=$GOROOT/misc/vim
-    exe "set rtp+=".globpath($GOPATH, "src/labo.com/nsf/gocode/vim")
+    set rtp+=$GOPATH/src/github.com/nsf/gocode/vim
 endif
 
 if has('unix')
