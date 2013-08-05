@@ -73,10 +73,10 @@ else
 endif
 
 " 履歴の保存
-"if has('persistent_undo' )
-"    set undodir=~/.vim/undo
-"    set undofile
-"endif
+if has('persistent_undo' )
+    set undodir=~/.vim/undo
+    set undofile
+endif
 
 " Leaderを設定
 "let mapleader=' '
@@ -368,7 +368,7 @@ NeoBundle 'Shougo/vimproc', {
         \   },
         \ }
 
-NeoBundle 'kana/vim-smartinput'
+"NeoBundle 'kana/vim-smartinput' "snippetでいいかな
 NeoBundle 'kana/vim-smartchr'
 
 " vimfiler
@@ -479,8 +479,9 @@ endfunction
 " unite
 let s:bundle = neobundle#get('unite.vim')
 function! s:bundle.hooks.on_source(bundle)
-    " 入力モードで開始
-    let g:unite_enable_start_insert=1
+  " 入力モードで開始
+  let g:unite_enable_start_insert=1
+  let g:unite_source_grep_max_candidates=1000
 endfunction
 
 " singleton
@@ -488,9 +489,12 @@ let s:bundle = neobundle#get('vim-singleton')
 function! s:bundle.hooks.on_source(bundle)
     call singleton#enable()
 endfunction
+if has('win32')
+  call singleton#enable()
+endif
 
 " restart
-let s:bundle = neobundle#get('vim-singleton')
+let s:bundle = neobundle#get('restart.vim')
 function! s:bundle.hooks.on_source(bundle)
     nnoremap <silent> rs : <C-u> Restart <CR>
 endfunction
@@ -661,28 +665,36 @@ inoremap <buffer><expr> : smartchr#one_of(': ', '::', ':')
 " 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
 inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>%\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
 				\ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
-				\ : smartchr#one_of(' = ', ' == ', '=')
+				\ : smartchr#one_of(' = ', ' == ', ' != ', '=')
 
-" 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
-inoremap <buffer><expr> } smartchr#one_of('}', '}<cr>')
-inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
+"" 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
+"inoremap <buffer><expr> } smartchr#one_of('}', '}<cr>')
+"inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
 " 「->」は入力しづらいので、..で置換え
 inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
 " 行先頭での@入力で、プリプロセス命令文を入力
 inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
 
 inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' "': '"'
-" if文直後の(は自動で間に空白を入れる
-inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' (': '('
+"" if文直後の(は自動で間に空白を入れる
+"inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' (': '('
 " }}}
 
-" smartinput {{{
-call smartinput#define_rule({
-\   'at': '\s\+\%#',
-\   'char': '<CR>',
-\   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
-\   })
-
+""" smartinput {{{
+"" 改行時に行末スペースを削除
+"call smartinput#define_rule({
+"\   'at': '\s\+\%#',
+"\   'char': '<CR>',
+"\   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
+"\   })
+"
+"" C++で;を忘れないように
+"call smartinput#define_rule({
+"\   'at'       : '\%(\<struct\>\|\<class\>\|\<enum\>\)\s*\w\+.*\%#',
+"\   'char'     : '{',
+"\   'input'    : '{};<Left><Left>',
+"\   'filetype' : ['cpp'],
+"\   })
 " }}}
 
 """ alignta {{{
