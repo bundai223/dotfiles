@@ -5,9 +5,8 @@ FBXSDK_ROOT=/Applications/Autodesk/FBX\ SDK/2013.3/
 # path setting
 PATH=/usr/local/bin:$PATH
 PATH=/usr/local/share/python:$PATH
-
-# go lang
-GOROOT=/usr/local/Cellar/go/1.0.3
+#
+## go lang
 PATH=$GOROOT/bin:$PATH
 
 # utility

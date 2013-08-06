@@ -58,8 +58,8 @@ set foldmethod=marker
 
 " Goのpath
 if $GOROOT != ''
-    set runtimepath+=$GOROOT/misc/vim
-    exe "set runtimepath+=".globpath($GOPATH, "src/labo.com/nsf/gocode/vim")
+    set rtp+=$GOROOT/misc/vim
+    set rtp+=$GOPATH/src/github.com/nsf/gocode/vim
 endif
 
 if has('unix')
@@ -289,7 +289,7 @@ command! -nargs=* Nnoremap MoveCursorPosMap nnoremap <args>
 filetype off
 
 if has('vim_starting')
-    set runtimepath+=~/.vim/neobundle.vim
+    set rtp+=~/.vim/neobundle.vim
 
     call neobundle#rc(expand('~/.bundle'))
 endif
@@ -778,7 +778,7 @@ vnoremap <silent> <C-a> : ContinuousNumber <C-a><CR>
 vnoremap <silent> <C-x> : ContinuousNumber <C-x><CR>
 
 " help補助
-nnoremap <C-h> :<C-u>help<Space>
+nnoremap <C-u> :<C-u>help<Space>
 
 " MYVIMRC
 nnoremap <Leader>v :e $MYVIMRC<CR>
@@ -800,8 +800,8 @@ nnoremap <Leader>e  <End>
 " タブ関連
 nnoremap gn :<C-u>tabnew<CR>
 nnoremap ge :<C-u>tabedit<CR>
-nnoremap <A-l> gt
-nnoremap <A-h> gT
+nnoremap <C-l> gt
+nnoremap <C-h> gT
 
 " 関数単位で移動
 noremap <C-p> [[
