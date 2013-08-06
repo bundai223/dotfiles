@@ -347,6 +347,7 @@ NeoBundle 'osyo-manga/vim-textobj-multiblock'
 "=====================================
 " utl
 NeoBundle 'h1mesuke/vim-alignta'
+NeoBundle 'deris/vim-rengbang'
 "NeoBundle 'tyru/coolgrep.vim'
 "NeoBundle 'kien/ctrlp.vim'
 "NeoBundle 't9md/vim-quickhl'
