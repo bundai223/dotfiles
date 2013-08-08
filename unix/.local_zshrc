@@ -1,0 +1,16 @@
+#.local_zshrc
+
+# path setting
+#
+. /etc/zsh_command_not_found
+
+## go lang
+GOROOT=/usr/local/go
+GOPATH=~/go
+PATH=$GOROOT/bin:$PATH
+
+# utility
+LABO_ROOT=~/labo
+LABO_GFX_ROOT=$LABO_ROOT/graphic
+
+
