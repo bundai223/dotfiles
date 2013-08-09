@@ -347,6 +347,7 @@ NeoBundle 'osyo-manga/vim-textobj-multiblock'
 
 "=====================================
 " utl
+NeoBundle 'tyru/caw.vim'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'deris/vim-rengbang'
 "NeoBundle 'tyru/coolgrep.vim'
@@ -427,35 +428,38 @@ NeoBundle 'w0ng/vim-hybrid'
 " clang_complete
 let s:bundle = neobundle#get('clang_complete')
 function! s:bundle.hooks.on_source(bundle)
-    let g:clang_complete_auto   = 0
-    let g:clang_auto_select     = 0
-    let g:clang_use_library     = 1
-    if has('win32')
-        " exp)  let g:clang_exec        = 'C:\path\to\clang.exe'
-        "       let g:clang_library_path= 'C:\path\to\(libclang.dll)'
-        "       let g:clang_user_options= '2> NUL || exit 0"'
-        let g:my_clang_bin_path = 'D:\Home\tool\clang\bin\'
-        let g:clang_exec        = g:my_clang_bin_path.'clang.exe'
-        let g:clang_library_path= g:my_clang_bin_path
-        let g:clang_user_options= '2> NUL || exit 0"'
 
-    elseif has('mac')
-        " exp)  let g:clang_exec        = 'C:\path\to\clang'
-        "       let g:clang_library_path= 'C:\path\to\(libclang.so)'
-        "       let g:clang_user_options= '2> NUL || exit 0"'
-        let g:clang_exec        = 'clang'
-        let g:clang_library_path= '/usr/lib/'
-        let g:clang_user_options= '2>/dev/null || exit 0"'
+  let g:clang_auto_select     = 0
+  let g:clang_use_library     = 1
+  if has('win32')
+    " exp)  let g:clang_exec        = 'C:\path\to\clang.exe'
+    "       let g:clang_library_path= 'C:\path\to\(libclang.dll)'
+    "       let g:clang_user_options= '2> NUL || exit 0"'
+    let g:clang_complete_auto = 0
+    let g:my_clang_bin_path   = 'D:\Home\tool\clang\bin\'
+    let g:clang_exec          = g:my_clang_bin_path.'clang.exe'
+    let g:clang_library_path  = g:my_clang_bin_path
+    let g:clang_user_options  = '2> NUL || exit 0"'
 
-    elseif has('unix')
-        " exp)  let g:clang_exec        = 'C:\path\to\clang'
-        "       let g:clang_library_path= 'C:\path\to\(libclang.so)'
-        "       let g:clang_user_options= '2> NUL || exit 0"'
-        let g:clang_exec        = ''
-        let g:clang_library_path= ''
-        let g:clang_user_options= '2>/dev/null || exit 0"'
+  elseif has('mac')
+    " exp)  let g:clang_exec        = 'C:\path\to\clang'
+    "       let g:clang_library_path= 'C:\path\to\(libclang.so)'
+    "       let g:clang_user_options= '2> NUL || exit 0"'
+    let g:clang_complete_auto = 1
+    let g:clang_exec          = 'clang'
+    let g:clang_library_path  = '/usr/lib/'
+    let g:clang_user_options  = '2>/dev/null || exit 0"'
 
-    endif
+  elseif has('unix')
+    " exp)  let g:clang_exec        = 'C:\path\to\clang'
+    "       let g:clang_library_path= 'C:\path\to\(libclang.so)'
+    "       let g:clang_user_options= '2> NUL || exit 0"'
+    let g:clang_complete_auto = 1
+    let g:clang_exec          = '/usr/bin/clang'
+    let g:clang_library_path  = '/usr/local/lib/'
+    let g:clang_user_options  = '2>/dev/null || exit 0"'
+
+  endif
 endfunction
 
 " vimfiler
@@ -740,9 +744,14 @@ let g:unite_source_alignta_preset_options = [
       \]
 " }}}
 
-""" PrettyPring {{{
+""" PrettyPrint {{{
 " 変数の中身を表示
 command! -nargs=+ Vars PP filter(copy(g:), 'v:key =~# "^<args>"')
+" }}}
+
+""" caw {{{
+nmap <Leader>c <Plug>(caw:I:toggle)
+vmap <Leader>c <Plug>(caw:I:toggle)
 " }}}
 
 "--------------------------------------
