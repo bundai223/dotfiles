@@ -284,6 +284,7 @@ command! -nargs=* Nnoremap MoveCursorPosMap nnoremap <args>
 
 "--------------------------------------
 " プラグイン
+" plugin のバインドは<Space>ということにしてみよう
 
 """ neobundle {{{
 filetype off
@@ -509,7 +510,7 @@ filetype indent on
 let g:V = vital#of('vital')
 
 """ vimshell {{{
-nnoremap <silent> vs : <C-u> VimShell<CR>
+nnoremap <silent> <Space>vs : <C-u> VimShell<CR>
 " }}}
 
 """ neocomplete {{{
@@ -568,9 +569,9 @@ let g:neocomplete#sources#omni#input_patterns.python    = ''
 let g:neocomplete#sources#omni#input_patterns.php       = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 let g:neocomplete#sources#omni#input_patterns.c         = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
 let g:neocomplete#sources#omni#input_patterns.cpp       = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-let g:neocomplete#sources#omni#input_patterns.squirrel  = '[^.[:d:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplete#sources#omni#input_patterns.cs        = '[^.]\.\%(\u\{2,}\)\?'
 let g:neocomplete#sources#omni#input_patterns.go        = '[^.]\.\%(\u\{2,}\)\?'
+let g:neocomplete#sources#omni#input_patterns.squirrel  = '[^.]\.\%(\u\{2,}\)\?'
 " }}}
 
 """ neosnippet {{{
@@ -632,7 +633,7 @@ nnoremap <silent> [unite]r :<C-u>UniteResume<CR>
 
 """ vimfiler {{{
 "nnoremap <silent> vf : <C-u> VimFilerExplorer %:h<CR>
-nnoremap <silent> vf : <C-u> VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
+nnoremap <silent> <Space>vf : <C-u> VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
 " }}}
 
 """ gtags {{{
@@ -745,23 +746,43 @@ command! -nargs=+ Vars PP filter(copy(g:), 'v:key =~# "^<args>"')
 " }}}
 
 "--------------------------------------
-" キーバインド
+" key mapping
 
-" ESCを簡単に
+" ESC押しやすく
 imap <C-j> <C-[>
 nmap <C-j> <C-[>
 vmap <C-j> <C-[>
 cmap <C-j> <C-[>
 
-" 空行移動
+" コマンドモードに入りやすく
+nnoremap ; :
+nnoremap : ;
+
+" カーソル移動
+" 空行単位で移動
+" C-jがかぶってる…Escを別のにしたい
 nnoremap <C-j> }
 nnoremap <C-k> {
 
-" vimスクリプトを再読み込み
+" 見た目の行移動をやりやすく
+nnoremap j  gj
+nnoremap k  gk
+nnoremap gj j
+nnoremap gk k
+
+" 再読み込み
 nnoremap <F5> :source %<CR>
 
-" ZZで全保存・全終了らしいので不可に
+" 使わないマッピングなしに
+" ZZで全保存・全終了
+" ZQで保存なし・全終了
 nnoremap ZZ <Nop>
+nnoremap ZQ <Nop>
+" exモード？なし
+nnoremap Q <Nop>
+
+" 正規表現の仕様を一般的なものに近づける
+nnoremap / /\v
 
 " 直前のバッファに移動
 nnoremap <Leader>b :b#<CR>
