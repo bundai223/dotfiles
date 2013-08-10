@@ -350,16 +350,17 @@ NeoBundle 'osyo-manga/vim-textobj-multiblock'
 NeoBundle 'tyru/caw.vim'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'deris/vim-rengbang'
-"NeoBundle 'tyru/coolgrep.vim'
-"NeoBundle 'kien/ctrlp.vim'
-"NeoBundle 't9md/vim-quickhl'
 NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-prettyprint'
 NeoBundle 'mattn/webapi-vim'
-"NeoBundle 'mattn/learn-vimscript'
-"NeoBundle 'vim-scripts/gtags.vim'
+NeoBundle 'osyo-manga/shabadou.vim'
+NeoBundle 'osyo-manga/vim-watchdogs', {
+        \   'autoload' : {'commands' : ['WatchdogsRun'] },
+        \ }
+"NeoBundle 'jceb/vim-hier'
+"NeoBundle 'dannyob/quickfixstatus'
 NeoBundle 'Shougo/vinarise'
 NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/neosnippet'
@@ -388,10 +389,11 @@ NeoBundleLazy 'Shougo/unite.vim',{
             \   'autoload' : {'commands' : ['Unite', 'UniteWithBufferDir'] },
             \ }
 
-
+" unite source
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'osyo-manga/unite-fold'
+NeoBundle 'osyo-manga/unite-quickrun_config'
 NeoBundle 'bundai223/unite-outline-sources'
 NeoBundle 'bundai223/unite-picktodo'
 
@@ -502,7 +504,13 @@ endif
 " restart
 let s:bundle = neobundle#get('restart.vim')
 function! s:bundle.hooks.on_source(bundle)
-    nnoremap <silent> rs : <C-u> Restart <CR>
+  nnoremap <silent> rs : <C-u> Restart <CR>
+endfunction
+
+" Watchdogs
+let s:bundle = neobundle#get('vim-watchdogs')
+function! s:bundle.hooks.on_source(bundle)
+  call watchdogs#setup(g:quickrun_config)
 endfunction
 " }}}
 
@@ -746,13 +754,49 @@ let g:unite_source_alignta_preset_options = [
 
 """ PrettyPrint {{{
 " 変数の中身を表示
-command! -nargs=+ Vars PP filter(copy(g:), 'v:key =~# "^<args>"')
+command! -nargs=+ GlobalVars PP filter(copy(g:), 'v:key =~# "^<args>"')
+command! -nargs=+ BufVars PP filter(copy(b:), 'v:key =~# "^<args>"')
 " }}}
 
 """ caw {{{
 nmap <Leader>c <Plug>(caw:I:toggle)
 vmap <Leader>c <Plug>(caw:I:toggle)
 " }}}
+
+""" quickrun {{{
+" vimprocで起動
+" バッファが空なら閉じる
+let g:quickrun_config = get(g:, 'quickrun_config', {})
+let g:quickrun_config._ = {
+\   "runner" : "vimproc",
+\   "runner/vimproc/updatetime" : 60,
+\   "outputter/buffer/split" : ":botright",
+\   "outputter/buffer/close_on_empty" : 1,
+\}
+"let g:quickrun_config = {
+"\ "_" : {
+"\   "runner" : "vimproc",
+"\   "runner/vimproc/updatetime" : 60,
+"\   "outputter/buffer/split" : ":botright",
+"\   "outputter/buffer/close_on_empty" : 1,
+"\ },
+"\ "cpp" : {
+"\   "type" : "cpp/clang++"
+"\ },
+"\ "cpp/clangc++": {
+"\   "command": "clang++",
+"\   "exec": ['%c %o %s -o %s:p:r', '%s:p:r %a'],
+"\   "tempfile": '%{tempname()}.cpp',
+"\   "hook/sweep/files": ['%S:p:r'],
+"\ },
+"\}
+
+
+"" <Space>qで強制終了
+"nnoremap <expr><silent><Space>q quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+
+"""}}}
+
 
 "--------------------------------------
 " key mapping

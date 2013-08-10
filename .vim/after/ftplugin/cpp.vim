@@ -1,26 +1,15 @@
 "--------------------------------------
 " basic setting
 "--------------------------------------
-"if has('win')
-"    setlocal encoding=cp932
-"    setlocal fileformats=dos,unix
-"endif
-setlocal complete=.,w,b,u,t
+"includeまで補完するとめちゃくちゃおもいので除外
+"setlocal complete=.,w,b,u,t
 
 
 "--------------------------------------
 " keybind
 "--------------------------------------
-" ヘッダ・ソースを開く
-"nnoremap <Leader>h :<C-u>hide edit %<.h<Return>
-"nnoremap <Leader>c :<C-u>hide edit %<.cpp<Return>
-
 " ヘッダファイルとソースファイルを入れ替える
-nnoremap <C-c> :<C-u>CppHpp<CR>
-" 関数単位で移動
-"noremap <C-p> [[?^?s*$<CR>jz<CR>
-"noremap <C-n> /^?s*$<CR>]]?^?s*$<CR>jz<CR>
-
+nnoremap <C-a> :<C-u>CppHpp<CR>
 
 "--------------------------------------
 " script
