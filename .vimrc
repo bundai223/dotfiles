@@ -396,6 +396,9 @@ NeoBundle 'osyo-manga/unite-fold'
 NeoBundle 'osyo-manga/unite-quickrun_config'
 NeoBundle 'bundai223/unite-outline-sources'
 NeoBundle 'bundai223/unite-picktodo'
+if has('mac')
+  NeoBundle 'choplin/unite-spotlight'
+endif
 
 NeoBundleLazy 'tyru/restart.vim', {
             \   'gui' : 1,
