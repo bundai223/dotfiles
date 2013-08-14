@@ -1,7 +1,7 @@
 #---------------------------------------------
-# åŸºæœ¬ã®è¨­å®š
+# Šî–{‚Ìİ’è
 #---------------------------------------------
-# ã©ã£ã‹ã‹ã‚‰ã®ã‚³ãƒ”ãƒš
+# ‚Ç‚Á‚©‚©‚ç‚ÌƒRƒsƒy
 # The following lines were added by compinstall
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' list-colors ''
@@ -9,29 +9,29 @@ zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character t
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' verbose true
-# å°æ–‡å­—ã¯å¤§æ–‡å­—ã¨ã”ã£ã¡ã‚ƒã§æ¤œç´¢ã§ãã‚‹
-# å¤§æ–‡å­—ã¯å°æ–‡å­—ã¨åŒºåˆ¥ã•ã‚Œã‚‹
+# ¬•¶š‚Í‘å•¶š‚Æ‚²‚Á‚¿‚á‚ÅŒŸõ‚Å‚«‚é
+# ‘å•¶š‚Í¬•¶š‚Æ‹æ•Ê‚³‚ê‚é
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-# cdã§è¡¨ç¤ºã—ãªã„ä¾‹å¤–è¨­å®š
+# cd‚Å•\¦‚µ‚È‚¢—áŠOİ’è
 zstyle ':completion:*:*:cd:*' ignored-patterns '.svn|.git'
 
-# è£œå®Œæœ‰åŠ¹
+# •âŠ®—LŒø
 autoload -Uz compinit
 compinit
 
 
 
-setopt nobeep               # ãƒ“ãƒ¼ãƒ—éŸ³ãªã—
-setopt ignore_eof           # C-dã§ãƒ­ã‚°ã‚¢ã‚¦ãƒˆã—ãªã„
-setopt rm_star_silent       # rm *ã§ç¢ºèªã ã•ãªã„
-setopt no_auto_param_slash  # è‡ªå‹•ã§æœ«å°¾ã«/ã‚’è£œå®Œã—ãªã„
-setopt auto_pushd           # cdå±¥æ­´ã‚’æ®‹ã™
+setopt nobeep               # ƒr[ƒv‰¹‚È‚µ
+setopt ignore_eof           # C-d‚ÅƒƒOƒAƒEƒg‚µ‚È‚¢
+setopt rm_star_silent       # rm *‚ÅŠm”F‚¾‚³‚È‚¢
+setopt no_auto_param_slash  # ©“®‚Å––”ö‚É/‚ğ•âŠ®‚µ‚È‚¢
+setopt auto_pushd           # cd—š—ğ‚ğc‚·
 
 
 export EDITOR=vim
 
 #---------------------------------------------
-# å±¥æ­´ã®è¨­å®š
+# —š—ğ‚Ìİ’è
 #---------------------------------------------
 # End of lines added by compinstal
 # Lines configured by zsh-newuser-install
@@ -40,22 +40,22 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory extendedglob notify
 
-# é‡è¤‡ã™ã‚‹å±¥æ­´ã¯ä¿å­˜ã—ãªã„
+# d•¡‚·‚é—š—ğ‚Í•Û‘¶‚µ‚È‚¢
 setopt hist_ignore_dups
-# å…ˆé ­ã«ã‚¹ãƒšãƒ¼ã‚¹ãŒã‚ã‚‹ã¨å±¥æ­´ä¿å­˜ã—ãªã„
+# æ“ª‚ÉƒXƒy[ƒX‚ª‚ ‚é‚Æ—š—ğ•Û‘¶‚µ‚È‚¢
 setopt hist_ignore_space
 
 #---------------------------------------------
-# ã‚­ãƒ¼ãƒã‚¤ãƒ³ãƒ‰
+# ƒL[ƒoƒCƒ“ƒh
 #---------------------------------------------
-# vié¢¨
+# vi•—
 #
-# ä¸€ç•ªä¸‹ã«ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼è¡¨ç¤ºã‚¹ã‚¯ãƒªãƒ—ãƒˆ
+# ˆê”Ô‰º‚ÉƒXƒe[ƒ^ƒXƒo[•\¦ƒXƒNƒŠƒvƒg
 #
 bindkey -v
 
-# å±¥æ­´è¡¨ç¤º
-# å±¥æ­´ã‹ã‚‰å…¥åŠ›ã®ç¶šãã‚’è£œå®Œ
+# —š—ğ•\¦
+# —š—ğ‚©‚ç“ü—Í‚Ì‘±‚«‚ğ•âŠ®
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 bindkey "^P" history-beginning-search-backward
@@ -69,30 +69,37 @@ alias lsl='ls -la'
 alias pd=popd
 
 #---------------------------------------------
-# ã‚¿ãƒ¼ãƒŸãƒŠãƒ«ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼è¡¨ç¤ºã‚’è¦‹æ…£ã‚ŒãŸæ„Ÿã˜ã«è¨­å®š
+# ƒ^[ƒ~ƒiƒ‹‚Ìƒ†[ƒU[•\¦‚ğİ’è
 #---------------------------------------------
+# ƒo[ƒWƒ‡ƒ“ŠÇ—‚Ìó‘Ô‚É‡‚í‚¹‚½•\¦
+autoload -Uz vcs_info
+precmd () {
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+# ÀÛ‚Ìƒvƒƒ“ƒvƒg‚Ì•\¦İ’è
 autoload -Uz colors && colors
-#PS1="[${USER}@${HOST%%.*} %1~]%(!.#.$) "
 
-PS1="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%}
+PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%1v%{${reset_color}%}
 %(!.#.$) "
 
-
-# ãƒ­ãƒ¼ã‚«ãƒ«ç”¨è¨­å®šã‚’èª­ã¿è¾¼ã‚€
+# ƒ[ƒJƒ‹—pİ’è‚ğ“Ç‚İ‚Ş
 if [ -f ~/.local_zshrc ]; then
     . ~/.local_zshrc
 fi
 
 fpath=(~/.zsh/functions/ $fpath)
 
+# vimƒL[ƒoƒCƒ“ƒh‚Ìƒ‚[ƒh‚É‚æ‚Á‚Ä“ü—Íƒvƒƒ“ƒvƒg‚Ìæ“ª‚ÌF‚ğ•ÏX
 function zle-line-init zle-keymap-select {
   case $KEYMAP in
     vicmd)
-      PS1="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%}
+        PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%1v%{${reset_color}%}
 %{$bg_bold[magenta]%}%(!.#.$)%{$reset_color%} "
     ;;
     main|viins)
-      PS1="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%}
+        PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%1v%{${reset_color}%}
 %(!.#.$) "
     ;;
   esac
