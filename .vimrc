@@ -471,21 +471,22 @@ endfunction
 " vimfiler
 let s:bundle = neobundle#get('vimfiler')
 function! s:bundle.hooks.on_source(bundle)
-    let g:vimfiler_as_default_explorer=1
-    let g:vimfiler_safe_mode_by_default=0
+  let g:vimfiler_as_default_explorer=1
+  let g:vimfiler_safe_mode_by_default=0
 endfunction
 
 " vimshell
 let s:bundle = neobundle#get('vimshell')
 function! s:bundle.hooks.on_source(bundle)
-    if has('win32')
-        let g:vimshell_interactive_cygwin_path='c:/cygwin/bin'
-    endif
-    let g:vimshell_user_prompt = '$USERNAME . "@" . hostname() . " " . fnamemodify(getcwd(), ":~")'
-    let g:vimshell_prompt='$ '
-    let g:vimshell_split_command="split"
-    
-    let g:vimshell_vimshrc_path = expand('~/labo/dotfiles/.vimshrc')
+  if has('win32')
+  let g:vimshell_interactive_cygwin_path='c:/cygwin/bin'
+  endif
+  let g:vimshell_user_prompt = '$USERNAME . "@" . hostname() . " " . fnamemodify(getcwd(), ":~")'
+  let g:vimshell_prompt='$ '
+  "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+  let g:vimshell_split_command="split"
+
+  let g:vimshell_vimshrc_path = expand('~/labo/dotfiles/.vimshrc')
 endfunction
 
 " unite
