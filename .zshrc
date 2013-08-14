@@ -1,7 +1,7 @@
 #---------------------------------------------
-# Šî–{‚Ìİ’è
+# åŸºæœ¬ã®è¨­å®š
 #---------------------------------------------
-# ‚Ç‚Á‚©‚©‚ç‚ÌƒRƒsƒy
+# ã©ã£ã‹ã‹ã‚‰ã®ã‚³ãƒ”ãƒš
 # The following lines were added by compinstall
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' list-colors ''
@@ -9,29 +9,29 @@ zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character t
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' verbose true
-# ¬•¶š‚Í‘å•¶š‚Æ‚²‚Á‚¿‚á‚ÅŒŸõ‚Å‚«‚é
-# ‘å•¶š‚Í¬•¶š‚Æ‹æ•Ê‚³‚ê‚é
+# å°æ–‡å­—ã¯å¤§æ–‡å­—ã¨ã”ã£ã¡ã‚ƒã§æ¤œç´¢ã§ãã‚‹
+# å¤§æ–‡å­—ã¯å°æ–‡å­—ã¨åŒºåˆ¥ã•ã‚Œã‚‹
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-# cd‚Å•\¦‚µ‚È‚¢—áŠOİ’è
+# cdã§è¡¨ç¤ºã—ãªã„ä¾‹å¤–è¨­å®š
 zstyle ':completion:*:*:cd:*' ignored-patterns '.svn|.git'
 
-# •âŠ®—LŒø
+# è£œå®Œæœ‰åŠ¹
 autoload -Uz compinit
 compinit
 
 
 
-setopt nobeep               # ƒr[ƒv‰¹‚È‚µ
-setopt ignore_eof           # C-d‚ÅƒƒOƒAƒEƒg‚µ‚È‚¢
-setopt rm_star_silent       # rm *‚ÅŠm”F‚¾‚³‚È‚¢
-setopt no_auto_param_slash  # ©“®‚Å––”ö‚É/‚ğ•âŠ®‚µ‚È‚¢
-setopt auto_pushd           # cd—š—ğ‚ğc‚·
+setopt nobeep               # ãƒ“ãƒ¼ãƒ—éŸ³ãªã—
+setopt ignore_eof           # C-dã§ãƒ­ã‚°ã‚¢ã‚¦ãƒˆã—ãªã„
+setopt rm_star_silent       # rm *ã§ç¢ºèªã ã•ãªã„
+setopt no_auto_param_slash  # è‡ªå‹•ã§æœ«å°¾ã«/ã‚’è£œå®Œã—ãªã„
+setopt auto_pushd           # cdå±¥æ­´ã‚’æ®‹ã™
 
 
 export EDITOR=vim
 
 #---------------------------------------------
-# —š—ğ‚Ìİ’è
+# å±¥æ­´ã®è¨­å®š
 #---------------------------------------------
 # End of lines added by compinstal
 # Lines configured by zsh-newuser-install
@@ -40,22 +40,22 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory extendedglob notify
 
-# d•¡‚·‚é—š—ğ‚Í•Û‘¶‚µ‚È‚¢
+# é‡è¤‡ã™ã‚‹å±¥æ­´ã¯ä¿å­˜ã—ãªã„
 setopt hist_ignore_dups
-# æ“ª‚ÉƒXƒy[ƒX‚ª‚ ‚é‚Æ—š—ğ•Û‘¶‚µ‚È‚¢
+# å…ˆé ­ã«ã‚¹ãƒšãƒ¼ã‚¹ãŒã‚ã‚‹ã¨å±¥æ­´ä¿å­˜ã—ãªã„
 setopt hist_ignore_space
 
 #---------------------------------------------
-# ƒL[ƒoƒCƒ“ƒh
+# ã‚­ãƒ¼ãƒã‚¤ãƒ³ãƒ‰
 #---------------------------------------------
-# vi•—
+# vié¢¨
 #
-# ˆê”Ô‰º‚ÉƒXƒe[ƒ^ƒXƒo[•\¦ƒXƒNƒŠƒvƒg
+# ä¸€ç•ªä¸‹ã«ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼è¡¨ç¤ºã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 #
 bindkey -v
 
-# —š—ğ•\¦
-# —š—ğ‚©‚ç“ü—Í‚Ì‘±‚«‚ğ•âŠ®
+# å±¥æ­´è¡¨ç¤º
+# å±¥æ­´ã‹ã‚‰å…¥åŠ›ã®ç¶šãã‚’è£œå®Œ
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 bindkey "^P" history-beginning-search-backward
@@ -69,29 +69,29 @@ alias lsl='ls -la'
 alias pd=popd
 
 #---------------------------------------------
-# ƒ^[ƒ~ƒiƒ‹‚Ìƒ†[ƒU[•\¦‚ğİ’è
+# ã‚¿ãƒ¼ãƒŸãƒŠãƒ«ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼è¡¨ç¤ºã‚’è¨­å®š
 #---------------------------------------------
-# ƒo[ƒWƒ‡ƒ“ŠÇ—‚Ìó‘Ô‚É‡‚í‚¹‚½•\¦
+# ãƒãƒ¼ã‚¸ãƒ§ãƒ³ç®¡ç†ã®çŠ¶æ…‹ã«åˆã‚ã›ãŸè¡¨ç¤º
 autoload -Uz vcs_info
 precmd () {
     psvar=()
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
-# ÀÛ‚Ìƒvƒƒ“ƒvƒg‚Ì•\¦İ’è
+# å®Ÿéš›ã®ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã®è¡¨ç¤ºè¨­å®š
 autoload -Uz colors && colors
 
 PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%1v%{${reset_color}%}
 %(!.#.$) "
 
-# ƒ[ƒJƒ‹—pİ’è‚ğ“Ç‚İ‚Ş
+# ãƒ­ãƒ¼ã‚«ãƒ«ç”¨è¨­å®šã‚’èª­ã¿è¾¼ã‚€
 if [ -f ~/.local_zshrc ]; then
     . ~/.local_zshrc
 fi
 
 fpath=(~/.zsh/functions/ $fpath)
 
-# vimƒL[ƒoƒCƒ“ƒh‚Ìƒ‚[ƒh‚É‚æ‚Á‚Ä“ü—Íƒvƒƒ“ƒvƒg‚Ìæ“ª‚ÌF‚ğ•ÏX
+# vimã‚­ãƒ¼ãƒã‚¤ãƒ³ãƒ‰ã®ãƒ¢ãƒ¼ãƒ‰ã«ã‚ˆã£ã¦å…¥åŠ›ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã®å…ˆé ­ã®è‰²ã‚’å¤‰æ›´
 function zle-line-init zle-keymap-select {
   case $KEYMAP in
     vicmd)
