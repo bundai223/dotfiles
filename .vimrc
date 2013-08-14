@@ -392,6 +392,7 @@ NeoBundleLazy 'Shougo/unite.vim',{
 " unite source
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'Shougo/unite-outline'
+NeoBundle 'Shougo/unite-build'
 NeoBundle 'osyo-manga/unite-fold'
 NeoBundle 'osyo-manga/unite-quickrun_config'
 NeoBundle 'bundai223/unite-outline-sources'
@@ -813,6 +814,8 @@ cmap <C-j> <C-[>
 " コマンドモードに入りやすく
 nnoremap ; :
 nnoremap : ;
+vnoremap ; :
+vnoremap : ;
 
 " カーソル移動
 " 空行単位で移動
