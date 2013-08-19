@@ -9,7 +9,7 @@
 " keybind
 "--------------------------------------
 " ヘッダファイルとソースファイルを入れ替える
-nnoremap <C-s> :<C-u>CppHpp<CR>
+nnoremap <Leader>s :<C-u>CppHpp<CR>
 
 "--------------------------------------
 " script
