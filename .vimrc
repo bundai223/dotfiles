@@ -283,7 +283,7 @@ command! -nargs=* Nnoremap MoveCursorPosMap nnoremap <args>
 " }}}
 
 "--------------------------------------
-" プラグイン
+" pluginプラグイン
 " plugin のバインドは<Space>ということにしてみよう
 
 """ neobundle {{{
@@ -355,6 +355,7 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-prettyprint'
 NeoBundle 'mattn/webapi-vim'
+NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'osyo-manga/shabadou.vim'
 NeoBundle 'osyo-manga/vim-watchdogs', {
         \   'autoload' : {'commands' : ['WatchdogsRun'] },
@@ -373,7 +374,7 @@ NeoBundle 'Shougo/vimproc', {
         \ }
 
 "NeoBundle 'kana/vim-smartinput' "snippetでいいかな
-NeoBundle 'kana/vim-smartchr'
+"NeoBundle 'kana/vim-smartchr'   "どうにも慣れない&正しく動作しないときがある（恐らく自分の設定の問題?filetype?）
 
 " vimfiler
 NeoBundleLazy 'Shougo/vimfiler', {
@@ -664,38 +665,40 @@ vmap ib <Plug>(textobj-multiblock-i)
 " }}}
 
 """ smart chr {{{
-" 演算子の間に空白を入れる
-inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <': smartchr#one_of(' < ', ' << ', '<')
-inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#one_of(' > ', ' >> ', '>')
-inoremap <buffer><expr> + smartchr#one_of(' + ', '++', '+')
-inoremap <buffer><expr> - smartchr#one_of(' - ', '--', '-')
-inoremap <buffer><expr> / smartchr#one_of(' / ', '// ', '/')
-" *はポインタで使うので、空白はいれない
-inoremap <buffer><expr> & smartchr#one_of(' & ', ' && ', '&')
-inoremap <buffer><expr> % smartchr#one_of(' % ', '%')
-inoremap <buffer><expr> <Bar> smartchr#one_of(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
-inoremap <buffer><expr> , smartchr#one_of(', ', ',')
-" 3項演算子の場合は、後ろのみ空白を入れる
-inoremap <buffer><expr> ? smartchr#one_of('? ', '?')
-inoremap <buffer><expr> : smartchr#one_of(': ', '::', ':')
 
-" =の場合、単純な代入や比較演算子として入力する場合は前後にスペースをいれる。
-" 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
-inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>%\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
-				\ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
-				\ : smartchr#one_of(' = ', ' == ', ' != ', '=')
+" " 演算子の間に空白を入れる
+" inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <': smartchr#one_of(' < ', ' << ', '<')
+" inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#one_of(' > ', ' >> ', '>')
+" inoremap <buffer><expr> + smartchr#one_of(' + ', '++', '+')
+" inoremap <buffer><expr> - smartchr#one_of(' - ', '--', '-')
+" inoremap <buffer><expr> / smartchr#one_of(' / ', '// ', '/')
+" " *はポインタで使うので、空白はいれない
+" inoremap <buffer><expr> & smartchr#one_of(' & ', ' && ', '&')
+" inoremap <buffer><expr> % smartchr#one_of(' % ', '%')
+" inoremap <buffer><expr> <Bar> smartchr#one_of(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
+" inoremap <buffer><expr> , smartchr#one_of(', ', ',')
+" " 3項演算子の場合は、後ろのみ空白を入れる
+" inoremap <buffer><expr> ? smartchr#one_of('? ', '?')
+" inoremap <buffer><expr> : smartchr#one_of(': ', '::', ':')
+"
+" " =の場合、単純な代入や比較演算子として入力する場合は前後にスペースをいれる。
+" " 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
+" inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>%\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
+" 				\ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
+" 				\ : smartchr#one_of(' = ', ' == ', ' != ', '=')
+"
+" "" 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
+" "inoremap <buffer><expr> } smartchr#one_of('}', '}<cr>')
+" "inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
+" " 「->」は入力しづらいので、..で置換え
+" inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
+" " 行先頭での@入力で、プリプロセス命令文を入力
+" inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
+"
+" inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' "': '"'
+" "" if文直後の(は自動で間に空白を入れる
+" "inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' (': '('
 
-"" 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
-"inoremap <buffer><expr> } smartchr#one_of('}', '}<cr>')
-"inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
-" 「->」は入力しづらいので、..で置換え
-inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
-" 行先頭での@入力で、プリプロセス命令文を入力
-inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
-
-inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' "': '"'
-"" if文直後の(は自動で間に空白を入れる
-"inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' (': '('
 " }}}
 
 """ smartinput {{{
@@ -801,15 +804,35 @@ let g:quickrun_config._ = {
 
 """}}}
 
+""" anzu
+" " echo statusline to search index
+" " n や N の代わりに使用します。
+" nmap n <Plug>(anzu-n)
+" nmap N <Plug>(anzu-N)
+" nmap * <Plug>(anzu-star)
+" nmap # <Plug>(anzu-sharp)
+"
+" " ステータス情報を statusline へと表示する
+" set statusline=%{anzu#search_status()}
+
+" こっちを使用すると
+" 移動後にステータス情報をコマンドラインへと出力を行います。
+" statusline を使用したくない場合はこっちを使用して下さい。
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+
+"""}}}
 
 "--------------------------------------
 " key mapping
 
 " ESC押しやすく
-imap <C-j> <C-[>
-nmap <C-j> <C-[>
-vmap <C-j> <C-[>
-cmap <C-j> <C-[>
+imap <C-c> <C-[>
+nmap <C-c> <C-[>
+vmap <C-c> <C-[>
+cmap <C-c> <C-[>
 
 " コマンドモードに入りやすく
 nnoremap ; :
