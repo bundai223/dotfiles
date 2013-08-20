@@ -58,12 +58,12 @@ set foldmethod=marker
 
 " Goのpath
 if $GOROOT != ''
-    set rtp+=$GOROOT/misc/vim
-    set rtp+=$GOPATH/src/github.com/nsf/gocode/vim
+  set rtp+=$GOROOT/misc/vim
+  set rtp+=$GOPATH/src/github.com/nsf/gocode/vim
 endif
 
 if has('unix')
-    let $USERNAME=$USER
+  let $USERNAME=$USER
 endif
 
 if has('win32')
@@ -74,14 +74,14 @@ endif
 
 " 履歴の保存
 if has('persistent_undo' )
-    set undodir=~/.vim/undo
-    set undofile
+  set undodir=~/.vim/undo
+  set undofile
 endif
 
 " Leaderを設定
 "let mapleader=' '
 if has('mac')
-    map _ <Leader>
+  map _ <Leader>
 endif
 
 "--------------------------------------
@@ -112,7 +112,7 @@ set grepprg=grep\ -nH
 " 表示の設定
 
 "起動時のメッセージを消す
-set shortmess& shortmess+=I
+"set shortmess& shortmess+=I
 
 " 行番号表示
 "set number
@@ -126,16 +126,14 @@ set lazyredraw
 
 " ハイライトのオン
 if &t_Co > 2 || has('gui_running')
-    syntax on
+  syntax on
 endif
+
+set laststatus=2
 
 " リストヘッダ
 "set formatlistpat&
 "let &formatlistpat .= '\|^\s*[*+-]\s*'
-
-" ステータスライン
-set ruf=%45(%12f%=\ %m%{'['.(&fenc!=''?&fenc:&enc).']'}\ %l-%v\ %p%%\ [%02B]%)
-set statusline=%f:\ %{substitute(getcwd(),'.*/','','')}\ %m%=%{(&fenc!=''?&fenc:&enc).':'.strpart(&ff,0,1)}\ %l-%v\ %p%%\ %02B
 
 " 一定時間カーソルを移動しないとカーソルラインを表示 {{{
 " http://d.hatena.ne.jp/thinca/20090530/1243615055
@@ -171,42 +169,45 @@ augroup END
 set nocursorline
 " }}}
 
-" 挿入モード時にステータスラインの色を変更 {{{
-let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
-
-if has('syntax')
-  augroup InsertHook
-    autocmd!
-    autocmd InsertEnter * call s:StatusLine('Enter')
-    autocmd InsertLeave * call s:StatusLine('Leave')
-  augroup END
-endif
-
-let s:slhlcmd = ''
-function! s:StatusLine(mode)
-  if a:mode == 'Enter'
-    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-    silent exec g:hi_insert
-  else
-    highlight clear StatusLine
-    silent exec s:slhlcmd
-  endif
-endfunction
-
-function! s:GetHighlight(hi)
-  redir => hl
-  exec 'highlight '.a:hi
-  redir END
-  let hl = substitute(hl, '[\r\n]', '', 'g')
-  let hl = substitute(hl, 'xxx', '', '')
-  return hl
-endfunction
-
-if has('unix') && !has('gui_running')
-  " ubuntuなどESC後にすぐ反映されない対策
-  inoremap <silent> <ESC> <ESC>
-endif
-" }}}
+" ステータスライン {{{
+" set ruf=%45(%12f%=\ %m%{'['.(&fenc!=''?&fenc:&enc).']'}\ %l-%v\ %p%%\ [%02B]%)
+" set statusline=%f:\ %{substitute(getcwd(),'.*/','','')}\ %m%=%{(&fenc!=''?&fenc:&enc).':'.strpart(&ff,0,1)}\ %l-%v\ %p%%\ %02B
+" 挿入モード時にステータスラインの色を変更
+" let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
+"
+" if has('syntax')
+"   augroup InsertHook
+"     autocmd!
+"     autocmd InsertEnter * call s:StatusLine('Enter')
+"     autocmd InsertLeave * call s:StatusLine('Leave')
+"   augroup END
+" endif
+"
+" let s:slhlcmd = ''
+" function! s:StatusLine(mode)
+"   if a:mode == 'Enter'
+"     silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
+"     silent exec g:hi_insert
+"   else
+"     highlight clear StatusLine
+"     silent exec s:slhlcmd
+"   endif
+" endfunction
+"
+" function! s:GetHighlight(hi)
+"   redir => hl
+"   exec 'highlight '.a:hi
+"   redir END
+"   let hl = substitute(hl, '[\r\n]', '', 'g')
+"   let hl = substitute(hl, 'xxx', '', '')
+"   return hl
+" endfunction
+"
+" if has('unix') && !has('gui_running')
+"   " ubuntuなどESC後にすぐ反映されない対策
+"   inoremap <silent> <ESC> <ESC>
+" endif
+" " }}}
 
 "--------------------------------------
 " vim script
@@ -234,31 +235,31 @@ au BufNewFile *.h call InsertHeaderHeader()
 au BufNewFile *.cpp call InsertFileHeader()
 
 function! IncludeGuard()
-    let fl = getline(1)
-    if fl =~ "^#if"
-        return
-    endif
-"    let gatename = substitute(toupper(expand("%:t")), "??.", "_", "g")
-    let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
-    normal! gg
-    execute "normal! i#ifndef _" . gatename . "_INCLUDED_"
-    execute "normal! o#define _" . gatename .  "_INCLUDED_\<CR>\<CR>\<CR>\<CR>"
-    execute "normal! Go#endif // _" . gatename . "_INCLUDED_\<CR>"
-    4
+  let fl = getline(1)
+  if fl =~ "^#if"
+    return
+  endif
+   let gatename = substitute(toupper(expand("%:t")), "??.", "_", "g")
+  let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+  normal! gg
+  execute "normal! i#ifndef _" . gatename . "_INCLUDED_"
+  execute "normal! o#define _" . gatename .  "_INCLUDED_\<CR>\<CR>\<CR>\<CR>"
+  execute "normal! Go#endif // _" . gatename . "_INCLUDED_\<CR>"
+  4
 endfunction
 
 function! InsertFileHeader()
-    let filename = expand("%:t")
-    normal! gg
-    execute "normal! i//**********************************************************************\<CR>"
-    execute "normal! i//! @file   " . filename . "\<CR>"
-    execute "normal! i//! @brief  describe\<CR>"
-    execute "normal! i//**********************************************************************\<CR>"
+  let filename = expand("%:t")
+  normal! gg
+  execute "normal! i//**********************************************************************\<CR>"
+  execute "normal! i//! @file   " . filename . "\<CR>"
+  execute "normal! i//! @brief  describe\<CR>"
+  execute "normal! i//**********************************************************************\<CR>"
 endfunction
 
 function! InsertHeaderHeader()
-    call IncludeGuard()
-    call InsertFileHeader()
+  call IncludeGuard()
+  call InsertFileHeader()
 endfunction
 " }}}
 
@@ -290,9 +291,9 @@ command! -nargs=* Nnoremap MoveCursorPosMap nnoremap <args>
 filetype off
 
 if has('vim_starting')
-    set rtp+=~/.vim/neobundle.vim
-
-    call neobundle#rc(expand('~/.bundle'))
+  set rtp+=~/.vim/neobundle.vim
+  
+  call neobundle#rc(expand('~/.bundle'))
 endif
 
 " repository
@@ -347,6 +348,7 @@ NeoBundle 'osyo-manga/vim-textobj-multiblock'
 
 "=====================================
 " utl
+NeoBundle 'bling/vim-airline'
 NeoBundle 'tyru/caw.vim'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'deris/vim-rengbang'
@@ -472,21 +474,22 @@ endfunction
 " vimfiler
 let s:bundle = neobundle#get('vimfiler')
 function! s:bundle.hooks.on_source(bundle)
-    let g:vimfiler_as_default_explorer=1
-    let g:vimfiler_safe_mode_by_default=0
+  let g:vimfiler_as_default_explorer=1
+  let g:vimfiler_safe_mode_by_default=0
 endfunction
 
 " vimshell
 let s:bundle = neobundle#get('vimshell')
 function! s:bundle.hooks.on_source(bundle)
-    if has('win32')
-        let g:vimshell_interactive_cygwin_path='c:/cygwin/bin'
-    endif
-    let g:vimshell_user_prompt = '$USERNAME . "@" . hostname() . " " . fnamemodify(getcwd(), ":~")'
-    let g:vimshell_prompt='$ '
-    let g:vimshell_split_command="split"
-    
-    let g:vimshell_vimshrc_path = expand('~/labo/dotfiles/.vimshrc')
+  if has('win32')
+  let g:vimshell_interactive_cygwin_path='c:/cygwin/bin'
+  endif
+  let g:vimshell_user_prompt = '$USERNAME . "@" . hostname() . " " . fnamemodify(getcwd(), ":~")'
+  let g:vimshell_prompt='$ '
+  "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+  let g:vimshell_split_command="split"
+
+  let g:vimshell_vimshrc_path = expand('~/labo/dotfiles/.vimshrc')
 endfunction
 
 " unite
@@ -500,7 +503,7 @@ endfunction
 " singleton
 let s:bundle = neobundle#get('vim-singleton')
 function! s:bundle.hooks.on_source(bundle)
-    call singleton#enable()
+  call singleton#enable()
 endfunction
 if has('win32')
   call singleton#enable()
@@ -602,7 +605,7 @@ smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
 " For snippet_complete marker
 if has('conceal')
-    set conceallevel=2 concealcursor=i
+  set conceallevel=2 concealcursor=i
 endif
 
 " path to mysnippet
@@ -666,7 +669,6 @@ vmap ib <Plug>(textobj-multiblock-i)
 " }}}
 
 """ smart chr {{{
-
 " " 演算子の間に空白を入れる
 " inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <': smartchr#one_of(' < ', ' << ', '<')
 " inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#one_of(' > ', ' >> ', '>')
@@ -699,7 +701,6 @@ vmap ib <Plug>(textobj-multiblock-i)
 " inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' "': '"'
 " "" if文直後の(は自動で間に空白を入れる
 " "inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' (': '('
-
 " }}}
 
 """ smartinput {{{
@@ -730,34 +731,34 @@ vnoremap <Leader>a, :Alignta ,<CR>
 vnoremap <Leader>a> :Alignta =><CR>
 
 let g:unite_source_alignta_preset_arguments = [
-      \ ["Align at '='", '=>\='],
-      \ ["Align at ':'", '01 :'],
-      \ ["Align at '|'", '|'   ],
-      \ ["Align at ')'", '0 )' ],
-      \ ["Align at ']'", '0 ]' ],
-      \ ["Align at '}'", '}'   ],
-      \ ["Align at '>'", '0 >' ],
-      \ ["Align at '('", '0 (' ],
-      \ ["Align at '['", '0 [' ],
-      \ ["Align at '{'", '{'   ],
-      \ ["Align at '<'", '0 <' ],
-      \ ["Align first spaces", '0 \s/1' ],
-      \]
+    \ ["Align at '='", '=>\='],
+    \ ["Align at ':'", '01 :'],
+    \ ["Align at '|'", '|'   ],
+    \ ["Align at ')'", '0 )' ],
+    \ ["Align at ']'", '0 ]' ],
+    \ ["Align at '}'", '}'   ],
+    \ ["Align at '>'", '0 >' ],
+    \ ["Align at '('", '0 (' ],
+    \ ["Align at '['", '0 [' ],
+    \ ["Align at '{'", '{'   ],
+    \ ["Align at '<'", '0 <' ],
+    \ ["Align first spaces", '0 \s/1' ],
+    \]
 
 let g:unite_source_alignta_preset_options = [
-      \ ["Justify Left",      '<<' ],
-      \ ["Justify Center",    '||' ],
-      \ ["Justify Right",     '>>' ],
-      \ ["Justify None",      '==' ],
-      \ ["Shift Left",        '<-' ],
-      \ ["Shift Right",       '->' ],
-      \ ["Shift Left  [Tab]", '<--'],
-      \ ["Shift Right [Tab]", '-->'],
-      \ ["Margin 0:0",        '0'  ],
-      \ ["Margin 0:1",        '01' ],
-      \ ["Margin 1:0",        '10' ],
-      \ ["Margin 1:1",        '1'  ],
-      \]
+    \ ["Justify Left",      '<<' ],
+    \ ["Justify Center",    '||' ],
+    \ ["Justify Right",     '>>' ],
+    \ ["Justify None",      '==' ],
+    \ ["Shift Left",        '<-' ],
+    \ ["Shift Right",       '->' ],
+    \ ["Shift Left  [Tab]", '<--'],
+    \ ["Shift Right [Tab]", '-->'],
+    \ ["Margin 0:0",        '0'  ],
+    \ ["Margin 0:1",        '01' ],
+    \ ["Margin 1:0",        '10' ],
+    \ ["Margin 1:1",        '1'  ],
+    \]
 " }}}
 
 """ PrettyPrint {{{
