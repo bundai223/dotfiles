@@ -623,7 +623,8 @@ nnoremap <silent> [unite]d :<C-u>Unite -input=/Home/labo/dotfiles/. -buffer-name
 "nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=history file_mru<CR>
 nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=multi file_mru file buffer<CR>
 " アウトライン
-nnoremap <silent> [unite]o :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline -no-quit outline<CR>
+"nnoremap <silent> [unite]o :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline -no-quit -wrap outline<CR>
+nnoremap <silent> [unite]o :<C-u>Unite -buffer-name=outline -no-quit -wrap outline<CR>
 " todo
 nnoremap <silent> [unite]t :<C-u>Unite -buffer-name=todo -no-quit picktodo<CR>
 " グレップ
