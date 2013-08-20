@@ -129,11 +129,8 @@ if &t_Co > 2 || has('gui_running')
   syntax on
 endif
 
+" statusline常に表示 for airline
 set laststatus=2
-
-" リストヘッダ
-"set formatlistpat&
-"let &formatlistpat .= '\|^\s*[*+-]\s*'
 
 " 一定時間カーソルを移動しないとカーソルラインを表示 {{{
 " http://d.hatena.ne.jp/thinca/20090530/1243615055
@@ -168,46 +165,6 @@ augroup vimrc-auto-cursorline
 augroup END
 set nocursorline
 " }}}
-
-" ステータスライン {{{
-" set ruf=%45(%12f%=\ %m%{'['.(&fenc!=''?&fenc:&enc).']'}\ %l-%v\ %p%%\ [%02B]%)
-" set statusline=%f:\ %{substitute(getcwd(),'.*/','','')}\ %m%=%{(&fenc!=''?&fenc:&enc).':'.strpart(&ff,0,1)}\ %l-%v\ %p%%\ %02B
-" 挿入モード時にステータスラインの色を変更
-" let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
-"
-" if has('syntax')
-"   augroup InsertHook
-"     autocmd!
-"     autocmd InsertEnter * call s:StatusLine('Enter')
-"     autocmd InsertLeave * call s:StatusLine('Leave')
-"   augroup END
-" endif
-"
-" let s:slhlcmd = ''
-" function! s:StatusLine(mode)
-"   if a:mode == 'Enter'
-"     silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-"     silent exec g:hi_insert
-"   else
-"     highlight clear StatusLine
-"     silent exec s:slhlcmd
-"   endif
-" endfunction
-"
-" function! s:GetHighlight(hi)
-"   redir => hl
-"   exec 'highlight '.a:hi
-"   redir END
-"   let hl = substitute(hl, '[\r\n]', '', 'g')
-"   let hl = substitute(hl, 'xxx', '', '')
-"   return hl
-" endfunction
-"
-" if has('unix') && !has('gui_running')
-"   " ubuntuなどESC後にすぐ反映されない対策
-"   inoremap <silent> <ESC> <ESC>
-" endif
-" " }}}
 
 "--------------------------------------
 " vim script
