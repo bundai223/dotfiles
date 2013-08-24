@@ -1,11 +1,13 @@
 #.bashrc
 
 # golang path
-GOROOT=/usr/local/go
-GOPATH=~/go
-PATH=$GOROOT/bin:$PATH
+export GOROOT=/usr/local/go
+export GOPATH=~/go
+export PATH=$GOROOT/bin:$PATH
 
 # my project
-LABO_ROOT=~/labo
-LABO_GFX_ROOT=$LABO_ROOT/graphic
+export LABO_ROOT=~/labo
+export LABO_GFX_ROOT=$LABO_ROOT/graphic
+
+export GST_TAG_ENCODING=CP932
 

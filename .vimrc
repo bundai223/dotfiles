@@ -763,7 +763,7 @@ let g:quickrun_config._ = {
 
 """}}}
 
-""" anzu
+""" anzu {{{
 " " echo statusline to search index
 " " n や N の代わりに使用します。
 " nmap n <Plug>(anzu-n)
@@ -773,6 +773,9 @@ let g:quickrun_config._ = {
 "
 " " ステータス情報を statusline へと表示する
 " set statusline=%{anzu#search_status()}
+
+" vim-airline で表示してほしくない場合は 0 を設定して下さい。
+let g:airline#extensions#anzu#enabled = 0
 
 " こっちを使用すると
 " 移動後にステータス情報をコマンドラインへと出力を行います。
