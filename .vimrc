@@ -115,7 +115,7 @@ set grepprg=grep\ -nH
 "set shortmess& shortmess+=I
 
 " 行番号表示
-"set number
+set number
 set relativenumber
 " tab 行末spaceを表示
 set list
@@ -305,6 +305,8 @@ NeoBundle 'osyo-manga/vim-textobj-multiblock'
 
 "=====================================
 " utl
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'gregsexton/gitv'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'tyru/caw.vim'
 NeoBundle 'h1mesuke/vim-alignta'
@@ -331,9 +333,6 @@ NeoBundle 'Shougo/vimproc', {
         \     'unix'   : 'make -f make_unix.mak',
         \   },
         \ }
-
-"NeoBundle 'kana/vim-smartinput' "snippetでいいかな
-"NeoBundle 'kana/vim-smartchr'   "どうにも慣れない&正しく動作しないときがある（恐らく自分の設定の問題?filetype?）
 
 " vimfiler
 NeoBundleLazy 'Shougo/vimfiler', {
@@ -569,7 +568,6 @@ endif
 let g:neosnippet#snippets_directory='~/.bundle/mysnip'
 " }}}
 
-
 """ unite {{{
 " <Space>をuniteのキーに
 nnoremap [unite] <Nop>
@@ -590,7 +588,8 @@ nnoremap <silent> [unite]t :<C-u>Unite -buffer-name=todo -no-quit picktodo<CR>
 " グレップ
 nnoremap <silent> [unite]g :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
 " スニペット探し
-nnoremap <silent> [unite]s :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
+nnoremap <silent> [unite]s :<C-u>Unite -buffer-name=snippet snippet<CR>
+nnoremap <silent> [unite]su :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
 " NeoBundle更新
 nnoremap <silent> [unite]nb :<C-u>Unite -buffer-name=neobundle neobundle/update:all -auto-quit -keep-focus -log<CR>
 " バッファ一覧
@@ -623,58 +622,6 @@ nnoremap <silent> <Leader>gtc : <C-u>GtagsCursor<CR>
 """ textobj-multiblock {{{
 vmap ab <Plug>(textobj-multiblock-a)
 vmap ib <Plug>(textobj-multiblock-i)
-" }}}
-
-""" smart chr {{{
-" " 演算子の間に空白を入れる
-" inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <': smartchr#one_of(' < ', ' << ', '<')
-" inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#one_of(' > ', ' >> ', '>')
-" inoremap <buffer><expr> + smartchr#one_of(' + ', '++', '+')
-" inoremap <buffer><expr> - smartchr#one_of(' - ', '--', '-')
-" inoremap <buffer><expr> / smartchr#one_of(' / ', '// ', '/')
-" " *はポインタで使うので、空白はいれない
-" inoremap <buffer><expr> & smartchr#one_of(' & ', ' && ', '&')
-" inoremap <buffer><expr> % smartchr#one_of(' % ', '%')
-" inoremap <buffer><expr> <Bar> smartchr#one_of(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
-" inoremap <buffer><expr> , smartchr#one_of(', ', ',')
-" " 3項演算子の場合は、後ろのみ空白を入れる
-" inoremap <buffer><expr> ? smartchr#one_of('? ', '?')
-" inoremap <buffer><expr> : smartchr#one_of(': ', '::', ':')
-"
-" " =の場合、単純な代入や比較演算子として入力する場合は前後にスペースをいれる。
-" " 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
-" inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>%\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
-" 				\ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
-" 				\ : smartchr#one_of(' = ', ' == ', ' != ', '=')
-"
-" "" 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
-" "inoremap <buffer><expr> } smartchr#one_of('}', '}<cr>')
-" "inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
-" " 「->」は入力しづらいので、..で置換え
-" inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
-" " 行先頭での@入力で、プリプロセス命令文を入力
-" inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
-"
-" inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' "': '"'
-" "" if文直後の(は自動で間に空白を入れる
-" "inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' (': '('
-" }}}
-
-""" smartinput {{{
-"" 改行時に行末スペースを削除
-"call smartinput#define_rule({
-"\   'at': '\s\+\%#',
-"\   'char': '<CR>',
-"\   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
-"\   })
-"
-"" C++で;を忘れないように
-"call smartinput#define_rule({
-"\   'at'       : '\%(\<struct\>\|\<class\>\|\<enum\>\)\s*\w\+.*\%#',
-"\   'char'     : '{',
-"\   'input'    : '{};<Left><Left>',
-"\   'filetype' : ['cpp'],
-"\   })
 " }}}
 
 """ alignta {{{
