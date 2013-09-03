@@ -69,6 +69,8 @@ alias lsl='ls -la'
 alias pd=popd
 
 alias -s html=chrome
+alias -s rb=ruby
+alias -s py=python
 
 #---------------------------------------------
 # ターミナルのユーザー表示を設定

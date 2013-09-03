@@ -249,7 +249,7 @@ filetype off
 
 if has('vim_starting')
   set rtp+=~/.vim/neobundle.vim
-  
+
   call neobundle#rc(expand('~/.bundle'))
 endif
 
@@ -283,6 +283,14 @@ NeoBundleLazy 'davidhalter/jedi', {
             \ }
 NeoBundleLazy 'davidhalter/jedi-vim', {
             \   'autoload': {'filetypes': ['python']}
+            \ }
+
+" Ruby
+NeoBundleLazy 'alpaca-tc/vim-endwise.git', {
+            \   'autoload': {'filetypes': ['ruby']}
+            \ }
+NeoBundleLazy 'edsono/vim-matchit', {
+            \   'autoload': {'filetypes': ['ruby']}
             \ }
 
 " Haxe
