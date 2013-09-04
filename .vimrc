@@ -754,6 +754,8 @@ vnoremap : ;
 " C-jがかぶってる…Escを別のにしたい
 nnoremap <C-j> }
 nnoremap <C-k> {
+vnoremap <C-j> }
+vnoremap <C-k> {
 
 " 見た目の行移動をやりやすく
 nnoremap j  gj
@@ -843,6 +845,9 @@ command! -bang -complete=file -nargs=? Euc edit<bang> ++enc=eucjp <args>
 " 置換
 nnoremap <expr> <Leader>s _(":s/<Cursor>//g")
 nnoremap <expr> <Leader>S _(":%s/<Cursor>//g")
+
+" 括弧を入力
+inoremap ( ( 
 
 " C++ {{{
 " headerとsourceを入れ替える

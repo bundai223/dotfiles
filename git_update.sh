@@ -8,6 +8,7 @@ CURREND_DIR=$PWD
 
 echo "**** ${PATH_TO_HERE} ****"
 cd ${PATH_TO_HERE}
+git submodule foreach 'git checkout master;git pull'
 git pull
 
 cd ${CURREND_DIR}
