@@ -313,6 +313,7 @@ NeoBundle 'osyo-manga/vim-textobj-multiblock'
 
 "=====================================
 " utl
+NeoBundle 'kana/vim-smartinput'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'bling/vim-airline'
@@ -493,6 +494,22 @@ filetype indent on
 " vital
 let g:V = vital#of('vital')
 
+""" smartinput{{{
+let g:smartinput_no_default_key_mappings = 1
+
+" <CR>をsmartinputの処理付きの物を指定する版
+call smartinput#map_to_trigger( 'i', '<Plug>(physical_key_CR)', '<CR>', '<CR>')
+
+" 改行時に行末スペースを削除する
+call smartinput#define_rule({
+\   'at': '\s\+\%#',
+\   'char': '<CR>',
+\   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
+\   })
+
+
+"""}}}
+
 """ vimshell {{{
 nnoremap <silent> <Space>vs : <C-u> VimShell<CR>
 " }}}
@@ -521,12 +538,13 @@ inoremap <expr><C-l>     neocomplete#complete_common_string()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#smart_close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
+imap <expr><CR> ( pumvisible() ? neocomplete#smart_close_popup() : "" ). "\<Plug>(physical_key_CR)"
+"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"function! s:my_cr_function()
+"  return ( pumvisible() ? neocomplete#smart_close_popup() : "" ). "\<Plug>(physical_key_CR)"
+"  " For no inserting <CR> key.
+"  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+"endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>    pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
@@ -781,9 +799,6 @@ nnoremap ZZ <Nop>
 nnoremap ZQ <Nop>
 " exモード？なし
 nnoremap Q <Nop>
-
-" 正規表現の仕様を一般的なものに近づける
-nnoremap / /\v
 
 " 直前のバッファに移動
 nnoremap <Leader>b :b#<CR>
