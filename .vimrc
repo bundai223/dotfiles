@@ -38,8 +38,8 @@ set formatoptions-=ro
 
 " シンボリックなファイルを編集するとリンクが消されてしまうことがあったので
 " 参照先を変数に上書き
-let $MYVIMRC="~/labo/dotfiles/.vimrc"
-let $MYGVIMRC="~/labo/dotfiles/.gvimrc"
+let $MYVIMRC=$DOTFILES."/.vimrc"
+let $MYGVIMRC=$DOTFILES."/.gvimrc"
 
 " 分割方向を指定
 set splitbelow
@@ -67,6 +67,8 @@ if has('unix')
 endif
 
 if has('win32')
+  set rtp+=~/.vim
+  set rtp+=~/.vim/after
 else
   " 自前で用意したものへの path
   set path=.,/usr/include,/usr/local/include
@@ -250,7 +252,7 @@ filetype off
 if has('vim_starting')
   set rtp+=~/.vim/neobundle.vim
 
-  call neobundle#rc(expand('~/.bundle'))
+  call neobundle#rc(expand('~/.vim/.bundle'))
 endif
 
 " repository
@@ -313,6 +315,7 @@ NeoBundle 'osyo-manga/vim-textobj-multiblock'
 
 "=====================================
 " utl
+NeoBundle 'kana/vim-smartinput'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'bling/vim-airline'
@@ -453,7 +456,7 @@ function! s:bundle.hooks.on_source(bundle)
   "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
   let g:vimshell_split_command="split"
 
-  let g:vimshell_vimshrc_path = expand('~/labo/dotfiles/.vimshrc')
+  let g:vimshell_vimshrc_path = expand($DOTFILES.'/.vimshrc')
 endfunction
 
 " unite
@@ -493,6 +496,21 @@ filetype indent on
 " vital
 let g:V = vital#of('vital')
 
+""" smartinput{{{
+let g:smartinput_no_default_key_mappings = 1
+
+" <CR>をsmartinputの処理付きの物を指定する版
+call smartinput#map_to_trigger( 'i', '<Plug>(physical_key_CR)', '<CR>', '<CR>')
+
+" 改行時に行末スペースを削除する
+call smartinput#define_rule({
+\   'at': '\s\+\%#',
+\   'char': '<CR>',
+\   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
+\   })
+
+"""}}}
+
 """ vimshell {{{
 nnoremap <silent> <Space>vs : <C-u> VimShell<CR>
 " }}}
@@ -507,8 +525,8 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'default'  : '',
     \ 'vimshell' : '~/.vimshell_hist',
-    \ 'cpp'      : '~/.bundle/myvim_dict/cpp.dict',
-    \ 'squirrel' : '~/.bundle/myvim_dict/squirrel.dict',
+    \ 'cpp'      : '~/.vim/.bundle/myvim_dict/cpp.dict',
+    \ 'squirrel' : '~/.vim/.bundle/myvim_dict/squirrel.dict',
     \ }
 
 " Define keyword.
@@ -521,11 +539,10 @@ inoremap <expr><C-l>     neocomplete#complete_common_string()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"imap <expr><CR> pumvisible() ? neocomplete#smart_close_popup() : "\<Plug>(physical_key_CR)"
+"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
   return neocomplete#smart_close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
 endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>    pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -573,7 +590,7 @@ if has('conceal')
 endif
 
 " path to mysnippet
-let g:neosnippet#snippets_directory='~/.bundle/mysnip'
+let g:neosnippet#snippets_directory='~/.vim/.bundle/mysnip'
 " }}}
 
 """ unite {{{
@@ -622,9 +639,9 @@ nnoremap <silent> <Space>vf : <C-u> VimFilerBufferDir -buffer-name=explorer -spl
 " }}}
 
 """ gtags {{{
-nmap     <silent> <Leader>gt  : <C-u>Gtags<Space>
-nmap     <silent> <Leader>gtr : <C-u>Gtags -r<Space>
-nnoremap <silent> <Leader>gtc : <C-u>GtagsCursor<CR>
+"nmap     <silent> <Leader>gt  : <C-u>Gtags<Space>
+"nmap     <silent> <Leader>gtr : <C-u>Gtags -r<Space>
+"nnoremap <silent> <Leader>gtc : <C-u>GtagsCursor<CR>
 " }}}
 
 """ textobj-multiblock {{{
@@ -782,9 +799,6 @@ nnoremap ZQ <Nop>
 " exモード？なし
 nnoremap Q <Nop>
 
-" 正規表現の仕様を一般的なものに近づける
-nnoremap / /\v
-
 " 直前のバッファに移動
 nnoremap <Leader>b :b#<CR>
 
@@ -830,6 +844,9 @@ nnoremap <C-h> gT
 noremap <C-p> [[
 noremap <C-n> ]]
 
+" 検索ハイライトをオフ
+nnoremap <Leader><Leader>/ :noh <CR>
+
 " カレントパスをバッファに合わせる
 nnoremap <silent><Leader><Space> :<C-u>cd %:h<CR>:pwd<CR>
 
@@ -856,6 +873,9 @@ nnoremap <expr> <Leader>S _(":%s/<Cursor>//g")
 
 " 括弧を入力
 inoremap ( ( 
+inoremap { { 
+inoremap [ [ 
+inoremap , , 
 
 " C++ {{{
 " headerとsourceを入れ替える

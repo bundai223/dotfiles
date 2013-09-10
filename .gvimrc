@@ -42,7 +42,8 @@ set guioptions-=L
 set guioptions-=b "下スクロールバーなし
 
 if has('mac')
-    set transparency=25
+    set transparency=15
+    "set transparency=25
 endif
 "---------------------------------
 " フォント設定:
