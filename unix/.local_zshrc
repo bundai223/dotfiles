@@ -4,6 +4,8 @@
 #
 . /etc/zsh_command_not_found
 
+export DOTFILES=~/labo/dotfiles
+
 ## go lang
 GOROOT=/usr/local/go
 GOPATH=~/go

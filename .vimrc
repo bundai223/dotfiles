@@ -38,8 +38,8 @@ set formatoptions-=ro
 
 " シンボリックなファイルを編集するとリンクが消されてしまうことがあったので
 " 参照先を変数に上書き
-let $MYVIMRC="~/labo/dotfiles/.vimrc"
-let $MYGVIMRC="~/labo/dotfiles/.gvimrc"
+let $MYVIMRC=$DOTFILES."/.vimrc"
+let $MYGVIMRC=$DOTFILES."/.gvimrc"
 
 " 分割方向を指定
 set splitbelow
@@ -454,7 +454,7 @@ function! s:bundle.hooks.on_source(bundle)
   "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
   let g:vimshell_split_command="split"
 
-  let g:vimshell_vimshrc_path = expand('~/labo/dotfiles/.vimshrc')
+  let g:vimshell_vimshrc_path = expand($DOTFILES.'/.vimshrc')
 endfunction
 
 " unite
@@ -640,9 +640,9 @@ nnoremap <silent> <Space>vf : <C-u> VimFilerBufferDir -buffer-name=explorer -spl
 " }}}
 
 """ gtags {{{
-nmap     <silent> <Leader>gt  : <C-u>Gtags<Space>
-nmap     <silent> <Leader>gtr : <C-u>Gtags -r<Space>
-nnoremap <silent> <Leader>gtc : <C-u>GtagsCursor<CR>
+"nmap     <silent> <Leader>gt  : <C-u>Gtags<Space>
+"nmap     <silent> <Leader>gtr : <C-u>Gtags -r<Space>
+"nnoremap <silent> <Leader>gtc : <C-u>GtagsCursor<CR>
 " }}}
 
 """ textobj-multiblock {{{
