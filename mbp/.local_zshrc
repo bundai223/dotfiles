@@ -2,6 +2,8 @@
 
 FBXSDK_ROOT=/Applications/Autodesk/FBX\ SDK/2013.3/
 
+export DOTFILES=~/labo/dotfiles
+
 # path setting
 PATH=/usr/local/bin:$PATH
 PATH=/usr/local/share/python:$PATH
