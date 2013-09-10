@@ -507,7 +507,6 @@ call smartinput#define_rule({
 \   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
 \   })
 
-
 """}}}
 
 """ vimshell {{{
@@ -871,6 +870,9 @@ nnoremap <expr> <Leader>S _(":%s/<Cursor>//g")
 
 " 括弧を入力
 inoremap ( ( 
+inoremap { { 
+inoremap [ [ 
+inoremap , , 
 
 " C++ {{{
 " headerとsourceを入れ替える
