@@ -4,6 +4,9 @@
 #
 . /etc/zsh_command_not_found
 
+GLEW_ROOT=sample/glew
+GLFW_ROOT=sample/glfw
+
 ## go lang
 GOROOT=/usr/local/go
 GOPATH=~/go
