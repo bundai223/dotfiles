@@ -15,9 +15,9 @@ nnoremap <Leader>s :<C-u>CppHpp<CR>
 " script
 "--------------------------------------
 " 選択範囲をifdef
-vnoremap #z :call InsertIfZero()<CR>
-vnoremap #d :call InsertIfdef()<CR>
-vnoremap #n :call InsertIfndef()<CR>
+vnoremap iz :call InsertIfZero()<CR>
+vnoremap id :call InsertIfdef()<CR>
+vnoremap in :call InsertIfndef()<CR>
 
 function! InsertIfZero() range
   call append(a:firstline-1, "#if 0")

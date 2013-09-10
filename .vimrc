@@ -68,6 +68,7 @@ endif
 
 if has('win32')
   set rtp+=~/.vim
+  set rtp+=~/.vim/after
 else
   " 自前で用意したものへの path
   set path=.,/usr/include,/usr/local/include
@@ -539,13 +540,11 @@ inoremap <expr><C-l>     neocomplete#complete_common_string()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-imap <expr><CR> ( pumvisible() ? neocomplete#smart_close_popup() : "" ). "\<Plug>(physical_key_CR)"
+"imap <expr><CR> pumvisible() ? neocomplete#smart_close_popup() : "\<Plug>(physical_key_CR)"
 "inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function()
-"  return ( pumvisible() ? neocomplete#smart_close_popup() : "" ). "\<Plug>(physical_key_CR)"
-"  " For no inserting <CR> key.
-"  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-"endfunction
+function! s:my_cr_function()
+  return neocomplete#smart_close_popup() . "\<CR>"
+endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>    pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
@@ -845,6 +844,9 @@ nnoremap <C-h> gT
 " 関数単位で移動
 noremap <C-p> [[
 noremap <C-n> ]]
+
+" 検索ハイライトをオフ
+nnoremap <Leader><Leader>/ :noh <CR>
 
 " カレントパスをバッファに合わせる
 nnoremap <silent><Leader><Space> :<C-u>cd %:h<CR>:pwd<CR>
