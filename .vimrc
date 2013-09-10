@@ -67,6 +67,7 @@ if has('unix')
 endif
 
 if has('win32')
+  set rtp+=~/.vim
 else
   " 自前で用意したものへの path
   set path=.,/usr/include,/usr/local/include
@@ -250,7 +251,7 @@ filetype off
 if has('vim_starting')
   set rtp+=~/.vim/neobundle.vim
 
-  call neobundle#rc(expand('~/.bundle'))
+  call neobundle#rc(expand('~/.vim/.bundle'))
 endif
 
 " repository
@@ -524,8 +525,8 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'default'  : '',
     \ 'vimshell' : '~/.vimshell_hist',
-    \ 'cpp'      : '~/.bundle/myvim_dict/cpp.dict',
-    \ 'squirrel' : '~/.bundle/myvim_dict/squirrel.dict',
+    \ 'cpp'      : '~/.vim/.bundle/myvim_dict/cpp.dict',
+    \ 'squirrel' : '~/.vim/.bundle/myvim_dict/squirrel.dict',
     \ }
 
 " Define keyword.
@@ -591,7 +592,7 @@ if has('conceal')
 endif
 
 " path to mysnippet
-let g:neosnippet#snippets_directory='~/.bundle/mysnip'
+let g:neosnippet#snippets_directory='~/.vim/.bundle/mysnip'
 " }}}
 
 """ unite {{{
