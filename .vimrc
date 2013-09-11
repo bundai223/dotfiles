@@ -501,6 +501,7 @@ let g:smartinput_no_default_key_mappings = 1
 
 " <CR>をsmartinputの処理付きの物を指定する版
 call smartinput#map_to_trigger( 'i', '<Plug>(physical_key_CR)', '<CR>', '<CR>')
+imap <CR> <Plug>(physical_key_CR)
 
 " 改行時に行末スペースを削除する
 call smartinput#define_rule({
@@ -539,11 +540,11 @@ inoremap <expr><C-l>     neocomplete#complete_common_string()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-"imap <expr><CR> pumvisible() ? neocomplete#smart_close_popup() : "\<Plug>(physical_key_CR)"
+"imap <expr><CR> (neocomplete#smart_close_popup())."\<Plug>(physical_key_CR)"
 "inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#smart_close_popup() . "\<CR>"
-endfunction
+"function! s:my_cr_function()
+"  return neocomplete#smart_close_popup() . "\<CR>"
+"endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>    pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
@@ -845,7 +846,7 @@ noremap <C-p> [[
 noremap <C-n> ]]
 
 " 検索ハイライトをオフ
-nnoremap <Leader><Leader>/ :noh <CR>
+nnoremap <Leader>/ :noh <CR>
 
 " カレントパスをバッファに合わせる
 nnoremap <silent><Leader><Space> :<C-u>cd %:h<CR>:pwd<CR>
