@@ -316,24 +316,25 @@ NeoBundle 'osyo-manga/vim-textobj-multiblock'
 "=====================================
 " utl
 NeoBundle 'kana/vim-smartinput'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'gregsexton/gitv'
-NeoBundle 'bling/vim-airline'
 NeoBundle 'tyru/caw.vim'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'deris/vim-rengbang'
+NeoBundle 'osyo-manga/vim-anzu'
+
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'gregsexton/gitv'
+NeoBundle 'tyru/open-browser.vim'
+
+NeoBundle 'bling/vim-airline'
 NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-prettyprint'
 NeoBundle 'mattn/webapi-vim'
-NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'osyo-manga/shabadou.vim'
 NeoBundle 'osyo-manga/vim-watchdogs', {
         \   'autoload' : {'commands' : ['WatchdogsRun'] },
         \ }
-"NeoBundle 'jceb/vim-hier'
-"NeoBundle 'dannyob/quickfixstatus'
 NeoBundle 'Shougo/vinarise'
 NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/neosnippet'
@@ -509,6 +510,15 @@ call smartinput#define_rule({
 \   'char': '<CR>',
 \   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
 \   })
+
+" 対になるものの入力。無駄な空白は削除
+call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
+call smartinput#define_rule({ 'at': '\%#',    'char': '(', 'input': '(<Space>', })
+call smartinput#define_rule({ 'at': '( *\%#', 'char': ')', 'input': '<BS>)', })
+call smartinput#define_rule({ 'at': '\%#',    'char': '{', 'input': '{<Space>', })
+call smartinput#define_rule({ 'at': '{ *\%#', 'char': '}', 'input': '<BS>}', })
+call smartinput#define_rule({ 'at': '\%#',    'char': '[', 'input': '[<Space>', })
+call smartinput#define_rule({ 'at': '[ *\%#', 'char': ']', 'input': '<BS>]', })
 
 """}}}
 
@@ -760,6 +770,12 @@ nmap # <Plug>(anzu-sharp-with-echo)
 
 """}}}
 
+""" open-browser {{{
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+"""}}}
+
 "--------------------------------------
 " key mapping
 
@@ -873,10 +889,11 @@ nnoremap <expr> <Leader>s _(":s/<Cursor>//g")
 nnoremap <expr> <Leader>S _(":%s/<Cursor>//g")
 
 " 括弧を入力
-inoremap ( ( 
-inoremap { { 
-inoremap [ [ 
-inoremap , , 
+" smartinputでよきに計らう必要あり
+"inoremap ( ( 
+"inoremap { { 
+"inoremap [ [ 
+"inoremap , , 
 
 " C++ {{{
 " headerとsourceを入れ替える
