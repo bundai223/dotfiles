@@ -805,6 +805,9 @@ nnoremap k  gk
 nnoremap gj j
 nnoremap gk k
 
+" 行末までヤンク
+nnoremap Y y$
+
 " 再読み込み
 nnoremap <F5> :source %<CR>
 
