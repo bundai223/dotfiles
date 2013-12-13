@@ -826,14 +826,17 @@ nnoremap <F5> :source %<CR>
 " ZZで全保存・全終了
 " ZQで保存なし・全終了
 nnoremap ZZ <Nop>
-nnoremap ZQ <Nop>
+"nnoremap ZQ <Nop> "無名バッファで必要
 " exモード？なし
 nnoremap Q <Nop>
+
+command! EditTmp call :edit `=tempname()`
 
 " 直前のバッファに移動
 nnoremap <Leader>b :b#<CR>
 
 " 日付マクロ
+let $TODAY = strftime('%Y%m%d')
 inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
 inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
 
@@ -867,7 +870,8 @@ nnoremap <Leader>e  <End>
 
 " タブ関連
 nnoremap gn :<C-u>tabnew<CR>
-nnoremap ge :<C-u>tabedit<CR>
+nnoremap ge :<C-u>tabnew +edit `=tempname()`<CR>
+"nnoremap ge :<C-u>tabedit<CR>
 nnoremap <C-l> gt
 nnoremap <C-h> gT
 
