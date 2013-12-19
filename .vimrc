@@ -287,13 +287,27 @@ NeoBundleLazy 'davidhalter/jedi-vim', {
             \   'autoload': {'filetypes': ['python']}
             \ }
 
-" Ruby
-NeoBundleLazy 'alpaca-tc/vim-endwise.git', {
-            \   'autoload': {'filetypes': ['ruby']}
+" Haskell
+" indent
+NeoBundleLazy 'kana/vim-filetype-haskell', {
+            \   'autoload': {'filetypes': ['haskell']}
             \ }
-NeoBundleLazy 'edsono/vim-matchit', {
-            \   'autoload': {'filetypes': ['ruby']}
+" hilight
+NeoBundleLazy 'dag/vim2hs', {
+            \   'autoload': {'filetypes': ['haskell']}
             \ }
+" reference
+NeoBundleLazy 'ujihisa/ref-hoogle', {
+            \   'autoload': {'filetypes': ['haskell']}
+            \ }
+NeoBundleLazy 'eagletmt/ghcmod-vim', {
+            \   'autoload': {'filetypes': ['haskell']}
+            \ }
+NeoBundleLazy 'eagletmt/neco-ghc', {
+            \   'autoload': {'filetypes': ['haskell']}
+            \ }
+NeoBundle 'ujihisa/unite-haskellimport'
+
 
 " Haxe
 "NeoBundleLazy 'jdonaldson/vaxe'
@@ -312,6 +326,7 @@ NeoBundleLazy 'vim-scripts/glsl.vim', {
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'osyo-manga/vim-textobj-multiblock'
+NeoBundle 'rhysd/vim-textobj-word-column'
 
 "=====================================
 " utl
@@ -325,8 +340,10 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'tyru/open-browser.vim'
 
+NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'rhysd/clever-f.vim'
+NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-prettyprint'
@@ -586,10 +603,10 @@ let g:neocomplete#force_overwrite_completefunc = 1
 let g:neocomplete#force_omni_input_patterns = get(g:, 'neocomplete#force_omni_input_patterns', {})
 let g:neocomplete#force_omni_input_patterns.python      = '[^. \t]\.\w*'
 let g:neocomplete#force_omni_input_patterns.cs          = '[^.]\.\%(\u\{2,}\)\?'
-"let g:neocomplete#force_omni_input_patterns.c           = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
-"let g:neocomplete#force_omni_input_patterns.cpp         = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-let g:neocomplete#force_omni_input_patterns.c           = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-let g:neocomplete#force_omni_input_patterns.cpp         = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+let g:neocomplete#force_omni_input_patterns.c           = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
+let g:neocomplete#force_omni_input_patterns.cpp         = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+"let g:neocomplete#force_omni_input_patterns.c           = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+"let g:neocomplete#force_omni_input_patterns.cpp         = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 let g:neocomplete#force_omni_input_patterns.objc        = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
 let g:neocomplete#force_omni_input_patterns.objcpp      = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
@@ -791,10 +808,10 @@ vmap gx <Plug>(openbrowser-smart-search)
 " key mapping
 
 " ESC押しやすく
-imap <C-c> <C-[>
-nmap <C-c> <C-[>
-vmap <C-c> <C-[>
-cmap <C-c> <C-[>
+imap <C-@> <C-[>
+nmap <C-@> <C-[>
+vmap <C-@> <C-[>
+cmap <C-@> <C-[>
 
 " コマンドモードに入りやすく
 nnoremap ; :
