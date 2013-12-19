@@ -287,13 +287,27 @@ NeoBundleLazy 'davidhalter/jedi-vim', {
             \   'autoload': {'filetypes': ['python']}
             \ }
 
-" Ruby
-NeoBundleLazy 'alpaca-tc/vim-endwise.git', {
-            \   'autoload': {'filetypes': ['ruby']}
+" Haskell
+" indent
+NeoBundleLazy 'kana/vim-filetype-haskell', {
+            \   'autoload': {'filetypes': ['haskell']}
             \ }
-NeoBundleLazy 'edsono/vim-matchit', {
-            \   'autoload': {'filetypes': ['ruby']}
+" hilight
+NeoBundleLazy 'dag/vim2hs', {
+            \   'autoload': {'filetypes': ['haskell']}
             \ }
+" reference
+NeoBundleLazy 'ujihisa/ref-hoogle', {
+            \   'autoload': {'filetypes': ['haskell']}
+            \ }
+NeoBundleLazy 'eagletmt/ghcmod-vim', {
+            \   'autoload': {'filetypes': ['haskell']}
+            \ }
+NeoBundleLazy 'eagletmt/neco-ghc', {
+            \   'autoload': {'filetypes': ['haskell']}
+            \ }
+NeoBundle 'ujihisa/unite-haskellimport'
+
 
 " Haxe
 "NeoBundleLazy 'jdonaldson/vaxe'
@@ -312,6 +326,7 @@ NeoBundleLazy 'vim-scripts/glsl.vim', {
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'osyo-manga/vim-textobj-multiblock'
+NeoBundle 'rhysd/vim-textobj-word-column'
 
 "=====================================
 " utl
@@ -325,8 +340,10 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'tyru/open-browser.vim'
 
+NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'rhysd/clever-f.vim'
+NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-prettyprint'
@@ -567,17 +584,28 @@ autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
 autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 
-" force omni pattern
+" omni pattern
 let g:neocomplete#sources#omni#input_patterns = get(g:, 'neocomplete#sources#omni#input_patterns', {})
 "let g:neocomplete#sources#omni#input_patterns.ruby      = '[^. *\t]\.\h\w*\|\h\w*::'
 let g:neocomplete#sources#omni#input_patterns.ruby      = ''
-let g:neocomplete#sources#omni#input_patterns.python    = ''
 let g:neocomplete#sources#omni#input_patterns.php       = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-let g:neocomplete#sources#omni#input_patterns.c         = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
-let g:neocomplete#sources#omni#input_patterns.cpp       = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-let g:neocomplete#sources#omni#input_patterns.cs        = '[^.]\.\%(\u\{2,}\)\?'
-let g:neocomplete#sources#omni#input_patterns.go        = '[^.]\.\%(\u\{2,}\)\?'
+"let g:neocomplete#sources#omni#input_patterns.go        = '[^.]\.\%(\u\{2,}\)\?'
 let g:neocomplete#sources#omni#input_patterns.squirrel  = '[^.]\.\%(\u\{2,}\)\?'
+
+" force omni pattern
+let g:neocomplete#force_overwrite_completefunc = 1
+let g:neocomplete#force_omni_input_patterns = get(g:, 'neocomplete#force_omni_input_patterns', {})
+let g:neocomplete#force_omni_input_patterns.python      = '[^. \t]\.\w*'
+let g:neocomplete#force_omni_input_patterns.cs          = '[^.]\.\%(\u\{2,}\)\?'
+let g:neocomplete#force_omni_input_patterns.c           = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
+let g:neocomplete#force_omni_input_patterns.cpp         = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+"let g:neocomplete#force_omni_input_patterns.c           = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+"let g:neocomplete#force_omni_input_patterns.cpp         = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+let g:neocomplete#force_omni_input_patterns.objc        = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+let g:neocomplete#force_omni_input_patterns.objcpp      = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+
+" external omni func
+"let g:neocomplete#sources#omni#functions.go = 'gocomplete#Complete'
 " }}}
 
 """ neosnippet {{{
@@ -774,10 +802,10 @@ vmap gx <Plug>(openbrowser-smart-search)
 " key mapping
 
 " ESC押しやすく
-imap <C-c> <C-[>
-nmap <C-c> <C-[>
-vmap <C-c> <C-[>
-cmap <C-c> <C-[>
+imap <C-@> <C-[>
+nmap <C-@> <C-[>
+vmap <C-@> <C-[>
+cmap <C-@> <C-[>
 
 " コマンドモードに入りやすく
 nnoremap ; :
@@ -799,6 +827,9 @@ nnoremap k  gk
 nnoremap gj j
 nnoremap gk k
 
+" 行末までヤンク
+nnoremap Y y$
+
 " 再読み込み
 nnoremap <F5> :source %<CR>
 
@@ -806,14 +837,17 @@ nnoremap <F5> :source %<CR>
 " ZZで全保存・全終了
 " ZQで保存なし・全終了
 nnoremap ZZ <Nop>
-nnoremap ZQ <Nop>
+"nnoremap ZQ <Nop> "無名バッファで必要
 " exモード？なし
 nnoremap Q <Nop>
+
+command! EditTmp call :edit `=tempname()`
 
 " 直前のバッファに移動
 nnoremap <Leader>b :b#<CR>
 
 " 日付マクロ
+let $TODAY = strftime('%Y%m%d')
 inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
 inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
 
@@ -847,7 +881,8 @@ nnoremap <Leader>e  <End>
 
 " タブ関連
 nnoremap gn :<C-u>tabnew<CR>
-nnoremap ge :<C-u>tabedit<CR>
+nnoremap ge :<C-u>tabnew +edit `=tempname()`<CR>
+"nnoremap ge :<C-u>tabedit<CR>
 nnoremap <C-l> gt
 nnoremap <C-h> gT
 
