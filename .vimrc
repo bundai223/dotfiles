@@ -408,10 +408,10 @@ function! s:bundle.hooks.on_source(bundle)
 
   let g:clang_auto_select     = 0
   let g:clang_use_library     = 1
+  " exp)  let g:clang_exec        = 'C:\path\to\clang.exe'
+  "       let g:clang_library_path= 'C:\path\to\(libclang.dll)'
+  "       let g:clang_user_options= '2> NUL || exit 0"'
   if has('win32')
-    " exp)  let g:clang_exec        = 'C:\path\to\clang.exe'
-    "       let g:clang_library_path= 'C:\path\to\(libclang.dll)'
-    "       let g:clang_user_options= '2> NUL || exit 0"'
     let g:clang_complete_auto = 0
     let g:my_clang_bin_path   = 'D:\Home\tool\clang\bin\'
     let g:clang_exec          = g:my_clang_bin_path.'clang.exe'
@@ -419,18 +419,12 @@ function! s:bundle.hooks.on_source(bundle)
     let g:clang_user_options  = '2> NUL || exit 0"'
 
   elseif has('mac')
-    " exp)  let g:clang_exec        = 'C:\path\to\clang'
-    "       let g:clang_library_path= 'C:\path\to\(libclang.so)'
-    "       let g:clang_user_options= '2> NUL || exit 0"'
     let g:clang_complete_auto = 1
     let g:clang_exec          = 'clang'
-    let g:clang_library_path  = '/usr/lib/'
+    let g:clang_library_path  = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/'
     let g:clang_user_options  = '2>/dev/null || exit 0"'
 
   elseif has('unix')
-    " exp)  let g:clang_exec        = 'C:\path\to\clang'
-    "       let g:clang_library_path= 'C:\path\to\(libclang.so)'
-    "       let g:clang_user_options= '2> NUL || exit 0"'
     let g:clang_complete_auto = 1
     let g:clang_exec          = '/usr/bin/clang'
     let g:clang_library_path  = '/usr/local/lib/'
