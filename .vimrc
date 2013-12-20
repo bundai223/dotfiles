@@ -266,8 +266,12 @@ NeoBundleLazy 'vim-scripts/opengl.vim', {
             \   'autoload': {'filetypes': ['cpp']}
             \ }
 NeoBundleLazy 'Rip-Rip/clang_complete', {
-            \   'autoload': {'filetypes': ['cpp']}
-            \ }
+           \   'autoload': {'filetypes': ['cpp']}
+           \ }
+NeoBundleLazy 'osyo-manga/vim-marching', {}
+" NeoBundleLazy 'osyo-manga/vim-marching', {
+"            \   'autoload': {'filetypes': ['cpp']}
+"            \ }
 
 " C#
 NeoBundleLazy 'nosami/Omnisharp', {
@@ -335,6 +339,7 @@ NeoBundle 'tyru/caw.vim'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'deris/vim-rengbang'
 NeoBundle 'osyo-manga/vim-anzu'
+NeoBundle 'osyo-manga/vim-reunions'
 
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
@@ -418,6 +423,32 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'w0ng/vim-hybrid'
 
+
+" marching
+let s:bundle = neobundle#get('vim-marching')
+function! s:bundle.hooks.on_source(bundle)
+  " 非同期ではなくて同期処理で補完する
+  let g:marching_backend = "clang_command"
+  "let g:marching_backend = "sync_clang_command"
+  
+  " オプションの設定
+  " これは clang のコマンドに渡される
+  "let g:marching_clang_command_option="-std=c++1y"
+  
+  
+  " neocomplete.vim と併用して使用する場合
+  " neocomplete.vim を使用すれば自動補完になる
+  let g:marching_enable_neocomplete = 1
+  
+  if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+  endif
+  
+  let g:neocomplete#force_omni_input_patterns.cpp =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+
+  imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
+endfunction
 
 " clang_complete
 let s:bundle = neobundle#get('clang_complete')
@@ -598,9 +629,7 @@ let g:neocomplete#force_omni_input_patterns = get(g:, 'neocomplete#force_omni_in
 let g:neocomplete#force_omni_input_patterns.python      = '[^. \t]\.\w*'
 let g:neocomplete#force_omni_input_patterns.cs          = '[^.]\.\%(\u\{2,}\)\?'
 let g:neocomplete#force_omni_input_patterns.c           = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
-let g:neocomplete#force_omni_input_patterns.cpp         = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-"let g:neocomplete#force_omni_input_patterns.c           = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-"let g:neocomplete#force_omni_input_patterns.cpp         = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+"let g:neocomplete#force_omni_input_patterns.cpp         = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 let g:neocomplete#force_omni_input_patterns.objc        = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
 let g:neocomplete#force_omni_input_patterns.objcpp      = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
