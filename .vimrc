@@ -265,13 +265,14 @@ NeoBundleLazy 'vim-jp/cpp-vim', {
 NeoBundleLazy 'vim-scripts/opengl.vim', {
             \   'autoload': {'filetypes': ['cpp']}
             \ }
-NeoBundleLazy 'Rip-Rip/clang_complete', {
-           \   'autoload': {'filetypes': ['cpp']}
-           \ }
-NeoBundleLazy 'osyo-manga/vim-marching', {}
-" NeoBundleLazy 'osyo-manga/vim-marching', {
+NeoBundleFetch 'Rip-Rip/clang_complete'
+" NeoBundleLazy 'Rip-Rip/clang_complete', {
 "            \   'autoload': {'filetypes': ['cpp']}
 "            \ }
+" NeoBundleFetch 'osyo-manga/vim-marching'
+NeoBundleLazy 'osyo-manga/vim-marching', {
+           \   'autoload': {'filetypes': ['cpp']}
+           \ }
 
 " C#
 NeoBundleLazy 'nosami/Omnisharp', {
