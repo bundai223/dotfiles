@@ -56,22 +56,24 @@ set completeopt=menu,preview
 set foldenable
 set foldmethod=marker
 
-" Goのpath
-if $GOROOT != ''
-  set rtp+=$GOROOT/misc/vim
-  set rtp+=$GOPATH/src/github.com/nsf/gocode/vim
+if has('vim_starting')
+  " Goのpath
+  if $GOROOT != ''
+    set rtp+=$GOROOT/misc/vim
+    set rtp+=$GOPATH/src/github.com/nsf/gocode/vim
+  endif
+
+  if has('win32')
+    set rtp+=~/.vim
+    set rtp+=~/.vim/after
+  else
+    " 自前で用意したものへの path
+    set path=.,/usr/include,/usr/local/include
+  endif
 endif
 
 if has('unix')
   let $USERNAME=$USER
-endif
-
-if has('win32')
-  set rtp+=~/.vim
-  set rtp+=~/.vim/after
-else
-  " 自前で用意したものへの path
-  set path=.,/usr/include,/usr/local/include
 endif
 
 " 履歴の保存
@@ -247,8 +249,6 @@ command! -nargs=* Nnoremap MoveCursorPosMap nnoremap <args>
 " plugin のバインドは<Space>ということにしてみよう
 
 """ neobundle {{{
-filetype off
-
 if has('vim_starting')
   set rtp+=~/.vim/neobundle.vim
 
@@ -529,8 +529,7 @@ function! s:bundle.hooks.on_source(bundle)
 endfunction
 " }}}
 
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 
 
 " vital
