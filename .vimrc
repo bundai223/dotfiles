@@ -1,6 +1,5 @@
 
-"--------------------------------------
-" vimの基本的な設定
+" Basic setting {{{
 
 scriptencoding utf-8
 set nocompatible
@@ -24,12 +23,6 @@ set fileformats=unix,dos
 "set nobackup
 set noswapfile
 
-" tabでスペースを挿入
-set expandtab
-set smarttab
-set tabstop=4
-set shiftwidth=4
-
 " クリップボードを使用する
 set clipboard=unnamed,autoselect
 
@@ -45,16 +38,18 @@ let $MYGVIMRC=$DOTFILES."/.gvimrc"
 set splitbelow
 "set splitright
 
-" backspaceでなんでも消せるように
+" BS can delete newline or indent
 set backspace=indent,eol,start
 
 set completeopt=menu,preview
 " 補完でプレビューしない
 "set completeopt=menuone,menu
 
-" fold設定
-set foldenable
-set foldmethod=marker
+" Default comment format is nothing
+" Almost all this setting override by filetype setting
+" e.g. cpp: /*%s*/
+"      vim: "%s
+set commentstring=%s
 
 if has('vim_starting')
   " Goのpath
@@ -76,151 +71,131 @@ if has('unix')
   let $USERNAME=$USER
 endif
 
-" 履歴の保存
-if has('persistent_undo' )
-  set undodir=~/.vim/undo
-  set undofile
-endif
-
 " Leaderを設定
-"let mapleader=' '
 if has('mac')
   map _ <Leader>
 endif
 
-"--------------------------------------
-" 検索
+" }}}
 
-" 検索時大文字小文字の区別なし
-" ただし両方含むときは区別する
+" History {{{
+" history num
+set history=10000
+
+if has('persistent_undo' )
+  set undodir=~/.vim/undo
+  set undofile
+endif
+" }}}
+
+" Indent {{{
+" Use space indent of tab to make indent
+set expandtab
+
+" Width of tab
+set tabstop=4
+
+" How many spaces to each indent level
+set shiftwidth=4
+
+"testing now {{{
+" Automatically adjust indent
+set autoindent
+
+" Automatically indent when insert a new line
+set smartindent
+" }}}
+"
+set smarttab
+" }}}
+
+" Search {{{
+
+" Match words with ignore upper-lower case
 set ignorecase
+
+" Don't think upper-lower case until upper-case input
 set smartcase
-" 検索を最後まで行ったら最初に戻る
-set wrapscan
-" インクリメンタルサーチ
+
+" Incremental search
 set incsearch
-" 検索文字の強調表示
+
+" Highlight searched words
 set hlsearch
+
 " tagファイルの検索パス指定
 " カレントから親フォルダに見つかるまでたどる
 " tagの設定は各プロジェクトごともsetlocalする
 set tags=tags;
 
-" 検索結果をウインドウ真ん中に
-nnoremap n nzz
-
 " 外部grepの設定
 set grepprg=grep\ -nH
 
-"--------------------------------------
-" 表示の設定
+" }}}
 
-"起動時のメッセージを消す
-"set shortmess& shortmess+=I
+" 表示の設定 {{{
 
-" 行番号表示
+" Folding {{{
+set foldenable
+
+" Explicitly fold begin and end
+" e.g. {{{ folding code }}}
+set foldmethod=marker
+
+" }}}
+
+" show line number
 set number
+
+" line number relative
 set relativenumber
-" tab 行末spaceを表示
+
+" show invisible chars
 set list
-set listchars=tab:^\ ,trail:~
+" tab 行末spaceを表示
+"set listchars=tab:^\ ,trail:~
+set listchars=tab:^\ ,trail:~,extends:>,precedes:<,nbsp:%
+
+" always show tab
+set showtabline=2
+
+" fix zenkaku char's width
+set ambiwidth=double
 
 " 再描画コマンド実行中はなし
 set lazyredraw
 
 " ハイライトのオン
-if &t_Co > 2 || has('gui_running')
+if has('gui_running')
   syntax on
 endif
 
 " statusline常に表示 for airline
 set laststatus=2
 
-" 一定時間カーソルを移動しないとカーソルラインを表示 {{{
-" http://d.hatena.ne.jp/thinca/20090530/1243615055
-"augroup vimrc-auto-cursorline
-"  autocmd!
-"  autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
-"  autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
-"  autocmd WinEnter * call s:auto_cursorline('WinEnter')
-"  autocmd WinLeave * call s:auto_cursorline('WinLeave')
-"
-"  let s:cursorline_lock = 0
-"  function! s:auto_cursorline(event)
-"    if a:event ==# 'WinEnter'
-"      setlocal cursorline
-"      let s:cursorline_lock = 2
-"    elseif a:event ==# 'WinLeave'
-"      setlocal nocursorline
-"    elseif a:event ==# 'CursorMoved'
-"      if s:cursorline_lock
-"        if 1 < s:cursorline_lock
-"          let s:cursorline_lock = 1
-"        else
-"          setlocal nocursorline
-"          let s:cursorline_lock = 0
-"        endif
-"      endif
-"    elseif a:event ==# 'CursorHold'
-"      setlocal cursorline
-"      let s:cursorline_lock = 1
-"    endif
-"  endfunction
-"augroup END
-"set nocursorline
 " }}}
 
-"--------------------------------------
-" vim script
-
-"" grep結果をquickfixに出力
-" **** grep -iHn -R 'target string' target_path | cw ****
-" **** vimgrep 'target string' target_path | cw ****
-"
-
-" grep
-" exp ) :Grep word ./path
-"        pathを省略した場合はカレントから再帰的に
-"command! -complete=file -nargs=+ Grep call s:grep([<f-args>])
-"function! s:grep(args)
-"    let target = len(a:args) > 1 ? join(a:args[1:]) : '**/*'
-"    execute 'vimgrep' '/' . a:args[0] . '/j ' . target
-"    if len(getqflist()) != 0 | copen | endif
-"endfunction
+" VimScript {{{
 
 " filetype 調査
 " :verbose :setlocal filetype?
+"
+" Set encoding when open file {{{
+command! -bang -complete=file -nargs=? Utf8 edit<bang> ++enc=utf-8 <args>
+command! -bang -complete=file -nargs=? Utf16 edit<bang> ++enc=utf-16 <args>
+command! -bang -complete=file -nargs=? Sjis edit<bang> ++enc=cp932 <args>
+command! -bang -complete=file -nargs=? Euc edit<bang> ++enc=eucjp <args>
+" }}}
 
-" *.hを作成するときにインクルードガードを作成する {{{
-au BufNewFile *.h call InsertHeaderHeader()
-au BufNewFile *.cpp call InsertFileHeader()
-
-function! IncludeGuard()
-  let fl = getline(1)
-  if fl =~ "^#if"
-    return
-  endif
-   let gatename = substitute(toupper(expand("%:t")), "??.", "_", "g")
-  let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
-  normal! gg
-  execute "normal! i#ifndef _" . gatename . "_INCLUDED_"
-  execute "normal! o#define _" . gatename .  "_INCLUDED_\<CR>\<CR>\<CR>\<CR>"
-  execute "normal! Go#endif // _" . gatename . "_INCLUDED_\<CR>"
-  4
-endfunction
-
-function! InsertFileHeader()
-  let filename = expand("%:t")
-  normal! gg
-  execute "normal! i//**********************************************************************\<CR>"
-  execute "normal! i//! @file   " . filename . "\<CR>"
-  execute "normal! i//! @brief  describe\<CR>"
-  execute "normal! i//**********************************************************************\<CR>"
-endfunction
-
-function! InsertHeaderHeader()
-  call IncludeGuard()
-  call InsertFileHeader()
+" カレントパスをクリップボードにコピー {{{
+command! CopyCurrentPath :call s:copy_current_path()
+nnoremap <C-\> :<C-u>CopyCurrentPath<CR>
+function! s:copy_current_path()
+    if has('win32')
+        let @*=substitute(expand('%:p'), '\\/', '\\', 'g')
+    else
+        let @*=expand('%:p')
+    endif
 endfunction
 " }}}
 
@@ -243,21 +218,19 @@ endfunction
 command! -nargs=* MoveCursorPosMap execute <SID>move_cursor_pos_mapping(<q-args>)
 command! -nargs=* Nnoremap MoveCursorPosMap nnoremap <args>
 " }}}
+" }}}
 
-"--------------------------------------
-" pluginプラグイン
-" plugin のバインドは<Space>ということにしてみよう
+" Plugins {{{
 
-""" neobundle {{{
 if has('vim_starting')
   set rtp+=~/.vim/neobundle.vim
 
   call neobundle#rc(expand('~/.vim/.bundle'))
 endif
 
-" repository
-"=====================================
-" language
+" Neobundle list {{{
+
+" Language
 " C++
 NeoBundleLazy 'vim-jp/cpp-vim', {
             \   'autoload': {'filetypes': ['cpp']}
@@ -326,22 +299,26 @@ NeoBundleLazy 'vim-scripts/glsl.vim', {
             \ }
 
 
-"=====================================
 " textobj
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'osyo-manga/vim-textobj-multiblock'
 "NeoBundle 'rhysd/vim-textobj-word-column'
 
-"=====================================
 " utl
 NeoBundle 't9md/vim-quickhl'
 NeoBundle 'kana/vim-smartinput'
+NeoBundle 'kana/vim-submode'
 NeoBundle 'tyru/caw.vim'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'deris/vim-rengbang'
+NeoBundle 'osyo-manga/shabadou.vim'
 NeoBundle 'osyo-manga/vim-anzu'
+NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'osyo-manga/vim-reunions'
+NeoBundle 'osyo-manga/vim-watchdogs', {
+        \   'autoload' : {'commands' : ['WatchdogsRun'] },
+        \ }
 
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
@@ -354,11 +331,11 @@ NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-prettyprint'
-NeoBundle 'mattn/webapi-vim'
-NeoBundle 'osyo-manga/shabadou.vim'
-NeoBundle 'osyo-manga/vim-watchdogs', {
-        \   'autoload' : {'commands' : ['WatchdogsRun'] },
+NeoBundle 'thinca/vim-singleton' , {
+        \   'gui' : 1
         \ }
+NeoBundle 'tyru/restart.vim'
+NeoBundle 'mattn/webapi-vim'
 NeoBundle 'Shougo/vinarise'
 NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/neosnippet'
@@ -369,15 +346,14 @@ NeoBundle 'Shougo/vimproc', {
         \     'unix'   : 'make -f make_unix.mak',
         \   },
         \ }
-
-" vimfiler
 NeoBundleLazy 'Shougo/vimfiler', {
             \   'autoload' : {'commands' : ['VimFilerBufferDir'] },
             \ }
-" vimshell
 NeoBundleLazy 'Shougo/vimshell', {
             \   'autoload' : {'commands' : ['VimShell'] },
             \ }
+
+NeoBundle 'LeafCage/foldCC'
 
 " unite
 NeoBundleLazy 'Shougo/unite.vim',{
@@ -395,12 +371,6 @@ NeoBundle 'bundai223/unite-picktodo'
 if has('mac')
   NeoBundle 'choplin/unite-spotlight'
 endif
-
-NeoBundle 'tyru/restart.vim'
-
-NeoBundle 'thinca/vim-singleton' , {
-        \   'gui' : 1
-        \ }
 
 "=====================================
 " private snippet
@@ -534,6 +504,16 @@ filetype plugin indent on
 
 " vital
 let g:V = vital#of('vital')
+
+" foldCC
+set foldtext=FoldCCtext()
+set fillchars=vert:\l
+set foldcolumn=2
+
+" Over vim
+" ちょっとあやしい
+" http://leafcage.hateblo.jp/
+"cnoreabb <silent><expr>s getcmdtype()==':' && getcmdline()=~'^s' ? 'OverCommandLine<CR><C-u>%s/<C-r>=get([], getchar(0), '')<CR>' : 's'
 
 """ quickhl {{{
 let g:quickhl_manual_enable_at_startup = 1
@@ -833,8 +813,9 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 """}}}
 
-"--------------------------------------
-" key mapping
+" }}}
+
+" Basic key mapping {{{
 
 " ESC押しやすく
 imap <C-@> <C-[>
@@ -848,9 +829,55 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
-" カーソル移動
+" 再読み込み
+nnoremap <F5> :source %<CR>
+
+" 直前のバッファに移動
+nnoremap <Leader>b :b#<CR>
+
+" Insert date
+inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
+inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
+
+" Easy to help
+nnoremap <C-u> :<C-u>help<Space>
+
+" MYVIMRC
+nnoremap <Leader>v :e $MYVIMRC<CR>
+nnoremap <Leader>g :e $MYGVIMRC<CR>
+
+" カレントパスをバッファに合わせる
+nnoremap <silent><Leader><Space> :<C-u>cd %:h<CR>:pwd<CR>
+
+" Quick splits
+nnoremap _ :sp<CR>
+nnoremap <Bar> :vsp<CR>
+
+" Insert space in normal mode
+nnoremap <C-l> i<Space><Esc><Right>
+nnoremap <C-h> i<Space><Esc>
+
+" Copy and paste {{{
+" 行末までヤンク
+nnoremap Y y$
+
+" C-y Paste when insert mode
+inoremap <C-y> <C-r>*
+
+" BS act like normal backspace
+nnoremap <BS> X
+" }}}
+
+" Tab moving {{{
+nnoremap gn :<C-u>tabnew<CR>
+nnoremap ge :<C-u>tabnew +edit `=tempname()`<CR>
+"nnoremap ge :<C-u>tabedit<CR>
+nnoremap <C-l> gt
+nnoremap <C-h> gT
+" }}}
+
+" Cursor moving {{{
 " 空行単位で移動
-" C-jがかぶってる…Escを別のにしたい
 nnoremap <C-j> }
 nnoremap <C-k> {
 vnoremap <C-j> }
@@ -859,14 +886,56 @@ vnoremap <C-k> {
 " 見た目の行移動をやりやすく
 nnoremap j  gj
 nnoremap k  gk
-nnoremap gj j
-nnoremap gk k
 
-" 行末までヤンク
-nnoremap Y y$
+" 関数単位で移動
+noremap <C-p> [[
+noremap <C-n> ]]
 
-" 再読み込み
-nnoremap <F5> :source %<CR>
+" Toggle 0 and ^
+nnoremap <expr>0 col('.') == 1 ? '^' : '0'
+nnoremap <expr>^ col('.') == 1 ? '^' : '0'
+" }}}
+
+" Search and replace {{{
+" 検索ハイライトをオフ
+nnoremap <Leader>/ :noh <CR>
+
+" 置換
+nnoremap <expr> <Leader>s _(":s/<Cursor>//g")
+nnoremap <expr> <Leader>S _(":%s/<Cursor>//g")
+
+" 検索結果をウインドウ真ん中に
+nnoremap n nzzzv
+nnoremap N Nzzzv
+" }}}
+
+" Fold moving {{{
+noremap [fold] <nop>
+nmap <Leader> [fold]
+
+" Move fold
+noremap [fold]j zj
+noremap [fold]k zk
+
+" Move fold begin line
+noremap [fold]n ]z
+noremap [fold]p [z
+
+" Fold open and close
+noremap [fold]h zc
+noremap [fold]l zo
+noremap [fold]a za
+
+" All fold close
+noremap [fold]m zM
+
+" Other fold close
+noremap [fold]i zMzv
+
+" Make fold
+noremap [fold]r zR
+noremap [fold]f zf
+"}}}
 
 " 使わないマッピングなしに
 " ZZで全保存・全終了
@@ -876,91 +945,43 @@ nnoremap ZZ <Nop>
 " exモード？なし
 nnoremap Q <Nop>
 
-command! EditTmp call :edit `=tempname()`
-
-" 直前のバッファに移動
-nnoremap <Leader>b :b#<CR>
-
-" 日付マクロ
-let $TODAY = strftime('%Y%m%d')
-inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
-inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
-
-" 連番マクロ
-" <C-a>で加算
-" <C-x>で減算
-command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
-nnoremap <silent> co : ContinuousNumber <C-a><CR>
-vnoremap <silent> <C-a> : ContinuousNumber <C-a><CR>
-vnoremap <silent> <C-x> : ContinuousNumber <C-x><CR>
-
-" help補助
-nnoremap <C-u> :<C-u>help<Space>
-
-" MYVIMRC
-nnoremap <Leader>v :e $MYVIMRC<CR>
-nnoremap <Leader>g :e $MYGVIMRC<CR>
-
-" ヤンクした単語で置換
-nnoremap <silent>ciy  ciw<C-r>0<Esc>:let@/=@1<CR>:noh<CR>
-nnoremap <silent>cy   ce <C-r>0<Esc>:let@/=@1<CR>:noh<CR>
-
-" C-yでクリップボード貼り付け
-inoremap <C-y> <C-r>*
-
-" 移動系
-inoremap <Leader>a  <Home>
-inoremap <Leader>e  <End>
-nnoremap <Leader>a  <Home>
-nnoremap <Leader>e  <End>
-
-" タブ関連
-nnoremap gn :<C-u>tabnew<CR>
-nnoremap ge :<C-u>tabnew +edit `=tempname()`<CR>
-"nnoremap ge :<C-u>tabedit<CR>
-nnoremap <C-l> gt
-nnoremap <C-h> gT
-
-" 関数単位で移動
-noremap <C-p> [[
-noremap <C-n> ]]
-
-" 検索ハイライトをオフ
-nnoremap <Leader>/ :noh <CR>
-
-" カレントパスをバッファに合わせる
-nnoremap <silent><Leader><Space> :<C-u>cd %:h<CR>:pwd<CR>
-
-" カレントパスをクリップボードにコピー
-command! CopyCurrentPath :call s:copy_current_path()
-nnoremap <C-\> :<C-u>CopyCurrentPath<CR>
-function! s:copy_current_path()
-    if has('win32')
-        let @*=substitute(expand('%:p'), '\\/', '\\', 'g')
-    else
-        let @*=expand('%:p')
-    endif
-endfunction
-
-" エンコーディング指定オープン
-command! -bang -complete=file -nargs=? Utf8 edit<bang> ++enc=utf-8 <args>
-command! -bang -complete=file -nargs=? Utf16 edit<bang> ++enc=utf-16 <args>
-command! -bang -complete=file -nargs=? Sjis edit<bang> ++enc=cp932 <args>
-command! -bang -complete=file -nargs=? Euc edit<bang> ++enc=eucjp <args>
-
-" 置換
-nnoremap <expr> <Leader>s _(":s/<Cursor>//g")
-nnoremap <expr> <Leader>S _(":%s/<Cursor>//g")
-
-" 括弧を入力
-" smartinputでよきに計らう必要あり
-"inoremap ( ( 
-"inoremap { { 
-"inoremap [ [ 
-"inoremap , , 
+" }}}
 
 " C++ {{{
-" headerとsourceを入れ替える
+" *.hを作成するときにインクルードガードを作成する {{{
+au BufNewFile *.h call InsertHeaderHeader()
+au BufNewFile *.cpp call InsertFileHeader()
+
+function! IncludeGuard()
+  let fl = getline(1)
+  if fl =~ "^#if"
+    return
+  endif
+   let gatename = substitute(toupper(expand("%:t")), "??.", "_", "g")
+  let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+  normal! gg
+  execute "normal! i#ifndef _" . gatename . "_INCLUDED_"
+  execute "normal! o#define _" . gatename .  "_INCLUDED_\<CR>\<CR>\<CR>\<CR>"
+  execute "normal! Go#endif // _" . gatename . "_INCLUDED_\<CR>"
+  4
+endfunction
+
+function! InsertFileHeader()
+  let filename = expand("%:t")
+  normal! gg
+  execute "normal! i//**********************************************************************\<CR>"
+  execute "normal! i//! @file   " . filename . "\<CR>"
+  execute "normal! i//! @brief  describe\<CR>"
+  execute "normal! i//**********************************************************************\<CR>"
+endfunction
+
+function! InsertHeaderHeader()
+  call IncludeGuard()
+  call InsertFileHeader()
+endfunction
+" }}}
+
+" headerとsourceを入れ替える {{{
 command! -nargs=0 CppHpp :call <SID>cpp_hpp()
 function! s:cpp_hpp()
     let cpps = ['cpp', 'cc', 'cxx', 'c']
@@ -998,6 +1019,7 @@ function! s:cpp_hpp()
     endif
 
 endfunction
+" }}}
 
 " }}}
 
@@ -1005,4 +1027,5 @@ endfunction
 if filereadable(expand('~/.my_local_vimrc'))
     source ~/.my_local_vimrc
 endif
+
 
