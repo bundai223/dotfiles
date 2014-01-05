@@ -166,9 +166,7 @@ set ambiwidth=double
 set lazyredraw
 
 " ハイライトのオン
-if has('gui_running')
-  syntax on
-endif
+syntax on
 
 " statusline常に表示 for airline
 set laststatus=2
@@ -258,9 +256,6 @@ NeoBundleLazy 'nosami/Omnisharp', {
             \ }
 
 " Python
-NeoBundleLazy 'davidhalter/jedi', {
-            \   'autoload': {'filetypes': ['python']}
-            \ }
 NeoBundleLazy 'davidhalter/jedi-vim', {
             \   'autoload': {'filetypes': ['python']}
             \ }
@@ -306,6 +301,7 @@ NeoBundle 'osyo-manga/vim-textobj-multiblock'
 "NeoBundle 'rhysd/vim-textobj-word-column'
 
 " utl
+NeoBundle 'koron/codic-vim'
 NeoBundle 't9md/vim-quickhl'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kana/vim-submode'
@@ -331,6 +327,7 @@ NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-prettyprint'
+NeoBundle 'thinca/vim-scall'
 NeoBundle 'thinca/vim-singleton' , {
         \   'gui' : 1
         \ }
@@ -513,7 +510,7 @@ set foldcolumn=2
 " Over vim
 " ちょっとあやしい
 " http://leafcage.hateblo.jp/
-"cnoreabb <silent><expr>s getcmdtype()==':' && getcmdline()=~'^s' ? 'OverCommandLine<CR><C-u>%s/<C-r>=get([], getchar(0), '')<CR>' : 's'
+cnoreabb <silent><expr>s getcmdtype()==':' && getcmdline()=~'^s' ? 'OverCommandLine<CR><C-u>%s/<C-r>=get([], getchar(0), '')<CR>' : 's'
 
 """ quickhl {{{
 let g:quickhl_manual_enable_at_startup = 1
