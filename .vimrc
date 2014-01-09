@@ -1,4 +1,4 @@
-" Basic setting {{{
+" Common setting {{{
 
 scriptencoding utf-8
 set nocompatible
@@ -219,11 +219,14 @@ command! -nargs=* Nnoremap MoveCursorPosMap nnoremap <args>
 
 " Plugins {{{
 
+" NeoBundle path setting {{{
 if has('vim_starting')
   set rtp+=~/.vim/neobundle.vim
 
   call neobundle#rc(expand('~/.vim/.bundle'))
 endif
+
+" }}}
 
 " Neobundle list {{{
 
@@ -296,10 +299,12 @@ NeoBundleLazy 'vim-scripts/glsl.vim', {
 " textobj
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'sgur/vim-textobj-parameter'
 NeoBundle 'osyo-manga/vim-textobj-multiblock'
-"NeoBundle 'rhysd/vim-textobj-word-column'
+NeoBundle 'osyo-manga/vim-textobj-multitextobj'
 
 " utl
+NeoBundle 'fuenor/qfixhowm'
 NeoBundle 'koron/codic-vim'
 NeoBundle 't9md/vim-quickhl'
 NeoBundle 'kana/vim-smartinput'
@@ -331,6 +336,7 @@ NeoBundle 'thinca/vim-singleton' , {
         \   'gui' : 1
         \ }
 NeoBundle 'tyru/restart.vim'
+NeoBundle 'tyru/capture.vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'Shougo/vinarise'
 NeoBundle 'Shougo/neocomplete'
@@ -348,7 +354,6 @@ NeoBundleLazy 'Shougo/vimfiler', {
 NeoBundleLazy 'Shougo/vimshell', {
             \   'autoload' : {'commands' : ['VimShell'] },
             \ }
-
 NeoBundle 'LeafCage/foldCC'
 
 " unite
@@ -362,6 +367,7 @@ NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/unite-build'
 NeoBundle 'osyo-manga/unite-fold'
 NeoBundle 'osyo-manga/unite-quickrun_config'
+NeoBundle 'osyo-manga/unite-qfixhowm'
 NeoBundle 'bundai223/unite-outline-sources'
 NeoBundle 'bundai223/unite-picktodo'
 if has('mac')
@@ -387,7 +393,7 @@ NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'w0ng/vim-hybrid'
 
 
-" marching
+" marching {{{
 let s:bundle = neobundle#get('vim-marching')
 function! s:bundle.hooks.on_source(bundle)
   " 非同期ではなくて同期処理で補完する
@@ -424,9 +430,8 @@ function! s:bundle.hooks.on_source(bundle)
   "       let g:clang_user_options= '2> NUL || exit 0"'
   if has('win32')
     let g:clang_complete_auto = 0
-    let g:my_clang_bin_path   = 'D:\Home\tool\clang\bin\'
-    let g:clang_exec          = g:my_clang_bin_path.'clang.exe'
-    let g:clang_library_path  = g:my_clang_bin_path
+    let g:clang_exec          = 'clang'
+    "let g:clang_library_path  = 'D:\Home\tool\clang\bin\'
     let g:clang_user_options  = '2> NUL || exit 0"'
 
   elseif has('mac')
@@ -443,15 +448,17 @@ function! s:bundle.hooks.on_source(bundle)
 
   endif
 endfunction
+"}}}
 
-" vimfiler
+" vimfiler {{{
 let s:bundle = neobundle#get('vimfiler')
 function! s:bundle.hooks.on_source(bundle)
   let g:vimfiler_as_default_explorer=1
   let g:vimfiler_safe_mode_by_default=0
 endfunction
+"}}}
 
-" vimshell
+" vimshell {{{
 let s:bundle = neobundle#get('vimshell')
 function! s:bundle.hooks.on_source(bundle)
   if has('win32')
@@ -464,8 +471,9 @@ function! s:bundle.hooks.on_source(bundle)
 
   let g:vimshell_vimshrc_path = expand($DOTFILES.'/.vimshrc')
 endfunction
+"}}}
 
-" unite
+" unite {{{
 let s:bundle = neobundle#get('unite.vim')
 function! s:bundle.hooks.on_source(bundle)
   " 入力モードで開始
@@ -473,7 +481,21 @@ function! s:bundle.hooks.on_source(bundle)
   let g:unite_source_grep_max_candidates=1000
 endfunction
 
-" singleton
+" }}}
+
+" unite-qfixhowm {{{
+let s:bundle = neobundle#get('unite-qfixhowm')
+function! s:bundle.hooks.on_source(bundle)
+  " How to open new memo
+  let g:unite_qfixhowm_new_memo_cmd = "tabnew"
+
+  call unite#custom_source('qfixhowm', 'sorters', ['sorter_qfixhowm_updatetime', 'sorter_reverse'])
+
+endfunction
+
+" }}}
+
+" singleton {{{
 let s:bundle = neobundle#get('vim-singleton')
 function! s:bundle.hooks.on_source(bundle)
   call singleton#enable()
@@ -481,37 +503,48 @@ endfunction
 if has('win32')
   call singleton#enable()
 endif
+"}}}
 
-" restart
+" restart {{{
 let s:bundle = neobundle#get('restart.vim')
 function! s:bundle.hooks.on_source(bundle)
   nnoremap <silent> rs : <C-u> Restart <CR>
 endfunction
+"}}}
 
-" Watchdogs
+" Watchdogs {{{
 let s:bundle = neobundle#get('vim-watchdogs')
 function! s:bundle.hooks.on_source(bundle)
   call watchdogs#setup(g:quickrun_config)
 endfunction
 " }}}
 
+" }}}
+
 filetype plugin indent on
 
+" Plugin setting {{{
 
-" vital
+" vital {{{
 let g:V = vital#of('vital')
 
-" foldCC
+" }}}
+
+" foldCC {{{
 set foldtext=FoldCCtext()
 set fillchars=vert:\l
 set foldcolumn=2
 
-" Over vim
+" }}}
+
+" Over vim {{{
 " ちょっとあやしい
 " http://leafcage.hateblo.jp/
 "cnoreabb <silent><expr>s getcmdtype()==':' && getcmdline()=~'^s' ? 'OverCommandLine<CR><C-u>%s/<C-r>=get([], getchar(0), '')<CR>' : 's'
 
-""" quickhl {{{
+"}}}
+
+" quickhl {{{
 let g:quickhl_manual_enable_at_startup = 1
 
 nmap <Space>h <Plug>(quickhl-manual-this)
@@ -519,9 +552,10 @@ xmap <Space>h <Plug>(quickhl-manual-this)
 nmap <Space>H <Plug>(quickhl-manual-reset)
 xmap <Space>H <Plug>(quickhl-manual-reset)
 "nmap <Space>j <Plug>(quickhl-match)
-"""}}}
 
-""" smartinput{{{
+"}}}
+
+" smartinput{{{
 let g:smartinput_no_default_key_mappings = 1
 
 " <CR>をsmartinputの処理付きの物を指定する版
@@ -544,13 +578,14 @@ call smartinput#define_rule({ 'at': '{ *\%#', 'char': '}', 'input': '<BS>}', })
 call smartinput#define_rule({ 'at': '\%#',    'char': '[', 'input': '[<Space>', })
 call smartinput#define_rule({ 'at': '[ *\%#', 'char': ']', 'input': '<BS>]', })
 
-"""}}}
+"}}}
 
-""" vimshell {{{
+" vimshell {{{
 nnoremap <silent> <Space>vs : <C-u> VimShell<CR>
+
 " }}}
 
-""" neocomplete {{{
+" neocomplete {{{
 " disable AutoComplPop
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
@@ -619,7 +654,7 @@ let g:neocomplete#force_omni_input_patterns.objcpp      = '[^.[:digit:] *\t]\%(\
 "let g:neocomplete#sources#omni#functions.go = 'gocomplete#Complete'
 " }}}
 
-""" neosnippet {{{
+" neosnippet {{{
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
@@ -637,7 +672,7 @@ endif
 let g:neosnippet#snippets_directory='~/.vim/.bundle/mysnip'
 " }}}
 
-""" unite {{{
+" unite {{{
 " <Space>をuniteのキーに
 nnoremap [unite] <Nop>
 nmap <Space> [unite]
@@ -668,32 +703,37 @@ nnoremap <silent> [unite]c :<C-u>Unite -buffer-name=colorscheme -auto-preview co
 " source 一覧
 nnoremap <silent> [unite]s :<C-u>Unite source -vertical<CR>
 
-""" alignta(visual)
+" alignta(visual)
 vnoremap <silent> [unite]aa :<C-u>Unite alignta:arguments<CR>
 vnoremap <silent> [unite]ao :<C-u>Unite alignta:options<CR>
 
+" qfixhowm
+nnoremap <silent> [unite]q :<C-u>Unite qfixhowm/new qfixhowm:nocache -hide-source-names<CR>
 
 " UniteBufferの復元
 nnoremap <silent> [unite]r :<C-u>UniteResume<CR>
 " }}}
 
-""" vimfiler {{{
+" vimfiler {{{
 "nnoremap <silent> vf : <C-u> VimFilerExplorer %:h<CR>
 nnoremap <silent> <Space>vf : <C-u> VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
+
 " }}}
 
-""" gtags {{{
+" gtags {{{
 "nmap     <silent> <Leader>gt  : <C-u>Gtags<Space>
 "nmap     <silent> <Leader>gtr : <C-u>Gtags -r<Space>
 "nnoremap <silent> <Leader>gtc : <C-u>GtagsCursor<CR>
+
 " }}}
 
-""" textobj-multiblock {{{
+" textobj-multiblock {{{
 vmap ab <Plug>(textobj-multiblock-a)
 vmap ib <Plug>(textobj-multiblock-i)
+
 " }}}
 
-""" alignta {{{
+" alignta {{{
 let g:alignta_default_options   = '<<<0:0'
 let g:alignta_default_arguments = '\s'
 vnoremap <Leader>al :Alignta<Space>
@@ -732,20 +772,23 @@ let g:unite_source_alignta_preset_options = [
     \ ["Margin 1:0",        '10' ],
     \ ["Margin 1:1",        '1'  ],
     \]
+
 " }}}
 
-""" PrettyPrint {{{
+" PrettyPrint {{{
 " 変数の中身を表示
 command! -nargs=+ GlobalVars PP filter(copy(g:), 'v:key =~# "^<args>"')
 command! -nargs=+ BufVars PP filter(copy(b:), 'v:key =~# "^<args>"')
+
 " }}}
 
-""" caw {{{
+" caw {{{
 nmap <Leader>c <Plug>(caw:I:toggle)
 vmap <Leader>c <Plug>(caw:I:toggle)
+
 " }}}
 
-""" quickrun {{{
+" quickrun {{{
 " vimprocで起動
 " バッファが空なら閉じる
 let g:quickrun_config = get(g:, 'quickrun_config', {})
@@ -777,9 +820,9 @@ let g:quickrun_config._ = {
 "" <Space>qで強制終了
 "nnoremap <expr><silent><Space>q quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
-"""}}}
+"}}}
 
-""" anzu {{{
+" anzu {{{
 " " echo statusline to search index
 " " n や N の代わりに使用します。
 " nmap n <Plug>(anzu-n)
@@ -801,31 +844,46 @@ nmap N <Plug>(anzu-N-with-echo)
 nmap * <Plug>(anzu-star-with-echo)
 nmap # <Plug>(anzu-sharp-with-echo)
 
-"""}}}
+"}}}
 
-""" open-browser {{{
+" open-browser {{{
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
-"""}}}
 
 " }}}
 
-" Basic key mapping {{{
+" qfixhowm {{{
+let howm_dir = '~/.vim/howm'
+let howm_filename        = '%Y/%m/%Y-%m-%d-%H%M%S.howm'
+let howm_fileencoding    = 'utf-8'
+let howm_fileformat      = 'unix'
 
-" ESC押しやすく
+let QFixHowm_Key = 'g'
+let QFix_PreviewEnable = 0
+let QFix_CursorLine = 0
+
+" }}}
+
+" }}}
+
+" }}}
+
+" Common key mapping {{{
+
+" Easy to esc
 imap <C-@> <C-[>
 nmap <C-@> <C-[>
 vmap <C-@> <C-[>
 cmap <C-@> <C-[>
 
-" コマンドモードに入りやすく
+" Easy to cmd mode
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
-" 再読み込み
+" Reload
 nnoremap <F5> :source %<CR>
 
 " 直前のバッファに移動
@@ -854,7 +912,7 @@ nnoremap <C-l> i<Space><Esc><Right>
 nnoremap <C-h> i<Space><Esc>
 
 " Copy and paste {{{
-" 行末までヤンク
+" Yank to end
 nnoremap Y y$
 
 " C-y Paste when insert mode
@@ -862,6 +920,7 @@ inoremap <C-y> <C-r>*
 
 " BS act like normal backspace
 nnoremap <BS> X
+
 " }}}
 
 " Tab moving {{{
@@ -870,6 +929,7 @@ nnoremap ge :<C-u>tabnew +edit `=tempname()`<CR>
 "nnoremap ge :<C-u>tabedit<CR>
 nnoremap <C-l> gt
 nnoremap <C-h> gT
+
 " }}}
 
 " Cursor moving {{{
@@ -890,6 +950,7 @@ noremap <C-n> ]]
 " Toggle 0 and ^
 nnoremap <expr>0 col('.') == 1 ? '^' : '0'
 nnoremap <expr>^ col('.') == 1 ? '^' : '0'
+
 " }}}
 
 " Search and replace {{{
@@ -933,13 +994,16 @@ noremap [fold]r zR
 noremap [fold]f zf
 "}}}
 
-" 使わないマッピングなしに
-" ZZで全保存・全終了
-" ZQで保存なし・全終了
+" Invalidate that don't use commands
 nnoremap ZZ <Nop>
-"nnoremap ZQ <Nop> "無名バッファで必要
 " exモード？なし
 nnoremap Q <Nop>
+
+" 矯正のために一時的に<C-c>無効化
+inoremap <C-c> <Nop>
+nnoremap <C-c> <Nop>
+vnoremap <C-c> <Nop>
+cnoremap <C-c> <Nop>
 
 " }}}
 
