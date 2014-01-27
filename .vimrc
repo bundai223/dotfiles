@@ -1,5 +1,10 @@
 " Common setting {{{
 
+" 変数を読み込む
+if filereadable(expand('~/.my_local_vimrc_env'))
+    source ~/.my_local_vimrc_env
+endif
+
 scriptencoding utf-8
 set nocompatible
 
@@ -54,7 +59,7 @@ if has('vim_starting')
   " Goのpath
   if $GOROOT != ''
     set rtp+=$GOROOT/misc/vim
-    set rtp+=$GOPATH/src/github.com/nsf/gocode/vim
+    set~/ rtp+=$GOPATH/src/github.com/nsf/gocode/vim
   endif
 
   if has('win32')
@@ -392,6 +397,9 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'w0ng/vim-hybrid'
 
+NeoBundle 'kannokanno/previm'
+
+let g:previm_open_cmd="open -a Safari"
 
 " marching {{{
 let s:bundle = neobundle#get('vim-marching')
@@ -904,7 +912,7 @@ nnoremap <Leader>g :e $MYGVIMRC<CR>
 nnoremap <silent><Leader><Space> :<C-u>cd %:h<CR>:pwd<CR>
 
 " Quick splits
-nnoremap _ :sp<CR>
+"nnoremap _ :sp<CR>
 nnoremap <Bar> :vsp<CR>
 
 " Insert space in normal mode
