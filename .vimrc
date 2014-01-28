@@ -300,6 +300,11 @@ NeoBundleLazy 'vim-scripts/glsl.vim', {
             \   'autoload': {'filetypes': ['fx']}
             \ }
 
+" MarkDown
+NeoBundleLazy 'kannokanno/previm', {
+            \   'autoload' : {'filetypes': ['markdown']}
+            \ }
+
 
 " textobj
 NeoBundle 'tpope/vim-surround'
@@ -396,10 +401,6 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'w0ng/vim-hybrid'
-
-NeoBundle 'kannokanno/previm'
-
-let g:previm_open_cmd="open -a Safari"
 
 " marching {{{
 let s:bundle = neobundle#get('vim-marching')
