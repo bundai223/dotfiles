@@ -1,5 +1,10 @@
 " Common setting {{{
 
+" 変数を読み込む
+if filereadable(expand('~/.my_local_vimrc_env'))
+    source ~/.my_local_vimrc_env
+endif
+
 scriptencoding utf-8
 set nocompatible
 
@@ -295,6 +300,11 @@ NeoBundleLazy 'vim-scripts/glsl.vim', {
             \   'autoload': {'filetypes': ['fx']}
             \ }
 
+" MarkDown
+NeoBundleLazy 'kannokanno/previm', {
+            \   'autoload' : {'filetypes': ['markdown']}
+            \ }
+
 
 " textobj
 NeoBundle 'tpope/vim-surround'
@@ -392,15 +402,15 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'w0ng/vim-hybrid'
 
-NeoBundleLazy 'itchyny/calendar.vim', {
-            \   'autoload' : {'commands' : ['Calendar'] },
-            \ }
-
-" Calendar {{{
-let s:bundle = neobundle#get('calendar')
-function! s:bundle.hooks.on_source(bundle)
-  let g:calendar_google_calendar = 1
-endfunction
+"NeoBundleLazy 'itchyny/calendar.vim', {
+"            \   'autoload' : {'commands' : ['Calendar'] },
+"            \ }
+"
+"" Calendar {{{
+"let s:bundle = neobundle#get('calendar')
+"function! s:bundle.hooks.on_source(bundle)
+"  let g:calendar_google_calendar=1
+"endfunction
 
 " }}}
 
@@ -915,7 +925,7 @@ nnoremap <Leader>g :e $MYGVIMRC<CR>
 nnoremap <silent><Leader><Space> :<C-u>cd %:h<CR>:pwd<CR>
 
 " Quick splits
-nnoremap _ :sp<CR>
+"nnoremap _ :sp<CR>
 nnoremap <Bar> :vsp<CR>
 
 " Insert space in normal mode
