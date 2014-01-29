@@ -392,6 +392,17 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'w0ng/vim-hybrid'
 
+NeoBundleLazy 'itchyny/calendar.vim', {
+            \   'autoload' : {'commands' : ['Calendar'] },
+            \ }
+
+" Calendar {{{
+let s:bundle = neobundle#get('calendar')
+function! s:bundle.hooks.on_source(bundle)
+  let g:calendar_google_calendar = 1
+endfunction
+
+" }}}
 
 " marching {{{
 let s:bundle = neobundle#get('vim-marching')
