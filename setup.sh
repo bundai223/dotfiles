@@ -14,8 +14,9 @@ DOTFILE_NAMES_ARRAY=\
 for dotfile in ${DOTFILE_NAMES_ARRAY[@]}; do
     if [ ! -e ${DOTFILES_PATH}/${dotfile} ]; then
         ln -s ${DOTFILES_ENTITY_PATH}/${dotfile} ${DOTFILES_PATH}/${dotfile}
+        echo "Create complete ${dotfile}."
     else
-        echo "Already Exist ${dotfile}"
+        echo "Already Exist ${dotfile}."
     fi
 done
 
@@ -36,12 +37,13 @@ fi
 VIMDIR_NAMES_ARRAY=\
 (\
  syntax\
- ftplugin\
+ ftdetect\
  after\
 )
 for dir in ${VIMDIR_NAMES_ARRAY[@]}; do
-    if [ ! -e ${DOTFILES_PATH}/${dir} ]; then
+    if [ ! -e ~/${DOT_VIM}/${dir} ]; then
         ln -s ${DOTFILES_ENTITY_PATH}/${DOT_VIM}/${dir} ~/${DOT_VIM}/${dir}
+        echo "Create complete ${dir}."
     else
         echo "Already Exist ${dir}"
     fi
