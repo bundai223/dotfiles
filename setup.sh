@@ -1,45 +1,49 @@
 # !/bin/bash
 
-DOTFILES=~/labo/dotfiles
+DOTFILES_ENTITY_PATH=~/labo/dotfiles
+DOTFILES_PATH=~
 
 #-----------------------------------------
-# zsh setting
-ln -s ${DOTFILES}/.zshrc ~/.zshrc
+# Create symbolic link to dotfiles
+DOTFILE_NAMES_ARRAY=\
+(\
+ .zshrc\
+ .vimrc\
+ .gvimrc\
+)
+for dotfile in ${DOTFILE_NAMES_ARRAY[@]}; do
+    if [ ! -e ${DOTFILES_PATH}/${dotfile} ]; then
+        ln -s ${DOTFILES_ENTITY_PATH}/${dotfile} ${DOTFILES_PATH}/${dotfile}
+    else
+        echo "Already Exist ${dotfile}"
+    fi
+done
 
 #-----------------------------------------
 # vim setting
-VIMRC=~/.vimrc
-GVIMRC=~/.gvimrc
-DOT_VIM=~/.vim
-NEOBUNDLE=${DOT_VIM}/.bundle
-# create vimrc
-if [ ! -e $VIMRC ]; then
-    echo "\" vimrc">${VIMRC}
-    echo "if filereadable(expand('${DOTFILES}/.vimrc'))">>${VIMRC}
-    echo "    source ${DOTFILES}/.vimrc">>${VIMRC}
-    echo "endif">>${VIMRC}
-else
-    echo "Already Exist ${VIMRC}"
-fi
-# create gvimrc
-if [ ! -e ${GVIMRC} ]; then
-    echo "\" gvimrc">${GVIMRC}
-    echo "if filereadable(expand('${DOTFILES}/.gvimrc'))">>${GVIMRC}
-    echo "    source ${DOTFILES}/.gvimrc">>${GVIMRC}
-    echo "endif">>${GVIMRC}
-else
-    echo "Already Exist ${GVIMRC}"
+DOT_VIM=.vim
+if [ ! -d ~/${DOT_VIM} ]; then
+    mkdir ~/${DOT_VIM}
+
+    # neobundleがないとvimのプラグインとってこれないので先にゲット
+    NEOBUNDLE_PATH=~/${DOT_VIM}/neobundle.vim
+    if [ ! -d ${NEOBUNDLE_PATH} ]; then
+        cd ~/${DOT_VIM}
+        git clone https://github.com/Shougo/neobundle.vim.git
+    fi
 fi
 
-if [ ! -d ${DOT_VIM} ]; then
-    mkdir ${DOT_VIM}
-fi
-
-ln -s ${DOTFILES}/.vim/syntax ${DOT_VIM}/syntax
-ln -s ${DOTFILES}/.vim/ftplugin ${DOT_VIM}/ftplugin
-ln -s ${DOTFILES}/.vim/after ${DOT_VIM}/after
-
-# neobundleがないとvimのプラグインとってこれないので先にゲット
-cd $DOT_VIM
-git clone https://github.com/Shougo/neobundle.vim.git
+VIMDIR_NAMES_ARRAY=\
+(\
+ syntax\
+ ftplugin\
+ after\
+)
+for dir in ${VIMDIR_NAMES_ARRAY[@]}; do
+    if [ ! -e ${DOTFILES_PATH}/${dir} ]; then
+        ln -s ${DOTFILES_ENTITY_PATH}/${DOT_VIM}/${dir} ~/${DOT_VIM}/${dir}
+    else
+        echo "Already Exist ${dir}"
+    fi
+done
 
