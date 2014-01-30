@@ -10,6 +10,7 @@ DOTFILE_NAMES_ARRAY=\
  .zshrc\
  .vimrc\
  .gvimrc\
+ .vrapperrc\
 )
 for dotfile in ${DOTFILE_NAMES_ARRAY[@]}; do
     if [ ! -e ${DOTFILES_PATH}/${dotfile} ]; then
