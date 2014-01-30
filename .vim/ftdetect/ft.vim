@@ -19,6 +19,9 @@ au BufNewFile,BufRead *.fragmentshader set filetype=glsl
 " squirrel script
 au BufNewFile,BufRead *.nut set filetype=squirrel
 
-
+" go lang
 au BufNewFile,BufRead *.go set filetype=go
+
+" markdown(not modula2)
+au BufNewFile,BufRead *.md set filetype=markdown
 
