@@ -1,0 +1,19 @@
+
+
+:set ignorecase
+:set smartcase
+
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+
+"srで参照をプロジェクトから検索
+eclipseaction SearchRef  org.eclipse.jdt.ui.edit.text.java.search.references.in.project
+nnoremap sr :SearchRef<CR>
+
+"次のメンバ(フィールド,メソッド)
+eclipseaction GoNextMember org.eclipse.jdt.ui.edit.text.java.goto.next.member
+nnoremap <C-j> :GoNextMember<CR>
+eclipseaction GoPrevMember org.eclipse.jdt.ui.edit.text.java.goto.previous.member
+nnoremap <C-k> :GoPrevMember<CR>
