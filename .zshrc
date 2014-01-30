@@ -1,24 +1,72 @@
 #---------------------------------------------
 # 基本の設定
 #---------------------------------------------
-# どっかからのコピペ
-# The following lines were added by compinstall
-zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' menu select=2
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' verbose true
+# 補完有効
+autoload -Uz compinit
+compinit
+
+
+## どっかからのコピペ
+## The following lines were added by compinstall
+#zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+#zstyle ':completion:*' list-colors ''
+#zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+#zstyle ':completion:*' menu select=2
+#zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+#zstyle ':completion:*' verbose true
+
+# zsh補完強化 {{{
+# http://qiita.com/PSP_T/items/ed2d36698a5cc314557d
+# 補完候補のハイライト
+zstyle ':completion:*:default' menu select=2
+# 補完関数の表示を強化する
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+zstyle ':completion:*:messages' format '%F{YELLOW}%d'$DEFAULT
+zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d'$DEFAULT
+zstyle ':completion:*:descriptions' format '%F{YELLOW}completing %B%d%b'$DEFAULT
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:descriptions' format '%F{yellow}Completing %B%d%b%f'$DEFAULT
+
+# マッチ種別を別々に表示
+zstyle ':completion:*' group-name ''
+
+# path
+zstyle ':completion:*:sudo:*' command-path \
+    /usr/local/bin \
+    /usr/sbin \
+    /usr/bin \
+    /sbin \
+    /bin
+
+# セパレータを設定する
+zstyle ':completion:*' list-separator '-->'
+zstyle ':completion:*:manuals' separate-sections true
+
+# zsh-completions
+# https://github.com/zsh-users/zsh-completion.git
+if [ -e ~/.zsh/zsh-completions ]; then
+    fpath=(~/.zsh/zsh-completions/ $fpath)
+fi
+# https://github.com/bobthecow/git-flow-completion.git
+if [ -e ~/.zsh/git-flow ]; then
+    fpath=(~/.zsh/git-flow-completion/ $fpath)
+    source ~/.zsh/git-flow-completions/git-flow-completion.zsh
+fi
+
+# LS_COLORSを設定しておく
+export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+
+# ファイル補完候補に色を付ける
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# }}}
+
 # 小文字は大文字とごっちゃで検索できる
 # 大文字は小文字と区別される
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 # cdで表示しない例外設定
 zstyle ':completion:*:*:cd:*' ignored-patterns '.svn|.git'
-
-# 補完有効
-autoload -Uz compinit
-compinit
-
 
 
 setopt nobeep               # ビープ音なし
@@ -93,7 +141,9 @@ if [ -f ~/.local_zshrc ]; then
     . ~/.local_zshrc
 fi
 
-fpath=(~/.zsh/functions/ $fpath)
+if [ -f ~/.zsh/functions ]; then
+    fpath=(~/.zsh/functions/ $fpath)
+fi
 
 # vimキーバインドのモードによって入力プロンプトの先頭の色を変更
 function zle-line-init zle-keymap-select {
