@@ -43,15 +43,10 @@ zstyle ':completion:*:sudo:*' command-path \
 zstyle ':completion:*' list-separator '-->'
 zstyle ':completion:*:manuals' separate-sections true
 
-# zsh-completions
-# https://github.com/zsh-users/zsh-completion.git
-if [ -e ~/.zsh/zsh-completions ]; then
-    fpath=(~/.zsh/zsh-completions/ $fpath)
-fi
-# https://github.com/bobthecow/git-flow-completion.git
-if [ -e ~/.zsh/git-flow ]; then
-    fpath=(~/.zsh/git-flow-completion/ $fpath)
-    source ~/.zsh/git-flow-completions/git-flow-completion.zsh
+# git clone https://github.com/zsh-users/zsh-completions.git
+# ln -s ~/tool/zsh-completions ~/.zsh/zsh-completions
+if [ -f ~/.zsh/zsh-completions ]; then
+    fpath=(~/.zsh/zsh-completions/src/ $fpath)
 fi
 
 # LS_COLORSを設定しておく
@@ -139,10 +134,6 @@ PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%
 # ローカル用設定を読み込む
 if [ -f ~/.local_zshrc ]; then
     . ~/.local_zshrc
-fi
-
-if [ -f ~/.zsh/functions ]; then
-    fpath=(~/.zsh/functions/ $fpath)
 fi
 
 # vimキーバインドのモードによって入力プロンプトの先頭の色を変更
