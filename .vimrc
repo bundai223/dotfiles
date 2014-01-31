@@ -925,8 +925,8 @@ nnoremap <Leader>g :e $MYGVIMRC<CR>
 nnoremap <silent><Leader><Space> :<C-u>cd %:h<CR>:pwd<CR>
 
 " Quick splits
-"nnoremap _ :sp<CR>
-nnoremap <Bar> :vsp<CR>
+nnoremap <Leader>_ :sp<CR>
+nnoremap <Leader><Bar> :vsp<CR>
 
 " Insert space in normal mode
 nnoremap <C-l> i<Space><Esc><Right>

@@ -1,11 +1,15 @@
 #.local_zshrc
 
+# for android path setting
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Applications/eclipse/android/platform-tools
+
+# for FBX path setting
 FBXSDK_ROOT=/Applications/Autodesk/FBX\ SDK/2013.3/
 
 # path setting
 PATH=/usr/local/bin:$PATH
 PATH=/usr/local/share/python:$PATH
-#
+
 ## go lang
 PATH=$GOROOT/bin:$PATH
 

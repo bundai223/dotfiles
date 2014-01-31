@@ -1,10 +1,6 @@
 #---------------------------------------------
 # 基本の設定
 #---------------------------------------------
-# 補完有効
-autoload -Uz compinit
-compinit
-
 
 ## どっかからのコピペ
 ## The following lines were added by compinstall
@@ -45,7 +41,14 @@ zstyle ':completion:*:manuals' separate-sections true
 
 # git clone https://github.com/zsh-users/zsh-completions.git
 # ln -s ~/tool/zsh-completions ~/.zsh/zsh-completions/src
-fpath=(~/.zsh/zsh-completions/ $fpath)
+fpath=(~/.zsh/zsh-completions(N-/) ${fpath})
+fpath=(~/.zsh/my-completions(N-/) ${fpath})
+
+# fpathの設定が終わってから補完有効設定を行う
+# ref : http://yonchu.hatenablog.com/entry/20120415/1334506855
+# 補完有効
+autoload -Uz compinit
+compinit
 
 # LS_COLORSを設定しておく
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
