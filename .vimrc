@@ -362,7 +362,7 @@ NeoBundleLazy 'Shougo/vimfiler', {
             \   'autoload' : {'commands' : ['VimFilerBufferDir'] },
             \ }
 NeoBundleLazy 'Shougo/vimshell', {
-            \   'autoload' : {'commands' : ['VimShell'] },
+            \   'autoload' : {'commands' : ['VimShell', 'VimShellPop'] },
             \ }
 NeoBundle 'LeafCage/foldCC'
 
