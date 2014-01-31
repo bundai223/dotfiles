@@ -44,10 +44,8 @@ zstyle ':completion:*' list-separator '-->'
 zstyle ':completion:*:manuals' separate-sections true
 
 # git clone https://github.com/zsh-users/zsh-completions.git
-# ln -s ~/tool/zsh-completions ~/.zsh/zsh-completions
-if [ -f ~/.zsh/zsh-completions ]; then
-    fpath=(~/.zsh/zsh-completions/src/ $fpath)
-fi
+# ln -s ~/tool/zsh-completions ~/.zsh/zsh-completions/src
+fpath=(~/.zsh/zsh-completions/ $fpath)
 
 # LS_COLORSを設定しておく
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
