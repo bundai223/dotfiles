@@ -137,46 +137,6 @@ set grepprg=grep\ -nH
 
 " }}}
 
-" 表示の設定 {{{
-
-" Folding {{{
-set foldenable
-
-" Explicitly fold begin and end
-" e.g. {{{ folding code }}}
-set foldmethod=marker
-
-" }}}
-
-" show line number
-set number
-
-" line number relative
-set relativenumber
-
-" show invisible chars
-set list
-" tab 行末spaceを表示
-"set listchars=tab:^\ ,trail:~
-set listchars=tab:^\ ,trail:~,extends:>,precedes:<,nbsp:%
-
-" always show tab
-set showtabline=2
-
-" fix zenkaku char's width
-set ambiwidth=double
-
-" 再描画コマンド実行中はなし
-set lazyredraw
-
-" ハイライトのオン
-syntax on
-
-" statusline常に表示 for airline
-set laststatus=2
-
-" }}}
-
 " VimScript {{{
 
 " filetype 調査
@@ -413,6 +373,40 @@ NeoBundle 'w0ng/vim-hybrid'
 "endfunction
 
 " }}}
+
+" molokai {{{
+let s:bundle = neobundle#get('molokai')
+function! s:bundle.hooks.on_source(bundle)
+  " Color scheme setting {{{
+  set t_Co=256
+  set background=dark
+  let g:molokai_original = 1
+  let g:rehash256 = 1
+
+  colorscheme molokai
+
+  " IMEの状態でカーソル色変更 {{{
+  " colorschemeでの設定を上書きするため
+  " colorschemeより後で記述
+  "IME状態に応じたカーソル色を設定
+  if has('multi_byte_ime')
+    highlight Cursor guifg=Black guibg=#cccccc gui=bold
+    highlight CursorIM guifg=NONE guibg=Violet gui=bold
+  endif
+  " }}}
+
+  " 全角スペースを表示 {{{
+  highlight ZenkakuSpace cterm=underline ctermfg=red gui=underline guifg=red
+  au BufNew,BufRead * match ZenkakuSpace /　/
+  " }}}
+
+  " }}}
+
+  " ハイライトのオン
+  syntax on
+
+endfunction
+"}}}
 
 " marching {{{
 let s:bundle = neobundle#get('vim-marching')
@@ -1101,6 +1095,76 @@ function! s:cpp_hpp()
 
 endfunction
 " }}}
+
+" }}}
+
+" Looks setting {{{
+
+" Folding {{{
+set foldenable
+
+" Explicitly fold begin and end
+" e.g. {{{ folding code }}}
+set foldmethod=marker
+
+" }}}
+
+" show line number
+set number
+
+" line number relative
+set relativenumber
+
+" show invisible chars
+set list
+" tab 行末spaceを表示
+"set listchars=tab:^\ ,trail:~
+set listchars=tab:^\ ,trail:~,extends:>,precedes:<,nbsp:%
+
+" always show tab
+set showtabline=2
+
+" fix zenkaku char's width
+set ambiwidth=double
+
+" 再描画コマンド実行中はなし
+set lazyredraw
+
+" statusline常に表示 for airline
+set laststatus=2
+
+set cursorline
+
+" 自動折り返しなし
+set nowrap
+
+" Color scheme setting {{{
+set t_Co=256
+colorscheme molokai
+
+let g:molokai_original = 1
+let g:rehash256 = 1
+set background=dark
+
+" IMEの状態でカーソル色変更 {{{
+" colorschemeでの設定を上書きするため
+" colorschemeより後で記述
+"IME状態に応じたカーソル色を設定
+if has('multi_byte_ime')
+  highlight Cursor guifg=Black guibg=#cccccc gui=bold
+  highlight CursorIM guifg=NONE guibg=Violet gui=bold
+endif
+" }}}
+
+" 全角スペースを表示 {{{
+highlight ZenkakuSpace cterm=underline ctermfg=red gui=underline guifg=red
+au BufNew,BufRead * match ZenkakuSpace /　/
+" }}}
+
+" }}}
+
+" ハイライトのオン
+syntax on
 
 " }}}
 

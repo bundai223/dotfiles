@@ -1,23 +1,6 @@
 "---------------------------------
 " 見た目の設定
 "---------------------------------
-colorscheme molokai
-
-" IMEの状態でカーソル色変更
-" colorschemeでの設定を上書きするため
-" colorschemeより後で記述
-"IME状態に応じたカーソル色を設定
-if has('multi_byte_ime')
-  highlight Cursor guifg=Black guibg=#cccccc gui=bold
-  highlight CursorIM guifg=NONE guibg=Violet gui=bold
-endif
-
-" 全角スペースを表示
-highlight ZenkakuSpace cterm=underline ctermfg=red gui=underline guifg=red
-au BufNew,BufRead * match ZenkakuSpace /　/
-
-set cursorline
-
 "---------------------------------
 " ウインドウなどの設定
 "---------------------------------
@@ -26,11 +9,6 @@ set cursorline
 "set lines=60
 "" 横
 "set columns=124
-
-
-" 自動折り返しなし
-set nowrap
-
 
 " gvimのツールバーなどの設定
 set guioptions-=T "ツールバーなし
