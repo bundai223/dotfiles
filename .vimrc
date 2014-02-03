@@ -261,6 +261,9 @@ NeoBundleLazy 'vim-scripts/glsl.vim', {
             \ }
 
 " MarkDown
+NeoBundleLazy 'rcmdnk/vim-markdown', {
+            \   'autoload' : {'filetypes': ['markdown']}
+            \ }
 NeoBundleLazy 'kannokanno/previm', {
             \   'autoload' : {'filetypes': ['markdown']}
             \ }
