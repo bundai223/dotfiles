@@ -1138,31 +1138,6 @@ set cursorline
 " 自動折り返しなし
 set nowrap
 
-" Color scheme setting {{{
-set t_Co=256
-colorscheme molokai
-
-let g:molokai_original = 1
-let g:rehash256 = 1
-set background=dark
-
-" IMEの状態でカーソル色変更 {{{
-" colorschemeでの設定を上書きするため
-" colorschemeより後で記述
-"IME状態に応じたカーソル色を設定
-if has('multi_byte_ime')
-  highlight Cursor guifg=Black guibg=#cccccc gui=bold
-  highlight CursorIM guifg=NONE guibg=Violet gui=bold
-endif
-" }}}
-
-" 全角スペースを表示 {{{
-highlight ZenkakuSpace cterm=underline ctermfg=red gui=underline guifg=red
-au BufNew,BufRead * match ZenkakuSpace /　/
-" }}}
-
-" }}}
-
 " ハイライトのオン
 syntax on
 
