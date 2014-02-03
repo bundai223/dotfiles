@@ -40,7 +40,7 @@ zstyle ':completion:*' list-separator '-->'
 zstyle ':completion:*:manuals' separate-sections true
 
 # git clone https://github.com/zsh-users/zsh-completions.git
-# ln -s ~/tool/zsh-completions ~/.zsh/zsh-completions/src
+# ln -s ~/tool/zsh-completions/src ~/.zsh/zsh-completions
 fpath=(~/.zsh/zsh-completions(N-/) ${fpath})
 fpath=(~/.zsh/my-completions(N-/) ${fpath})
 
