@@ -537,6 +537,13 @@ function! s:bundle.hooks.on_source(bundle)
 endfunction
 " }}}
 
+" Vim-markdown {{{
+let s:bundle = neobundle#get('vim-markdown')
+function! s:bundle.hooks.on_source(bundle)
+  let g:vim_markdown_folding_disabled=1
+endfunction
+" }}}
+
 " }}}
 
 filetype plugin indent on
