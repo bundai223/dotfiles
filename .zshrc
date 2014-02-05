@@ -89,7 +89,7 @@ setopt hist_ignore_space
 
 #}}}
 
-# キーバインド {{{
+# Key bind {{{
 # 履歴表示
 # 履歴から入力の続きを補完
 bindkey "^[[A" history-beginning-search-backward
@@ -101,6 +101,7 @@ bindkey " " magic-space
 
 #}}}
 
+# Alias {{{
 alias ls='ls -a'
 alias lsl='ls -la'
 alias pd=popd
@@ -109,9 +110,14 @@ alias -s html=chrome
 alias -s rb=ruby
 alias -s py=python
 
-#---------------------------------------------
-# ターミナルのユーザー表示を設定
-#---------------------------------------------
+#}}}
+
+# ローカル用設定を読み込む
+if [ -f ~/.local_zshrc ]; then
+    . ~/.local_zshrc
+fi
+
+# Prompt setting {{{
 # 実際のプロンプトの表示設定
 autoload -Uz colors && colors
 
@@ -367,9 +373,6 @@ fi
 
 #}}}
 
-# ローカル用設定を読み込む
-if [ -f ~/.local_zshrc ]; then
-    . ~/.local_zshrc
-fi
+#}}}
 
 

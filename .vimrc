@@ -1153,6 +1153,15 @@ syntax on
 
 " }}}
 
+" Toggle tmux status bar {{{
+"if !has('gui_running') && $TMUX !=# ''
+"  augroup Tmux
+"    autocmd!
+"    autocmd VimEnter,VimLeave * silent !tmux set status
+"  augroup END
+"endif
+" }}}
+
 " ローカル設定を読み込む
 if filereadable(expand('~/.my_local_vimrc'))
     source ~/.my_local_vimrc

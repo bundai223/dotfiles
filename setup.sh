@@ -3,14 +3,14 @@
 DOTFILES_ENTITY_PATH=~/labo/dotfiles
 DOTFILES_PATH=~
 
-#-----------------------------------------
-# Create symbolic link to dotfiles
+# Create symbolic link to dotfiles {{{
 DOTFILE_NAMES_ARRAY=\
 (\
  .zshrc\
  .vimrc\
  .gvimrc\
  .vrapperrc\
+ .tmux.conf\
 )
 for dotfile in ${DOTFILE_NAMES_ARRAY[@]}; do
     if [ ! -e ${DOTFILES_PATH}/${dotfile} ]; then
@@ -20,9 +20,9 @@ for dotfile in ${DOTFILE_NAMES_ARRAY[@]}; do
         echo "Already Exist ${dotfile}"
     fi
 done
+#}}}
 
-#-----------------------------------------
-# vim setting
+# vim setting {{{
 DOT_VIM=.vim
 if [ ! -d ~/${DOT_VIM} ]; then
     mkdir ~/${DOT_VIM}
@@ -38,6 +38,7 @@ if [ ! -d ~/${DOT_VIM} ]; then
     fi
 fi
 
+# link to .vim dir
 VIMDIR_NAMES_ARRAY=\
 (\
  syntax\
@@ -53,20 +54,21 @@ for dir in ${VIMDIR_NAMES_ARRAY[@]}; do
     fi
 done
 
+# path to dotfile
+VIM_DOTFILE_PATH=~/.my_local_vimrc_env
+if [ ! -e ${VIM_DOTFILE_PATH} ]; then
+    echo "let \$DOTFILES=expand(\"~/\").\"labo/dotfiles\"">${VIM_DOTFILE_PATH}
+else
+    echo "Already Exist ${VIM_DOTFILE_PATH}"
+fi
+
+#}}}
 
 # For OSX
 if [ "$1" == "OSX" ]; then
     ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
     brew install git zsh tmux cmake ctags reattach-to-user-namespace
     brew install macvim --with-cscope --with-luajit
-
-    # path to dotfile
-    VIM_DOTFILE_PATH=~/.my_local_vimrc_env
-    if [ ! -e ${VIM_DOTFILE_PATH} ]; then
-        echo "let \$DOTFILES=expand(\"~/\").\"labo/dotfiles\"">${VIM_DOTFILE_PATH}
-    else
-        echo "Already Exist ${VIM_DOTFILE_PATH}"
-    fi
 fi
 
 
