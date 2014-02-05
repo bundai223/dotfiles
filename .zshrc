@@ -90,6 +90,9 @@ setopt hist_ignore_space
 #}}}
 
 # Key bind {{{
+# vi風バインド
+bindkey -v
+
 # 履歴表示
 # 履歴から入力の続きを補完
 bindkey "^[[A" history-beginning-search-backward
@@ -125,9 +128,6 @@ PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%
 %(!.#.$) "
 
 # vimキーバインドのモードによって入力プロンプトの先頭の色を変更 {{{
-# vi風バインド
-bindkey -v
-
 function zle-line-init zle-keymap-select {
   case $KEYMAP in
     vicmd)
