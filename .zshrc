@@ -74,9 +74,7 @@ setopt auto_pushd           # cd履歴を残す
 
 export EDITOR=vim
 
-#---------------------------------------------
-# 履歴の設定
-#---------------------------------------------
+# History setting {{{
 # End of lines added by compinstal
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -89,15 +87,9 @@ setopt hist_ignore_dups
 # 先頭にスペースがあると履歴保存しない
 setopt hist_ignore_space
 
-#---------------------------------------------
-# キーバインド
-#---------------------------------------------
-# vi風
-#
-# 一番下にステータスバー表示スクリプト
-#
-bindkey -v
+#}}}
 
+# キーバインド {{{
 # 履歴表示
 # 履歴から入力の続きを補完
 bindkey "^[[A" history-beginning-search-backward
@@ -107,6 +99,7 @@ bindkey "^N" history-beginning-search-forward
 
 bindkey " " magic-space
 
+#}}}
 
 alias ls='ls -a'
 alias lsl='ls -la'
@@ -119,25 +112,16 @@ alias -s py=python
 #---------------------------------------------
 # ターミナルのユーザー表示を設定
 #---------------------------------------------
-# バージョン管理の状態に合わせた表示
-autoload -Uz vcs_info
-precmd () {
-    psvar=()
-    LANG=en_US.UTF-8 vcs_info
-    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-}
 # 実際のプロンプトの表示設定
 autoload -Uz colors && colors
 
 PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%}
 %(!.#.$) "
 
-# ローカル用設定を読み込む
-if [ -f ~/.local_zshrc ]; then
-    . ~/.local_zshrc
-fi
+# vimキーバインドのモードによって入力プロンプトの先頭の色を変更 {{{
+# vi風バインド
+bindkey -v
 
-# vimキーバインドのモードによって入力プロンプトの先頭の色を変更
 function zle-line-init zle-keymap-select {
   case $KEYMAP in
     vicmd)
@@ -155,7 +139,16 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-# RPROMPT
+#}}}
+
+# Show vcsinfo RPROMPT. {{{
+# バージョン管理の状態に合わせた表示
+autoload -Uz vcs_info
+precmd () {
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
 #
 autoload -Uz add-zsh-hook
 autoload -Uz is-at-least
@@ -184,7 +177,7 @@ if is-at-least 4.3.10; then
     zstyle ':vcs_info:git:*' unstagedstr "-"  # %u で表示する文字列
 fi
 
-# hooks 設定
+# hooks 設定 {{{
 if is-at-least 4.3.11; then
     # git のときはフック関数を設定する
 
@@ -200,7 +193,7 @@ if is-at-least 4.3.11; then
                                             git-stash-count
 
     # フックの最初の関数
-    # git の作業コピーのあるディレクトリのみフック関数を呼び出すようにする
+    # git の作業コピーのあるディレクトリのみフック関数を呼び出すようにする {{{
     # (.git ディレクトリ内にいるときは呼び出さない)
     # .git ディレクトリ内では git status --porcelain などがエラーになるため
     function +vi-git-hook-begin() {
@@ -211,8 +204,9 @@ if is-at-least 4.3.11; then
 
         return 0
     }
+    #}}}
 
-    # untracked フィアル表示
+    # untracked ファイル表示 {{{
     #
     # untracked ファイル(バージョン管理されていないファイル)がある場合は
     # unstaged (%u) に ? を表示
@@ -230,8 +224,9 @@ if is-at-least 4.3.11; then
             hook_com[unstaged]+='?'
         fi
     }
+    #}}}
 
-    # push していないコミットの件数表示
+    # push していないコミットの件数表示 {{{
     #
     # リモートリポジトリに push していないコミットの件数を
     # pN という形式で misc (%m) に表示する
@@ -257,8 +252,9 @@ if is-at-least 4.3.11; then
             hook_com[misc]+="(p${ahead})"
         fi
     }
+    #}}}
 
-    # マージしていない件数表示
+    # マージしていない件数表示 {{{
     #
     # master 以外のブランチにいる場合に、
     # 現在のブランチ上でまだ master にマージしていないコミットの件数を
@@ -282,9 +278,9 @@ if is-at-least 4.3.11; then
             hook_com[misc]+="(m${nomerged})"
         fi
     }
+    #}}}
 
-
-    # stash 件数表示
+    # stash 件数表示 {{{
     #
     # stash している場合は :SN という形式で misc (%m) に表示
     function +vi-git-stash-count() {
@@ -300,9 +296,11 @@ if is-at-least 4.3.11; then
             hook_com[misc]+=":S${stash}"
         fi
     }
+    #}}}
 
 fi
 
+# メインの関数 {{{
 function _update_vcs_info_msg() {
     local -a messages
     local prompt
@@ -326,5 +324,52 @@ function _update_vcs_info_msg() {
 
     RPROMPT="$prompt"
 }
+#}}}
 add-zsh-hook precmd _update_vcs_info_msg
+
+#}}}
+
+#}}}
+
+# Auto start tmux {{{
+# ref) http://d.hatena.ne.jp/tyru/20100828/run_tmux_or_screen_at_shell_startup
+is_screen_running() {
+    # tscreen also uses this varariable.
+    [ ! -z "$WINDOW" ]
+}
+is_tmux_runnning() {
+    [ ! -z "$TMUX" ]
+}
+is_screen_or_tmux_running() {
+    is_screen_running || is_tmux_runnning
+}
+shell_has_started_interactively() {
+    [ ! -z "$PS1" ]
+}
+resolve_alias() {
+    cmd="$1"
+    while whence "$cmd" >/dev/null 2>/dev/null && [ "$(whence "$cmd")" != "$cmd" ]
+    do
+        cmd=$(whence "$cmd")
+    done
+    echo "$cmd"
+}
+
+
+if ! is_screen_or_tmux_running && shell_has_started_interactively; then
+    for cmd in tmux tscreen screen; do
+        if whence $cmd >/dev/null 2>/dev/null; then
+            $(resolve_alias "$cmd")
+            break
+        fi
+    done
+fi
+
+#}}}
+
+# ローカル用設定を読み込む
+if [ -f ~/.local_zshrc ]; then
+    . ~/.local_zshrc
+fi
+
 
