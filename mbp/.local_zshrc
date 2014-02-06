@@ -31,5 +31,4 @@ alias xcode='open -a /Applications/Xcode.app/Contents/MacOS/Xcode'
 alias -s xcodeproj=xcode
 
 #alias tmux=~/labo/dotfiles/util/osx_tmux
-alias tmux='tmux new-session'
 

@@ -3,6 +3,10 @@
 DOTFILES_ENTITY_PATH=~/labo/dotfiles
 DOTFILES_PATH=~
 
+if [ ! -d ~/.tmux ]; then
+    mkdir ~/.tmux
+fi
+
 # Create symbolic link to dotfiles {{{
 DOTFILE_NAMES_ARRAY=\
 (\
@@ -11,6 +15,7 @@ DOTFILE_NAMES_ARRAY=\
  .gvimrc\
  .vrapperrc\
  .tmux.conf\
+ .tmux/utility\
 )
 for dotfile in ${DOTFILE_NAMES_ARRAY[@]}; do
     if [ ! -e ${DOTFILES_PATH}/${dotfile} ]; then
@@ -65,9 +70,10 @@ fi
 #}}}
 
 # For OSX
-if [ "$1" == "OSX" ]; then
+#if [ "$1" == "OSX" ]; then
+if [[ $OSTYPE == darwin* ]]; then
     ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-    brew install git zsh tmux cmake ctags reattach-to-user-namespace
+    brew install git zsh tmux cmake ctags reattach-to-user-namespace z
     brew install macvim --with-cscope --with-luajit
 fi
 

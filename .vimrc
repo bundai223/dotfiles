@@ -964,6 +964,11 @@ nnoremap <C-k> {
 vnoremap <C-j> }
 vnoremap <C-k> {
 
+" nnoremap <C-w><C-j> <C-w>+
+" nnoremap <C-w><C-k> <C-w>+
+" nnoremap <C-w><C-h> <C-w>>
+" nnoremap <C-w><C-l> <C-w><
+
 " 見た目の行移動をやりやすく
 nnoremap j  gj
 nnoremap k  gk
