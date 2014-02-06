@@ -283,6 +283,7 @@ NeoBundle 't9md/vim-quickhl'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kana/vim-submode'
 NeoBundle 'tyru/caw.vim'
+NeoBundle 'tyru/eskk.vim'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'deris/vim-rengbang'
 NeoBundle 'osyo-manga/shabadou.vim'
@@ -542,6 +543,26 @@ let s:bundle = neobundle#get('vim-markdown')
 function! s:bundle.hooks.on_source(bundle)
   let g:vim_markdown_folding_disabled=1
 endfunction
+" }}}
+
+" eskk {{{
+let s:bundle = neobundle#get('eskk.vim')
+function! s:bundle.hooks.on_source(bundle)
+  let g:eskk_dictionary = '~/.skk-jisyo'
+
+  if has('mac')
+  	let g:eskk_large_dictionary = "~/Library/Application\ Support/AquaSKK/SKK-JISYO.L"
+  elseif has('win32') || has('win64')
+  	let g:eskk_large_dictionary = "~/SKK_JISYO.L"
+  else
+  endif
+
+  let g:eskk_debug = 0
+  let g:eskk_egg_like_newline = 1
+  let g:eskk_revert_henkan_style = "okuri"
+  let g:eskk_enable_completion = 0
+endfunction
+
 " }}}
 
 " }}}

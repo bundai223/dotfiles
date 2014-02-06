@@ -2,8 +2,11 @@
 # Paneを分割・サイズ調整
 selectp -t 0
 splitw -h
-splitw -v
+#splitw -v
 
 # 最初のPaneに移動
-selectp -t 0
+#selectp -t 0
+
+# 好きなサイズのペインに設定しておく
+resizep -t 0 -x 124
 
