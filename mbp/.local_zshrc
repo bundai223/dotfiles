@@ -10,6 +10,8 @@ PATH=/usr/bin:/bin:/usr/sbin:/sbin:/Applications/eclipse/android/platform-tools
 # for homebrew
 PATH=/usr/local/share/python:$PATH
 PATH=/usr/local/bin:$PATH
+PATH=~/.cabal/bin:$PATH
+
 ## go lang
 if [ "$GOROOT" != "" ]; then
     PATH=$GOROOT/bin:$PATH
