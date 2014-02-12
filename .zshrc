@@ -345,6 +345,7 @@ add-zsh-hook precmd _update_vcs_info_msg
 if [ $SHLVL = 1 ]; then
     alias tmux='tmux attach || tmux new-session \; source-file ~/.tmux/session'
 fi
+alias tmux-startpane='tmux source-file ~/.tmux/session'
 
 # Auto start tmux {{{
 # ref) http://d.hatena.ne.jp/tyru/20100828/run_tmux_or_screen_at_shell_startup
@@ -371,15 +372,15 @@ resolve_alias() {
 }
 
 
-if ! is_screen_or_tmux_running && shell_has_started_interactively; then
-    for cmd in tmux tscreen screen; do
-        if whence $cmd >/dev/null 2>/dev/null; then
-            which $cmd
-            $(resolve_alias "$cmd")
-            break
-        fi
-    done
-fi
+#if ! is_screen_or_tmux_running && shell_has_started_interactively; then
+#    for cmd in tmux tscreen screen; do
+#        if whence $cmd >/dev/null 2>/dev/null; then
+#            which $cmd
+#            $(resolve_alias "$cmd")
+#            break
+#        fi
+#    done
+#fi
 #}}}
 
 #}}}
@@ -387,7 +388,7 @@ fi
 # for z {{{
 # http://d.hatena.ne.jp/naoya/20130108/1357630895
 . `brew --prefix`/etc/profile.d/z.sh
-function precmd () {
+precmd () {
    z --add "$(pwd -P)"
 }
 

@@ -10,3 +10,5 @@ splitw -h
 # 好きなサイズのペインに設定しておく
 resizep -t 0 -x 124
 
+# 最初のPaneに移動
+selectp -t 0

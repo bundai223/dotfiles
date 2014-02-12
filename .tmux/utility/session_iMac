@@ -5,5 +5,11 @@ splitw -h
 splitw -v
 
 # 最初のPaneに移動
-selectp -t 0
+#selectp -t 0
 
+# 好きなサイズにペインを設定
+resizep -t 0 -x 146
+resizep -t 1 -y 58
+
+# 最初のPaneに移動
+selectp -t 0
