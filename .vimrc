@@ -283,7 +283,7 @@ NeoBundle 't9md/vim-quickhl'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kana/vim-submode'
 NeoBundle 'tyru/caw.vim'
-NeoBundleFetch 'tyru/eskk.vim'
+NeoBundle 'tyru/eskk.vim'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'deris/vim-rengbang'
 NeoBundle 'osyo-manga/shabadou.vim'
@@ -383,7 +383,7 @@ let s:bundle = neobundle#get('molokai')
 function! s:bundle.hooks.on_source(bundle)
   " Color scheme setting {{{
   set t_Co=256
-  set background=dark
+  "set background=dark
   let g:molokai_original = 1
   let g:rehash256 = 1
 
@@ -695,6 +695,7 @@ let g:neocomplete#force_omni_input_patterns.c           = '[^.[:digit:] *\t]\%(\
 "let g:neocomplete#force_omni_input_patterns.cpp         = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 let g:neocomplete#force_omni_input_patterns.objc        = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
 let g:neocomplete#force_omni_input_patterns.objcpp      = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+let g:neocomplete#force_omni_input_patterns.java        = '\%(\h\w*\|)\)\.\w*'
 
 " external omni func
 "let g:neocomplete#sources#omni#functions.go = 'gocomplete#Complete'
@@ -1055,82 +1056,6 @@ inoremap <C-c> <Nop>
 nnoremap <C-c> <Nop>
 vnoremap <C-c> <Nop>
 cnoremap <C-c> <Nop>
-
-" }}}
-
-" C++ {{{
-" *.hを作成するときにインクルードガードを作成する {{{
-au BufNewFile *.h call InsertHeaderHeader()
-au BufNewFile *.cpp call InsertFileHeader()
-
-function! IncludeGuard()
-  let fl = getline(1)
-  if fl =~ "^#if"
-    return
-  endif
-   let gatename = substitute(toupper(expand("%:t")), "??.", "_", "g")
-  let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
-  normal! gg
-  execute "normal! i#ifndef _" . gatename . "_INCLUDED_"
-  execute "normal! o#define _" . gatename .  "_INCLUDED_\<CR>\<CR>\<CR>\<CR>"
-  execute "normal! Go#endif // _" . gatename . "_INCLUDED_\<CR>"
-  4
-endfunction
-
-function! InsertFileHeader()
-  let filename = expand("%:t")
-  normal! gg
-  execute "normal! i//**********************************************************************\<CR>"
-  execute "normal! i//! @file   " . filename . "\<CR>"
-  execute "normal! i//! @brief  describe\<CR>"
-  execute "normal! i//**********************************************************************\<CR>"
-endfunction
-
-function! InsertHeaderHeader()
-  call IncludeGuard()
-  call InsertFileHeader()
-endfunction
-" }}}
-
-" headerとsourceを入れ替える {{{
-command! -nargs=0 CppHpp :call <SID>cpp_hpp()
-function! s:cpp_hpp()
-    let cpps = ['cpp', 'cc', 'cxx', 'c']
-    let hpps = ['hpp', 'h']
-    let ext  = expand('%:e')
-    let base = expand('%:r')
-
-    " ソースファイルのとき
-    if count(cpps,ext) != 0
-        for hpp in hpps
-            if filereadable(base.'.'.hpp)
-                execute 'edit '.base.'.'.hpp
-                return
-            endif
-        endfor
-    endif
-
-    " ヘッダファイルのとき
-    if count(hpps,ext) != 0
-        for cpp in cpps
-            if filereadable(base.'.'.cpp)
-                execute 'edit '.base.'.'.cpp
-                return
-            endif
-        endfor
-    endif
-
-    " なければ Unite で検索
-    if executable('mdfind') && has('mac')
-        execute "Unite spotlight -input=".base
-    elseif executable('locate')
-        execute "Unite locate -input=".base
-    else
-        echoerr "not found"
-    endif
-
-endfunction
-" }}}
 
 " }}}
 
