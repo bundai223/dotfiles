@@ -89,6 +89,18 @@ setopt hist_ignore_space
 
 #}}}
 
+# Command line stack {{{
+# http://qiita.com/ikm/items/1f2c7793944b1f6cc346
+show_buffer_stack() {
+  POSTDISPLAY="
+stack: $LBUFFER"
+  zle push-line-or-edit
+}
+zle -N show_buffer_stack
+
+# }}}
+
+
 # Key bind {{{
 # vi風バインド
 bindkey -v
@@ -102,6 +114,9 @@ bindkey "^N" history-beginning-search-forward
 
 bindkey " " magic-space
 
+# コマンドラインスタックをviバインドで使用できるように
+setopt noflowcontrol
+bindkey '^Q' show_buffer_stack
 #}}}
 
 # Alias {{{
