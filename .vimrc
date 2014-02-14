@@ -75,11 +75,6 @@ if has('unix')
   let $USERNAME=$USER
 endif
 
-" Leaderを設定
-if has('mac')
-  map _ <Leader>
-endif
-
 " }}}
 
 " History {{{
@@ -180,6 +175,164 @@ endfunction
 command! -nargs=* MoveCursorPosMap execute <SID>move_cursor_pos_mapping(<q-args>)
 command! -nargs=* Nnoremap MoveCursorPosMap nnoremap <args>
 " }}}
+" }}}
+
+" Common key mapping {{{
+
+" Leaderを設定
+" 参考: http://deris.hatenablog.jp/entry/2013/05/02/192415
+noremap [myleader] <nop>
+map <Space> [myleader]
+"noremap map \ , "もとのバインドをつぶさないように
+
+if has('mac')
+  let mapleader = "_"
+endif
+
+
+" Easy to esc
+imap <C-@> <C-[>
+nmap <C-@> <C-[>
+vmap <C-@> <C-[>
+cmap <C-@> <C-[>
+
+" Easy mapping
+nnoremap [myleader]/ *
+nnoremap [myleader]m %
+
+" Easy to cmd mode
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+
+" Reload
+nnoremap <F5> :source %<CR>
+
+" 直前のバッファに移動
+nnoremap <Leader>b :b#<CR>
+
+" Insert date
+inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
+inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
+
+" Easy to help
+nnoremap <C-u> :<C-u>help<Space>
+
+" MYVIMRC
+nnoremap <Leader>v :e $MYVIMRC<CR>
+nnoremap <Leader>g :e $MYGVIMRC<CR>
+
+" カレントパスをバッファに合わせる
+nnoremap <silent><Leader><Space> :<C-u>cd %:h<CR>:pwd<CR>
+
+" Quick splits
+nnoremap <Leader>_ :sp<CR>
+nnoremap <Leader><Bar> :vsp<CR>
+
+" Insert space in normal mode
+nnoremap <C-l> i<Space><Esc><Right>
+nnoremap <C-h> i<Space><Esc>
+
+" Copy and paste {{{
+" Yank to end
+nnoremap Y y$
+
+" C-y Paste when insert mode
+inoremap <C-y> <C-r>*
+
+" BS act like normal backspace
+nnoremap <BS> X
+
+" }}}
+
+" Tab moving {{{
+nnoremap gn :<C-u>tabnew<CR>
+nnoremap ge :<C-u>tabnew +edit `=tempname()`<CR>
+"nnoremap ge :<C-u>tabedit<CR>
+nnoremap <C-l> gt
+nnoremap <C-h> gT
+
+" }}}
+
+" Cursor moving {{{
+" 空行単位で移動
+nnoremap <C-j> }
+nnoremap <C-k> {
+vnoremap <C-j> }
+vnoremap <C-k> {
+
+" nnoremap <C-w><C-j> <C-w>+
+" nnoremap <C-w><C-k> <C-w>+
+" nnoremap <C-w><C-h> <C-w>>
+" nnoremap <C-w><C-l> <C-w><
+
+" 見た目の行移動をやりやすく
+nnoremap j  gj
+nnoremap k  gk
+
+" 関数単位で移動
+noremap <C-p> [[
+noremap <C-n> ]]
+
+" Toggle 0 and ^
+nnoremap <expr>0 col('.') == 1 ? '^' : '0'
+nnoremap <expr>^ col('.') == 1 ? '^' : '0'
+
+" }}}
+
+" Search and replace {{{
+" 検索ハイライトをオフ
+nnoremap <Leader>/ :noh <CR>
+
+" 置換
+nnoremap <expr> <Leader>s _(":s/<Cursor>//g")
+nnoremap <expr> <Leader>S _(":%s/<Cursor>//g")
+
+" 検索結果をウインドウ真ん中に
+nnoremap n nzzzv
+nnoremap N Nzzzv
+" }}}
+
+" Fold moving {{{
+noremap [fold] <nop>
+nmap <Leader> [fold]
+
+" Move fold
+noremap [fold]j zj
+noremap [fold]k zk
+
+" Move fold begin line
+noremap [fold]n ]z
+noremap [fold]p [z
+
+" Fold open and close
+noremap [fold]h zc
+noremap [fold]l zo
+noremap [fold]a za
+
+" All fold close
+noremap [fold]m zM
+
+" Other fold close
+noremap [fold]i zMzv
+
+" Make fold
+noremap [fold]r zR
+noremap [fold]f zf
+"}}}
+
+" Invalidate that don't use commands
+nnoremap ZZ <Nop>
+" exモード？なし
+nnoremap Q <Nop>
+
+" 矯正のために一時的に<C-c>無効化
+inoremap <C-c> <Nop>
+nnoremap <C-c> <Nop>
+vnoremap <C-c> <Nop>
+cnoremap <C-c> <Nop>
+
 " }}}
 
 " Plugins {{{
@@ -593,11 +746,11 @@ set foldcolumn=2
 " quickhl {{{
 let g:quickhl_manual_enable_at_startup = 1
 
-nmap <Space>h <Plug>(quickhl-manual-this)
-xmap <Space>h <Plug>(quickhl-manual-this)
-nmap <Space>H <Plug>(quickhl-manual-reset)
-xmap <Space>H <Plug>(quickhl-manual-reset)
-"nmap <Space>j <Plug>(quickhl-match)
+nmap [myleader]h <Plug>(quickhl-manual-this)
+xmap [myleader]h <Plug>(quickhl-manual-this)
+nmap [myleader]H <Plug>(quickhl-manual-reset)
+xmap [myleader]H <Plug>(quickhl-manual-reset)
+"nmap [myleader]j <Plug>(quickhl-match)
 
 "}}}
 
@@ -627,7 +780,7 @@ call smartinput#define_rule({ 'at': '[ *\%#', 'char': ']', 'input': '<BS>]', })
 "}}}
 
 " vimshell {{{
-nnoremap <silent> <Space>vs : <C-u> VimShell<CR>
+nnoremap <silent> [myleader]vs : <C-u> VimShell<CR>
 
 " }}}
 
@@ -722,7 +875,7 @@ let g:neosnippet#snippets_directory='~/.vim/.bundle/mysnip'
 " unite {{{
 " <Space>をuniteのキーに
 nnoremap [unite] <Nop>
-nmap <Space> [unite]
+nmap <Space>u [unite]
 
 " source
 " ファイル一覧
@@ -762,8 +915,7 @@ nnoremap <silent> [unite]r :<C-u>UniteResume<CR>
 " }}}
 
 " vimfiler {{{
-"nnoremap <silent> vf : <C-u> VimFilerExplorer %:h<CR>
-nnoremap <silent> <Space>vf : <C-u> VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
+nnoremap <silent> [myleader]vf : <C-u> VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
 
 " }}}
 
@@ -913,149 +1065,6 @@ let QFix_CursorLine = 0
 " }}}
 
 " }}}
-
-" }}}
-
-" Common key mapping {{{
-
-" Easy to esc
-imap <C-@> <C-[>
-nmap <C-@> <C-[>
-vmap <C-@> <C-[>
-cmap <C-@> <C-[>
-
-" Easy to cmd mode
-nnoremap ; :
-nnoremap : ;
-vnoremap ; :
-vnoremap : ;
-
-" Reload
-nnoremap <F5> :source %<CR>
-
-" 直前のバッファに移動
-nnoremap <Leader>b :b#<CR>
-
-" Insert date
-inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
-inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
-
-" Easy to help
-nnoremap <C-u> :<C-u>help<Space>
-
-" MYVIMRC
-nnoremap <Leader>v :e $MYVIMRC<CR>
-nnoremap <Leader>g :e $MYGVIMRC<CR>
-
-" カレントパスをバッファに合わせる
-nnoremap <silent><Leader><Space> :<C-u>cd %:h<CR>:pwd<CR>
-
-" Quick splits
-nnoremap <Leader>_ :sp<CR>
-nnoremap <Leader><Bar> :vsp<CR>
-
-" Insert space in normal mode
-nnoremap <C-l> i<Space><Esc><Right>
-nnoremap <C-h> i<Space><Esc>
-
-" Copy and paste {{{
-" Yank to end
-nnoremap Y y$
-
-" C-y Paste when insert mode
-inoremap <C-y> <C-r>*
-
-" BS act like normal backspace
-nnoremap <BS> X
-
-" }}}
-
-" Tab moving {{{
-nnoremap gn :<C-u>tabnew<CR>
-nnoremap ge :<C-u>tabnew +edit `=tempname()`<CR>
-"nnoremap ge :<C-u>tabedit<CR>
-nnoremap <C-l> gt
-nnoremap <C-h> gT
-
-" }}}
-
-" Cursor moving {{{
-" 空行単位で移動
-nnoremap <C-j> }
-nnoremap <C-k> {
-vnoremap <C-j> }
-vnoremap <C-k> {
-
-" nnoremap <C-w><C-j> <C-w>+
-" nnoremap <C-w><C-k> <C-w>+
-" nnoremap <C-w><C-h> <C-w>>
-" nnoremap <C-w><C-l> <C-w><
-
-" 見た目の行移動をやりやすく
-nnoremap j  gj
-nnoremap k  gk
-
-" 関数単位で移動
-noremap <C-p> [[
-noremap <C-n> ]]
-
-" Toggle 0 and ^
-nnoremap <expr>0 col('.') == 1 ? '^' : '0'
-nnoremap <expr>^ col('.') == 1 ? '^' : '0'
-
-" }}}
-
-" Search and replace {{{
-" 検索ハイライトをオフ
-nnoremap <Leader>/ :noh <CR>
-
-" 置換
-nnoremap <expr> <Leader>s _(":s/<Cursor>//g")
-nnoremap <expr> <Leader>S _(":%s/<Cursor>//g")
-
-" 検索結果をウインドウ真ん中に
-nnoremap n nzzzv
-nnoremap N Nzzzv
-" }}}
-
-" Fold moving {{{
-noremap [fold] <nop>
-nmap <Leader> [fold]
-
-" Move fold
-noremap [fold]j zj
-noremap [fold]k zk
-
-" Move fold begin line
-noremap [fold]n ]z
-noremap [fold]p [z
-
-" Fold open and close
-noremap [fold]h zc
-noremap [fold]l zo
-noremap [fold]a za
-
-" All fold close
-noremap [fold]m zM
-
-" Other fold close
-noremap [fold]i zMzv
-
-" Make fold
-noremap [fold]r zR
-noremap [fold]f zf
-"}}}
-
-" Invalidate that don't use commands
-nnoremap ZZ <Nop>
-" exモード？なし
-nnoremap Q <Nop>
-
-" 矯正のために一時的に<C-c>無効化
-inoremap <C-c> <Nop>
-nnoremap <C-c> <Nop>
-vnoremap <C-c> <Nop>
-cnoremap <C-c> <Nop>
 
 " }}}
 
