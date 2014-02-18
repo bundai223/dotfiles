@@ -70,11 +70,18 @@ fi
 #}}}
 
 # For OSX
-#if [ "$1" == "OSX" ]; then
 if [[ $OSTYPE == darwin* ]]; then
     ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
     brew install git zsh tmux cmake ctags reattach-to-user-namespace z
     brew install macvim --with-cscope --with-luajit
+
+    if [ ! -d ~/tool/osx-mv2trash ]; then
+        if [ ! -d ~/tool ]; then
+            mkdir ~/tool
+        fi
+
+        cd tool && git clone https://github.com/dankogai/osx-mv2trash.git
+    fi
 fi
 
 

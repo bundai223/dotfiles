@@ -67,7 +67,7 @@ zstyle ':completion:*:*:cd:*' ignored-patterns '.svn|.git'
 
 setopt nobeep               # ビープ音なし
 setopt ignore_eof           # C-dでログアウトしない
-setopt rm_star_silent       # rm *で確認ださない
+#setopt rm_star_silent       # rm *で確認ださない
 setopt no_auto_param_slash  # 自動で末尾に/を補完しない
 setopt auto_pushd           # cd履歴を残す
 
@@ -124,9 +124,20 @@ alias ls='ls -a'
 alias lsl='ls -la'
 alias pd=popd
 
+alias rm='~/tool/osx-mv2trash/bin/mv2trash'
+
 alias -s html=chrome
 alias -s rb=ruby
 alias -s py=python
+
+alias -g L='| less'
+alias -g H='| head'
+alias -g T='| tail'
+alias -g G='| grep'
+alias -g W='| wc'
+alias -g S='| sed'
+alias -g A='| awk'
+alias -g W='| wc'
 
 #}}}
 
@@ -139,19 +150,22 @@ fi
 # 実際のプロンプトの表示設定
 autoload -Uz colors && colors
 
-PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%}
-%(!.#.$) "
+NORMAL_MODE_PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%}
+%{$bg_bold[magenta]%}%(!.#.$)%{$reset_color%} "
 
-# vimキーバインドのモードによって入力プロンプトの先頭の色を変更 {{{
+INSERT_MODE_PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%}
+%{$reset_color%}%(!.#.$)%{$reset_color%} "
+
+PROMPT=${INSERT_MODE_PROMPT}
+
+# Set prompt color by vim mode. {{{
 function zle-line-init zle-keymap-select {
   case $KEYMAP in
     vicmd)
-        PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%}
-%{$bg_bold[magenta]%}%(!.#.$)%{$reset_color%} "
+        PROMPT=${NORMAL_MODE_PROMPT}
     ;;
     main|viins)
-        PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%}
-%(!.#.$) "
+        PROMPT=${INSERT_MODE_PROMPT}
     ;;
   esac
   zle reset-prompt
