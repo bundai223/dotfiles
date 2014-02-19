@@ -198,7 +198,7 @@ cmap <C-@> <C-[>
 
 " Easy mapping
 nnoremap [myleader]/ *
-nnoremap [myleader]m %
+"nnoremap [myleader]m %
 
 " Easy to cmd mode
 nnoremap ; :
@@ -217,7 +217,7 @@ inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
 inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
 
 " Easy to help
-nnoremap <C-u> :<C-u>help<Space>
+nnoremap [myleader]h :<C-u>help<Space>
 
 " MYVIMRC
 nnoremap <Leader>v :e $MYVIMRC<CR>
@@ -296,7 +296,7 @@ nnoremap N Nzzzv
 
 " Fold moving {{{
 noremap [fold] <nop>
-nmap <Leader> [fold]
+nmap [myleader] [fold]
 
 " Move fold
 noremap [fold]j zj
@@ -307,8 +307,8 @@ noremap [fold]n ]z
 noremap [fold]p [z
 
 " Fold open and close
-noremap [fold]h zc
-noremap [fold]l zo
+noremap [fold]c zc
+noremap [fold]o zo
 noremap [fold]a za
 
 " All fold close
