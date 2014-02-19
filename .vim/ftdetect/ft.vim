@@ -26,19 +26,29 @@ au BufNewFile,BufRead *.go set filetype=go
 au BufNewFile,BufRead *.md set filetype=markdown
 
 " Setting newfile setting
-" ruby {{{
-au BufNewFile *.rb call InsertFileEncoding()
+" shell {{{
+au BufNewFile *.sh call Insert_Shell_Shebang()
 
-function! InsertFileEncoding()
+function! Insert_Shell_Shebang()
+  normal! gg
+  execute "normal! i#! /bin/bash\<CR>"
+  execute "normal! 0D"
+endfunction
+" }}}
+
+" ruby {{{
+au BufNewFile *.rb call Insert_Ruby_FileEncoding()
+
+function! Insert_Ruby_FileEncoding()
   normal! gg
   execute "normal! i#! /usr/bin/ruby\<CR>"
-  execute "normal! i# coding: utf-8\<CR>"
+  execute "normal! 0Di# coding: utf-8\<CR>"
 endfunction
 " }}}
 
 " *.hを作成するときにインクルードガードを作成する {{{
-au BufNewFile *.h call InsertHeaderHeader()
-au BufNewFile *.cpp call InsertFileHeader()
+au BufNewFile *.h call Insert_Cpp_HeaderHeader()
+au BufNewFile *.cpp call Insert_Cpp_SourceHeader()
 
 function! IncludeGuard()
   let fl = getline(1)
@@ -54,7 +64,7 @@ function! IncludeGuard()
   4
 endfunction
 
-function! InsertFileHeader()
+function! Insert_Cpp_SourceHeader()
   let filename = expand("%:t")
   normal! gg
   execute "normal! i//**********************************************************************\<CR>"
@@ -63,9 +73,9 @@ function! InsertFileHeader()
   execute "normal! i//**********************************************************************\<CR>"
 endfunction
 
-function! InsertHeaderHeader()
+function! Insert_Cpp_HeaderHeader()
   call IncludeGuard()
-  call InsertFileHeader()
+  call Insert_Cpp_SourceHeader()
 endfunction
 " }}}
 
