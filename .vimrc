@@ -217,7 +217,7 @@ inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
 inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
 
 " Easy to help
-nnoremap <C-h> :<C-u>help<Space>
+"nnoremap <C-u> :<C-u>help<Space>
 
 " MYVIMRC
 nnoremap [myleader]v :e $MYVIMRC<CR>
@@ -431,6 +431,9 @@ NeoBundle 'osyo-manga/vim-textobj-multitextobj'
 
 " utl
 NeoBundle 'fuenor/qfixhowm'
+
+NeoBundle 'basyura/twibill.vim'
+NeoBundle 'basyura/TweetVim'
 NeoBundle 'koron/codic-vim'
 NeoBundle 't9md/vim-quickhl'
 NeoBundle 'kana/vim-smartinput'
@@ -877,7 +880,7 @@ let g:neosnippet#snippets_directory='~/.vim/.bundle/mysnip'
 " unite {{{
 " <Space>をuniteのキーに
 nnoremap [unite] <Nop>
-nmap <Space>u [unite]
+nmap <C-u> [unite]
 
 " source
 " ファイル一覧
