@@ -196,10 +196,6 @@ nmap <C-@> <C-[>
 vmap <C-@> <C-[>
 cmap <C-@> <C-[>
 
-" Easy mapping
-nnoremap [myleader]/ *
-"nnoremap [myleader]m %
-
 " Easy to cmd mode
 nnoremap ; :
 nnoremap : ;
@@ -210,7 +206,7 @@ vnoremap : ;
 nnoremap <F5> :source %<CR>
 
 " 直前のバッファに移動
-nnoremap [myleader]b :b#<CR>
+nnoremap <Leader>b :b#<CR>
 
 " Insert date
 inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
@@ -220,11 +216,11 @@ inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
 "nnoremap <C-u> :<C-u>help<Space>
 
 " MYVIMRC
-nnoremap [myleader]v :e $MYVIMRC<CR>
-nnoremap [myleader]g :e $MYGVIMRC<CR>
+nnoremap <Leader>v :e $MYVIMRC<CR>
+nnoremap <Leader>g :e $MYGVIMRC<CR>
 
 " カレントパスをバッファに合わせる
-nnoremap <silent>[myleader]<Space> :<C-u>cd %:h<CR>:pwd<CR>
+nnoremap <silent><Leader><Space> :<C-u>cd %:h<CR>:pwd<CR>
 
 " Quick splits
 nnoremap [myleader]_ :sp<CR>
