@@ -10,6 +10,7 @@ fi
 # Create symbolic link to dotfiles {{{
 DOTFILE_NAMES_ARRAY=\
 (\
+ .gitignore_global\
  .zshrc\
  .vimrc\
  .gvimrc\
@@ -70,18 +71,26 @@ fi
 #}}}
 
 # For OSX
+TOOL_NAMES_ARRAY=\
+(\
+ 'https://github.com/dankogai/osx-mv2trash.git'\
+ 'https://github.com/github/gitignore.git'\
+)
 if [[ $OSTYPE == darwin* ]]; then
     ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
     brew install git zsh tmux cmake ctags reattach-to-user-namespace z
     brew install macvim --with-cscope --with-luajit
 
-    if [ ! -d ~/tool/osx-mv2trash ]; then
-        if [ ! -d ~/tool ]; then
-            mkdir ~/tool
-        fi
-
-        cd tool && git clone https://github.com/dankogai/osx-mv2trash.git
+    # Get utility
+    TOOL_DIR_PATH=~/tool
+    if [ ! -d ${TOOL_DIR_PATH} ]; then
+        mkdir ${TOOL_DIR_PATH}
     fi
+    cd ${TOOL_DIR_PATH}
+
+    for toolname in ${TOOL_NAMES_ARRAY[@]}; do
+        git clone ${toolname}
+    done
 fi
 
 
