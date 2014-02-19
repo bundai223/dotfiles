@@ -210,29 +210,29 @@ vnoremap : ;
 nnoremap <F5> :source %<CR>
 
 " 直前のバッファに移動
-nnoremap <Leader>b :b#<CR>
+nnoremap [myleader]b :b#<CR>
 
 " Insert date
 inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
 inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
 
 " Easy to help
-nnoremap [myleader]h :<C-u>help<Space>
+nnoremap <C-h> :<C-u>help<Space>
 
 " MYVIMRC
-nnoremap <Leader>v :e $MYVIMRC<CR>
-nnoremap <Leader>g :e $MYGVIMRC<CR>
+nnoremap [myleader]v :e $MYVIMRC<CR>
+nnoremap [myleader]g :e $MYGVIMRC<CR>
 
 " カレントパスをバッファに合わせる
-nnoremap <silent><Leader><Space> :<C-u>cd %:h<CR>:pwd<CR>
+nnoremap <silent>[myleader]<Space> :<C-u>cd %:h<CR>:pwd<CR>
 
 " Quick splits
-nnoremap <Leader>_ :sp<CR>
-nnoremap <Leader><Bar> :vsp<CR>
+nnoremap [myleader]_ :sp<CR>
+nnoremap [myleader]<Bar> :vsp<CR>
 
 " Insert space in normal mode
-nnoremap <C-l> i<Space><Esc><Right>
-nnoremap <C-h> i<Space><Esc>
+"nnoremap <C-l> i<Space><Esc><Right>
+"nnoremap <C-h> i<Space><Esc>
 
 " Copy and paste {{{
 " Yank to end
@@ -468,6 +468,7 @@ NeoBundle 'mattn/webapi-vim'
 NeoBundle 'Shougo/vinarise'
 NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/vimproc', {
         \   'build': {
         \     'windows': 'nmake -f Make_msvc.mak nodebug=1',
@@ -492,6 +493,7 @@ NeoBundleLazy 'Shougo/unite.vim',{
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/unite-build'
+NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'osyo-manga/unite-fold'
 NeoBundle 'osyo-manga/unite-quickrun_config'
 NeoBundle 'osyo-manga/unite-qfixhowm'
@@ -536,10 +538,10 @@ let s:bundle = neobundle#get('molokai')
 function! s:bundle.hooks.on_source(bundle)
   " Color scheme setting {{{
   set t_Co=256
-  "set background=dark
-  let g:molokai_original = 1
-  let g:rehash256 = 1
+"  let g:molokai_original = 1
+"  let g:rehash256 = 1
 
+"  set background=dark
   colorscheme molokai
 
   " IMEの状態でカーソル色変更 {{{
@@ -1107,9 +1109,6 @@ set cursorline
 
 " 自動折り返しなし
 set nowrap
-
-" ハイライトのオン
-syntax on
 
 " }}}
 
