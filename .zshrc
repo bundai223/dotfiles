@@ -166,6 +166,31 @@ alias -g S='| sed'
 alias -g A='| awk'
 alias -g W='| wc'
 
+## man zshall
+# ref) http://qiita.com/yuyuchu3333/items/67630d597c7700a51b95
+# zman [search word]
+zman() {
+    if [[ -n $1 ]]; then
+        PAGER="less -g -s '+/"$1"'" man zshall
+        echo "Search word: $1"
+    else
+        man zshall
+    fi
+}
+
+# zsh 用語検索
+# http://qiita.com/mollifier/items/14bbea7503910300b3ba
+zwman() {
+    zman "^       $1"
+}
+
+# zsh フラグ検索
+zfman() {
+    local w='^'
+    w=${(r:8:)w}
+    w="$w${(r:7:)1}|$w$1(\[.*\].*)|$w$1:.*:|$w$1/.*/.*"
+    zman "$w"
+}
 #}}}
 
 # ローカル用設定を読み込む
