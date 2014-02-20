@@ -147,6 +147,12 @@ alias pd=popd
 
 alias rm='~/tool/osx-mv2trash/bin/mv2trash'
 
+# git {{{
+alias gitl='git log --decorate --graph --oneline'
+alias gitv='git log --decorate --graph'
+alias gitst='git status'
+# }}}
+
 alias -s html=chrome
 alias -s rb=ruby
 alias -s py=python
