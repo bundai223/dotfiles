@@ -100,6 +100,27 @@ zle -N show_buffer_stack
 
 # }}}
 
+# Show ls & git status when pressed only enter. {{{
+# ref) http://qiita.com/yuyuchu3333/items/e9af05670c95e2cc5b4d
+function do_enter() {
+    if [ -n "$BUFFER" ]; then
+        zle accept-line
+        return 0
+    fi
+    echo
+    ls
+    # ls_abbrev
+    if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
+        echo
+        echo -e "\e[0;33m--- git status ---\e[0m"
+        git status -sb
+    fi
+    zle reset-prompt
+    return 0
+}
+zle -N do_enter
+bindkey '^m' do_enter
+# }}}
 
 # Key bind {{{
 # vi風バインド
@@ -177,6 +198,9 @@ zle -N zle-keymap-select
 #}}}
 
 # Show vcsinfo RPROMPT. {{{
+# ここを参考にgitの表示を整理したい。(項目的にはahead、behindの追加)
+# https://github.com/yonchu/dotfiles/blob/master/.zsh/themes/yonchu-2lines.zsh-theme
+
 # バージョン管理の状態に合わせた表示
 autoload -Uz vcs_info
 precmd () {

@@ -1,8 +1,8 @@
 " Common setting {{{
 
 " 変数を読み込む
-if filereadable(expand('~/.my_local_vimrc_env'))
-    source ~/.my_local_vimrc_env
+if filereadable(expand('~/.vimrc_local_env'))
+    source ~/.vimrc_local_env
 endif
 
 scriptencoding utf-8
@@ -1121,8 +1121,8 @@ set nowrap
 " }}}
 
 " ローカル設定を読み込む
-if filereadable(expand('~/.my_local_vimrc'))
-    source ~/.my_local_vimrc
+if filereadable(expand('~/.vimrc_local'))
+    source ~/.vimrc_local
 endif
 
 

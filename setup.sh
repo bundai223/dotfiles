@@ -61,7 +61,7 @@ for dir in ${VIMDIR_NAMES_ARRAY[@]}; do
 done
 
 # path to dotfile
-VIM_DOTFILE_PATH=~/.my_local_vimrc_env
+VIM_DOTFILE_PATH=~/.vimrc_local_env
 if [ ! -e ${VIM_DOTFILE_PATH} ]; then
     echo "let \$DOTFILES=expand(\"~/\").\"labo/dotfiles\"">${VIM_DOTFILE_PATH}
 else
