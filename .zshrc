@@ -163,8 +163,8 @@ alias -g W='| wc'
 #}}}
 
 # ローカル用設定を読み込む
-if [ -f ~/.local_zshrc ]; then
-    . ~/.local_zshrc
+if [ -f ~/.zshrc_local ]; then
+    . ~/.zshrc_local
 fi
 
 # Prompt setting {{{
