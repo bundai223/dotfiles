@@ -1,0 +1,20 @@
+#! /bin/bash
+
+export_env() {
+    echo $#
+    echo $1
+    eval echo "$"`echo "$1"`
+
+    if [ ${OSTYPE} == 'darwin*' ]; then
+    fi
+#    for name in "${1[@]}"; do
+#        echo $name
+#    done
+}
+
+DOTFILE_NAMES_ARRAY=\
+(\
+ PATH\
+)
+
+export_env $DOTFILE_NAMES_ARRAY
