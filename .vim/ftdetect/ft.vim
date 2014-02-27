@@ -4,8 +4,8 @@
 "
 "=============================================================
 " my local setting files
-au BufNewFile,BufRead *.local_zshrc set filetype=zsh
-au BufNewFile,BufRead *.local_vimrc *.local_gvimrc set filetype=vim
+au BufNewFile,BufRead *.zshrc_local set filetype=zsh
+au BufNewFile,BufRead *.vimrc_local *.gvimrc_local set filetype=vim
 
 " direct x shader file
 au BufNewFile,BufRead *.fx set filetype=fx
@@ -24,6 +24,8 @@ au BufNewFile,BufRead *.go set filetype=go
 
 " markdown(not modula2)
 au BufNewFile,BufRead *.md set filetype=markdown
+" git
+au BufNewFile,BufRead .gitconfig_local set filetype=gitconfig
 
 " Setting newfile setting
 " shell {{{

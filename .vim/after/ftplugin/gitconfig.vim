@@ -1,0 +1,2 @@
+" for gitconfig
+setl noexpandtab
