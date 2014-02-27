@@ -108,7 +108,7 @@ function do_enter() {
         return 0
     fi
     echo
-    ls
+    ls -FG
     # ls_abbrev
     if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
         echo
@@ -141,16 +141,15 @@ bindkey '^Q' show_buffer_stack
 #}}}
 
 # Alias {{{
-alias ls='ls -a'
-alias lsl='ls -la'
+alias ls="ls -FG"
+alias lsl="ls -lFG"
 alias pd=popd
 
-alias rm='~/tool/osx-mv2trash/bin/mv2trash'
+alias reload_zshrc="source ~/.zshrc"
+alias rm="~/tool/osx-mv2trash/bin/mv2trash"
 
 # git {{{
-alias gitl='git log --decorate --graph --oneline'
-alias gitv='git log --decorate --graph'
-alias gitst='git status'
+alias gittaglist="git for-each-ref --sort=-taggerdate --format='%(taggerdate:short) %(tag) %(taggername) %(subject)' refs/tags"
 # }}}
 
 alias -s html=chrome
@@ -428,8 +427,10 @@ add-zsh-hook precmd _update_vcs_info_msg
 # ref) http://qiita.com/ken11_/items/1304c2eecc2657ac6265
 if [ $SHLVL = 1 ]; then
     alias tmux='tmux attach || tmux new-session \; source-file ~/.tmux/session'
+else
+    alias tmux-startpane='tmux source-file ~/.tmux/session'
+    alias tmux-end='tmux kill-session'
 fi
-alias tmux-startpane='tmux source-file ~/.tmux/session'
 
 # Auto start tmux {{{
 # ref) http://d.hatena.ne.jp/tyru/20100828/run_tmux_or_screen_at_shell_startup
@@ -457,15 +458,16 @@ resolve_alias() {
 
 
 #if ! is_screen_or_tmux_running && shell_has_started_interactively; then
-#    for cmd in tmux tscreen screen; do
+##    for cmd in tmux tscreen screen; do
+#    for cmd in tmux; do
 #        if whence $cmd >/dev/null 2>/dev/null; then
-#            which $cmd
+#            #which $cmd
 #            $(resolve_alias "$cmd")
 #            break
 #        fi
 #    done
 #fi
-#}}}
+# }}}
 
 #}}}
 
