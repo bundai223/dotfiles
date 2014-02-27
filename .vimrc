@@ -498,6 +498,7 @@ NeoBundle 'osyo-manga/unite-quickrun_config'
 NeoBundle 'osyo-manga/unite-qfixhowm'
 NeoBundle 'bundai223/unite-outline-sources'
 NeoBundle 'bundai223/unite-picktodo'
+NeoBundle 'ujihisa/unite-locate'
 if has('mac')
   NeoBundle 'choplin/unite-spotlight'
 endif
@@ -907,6 +908,8 @@ nnoremap <silent> [unite]s :<C-u>Unite source -vertical<CR>
 " alignta(visual)
 vnoremap <silent> [unite]aa :<C-u>Unite alignta:arguments<CR>
 vnoremap <silent> [unite]ao :<C-u>Unite alignta:options<CR>
+
+vnoremap <silent> [unite]l :<C-u>Unite locate<CR>
 
 " qfixhowm
 nnoremap <silent> [unite]q :<C-u>Unite qfixhowm/new qfixhowm:nocache -hide-source-names<CR>
