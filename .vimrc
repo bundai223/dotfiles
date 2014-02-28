@@ -220,15 +220,11 @@ nnoremap <Leader>v :e $MYVIMRC<CR>
 nnoremap <Leader>g :e $MYGVIMRC<CR>
 
 " カレントパスをバッファに合わせる
-nnoremap <silent><Leader><Space> :<C-u>cd %:h<CR>:pwd<CR>
+nnoremap <silent><Leader><Space> :<C-u>lcd %:h<CR>:pwd<CR>
 
 " Quick splits
 nnoremap [myleader]_ :sp<CR>
 nnoremap [myleader]<Bar> :vsp<CR>
-
-" Insert space in normal mode
-"nnoremap <C-l> i<Space><Esc><Right>
-"nnoremap <C-h> i<Space><Esc>
 
 " Copy and paste {{{
 " Yank to end
@@ -246,22 +242,17 @@ nnoremap <BS> X
 nnoremap gn :<C-u>tabnew<CR>
 nnoremap ge :<C-u>tabnew +edit `=tempname()`<CR>
 "nnoremap ge :<C-u>tabedit<CR>
-nnoremap <C-l> gt
-nnoremap <C-h> gT
+"nnoremap <C-l> gt
+"nnoremap <C-h> gT
 
 " }}}
 
 " Cursor moving {{{
-" 空行単位で移動
-nnoremap <C-j> }
-nnoremap <C-k> {
-vnoremap <C-j> }
-vnoremap <C-k> {
-
-" nnoremap <C-w><C-j> <C-w>+
-" nnoremap <C-w><C-k> <C-w>+
-" nnoremap <C-w><C-h> <C-w>>
-" nnoremap <C-w><C-l> <C-w><
+" Move window.
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
 " 見た目の行移動をやりやすく
 nnoremap j  gj
@@ -1065,6 +1056,37 @@ let howm_fileformat      = 'unix'
 let QFixHowm_Key = 'g'
 let QFix_PreviewEnable = 0
 let QFix_CursorLine = 0
+
+" }}}
+
+" submode {{{
+
+" let g:submode_timeout = 0
+" TELLME: The above setting do not work.
+" Use the following instead of above.
+let g:submode_timeoutlen = 1000000
+
+let g:submode_keep_leaving_key=1
+
+" http://d.hatena.ne.jp/thinca/20130131/1359567419
+" https://gist.github.com/thinca/1518874
+" Window size mode.{{{
+call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
+call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
+call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
+call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
+call submode#map('winsize', 'n', '', '>', '<C-w>>')
+call submode#map('winsize', 'n', '', '<', '<C-w><')
+call submode#map('winsize', 'n', '', '+', '<C-w>-')
+call submode#map('winsize', 'n', '', '-', '<C-w>+')
+" }}}
+
+" Tab move mode.{{{
+call submode#enter_with('tabmove', 'n', '', 'gt', 'gt')
+call submode#enter_with('tabmove', 'n', '', 'gT', 'gT')
+call submode#map('tabmove', 'n', '', 't', 'gt')
+call submode#map('tabmove', 'n', '', 'T', 'gT')
+" }}}
 
 " }}}
 
