@@ -30,6 +30,9 @@ set noswapfile
 " クリップボードを使用する
 set clipboard=unnamed,autoselect
 
+" Match pairs setting.
+set matchpairs=(:),{:},[:],<:>
+
 " 改行時の自動コメントをなしに
 set formatoptions-=ro
 
