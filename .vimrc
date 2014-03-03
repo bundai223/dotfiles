@@ -193,6 +193,11 @@ if has('mac')
   let mapleader = "_"
 endif
 
+" 有効な用途が見えるまであけとく
+noremap s <nop>
+noremap S <nop>
+noremap <C-s> <nop>
+noremap <C-S> <nop>
 
 " Easy to esc
 noremap [easy_to_esc] <nop>
