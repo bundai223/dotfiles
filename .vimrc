@@ -149,7 +149,8 @@ command! -bang -complete=file -nargs=? Euc edit<bang> ++enc=eucjp <args>
 
 " カレントパスをクリップボードにコピー {{{
 command! CopyCurrentPath :call s:copy_current_path()
-nnoremap <C-\> :<C-u>CopyCurrentPath<CR>
+"nnoremap <C-\> :<C-u>CopyCurrentPath<CR>
+
 function! s:copy_current_path()
     if has('win32')
         let @*=substitute(expand('%:p'), '\\/', '\\', 'g')
@@ -194,10 +195,19 @@ endif
 
 
 " Easy to esc
-imap <C-@> <C-[>
-nmap <C-@> <C-[>
-vmap <C-@> <C-[>
-cmap <C-@> <C-[>
+noremap [easy_to_esc] <nop>
+if has('mac')
+  inoremap <C-_> <C-[>
+  nnoremap <C-_> <C-[>
+  vnoremap <C-_> <C-[>
+  cnoremap <C-_> <C-[>
+else
+  inoremap <C-\> <C-[>
+  nnoremap <C-\> <C-[>
+  vnoremap <C-\> <C-[>
+  cnoremap <C-\> <C-[>
+endif
+
 
 " Easy to cmd mode
 nnoremap ; :
