@@ -148,6 +148,9 @@ alias pd=popd
 alias reload_zshrc="source ~/.zshrc"
 alias rm="~/tool/osx-mv2trash/bin/mv2trash"
 
+alias find-vimbackup="find **/*~"
+alias rm-vimbackup="find **/*~| xargs ~/tool/osx-mv2trash/bin/mv2trash"
+
 # git {{{
 alias gittaglist="git for-each-ref --sort=-taggerdate --format='%(taggerdate:short) %(tag) %(taggername) %(subject)' refs/tags"
 # }}}
