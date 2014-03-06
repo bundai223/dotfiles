@@ -11,6 +11,7 @@ fi
 DOTFILE_NAMES_ARRAY=\
 (\
  .gitignore_global\
+ .gitattributes_global\
  .zshrc\
  .vimrc\
  .gvimrc\
