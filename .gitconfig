@@ -20,7 +20,7 @@
 	interactive = auto
 	grep = auto
 [alias]
-	st = status
+	st = status --short --branch					# ステータスを短く。ブランチ名付き
 	sh = show
 	ft = fetch
 	ad = add
@@ -30,7 +30,6 @@
 	commit-modified = commit -a								# 変更を全てadd
 	commit-fix = commit -a --amend							# 直前のコミットを修正
 #	log-graph-oneline = log --decorate --graph --oneline	# 一行グラフ付きログ
-	status-short=status --short --branch					# ステータス？
 
 	# branch
 	br = branch
