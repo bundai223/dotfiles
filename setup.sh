@@ -10,6 +10,7 @@ fi
 # Create symbolic link to dotfiles {{{
 DOTFILE_NAMES_ARRAY=\
 (\
+ .gitconfig\
  .gitignore_global\
  .gitattributes_global\
  .zshrc\
