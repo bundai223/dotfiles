@@ -189,7 +189,8 @@ noremap [myleader] <nop>
 map <Space> [myleader]
 "noremap map \ , "もとのバインドをつぶさないように
 
-if has('mac')
+if has('win32')
+else
   let mapleader = "_"
 endif
 
