@@ -39,9 +39,7 @@ zstyle ':completion:*:sudo:*' command-path \
 zstyle ':completion:*' list-separator '-->'
 zstyle ':completion:*:manuals' separate-sections true
 
-# git clone https://github.com/zsh-users/zsh-completions.git
-# ln -s ~/tool/zsh-completions/src ~/.zsh/zsh-completions
-fpath=(~/.zsh/zsh-completions(N-/) ${fpath})
+fpath=(~/tool/zsh-completions/src(N-/) ${fpath})
 fpath=(~/.zsh/my-completions(N-/) ${fpath})
 
 # fpathの設定が終わってから補完有効設定を行う
@@ -476,7 +474,12 @@ resolve_alias() {
 
 # for z {{{
 # http://d.hatena.ne.jp/naoya/20130108/1357630895
-. `brew --prefix`/etc/profile.d/z.sh
+
+if [[ $OSTYPE == darwin* ]]; then
+    . `brew --prefix`/etc/profile.d/z.sh
+else
+    . ~/tool/z/z.sh
+fi
 precmd () {
    z --add "$(pwd -P)"
 }

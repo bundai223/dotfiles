@@ -3,9 +3,17 @@
 DOTFILES_ENTITY_PATH=~/labo/dotfiles
 DOTFILES_PATH=~
 
-if [ ! -d ~/.tmux ]; then
-    mkdir ~/.tmux
-fi
+# エラーなしのmkdir
+mkdir_noerror()
+{
+    if [ ! -d $1 ]; then
+        mkdir $1
+    fi
+}
+
+mkdir_noerror ~/.tmux
+mkdir_noerror ~/.zsh
+
 
 # Create symbolic link to dotfiles {{{
 DOTFILE_NAMES_ARRAY=\
@@ -32,18 +40,14 @@ done
 
 # vim setting {{{
 DOT_VIM=.vim
-if [ ! -d ~/${DOT_VIM} ]; then
-    mkdir ~/${DOT_VIM}
+mkdir_noerror ~/${DOT_VIM}
+mkdir_noerror ~/${DOT_VIM}/undo
 
-    # Save undo directory.
-    mkdir ~/${DOT_VIM}/undo
-
-    # neobundleがないとvimのプラグインとってこれないので先にゲット
-    NEOBUNDLE_PATH=~/${DOT_VIM}/neobundle.vim
-    if [ ! -d ${NEOBUNDLE_PATH} ]; then
-        cd ~/${DOT_VIM}
-        git clone https://github.com/Shougo/neobundle.vim.git
-    fi
+# neobundleがないとvimのプラグインとってこれないので先にゲット
+NEOBUNDLE_PATH=~/${DOT_VIM}/neobundle.vim
+if [ ! -d ${NEOBUNDLE_PATH} ]; then
+    cd ~/${DOT_VIM}
+    git clone https://github.com/Shougo/neobundle.vim.git
 fi
 
 # link to .vim dir
@@ -72,6 +76,12 @@ fi
 
 #}}}
 
+# Setup utility.
+TOOL_DIR_PATH=~/tool
+mkdir_noerror ${TOOL_DIR_PATH}
+cd ${TOOL_DIR_PATH}
+git clone https://github.com/zsh-users/zsh-completions.git
+
 # For OSX
 TOOL_NAMES_ARRAY=\
 (\
@@ -84,15 +94,12 @@ if [[ $OSTYPE == darwin* ]]; then
     brew install macvim --with-cscope --with-luajit
 
     # Get utility
-    TOOL_DIR_PATH=~/tool
-    if [ ! -d ${TOOL_DIR_PATH} ]; then
-        mkdir ${TOOL_DIR_PATH}
-    fi
-    cd ${TOOL_DIR_PATH}
-
     for toolname in ${TOOL_NAMES_ARRAY[@]}; do
         git clone ${toolname}
     done
+
+else
+    git clone https://github.com/rupa/z.git
 fi
 
 
