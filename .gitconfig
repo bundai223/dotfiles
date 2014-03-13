@@ -62,3 +62,6 @@
 	add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
 	# grep関連
 	gr = grep
+
+[push]
+	default = simple
