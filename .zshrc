@@ -141,6 +141,8 @@ bindkey '^Q' show_buffer_stack
 # Alias {{{
 alias ls="ls -FG"
 alias lsl="ls -lFG"
+alias lsdir="ls -FG | grep /"
+alias lsfile="ls -FG | grep -v /"
 alias pd=popd
 
 alias reload_zshrc="source ~/.zshrc"
@@ -432,7 +434,8 @@ add-zsh-hook precmd _update_vcs_info_msg
 if [ $SHLVL = 1 ]; then
     alias tmux='tmux attach || tmux new-session \; source-file ~/.tmux/session'
 else
-    alias tmux-startpane='tmux source-file ~/.tmux/session'
+    alias tmux-basicpane='tmux source-file ~/.tmux/session'
+    alias tmux-sshpane='tmux source-file ~/.tmux/utility/session_ssh'
     alias tmux-end='tmux kill-session'
 fi
 
