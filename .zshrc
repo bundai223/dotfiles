@@ -171,6 +171,7 @@ alias -g W='| wc'
 alias -g S='| sed'
 alias -g A='| awk'
 alias -g W='| wc'
+alias -g X='| xargs'
 
 ## man zshall
 # ref) http://qiita.com/yuyuchu3333/items/67630d597c7700a51b95
