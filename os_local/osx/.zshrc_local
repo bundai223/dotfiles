@@ -28,5 +28,7 @@ alias xcode='open -a /Applications/Xcode.app/Contents/MacOS/Xcode'
 
 alias -s xcodeproj=xcode
 
+export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+
 #alias tmux=~/labo/dotfiles/util/osx_tmux
 
