@@ -436,6 +436,7 @@ NeoBundle 'osyo-manga/vim-textobj-multiblock'
 NeoBundle 'osyo-manga/vim-textobj-multitextobj'
 
 " utl
+NeoBundle 'mattn/emmet-vim' " html ?
 NeoBundle 'fuenor/qfixhowm'
 
 NeoBundle 'basyura/twibill.vim'
@@ -509,6 +510,7 @@ NeoBundle 'osyo-manga/unite-qfixhowm'
 NeoBundle 'bundai223/unite-outline-sources'
 NeoBundle 'bundai223/unite-picktodo'
 NeoBundle 'ujihisa/unite-locate'
+NeoBundle 'bundai223/unite-find'
 if has('mac')
   NeoBundle 'choplin/unite-spotlight'
 endif
