@@ -90,7 +90,7 @@ TOOL_NAMES_ARRAY=\
 )
 if [[ $OSTYPE == darwin* ]]; then
     ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-    brew install git zsh tmux cmake ctags reattach-to-user-namespace z
+    brew install git zsh tmux cmake ctags reattach-to-user-namespace z android
     brew install macvim --with-cscope --with-luajit
 
     # Get utility

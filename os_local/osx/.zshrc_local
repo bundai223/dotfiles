@@ -5,8 +5,11 @@
 FBXSDK_ROOT=/Applications/Autodesk/FBX\ SDK/2013.3/
 
 # path setting
+export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+export ANDROID_HOME=/usr/local/opt/android-sdk
+
 # for android path setting
-PATH=/usr/bin:/bin:/usr/sbin:/sbin:/Applications/eclipse/android/platform-tools
+PATH=/usr/bin:/bin:/usr/sbin:/sbin:${ANDROID_HOME}/platform-tools
 # for homebrew
 PATH=/usr/local/share/python:$PATH
 PATH=/usr/local/bin:$PATH
@@ -27,8 +30,6 @@ alias chrome='open -a Google\ Chrome'
 alias xcode='open -a /Applications/Xcode.app/Contents/MacOS/Xcode'
 
 alias -s xcodeproj=xcode
-
-export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 
 #alias tmux=~/labo/dotfiles/util/osx_tmux
 
