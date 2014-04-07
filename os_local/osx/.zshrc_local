@@ -9,7 +9,7 @@ export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 export ANDROID_HOME=/usr/local/opt/android-sdk
 
 # for android path setting
-PATH=/usr/bin:/bin:/usr/sbin:/sbin:${ANDROID_HOME}/platform-tools
+PATH=/usr/bin:/bin:/usr/sbin:/sbin
 # for homebrew
 PATH=/usr/local/share/python:$PATH
 PATH=/usr/local/bin:$PATH

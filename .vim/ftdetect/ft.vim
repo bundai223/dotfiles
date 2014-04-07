@@ -4,8 +4,9 @@
 "
 "=============================================================
 " my local setting files
-au BufNewFile,BufRead *.zshrc_local set filetype=zsh
-au BufNewFile,BufRead *.vimrc_local *.gvimrc_local set filetype=vim
+au BufNewFile,BufRead .zshrc_local set filetype=zsh
+au BufNewFile,BufRead .vimrc_local set filetype=vim
+au BufNewFile,BufRead .gvimrc_local set filetype=vim
 
 " direct x shader file
 au BufNewFile,BufRead *.fx set filetype=fx
