@@ -1,6 +1,16 @@
 #---------------------------------------------
 # 基本の設定
 #---------------------------------------------
+# 色の定義
+# ref) http://voidy21.hatenablog.jp/entry/20090902/1251918174
+local DEFAULT=$'%{^[[m%}'$
+local RED=$'%{^[[1;31m%}'$
+local GREEN=$'%{^[[1;32m%}'$
+local YELLOW=$'%{^[[1;33m%}'$
+local BLUE=$'%{^[[1;34m%}'$
+local PURPLE=$'%{^[[1;35m%}'$
+local LIGHT_BLUE=$'%{^[[1;36m%}'$
+local WHITE=$'%{^[[1;37m%}'$
 
 ## どっかからのコピペ
 ## The following lines were added by compinstall
@@ -236,7 +246,6 @@ zle -N zle-keymap-select
 #}}}
 
 # Show vcsinfo RPROMPT. {{{
-# ここを参考にgitの表示を整理したい。(項目的にはahead、behindの追加)
 # https://github.com/yonchu/dotfiles/blob/master/.zsh/themes/yonchu-2lines.zsh-theme
 
 # バージョン管理の状態に合わせた表示
@@ -286,7 +295,7 @@ if is-at-least 4.3.11; then
                                             git-hook-begin \
                                             git-untracked \
                                             git-push-status \
-                                            git-nomerge-branch \
+                                            git-diff-remote \
                                             git-stash-count
 
     # フックの最初の関数
@@ -323,30 +332,57 @@ if is-at-least 4.3.11; then
     }
     #}}}
 
-    # push していないコミットの件数表示 {{{
+    # リモートとの差分表示 {{{
     #
-    # リモートリポジトリに push していないコミットの件数を
-    # pN という形式で misc (%m) に表示する
-    function +vi-git-push-status() {
+    # 現在のブランチ上でまだpushしていないcommit(ahead)、
+    # pullしていないcommit(behind)を↑ ahead↓ behindという形式で表示する。
+    function +vi-git-diff-remote() {
         # zstyle formats, actionformats の2番目のメッセージのみ対象にする
         if [[ "$1" != "1" ]]; then
             return 0
         fi
 
-        if [[ "${hook_com[branch]}" != "master" ]]; then
-            # master ブランチでない場合は何もしない
+        local localBranch
+        localBranch=${hook_com[branch]}
+        local remoteBranch
+        remoteBranch=${$(git rev-parse --verify ${localBranch}@{upstream} \
+                --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
+
+        # 追従ブランチなければなし
+        if [[ ${remoteBranch} == "" ]]; then
             return 0
         fi
 
-        # push していないコミット数を取得する
-        local ahead
-        ahead=$(command git rev-list origin/master..master 2>/dev/null \
+        local revlist
+        revlist=$(command git rev-list --left-right ${remoteBranch}...HEAD 2>/dev/null)
+
+        local diffCommit
+        diffCommit=$(command echo ${revlist} \
             | wc -l \
             | tr -d ' ')
 
-        if [[ "$ahead" -gt 0 ]]; then
-            # misc (%m) に追加
-            hook_com[misc]+="(p${ahead})"
+        # TODO: 文字列を一行ごとに評価したいがうまいこと分割できてない
+        # とりあえずちょいとムダ目に分割して評価してる
+        local commitlist
+        commitlist=${(z)revlist}
+
+        local ahead=0
+        for commit in ${commitlist}; do
+            echo ${commit}
+            if [[ "${commit}" == ">" ]]; then
+                ((ahead = ahead + 1))
+            fi
+        done
+
+        local behind
+        ((behind = ${diffCommit} - ${ahead}))
+
+        # misc () に追加
+        if [[ "$ahead" -gt 0 ]] ; then
+            hook_com[misc]+="%F{red}↑ %F{white}${ahead}%f"
+        fi
+        if [[ "$behind" -gt 0 ]] ; then
+            hook_com[misc]+="%F{blue}↓ %F{white}${behind}%f"
         fi
     }
     #}}}
