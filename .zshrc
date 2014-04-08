@@ -355,6 +355,10 @@ if is-at-least 4.3.11; then
 
         local revlist
         revlist=$(command git rev-list --left-right ${remoteBranch}...HEAD 2>/dev/null)
+        if [[ ${revlist} == "" ]]; then
+            # 空の場合は処理終わり
+            return 0
+        fi
 
         local diffCommit
         diffCommit=$(command echo ${revlist} \
@@ -368,7 +372,6 @@ if is-at-least 4.3.11; then
 
         local ahead=0
         for commit in ${commitlist}; do
-            echo ${commit}
             if [[ "${commit}" == ">" ]]; then
                 ((ahead = ahead + 1))
             fi
