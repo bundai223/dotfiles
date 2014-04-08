@@ -88,9 +88,10 @@ TOOL_NAMES_ARRAY=\
  'https://github.com/dankogai/osx-mv2trash.git'\
  'https://github.com/github/gitignore.git'\
 )
+echo "OS type ${OSTYPE}"
 if [[ $OSTYPE == darwin* ]]; then
     ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-    brew install git zsh tmux cmake ctags reattach-to-user-namespace z android
+    brew install git zsh tmux cmake ctags reattach-to-user-namespace z android luajit
     brew install macvim --with-cscope --with-luajit
 
     # Get utility
@@ -101,5 +102,4 @@ if [[ $OSTYPE == darwin* ]]; then
 else
     git clone https://github.com/rupa/z.git
 fi
-
 

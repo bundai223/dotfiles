@@ -911,6 +911,7 @@ nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=multi file_mru file buffer<C
 nnoremap <silent> [unite]o :<C-u>Unite -buffer-name=outline -no-quit -wrap outline<CR>
 " todo
 nnoremap <silent> [unite]t :<C-u>Unite -buffer-name=todo -no-quit picktodo<CR>
+nnoremap <silent> [unite]tw :<C-u>Unite -buffer-name=tweet tweetvim<CR>
 " グレップ
 nnoremap <silent> [unite]g :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
 " スニペット探し
