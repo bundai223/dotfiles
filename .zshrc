@@ -390,32 +390,6 @@ if is-at-least 4.3.11; then
     }
     #}}}
 
-    # マージしていない件数表示 {{{
-    #
-    # master 以外のブランチにいる場合に、
-    # 現在のブランチ上でまだ master にマージしていないコミットの件数を
-    # (mN) という形式で misc (%m) に表示
-    function +vi-git-nomerge-branch() {
-        # zstyle formats, actionformats の2番目のメッセージのみ対象にする
-        if [[ "$1" != "1" ]]; then
-            return 0
-        fi
-
-        if [[ "${hook_com[branch]}" == "master" ]]; then
-            # master ブランチの場合は何もしない
-            return 0
-        fi
-
-        local nomerged
-        nomerged=$(command git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
-
-        if [[ "$nomerged" -gt 0 ]] ; then
-            # misc (%m) に追加
-            hook_com[misc]+="(m${nomerged})"
-        fi
-    }
-    #}}}
-
     # stash 件数表示 {{{
     #
     # stash している場合は :SN という形式で misc (%m) に表示
@@ -429,7 +403,7 @@ if is-at-least 4.3.11; then
         stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
         if [[ "${stash}" -gt 0 ]]; then
             # misc (%m) に追加
-            hook_com[misc]+=":S${stash}"
+            hook_com[misc]+="⚑ %F{white}${stash}%f"
         fi
     }
     #}}}
