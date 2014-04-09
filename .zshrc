@@ -246,9 +246,10 @@ precmd () {
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
 
-branch='%F{white}%b'
-clientname='%F{green}(%s) '
-
+BRANCH='%F{white}%b'
+VCS_NAME='%F{green}(%s)'
+LOCAL_STATE='%F{yellow}'
+WARNING='%F{red}<!%a>'
 #
 autoload -Uz add-zsh-hook
 autoload -Uz is-at-least
@@ -261,8 +262,8 @@ zstyle ':vcs_info:*' max-exports 3
 zstyle ':vcs_info:*' enable git svn hg bzr
 # 標準のフォーマット(git 以外で使用)
 # misc(%m) は通常は空文字列に置き換えられる
-zstyle ':vcs_info:*' formats $branch$clientname
-zstyle ':vcs_info:*' actionformats $branch$clientname '%m' '<!%a>'
+zstyle ':vcs_info:*' formats $BRANCH$VCS_NAME
+zstyle ':vcs_info:*' actionformats $BRANCH$VCS_NAME $LOCAL_STATE'%m' $WARNING
 zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
 zstyle ':vcs_info:bzr:*' use-simple true
 
@@ -270,8 +271,8 @@ zstyle ':vcs_info:bzr:*' use-simple true
 if is-at-least 4.3.10; then
     # git 用のフォーマット
     # git のときはステージしているかどうかを表示
-    zstyle ':vcs_info:git:*' formats $branch$clientname '%c%u %m'
-    zstyle ':vcs_info:git:*' actionformats $branch$clientname '%c%u %m' '<!%a>'
+    zstyle ':vcs_info:git:*' formats $BRANCH$VCS_NAME $LOCAL_STATE'%c%u%m'
+    zstyle ':vcs_info:git:*' actionformats $BRANCH$VCS_NAME $LOCAL_STATE'%c%u%m' $WARNING
     zstyle ':vcs_info:git:*' check-for-changes true
     zstyle ':vcs_info:git:*' stagedstr "+"    # %c で表示する文字列
     zstyle ':vcs_info:git:*' unstagedstr "-"  # %u で表示する文字列
@@ -418,11 +419,11 @@ function _update_vcs_info_msg() {
         # vcs_info で情報を取得した場合
         # $vcs_info_msg_0_ , $vcs_info_msg_1_ , $vcs_info_msg_2_ を
         # それぞれ緑、黄色、赤で表示する
-        [[ -n "$vcs_info_msg_0_" ]] && messages+=( "${vcs_info_msg_0_}" )
-        [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
+        [[ -n "$vcs_info_msg_0_" ]] && messages+=( "${vcs_info_msg_0_}%f" )
+        [[ -n "$vcs_info_msg_1_" ]] && messages+=( "${vcs_info_msg_1_}%f" )
         [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
 
-        prompt="${(j::)messages}"
+        prompt="[${(j::)messages}]"
 #        # 間にスペースを入れて連結する
 #        prompt="${(j: :)messages}"
     fi
