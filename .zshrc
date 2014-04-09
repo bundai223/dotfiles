@@ -12,15 +12,6 @@ local PURPLE=$'%{^[[1;35m%}'$
 local LIGHT_BLUE=$'%{^[[1;36m%}'$
 local WHITE=$'%{^[[1;37m%}'$
 
-## どっかからのコピペ
-## The following lines were added by compinstall
-#zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
-#zstyle ':completion:*' list-colors ''
-#zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-#zstyle ':completion:*' menu select=2
-#zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-#zstyle ':completion:*' verbose true
-
 # zsh補完強化 {{{
 # http://qiita.com/PSP_T/items/ed2d36698a5cc314557d
 # 補完候補のハイライト
@@ -75,11 +66,10 @@ zstyle ':completion:*:*:cd:*' ignored-patterns '.svn|.git'
 
 setopt nobeep               # ビープ音なし
 setopt ignore_eof           # C-dでログアウトしない
-#setopt rm_star_silent       # rm *で確認ださない
 setopt no_auto_param_slash  # 自動で末尾に/を補完しない
 setopt auto_pushd           # cd履歴を残す
 
-
+# 個別にパス設定が必要な場合は.zshrc_localで再設定する。
 export EDITOR=vim
 
 # History setting {{{
@@ -255,6 +245,10 @@ precmd () {
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
+
+branch='%F{white}%b'
+clientname='%F{green}(%s) '
+
 #
 autoload -Uz add-zsh-hook
 autoload -Uz is-at-least
@@ -267,8 +261,8 @@ zstyle ':vcs_info:*' max-exports 3
 zstyle ':vcs_info:*' enable git svn hg bzr
 # 標準のフォーマット(git 以外で使用)
 # misc(%m) は通常は空文字列に置き換えられる
-zstyle ':vcs_info:*' formats '(%s)-[%b]'
-zstyle ':vcs_info:*' actionformats '(%s)-[%b]' '%m' '<!%a>'
+zstyle ':vcs_info:*' formats $branch$clientname
+zstyle ':vcs_info:*' actionformats $branch$clientname '%m' '<!%a>'
 zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
 zstyle ':vcs_info:bzr:*' use-simple true
 
@@ -276,8 +270,8 @@ zstyle ':vcs_info:bzr:*' use-simple true
 if is-at-least 4.3.10; then
     # git 用のフォーマット
     # git のときはステージしているかどうかを表示
-    zstyle ':vcs_info:git:*' formats '(%s)-[%b]' '%c%u %m'
-    zstyle ':vcs_info:git:*' actionformats '(%s)-[%b]' '%c%u %m' '<!%a>'
+    zstyle ':vcs_info:git:*' formats $branch$clientname '%c%u %m'
+    zstyle ':vcs_info:git:*' actionformats $branch$clientname '%c%u %m' '<!%a>'
     zstyle ':vcs_info:git:*' check-for-changes true
     zstyle ':vcs_info:git:*' stagedstr "+"    # %c で表示する文字列
     zstyle ':vcs_info:git:*' unstagedstr "-"  # %u で表示する文字列
@@ -424,12 +418,13 @@ function _update_vcs_info_msg() {
         # vcs_info で情報を取得した場合
         # $vcs_info_msg_0_ , $vcs_info_msg_1_ , $vcs_info_msg_2_ を
         # それぞれ緑、黄色、赤で表示する
-        [[ -n "$vcs_info_msg_0_" ]] && messages+=( "%F{green}${vcs_info_msg_0_}%f" )
+        [[ -n "$vcs_info_msg_0_" ]] && messages+=( "${vcs_info_msg_0_}" )
         [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
         [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
 
-        # 間にスペースを入れて連結する
-        prompt="${(j: :)messages}"
+        prompt="${(j::)messages}"
+#        # 間にスペースを入れて連結する
+#        prompt="${(j: :)messages}"
     fi
 
     RPROMPT="$prompt"
