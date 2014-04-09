@@ -246,8 +246,8 @@ precmd () {
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
 
-BRANCH='%F{white}%b'
-VCS_NAME='%F{gray}(%s)'
+BRANCH='%F{white}%b%f'
+VCS_NAME='%F{gray}(%s)%f'
 #
 autoload -Uz add-zsh-hook
 autoload -Uz is-at-least
@@ -375,10 +375,10 @@ if is-at-least 4.3.11; then
 
         # misc () に追加
         if [[ "$ahead" -gt 0 ]] ; then
-            hook_com[misc]+="%F{red}↑ %F{white}${ahead}%f"
+            hook_com[misc]+="%F{red}↑%f %F{white}${ahead}%f"
         fi
         if [[ "$behind" -gt 0 ]] ; then
-            hook_com[misc]+="%F{blue}↓ %F{white}${behind}%f"
+            hook_com[misc]+="%F{blue}↓%f %F{white}${behind}%f"
         fi
     }
     #}}}
@@ -417,7 +417,7 @@ function _update_vcs_info_msg() {
         # vcs_info で情報を取得した場合
         # $vcs_info_msg_0_ , $vcs_info_msg_1_ , $vcs_info_msg_2_ を
         # それぞれ緑、黄色、赤で表示する
-        [[ -n "$vcs_info_msg_0_" ]] && messages+=( "${vcs_info_msg_0_}%f:" )
+        [[ -n "$vcs_info_msg_0_" ]] && messages+=( "${vcs_info_msg_0_}:" )
         [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
         [[ -n "$vcs_info_msg_1_" ]] || messages+=( "%F{green}✔ %f" )
         [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
