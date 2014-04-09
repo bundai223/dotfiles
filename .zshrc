@@ -419,7 +419,8 @@ function _update_vcs_info_msg() {
         # vcs_info で情報を取得した場合
         # $vcs_info_msg_0_ , $vcs_info_msg_1_ , $vcs_info_msg_2_ を
         # それぞれ緑、黄色、赤で表示する
-        [[ -n "$vcs_info_msg_0_" ]] && messages+=( "${vcs_info_msg_0_}%f" )
+        echo "$vcs_info_msg_1_"
+        [[ -n "$vcs_info_msg_0_" ]] && messages+=( "${vcs_info_msg_0_}%f:" )
         [[ -n "$vcs_info_msg_1_" ]] && messages+=( "${vcs_info_msg_1_}%f" )
         [[ -n "$vcs_info_msg_1_" ]] || messages+=( "✔ " )
         [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
