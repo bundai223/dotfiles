@@ -80,13 +80,21 @@ fi
 TOOL_DIR_PATH=~/tool
 mkdir_noerror ${TOOL_DIR_PATH}
 cd ${TOOL_DIR_PATH}
-git clone https://github.com/zsh-users/zsh-completions.git
 
-# For OSX
 TOOL_NAMES_ARRAY=\
 (\
- 'https://github.com/dankogai/osx-mv2trash.git'\
  'https://github.com/github/gitignore.git'\
+ 'https://github.com/zsh-users/zsh-completions.git'\
+ 'https://github.com/altercation/solarized'\
+)
+for toolname in ${TOOL_NAMES_ARRAY[@]}; do
+    git clone ${toolname}
+done
+
+# For OSX
+OSX_TOOL_NAMES_ARRAY=\
+(\
+ 'https://github.com/dankogai/osx-mv2trash.git'\
 )
 echo "OS type ${OSTYPE}"
 if [[ $OSTYPE == darwin* ]]; then
@@ -95,7 +103,7 @@ if [[ $OSTYPE == darwin* ]]; then
     brew install macvim --with-cscope --with-luajit
 
     # Get utility
-    for toolname in ${TOOL_NAMES_ARRAY[@]}; do
+    for toolname in ${OSX_TOOL_NAMES_ARRAY[@]}; do
         git clone ${toolname}
     done
 

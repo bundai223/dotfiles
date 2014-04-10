@@ -443,6 +443,7 @@ add-zsh-hook precmd _update_vcs_info_msg
 # ref) http://qiita.com/ken11_/items/1304c2eecc2657ac6265
 if [ $SHLVL = 1 ]; then
     alias tmux='tmux attach || tmux new-session \; source-file ~/.tmux/session'
+    alias tmux-newsession='\tmux new-session \; source-file ~/.tmux/session'
 else
     alias tmux-basicpane='tmux source-file ~/.tmux/session'
     alias tmux-sshpane='tmux source-file ~/.tmux/utility/session_ssh'

@@ -80,6 +80,14 @@ endif
 
 " }}}
 
+" Command mode{{{
+" Complection setting command mode.
+" When first tab, complete match part.
+" After second tab, complete 候補 in order.
+set wildmode=longest:full,full
+set wildmenu
+" }}}
+
 " History {{{
 " history num
 set history=10000
@@ -124,6 +132,14 @@ set incsearch
 
 " Highlight searched words
 set hlsearch
+
+" Auto complete backslash when input slash on search command(search by slash).
+cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
+
+" Expand 単語境界
+" TODO: 関数化してトグルするように
+" http://cohama.hateblo.jp/entry/20130529/1369843236
+cnoremap <C-o> <C-\>e(getcmdtype() == '/' <Bar><Bar> getcmdtype() == '?') ? '\<' . getcmdline() . '\>' : getcmdline()<CR>
 
 " tagファイルの検索パス指定
 " カレントから親フォルダに見つかるまでたどる
@@ -430,6 +446,11 @@ NeoBundleLazy 'kannokanno/previm', {
             \   'autoload' : {'filetypes': ['markdown']}
             \ }
 
+" tmux
+NeoBundleLazy 'zaiste/tmux.vim', {
+            \   'autoload': {'filetypes': ['tmux']}
+            \ }
+
 
 " textobj
 NeoBundle 'tpope/vim-surround'
@@ -536,11 +557,13 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'w0ng/vim-hybrid'
 
-"NeoBundleLazy 'itchyny/calendar.vim', {
-"            \   'autoload' : {'commands' : ['Calendar'] },
-"            \ }
-"
+" }}}
 
+filetype plugin indent on
+
+" Plugin setting {{{
+
+" Load on_source
 " clever-f {{{
 let s:bundle = neobundle#get('clever-f.vim')
 function! s:bundle.hooks.on_source(bundle)
@@ -715,11 +738,40 @@ endfunction
 
 " }}}
 
+" submode {{{
+let s:bundle = neobundle#get('vim-submode')
+function! s:bundle.hooks.on_source(bundle)
+  " let g:submode_timeout = 0
+  " TELLME: The above setting do not work.
+  " Use the following instead of above.
+  let g:submode_timeoutlen = 1000000
+
+  let g:submode_keep_leaving_key=1
+
+  " http://d.hatena.ne.jp/thinca/20130131/1359567419
+  " https://gist.github.com/thinca/1518874
+  " Window size mode.{{{
+  call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
+  call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
+  call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>+')
+  call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>-')
+  call submode#map('winsize', 'n', '', '>', '<C-w>>')
+  call submode#map('winsize', 'n', '', '<', '<C-w><')
+  call submode#map('winsize', 'n', '', '+', '<C-w>+')
+  call submode#map('winsize', 'n', '', '-', '<C-w>-')
+  " }}}
+
+  " Tab move mode.{{{
+  call submode#enter_with('tabmove', 'n', '', 'gt', 'gt')
+  call submode#enter_with('tabmove', 'n', '', 'gT', 'gT')
+  call submode#map('tabmove', 'n', '', 't', 'gt')
+  call submode#map('tabmove', 'n', '', 'T', 'gT')
+  " }}}
+endfunction
+
 " }}}
 
-filetype plugin indent on
-
-" Plugin setting {{{
+" Load not on_source
 
 " vital {{{
 let g:V = vital#of('vital')
@@ -1064,37 +1116,6 @@ let QFix_CursorLine = 0
 
 " }}}
 
-" submode {{{
-
-" let g:submode_timeout = 0
-" TELLME: The above setting do not work.
-" Use the following instead of above.
-let g:submode_timeoutlen = 1000000
-
-let g:submode_keep_leaving_key=1
-
-" http://d.hatena.ne.jp/thinca/20130131/1359567419
-" https://gist.github.com/thinca/1518874
-" Window size mode.{{{
-call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
-call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
-call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>+')
-call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>-')
-call submode#map('winsize', 'n', '', '>', '<C-w>>')
-call submode#map('winsize', 'n', '', '<', '<C-w><')
-call submode#map('winsize', 'n', '', '+', '<C-w>+')
-call submode#map('winsize', 'n', '', '-', '<C-w>-')
-" }}}
-
-" Tab move mode.{{{
-call submode#enter_with('tabmove', 'n', '', 'gt', 'gt')
-call submode#enter_with('tabmove', 'n', '', 'gT', 'gT')
-call submode#map('tabmove', 'n', '', 't', 'gt')
-call submode#map('tabmove', 'n', '', 'T', 'gT')
-" }}}
-
-" }}}
-
 " }}}
 
 " }}}
@@ -1147,6 +1168,7 @@ colorscheme solarized
 " 256bit color
 set t_Co=256
 "colorscheme molokai
+"let g:solarized_visibility="high"
 
 " IMEの状態でカーソル色変更 {{{
 " colorschemeでの設定を上書きするため

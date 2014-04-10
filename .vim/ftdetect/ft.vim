@@ -7,6 +7,7 @@
 au BufNewFile,BufRead .zshrc_local set filetype=zsh
 au BufNewFile,BufRead .vimrc_local set filetype=vim
 au BufNewFile,BufRead .gvimrc_local set filetype=vim
+au BufNewFile,BufRead .tmux.conf set filetype=tmux
 
 " direct x shader file
 au BufNewFile,BufRead *.fx set filetype=fx
