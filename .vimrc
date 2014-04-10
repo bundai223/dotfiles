@@ -293,8 +293,10 @@ nnoremap <expr>^ col('.') == 1 ? '^' : '0'
 nnoremap <Leader>/ :noh <CR>
 
 " 置換
-nnoremap <expr> <Leader>s _(":s/<Cursor>//g")
-nnoremap <expr> <Leader>S _(":%s/<Cursor>//g")
+nnoremap <expr> sl _(":s/<Cursor>//")
+nnoremap <expr> sg _(":s/<Cursor>//g")
+nnoremap <expr> Sg _(":%s/<Cursor>//")
+nnoremap <expr> Sl _(":%s/<Cursor>//g")
 
 " 検索結果をウインドウ真ん中に
 nnoremap n nzzzv
@@ -538,11 +540,12 @@ NeoBundle 'w0ng/vim-hybrid'
 "            \   'autoload' : {'commands' : ['Calendar'] },
 "            \ }
 "
-"" Calendar {{{
-"let s:bundle = neobundle#get('calendar')
-"function! s:bundle.hooks.on_source(bundle)
-"  let g:calendar_google_calendar=1
-"endfunction
+
+" clever-f {{{
+let s:bundle = neobundle#get('clever-f.vim')
+function! s:bundle.hooks.on_source(bundle)
+  nmap <Leader>f <Plug>(clever-f-reset)
+endfunction
 
 " }}}
 
