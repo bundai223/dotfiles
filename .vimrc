@@ -241,21 +241,21 @@ vnoremap : ;
 nnoremap <F5> :source %<CR>
 
 " 直前のバッファに移動
-nnoremap <Leader>b :b#<CR>
+nnoremap [myleader]b :b#<CR>
 
 " Insert date
 inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
 inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
 
 " Easy to help
-"nnoremap <C-u> :<C-u>help<Space>
+nnoremap [myleader]h :<C-u>vert bel help<Space>
 
 " MYVIMRC
-nnoremap <Leader>v :e $MYVIMRC<CR>
-nnoremap <Leader>g :e $MYGVIMRC<CR>
+nnoremap [myleader]v :e $MYVIMRC<CR>
+nnoremap [myleader]g :e $MYGVIMRC<CR>
 
 " カレントパスをバッファに合わせる
-nnoremap <silent><Leader><Space> :<C-u>lcd %:h<CR>:pwd<CR>
+nnoremap <silent>[myleader]<Space> :<C-u>lcd %:h<CR>:pwd<CR>
 
 " Quick splits
 nnoremap [myleader]_ :sp<CR>
@@ -306,7 +306,7 @@ nnoremap <expr>^ col('.') == 1 ? '^' : '0'
 
 " Search and replace {{{
 " 検索ハイライトをオフ
-nnoremap <Leader>/ :noh <CR>
+nnoremap [myleader]/ :noh <CR>
 
 " 置換
 nnoremap <expr> sl _(":s/<Cursor>//")
@@ -567,7 +567,7 @@ filetype plugin indent on
 " clever-f {{{
 let s:bundle = neobundle#get('clever-f.vim')
 function! s:bundle.hooks.on_source(bundle)
-  nmap <Leader>f <Plug>(clever-f-reset)
+  nmap [myleader]f <Plug>(clever-f-reset)
 endfunction
 
 " }}}
@@ -795,11 +795,11 @@ set foldcolumn=2
 " quickhl {{{
 let g:quickhl_manual_enable_at_startup = 1
 
-nmap [myleader]h <Plug>(quickhl-manual-this)
-xmap [myleader]h <Plug>(quickhl-manual-this)
-nmap [myleader]H <Plug>(quickhl-manual-reset)
-xmap [myleader]H <Plug>(quickhl-manual-reset)
-"nmap [myleader]j <Plug>(quickhl-match)
+nmap <Leader>h <Plug>(quickhl-manual-this)
+xmap <Leader>h <Plug>(quickhl-manual-this)
+nmap <Leader>H <Plug>(quickhl-manual-reset)
+xmap <Leader>H <Plug>(quickhl-manual-reset)
+"nmap <Leader>j <Plug>(quickhl-match)
 
 "}}}
 
@@ -829,7 +829,7 @@ call smartinput#define_rule({ 'at': '[ *\%#', 'char': ']', 'input': '<BS>]', })
 "}}}
 
 " vimshell {{{
-nnoremap <silent> [myleader]vs : <C-u> VimShell<CR>
+nnoremap <silent> <Leader>s : <C-u> VimShell<CR>
 
 " }}}
 
@@ -928,8 +928,9 @@ nmap <C-u> [unite]
 
 " source
 " ファイル一覧
-nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> [unite]d :<C-u>Unite -input=/Home/labo/dotfiles/. -buffer-name=dotfiles file<CR>
+nnoremap <silent> [unite]/ :<C-u>Unite -input=/ -buffer-name=file_root file<CR>
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=file_current file<CR>
+nnoremap <silent> [unite]d :<C-u>Unite -input=/Home/labo/dotfiles/. -buffer-name=file_dotfiles file<CR>
 " ファイルいっぱい列挙
 "nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=history file_mru<CR>
 nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=multi file_mru file buffer<CR>
@@ -967,14 +968,7 @@ nnoremap <silent> [unite]r :<C-u>UniteResume<CR>
 " }}}
 
 " vimfiler {{{
-nnoremap <silent> [myleader]vf : <C-u> VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
-
-" }}}
-
-" gtags {{{
-"nmap     <silent> <Leader>gt  : <C-u>Gtags<Space>
-"nmap     <silent> <Leader>gtr : <C-u>Gtags -r<Space>
-"nnoremap <silent> <Leader>gtc : <C-u>GtagsCursor<CR>
+nnoremap <silent> <Leader>f : <C-u> VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
 
 " }}}
 
