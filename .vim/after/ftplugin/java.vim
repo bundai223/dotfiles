@@ -1,5 +1,5 @@
 " for java setting
 
-setlocal noexpandtab
+"setlocal noexpandtab
 
 setlocal include=^import

@@ -28,7 +28,7 @@ set fileformats=unix,dos
 set noswapfile
 
 " クリップボードを使用する
-set clipboard=unnamed,autoselect
+set clipboard=unnamed
 
 " Match pairs setting.
 set matchpairs=(:),{:},[:],<:>
@@ -133,13 +133,37 @@ set incsearch
 " Highlight searched words
 set hlsearch
 
+" http://cohama.hateblo.jp/entry/20130529/1369843236
 " Auto complete backslash when input slash on search command(search by slash).
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
 
-" Expand 単語境界
-" TODO: 関数化してトグルするように
-" http://cohama.hateblo.jp/entry/20130529/1369843236
-cnoremap <C-o> <C-\>e(getcmdtype() == '/' <Bar><Bar> getcmdtype() == '?') ? '\<' . getcmdline() . '\>' : getcmdline()<CR>
+" Expand 単語境界入力
+" https://github.com/cohama/.vim/blob/master/.vimrc
+cnoremap <C-w> <C-\>eToggleWordBounds(getcmdtype(), getcmdline())<CR>
+function! ToggleWordBounds(type, line)
+  if a:type == '/' || a:type == '?'
+    if a:line =~# '^\\<.*\\>$'
+      return substitute(a:line, '^\\<\(.*\)\\>$', '\1', '')
+    else
+      return '\<' . a:line . '\>'
+    endif
+
+  elseif a:type == ':'
+    " s || %sの時は末尾に連結したり削除したり
+    if a:line =~# 's/.*' || a:line =~# '%s/.*'
+      if a:line =~# '\\<\\>$'
+        return substitute(a:line, '\\<\\>$', '\1', '')
+      else
+        return a:line . '\<\>'
+      endif
+    else
+      return a:line
+    endif
+
+  else
+    return a:line
+  endif
+endfunction
 
 " tagファイルの検索パス指定
 " カレントから親フォルダに見つかるまでたどる
@@ -324,27 +348,27 @@ noremap [fold] <nop>
 nmap [myleader] [fold]
 
 " Move fold
-noremap [fold]j zj
-noremap [fold]k zk
+nnoremap [fold]j zj
+nnoremap [fold]k zk
 
 " Move fold begin line
-noremap [fold]n ]z
-noremap [fold]p [z
+nnoremap [fold]n ]z
+nnoremap [fold]p [z
 
 " Fold open and close
-noremap [fold]c zc
-noremap [fold]o zo
-noremap [fold]a za
+nnoremap [fold]c zc
+nnoremap [fold]o zo
+nnoremap [fold]a za
 
 " All fold close
-noremap [fold]m zM
+nnoremap [fold]m zM
 
 " Other fold close
-noremap [fold]i zMzv
+nnoremap [fold]i zMzv
 
 " Make fold
-noremap [fold]r zR
-noremap [fold]f zf
+nnoremap [fold]r zR
+nnoremap [fold]f zf
 "}}}
 
 " Invalidate that don't use commands
@@ -856,21 +880,11 @@ inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
 
 " Recommended key-mappings.
-" <CR>: close popup and save indent.
-"imap <expr><CR> (neocomplete#smart_close_popup())."\<Plug>(physical_key_CR)"
-"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function()
-"  return neocomplete#smart_close_popup() . "\<CR>"
-"endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>    pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-h> neocomplete#mappings()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-y>  neocomplete#close_pop()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
 " Enable omni completion.
 autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
