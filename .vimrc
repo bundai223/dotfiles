@@ -219,6 +219,7 @@ endfunction
 command! -nargs=* MoveCursorPosMap execute <SID>move_cursor_pos_mapping(<q-args>)
 command! -nargs=* Nnoremap MoveCursorPosMap nnoremap <args>
 " }}}
+
 " }}}
 
 " Common key mapping {{{
@@ -370,6 +371,39 @@ nnoremap [fold]i zMzv
 nnoremap [fold]r zR
 nnoremap [fold]f zf
 "}}}
+
+" Toggle relative line numbers {{{
+"
+
+function! s:norelativenumber()
+  augroup restore_op
+    autocmd!
+    autocmd CursorMoved * setlocal norelativenumber 
+    autocmd CursorMoved * augroup restore_op | execute "autocmd!" | execute "augroup END"
+    autocmd CursorHold * setlocal norelativenumber 
+    autocmd CursorHold * augroup restore_op | execute "autocmd!" | execute "augroup END"
+  augroup END
+  return ""
+endfunction
+
+function! s:ToggleRelativeNumber()
+  if &relativenumber
+    set norelativenumber
+    let &number = exists("b:togglernu_number") ? b:togglernu_number : 1
+  else
+    let b:togglernu_number = &number
+    set relativenumber
+  endif
+  redraw!  " these two lines required for omap
+
+  return ''
+endfunction
+
+nnoremap <silent> [myleader]m :call <SID>ToggleRelativeNumber()<CR>
+vnoremap <silent> [myleader]m :<C-U>call <SID>ToggleRelativeNumber()<CR>gv
+onoremap <expr> [myleader]m <SID>ToggleRelativeNumber() . <SID>norelativenumber()
+
+" }}}
 
 " Invalidate that don't use commands
 nnoremap ZZ <Nop>
@@ -1141,9 +1175,6 @@ set foldmethod=marker
 
 " show line number
 set number
-
-" line number relative
-set relativenumber
 
 " show invisible chars
 set list
