@@ -544,7 +544,8 @@ NeoBundle 'gregsexton/gitv'
 NeoBundle 'tyru/open-browser.vim'
 
 NeoBundle 'AndrewRadev/switch.vim'
-NeoBundle 'bling/vim-airline'
+"NeoBundle 'bling/vim-airline'
+NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
@@ -825,6 +826,50 @@ function! s:bundle.hooks.on_source(bundle)
   call submode#map('tabmove', 'n', '', 't', 'gt')
   call submode#map('tabmove', 'n', '', 'T', 'gT')
   " }}}
+endfunction
+
+" }}}
+
+" vim-airline {{{
+if neobundle#tap('vim-airline')
+  function! neobundle#tapped.hooks.on_source(bundle)
+    let g:airline_linecolumn_prefix = ''
+    let g:airline#extensions#hunks#non_zero_only = 1
+    let g:airline#extensions#whitespace#enabled = 0
+    let g:airline#extensions#branch#enabled = 0
+    let g:airline#extensions#readonly#enabled = 0
+    let g:airline_section_b =
+          \ '%{airline#extensions#branch#get_head()}' .
+          \ '%{""!=airline#extensions#branch#get_head()?("  " . g:airline_left_alt_sep . " "):""}' .
+          \ '%{airline#extensions#readonly#get_mark()}' .
+          \ '%t%( %M%)'
+    let g:airline_section_c = ''
+    let s:sep = " %{get(g:, 'airline_right_alt_sep', '')} "
+    let g:airline_section_x =
+          \ '%{strlen(&fileformat)?&fileformat:""}'.s:sep.
+          \ '%{strlen(&fenc)?&fenc:&enc}'.s:sep.
+          \ '%{strlen(&filetype)?&filetype:"no ft"}'
+    let g:airline_section_y = '%3p%%'
+    let g:airline_section_z = get(g:, 'airline_linecolumn_prefix', '').'%3l:%-2v'
+    let g:airline_inactive_collapse = 0
+    function! AirLineForce()
+      let g:airline_mode_map.__ = ''
+      let w:airline_render_left = 1
+      let w:airline_render_right = 1
+    endfunction
+    augroup AirLineForce
+      autocmd!
+      autocmd VimEnter * call add(g:airline_statusline_funcrefs, function('AirLineForce'))
+    augroup END
+  endfunction
+  call neobundle#untap()
+endif
+
+"}}}
+
+" lightline.vim {{{
+let s:bundle = neobundle#get('lightline.vim')
+function! s:bundle.hooks.on_source(bundle)
 endfunction
 
 " }}}
@@ -1179,8 +1224,7 @@ set number
 " show invisible chars
 set list
 " tab 行末spaceを表示
-"set listchars=tab:^\ ,trail:~
-set listchars=tab:^-,trail:~,extends:>,precedes:<,nbsp:%
+set listchars=tab:^\ ,trail:~,extends:>,precedes:<,nbsp:%
 
 " always show tab
 set showtabline=2
