@@ -78,6 +78,9 @@ if has('unix')
   let $USERNAME=$USER
 endif
 
+" Select last pasted.
+nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
+
 " }}}
 
 " Command mode{{{
@@ -596,6 +599,7 @@ NeoBundle 'ujihisa/unite-locate'
 NeoBundle 'bundai223/unite-find'
 if has('mac')
   NeoBundle 'choplin/unite-spotlight'
+  NeoBundle 'itchyny/dictionary.vim'
 endif
 
 "=====================================
@@ -611,7 +615,7 @@ NeoBundle 'vim-jp/vimdoc-ja'
 "=====================================
 " Color Scheme
 NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'tomasr/molokai'
+NeoBundleLazy 'tomasr/molokai'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'w0ng/vim-hybrid'
@@ -634,6 +638,13 @@ endfunction
 " molokai {{{
 let s:bundle = neobundle#get('molokai')
 function! s:bundle.hooks.on_source(bundle)
+endfunction
+"}}}
+
+" solarized {{{
+let s:bundle = neobundle#get('vim-colors-solarized')
+function! s:bundle.hooks.on_source(bundle)
+  "let g:solarized_visibility="high"
 endfunction
 "}}}
 
@@ -867,14 +878,73 @@ endif
 
 "}}}
 
+" Load not on_source
+
 " lightline.vim {{{
-let s:bundle = neobundle#get('lightline.vim')
-function! s:bundle.hooks.on_source(bundle)
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'mode_map': {'c': 'NORMAL'},
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+      \ },
+      \ 'component_function': {
+      \   'modified': 'MyModified',
+      \   'readonly': 'MyReadonly',
+      \   'fugitive': 'MyFugitive',
+      \   'filename': 'MyFilename',
+      \   'fileformat': 'MyFileformat',
+      \   'filetype': 'MyFiletype',
+      \   'fileencoding': 'MyFileencoding',
+      \   'mode': 'MyMode'
+      \ },
+      \ }
+
+function! MyModified()
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
-" }}}
+function! MyReadonly()
+  return &readonly ? 'x'  : ''
+endfunction
 
-" Load not on_source
+function! MyFilename()
+  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft == 'unite' ? unite#get_status_string() :
+        \  &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+function! MyFugitive()
+  try
+    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+      return fugitive#head()
+    endif
+  catch
+  endtry
+  return ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! MyFileencoding()
+  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! MyMode()
+  return  &ft == 'unite' ? 'Unite' :
+        \ &ft == 'vimfiler' ? 'VimFiler' :
+        \ &ft == 'vimshell' ? 'VimShell' :
+        \ winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+" }}}
 
 " vital {{{
 let g:V = vital#of('vital')
@@ -962,7 +1032,7 @@ inoremap <expr><C-l>     neocomplete#complete_common_string()
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#mappings()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_pop()
+inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 " Enable omni completion.
@@ -1246,12 +1316,9 @@ set nowrap
 " Color scheme setting {{{
 syntax enable
 set background=dark
-
-colorscheme solarized
-" 256bit color
 set t_Co=256
+colorscheme solarized
 "colorscheme molokai
-"let g:solarized_visibility="high"
 
 " IMEの状態でカーソル色変更 {{{
 " colorschemeでの設定を上書きするため
