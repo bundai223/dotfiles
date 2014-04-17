@@ -168,6 +168,16 @@ function! ToggleWordBounds(type, line)
   endif
 endfunction
 
+" Auto escape input
+cnoremap <C-\> <C-\>eAutoEscape(getcmdtype(), getcmdline())<CR>
+function! AutoEscape(type, line)
+  if a:type == '/' || a:type == '?'
+    return substitute(a:line, '/', '\\/', 'g')
+  else
+    return a:line
+  endif
+endfunction
+
 " tagファイルの検索パス指定
 " カレントから親フォルダに見つかるまでたどる
 " tagの設定は各プロジェクトごともsetlocalする
