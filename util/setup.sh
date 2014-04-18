@@ -27,6 +27,7 @@ DOTFILE_NAMES_ARRAY=\
  .vrapperrc\
  .tmux.conf\
  .tmux/utility\
+ .ctags
 )
 for dotfile in ${DOTFILE_NAMES_ARRAY[@]}; do
     if [ ! -e ${DOTFILES_PATH}/${dotfile} ]; then

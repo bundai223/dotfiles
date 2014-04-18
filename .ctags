@@ -1,0 +1,4 @@
+--recurse
+--tag-relative=no
+--langmap=Java:+.xml
+--sort=yes
