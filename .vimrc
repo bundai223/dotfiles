@@ -181,7 +181,7 @@ endfunction
 " tagファイルの検索パス指定
 " カレントから親フォルダに見つかるまでたどる
 " tagの設定は各プロジェクトごともsetlocalする
-set tags=tags;
+set tags=./tags,tags;
 
 " 外部grepの設定
 set grepprg=grep\ -nH
@@ -720,6 +720,12 @@ let s:bundle = neobundle#get('vimfiler')
 function! s:bundle.hooks.on_source(bundle)
   let g:vimfiler_as_default_explorer=1
   let g:vimfiler_safe_mode_by_default=0
+
+  " Disable default keymap.
+  "let g:vimfiler_no_default_key_mappings=1
+
+  " Not write statusline.
+  let g:vimfiler_force_overwrite_statusline=0
 endfunction
 "}}}
 
@@ -744,6 +750,9 @@ function! s:bundle.hooks.on_source(bundle)
   " 入力モードで開始
   let g:unite_enable_start_insert=1
   let g:unite_source_grep_max_candidates=1000
+
+  " Not write statusline.
+  let g:unite_force_overwrite_statusline=0
 
   " For silver searcher.
   if executable('ag')
@@ -892,10 +901,10 @@ endif
 
 " lightline.vim {{{
 let g:lightline = {
-      \ 'colorscheme': 'solarized',
+      \ 'colorscheme': 'wombat',
       \ 'mode_map': {'c': 'NORMAL'},
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+      \   'left': [ [ 'mode', 'plugin', 'paste' ], [ 'fugitive', 'filename' ], [ 'path' ] ]
       \ },
       \ 'component_function': {
       \   'modified': 'MyModified',
@@ -905,7 +914,9 @@ let g:lightline = {
       \   'fileformat': 'MyFileformat',
       \   'filetype': 'MyFiletype',
       \   'fileencoding': 'MyFileencoding',
-      \   'mode': 'MyMode'
+      \   'mode': 'MyMode',
+      \   'plugin': 'MySpPlugin',
+      \   'path': 'MyPath'
       \ },
       \ }
 
@@ -949,10 +960,25 @@ function! MyFileencoding()
 endfunction
 
 function! MyMode()
-  return  &ft == 'unite' ? 'Unite' :
+  return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+function! MySpPlugin()
+  return  winwidth(0) <= 60 ? '' :
+        \ &ft == 'unite' ? 'Unite' :
         \ &ft == 'vimfiler' ? 'VimFiler' :
         \ &ft == 'vimshell' ? 'VimShell' :
-        \ winwidth(0) > 60 ? lightline#mode() : ''
+        \ ''
+endfunction
+
+function! MyPath()
+  if winwidth(0) > 60
+    " $HOMEは'~'表示の方が好きなので置き換え
+    let s:homepath = expand('~')
+    return substitute(getcwd(), expand('~'), '~', '')
+  else
+    return ''
+  endif
 endfunction
 " }}}
 
