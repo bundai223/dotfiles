@@ -388,6 +388,7 @@ nnoremap [fold]f zf
 " Toggle relative line numbers {{{
 "
 
+set relativenumber
 function! s:norelativenumber()
   augroup restore_op
     autocmd!
@@ -1326,6 +1327,7 @@ set foldmethod=marker
 
 " show line number
 set number
+set relativenumber
 
 " show invisible chars
 set list
