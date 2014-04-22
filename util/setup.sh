@@ -100,7 +100,18 @@ OSX_TOOL_NAMES_ARRAY=\
 echo "OS type ${OSTYPE}"
 if [[ $OSTYPE == darwin* ]]; then
     ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-    brew install git zsh tmux cmake ctags reattach-to-user-namespace z android luajit
+    brew install\
+        git\
+        zsh\
+        tmux\
+        cmake\
+        ctags\
+        reattach-to-user-namespace\
+        z\
+        android\
+        luajit\
+        terminal-notifier
+
     brew install macvim --with-cscope --with-luajit
 
     # Get utility
