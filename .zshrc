@@ -494,3 +494,8 @@ precmd () {
 
 # }}}
 
+# Generate .gitignore
+function genGitIgnore() {
+    curl http://www.gitignore.io/api/$@
+}
+
