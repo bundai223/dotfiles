@@ -299,6 +299,10 @@ nnoremap <silent>[myleader]<Space> :<C-u>lcd %:h<CR>:pwd<CR>
 nnoremap [myleader]_ :sp<CR>
 nnoremap [myleader]<Bar> :vsp<CR>
 
+" Delete line end space|tab.
+nnoremap [myleader]s<Space> :%s/ *$//g<CR>
+"nnoremap [myleader]s<Space> :%s/[ |\t]*$//g<CR>
+
 " Copy and paste {{{
 " Yank to end
 nnoremap Y y$
