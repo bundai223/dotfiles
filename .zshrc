@@ -319,7 +319,7 @@ if is-at-least 4.3.11; then
     # リモートとの差分表示 {{{
     #
     # 現在のブランチ上でまだpushしていないcommit(ahead)、
-    # pullしていないcommit(behind)を↑ ahead↓ behindという形式で表示する。
+    # pullしていないcommit(behind)を↑ahead↓behindという形式で表示する。
     function +vi-git-diff-remote() {
         # zstyle formats, actionformats の2番目のメッセージのみ対象にする
         if [[ "$1" != "1" ]]; then
@@ -366,10 +366,10 @@ if is-at-least 4.3.11; then
 
         # misc () に追加
         if [[ "$ahead" -gt 0 ]] ; then
-            hook_com[misc]+="%F{red}↑%f %F{white}${ahead}%f"
+            hook_com[misc]+="%F{red}↑%f%F{white}${ahead}%f"
         fi
         if [[ "$behind" -gt 0 ]] ; then
-            hook_com[misc]+="%F{blue}↓%f %F{white}${behind}%f"
+            hook_com[misc]+="%F{blue}↓%f%F{white}${behind}%f"
         fi
     }
     #}}}
