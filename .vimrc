@@ -348,7 +348,7 @@ nnoremap <expr>^ col('.') == 1 ? '^' : '0'
 
 " Search and replace {{{
 " 検索ハイライトをオフ
-nnoremap [myleader]/ :noh <CR>
+nnoremap <silent>[myleader]/ :noh <CR>
 
 " 置換
 nnoremap <expr> sl _(":s/<Cursor>//")
