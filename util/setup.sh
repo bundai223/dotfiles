@@ -106,10 +106,10 @@ if [[ $OSTYPE == darwin* ]]; then
         tmux\
         cmake\
         ctags\
-        reattach-to-user-namespace\
         z\
         android\
         luajit\
+        reattach-to-user-namespace\
         terminal-notifier
 
     brew install macvim --with-cscope --with-luajit
