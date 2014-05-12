@@ -7,5 +7,5 @@ echo $ABS_PATH
 sudo apt-get update
 sudo apt-get install git ssh zsh
 
-sh $ABS_PATH/setup.sh
+bash $ABS_PATH/setup.sh
 

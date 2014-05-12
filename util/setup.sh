@@ -92,33 +92,11 @@ for toolname in ${TOOL_NAMES_ARRAY[@]}; do
     git clone ${toolname}
 done
 
+# OS Type Settings.
+# Refactoring now.
 # For OSX
-OSX_TOOL_NAMES_ARRAY=\
-(\
- 'https://github.com/dankogai/osx-mv2trash.git'\
-)
 echo "OS type ${OSTYPE}"
 if [[ $OSTYPE == darwin* ]]; then
-    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-    brew install\
-        git\
-        zsh\
-        tmux\
-        cmake\
-        ctags\
-        z\
-        android\
-        luajit\
-        reattach-to-user-namespace\
-        terminal-notifier
-
-    brew install macvim --with-cscope --with-luajit
-
-    # Get utility
-    for toolname in ${OSX_TOOL_NAMES_ARRAY[@]}; do
-        git clone ${toolname}
-    done
-
 else
     git clone https://github.com/rupa/z.git
 fi
