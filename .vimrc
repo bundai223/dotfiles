@@ -1314,6 +1314,13 @@ let QFix_CursorLine = 0
 
 " }}}
 
+" emmet {{{
+autocmd FileType xml imap <tab> <plug>(emmet-expand-abbr)
+autocmd FileType html imap <tab> <plug>(emmet-expand-abbr)
+autocmd FileType css imap <tab> <plug>(emmet-expand-abbr)
+
+" }}}
+
 " }}}
 
 " }}}

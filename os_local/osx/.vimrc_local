@@ -1,0 +1,2 @@
+noremap <silent> [myleader]gx :! open -a Google\ Chrome %<CR>
+
