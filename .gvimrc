@@ -20,8 +20,7 @@ set guioptions-=L
 set guioptions-=b "下スクロールバーなし
 
 if has('mac')
-    set transparency=15
-    "set transparency=25
+    set transparency=10
 endif
 "---------------------------------
 " フォント設定:
@@ -36,8 +35,7 @@ if has('win32')
     set ambiwidth=auto
   endif
 elseif has('mac')
-"  set guifont=Osaka−等幅:h14
-  set guifont=Ricty\ Regular:h14
+  set guifont=Ricty\ Regular:h11
 elseif has('xfontset')
   " UNIX用 (xfontsetを使用)
   set guifontset=a14,r14,k14

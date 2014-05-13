@@ -2,7 +2,7 @@
 
 " 変数を読み込む
 if filereadable(expand('~/.vimrc_local_env'))
-    source ~/.vimrc_local_env
+  source ~/.vimrc_local_env
 endif
 
 scriptencoding utf-8
@@ -205,11 +205,11 @@ command! CopyCurrentPath :call s:copy_current_path()
 "nnoremap <C-\> :<C-u>CopyCurrentPath<CR>
 
 function! s:copy_current_path()
-    if has('win32')
-        let @*=substitute(expand('%:p'), '\\/', '\\', 'g')
-    else
-        let @*=expand('%:p')
-    endif
+  if has('win32')
+    let @*=substitute(expand('%:p'), '\\/', '\\', 'g')
+  else
+    let @*=expand('%:p')
+  endif
 endfunction
 " }}}
 
@@ -218,13 +218,13 @@ endfunction
 "nnoremap <expr> <A-p> _(":%s/<Cursor>/ほむ/g")
 "nnoremap <expr> <A-p> ":%s//ほむ/g\<Left>\<Left>\<Left>\<Left>\<Left>\<Left>\<Left>"
 function! s:move_cursor_pos_mapping(str, ...)
-    let left = get(a:, 1, "<Left>")
-    let lefts = join(map(split(matchstr(a:str, '.*<Cursor>\zs.*\ze'), '.\zs'), 'left'), "")
-    return substitute(a:str, '<Cursor>', '', '') . lefts
+  let left = get(a:, 1, "<Left>")
+  let lefts = join(map(split(matchstr(a:str, '.*<Cursor>\zs.*\ze'), '.\zs'), 'left'), "")
+  return substitute(a:str, '<Cursor>', '', '') . lefts
 endfunction
 
 function! _(str)
-    return s:move_cursor_pos_mapping(a:str, "\<Left>")
+  return s:move_cursor_pos_mapping(a:str, "\<Left>")
 endfunction
 
 " コマンド版
@@ -452,54 +452,54 @@ endif
 " Language
 " C++
 NeoBundleLazy 'vim-jp/cpp-vim', {
-            \   'autoload': {'filetypes': ['cpp']}
-            \ }
+      \   'autoload': {'filetypes': ['cpp']}
+      \ }
 NeoBundleLazy 'vim-scripts/opengl.vim', {
-            \   'autoload': {'filetypes': ['cpp']}
-            \ }
+      \   'autoload': {'filetypes': ['cpp']}
+      \ }
 NeoBundleFetch 'Rip-Rip/clang_complete'
 " NeoBundleLazy 'Rip-Rip/clang_complete', {
 "            \   'autoload': {'filetypes': ['cpp']}
 "            \ }
 " NeoBundleFetch 'osyo-manga/vim-marching'
 NeoBundleLazy 'osyo-manga/vim-marching', {
-           \   'autoload': {'filetypes': ['cpp']}
-           \ }
+      \   'autoload': {'filetypes': ['cpp']}
+      \ }
 
 " C#
 NeoBundleLazy 'nosami/Omnisharp', {
-            \   'autoload': {'filetypes': ['cs']},
-            \   'build': {
-            \     'windows': 'MSBuild.exe server/OmniSharp.sln /p:Platform="Any CPU"',
-            \     'mac': 'xbuild server/OmniSharp.sln',
-            \     'unix': 'xbuild server/OmniSharp.sln',
-            \   }
-            \ }
+      \   'autoload': {'filetypes': ['cs']},
+      \   'build': {
+      \     'windows': 'MSBuild.exe server/OmniSharp.sln /p:Platform="Any CPU"',
+      \     'mac': 'xbuild server/OmniSharp.sln',
+      \     'unix': 'xbuild server/OmniSharp.sln',
+      \   }
+      \ }
 
 " Python
 NeoBundleLazy 'davidhalter/jedi-vim', {
-            \   'autoload': {'filetypes': ['python']}
-            \ }
+      \   'autoload': {'filetypes': ['python']}
+      \ }
 
 " Haskell
 " indent
 NeoBundleLazy 'kana/vim-filetype-haskell', {
-            \   'autoload': {'filetypes': ['haskell']}
-            \ }
+      \   'autoload': {'filetypes': ['haskell']}
+      \ }
 " hilight
 NeoBundleLazy 'dag/vim2hs', {
-            \   'autoload': {'filetypes': ['haskell']}
-            \ }
+      \   'autoload': {'filetypes': ['haskell']}
+      \ }
 " reference
 NeoBundleLazy 'ujihisa/ref-hoogle', {
-            \   'autoload': {'filetypes': ['haskell']}
-            \ }
+      \   'autoload': {'filetypes': ['haskell']}
+      \ }
 NeoBundleLazy 'eagletmt/ghcmod-vim', {
-            \   'autoload': {'filetypes': ['haskell']}
-            \ }
+      \   'autoload': {'filetypes': ['haskell']}
+      \ }
 NeoBundleLazy 'eagletmt/neco-ghc', {
-            \   'autoload': {'filetypes': ['haskell']}
-            \ }
+      \   'autoload': {'filetypes': ['haskell']}
+      \ }
 NeoBundle 'ujihisa/unite-haskellimport'
 
 
@@ -508,24 +508,24 @@ NeoBundle 'ujihisa/unite-haskellimport'
 
 " shader
 NeoBundleLazy 'vim-scripts/glsl.vim', {
-            \   'autoload': {'filetypes': ['glsl']}
-            \ }
+      \   'autoload': {'filetypes': ['glsl']}
+      \ }
 "NeoBundleLazy 'bundai223/FX-HLSL', {
-            \   'autoload': {'filetypes': ['fx']}
-            \ }
+      \   'autoload': {'filetypes': ['fx']}
+      \ }
 
 " MarkDown
 NeoBundleLazy 'rcmdnk/vim-markdown', {
-            \   'autoload' : {'filetypes': ['markdown']}
-            \ }
+      \   'autoload' : {'filetypes': ['markdown']}
+      \ }
 NeoBundleLazy 'kannokanno/previm', {
-            \   'autoload' : {'filetypes': ['markdown']}
-            \ }
+      \   'autoload' : {'filetypes': ['markdown']}
+      \ }
 
 " tmux
 NeoBundleLazy 'zaiste/tmux.vim', {
-            \   'autoload': {'filetypes': ['tmux']}
-            \ }
+      \   'autoload': {'filetypes': ['tmux']}
+      \ }
 
 
 " textobj
@@ -554,8 +554,8 @@ NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'osyo-manga/vim-reunions'
 NeoBundle 'osyo-manga/vim-watchdogs', {
-        \   'autoload' : {'commands' : ['WatchdogsRun'] },
-        \ }
+      \   'autoload' : {'commands' : ['WatchdogsRun'] },
+      \ }
 
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
@@ -571,8 +571,8 @@ NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-prettyprint'
 NeoBundle 'thinca/vim-scall'
 NeoBundle 'thinca/vim-singleton' , {
-        \   'gui' : 1
-        \ }
+      \   'gui' : 1
+      \ }
 NeoBundle 'tyru/restart.vim'
 NeoBundle 'tyru/capture.vim'
 NeoBundle 'mattn/webapi-vim'
@@ -581,24 +581,24 @@ NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/vimproc', {
-        \   'build': {
-        \     'windows': 'nmake -f Make_msvc.mak nodebug=1',
-        \     'mac'    : 'make -f make_mac.mak',
-        \     'unix'   : 'make -f make_unix.mak',
-        \   },
-        \ }
+      \   'build': {
+      \     'windows': 'nmake -f Make_msvc.mak nodebug=1',
+      \     'mac'    : 'make -f make_mac.mak',
+      \     'unix'   : 'make -f make_unix.mak',
+      \   },
+      \ }
 NeoBundleLazy 'Shougo/vimfiler', {
-            \   'autoload' : {'commands' : ['VimFilerBufferDir'] },
-            \ }
+      \   'autoload' : {'commands' : ['VimFilerBufferDir'] },
+      \ }
 NeoBundleLazy 'Shougo/vimshell', {
-            \   'autoload' : {'commands' : ['VimShell', 'VimShellPop'] },
-            \ }
+      \   'autoload' : {'commands' : ['VimShell', 'VimShellPop'] },
+      \ }
 NeoBundle 'LeafCage/foldCC'
 
 " unite
 NeoBundleLazy 'Shougo/unite.vim',{
-            \   'autoload' : {'commands' : ['Unite', 'UniteWithBufferDir'] },
-            \ }
+      \   'autoload' : {'commands' : ['Unite', 'UniteWithBufferDir'] },
+      \ }
 
 " unite source
 NeoBundle 'ujihisa/unite-colorscheme'
@@ -669,22 +669,22 @@ function! s:bundle.hooks.on_source(bundle)
   " 非同期ではなくて同期処理で補完する
   let g:marching_backend = "clang_command"
   "let g:marching_backend = "sync_clang_command"
-  
+
   " オプションの設定
   " これは clang のコマンドに渡される
   "let g:marching_clang_command_option="-std=c++1y"
-  
-  
+
+
   " neocomplete.vim と併用して使用する場合
   " neocomplete.vim を使用すれば自動補完になる
   let g:marching_enable_neocomplete = 1
-  
+
   if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
   endif
-  
+
   let g:neocomplete#force_omni_input_patterns.cpp =
-      \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+        \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
   imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
 endfunction
@@ -738,7 +738,7 @@ endfunction
 let s:bundle = neobundle#get('vimshell')
 function! s:bundle.hooks.on_source(bundle)
   if has('win32')
-  let g:vimshell_interactive_cygwin_path='c:/cygwin/bin'
+    let g:vimshell_interactive_cygwin_path='c:/cygwin/bin'
   endif
   let g:vimshell_user_prompt = '$USERNAME . "@" . hostname() . " " . fnamemodify(getcwd(), ":~")'
   let g:vimshell_prompt='$ '
@@ -818,9 +818,9 @@ function! s:bundle.hooks.on_source(bundle)
   let g:eskk_dictionary = '~/.skk-jisyo'
 
   if has('mac')
-  	let g:eskk_large_dictionary = "~/Library/Application\ Support/AquaSKK/SKK-JISYO.L"
+    let g:eskk_large_dictionary = "~/Library/Application\ Support/AquaSKK/SKK-JISYO.L"
   elseif has('win32') || has('win64')
-  	let g:eskk_large_dictionary = "~/SKK_JISYO.L"
+    let g:eskk_large_dictionary = "~/SKK_JISYO.L"
   else
   endif
 
@@ -1026,10 +1026,10 @@ imap <CR> <Plug>(physical_key_CR)
 
 " 改行時に行末スペースを削除する
 call smartinput#define_rule({
-\   'at': '\s\+\%#',
-\   'char': '<CR>',
-\   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
-\   })
+      \   'at': '\s\+\%#',
+      \   'char': '<CR>',
+      \   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
+      \   })
 
 " 対になるものの入力。無駄な空白は削除
 call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
@@ -1055,11 +1055,11 @@ let g:neocomplete#enable_at_startup = 1
 
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default'  : '',
-    \ 'vimshell' : '~/.vimshell_hist',
-    \ 'cpp'      : '~/.vim/.bundle/myvim_dict/cpp.dict',
-    \ 'squirrel' : '~/.vim/.bundle/myvim_dict/squirrel.dict',
-    \ }
+      \ 'default'  : '',
+      \ 'vimshell' : '~/.vimshell_hist',
+      \ 'cpp'      : '~/.vim/.bundle/myvim_dict/cpp.dict',
+      \ 'squirrel' : '~/.vim/.bundle/myvim_dict/squirrel.dict',
+      \ }
 
 " Define keyword.
 let g:neocomplete#keyword_patterns = get(g:, 'neocomplete#keyword_patterns', {})
@@ -1193,34 +1193,34 @@ vnoremap <Leader>a, :Alignta ,<CR>
 vnoremap <Leader>a> :Alignta =><CR>
 
 let g:unite_source_alignta_preset_arguments = [
-    \ ["Align at '='", '=>\='],
-    \ ["Align at ':'", '01 :'],
-    \ ["Align at '|'", '|'   ],
-    \ ["Align at ')'", '0 )' ],
-    \ ["Align at ']'", '0 ]' ],
-    \ ["Align at '}'", '}'   ],
-    \ ["Align at '>'", '0 >' ],
-    \ ["Align at '('", '0 (' ],
-    \ ["Align at '['", '0 [' ],
-    \ ["Align at '{'", '{'   ],
-    \ ["Align at '<'", '0 <' ],
-    \ ["Align first spaces", '0 \s/1' ],
-    \]
+      \ ["Align at '='", '=>\='],
+      \ ["Align at ':'", '01 :'],
+      \ ["Align at '|'", '|'   ],
+      \ ["Align at ')'", '0 )' ],
+      \ ["Align at ']'", '0 ]' ],
+      \ ["Align at '}'", '}'   ],
+      \ ["Align at '>'", '0 >' ],
+      \ ["Align at '('", '0 (' ],
+      \ ["Align at '['", '0 [' ],
+      \ ["Align at '{'", '{'   ],
+      \ ["Align at '<'", '0 <' ],
+      \ ["Align first spaces", '0 \s/1' ],
+      \]
 
 let g:unite_source_alignta_preset_options = [
-    \ ["Justify Left",      '<<' ],
-    \ ["Justify Center",    '||' ],
-    \ ["Justify Right",     '>>' ],
-    \ ["Justify None",      '==' ],
-    \ ["Shift Left",        '<-' ],
-    \ ["Shift Right",       '->' ],
-    \ ["Shift Left  [Tab]", '<--'],
-    \ ["Shift Right [Tab]", '-->'],
-    \ ["Margin 0:0",        '0'  ],
-    \ ["Margin 0:1",        '01' ],
-    \ ["Margin 1:0",        '10' ],
-    \ ["Margin 1:1",        '1'  ],
-    \]
+      \ ["Justify Left",      '<<' ],
+      \ ["Justify Center",    '||' ],
+      \ ["Justify Right",     '>>' ],
+      \ ["Justify None",      '==' ],
+      \ ["Shift Left",        '<-' ],
+      \ ["Shift Right",       '->' ],
+      \ ["Shift Left  [Tab]", '<--'],
+      \ ["Shift Right [Tab]", '-->'],
+      \ ["Margin 0:0",        '0'  ],
+      \ ["Margin 0:1",        '01' ],
+      \ ["Margin 1:0",        '10' ],
+      \ ["Margin 1:1",        '1'  ],
+      \]
 
 " }}}
 
@@ -1242,11 +1242,11 @@ vmap <Leader>c <Plug>(caw:I:toggle)
 " バッファが空なら閉じる
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 let g:quickrun_config._ = {
-\   "runner" : "vimproc",
-\   "runner/vimproc/updatetime" : 60,
-\   "outputter/buffer/split" : ":botright",
-\   "outputter/buffer/close_on_empty" : 1,
-\}
+      \   "runner" : "vimproc",
+      \   "runner/vimproc/updatetime" : 60,
+      \   "outputter/buffer/split" : ":botright",
+      \   "outputter/buffer/close_on_empty" : 1,
+      \}
 "let g:quickrun_config = {
 "\ "_" : {
 "\   "runner" : "vimproc",
@@ -1392,7 +1392,7 @@ au BufNew,BufRead * match ZenkakuSpace /　/
 
 " ローカル設定を読み込む
 if filereadable(expand('~/.vimrc_local'))
-    source ~/.vimrc_local
+  source ~/.vimrc_local
 endif
 
 
