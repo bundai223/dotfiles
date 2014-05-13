@@ -1147,8 +1147,8 @@ nnoremap <silent> [unite]tw :<C-u>Unite -buffer-name=tweet tweetvim<CR>
 " グレップ
 nnoremap <silent> [unite]g :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
 " スニペット探し
-nnoremap <silent> [unite]s :<C-u>Unite -buffer-name=snippet snippet<CR>
-nnoremap <silent> [unite]su :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
+nnoremap <silent> [unite]ns :<C-u>Unite -buffer-name=snippet neosnippet<CR>
+nnoremap <silent> [unite]nsu :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
 " NeoBundle更新
 nnoremap <silent> [unite]nb :<C-u>Unite -buffer-name=neobundle neobundle/update:all -auto-quit -keep-focus -log<CR>
 " バッファ一覧
@@ -1315,9 +1315,10 @@ let QFix_CursorLine = 0
 " }}}
 
 " emmet {{{
-autocmd FileType xml imap <tab> <plug>(emmet-expand-abbr)
-autocmd FileType html imap <tab> <plug>(emmet-expand-abbr)
-autocmd FileType css imap <tab> <plug>(emmet-expand-abbr)
+autocmd FileType xml imap <Leader><tab> <plug>(emmet-expand-abbr)
+autocmd FileType xml nmap <Leader><tab> <plug>(emmet-expand-abbr)
+"autocmd FileType html imap <tab> <plug>(emmet-expand-abbr)
+"autocmd FileType css imap <tab> <plug>(emmet-expand-abbr)
 
 " }}}
 
