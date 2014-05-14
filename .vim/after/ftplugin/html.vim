@@ -1,4 +1,4 @@
-" Vim files setting.
+" Html files setting.
 
 " indent setting
 setl expandtab

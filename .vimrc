@@ -1315,10 +1315,7 @@ let QFix_CursorLine = 0
 " }}}
 
 " emmet {{{
-autocmd FileType xml imap <Leader><tab> <plug>(emmet-expand-abbr)
-autocmd FileType xml nmap <Leader><tab> <plug>(emmet-expand-abbr)
-"autocmd FileType html imap <tab> <plug>(emmet-expand-abbr)
-"autocmd FileType css imap <tab> <plug>(emmet-expand-abbr)
+let g:user_emmet_leader_key = '<c-e>'
 
 " }}}
 
