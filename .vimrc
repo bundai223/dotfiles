@@ -595,6 +595,8 @@ NeoBundleLazy 'Shougo/vimshell', {
       \ }
 NeoBundle 'LeafCage/foldCC'
 
+NeoBundleLazy 'supermomonga/jazzradio.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
+
 " unite
 NeoBundleLazy 'Shougo/unite.vim',{
       \   'autoload' : {'commands' : ['Unite', 'UniteWithBufferDir'] },
@@ -815,12 +817,25 @@ endfunction
 " eskk {{{
 let s:bundle = neobundle#get('eskk.vim')
 function! s:bundle.hooks.on_source(bundle)
-  let g:eskk_dictionary = '~/.skk-jisyo'
+  set imdisable
+  let g:eskk#dictionary = {
+  \	'path': "~/.skk-jisyo",
+  \	'sorted': 0,
+  \	'encoding': 'utf-8',
+  \}
 
   if has('mac')
-    let g:eskk_large_dictionary = "~/Library/Application\ Support/AquaSKK/SKK-JISYO.L"
+    let g:eskk#large_dictionary = {
+    \	'path': "~/Library/Application\ Support/AquaSKK/SKK-JISYO.L",
+    \	'sorted': 1,
+    \	'encoding': 'euc-jp',
+    \}
   elseif has('win32') || has('win64')
-    let g:eskk_large_dictionary = "~/SKK_JISYO.L"
+    let g:eskk#large_dictionary = {
+    \	'path': "~/SKK_JISYO.L"
+    \	'sorted': 1,
+    \	'encoding': 'euc-jp',
+    \}
   else
   endif
 
@@ -901,6 +916,31 @@ if neobundle#tap('vim-airline')
 endif
 
 "}}}
+
+" jazzradio {{{
+" ref) http://blog.supermomonga.com/articles/vim/jazzradio-vim-released.html
+" brew install mplayer / sudo apt-get install -y mplayer
+" :JazzradioUpdateChannels
+
+if neobundle#tap('jazzradio.vim')
+  call neobundle#config({
+        \   'autoload' : {
+        \     'unite_sources' : [
+        \       'jazzradio'
+        \     ],
+        \     'commands' : [
+        \       'JazzradioUpdateChannels',
+        \       'JazzradioStop',
+        \       {
+        \         'name' : 'JazzradioPlay',
+        \         'complete' : 'customlist,jazzradio#channel_id_complete'
+        \       }
+        \     ],
+        \     'function_prefix' : 'jazzradio'
+        \   }
+        \ })
+endif
+" }}}
 
 " Load not on_source
 
