@@ -12,13 +12,14 @@ sh $ABS_PATH/setup.sh
 echo "OS type ${OSTYPE}"
 
 # Get utility
-#OSX_TOOL_NAMES_ARRAY=\
-#(\
-# 'https://github.com/dankogai/osx-mv2trash.git'\ # こいつは死んでるので使わない
-#)
-#for toolname in ${OSX_TOOL_NAMES_ARRAY[@]}; do
-#    git clone ${toolname}
-#done
+OSX_TOOL_NAMES_ARRAY=\
+(\
+ 'https://github.com/oddstr/hengband-cocoa.git'\
+ 'git://github.com/JugglerShu/XVim.git'\
+)
+for toolname in ${OSX_TOOL_NAMES_ARRAY[@]}; do
+    git clone ${toolname}
+done
 
 # Homebrew
 ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
