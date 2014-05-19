@@ -515,9 +515,6 @@ NeoBundleLazy 'vim-scripts/glsl.vim', {
       \ }
 
 " MarkDown
-NeoBundleLazy 'rcmdnk/vim-markdown', {
-      \   'autoload' : {'filetypes': ['markdown']}
-      \ }
 NeoBundleLazy 'kannokanno/previm', {
       \   'autoload' : {'filetypes': ['markdown']}
       \ }
@@ -804,13 +801,6 @@ endfunction
 let s:bundle = neobundle#get('vim-watchdogs')
 function! s:bundle.hooks.on_source(bundle)
   call watchdogs#setup(g:quickrun_config)
-endfunction
-" }}}
-
-" Vim-markdown {{{
-let s:bundle = neobundle#get('vim-markdown')
-function! s:bundle.hooks.on_source(bundle)
-  let g:vim_markdown_folding_disabled=1
 endfunction
 " }}}
 
