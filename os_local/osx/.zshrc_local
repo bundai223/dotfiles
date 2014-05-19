@@ -26,7 +26,7 @@ export PATH
 
 
 # Alias
-alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+#alias vim='/Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias updatedb='sudo /usr/libexec/locate.updatedb'
 alias chrome='open -a Google\ Chrome'
 alias xcode='open -a /Applications/Xcode.app/Contents/MacOS/Xcode'
@@ -34,6 +34,4 @@ alias iossim='open -a /Applications/Xcode.app/Contents/Developer/Platforms/iPhon
 alias andsim='open -a /Applications/Genymotion.app'
 
 alias -s xcodeproj=xcode
-
-#alias tmux=~/labo/dotfiles/util/osx_tmux
 

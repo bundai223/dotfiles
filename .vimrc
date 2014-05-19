@@ -949,7 +949,7 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'mode_map': {'c': 'NORMAL'},
       \ 'active': {
-      \   'left': [ [ 'mode', 'plugin', 'paste' ], [ 'fugitive', 'filename' ], [ 'path' ] ]
+      \   'left': [ [ 'mode', 'plugin', 'paste' ], [ 'fugitive', 'filename' ], [ 'pwd' ] ]
       \ },
       \ 'component_function': {
       \   'modified': 'MyModified',
@@ -961,7 +961,7 @@ let g:lightline = {
       \   'fileencoding': 'MyFileencoding',
       \   'mode': 'MyMode',
       \   'plugin': 'MySpPlugin',
-      \   'path': 'MyPath'
+      \   'pwd': 'MyPwd'
       \ },
       \ }
 
@@ -978,7 +978,7 @@ function! MyFilename()
         \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
         \  &ft == 'unite' ? unite#get_status_string() :
         \  &ft == 'vimshell' ? vimshell#get_status_string() :
-        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ '' != expand('%') ? expand('%') : '[No Name]') .
         \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
 
@@ -1016,7 +1016,7 @@ function! MySpPlugin()
         \ ''
 endfunction
 
-function! MyPath()
+function! MyPwd()
   if winwidth(0) > 60
     " $HOMEは'~'表示の方が好きなので置き換え
     let s:homepath = expand('~')

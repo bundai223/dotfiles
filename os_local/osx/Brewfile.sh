@@ -14,7 +14,13 @@ brew install luajit
 brew install reattach-to-user-namespace
 brew install terminal-notifier
 
+brew install vim --with-lua --with-luajit
 brew install macvim --with-cscope --with-luajit
+
+# for hobby
+if [ $OSX_PRIVATE ]; then
+    brew install haskell-platform
+fi
 
 brew cleanup
 
@@ -28,16 +34,23 @@ brew cask install iterm2
 brew cask install xtrafinder
 brew cask install dash
 brew cask install android-file-transfer
-brew cask install android-studio
+#brew cask install android-studio
+brew cask install intellij-idea-ce
 brew cask install atom
 brew cask install sourcetree
 brew cask install genymotion
 brew cask install sequel-pro
 brew cask install cheatsheet
-
-# for toy
+brew cask install rcdefaultapp
 brew cask install virtualbox
 brew cask install synergy
-brew cask install xbox360-controller-driver
+
+# for hobby
+if [ $OSX_PRIVATE ]; then
+    brew cask install xbox360-controller-driver
+    brew cask install blender
+    brew cask install gimp
+    brew cask install inkscape
+fi
 
 brew cask cleanup

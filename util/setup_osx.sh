@@ -29,3 +29,6 @@ cd $OS_LOCAL_PATH && sh Brewfile.sh
 # Make setting files link.
 ln -s $OS_LOCAL_PATH/AquaSKK/kana-rule.conf ~/Library/Application\ Support/AquaSKK/
 
+# disabled android file transfer autorun.
+mv ~/Applications/Android\ File\ Transfer.app/Contents/Resources/Android\ File\ Transfer\ Agent.app ~/Applications/Android\ File\ Transfer.app/Contents/Resources/disabled_Android\ File\ Transfer\ Agent.app
+mv ~/Library/Application\ Support/Google/Android\ File\ Transfer/Android\ File\ Transfer\ Agent.app ~/Library/Application\ Support/Google/Android\ File\ Transfer/disabled_Android\ File\ Transfer\ Agent.app

@@ -66,10 +66,11 @@ export EDITOR=vim
 # History setting {{{
 # End of lines added by compinstal
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
 setopt appendhistory extendedglob notify
+setopt extended_history 
 
 # 重複する履歴は保存しない
 setopt hist_ignore_dups
