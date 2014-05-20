@@ -51,6 +51,11 @@ if [ $OSX_PRIVATE ]; then
     brew cask install blender
     brew cask install gimp
     brew cask install inkscape
+    brew cask install minecraft
+    // mediahuman
+    // mikutter
+    // snes
+    // grafittipod
 fi
 
 brew cask cleanup
