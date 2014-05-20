@@ -1,0 +1,1 @@
+let $DOTFILES=expand("~/")."labo/dotfiles"
