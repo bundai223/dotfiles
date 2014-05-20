@@ -404,7 +404,7 @@ if is-at-least 4.3.11; then
         stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
         if [[ "${stash}" -gt 0 ]]; then
             # misc (%m) に追加
-            hook_com[misc]+="⚑ %F{white}${stash}%f"
+            hook_com[misc]+="%F{yellow}⚑%f %F{white}${stash}%f"
         fi
     }
     #}}}
