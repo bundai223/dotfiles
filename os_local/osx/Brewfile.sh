@@ -52,6 +52,7 @@ if [ $OSX_PRIVATE ]; then
     brew cask install gimp
     brew cask install inkscape
     brew cask install minecraft
+    brew cask install steam
     // mediahuman
     // mikutter
     // snes
