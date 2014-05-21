@@ -25,6 +25,7 @@ DOTFILE_NAMES_ARRAY=\
  .vimrc\
  .gvimrc\
  .vrapperrc\
+ .ideavimrc\
  .tmux.conf\
  .tmux/utility\
  .ctags
