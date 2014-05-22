@@ -90,6 +90,24 @@ zle -N show_buffer_stack
 
 # }}}
 
+# Key bind {{{
+# vi風バインド
+bindkey -v
+
+# 履歴表示
+# 履歴から入力の続きを補完
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
+bindkey "^P" history-beginning-search-backward
+bindkey "^N" history-beginning-search-forward
+
+bindkey " " magic-space
+
+# コマンドラインスタックをviバインドで使用できるように
+setopt noflowcontrol
+bindkey '^Q' show_buffer_stack
+#}}}
+
 # Show ls & git status when pressed only enter. {{{
 # ref) http://qiita.com/yuyuchu3333/items/e9af05670c95e2cc5b4d
 function do_enter() {
@@ -112,24 +130,6 @@ zle -N do_enter
 bindkey '^m' do_enter
 # }}}
 
-# Key bind {{{
-# vi風バインド
-bindkey -v
-
-# 履歴表示
-# 履歴から入力の続きを補完
-bindkey "^[[A" history-beginning-search-backward
-bindkey "^[[B" history-beginning-search-forward
-bindkey "^P" history-beginning-search-backward
-bindkey "^N" history-beginning-search-forward
-
-bindkey " " magic-space
-
-# コマンドラインスタックをviバインドで使用できるように
-setopt noflowcontrol
-bindkey '^Q' show_buffer_stack
-#}}}
-
 # Alias {{{
 alias ls="ls -FG"
 alias lsl="ls -lFG"
@@ -142,8 +142,12 @@ alias reload_zshrc="source ~/.zshrc"
 alias find-vimbackup="find **/*~"
 
 if [[ $OSTYPE == darwin* ]]; then
-    alias rm="~/tool/osx-mv2trash/bin/mv2trash"
-    alias rm-vimbackup="find **/*~| xargs ~/tool/osx-mv2trash/bin/mv2trash"
+    #alias rm="~/tool/osx-mv2trash/bin/mv2trash"
+    #alias rm-vimbackup="find **/*~| xargs ~/tool/osx-mv2trash/bin/mv2trash"
+
+    # ref) http://tukaikta.blog135.fc2.com/blog-entry-228.html
+    # refresh memory
+    alias refmem='du -sx / &> /dev/null & sleep 25 && kill $!'
 fi
 
 # git {{{

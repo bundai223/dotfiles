@@ -20,6 +20,7 @@ brew install macvim --with-cscope --with-luajit
 # for hobby
 if [ $OSX_PRIVATE ]; then
     brew install haskell-platform
+    brew install go
 fi
 
 brew cleanup
