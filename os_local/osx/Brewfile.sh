@@ -44,9 +44,12 @@ brew cask install cheatsheet
 brew cask install rcdefaultapp
 brew cask install virtualbox
 brew cask install synergy
+brew cask install vlc
 
 # for hobby
 if [ $OSX_PRIVATE ]; then
+    brew cask install skype
+    brew cask install xquartz
     brew cask install xbox360-controller-driver
     brew cask install blender
     brew cask install gimp
