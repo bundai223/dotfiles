@@ -61,7 +61,6 @@ setopt no_auto_param_slash  # 自動で末尾に/を補完しない
 setopt auto_pushd           # cd履歴を残す
 
 # 個別にパス設定が必要な場合は.zshrc_localで再設定する。
-export EDITOR=vim
 
 # History setting {{{
 # End of lines added by compinstal
