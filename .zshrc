@@ -519,3 +519,14 @@ function genGitIgnore() {
     curl http://www.gitignore.io/api/$@
 }
 
+# Remove non tracked file.(like tortoiseSVN)
+funciton git_rm_untrackedfile()
+{
+    filelist=`git status --short|grep '^??'|sed 's/^...//'`
+    for file in ${filelist}; do
+        if [ $file != "" ]; then
+          echo ":"$file
+          #rm ./$file
+        fi
+    done
+}
