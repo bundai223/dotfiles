@@ -10,6 +10,7 @@ brew install cmake
 brew install ctags
 brew install z
 brew install android
+brew install ant
 brew install luajit
 brew install reattach-to-user-namespace
 brew install terminal-notifier
