@@ -181,7 +181,7 @@ endfunction
 " tagファイルの検索パス指定
 " カレントから親フォルダに見つかるまでたどる
 " tagの設定は各プロジェクトごともsetlocalする
-set tags=./tags,tags;
+set tags+=tags;
 
 " 外部grepの設定
 set grepprg=grep\ -nH
