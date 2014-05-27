@@ -1,4 +1,3 @@
-
 # 
 brew update
 
@@ -13,6 +12,7 @@ brew install android
 brew install luajit
 brew install reattach-to-user-namespace
 brew install terminal-notifier
+brew install ricty
 
 brew install vim --with-lua --with-luajit
 brew install macvim --with-cscope --with-luajit
@@ -56,6 +56,8 @@ if [ $OSX_PRIVATE ]; then
     brew cask install inkscape
     brew cask install minecraft
     brew cask install steam
+    brew cask install dropbox
+    brew cask install cooviewer
     // mediahuman
     // mikutter
     // snes
@@ -63,3 +65,6 @@ if [ $OSX_PRIVATE ]; then
 fi
 
 brew cask cleanup
+
+ln -s /usr/local/Cellar/macvim/7.4-73/MacVim.app ~/Applications
+
