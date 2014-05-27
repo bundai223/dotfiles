@@ -5,7 +5,7 @@ PATH_TO_HERE=`dirname $0`
 ABS_PATH=`cd $PATH_TO_HERE && pwd`
 OS_LOCAL_PATH=$ABS_PATH/../os_local/osx
 
-sh $ABS_PATH/setup.sh
+bash $ABS_PATH/setup.sh
 
 
 # For OSX
@@ -17,6 +17,7 @@ OSX_TOOL_NAMES_ARRAY=\
  'https://github.com/oddstr/hengband-cocoa.git'\
  'git://github.com/JugglerShu/XVim.git'\
 )
+cd ~/tool
 for toolname in ${OSX_TOOL_NAMES_ARRAY[@]}; do
     git clone ${toolname}
 done

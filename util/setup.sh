@@ -97,6 +97,7 @@ done
 # For OSX
 echo "OS type ${OSTYPE}"
 if [[ $OSTYPE == darwin* ]]; then
+    echo "nothing to do."
 else
     git clone https://github.com/rupa/z.git
 fi
