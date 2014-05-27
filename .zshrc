@@ -142,8 +142,8 @@ alias reload_zshrc="source ~/.zshrc"
 alias find-vimbackup="find **/*~"
 
 if [[ $OSTYPE == darwin* ]]; then
-    alias rm="~/tool/osx-mv2trash/bin/mv2trash"
-    alias rm-vimbackup="find **/*~| xargs ~/tool/osx-mv2trash/bin/mv2trash"
+#    alias rm="~/tool/osx-mv2trash/bin/mv2trash"
+#    alias rm-vimbackup="find **/*~| xargs ~/tool/osx-mv2trash/bin/mv2trash"
 fi
 
 # git {{{
