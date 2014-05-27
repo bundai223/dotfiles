@@ -181,7 +181,7 @@ endfunction
 " tagファイルの検索パス指定
 " カレントから親フォルダに見つかるまでたどる
 " tagの設定は各プロジェクトごともsetlocalする
-set tags=./tags,tags;
+set tags+=tags;
 
 " 外部grepの設定
 set grepprg=grep\ -nH
@@ -271,9 +271,9 @@ endif
 
 " Easy to cmd mode
 nnoremap ; :
-nnoremap : ;
 vnoremap ; :
-vnoremap : ;
+nnoremap : q:i
+vnoremap : q:i
 
 " Reload
 nnoremap <F5> :source %<CR>
@@ -287,6 +287,7 @@ inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
 
 " Easy to help
 nnoremap [myleader]h :<C-u>vert bel help<Space>
+nnoremap [myleader]H :<C-u>vert bel help<Space><C-r><C-w><CR>
 
 " MYVIMRC
 nnoremap [myleader]v :e $MYVIMRC<CR>
@@ -447,7 +448,7 @@ endif
 
 " }}}
 
-" Neobundle list {{{
+" Neobundle plugin list {{{
 
 " Language
 " C++
@@ -503,9 +504,6 @@ NeoBundleLazy 'eagletmt/neco-ghc', {
 NeoBundle 'ujihisa/unite-haskellimport'
 
 
-" Haxe
-"NeoBundleLazy 'jdonaldson/vaxe'
-
 " shader
 NeoBundleLazy 'vim-scripts/glsl.vim', {
       \   'autoload': {'filetypes': ['glsl']}
@@ -532,7 +530,7 @@ NeoBundle 'sgur/vim-textobj-parameter'
 NeoBundle 'osyo-manga/vim-textobj-multiblock'
 NeoBundle 'osyo-manga/vim-textobj-multitextobj'
 
-" utl
+" utility
 NeoBundle 'mattn/emmet-vim' " html ?
 NeoBundle 'fuenor/qfixhowm'
 
@@ -546,6 +544,8 @@ NeoBundle 'tyru/caw.vim'
 NeoBundle 'tyru/eskk.vim'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'deris/vim-rengbang'
+NeoBundleFetch 'osyo-manga/vim-gift'
+NeoBundleFetch 'osyo-manga/vim-automatic'
 NeoBundle 'osyo-manga/shabadou.vim'
 NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'osyo-manga/vim-over'
@@ -559,10 +559,9 @@ NeoBundle 'gregsexton/gitv'
 NeoBundle 'tyru/open-browser.vim'
 
 NeoBundle 'AndrewRadev/switch.vim'
-"NeoBundle 'bling/vim-airline'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'rhysd/clever-f.vim'
-NeoBundle 'thinca/vim-ref'
+"NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-prettyprint'
@@ -598,6 +597,9 @@ NeoBundleLazy 'supermomonga/jazzradio.vim', { 'depends' : [ 'Shougo/unite.vim' ]
 NeoBundleLazy 'Shougo/unite.vim',{
       \   'autoload' : {'commands' : ['Unite', 'UniteWithBufferDir'] },
       \ }
+if has('mac')
+  NeoBundle 'rizzatti/dash.vim' " for dash.app
+endif
 
 " unite source
 NeoBundle 'ujihisa/unite-colorscheme'
@@ -610,7 +612,7 @@ NeoBundle 'osyo-manga/unite-qfixhowm'
 NeoBundle 'bundai223/unite-outline-sources'
 NeoBundle 'bundai223/unite-picktodo'
 NeoBundle 'ujihisa/unite-locate'
-NeoBundle 'bundai223/unite-find'
+"NeoBundle 'bundai223/unite-find'
 if has('mac')
   NeoBundle 'choplin/unite-spotlight'
   NeoBundle 'itchyny/dictionary.vim'
@@ -932,6 +934,84 @@ if neobundle#tap('jazzradio.vim')
 endif
 " }}}
 
+" Dash.app {{{
+if neobundle#tap('dash.vim')
+  function! neobundle#tapped.hooks.on_source(bundle)
+    function! s:dash(...)
+        if len(a:000) == 1 && len(a:1) == 0
+            echomsg 'No keyword'
+        else
+            let ft = &filetype
+            if &filetype == 'python'
+                let ft = ft.'2'
+            endif
+            let ft = ft.':'
+            let word = len(a:000) == 0 ? input('Keyword: ', ft.expand('<cword>')) : ft.join(a:000, ' ')
+            call system(printf("open dash://'%s'", word))
+        endif
+    endfunction
+
+    command! -nargs=* Dash call <SID>dash(<f-args>)
+
+    nnoremap [myleader]d :call <SID>dash(expand('<cword>'))<CR>
+  endfunction
+endif
+
+"}}}
+
+" automatic {{{
+if neobundle#tap('vim-automatic')
+  function! neobundle#tapped.hooks.on_source(bundle)
+    nnoremap <silent> <plug>(quit) :<C-u>q<cr>
+    function! s:my_temporary_window_init(config, context)
+      nmap <buffer> <C-[> <plug>(quit)
+      nmap <buffer> <C-_> <plug>(quit)
+    endfunction
+
+    let g:automatic_default_match_config = {
+          \   'is_open_other_window' : 1,
+          \ }
+    let g:automatic_default_set_config = {
+          \   'height' : '60%',
+          \   'move' : 'bottom',
+          \   'apply' : function('s:my_temporary_window_init')
+          \ }
+    let g:automatic_config = [
+          \   { 'match' : { 'buftype' : 'help' } },
+          \   { 'match' : { 'bufname' : '^.vimshell' } },
+          \   { 'match' : { 'bufname' : '^.unite' } },
+          \   {
+          \     'match' : {
+          \       'filetype' : '\v^ref-.+',
+          \       'autocmds' : [ 'FileType' ]
+          \     }
+          \   },
+          \   {
+          \     'match' : {
+          \       'bufname' : '\[quickrun output\]',
+          \     },
+          \     'set' : {
+          \       'height' : 8,
+          \     }
+          \   },
+          \   {
+          \     'match' : {
+          \       'autocmds' : [ 'CmdwinEnter' ]
+          \     },
+          \     'set' : {
+          \       'is_close_focus_out' : 1,
+          \       'unsettings' : [ 'move', 'resize' ]
+          \     },
+          \   }
+          \ ]
+  endfunction
+
+  call neobundle#untap()
+endif
+
+"}}}
+
+
 " Load not on_source
 
 " lightline.vim {{{
@@ -1199,7 +1279,12 @@ nnoremap <silent> [unite]q :<C-u>Unite qfixhowm/new qfixhowm:nocache -hide-sourc
 
 " UniteBufferの復元
 nnoremap <silent> [unite]r :<C-u>UniteResume<CR>
-" }}}
+
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()
+  " 単語単位からパス単位で削除するように変更
+  imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+endfunction" }}}
 
 " vimfiler {{{
 nnoremap <silent> <Leader>f : <C-u> VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>

@@ -9,6 +9,7 @@ brew install cmake
 brew install ctags
 brew install z
 brew install android
+brew install ant
 brew install luajit
 brew install reattach-to-user-namespace
 brew install terminal-notifier
@@ -20,6 +21,7 @@ brew install macvim --with-cscope --with-luajit
 # for hobby
 if [ $OSX_PRIVATE ]; then
     brew install haskell-platform
+    brew install go
 fi
 
 brew cleanup
