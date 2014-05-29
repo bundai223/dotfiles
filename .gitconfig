@@ -45,6 +45,8 @@
 	ranking = shortlog -s -n --no-merges
 	# logをguiっぽくtree表示
 	log-graph = log --graph --decorate --oneline
+	glog = log --pretty=format:\"%C(red)%h%Creset %C(cyan)<%an>%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative --graph
+	vlog = log --pretty=format:\"%C(red)%h%Creset %C(cyan)<%an>%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative
 	# diff関連
 	dm = diff master           # masterとのdiff
 	dw = diff --color-words    # 単語単位でいろつけてdiff
