@@ -1241,43 +1241,44 @@ nnoremap [unite] <Nop>
 nmap <C-u> [unite]
 
 " source
-" ファイル一覧
+" unite file
 nnoremap <silent> [unite]/ :<C-u>Unite -input=/ -buffer-name=file_root file<CR>
 nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=file_current file<CR>
 nnoremap <silent> [unite]d :<C-u>Unite -input=/Home/labo/dotfiles/. -buffer-name=file_dotfiles file<CR>
-" ファイルいっぱい列挙
+" unite multisource
 "nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=history file_mru<CR>
 nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=multi file_mru file buffer<CR>
-" アウトライン
+" unite outline
 "nnoremap <silent> [unite]o :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline -no-quit -wrap outline<CR>
 nnoremap <silent> [unite]o :<C-u>Unite -buffer-name=outline -no-quit -wrap outline<CR>
-" todo
+" unite todo
 nnoremap <silent> [unite]t :<C-u>Unite -buffer-name=todo -no-quit picktodo<CR>
 nnoremap <silent> [unite]tw :<C-u>Unite -buffer-name=tweet tweetvim<CR>
-" グレップ
+" unite grep
 nnoremap <silent> [unite]g :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
-" スニペット探し
+"nnoremap <silent> [unite]gg :<C-u>Unite -buffer-name=tabpagenr() -no-quit grep<CR>
+" unite snippet
 nnoremap <silent> [unite]ns :<C-u>Unite -buffer-name=snippet neosnippet<CR>
 nnoremap <silent> [unite]nsu :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
-" NeoBundle更新
+" unite neobundle
 nnoremap <silent> [unite]nb :<C-u>Unite -buffer-name=neobundle neobundle/update:all -auto-quit -keep-focus -log<CR>
-" バッファ一覧
+" unite buffers
 nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
-" Color Scheme
+" unite colorscheme
 nnoremap <silent> [unite]c :<C-u>Unite -buffer-name=colorscheme -auto-preview colorscheme<CR>
-" source 一覧
+" unite sources
 nnoremap <silent> [unite]s :<C-u>Unite source -vertical<CR>
 
-" alignta(visual)
+" unite alignta(visual)
 vnoremap <silent> [unite]aa :<C-u>Unite alignta:arguments<CR>
 vnoremap <silent> [unite]ao :<C-u>Unite alignta:options<CR>
 
 vnoremap <silent> [unite]l :<C-u>Unite locate<CR>
 
-" qfixhowm
+" unite qfixhowm
 nnoremap <silent> [unite]q :<C-u>Unite qfixhowm/new qfixhowm:nocache -hide-source-names<CR>
 
-" UniteBufferの復元
+" unite resume
 nnoremap <silent> [unite]r :<C-u>UniteResume<CR>
 
 autocmd FileType unite call s:unite_my_settings()
