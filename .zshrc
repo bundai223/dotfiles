@@ -522,10 +522,40 @@ function genGitIgnore() {
 # Remove non tracked file.(like tortoiseSVN)
 funciton git_rm_untrackedfile()
 {
-    filelist=(`git status --short|grep '^??'|sed 's/^...//'`)
-    for file in ${filelist}; do
-        if [ $file != "" ]; then
-          rm ./$file
-        fi
-    done
+    git status --short|grep '^??'|sed 's/^...//'|xargs rm -r
+#    pathlist=(`git status --short|grep '^??'|sed 's/^...//'`)
+#    for rmpath in ${pathlist}; do
+#        if [ $rmpath != "" ]; then
+#          rm ./$rmpath
+#        fi
+#    done
 }
+
+# create .local.vimrc
+function local_vimrc_create()
+{
+    if [[ "" == ${1} ]]; then
+        echo "usage : local_vimrc_create /path/to/target"
+        return
+    fi
+
+    echo "Create local vimrc file."
+    if [ -d ${1} ]; then
+        dirpath=`cd ${1}&&pwd`
+        filename=".local.vimrc"
+        filepath="${dirpath}/${filename}"
+
+        if [ -f ${filepath} ]; then
+            echo "*Error* Already exist file. : ${filepath}"
+        else
+            echo "\" .local.vimrc">${filepath}
+            echo "let \$PROJECT_ROOT=expand(\"${dirpath}\")">>${filepath}
+            echo "lcd \$PROJECT_ROOT">>${filepath}
+
+            echo "Done. : ${filepath}"
+        fi
+    else
+        echo "*Error* Not find directory. : ${1}"
+    fi
+}
+
