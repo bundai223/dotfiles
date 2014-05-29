@@ -14,6 +14,7 @@ brew install luajit
 brew install reattach-to-user-namespace
 brew install terminal-notifier
 brew install ricty
+brew install the_silver_searcher
 
 brew install vim --with-lua --with-luajit
 brew install macvim --with-cscope --with-luajit
