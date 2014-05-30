@@ -48,6 +48,7 @@ brew cask install rcdefaultapp
 brew cask install virtualbox
 brew cask install synergy
 brew cask install vlc
+brew cask install menumeters
 
 # for hobby
 if [ $OSX_PRIVATE ]; then
