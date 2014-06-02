@@ -35,4 +35,9 @@ ln -s $OS_LOCAL_PATH/AquaSKK/kana-rule.conf ~/Library/Application\ Support/AquaS
 mv ~/Applications/Android\ File\ Transfer.app/Contents/Resources/Android\ File\ Transfer\ Agent.app ~/Applications/Android\ File\ Transfer.app/Contents/Resources/disabled_Android\ File\ Transfer\ Agent.app
 mv ~/Library/Application\ Support/Google/Android\ File\ Transfer/Android\ File\ Transfer\ Agent.app ~/Library/Application\ Support/Google/Android\ File\ Transfer/disabled_Android\ File\ Transfer\ Agent.app
 
+# Link IDE color file for intellij.
 cp ~/tool/solarized/intellij-colors-solarized/Solarized* ~/Library/Preferences/IdeaIC13/colors/
+
+# Set show AbsolutePath on finder tab.
+defaults write com.apple.finder _FXShowPosixPathInTitle -boolean true
+killall Finder
