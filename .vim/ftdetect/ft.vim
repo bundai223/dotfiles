@@ -26,8 +26,13 @@ au BufNewFile,BufRead *.go set filetype=go
 
 " markdown(not modula2)
 au BufNewFile,BufRead *.md set filetype=markdown
+
 " git
 au BufNewFile,BufRead .gitconfig_local set filetype=gitconfig
+
+" groovy
+au BufNewFile,BufRead *.gradle set filetype=groovy
+
 
 " Setting newfile setting
 " shell {{{
