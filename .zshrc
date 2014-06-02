@@ -520,7 +520,7 @@ function genGitIgnore() {
 }
 
 # Remove non tracked file.(like tortoiseSVN)
-funciton git_rm_untrackedfile()
+function git_rm_untrackedfile()
 {
     git status --short|grep '^??'|sed 's/^...//'|xargs rm -r
 #    pathlist=(`git status --short|grep '^??'|sed 's/^...//'`)
@@ -529,6 +529,12 @@ funciton git_rm_untrackedfile()
 #          rm ./$rmpath
 #        fi
 #    done
+}
+
+function git_stash_revert()
+{
+    git stash show ${@} -p
+    #git stash show ${@} -p | git apply -R
 }
 
 # create .local.vimrc
