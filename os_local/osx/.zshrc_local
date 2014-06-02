@@ -9,6 +9,7 @@ export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 
 # for android path setting
 export ANDROID_HOME=/usr/local/opt/android-sdk
+export JAVA_OPTS='-Dgroovy.source.encoding=UTF-8 -Dfile.encoding=UTF-8'
 
 PATH=/usr/bin:/bin:/usr/sbin:/sbin
 # for homebrew
