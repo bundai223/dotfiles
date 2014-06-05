@@ -1169,6 +1169,7 @@ let g:neocomplete#sources#dictionary#dictionaries = {
       \ 'vimshell' : '~/.vimshell_hist',
       \ 'cpp'      : '~/.vim/.bundle/myvim_dict/cpp.dict',
       \ 'squirrel' : '~/.vim/.bundle/myvim_dict/squirrel.dict',
+      \ 'groovy'   : '~/.vim/.bundle/myvim_dict/gradle.dict',
       \ }
 
 " Define keyword.
