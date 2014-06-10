@@ -8,6 +8,7 @@
 # 補完候補のハイライト
 zstyle ':completion:*:default' menu select=2
 # 補完関数の表示を強化する
+zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
 zstyle ':completion:*:messages' format '%F{YELLOW}%d%f'
@@ -31,14 +32,16 @@ zstyle ':completion:*:sudo:*' command-path \
 zstyle ':completion:*' list-separator '-->'
 zstyle ':completion:*:manuals' separate-sections true
 
+
 fpath=(~/tool/zsh-completions/src(N-/) ${fpath})
-fpath=(~/.zsh/my-completions(N-/) ${fpath})
+fpath=(/usr/local/share/zsh/site-functions(N-/) ${fpath})
+fpath=(~/.zsh/functions/completions(N-/) ${fpath})
 
 # fpathの設定が終わってから補完有効設定を行う
 # ref : http://yonchu.hatenablog.com/entry/20120415/1334506855
 # 補完有効
-autoload -Uz compinit
-compinit
+autoload -U compinit
+compinit -u
 
 # LS_COLORSを設定しておく
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
@@ -213,7 +216,7 @@ function man (){
 
 # ローカル用設定を読み込む
 if [ -f ~/.zshrc_local ]; then
-    . ~/.zshrc_local
+    source ~/.zshrc_local
 fi
 
 # Prompt setting {{{

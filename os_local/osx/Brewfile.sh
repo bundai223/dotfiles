@@ -1,6 +1,13 @@
 # 
 brew update
 
+# program languages.
+brew install haskell-platform
+brew install go
+brew install luajit
+brew install ruby
+brew install python
+
 # terminal apps
 brew install git
 brew install zsh
@@ -10,7 +17,6 @@ brew install ctags
 brew install z
 brew install android
 brew install ant
-brew install luajit
 brew install reattach-to-user-namespace
 brew install terminal-notifier
 brew install ricty
@@ -22,8 +28,6 @@ brew install macvim --with-cscope --with-luajit
 
 # for hobby
 if [ $OSX_PRIVATE ]; then
-    brew install haskell-platform
-    brew install go
 fi
 
 brew cleanup
