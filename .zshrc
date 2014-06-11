@@ -134,6 +134,13 @@ zle -N do_enter
 bindkey '^m' do_enter
 # }}}
 
+# mkdir & cd newdir. {{{
+function mkcddir() {
+    eval dirpath=$"$#"
+    mkdir ${@} && cd $dirpath
+}
+# }}}
+
 # Alias {{{
 alias ls="ls -FG"
 alias lsl="ls -lFG"
