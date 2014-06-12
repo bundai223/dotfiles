@@ -67,10 +67,10 @@ if [ $OSX_PRIVATE ]; then
     brew cask install steam
     brew cask install dropbox
     brew cask install cooviewer
-    // mediahuman
-    // mikutter
-    // snes
-    // grafittipod
+#    mediahuman
+#    mikutter
+#    snes
+#    grafittipod
 fi
 
 brew cask cleanup

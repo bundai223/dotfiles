@@ -567,3 +567,4 @@ gradlew*
 ### Vim local setting ###
 .local.vimrc
 
+.personal/

@@ -5,7 +5,7 @@ PATH_TO_HERE=`dirname $0`
 ABS_PATH=`cd $PATH_TO_HERE && pwd`
 OS_LOCAL_PATH=$ABS_PATH/../os_local/osx
 
-bash $ABS_PATH/setup.sh
+source $ABS_PATH/setup.sh
 
 
 # For OSX

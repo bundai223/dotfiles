@@ -79,6 +79,31 @@ setopt hist_ignore_dups
 # 先頭にスペースがあると履歴保存しない
 setopt hist_ignore_space
 
+# history 共有
+setopt share_history
+
+# ヒストリを呼び出してから実行する間に一旦編集可能
+setopt hist_verify
+
+# 余分な空白は詰めて記録
+setopt hist_reduce_blanks
+
+# 古いコマンドと同じものは無視
+setopt hist_save_no_dups
+
+# 補完時にヒストリを自動的に展開         
+setopt hist_expand
+
+# 履歴をインクリメンタルに追加
+setopt inc_append_history
+
+# インクリメンタルからの検索
+bindkey "^R" history-incremental-search-backward
+bindkey "^S" history-incremental-search-forward
+
+# 全履歴表示
+function history-all { history -E 1 }
+
 #}}}
 
 # Command line stack {{{
