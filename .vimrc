@@ -1215,7 +1215,8 @@ let g:neocomplete#force_omni_input_patterns.objcpp      = '[^.[:digit:] *\t]\%(\
 let g:neocomplete#force_omni_input_patterns.java        = '\%(\h\w*\|)\)\.\w*'
 
 " external omni func
-"let g:neocomplete#sources#omni#functions.go = 'gocomplete#Complete'
+let g:neocomplete#sources#omni#functions = get(g:, 'neocomplete#sources#omni#functions', {})
+let g:neocomplete#sources#omni#functions.go = 'gocomplete#Complete'
 " }}}
 
 " neosnippet {{{

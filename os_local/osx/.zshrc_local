@@ -21,7 +21,7 @@ export GOROOT=${BREW_PATH}/opt/go/libexec
 export GOPATH=~/tool/go
 ## go lang
 if [ "$GOROOT" != "" ]; then
-    PATH=$GOROOT/bin:$PATH
+    PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 fi
 
 export PATH
