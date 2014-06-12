@@ -21,13 +21,14 @@ brew install reattach-to-user-namespace
 brew install terminal-notifier
 brew install ricty
 brew install the_silver_searcher
-brew install apttool
+brew install apktool
 
 brew install vim --with-lua --with-luajit
 brew install macvim --with-cscope --with-luajit
 
 # for hobby
 if [ $OSX_PRIVATE ]; then
+    echo "nothing to do."
 fi
 
 brew cleanup
