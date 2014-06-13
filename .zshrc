@@ -33,9 +33,9 @@ zstyle ':completion:*' list-separator '-->'
 zstyle ':completion:*:manuals' separate-sections true
 
 
-fpath=(~/tool/zsh-completions/src(N-/) ${fpath})
-fpath=(/usr/local/share/zsh/site-functions(N-/) ${fpath})
-fpath=(~/.zsh/functions/completions(N-/) ${fpath})
+fpath=(~/tool/zsh-completions/src(N-/) $fpath)
+#fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
+#fpath=(~/.zsh/functions/completions(N-/) $fpath)
 
 # fpathの設定が終わってから補完有効設定を行う
 # ref : http://yonchu.hatenablog.com/entry/20120415/1334506855
@@ -167,19 +167,19 @@ function mkcddir() {
 # }}}
 
 # Alias {{{
-alias ls="ls -FG"
-alias lsl="ls -lFG"
-alias lsdir="ls -FG | grep /"
-alias lsfile="ls -FG | grep -v /"
+alias ls='ls -FG'
+alias lsl='ls -lFG'
+alias lsdir='ls -FG | grep /'
+alias lsfile='ls -FG | grep -v /'
 alias pd=popd
 
-alias reload_zshrc="source ~/.zshrc"
+alias reload_zshrc='source ~/.zshrc'
 
-alias find-vimbackup="find **/*~"
+alias find-vimbackup='find **/*~'
 
 if [[ $OSTYPE == darwin* ]]; then
-#    alias rm="~/tool/osx-mv2trash/bin/mv2trash"
-#    alias rm-vimbackup="find **/*~| xargs ~/tool/osx-mv2trash/bin/mv2trash"
+#    alias rm='~/tool/osx-mv2trash/bin/mv2trash'
+#    alias rm-vimbackup='find **/*~| xargs ~/tool/osx-mv2trash/bin/mv2trash'
 
     # ref) http://tukaikta.blog135.fc2.com/blog-entry-228.html
     # refresh memory
