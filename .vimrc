@@ -943,6 +943,7 @@ if neobundle#tap('dash.vim')
         else
             let ft = &filetype
             if &filetype == 'python'
+                let ft = 'py'
                 let ft = ft.'2'
             endif
             let ft = ft.':'
@@ -1275,10 +1276,14 @@ nnoremap <silent> [unite]s :<C-u>Unite source -vertical<CR>
 vnoremap <silent> [unite]aa :<C-u>Unite alignta:arguments<CR>
 vnoremap <silent> [unite]ao :<C-u>Unite alignta:options<CR>
 
-vnoremap <silent> [unite]l :<C-u>Unite locate<CR>
+nnoremap <silent> [unite]l :<C-u>Unite locate<CR>
 
 " unite qfixhowm
 nnoremap <silent> [unite]q :<C-u>Unite qfixhowm/new qfixhowm:nocache -hide-source-names<CR>
+
+if has('mac')
+  nnoremap <silent> [unite]<Space> :<C-u>Unite spotlite<CR>
+endif
 
 " unite resume
 nnoremap <silent> [unite]r :<C-u>UniteResume<CR>
