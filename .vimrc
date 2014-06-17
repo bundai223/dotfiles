@@ -761,9 +761,12 @@ function! s:bundle.hooks.on_source(bundle)
   let g:unite_force_overwrite_statusline=0
 
   " For silver searcher.
+  " Use ag in unite grep source.
   if executable('ag')
     let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+    let g:unite_source_grep_default_opts =
+    \ '--line-numbers --nocolor --nogroup --hidden --smart-case --ignore ' .
+    \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
     let g:unite_source_grep_recursive_opt = ''
   endif
 endfunction
