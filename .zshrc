@@ -180,15 +180,6 @@ alias find-vimbackup='find **/*~'
 # silver searcher
 alias ag='ag -S'
 
-if [[ $OSTYPE == darwin* ]]; then
-#    alias rm='~/tool/osx-mv2trash/bin/mv2trash'
-#    alias rm-vimbackup='find **/*~| xargs ~/tool/osx-mv2trash/bin/mv2trash'
-
-    # ref) http://tukaikta.blog135.fc2.com/blog-entry-228.html
-    # refresh memory
-    alias refmem='du -sx / &> /dev/null & sleep 25 && kill $!'
-fi
-
 # git {{{
 alias gittaglist="git for-each-ref --sort=-taggerdate --format='%(taggerdate:short) %(tag) %(taggername) %(subject)' refs/tags"
 alias gitflow=git-flow

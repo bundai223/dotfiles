@@ -37,3 +37,13 @@ alias andsim='open -a /Applications/Genymotion.app'
 
 alias -s xcodeproj=xcode
 
+#alias rm='~/tool/osx-mv2trash/bin/mv2trash'
+#alias rm-vimbackup='find **/*~| xargs ~/tool/osx-mv2trash/bin/mv2trash'
+
+alias dash='open "dash://$@"'
+alias tt='echo $@'
+
+# ref) http://tukaikta.blog135.fc2.com/blog-entry-228.html
+# refresh memory
+alias refmem='du -sx / &> /dev/null & sleep 25 && kill $!'
+
