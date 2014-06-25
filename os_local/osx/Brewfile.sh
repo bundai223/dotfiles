@@ -1,6 +1,10 @@
 # 
 brew update
 
+# Kensho chu
+# brew install haxe  # altJs languages.
+# brew install sonar # current name is "sonarqube". static source code analyser.
+
 # program languages.
 brew install haskell-platform
 brew install go
