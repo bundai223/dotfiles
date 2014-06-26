@@ -1017,6 +1017,9 @@ endif
 
 
 " Load not on_source
+" switch.vim {{{
+nnoremap [myleader]- :Switch<CR>
+" }}}
 
 " lightline.vim {{{
 let g:lightline = {

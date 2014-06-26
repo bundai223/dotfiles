@@ -13,7 +13,6 @@ zstyle ':completion:*' verbose yes
 zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
 zstyle ':completion:*:messages' format '%F{YELLOW}%d%f'
 zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d%f'
-zstyle ':completion:*:descriptions' format '%F{YELLOW}completing %B%d%b%f'
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:descriptions' format '%F{yellow}Completing %B%d%b%f'
 
@@ -168,6 +167,7 @@ function mkcddir() {
 # }}}
 
 # Alias {{{
+alias SU='sudo -H -s'
 alias ls='ls -FG'
 alias lsl='ls -lFG'
 alias lsdir='ls -FG | grep /'
