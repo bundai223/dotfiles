@@ -5,6 +5,11 @@ brew update
 # brew install haxe  # altJs languages.
 # brew install sonar # current name is "sonarqube". static source code analyser.
 
+# brew install jenkins
+# brew install nodebrew
+# brew install mecab
+# brew install node redis
+
 # program languages.
 brew install haskell-platform
 brew install go
