@@ -20,11 +20,14 @@
 	interactive = auto
 	grep = auto
 [alias]
+	ps = push					# ステータスを短く。ブランチ名付き
+	pl = pull					# ステータスを短く。ブランチ名付き
 	st = status --short --branch					# ステータスを短く。ブランチ名付き
 	sh = show
 	ft = fetch
 	ad = add
-	co = checkout
+	chk = checkout
+	com = commit
 
 # ref) http://yuroyoro.hatenablog.com/entry/20101008/1286531851
 # ref) http://qiita.com/yuya_presto/items/ef199e08021dea777715
