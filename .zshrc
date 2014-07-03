@@ -181,9 +181,11 @@ alias find-vimbackup='find **/*~'
 # silver searcher
 alias ag='ag -S'
 
+alias g='git'
+
 # git {{{
 alias gittaglist="git for-each-ref --sort=-taggerdate --format='%(taggerdate:short) %(tag) %(taggername) %(subject)' refs/tags"
-alias gitflow=git-flow
+alias gf=git-flow
 # }}}
 
 alias -s html=chrome
