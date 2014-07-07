@@ -32,7 +32,7 @@ zstyle ':completion:*' list-separator '-->'
 zstyle ':completion:*:manuals' separate-sections true
 
 
-fpath=(~/tool/ghq/zsh-completions/src(N-/) $fpath)
+fpath=(~/repos/zsh-completions/src(N-/) $fpath)
 #fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
 #fpath=(~/.zsh/functions/completions(N-/) $fpath)
 
@@ -192,15 +192,15 @@ alias -s html=chrome
 alias -s rb=ruby
 alias -s py=python
 
-alias -g L='| less'
-alias -g H='| head'
-alias -g T='| tail'
-alias -g G='| grep'
-alias -g W='| wc'
-alias -g S='| sed'
-alias -g A='| awk'
-alias -g W='| wc'
-alias -g X='| xargs'
+alias -g LL='| less'
+alias -g HH='| head'
+alias -g TT='| tail'
+alias -g GG='| grep'
+alias -g WW='| wc'
+alias -g SS='| sed'
+alias -g AA='| awk'
+alias -g WW='| wc'
+alias -g XX='| xargs'
 
 ## man zshall
 # ref) http://qiita.com/yuyuchu3333/items/67630d597c7700a51b95
@@ -602,5 +602,9 @@ function local_vimrc_create()
 # cd git repository
 function cdrepos() {
     cd $(ghq list -p | peco)
+}
+
+function find-select-ext() {
+    find . -name '*.'$1 | peco
 }
 
