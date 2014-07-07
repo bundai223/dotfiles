@@ -27,7 +27,11 @@
 	ft = fetch
 	ad = add
 	chk = checkout
-	com = commit
+	cm = commit
+	df = diff
+	lg = log
+	lgg= log --pretty=format:\"%C(red)%h%Creset %C(cyan)<%an>%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative --graph
+	lgv= log --pretty=format:\"%C(red)%h%Creset %C(cyan)<%an>%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative
 
 # ref) http://yuroyoro.hatenablog.com/entry/20101008/1286531851
 # ref) http://qiita.com/yuya_presto/items/ef199e08021dea777715
@@ -73,3 +77,9 @@
 
 [merge]
 	tool = vimdiff3
+
+[ghq]
+	root = ~/tool/ghq
+	root = ~/tool/go
+	root = ~/labo
+
