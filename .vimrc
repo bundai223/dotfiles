@@ -615,6 +615,7 @@ NeoBundle 'osyo-manga/unite-qfixhowm'
 NeoBundle 'bundai223/unite-outline-sources'
 NeoBundle 'bundai223/unite-picktodo'
 NeoBundle 'ujihisa/unite-locate'
+NeoBundle 'tsukkee/unite-tag'
 "NeoBundle 'bundai223/unite-find'
 if has('mac')
   NeoBundle 'choplin/unite-spotlight'
