@@ -18,7 +18,7 @@ PATH=${BREW_PATH}/bin:$PATH
 PATH=~/.cabal/bin:$PATH
 
 export GOROOT=${BREW_PATH}/opt/go/libexec
-export GOPATH=~/tool/go
+export GOPATH=~/go
 ## go lang
 if [ "$GOROOT" != "" ]; then
     PATH=$GOROOT/bin:$GOPATH/bin:$PATH

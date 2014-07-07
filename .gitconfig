@@ -32,15 +32,27 @@
 	lg = log
 	lgg= log --pretty=format:\"%C(red)%h%Creset %C(cyan)<%an>%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative --graph
 	lgv= log --pretty=format:\"%C(red)%h%Creset %C(cyan)<%an>%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative
+	tg = tag
+	br = branch
+
+	change-branch=!git checkout $(git branch | peco)
+	chbr=!git checkout $(git branch | peco)
+	change-tag=!git checkout $(git tag | peco)
+	chtg=!git checkout $(git tag | peco)
+
 
 # ref) http://yuroyoro.hatenablog.com/entry/20101008/1286531851
 # ref) http://qiita.com/yuya_presto/items/ef199e08021dea777715
 	commit-modified = commit -a								# 変更を全てadd
 	commit-fix = commit -a --amend							# 直前のコミットを修正
+	cmm = commit -a
+	cmf = commit -a --amend
 
 	# branch
-	br = branch
-	ba = branch -a	# 全てのbranch
+	bra = branch -a	# 全てのbranch
+	brr = branch -a	# 全てのbranch
+	branch-all = branch -a	# 全てのbranch
+	branch-remote = branch -a	# 全てのbranch
 
 	# log関連
 	wc = whatchanged         # logに変更されたファイルも一緒に出す
@@ -55,10 +67,9 @@
 	glog = log --pretty=format:\"%C(red)%h%Creset %C(cyan)<%an>%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative --graph
 	vlog = log --pretty=format:\"%C(red)%h%Creset %C(cyan)<%an>%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative
 	# diff関連
-	dm = diff master           # masterとのdiff
+	diff-staged = diff --staged         # 同上(1.6.1移行)
+	dfs = diff --staged         # 同上(1.6.1移行)
 	dw = diff --color-words    # 単語単位でいろつけてdiff
-	dc = diff --cached         # addされているものとのdiff
-	ds = diff --staged         # 同上(1.6.1移行)
 	d1 = diff HEAD~            # HEADから1つ前とdiff
 	d2 = diff HEAD~~           # HEADから2つ前とdiff
 	d3 = diff HEAD~~~          # HEADから3つ前とdiff
@@ -79,7 +90,8 @@
 	tool = vimdiff3
 
 [ghq]
-	root = ~/tool/ghq
-	root = ~/tool/go
+	root = ~/repos
+	root = ~/go
+	root = ~/sample
 	root = ~/labo
 
