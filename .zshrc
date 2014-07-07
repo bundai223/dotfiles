@@ -32,7 +32,7 @@ zstyle ':completion:*' list-separator '-->'
 zstyle ':completion:*:manuals' separate-sections true
 
 
-fpath=(~/tool/zsh-completions/src(N-/) $fpath)
+fpath=(~/tool/ghq/zsh-completions/src(N-/) $fpath)
 #fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
 #fpath=(~/.zsh/functions/completions(N-/) $fpath)
 
@@ -597,5 +597,10 @@ function local_vimrc_create()
     else
         echo "*Error* Not find directory. : ${1}"
     fi
+}
+
+# cd git repository
+function cdrepos() {
+    cd $(ghq list -p | peco)
 }
 
