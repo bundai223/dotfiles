@@ -40,6 +40,7 @@
 	stpu= stash
 	stpo= stash pop
 
+	create-trackingbranch=!git checkout -t $(git branch -r | peco)
 	change-branch=!git checkout $(git branch | peco)
 	chbr=!git checkout $(git branch | peco)
 	change-tag=!git checkout $(git tag | peco)

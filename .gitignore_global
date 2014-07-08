@@ -230,7 +230,7 @@ tmp/
 local.properties
 .settings/
 .loadpath
-.classpath
+#.classpath
 
 # External tool builders
 .externalToolBuilders/
