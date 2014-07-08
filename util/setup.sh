@@ -79,7 +79,7 @@ fi
 #}}}
 
 # Setup utility.
-TOOL_DIR_PATH=~/tool
+TOOL_DIR_PATH=~/repos
 mkdir_noerror ${TOOL_DIR_PATH}
 cd ${TOOL_DIR_PATH}
 

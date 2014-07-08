@@ -17,7 +17,7 @@ OSX_TOOL_NAMES_ARRAY=\
  'https://github.com/oddstr/hengband-cocoa.git'\
  'git://github.com/JugglerShu/XVim.git'\
 )
-cd ~/tool
+cd ~/repos
 for toolname in ${OSX_TOOL_NAMES_ARRAY[@]}; do
     git clone ${toolname}
 done
@@ -36,7 +36,7 @@ mv ~/Applications/Android\ File\ Transfer.app/Contents/Resources/Android\ File\ 
 mv ~/Library/Application\ Support/Google/Android\ File\ Transfer/Android\ File\ Transfer\ Agent.app ~/Library/Application\ Support/Google/Android\ File\ Transfer/disabled_Android\ File\ Transfer\ Agent.app
 
 # Link IDE color file for intellij.
-cp ~/tool/solarized/intellij-colors-solarized/Solarized* ~/Library/Preferences/IdeaIC13/colors/
+cp ~/repos/solarized/intellij-colors-solarized/Solarized* ~/Library/Preferences/IdeaIC13/colors/
 
 # Set show AbsolutePath on finder tab.
 defaults write com.apple.finder _FXShowPosixPathInTitle -boolean true
