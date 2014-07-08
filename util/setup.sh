@@ -1,6 +1,7 @@
 # !/bin/bash
+# need go & ghq
 
-DOTFILES_ENTITY_PATH=~/labo/dotfiles
+DOTFILES_ENTITY_PATH=~/repos/github.com/bundai223/dotfiles
 DOTFILES_PATH=~
 
 # エラーなしのmkdir
@@ -27,7 +28,6 @@ DOTFILE_NAMES_ARRAY=\
  .vrapperrc\
  .ideavimrc\
  .tmux.conf\
- .tmux/utility\
  .ctags
 )
 for dotfile in ${DOTFILE_NAMES_ARRAY[@]}; do
@@ -38,6 +38,9 @@ for dotfile in ${DOTFILE_NAMES_ARRAY[@]}; do
         echo "Already Exist ${dotfile}"
     fi
 done
+
+ln -s ${DOTFILES_ENTITY_PATH}/tmux/utility ${DOTFILES_PATH}/.tmux/utility
+
 #}}}
 
 # vim setting {{{
@@ -61,7 +64,7 @@ VIMDIR_NAMES_ARRAY=\
 )
 for dir in ${VIMDIR_NAMES_ARRAY[@]}; do
     if [ ! -e ~/${DOT_VIM}/${dir} ]; then
-        ln -s ${DOTFILES_ENTITY_PATH}/${DOT_VIM}/${dir} ~/${DOT_VIM}/${dir}
+        ln -s ${DOTFILES_ENTITY_PATH}/vim/${dir} ~/${DOT_VIM}/${dir}
         echo "Create complete ${dir}"
     else
         echo "Already Exist ${dir}"
@@ -71,7 +74,7 @@ done
 # path to dotfile
 VIM_DOTFILE_PATH=~/.vimrc_local_env
 if [ ! -e ${VIM_DOTFILE_PATH} ]; then
-    echo "let \$DOTFILES=expand(\"~/\").\"labo/dotfiles\"">${VIM_DOTFILE_PATH}
+    echo "let \$DOTFILES=expand(\"${DOTFILES_ENTITY_PATH}\")">${VIM_DOTFILE_PATH}
 else
     echo "Already Exist ${VIM_DOTFILE_PATH}"
 fi
@@ -79,18 +82,17 @@ fi
 #}}}
 
 # Setup utility.
-TOOL_DIR_PATH=~/tool
+TOOL_DIR_PATH=~/repos
 mkdir_noerror ${TOOL_DIR_PATH}
-cd ${TOOL_DIR_PATH}
 
 TOOL_NAMES_ARRAY=\
 (\
- 'https://github.com/github/gitignore.git'\
- 'https://github.com/zsh-users/zsh-completions.git'\
- 'https://github.com/altercation/solarized'\
+ 'github/gitignore.git'\
+ 'zsh-users/zsh-completions.git'\
+ 'altercation/solarized'\
 )
 for toolname in ${TOOL_NAMES_ARRAY[@]}; do
-    git clone ${toolname}
+    ghq get ${toolname}
 done
 
 # OS Type Settings.
@@ -100,6 +102,6 @@ echo "OS type ${OSTYPE}"
 if [[ $OSTYPE == darwin* ]]; then
     echo "nothing to do."
 else
-    git clone https://github.com/rupa/z.git
+    ghq get rupa/z.git
 fi
 
