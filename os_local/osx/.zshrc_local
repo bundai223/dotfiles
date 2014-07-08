@@ -1,31 +1,4 @@
-#.local_zshrc
-
-BREW_PATH=`brew --prefix`
-
-# for FBX path setting
-FBXSDK_ROOT=/Applications/Autodesk/FBX\ SDK/2013.3/
-
-# path setting
-export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-
-# for android path setting
-export ANDROID_HOME=${BREW_PATH}/opt/android-sdk
-export JAVA_OPTS='-Dgroovy.source.encoding=UTF-8 -Dfile.encoding=UTF-8'
-
-PATH=/usr/bin:/bin:/usr/sbin:/sbin
-# for homebrew
-PATH=${BREW_PATH}/bin:$PATH
-PATH=~/.cabal/bin:$PATH
-
-export GOROOT=${BREW_PATH}/opt/go/libexec
-export GOPATH=~/go
-## go lang
-if [ "$GOROOT" != "" ]; then
-    PATH=$GOROOT/bin:$GOPATH/bin:$PATH
-fi
-
-export PATH
-
+#.zshrc_local
 
 # Alias
 #alias vim='/Applications/MacVim.app/Contents/MacOS/Vim "$@"'

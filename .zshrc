@@ -244,6 +244,10 @@ function man (){
 #}}}
 
 # ローカル用設定を読み込む
+if [ -f ~/.zshenv_local ]; then
+    source ~/.zshenv_local
+fi
+
 if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
