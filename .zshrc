@@ -34,7 +34,7 @@ zstyle ':completion:*:manuals' separate-sections true
 
 fpath=(~/repos/zsh-completions/src(N-/) $fpath)
 #fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
-#fpath=(~/.zsh/functions/completions(N-/) $fpath)
+fpath=(~/labo/github.com/dotfiles/zsh/functions/completions(N-/) $fpath)
 
 # fpathの設定が終わってから補完有効設定を行う
 # ref : http://yonchu.hatenablog.com/entry/20120415/1334506855
@@ -540,7 +540,7 @@ resolve_alias() {
 if [[ $OSTYPE == darwin* ]]; then
     . `brew --prefix`/etc/profile.d/z.sh
 else
-    . ~/tool/z/z.sh
+    . ~/repos/github.com/rupa/z/z.sh
 fi
 precmd () {
    z --add "$(pwd -P)"
@@ -606,5 +606,19 @@ function cdrepos() {
 
 function find-select-ext() {
     find . -name '*.'$1 | peco
+}
+
+function ls-sshhost() {
+    cat ~/.ssh/config | grep "^Host" | sed s/"^Host "//
+}
+
+function ssh2knownhost() {
+    ssh $(ls-sshhost | peco)
+}
+
+function select-gitmodified-file {
+    git status --short | peco | sed s/"^..."//
+#    selected=`git status --short | peco`
+#    echo $selected | sed s/"^..."//
 }
 

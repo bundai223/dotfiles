@@ -85,5 +85,5 @@ fi
 
 brew cask cleanup
 
-ln -s /usr/local/Cellar/macvim/7.4-73/MacVim.app ~/Applications
+ln -s /usr/local/opt/macvim/MacVim.app ~/Applications/
 
