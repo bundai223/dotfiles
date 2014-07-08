@@ -28,6 +28,7 @@ DOTFILE_NAMES_ARRAY=\
  .vrapperrc\
  .ideavimrc\
  .tmux.conf\
+ .tmux/utility\
  .ctags
 )
 for dotfile in ${DOTFILE_NAMES_ARRAY[@]}; do
@@ -38,9 +39,6 @@ for dotfile in ${DOTFILE_NAMES_ARRAY[@]}; do
         echo "Already Exist ${dotfile}"
     fi
 done
-
-ln -s ${DOTFILES_ENTITY_PATH}/tmux/utility ${DOTFILES_PATH}/.tmux/utility
-
 #}}}
 
 # vim setting {{{
@@ -64,7 +62,7 @@ VIMDIR_NAMES_ARRAY=\
 )
 for dir in ${VIMDIR_NAMES_ARRAY[@]}; do
     if [ ! -e ~/${DOT_VIM}/${dir} ]; then
-        ln -s ${DOTFILES_ENTITY_PATH}/vim/${dir} ~/${DOT_VIM}/${dir}
+        ln -s ${DOTFILES_ENTITY_PATH}/${DOT_VIM}/${dir} ~/${DOT_VIM}/${dir}
         echo "Create complete ${dir}"
     else
         echo "Already Exist ${dir}"
