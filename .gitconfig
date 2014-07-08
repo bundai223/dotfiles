@@ -34,6 +34,11 @@
 	lgv= log --pretty=format:\"%C(red)%h%Creset %C(cyan)<%an>%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative
 	tg = tag
 	br = branch
+	rb = rebase
+	mg = merge
+	mgt= mergetool
+	stpu= stash
+	stpo= stash pop
 
 	change-branch=!git checkout $(git branch | peco)
 	chbr=!git checkout $(git branch | peco)
@@ -43,7 +48,8 @@
 
 # ref) http://yuroyoro.hatenablog.com/entry/20101008/1286531851
 # ref) http://qiita.com/yuya_presto/items/ef199e08021dea777715
-	commit-modified = commit -a								# 変更を全てadd
+	add-modified = !git add $(git status --short | peco | sed s/"^..."//)				# 変更を全てadd
+	commit-modified-all = commit -a							# 変更を全てadd
 	commit-fix = commit -a --amend							# 直前のコミットを修正
 	cmm = commit -a
 	cmf = commit -a --amend
@@ -93,5 +99,4 @@
 	root = ~/repos
 	root = ~/go
 	root = ~/sample
-	root = ~/labo
 
