@@ -53,7 +53,7 @@ set completeopt=menu,preview
 "set completeopt=menuone,menu
 
 " C-a, C-xでの増減時の設定
-set nrformats=alpha,hex
+set nrformats=hex
 1
 " Default comment format is nothing
 " Almost all this setting override by filetype setting
