@@ -21,3 +21,7 @@ alias eclipse_clean='/Applications/eclipse/Eclipse.app/Contents/MacOS/eclipse -c
 # refresh memory
 alias refmem='du -sx / &> /dev/null & sleep 25 && kill $!'
 
+function peco-work() {
+    cd `find ~/work -maxdepth 2 -mindepth 1 -type d | peco`
+}
+
