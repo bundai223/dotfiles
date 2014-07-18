@@ -18,19 +18,13 @@ brew install ruby
 brew install python
 
 # terminal apps
-brew install git
-brew install zsh
-brew install tmux
-brew install cmake
-brew install ctags
-brew install z
-brew install android
-brew install ant
+brew install git mercurial
 brew install reattach-to-user-namespace
+brew install z zsh tmux ctags ricty
+brew install cmake
+brew install android ant apktool
 brew install terminal-notifier
-brew install ricty
 brew install the_silver_searcher
-brew install apktool
 
 brew install vim --with-lua --with-luajit
 brew install macvim --with-cscope --with-luajit
@@ -58,12 +52,12 @@ brew cask install atom
 brew cask install sourcetree
 brew cask install genymotion
 brew cask install sequel-pro
-brew cask install cheatsheet
 brew cask install rcdefaultapp
 brew cask install virtualbox
 brew cask install synergy
 brew cask install vlc
 brew cask install menumeters
+#brew cask install cheatsheet
 
 # for hobby
 if [ $OSX_PRIVATE ]; then
