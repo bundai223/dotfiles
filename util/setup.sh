@@ -19,7 +19,7 @@ mkdir_noerror ~/.zsh
 # Create symbolic link to dotfiles {{{
 DOTFILE_NAMES_ARRAY=\
 (\
- .gitconfig\
+ .gitconfig_global\
  .gitignore_global\
  .gitattributes_global\
  .zshrc\
@@ -39,6 +39,10 @@ for dotfile in ${DOTFILE_NAMES_ARRAY[@]}; do
         echo "Already Exist ${dotfile}"
     fi
 done
+# Make git configuration file that include common config to make local setting.
+if [ ! -e ${DOTFILES_PATH}/.gitconfig ]; then
+    cp ${DOTFILES_ENTITY_PATH}/.gitconfig_local ${DOTFILES_PATH}/.gitconfig
+fi
 #}}}
 
 # vim setting {{{

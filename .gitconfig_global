@@ -1,13 +1,3 @@
-[include]
-	path = ~/.gitconfig_local
-
-[mergetool]
-	keepBackup = false
-
-[mergetool "vimdiff3"]
-#	cmd = ~/labo/codepocket/shell/git_merge_wrapper3 \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
-	cmd = vim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
-
 [color]
 	status = auto
 	diff = auto
