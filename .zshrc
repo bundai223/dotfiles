@@ -608,21 +608,26 @@ function cdrepos() {
     cd $(ghq list -p | peco)
 }
 
-function find-select-ext() {
+function peco_find_ext() {
     find . -name '*.'$1 | peco
 }
 
-function ls-sshhost() {
+function ls_sshhost() {
     cat ~/.ssh/config | grep "^Host" | sed s/"^Host "//
 }
 
-function ssh2knownhost() {
+function peco_ssh() {
     ssh $(ls-sshhost | peco)
 }
 
-function select-gitmodified-file {
+function peco_gitmodified() {
     git status --short | peco | sed s/"^..."//
-#    selected=`git status --short | peco`
-#    echo $selected | sed s/"^..."//
 }
 
+function git_pullall() {
+    for repo in $(ghq list -p | grep $1); do
+        echo $repo
+        cd $repo
+        git pull --rebase
+    done
+}

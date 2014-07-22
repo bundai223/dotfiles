@@ -25,3 +25,7 @@ function peco-work() {
     cd `find ~/work -maxdepth 2 -mindepth 1 -type d | peco`
 }
 
+function install-font() {
+    cp $1 ~/Library/Fonts/
+}
+
