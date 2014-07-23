@@ -14,7 +14,7 @@ done
  
 dpkg -s fontforge > /dev/null 2>&1
 if [ $? != 0 ]; then
-    sudo apt-get install fontforge
+    sudo apt-get -y install fontforge
     [ $? != 0 ] && (echo "error: failed to install fontforge"; exit 1)
 fi
  

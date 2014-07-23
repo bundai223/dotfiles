@@ -17,7 +17,7 @@ PATH=/usr/local/go/bin/:$PATH
 export PATH
 
 sudo apt-get -y update
-sudo apt-get -y install git mercurial ssh zsh
+sudo apt-get -y install git mercurial ssh zsh vim aptitude
 
 # go setting
 # ghqのパス設定のために一時的にコピーしておく
