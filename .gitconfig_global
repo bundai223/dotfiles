@@ -80,7 +80,7 @@
 	default = simple
 
 [merge]
-	tool = vimdiff3
+	tool = vimdiff
 
 [ghq]
 	root = ~/repos
