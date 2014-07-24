@@ -17,7 +17,7 @@ PATH=/usr/local/go/bin/:$PATH
 export PATH
 
 sudo apt-get -y update
-sudo apt-get -y install git mercurial ssh zsh vim aptitude tmux
+sudo apt-get -y install git mercurial ssh zsh aptitude tmux ssh ntp vim
 
 # go setting
 # ghqのパス設定のために一時的にコピーしておく
@@ -50,3 +50,5 @@ chsh -s ${ZSH_PATH}
 # 
 # exit
 
+# Set dirname English.
+LANG=C xdg-user-dirs-gtk-update
