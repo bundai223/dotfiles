@@ -1,17 +1,20 @@
 #! /bin/bash
 #sudo aptitude -y remove vim
 
-sudo aptitude -y install build-dep gettext tcl-dev lua5.2 liblua5.2-dev ruby-dev python3-dev
+sudo aptitude -y install build-dep gettext tcl-dev lua5.1 liblua5.1-dev luajit libluajit-5.1 ruby-dev python3-dev libpearl
+
 
 # Get sourcecode.
 #ghq get https://code.google.com/p/vim
-#cd ~/repos/code.google.com/p/vim
+cd ~/repos/code.google.com/p/vim/src
+make distclean
 
 ./configure --with-features=huge \
 --disable-selinux \
 --enable-largefile \
 --enable-luainterp \
 --with-luajit \
+--with-lua-prefix=/usr \
 --enable-perlinterp \
 --enable-pythoninterp \
 --enable-python3interp \
