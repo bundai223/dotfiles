@@ -9,7 +9,8 @@ scriptencoding utf-8
 set nocompatible
 
 " help日本語・英語優先
-set helplang=ja,en
+"set helplang=ja,en
+set helplang=en
 " カーソル下の単語をhelp/Users/daiji/labo/dotfiles/.vimrc
 set keywordprg =:help
 
