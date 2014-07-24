@@ -819,8 +819,8 @@ function! s:bundle.hooks.on_source(bundle)
   set imdisable
   let g:eskk#dictionary = {
   \	'path': "~/repos/github.com/bundai223/dotfiles/util/SKK-JISYO.L",
-  \	'sorted': 0,
-  \	'encoding': 'utf-8',
+  \	'sorted': 1,
+  \	'encoding': 'euc-jp',
   \}
 
   if has('mac')
