@@ -17,7 +17,7 @@ PATH=/usr/local/go/bin/:$PATH
 export PATH
 
 sudo apt-get -y update
-sudo apt-get -y install git mercurial ssh zsh vim aptitude
+sudo apt-get -y install git mercurial ssh zsh vim aptitude tmux
 
 # go setting
 # ghqのパス設定のために一時的にコピーしておく
@@ -43,6 +43,7 @@ bash $ABS_PATH/setup.sh
 ln -s $OS_LOCAL_PATH/.vimrc_local ~/.vimrc_local
 ln -s $OS_LOCAL_PATH/.zshrc_local ~/.zshrc_local
 ln -s $OS_LOCAL_PATH/.zshenv_local ~/.zshenv_local
+touch ~/.tmux/session
 
 ZSH_PATH=`which zsh`
 chsh -s ${ZSH_PATH}
