@@ -818,7 +818,7 @@ let s:bundle = neobundle#get('eskk.vim')
 function! s:bundle.hooks.on_source(bundle)
   set imdisable
   let g:eskk#dictionary = {
-  \	'path': "~/.skk-jisyo",
+  \	'path': "~/repos/github.com/bundai223/dotfiles/util/SKK-JISYO.L",
   \	'sorted': 0,
   \	'encoding': 'utf-8',
   \}
