@@ -1,7 +1,8 @@
 #! /bin/bash
+# https://gist.github.com/jdewit/9818870
 #sudo aptitude -y remove vim
 
-sudo aptitude -y install build-dep gettext tcl-dev lua5.1 liblua5.1-dev luajit libluajit-5.1 ruby-dev python3-dev libpearl
+sudo aptitude -y install liblua5.1-dev luajit libluajit-5.1 python-dev ruby-dev libperl-dev mercurial libncurses5-dev libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev libcairo2-dev libx11-dev libxpm-dev libxt-dev
 
 
 # Get sourcecode.
