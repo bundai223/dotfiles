@@ -32,9 +32,9 @@ zstyle ':completion:*' list-separator '-->'
 zstyle ':completion:*:manuals' separate-sections true
 
 
-fpath=(~/repos/zsh-completions/src(N-/) $fpath)
+fpath=(~/repos/github.com/zsh-users/zsh-completions/src(N-/) $fpath)
 #fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
-fpath=(~/labo/github.com/dotfiles/zsh/functions/completions(N-/) $fpath)
+fpath=(~/repos/github.com/bundai223/dotfiles/zsh/functions/completions(N-/) $fpath)
 
 # fpathの設定が終わってから補完有効設定を行う
 # ref : http://yonchu.hatenablog.com/entry/20120415/1334506855
