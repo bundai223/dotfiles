@@ -1258,7 +1258,7 @@ nmap <C-u> [unite]
 " unite file
 nnoremap <silent> [unite]/ :<C-u>Unite -input=/ -buffer-name=file_root file<CR>
 nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=file_current file<CR>
-nnoremap <silent> [unite]d :<C-u>Unite -input=/Home/labo/dotfiles/. -buffer-name=file_dotfiles file<CR>
+nnoremap <silent> [unite]d :<C-u>Unite -input=~/.vim/ -buffer-name=file_dotfiles file<CR>
 " unite multisource
 "nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=history file_mru<CR>
 nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=multi file_mru file buffer<CR>
