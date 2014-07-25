@@ -1,4 +1,4 @@
-#.zshenv_local
+#.zshenv
 
 BREW_PATH=`brew --prefix`
 
@@ -14,6 +14,7 @@ export JAVA_OPTS='-Dgroovy.source.encoding=UTF-8 -Dfile.encoding=UTF-8'
 
 PATH=/usr/bin:/bin:/usr/sbin:/sbin
 # for homebrew
+PATH=$HOME/.nodebrew/current/bin:$PATH
 PATH=${BREW_PATH}/bin:$PATH
 PATH=~/.cabal/bin:$PATH
 #for android

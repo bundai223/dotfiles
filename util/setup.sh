@@ -22,6 +22,7 @@ DOTFILE_NAMES_ARRAY=\
  .gitconfig_global\
  .gitignore_global\
  .gitattributes_global\
+ .zshenv\
  .zshrc\
  .vimrc\
  .gvimrc\
