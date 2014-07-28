@@ -46,7 +46,7 @@ brew cask install iterm2
 brew cask install xtrafinder
 brew cask install dash
 brew cask install android-file-transfer
-#brew cask install android-studio
+brew cask install android-studio
 brew cask install intellij-idea-ce
 brew cask install atom
 brew cask install sourcetree

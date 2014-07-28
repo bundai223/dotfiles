@@ -13,7 +13,7 @@ source $OS_LOCAL_PATH/.zshenv_local
 TMP_GITCONFIG=0
 if [ ! -e ~/.gitconfig ]; then
 	TMP_GITCONFIG=1
-	cp $ABS_PATH/../.gitconfig ~/
+	cp $ABS_PATH/../.gitconfig_global ~/.gitconfig
 fi
 
 
