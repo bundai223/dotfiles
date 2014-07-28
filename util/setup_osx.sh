@@ -50,6 +50,7 @@ source $ABS_PATH/setup.sh
 
 
 # Make setting files link.
+ln -s $ABS_PATH/SKK-JISYO.L ~/Library/Application\ Support/AquaSKK/SKK-JISYO.L
 ln -s $OS_LOCAL_PATH/AquaSKK/kana-rule.conf ~/Library/Application\ Support/AquaSKK/
 ln -s $OS_LOCAL_PATH/.vimrc_local ~/.vimrc_local
 ln -s $OS_LOCAL_PATH/.zshrc_local ~/.zshrc_local
