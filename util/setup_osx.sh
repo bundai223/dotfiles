@@ -61,10 +61,13 @@ mv ~/Applications/Android\ File\ Transfer.app/Contents/Resources/Android\ File\ 
 mv ~/Library/Application\ Support/Google/Android\ File\ Transfer/Android\ File\ Transfer\ Agent.app ~/Library/Application\ Support/Google/Android\ File\ Transfer/disabled_Android\ File\ Transfer\ Agent.app
 
 # Link IDE color file for intellij.
-cp ~/repos/solarized/intellij-colors-solarized/Solarized* ~/Library/Preferences/IdeaIC13/colors/
+cp ~/repos/github.com/altercation/solarized/intellij-colors-solarized/Solarized* ~/Library/Preferences/IdeaIC13/colors/
+cp ~/repos/github.com/altercation/solarized/intellij-colors-solarized/Solarized* ~/Library/Preferences/AndroidStudioBeta/colors/
 
 # Set show AbsolutePath on finder tab.
 defaults write com.apple.finder _FXShowPosixPathInTitle -boolean true
 killall Finder
 
+# AndroidStudio style.xml setting.
+curl -L https://raw.githubusercontent.com/android/platform_development/master/ide/intellij/codestyles/AndroidStyle.xml > ~/Library/Preferences/AndroidStudioBeta/codestyles/AndroidStyle.xml
 
