@@ -26,8 +26,22 @@ brew install android ant apktool
 brew install terminal-notifier
 brew install the_silver_searcher
 
-brew install vim --with-lua --with-luajit
-brew install macvim --with-cscope --with-luajit
+if [[ $OSTYPE == darwin* ]]; then
+    brew install terminal-notifier
+    brew install reattach-to-user-namespace
+
+    # macvim
+    # 本当は本家版が最新っぽいのでいいがビルドエラーが出るのでフォーク版。
+    brew tap supermomonga/homebrew-splhack
+    brew install cscope
+    brew install lua
+    brew install --HEAD cmigemo-mk
+    brew install --HEAD ctags-objc-ja
+    brew install macvim-kaoriya --HEAD --with-lua --with-cscope
+    brew linkapps
+else
+    brew install vim --with-lua --with-luajit
+fi
 
 # for hobby
 if [ $OSX_PRIVATE ]; then

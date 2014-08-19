@@ -1,7 +1,8 @@
 #.zshrc_local
 
 # Alias
-#alias vim='/Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+alias vim='/Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+alias mvim='/Applications/MacVim.app/Contents/MacOS/mvim "$@"'
 alias updatedb='sudo /usr/libexec/locate.updatedb'
 alias chrome='open -a Google\ Chrome'
 alias xcode='open -a /Applications/Xcode.app/Contents/MacOS/Xcode'
@@ -16,6 +17,7 @@ alias -s xcodeproj=xcode
 alias dash='open "dash://$@"'
 alias tt='echo $@'
 alias eclipse_clean='/Applications/eclipse/Eclipse.app/Contents/MacOS/eclipse -clean'
+alias vimr='open -a VimR'
 
 # ref) http://tukaikta.blog135.fc2.com/blog-entry-228.html
 # refresh memory

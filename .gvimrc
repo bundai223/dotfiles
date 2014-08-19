@@ -68,7 +68,8 @@ function! ToggleFullScreen()
 endfunction
 
 " ローカル設定を読み込む
-if filereadable(expand('~/.my_local_gvimrc'))
-    source ~/.my_local_gvimrc
+if filereadable(expand('~/.gvimrc_local'))
+    source ~/.gvimrc_local
 endif
 
+set bg=dark

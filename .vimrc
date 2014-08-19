@@ -266,10 +266,10 @@ noremap <C-S> <nop>
 " Easy to esc
 noremap [easy_to_esc] <nop>
 if has('mac')
-  inoremap <C-_> <C-[>
-  nnoremap <C-_> <C-[>
-  vnoremap <C-_> <C-[>
-  cnoremap <C-_> <C-[>
+  inoremap <C-m> <C-[>
+  nnoremap <C-m> <C-[>
+  vnoremap <C-m> <C-[>
+  cnoremap <C-m> <C-[>
 else
   inoremap <C-\> <C-[>
   nnoremap <C-\> <C-[>
@@ -569,6 +569,7 @@ NeoBundle 'tyru/open-browser.vim'
 
 NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'rhysd/clever-f.vim'
 "NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
@@ -1028,17 +1029,23 @@ endif
 nnoremap [myleader]- :Switch<CR>
 " }}}
 
+" vim-gitgutter
+let g:gitgutter_sign_added = '✚'
+let g:gitgutter_sign_modified = '➜'
+let g:gitgutter_sign_removed = '✘'
+
 " lightline.vim {{{
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'mode_map': {'c': 'NORMAL'},
       \ 'active': {
-      \   'left': [ [ 'mode', 'plugin', 'paste' ], [ 'fugitive', 'filename' ], [ 'pwd' ] ]
+      \   'left': [ [ 'mode', 'plugin', 'paste' ], [ 'fugitive', 'gitgutter', 'filename' ], [ 'pwd' ] ]
       \ },
       \ 'component_function': {
       \   'modified': 'MyModified',
       \   'readonly': 'MyReadonly',
       \   'fugitive': 'MyFugitive',
+      \   'gitgutter': 'MyGitgutter',
       \   'filename': 'MyFilename',
       \   'fileformat': 'MyFileformat',
       \   'filetype': 'MyFiletype',
@@ -1076,6 +1083,26 @@ function! MyFugitive()
   return ''
 endfunction
 
+function! MyGitgutter()
+  if ! exists('*GitGutterGetHunkSummary')
+        \ || ! get(g:, 'gitgutter_enabled', 0)
+        \ || winwidth('.') <= 90
+    return ''
+  endif
+  let symbols = [
+        \ g:gitgutter_sign_added . ' ',
+        \ g:gitgutter_sign_modified . ' ',
+        \ g:gitgutter_sign_removed . ' '
+        \ ]
+  let hunks = GitGutterGetHunkSummary()
+  let ret = []
+  for i in [0, 1, 2]
+    if hunks[i] > 0
+      call add(ret, symbols[i] . hunks[i])
+    endif
+  endfor
+  return join(ret, ' ')
+endfunction
 function! MyFileformat()
   return winwidth(0) > 70 ? &fileformat : ''
 endfunction
@@ -1497,10 +1524,10 @@ set cursorline
 set nowrap
 
 " Color scheme setting {{{
-syntax enable
 set background=dark
 set t_Co=256
 colorscheme solarized
+syntax enable
 "colorscheme molokai
 
 " IMEの状態でカーソル色変更 {{{
