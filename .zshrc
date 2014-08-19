@@ -613,7 +613,9 @@ function ls_sshhost() {
 }
 
 function peco_ssh() {
-    ssh $(ls-sshhost | peco)
+    hostname=$(ls-sshhost | peco)
+    echo $hostname
+    ssh $hostname
 }
 
 function peco_gitmodified() {

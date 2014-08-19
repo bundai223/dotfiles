@@ -10,6 +10,8 @@ export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 
 # for android path setting
 export ANDROID_HOME=${BREW_PATH}/opt/android-sdk
+export GRADLE_HOME=${BREW_PATH}/opt/gradle
+export ECLIPSE_HOME=/Applications/eclipse
 export JAVA_OPTS='-Dgroovy.source.encoding=UTF-8 -Dfile.encoding=UTF-8'
 
 PATH=/usr/bin:/bin:/usr/sbin:/sbin
