@@ -1029,6 +1029,9 @@ endif
 nnoremap [myleader]- :Switch<CR>
 " }}}
 
+" Gitv
+let g:Gitv_DoNotMapCtrlKey = 1
+
 " vim-gitgutter
 let g:gitgutter_sign_added = '✚'
 let g:gitgutter_sign_modified = '➜'
@@ -1039,20 +1042,29 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'mode_map': {'c': 'NORMAL'},
       \ 'active': {
-      \   'left': [ [ 'mode', 'plugin', 'paste' ], [ 'fugitive', 'gitgutter', 'filename' ], [ 'pwd' ] ]
+      \   'left': [
+      \     [ 'mode', 'plugin', 'paste' ],
+      \     [ 'fugitive', 'gitgutter', 'filename' ],
+      \     [ 'pwd' ]
+      \   ],
+      \   'right': [
+      \     ['lineinfo', 'syntastic'],
+      \     ['percent'],
+      \     ['charcode', 'fileformat', 'fileencoding', 'filetype']
+      \   ]
       \ },
       \ 'component_function': {
-      \   'modified': 'MyModified',
-      \   'readonly': 'MyReadonly',
+      \   'mode': 'MyMode',
+      \   'plugin': 'MySpPlugin',
       \   'fugitive': 'MyFugitive',
       \   'gitgutter': 'MyGitgutter',
       \   'filename': 'MyFilename',
+      \   'pwd': 'MyPwd',
+      \   'syntastic': 'SyntasticStatuslineFlag',
+      \   'charcode': 'MyCharCode',
       \   'fileformat': 'MyFileformat',
-      \   'filetype': 'MyFiletype',
       \   'fileencoding': 'MyFileencoding',
-      \   'mode': 'MyMode',
-      \   'plugin': 'MySpPlugin',
-      \   'pwd': 'MyPwd'
+      \   'filetype': 'MyFiletype'
       \ },
       \ }
 
@@ -1136,6 +1148,43 @@ function! MyPwd()
     return ''
   endif
 endfunction
+
+
+function! MyCharCode()
+  if winwidth('.') <= 70
+    return ''
+  endif
+
+  " Get the output of :ascii
+  redir => ascii
+  silent! ascii
+  redir END
+
+  if match(ascii, 'NUL') != -1
+    return 'NUL'
+  endif
+
+  " Zero pad hex values
+  let nrformat = '0x%02x'
+
+  let encoding = (&fenc == '' ? &enc : &fenc)
+
+  if encoding == 'utf-8'
+    " Zero pad with 4 zeroes in unicode files
+    let nrformat = '0x%04x'
+  endif
+
+  " Get the character and the numeric value from the return value of :ascii
+  " This matches the two first pieces of the return value, e.g.
+  " "<F>  70" => char: 'F', nr: '70'
+  let [str, char, nr; rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
+
+  " Format the numeric value
+  let nr = printf(nrformat, nr)
+
+  return "'". char ."' ". nr
+endfunction
+
 " }}}
 
 " vital {{{
