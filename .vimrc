@@ -1573,15 +1573,22 @@ set cursorline
 set nowrap
 
 " Color scheme setting {{{
+syntax enable
 set background=dark
 set t_Co=256
 colorscheme solarized
-syntax enable
-"colorscheme molokai
 
-" IMEの状態でカーソル色変更 {{{
 " colorschemeでの設定を上書きするため
 " colorschemeより後で記述
+" solarized darkでのgitgutter表示調整
+highlight clear SignColumn
+highlight SignColumn ctermfg=darkgreen guifg=darkgreen
+highlight GitGutterAdd ctermfg=green guifg=darkgreen
+highlight GitGutterChange ctermfg=yellow guifg=darkyellow
+highlight GitGutterDelete ctermfg=red guifg=darkred
+highlight GitGutterChangeDelete ctermfg=yellow guifg=darkyellow
+
+" IMEの状態でカーソル色変更 {{{
 "IME状態に応じたカーソル色を設定
 if has('multi_byte_ime')
   highlight Cursor guifg=Black guibg=#cccccc gui=bold
