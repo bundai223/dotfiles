@@ -8,6 +8,7 @@ alias chrome='open -a Google\ Chrome'
 alias xcode='open -a /Applications/Xcode.app/Contents/MacOS/Xcode'
 alias iossim='open -a /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app'
 alias andsim='open -a /Applications/Genymotion.app'
+alias createTags='~/repos/github.com/bundai223/codepocket/shell/mac/create_ctags.sh'
 
 alias -s xcodeproj=xcode
 

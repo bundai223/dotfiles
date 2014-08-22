@@ -629,3 +629,6 @@ function git_pullall() {
         git pull --rebase
     done
 }
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

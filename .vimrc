@@ -547,6 +547,7 @@ NeoBundle 'basyura/twibill.vim'
 NeoBundle 'basyura/TweetVim'
 NeoBundle 'koron/codic-vim'
 NeoBundle 't9md/vim-quickhl'
+NeoBundle 'kana/vim-arpeggio'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kana/vim-submode'
 NeoBundle 'tyru/caw.vim'
@@ -661,12 +662,6 @@ function! s:bundle.hooks.on_source(bundle)
 endfunction
 
 " }}}
-
-" molokai {{{
-let s:bundle = neobundle#get('molokai')
-function! s:bundle.hooks.on_source(bundle)
-endfunction
-"}}}
 
 " solarized {{{
 let s:bundle = neobundle#get('vim-colors-solarized')
@@ -882,6 +877,17 @@ function! s:bundle.hooks.on_source(bundle)
 endfunction
 
 " }}}
+
+" vim-arpeggio {{{
+if neobundle#tap('vim-arpeggio')
+  function! neobundle#tapped.hooks.on_source(bundle)
+    call arpeggio#load() " arpeggioをこのvimrc内で有効にする。
+    "Arpeggiomap fj <C-[>
+  endfunction
+  call neobundle#untap()
+endif
+
+"}}}
 
 " vim-airline {{{
 if neobundle#tap('vim-airline')
@@ -1494,9 +1500,6 @@ let g:quickrun_config._ = {
 " " ステータス情報を statusline へと表示する
 " set statusline=%{anzu#search_status()}
 
-" vim-airline で表示してほしくない場合は 0 を設定して下さい。
-let g:airline#extensions#anzu#enabled = 0
-
 " こっちを使用すると
 " 移動後にステータス情報をコマンドラインへと出力を行います。
 " statusline を使用したくない場合はこっちを使用して下さい。
@@ -1564,7 +1567,7 @@ set ambiwidth=double
 " 再描画コマンド実行中はなし
 set lazyredraw
 
-" statusline常に表示 for airline
+" statusline常に表示
 set laststatus=2
 
 set cursorline
