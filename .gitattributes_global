@@ -7,3 +7,4 @@
 *.html diff=html
 *.py diff=python
 *.rb diff=ruby
+*.ml diff=ocaml
