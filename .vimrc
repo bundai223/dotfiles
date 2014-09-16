@@ -531,6 +531,11 @@ NeoBundleLazy 'zaiste/tmux.vim', {
       \   'autoload': {'filetypes': ['tmux']}
       \ }
 
+" Ocaml
+NeoBundleLazy 'cohama/the-ocamlspot.vim', {
+      \   'autoload' : {'filetypes' : ['ocaml']}
+      \ }
+
 
 " textobj
 NeoBundle 'tpope/vim-surround'
@@ -1266,6 +1271,7 @@ let g:neocomplete#sources#dictionary#dictionaries = {
       \ 'cpp'      : '~/.vim/.bundle/myvim_dict/cpp.dict',
       \ 'squirrel' : '~/.vim/.bundle/myvim_dict/squirrel.dict',
       \ 'groovy'   : '~/.vim/.bundle/myvim_dict/gradle.dict',
+      \ 'gitcommit': '~/.vim/.bundle/myvim_dict/gitcommit.dict',
       \ }
 
 " Define keyword.

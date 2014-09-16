@@ -2,6 +2,7 @@
 
 # Alias
 alias vim='/Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+alias vimdiff='/Applications/MacVim.app/Contents/MacOS/Vim -d "$@"'
 alias mvim='/Applications/MacVim.app/Contents/MacOS/mvim "$@"'
 alias updatedb='sudo /usr/libexec/locate.updatedb'
 alias chrome='open -a Google\ Chrome'
