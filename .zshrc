@@ -174,6 +174,8 @@ alias lsdir='ls -FG | grep /'
 alias lsfile='ls -FG | grep -v /'
 alias pd=popd
 
+alias ocaml='rlwrap ocaml'
+
 alias reload_zshrc='source ~/.zshrc'
 
 alias find-vimbackup='find **/*~'

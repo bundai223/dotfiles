@@ -1,6 +1,7 @@
 # genGitIgnore osx,linux,windows
 
 ### Vim local setting ###
+*~
 .local.vimrc
 
 .personal/
