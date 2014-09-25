@@ -31,6 +31,9 @@ go get code.google.com/p/go.tools/cmd/cover     # go measure coverage on test.
 echo gocode
 go get github.com/nsf/gocode                    # go completions for editor.
 
+echo golint
+go get github.com/golang/lint                   # go lint
+
 # install tool made by go.
 go get github.com/motemen/ghq        # git repos manager
 go get github.com/peco/peco/cmd/peco # search interface looks like unite.vim

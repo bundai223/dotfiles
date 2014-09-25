@@ -6,5 +6,4 @@ set noexpandtab
 set tabstop=4
 
 " 保存時に :Fmt する
-au BufWritePre *.go Fmt
-au FileType go compiler go
+autocmd FileType go autocmd BufWritePre <buffer> Fmt
