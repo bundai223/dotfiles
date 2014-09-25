@@ -66,7 +66,7 @@ if has('vim_starting')
   " Goのpath
   if $GOROOT != ''
     set rtp+=$GOROOT/misc/vim
-    set rtp+=$GOPATH/src/github.com/nsf/gocode/vim
+    "set rtp+=$GOPATH/src/github.com/nsf/gocode/vim
   endif
 
   if has('win32')
@@ -534,6 +534,11 @@ NeoBundleLazy 'zaiste/tmux.vim', {
 " Ocaml
 NeoBundleLazy 'cohama/the-ocamlspot.vim', {
       \   'autoload' : {'filetypes' : ['ocaml']}
+      \ }
+
+" Golang
+NeoBundleLazy 'vim-jp/vim-go-extra', {
+      \   'autoload' : {'filetypes' : ['go']}
       \ }
 
 
