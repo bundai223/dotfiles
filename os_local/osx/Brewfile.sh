@@ -16,6 +16,7 @@ brew install go
 brew install luajit
 brew install ruby
 brew install python
+brew install opam rlwrap
 
 # terminal apps
 brew install git mercurial
