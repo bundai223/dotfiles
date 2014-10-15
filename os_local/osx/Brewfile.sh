@@ -76,6 +76,7 @@ if [[ $OSTYPE == darwin* ]]; then
     brew cask install vlc
     brew cask install menumeters
     #brew cask install cheatsheet
+    #brew cask install clipmenu
 
     # for hobby
     if [ $OSX_PRIVATE ]; then
