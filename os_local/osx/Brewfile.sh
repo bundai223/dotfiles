@@ -87,7 +87,7 @@ if [[ $OSTYPE == darwin* ]]; then
         brew cask install inkscape
         brew cask install minecraft
         brew cask install steam
-        brew cask install dropbox
+        #brew cask install dropbox
         brew cask install cooviewer
     #    mediahuman
     #    mikutter
