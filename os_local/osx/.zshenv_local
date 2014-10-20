@@ -1,6 +1,6 @@
 #.zshenv
 
-BREW_PATH=`brew --prefix`
+BREW_PATH=`/usr/local/bin/brew --prefix`
 
 # for FBX path setting
 FBXSDK_ROOT=/Applications/Autodesk/FBX\ SDK/2013.3/

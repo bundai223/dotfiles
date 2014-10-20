@@ -486,13 +486,13 @@
 	<key>HotKeyTogglesWindow</key>
 	<false/>
 	<key>Hotkey</key>
-	<false/>
+	<true/>
 	<key>HotkeyChar</key>
-	<integer>0</integer>
+	<integer>116</integer>
 	<key>HotkeyCode</key>
-	<integer>0</integer>
+	<integer>17</integer>
 	<key>HotkeyModifiers</key>
-	<integer>0</integer>
+	<integer>524576</integer>
 	<key>IRMemory</key>
 	<integer>4</integer>
 	<key>JobName</key>
@@ -505,8 +505,10 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
+	<key>NSFontPanelAttributes</key>
+	<string>1, 0</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/Documents</string>
+	<string>~/repos/github.com/bundai223/dotfiles/os_local/osx/Mbp</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -524,16 +526,18 @@
 		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
 		hAErATGG
 		</data>
-		<string>198</string>
+		<string>302</string>
 	</array>
 	<key>NSTableView Hidden Columns KeyBingingTable</key>
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
 	<key>NSWindow Frame Preferences</key>
-	<string>154 400 924 485 0 0 1920 1178 </string>
+	<string>124 129 924 485 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>29 147 990 1031 0 0 1920 1178 </string>
+	<string>75 4 990 1173 0 0 1920 1177 </string>
+	<key>NSWindow Frame iTerm Window 1</key>
+	<string>917 4 990 1173 0 0 1920 1177 </string>
 	<key>NeverWarnAboutShortLivedSessions_EE48222B-B423-4E6F-A729-08D28AD8A9DB</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -1092,11 +1096,11 @@
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
-			<string>Ricty-Regular 12</string>
+			<string>Menlo-Regular 11</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Ricty-Regular 12</string>
+			<string>Menlo-Regular 11</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -1980,7 +1984,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Transparency</key>
-			<real>0.18751387298107147</real>
+			<real>0.049364369362592697</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
@@ -2051,7 +2055,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/daiji/repos/github.com/bundai223/dotfiles/os_local/osx/Mbp</string>
+	<string>/Users/DaijiNishimura/repos/github.com/bundai223/dotfiles/os_local/osx/Mbp</string>
 	<key>PromptOnClose</key>
 	<true/>
 	<key>PromptOnQuit</key>
@@ -2069,7 +2073,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2014-07-19T05:08:22Z</date>
+	<date>2014-10-20T13:08:29Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -2115,6 +2119,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>1.0.0.20140629</string>
+	<string>2.0</string>
 </dict>
 </plist>

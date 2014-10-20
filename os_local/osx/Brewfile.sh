@@ -1,64 +1,14 @@
 # 
 brew update
 
-# Kensho chu
-# brew install haxe  # altJs languages.
-# brew install sonar # current name is "sonarqube". static source code analyser.
-
-# brew install jenkins
-# brew install nodebrew
-# brew install mecab
-# brew install node redis
-
-# program languages.
-brew install haskell-platform
-brew install go
-brew install luajit
-brew install ruby
-brew install python
-brew install opam rlwrap
-
-# terminal apps
-brew install git mercurial
-brew install reattach-to-user-namespace
-brew install z zsh tmux ctags ricty
-brew install cmake
-brew install android ant apktool
-brew install terminal-notifier
-brew install the_silver_searcher
-
-if [[ $OSTYPE == darwin* ]]; then
-    brew install terminal-notifier
-    brew install reattach-to-user-namespace
-
-    # macvim
-    # 本当は本家版が最新っぽいのでいいがビルドエラーが出るのでフォーク版。
-    brew tap supermomonga/homebrew-splhack
-    brew install cscope
-    brew install lua
-    brew install --HEAD cmigemo-mk
-    brew install --HEAD ctags-objc-ja
-    brew install macvim-kaoriya --HEAD --with-lua --with-cscope
-    brew linkapps
-    ln -s /usr/local/opt/macvim/MacVim.app ~/Applications/
-
-    # for hobby
-    if [ $OSX_PRIVATE ]; then
-        echo "nothing to do."
-    fi
-
-else
-    brew install vim --with-lua --with-luajit
-fi
-
-brew cleanup
-
 # cask
+# gui tools
 if [[ $OSTYPE == darwin* ]]; then
     brew tap caskroom/homebrew-cask
     brew install brew-cask
     brew cask update
 
+    brew cask install xquartz
     brew cask install google-chrome
     brew cask install iterm2
     brew cask install xtrafinder
@@ -80,9 +30,9 @@ if [[ $OSTYPE == darwin* ]]; then
 
     # for hobby
     if [ $OSX_PRIVATE ]; then
+        brew cask install onepassword dropbox
         brew cask install skype
         #brew cask install wireshark
-        brew cask install xquartz
         brew cask install xbox360-controller-driver
         brew cask install blender
         brew cask install gimp
@@ -99,4 +49,58 @@ if [[ $OSTYPE == darwin* ]]; then
 
     brew cask cleanup
 fi
+
+brew tap sanemat/font
+
+# cui tools
+# Kensho chu
+# brew install haxe  # altJs languages.
+# brew install sonar # current name is "sonarqube". static source code analyser.
+
+# brew install jenkins
+# brew install nodebrew
+# brew install mecab
+# brew install node redis
+
+# program languages.
+brew install go
+brew install luajit
+brew install ruby
+brew install python
+brew install opam rlwrap
+
+# terminal apps
+brew install git mercurial
+brew install z zsh tmux ricty
+brew install cmake
+brew install android ant apktool
+brew install the_silver_searcher
+
+if [[ $OSTYPE == darwin* ]]; then
+    brew install terminal-notifier
+    brew install reattach-to-user-namespace
+
+    # macvim
+    # 本当は本家版が最新っぽいのでいいがビルドエラーが出るのでフォーク版。
+    brew tap KazuakiM/homebrew-splhack
+    brew install cscope
+    brew install lua
+    brew install --HEAD cmigemo-mk
+    brew install --HEAD ctags-objc-ja
+    brew install macvim-kaoriya --HEAD --with-lua --with-cscope
+    brew linkapps
+    ln -s /usr/local/opt/macvim/MacVim.app ~/Applications/
+
+    # for hobby
+    if [ $OSX_PRIVATE ]; then
+        echo "nothing to do."
+    fi
+
+else
+    brew install ctags
+    brew install vim --with-lua --with-luajit
+fi
+
+brew cleanup
+
 
