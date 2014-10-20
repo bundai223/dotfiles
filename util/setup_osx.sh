@@ -63,7 +63,7 @@ mv ~/Applications/Android\ File\ Transfer.app/Contents/Resources/Android\ File\ 
 mv ~/Library/Application\ Support/Google/Android\ File\ Transfer/Android\ File\ Transfer\ Agent.app ~/Library/Application\ Support/Google/Android\ File\ Transfer/disabled_Android\ File\ Transfer\ Agent.app
 
 INSTALL_FONTS_PATH=~/Library/Fonts
-if [ -e ${INSTALL_FONTS_PATH}/Ricty-Regular.ttf ]; then
+if [ ! -e ${INSTALL_FONTS_PATH}/Ricty-Regular.ttf ]; then
     cp /usr/local/Cellar/ricty/3.2.3/share/fonts/Ricty*.ttf ${INSTALL_FONTS_PATH}/
     fc-cache -vf
 fi
