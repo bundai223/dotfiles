@@ -451,12 +451,11 @@ cnoremap <C-c> <Nop>
 " NeoBundle path setting {{{
 if has('vim_starting')
   set rtp+=~/.vim/neobundle.vim
-
-  call neobundle#rc(expand('~/.vim/.bundle'))
 endif
 
 " }}}
 
+call neobundle#begin(expand('~/.vim/.bundle'))
 " Neobundle plugin list {{{
 
 " Language
@@ -659,6 +658,7 @@ NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'w0ng/vim-hybrid'
 
 " }}}
+call neobundle#end()
 
 filetype plugin indent on
 
