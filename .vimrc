@@ -1587,10 +1587,11 @@ set cursorline
 set nowrap
 
 " Color scheme setting {{{
-syntax enable
 set background=dark
 set t_Co=256
 colorscheme solarized
+syntax enable
+"colorscheme molokai
 
 " colorschemeでの設定を上書きするため
 " colorschemeより後で記述
