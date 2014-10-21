@@ -41,6 +41,7 @@ if [[ $OSTYPE == darwin* ]]; then
         brew cask install steam
         #brew cask install dropbox
         brew cask install cooviewer
+        brew cask install dolphin openemu
     #    mediahuman
     #    mikutter
     #    snes
