@@ -17,7 +17,7 @@ PATH=/usr/local/go/bin/:$PATH
 export PATH
 
 sudo apt-get -y update
-sudo apt-get -y install git mercurial ssh zsh aptitude tmux ssh ntp silversearcher-ag vim
+sudo apt-get -y install git mercurial ssh zsh aptitude tmux ssh ntp silversearcher-ag
 
 # go setting
 # ghqのパス設定のために一時的にコピーしておく
@@ -35,6 +35,7 @@ if [ $TMP_GITCONFIG == 1 ]; then
 fi
 
 bash $ABS_PATH/setup_ricty.sh
+bash $ABS_PATH/setup_vim.sh
 
 # common setting
 bash $ABS_PATH/setup.sh

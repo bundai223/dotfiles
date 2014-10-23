@@ -552,7 +552,7 @@ precmd () {
 
 # Generate .gitignore
 function genGitIgnore() {
-    curl http://www.gitignore.io/api/$@
+    curl https://www.gitignore.io/api/$@
 }
 
 # Remove non tracked file.(like tortoiseSVN)
