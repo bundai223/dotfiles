@@ -550,6 +550,7 @@ NeoBundle 'osyo-manga/vim-textobj-multitextobj'
 
 " utility
 NeoBundle 'mattn/emmet-vim' " html ?
+NeoBundle 'mattn/gist-vim'
 NeoBundle 'fuenor/qfixhowm'
 
 NeoBundle 'basyura/twibill.vim'
