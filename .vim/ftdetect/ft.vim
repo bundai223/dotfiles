@@ -33,31 +33,36 @@ au BufNewFile,BufRead .gitconfig_local set filetype=gitconfig
 " groovy
 au BufNewFile,BufRead *.gradle set filetype=groovy
 
+" ruby
+au BufNewFile,BufRead Vagrantfile set filetype=ruby
+
+" nginx
+au BufNewFile,BufRead *nginx.conf set filetype=nginx
 
 " Setting newfile setting
 " shell {{{
-au BufNewFile *.sh call Insert_Shell_Shebang()
+au BufNewFile *.sh call InsertShellShebang()
 
-function! Insert_Shell_Shebang()
+function! InsertShellShebang()
   normal! gg
-  execute "normal! i#! /bin/bash\<CR>"
+  execute "normal! i#!/usr/bin/env bash\<CR>"
   execute "normal! 0D"
 endfunction
 " }}}
 
 " ruby {{{
-au BufNewFile *.rb call Insert_Ruby_FileEncoding()
+au BufNewFile *.rb call InsertRubyFileEncoding()
 
-function! Insert_Ruby_FileEncoding()
+function! InsertRubyFileEncoding()
   normal! gg
-  execute "normal! i#! /usr/bin/ruby\<CR>"
+  execute "normal! i#!/usr/bin/env ruby\<CR>"
   execute "normal! 0Di# coding: utf-8\<CR>"
 endfunction
 " }}}
 
 " *.hを作成するときにインクルードガードを作成する {{{
-au BufNewFile *.h call Insert_Cpp_HeaderHeader()
-au BufNewFile *.cpp call Insert_Cpp_SourceHeader()
+au BufNewFile *.h call InsertCppHeaderHeader()
+au BufNewFile *.cpp call InsertCppSourceHeader()
 
 function! IncludeGuard()
   let fl = getline(1)
@@ -73,7 +78,7 @@ function! IncludeGuard()
   4
 endfunction
 
-function! Insert_Cpp_SourceHeader()
+function! InsertCppSourceHeader()
   let filename = expand("%:t")
   normal! gg
   execute "normal! i//**********************************************************************\<CR>"
@@ -82,9 +87,9 @@ function! Insert_Cpp_SourceHeader()
   execute "normal! i//**********************************************************************\<CR>"
 endfunction
 
-function! Insert_Cpp_HeaderHeader()
+function! InsertCppHeaderHeader()
   call IncludeGuard()
-  call Insert_Cpp_SourceHeader()
+  call InsertCppSourceHeader()
 endfunction
 " }}}
 

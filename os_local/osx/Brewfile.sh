@@ -64,6 +64,7 @@ brew tap sanemat/font
 # brew install node redis
 
 # program languages.
+brew install global
 brew install go
 brew install luajit
 brew install ruby

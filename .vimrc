@@ -540,6 +540,11 @@ NeoBundleLazy 'vim-jp/vim-go-extra', {
       \   'autoload' : {'filetypes' : ['go']}
       \ }
 
+" Nginx
+NeoBundleLazy 'vim-scripts/nginx.vim', {
+      \   'autoload' : {'filetypes' : ['nginx']}
+      \ }
+
 
 " textobj
 NeoBundle 'tpope/vim-surround'

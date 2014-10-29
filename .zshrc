@@ -31,11 +31,6 @@ zstyle ':completion:*:sudo:*' command-path \
 zstyle ':completion:*' list-separator '-->'
 zstyle ':completion:*:manuals' separate-sections true
 
-
-fpath=(~/repos/github.com/zsh-users/zsh-completions/src(N-/) $fpath)
-#fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
-fpath=(~/repos/github.com/bundai223/dotfiles/zsh/functions/completions(N-/) $fpath)
-
 # fpathの設定が終わってから補完有効設定を行う
 # ref : http://yonchu.hatenablog.com/entry/20120415/1334506855
 # 補完有効
@@ -203,6 +198,11 @@ alias -g SS='| sed'
 alias -g AA='| awk'
 alias -g WW='| wc'
 alias -g XX='| xargs'
+
+alias ssh="cat ~/.ssh/conf.d/config ~/.ssh/conf.d/*.conf > ~/.ssh/config;ssh"
+alias scp="cat ~/.ssh/conf.d/config ~/.ssh/conf.d/*.conf > ~/.ssh/config;scp"
+alias git="cat ~/.ssh/conf.d/config ~/.ssh/conf.d/*.conf > ~/.ssh/config;git"
+alias knife="cat ~/.ssh/conf.d/config ~/.ssh/conf.d/*.conf > ~/.ssh/config;knife"
 
 ## man zshall
 # ref) http://qiita.com/yuyuchu3333/items/67630d597c7700a51b95
@@ -489,50 +489,33 @@ add-zsh-hook precmd _update_vcs_info_msg
 # Pane split on startup
 # ref) http://qiita.com/ken11_/items/1304c2eecc2657ac6265
 if [ $SHLVL = 1 ]; then
-    alias tmux='tmux attach || tmux new-session \; source-file ~/.tmux/session'
-    alias tmux-newsession='\tmux new-session \; source-file ~/.tmux/session'
+    alias t='tmux attach || tmux new-session \; source-file ~/.tmux/session'
+    alias t-newsession='\tmux new-session \; source-file ~/.tmux/session'
 else
-    alias tmux-basicpane='tmux source-file ~/.tmux/session'
-    alias tmux-sshpane='tmux source-file ~/.tmux/utility/session_ssh'
-    alias tmux-end='tmux kill-session'
+    alias t='tmux'
+    alias t-source='tmux source-file'
+    alias t-basicpane='tmux source-file ~/.tmux/session'
+    alias t-2='tmux splitw -h'
+    alias t-3='tmux source-file ~/.tmux/utility/session_ssh'
+    alias t-kw='tmux kill-window'
+    alias t-ks='tmux kill-session'
 fi
 
-# Auto start tmux {{{
-# ref) http://d.hatena.ne.jp/tyru/20100828/run_tmux_or_screen_at_shell_startup
-is_screen_running() {
-    # tscreen also uses this varariable.
-    [ ! -z "$WINDOW" ]
-}
-is_tmux_runnning() {
-    [ ! -z "$TMUX" ]
-}
-is_screen_or_tmux_running() {
-    is_screen_running || is_tmux_runnning
-}
-shell_has_started_interactively() {
-    [ ! -z "$PS1" ]
-}
-resolve_alias() {
-    cmd="$1"
-    while whence "$cmd" >/dev/null 2>/dev/null && [ "$(whence "$cmd")" != "$cmd" ]
-    do
-        cmd=$(whence "$cmd")
-    done
-    echo "$cmd"
-}
-
-
-#if ! is_screen_or_tmux_running && shell_has_started_interactively; then
-##    for cmd in tmux tscreen screen; do
-#    for cmd in tmux; do
-#        if whence $cmd >/dev/null 2>/dev/null; then
-#            #which $cmd
-#            $(resolve_alias "$cmd")
-#            break
-#        fi
-#    done
-#fi
-# }}}
+# tmux 自動起動 {{{
+if [ -z "$TMUX" -a -z "$STY" ]; then
+    if type tmuxx >/dev/null 2>&1; then
+        tmuxx
+    elif type tmux >/dev/null 2>&1; then
+        if tmux has-session && tmux list-sessions | /usr/bin/grep -qE '.*]$'; then
+            tmux attach && echo "tmux attached session "
+        else
+            tmux new-session && echo "tmux created new session"
+        fi
+    elif type screen >/dev/null 2>&1; then
+        screen -rx || screen -D -RR
+    fi
+fi
+#}}}
 
 #}}}
 
@@ -551,7 +534,7 @@ precmd () {
 # }}}
 
 # Generate .gitignore
-function genGitIgnore() {
+function gen_gitignore() {
     curl https://www.gitignore.io/api/$@
 }
 
@@ -631,9 +614,6 @@ function git_pullall() {
         git pull --rebase
     done
 }
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
 
 # OPAM configuration
 . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
