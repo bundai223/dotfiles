@@ -1357,48 +1357,33 @@ nmap <C-u> [unite]
 
 " source
 " unite file
-nnoremap <silent> [unite]/ :<C-u>Unite -input=/ -buffer-name=file_root file<CR>
-nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=file_current file<CR>
-nnoremap <silent> [unite]d :<C-u>Unite -input=~/.vim/ -buffer-name=file_dotfiles file<CR>
-" unite multisource
-"nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=history file_mru<CR>
-nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=multi file_mru file buffer<CR>
-" unite outline
-"nnoremap <silent> [unite]o :<C-u>Unite -vertical -winwidth=30 -buffer-name=outline -no-quit -wrap outline<CR>
-nnoremap <silent> [unite]o :<C-u>Unite -buffer-name=outline -no-quit -wrap outline<CR>
-" unite todo
-nnoremap <silent> [unite]t :<C-u>Unite -buffer-name=todo -no-quit picktodo<CR>
-nnoremap <silent> [unite]tw :<C-u>Unite -buffer-name=tweet tweetvim<CR>
-" unite grep
-nnoremap <silent> [unite]g :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
-"nnoremap <silent> [unite]gg :<C-u>Unite -buffer-name=tabpagenr() -no-quit grep<CR>
-" unite snippet
-nnoremap <silent> [unite]ns :<C-u>Unite -buffer-name=snippet neosnippet<CR>
-nnoremap <silent> [unite]nsu :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
-" unite neobundle
-nnoremap <silent> [unite]nb :<C-u>Unite -buffer-name=neobundle neobundle/update:all -auto-quit -keep-focus -log<CR>
-" unite buffers
-nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=buffer buffer<CR>
-" unite colorscheme
-nnoremap <silent> [unite]c :<C-u>Unite -buffer-name=colorscheme -auto-preview colorscheme<CR>
-" unite sources
-nnoremap <silent> [unite]s :<C-u>Unite source -vertical<CR>
+nnoremap <silent> [unite]/   :<C-u>Unite -input=/ -buffer-name=file_root file<CR>
+nnoremap <silent> [unite]f   :<C-u>UniteWithBufferDir -buffer-name=file_current file<CR>
+nnoremap <silent> [unite]d   :<C-u>Unite -input=~/.vim/ -buffer-name=file_dotfiles file<CR>
+nnoremap <silent> [unite]m   :<C-u>Unite -buffer-name=multi file_mru file buffer<CR>
+nnoremap <silent> [unite]o   :<C-u>Unite -buffer-name=outline -no-quit -wrap outline<CR>
+nnoremap <silent> [unite]t   :<C-u>Unite -buffer-name=todo -no-quit picktodo<CR>
+nnoremap <silent> [unite]tw  :<C-u>Unite -buffer-name=tweet tweetvim<CR>
+nnoremap <silent> [unite]g   :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
+nnoremap <silent> [unite]ns  :<C-u>Unite -buffer-name=snippet neosnippet<CR>
+nnoremap <silent> [unite]esn :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
+nnoremap <silent> [unite]nb  :<C-u>Unite -buffer-name=neobundle neobundle/update:all -auto-quit -keep-focus -log<CR>
+nnoremap <silent> [unite]b   :<C-u>Unite -buffer-name=buffer buffer<CR>
+nnoremap <silent> [unite]c   :<C-u>Unite -buffer-name=colorscheme -auto-preview colorscheme<CR>
+nnoremap <silent> [unite]s   :<C-u>Unite source -vertical<CR>
+nnoremap <silent> [unite]l   :<C-u>Unite locate<CR>
+nnoremap <silent> [unite]q   :<C-u>Unite qfixhowm/new qfixhowm:nocache -hide-source-names<CR>
 
-" unite alignta(visual)
-vnoremap <silent> [unite]aa :<C-u>Unite alignta:arguments<CR>
-vnoremap <silent> [unite]ao :<C-u>Unite alignta:options<CR>
+vnoremap <silent> [unite]aa  :<C-u>Unite alignta:arguments<CR>
+vnoremap <silent> [unite]ao  :<C-u>Unite alignta:options<CR>
 
-nnoremap <silent> [unite]l :<C-u>Unite locate<CR>
-
-" unite qfixhowm
-nnoremap <silent> [unite]q :<C-u>Unite qfixhowm/new qfixhowm:nocache -hide-source-names<CR>
+" unite resume
+nnoremap <silent> [unite]r   :<C-u>UniteResume<CR>
 
 if has('mac')
   nnoremap <silent> [unite]<Space> :<C-u>Unite spotlite<CR>
 endif
 
-" unite resume
-nnoremap <silent> [unite]r :<C-u>UniteResume<CR>
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
