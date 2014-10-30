@@ -535,7 +535,7 @@
 	<key>NSWindow Frame Preferences</key>
 	<string>124 129 924 485 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>75 4 990 1173 0 0 1920 1177 </string>
+	<string>920 4 990 1173 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>917 4 990 1173 0 0 1920 1177 </string>
 	<key>NeverWarnAboutShortLivedSessions_EE48222B-B423-4E6F-A729-08D28AD8A9DB</key>
@@ -2073,7 +2073,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2014-10-20T13:08:29Z</date>
+	<date>2014-10-27T18:14:16Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -2107,7 +2107,7 @@
 	<key>WebKitDefaultFontSize</key>
 	<integer>11</integer>
 	<key>WebKitStandardFont</key>
-	<string>Lucida Grande</string>
+	<string>.Helvetica Neue DeskInterface</string>
 	<key>WindowNumber</key>
 	<false/>
 	<key>WindowStyle</key>
