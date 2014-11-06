@@ -40,7 +40,6 @@ function install_font() {
 # - or +で始まる引数をもっていたら引数任せ
 # 
 function mvim() {
-echo $#
     if [[ -z $1 || $1 =~ "^[-+]" ]]; then
         /Applications/MacVim.app/Contents/MacOS/mvim $*
     else

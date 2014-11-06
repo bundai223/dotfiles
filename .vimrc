@@ -266,10 +266,10 @@ noremap <C-S> <nop>
 " Easy to esc
 noremap [easy_to_esc] <nop>
 if has('mac')
-  inoremap <C-_> <C-[>
-  nnoremap <C-_> <C-[>
-  vnoremap <C-_> <C-[>
-  cnoremap <C-_> <C-[>
+  inoremap <C-]> <C-[>
+  nnoremap <C-]> <C-[>
+  vnoremap <C-]> <C-[>
+  cnoremap <C-]> <C-[>
 else
   inoremap <C-\> <C-[>
   nnoremap <C-\> <C-[>
