@@ -199,10 +199,10 @@ alias -g AA='| awk'
 alias -g WW='| wc'
 alias -g XX='| xargs'
 
-alias ssh="cat ~/.ssh/conf.d/config ~/.ssh/conf.d/*.conf > ~/.ssh/config;ssh"
-alias scp="cat ~/.ssh/conf.d/config ~/.ssh/conf.d/*.conf > ~/.ssh/config;scp"
-alias git="cat ~/.ssh/conf.d/config ~/.ssh/conf.d/*.conf > ~/.ssh/config;git"
-alias knife="cat ~/.ssh/conf.d/config ~/.ssh/conf.d/*.conf > ~/.ssh/config;knife"
+alias ssh="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config;ssh"
+alias scp="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config;scp"
+alias git="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config;git"
+alias knife="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config;knife"
 
 ## man zshall
 # ref) http://qiita.com/yuyuchu3333/items/67630d597c7700a51b95

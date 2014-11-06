@@ -35,7 +35,7 @@ if has('win32')
     set ambiwidth=auto
   endif
 elseif has('mac')
-  set guifont=Ricty\ Regular:h12
+  set guifont=Ricty\ Regular:h14
 elseif has('xfontset')
   " UNIX用 (xfontsetを使用)
   set guifontset=a14,r14,k14
