@@ -65,7 +65,7 @@ brew tap sanemat/font
 
 # program languages.
 brew install global
-brew install go
+brew install go --cross-compile-common
 brew install luajit
 brew install ruby
 brew install python
