@@ -1,9 +1,11 @@
 #.zshrc_local
 
 # Alias
+alias vi='/Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias vim='/Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias vimdiff='/Applications/MacVim.app/Contents/MacOS/Vim -d "$@"'
-alias mvim='/Applications/MacVim.app/Contents/MacOS/mvim "$@"'
+alias mvimdiff='/Applications/MacVim.app/Contents/MacOS/mvimdiff "$@"'
+
 alias updatedb='sudo /usr/libexec/locate.updatedb'
 alias chrome='open -a Google\ Chrome'
 alias xcode='open -a /Applications/Xcode.app/Contents/MacOS/Xcode'
@@ -16,22 +18,33 @@ alias -s xcodeproj=xcode
 #alias rm='~/tool/osx-mv2trash/bin/mv2trash'
 #alias rm-vimbackup='find **/*~| xargs ~/tool/osx-mv2trash/bin/mv2trash'
 
-alias dash='open "dash://$@"'
-alias tt='echo $@'
 alias eclipse_clean='/Applications/eclipse/Eclipse.app/Contents/MacOS/eclipse -clean'
-alias vimr='open -a VimR'
 
 # ref) http://tukaikta.blog135.fc2.com/blog-entry-228.html
 # refresh memory
 alias refmem='du -sx / &> /dev/null & sleep 25 && kill $!'
 
-function peco-work() {
+function peco_work() {
     target=`find ~/work -maxdepth 2 -mindepth 1 -type d | peco`
     echo $target
     cd $target
 }
 
-function install-font() {
+function install_font() {
     cp $1 ~/Library/Fonts/
+}
+
+# 
+# guiのvimを開く関数
+# ウインドウは一つしか開かない設定で起動
+# - or +で始まる引数をもっていたら引数任せ
+# 
+function mvim() {
+echo $#
+    if [[ -z $1 || $1 =~ "^[-+]" ]]; then
+        /Applications/MacVim.app/Contents/MacOS/mvim $*
+    else
+        /Applications/MacVim.app/Contents/MacOS/mvim --remote-tab-silent $*
+    fi
 }
 
