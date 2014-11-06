@@ -4,8 +4,7 @@ brew update
 # cask
 # gui tools
 if [[ $OSTYPE == darwin* ]]; then
-    brew tap caskroom/homebrew-cask
-    brew install brew-cask
+    brew install caskroom/homebrew-cask/brew-cask
     brew cask update
 
     brew cask install xquartz
@@ -51,8 +50,6 @@ if [[ $OSTYPE == darwin* ]]; then
     brew cask cleanup
 fi
 
-brew tap sanemat/font
-
 # cui tools
 # Kensho chu
 # brew install haxe  # altJs languages.
@@ -73,10 +70,13 @@ brew install opam rlwrap
 
 # terminal apps
 brew install git mercurial
-brew install z zsh tmux ricty
+brew install z zsh tmux
 brew install cmake
 brew install android ant apktool
 brew install the_silver_searcher
+
+brew install sanemat/font/ricty
+
 
 if [[ $OSTYPE == darwin* ]]; then
     brew install terminal-notifier
@@ -84,12 +84,11 @@ if [[ $OSTYPE == darwin* ]]; then
 
     # macvim
     # 本当は本家版が最新っぽいのでいいがビルドエラーが出るのでフォーク版。
-    brew tap KazuakiM/homebrew-splhack
     brew install cscope
     brew install lua
-    brew install --HEAD cmigemo-mk
-    brew install --HEAD ctags-objc-ja
-    brew install macvim-kaoriya --HEAD --with-lua --with-cscope
+    brew install --HEAD KazuakiM/homebrew-splhack/cmigemo-mk
+    brew install --HEAD KazuakiM/homebrew-splhack/ctags-objc-ja
+    brew install KazuakiM/homebrew-splhack/macvim-kaoriya --HEAD --with-lua --with-cscope
     brew linkapps
     ln -s /usr/local/opt/macvim/MacVim.app ~/Applications/
 

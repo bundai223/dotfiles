@@ -7,6 +7,7 @@ FBXSDK_ROOT=/Applications/Autodesk/FBX\ SDK/2013.3/
 
 # path setting
 export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+export SHELL=${BREW_PATH}/bin/zsh
 
 # for android path setting
 export ANDROID_HOME=${BREW_PATH}/opt/android-sdk
@@ -20,7 +21,7 @@ PATH=$HOME/.nodebrew/current/bin:$PATH
 PATH=${BREW_PATH}/bin:$PATH
 PATH=~/.cabal/bin:$PATH
 #for android
-PATH=${ANDROID_HOME}/tools/:$PATH
+PATH=${ANDROID_HOME}/tools:$PATH
 #for ruby
 PATH=${BREW_PATH}/opt/ruby/bin:$PATH
 

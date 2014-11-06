@@ -266,10 +266,10 @@ noremap <C-S> <nop>
 " Easy to esc
 noremap [easy_to_esc] <nop>
 if has('mac')
-  inoremap <C-m> <C-[>
-  nnoremap <C-m> <C-[>
-  vnoremap <C-m> <C-[>
-  cnoremap <C-m> <C-[>
+  inoremap <C-]> <C-[>
+  nnoremap <C-]> <C-[>
+  vnoremap <C-]> <C-[>
+  cnoremap <C-]> <C-[>
 else
   inoremap <C-\> <C-[>
   nnoremap <C-\> <C-[>
@@ -675,6 +675,7 @@ filetype plugin indent on
 let s:bundle = neobundle#get('clever-f.vim')
 function! s:bundle.hooks.on_source(bundle)
   nmap [myleader]f <Plug>(clever-f-reset)
+  let g:clever_f_use_migemo = 1
 endfunction
 
 " }}}
