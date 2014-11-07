@@ -24,6 +24,7 @@ if [[ $OSTYPE == darwin* ]]; then
     brew cask install synergy
     brew cask install vlc
     brew cask install menumeters
+    brew cask install hyperswitch
     #brew cask install cheatsheet
     #brew cask install clipmenu
 
