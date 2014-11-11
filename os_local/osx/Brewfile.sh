@@ -4,6 +4,7 @@ brew update
 # cask
 # gui tools
 if [[ $OSTYPE == darwin* ]]; then
+    # brew tap caskroom/versions
     brew install caskroom/homebrew-cask/brew-cask
     brew cask update
 
@@ -27,6 +28,8 @@ if [[ $OSTYPE == darwin* ]]; then
     brew cask install hyperswitch
     #brew cask install cheatsheet
     #brew cask install clipmenu
+
+    brew install caskroom/versions/java6
 
     # for hobby
     if [ $OSX_PRIVATE ]; then

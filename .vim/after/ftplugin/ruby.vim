@@ -1,2 +1,3 @@
 
+setlocal iskeyword+=@-@
 
