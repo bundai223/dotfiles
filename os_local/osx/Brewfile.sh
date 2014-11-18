@@ -64,6 +64,9 @@ fi
 # brew install mecab
 # brew install node redis
 
+brew install wget
+brew install platntuml
+
 # program languages.
 brew install global
 brew install go --cross-compile-common
