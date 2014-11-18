@@ -326,12 +326,9 @@ nnoremap <BS> X
 " }}}
 
 " Tab moving {{{
-nnoremap gn :<C-u>tabnew<CR>
-nnoremap ge :<C-u>tabnew +edit `=tempname()`<CR>
-nnoremap gq :<C-u>tabclose<CR>
-"nnoremap ge :<C-u>tabedit<CR>
-"nnoremap <C-l> gt
-"nnoremap <C-h> gT
+nnoremap tn :<C-u>tabnew<CR>
+nnoremap te :<C-u>tabnew +edit `=tempname()`<CR>
+nnoremap tc :<C-u>tabclose<CR>
 
 " }}}
 
