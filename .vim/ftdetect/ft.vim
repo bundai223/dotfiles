@@ -36,6 +36,9 @@ au BufNewFile,BufRead *.gradle set filetype=groovy
 " ruby
 au BufNewFile,BufRead Vagrantfile set filetype=ruby
 
+" PlantUML
+au BufNewFile,BufRead *.uml set filetype=plantuml
+
 " nginx
 au BufNewFile,BufRead *nginx.conf set filetype=nginx
 

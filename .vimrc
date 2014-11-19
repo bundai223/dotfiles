@@ -660,6 +660,7 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/newspaper.vim'
 NeoBundle 'w0ng/vim-hybrid'
 
+
 " }}}
 call neobundle#end()
 
@@ -1615,6 +1616,11 @@ au BufNew,BufRead * match ZenkakuSpace /　/
 "  augroup END
 "endif
 " }}}
+
+" 取り敢えずここで
+if !exists("loaded_matchit")
+  source $VIMRUNTIME/macros/matchit.vim
+endif
 
 " ローカル設定を読み込む
 if filereadable(expand('~/.vimrc_local'))
