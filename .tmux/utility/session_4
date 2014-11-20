@@ -1,0 +1,11 @@
+
+# Paneを分割・サイズ調整
+selectp -t 0
+splitw -h
+selectp -t 0
+splitw -v
+selectp -t 1
+splitw -v
+
+# 最初のPaneに移動
+selectp -t 0
