@@ -577,7 +577,8 @@ NeoBundle 'osyo-manga/vim-watchdogs', {
       \ }
 
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'gregsexton/gitv'
+"NeoBundle 'gregsexton/gitv'
+NeoBundle 'cohama/agit.vim'
 NeoBundle 'tyru/open-browser.vim'
 
 NeoBundle 'AndrewRadev/switch.vim'
@@ -1050,8 +1051,13 @@ endif
 nnoremap [myleader]- :Switch<CR>
 " }}}
 
+"VimでGitk的なツール
 " Gitv
 let g:Gitv_DoNotMapCtrlKey = 1
+
+" Agit
+" 自動で差分の更新をしないようにする。
+let g:agit_enable_auto_show_commit = 0
 
 " vim-gitgutter
 let g:gitgutter_sign_added = '✚'
