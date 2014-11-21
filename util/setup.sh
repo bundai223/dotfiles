@@ -92,6 +92,7 @@ TOOL_NAMES_ARRAY=\
 (\
  'github/gitignore.git'\
  'zsh-users/zsh-completions.git'\
+ 'zsh-users/antigen.git'\
  'altercation/solarized'\
 )
 for toolname in ${TOOL_NAMES_ARRAY[@]}; do
