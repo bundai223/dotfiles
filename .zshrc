@@ -10,7 +10,7 @@ zstyle ':completion:*:default' menu select=2
 # 補完関数の表示を強化する
 zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' verbose yes
-zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+zstyle ':completion:*' completer _oldlist _expand _complete _match _prefix _approximate _list _history
 zstyle ':completion:*:messages' format '%F{YELLOW}%d%f'
 zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d%f'
 zstyle ':completion:*:options' description 'yes'
@@ -59,6 +59,11 @@ setopt auto_pushd           # cd履歴を残す
 
 # 個別にパス設定が必要な場合は.zshrc_localで再設定する。
 
+# ローカル用設定を読み込む
+if [ -f ${PERSONAL_ZSH_DIR}/.zshrc.antigen ]; then
+    source ${PERSONAL_ZSH_DIR}/.zshrc.antigen
+fi
+
 # History setting {{{
 # End of lines added by compinstal
 # Lines configured by zsh-newuser-install
@@ -94,6 +99,8 @@ setopt inc_append_history
 # インクリメンタルからの検索
 bindkey "^R" history-incremental-search-backward
 bindkey "^S" history-incremental-search-forward
+
+bindkey $'\e' vi-cmd-mode
 
 # 全履歴表示
 function history-all { history -E 1 }
@@ -263,7 +270,7 @@ INSERT_MODE_PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${r
 PROMPT=${INSERT_MODE_PROMPT}
 
 # Set prompt color by vim mode. {{{
-function zle-line-init zle-keymap-select {
+function update_vi_mode () {
   case $KEYMAP in
     vicmd)
         PROMPT=${NORMAL_MODE_PROMPT}
@@ -273,6 +280,15 @@ function zle-line-init zle-keymap-select {
     ;;
   esac
   zle reset-prompt
+}
+
+function zle-line-init {
+    auto-fu-init
+    update_vi_mode
+}
+
+function zle-keymap-select {
+    update_vi_mode
 }
 
 zle -N zle-line-init
@@ -496,7 +512,8 @@ else
     alias t-source='tmux source-file'
     alias t-basicpane='tmux source-file ~/.tmux/session'
     alias t-2='tmux splitw -h'
-    alias t-3='tmux source-file ~/.tmux/utility/session_ssh'
+    alias t-3='tmux source-file ~/.tmux/utility/session_normal3'
+    alias t-4='tmux source-file ~/.tmux/utility/session_4'
     alias t-kw='tmux kill-window'
     alias t-ks='tmux kill-session'
 fi

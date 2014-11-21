@@ -1,6 +1,7 @@
 # 共通設定の記述と環境毎のファイル読み込み
 
-PERSONAL_ZSH_DIR=~/repos/github.com/bundai223/dotfiles/zsh
+GHQ_ROOT=~/repos
+PERSONAL_ZSH_DIR=${GHQ_ROOT}/github.com/bundai223/dotfiles/zsh
 
 fpath=(~/repos/github.com/zsh-users/zsh-completions/src(N-/) $fpath)
 fpath=(${PERSONAL_ZSH_DIR}/functions/completions(N-/) $fpath)

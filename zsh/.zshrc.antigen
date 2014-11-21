@@ -1,0 +1,21 @@
+#!/usr/local/bin/zsh
+#
+
+ANTIGEN_ROOT=${GHQ_ROOT}/github.com/zsh-users/antigen
+
+if [[ -f ${ANTIGEN_ROOT}/antigen.zsh ]]; then
+    source ${ANTIGEN_ROOT}/antigen.zsh
+
+    # load plugins.
+    antigen-bundles <<EOBUNDLES
+    git
+    brew
+    mollifier/zload
+    bundai223/auto-fu.zsh
+    zsh-users/zsh-syntax-highlighting
+EOBUNDLES
+    #hchbaw/auto-fu.zsh
+
+    antigen-apply
+fi
+
