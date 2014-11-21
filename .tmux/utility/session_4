@@ -4,7 +4,7 @@ selectp -t 0
 splitw -h
 selectp -t 0
 splitw -v
-selectp -t 1
+selectp -t 2
 splitw -v
 
 # 最初のPaneに移動
