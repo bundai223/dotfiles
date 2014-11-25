@@ -56,7 +56,6 @@ fi
 
 # cui tools
 # Kensho chu
-# brew install haxe  # altJs languages.
 # brew install sonar # current name is "sonarqube". static source code analyser.
 
 # brew install jenkins
@@ -69,6 +68,7 @@ brew install platntuml
 
 # program languages.
 brew install global
+brew install haxe  # altJs languages.
 brew install go --cross-compile-common
 brew install luajit
 brew install ruby
