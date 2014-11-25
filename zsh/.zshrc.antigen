@@ -10,6 +10,7 @@ if [[ -f ${ANTIGEN_ROOT}/antigen.zsh ]]; then
     antigen-bundles <<EOBUNDLES
     git
     brew
+    vagrant
     mollifier/zload
     bundai223/auto-fu.zsh
     zsh-users/zsh-syntax-highlighting
