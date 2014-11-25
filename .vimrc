@@ -584,7 +584,6 @@ NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'rhysd/clever-f.vim'
 "NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
@@ -614,6 +613,10 @@ NeoBundleLazy 'Shougo/vimshell', {
       \   'autoload' : {'commands' : ['VimShell', 'VimShellPop'] },
       \ }
 NeoBundle 'LeafCage/foldCC'
+
+" Cursor move
+NeoBundle 'rhysd/clever-f.vim'
+NeoBundle 'Lokaltog/vim-easymotion'
 
 NeoBundleLazy 'supermomonga/jazzradio.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
 
@@ -675,6 +678,22 @@ let s:bundle = neobundle#get('clever-f.vim')
 function! s:bundle.hooks.on_source(bundle)
   nmap [myleader]f <Plug>(clever-f-reset)
   let g:clever_f_use_migemo = 1
+endfunction
+
+" }}}
+
+" easymotion {{{
+let s:bundle = neobundle#get('vim-easymotion')
+function! s:bundle.hooks.on_source(bundle)
+"  " ホームポジションに近いキーを使う
+"  let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+"  " 「;」 + 何かにマッピング
+"  let g:EasyMotion_leader_key="s"
+"  " 1 ストローク選択を優先する
+"  let g:EasyMotion_grouping=1
+"  " カラー設定変更
+"  hi EasyMotionTarget ctermbg=none ctermfg=red
+"  hi EasyMotionShade  ctermbg=none ctermfg=blue
 endfunction
 
 " }}}
@@ -1048,7 +1067,25 @@ endif
 
 " Load not on_source
 " switch.vim {{{
+let g:variable_style_switch_definitions = [
+        \   {
+        \     '\<[a-z0-9]\+_\k\+\>': {
+        \       '_\(.\)': '\U\1'
+        \     },
+        \     '\<[a-z0-9]\+[A-Z]\k\+\>': {
+        \       '\([A-Z]\)': '_\l\1'
+        \     },
+        \     '=': {
+        \       '==': '!='
+        \     },
+        \     '!': {
+        \       '!=': '=='
+        \     },
+        \   }
+        \ ]
+nnoremap [myleader]+ :call switch#Switch(g:variable_style_switch_definitions)<CR>
 nnoremap [myleader]- :Switch<CR>
+
 " }}}
 
 "VimでGitk的なツール
