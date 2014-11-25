@@ -27,7 +27,8 @@ if [[ $OSTYPE == darwin* ]]; then
     brew cask install menumeters
     brew cask install hyperswitch
     #brew cask install cheatsheet
-    #brew cask install clipmenu
+    brew cask install clipmenu
+    brew cask install appcleaner
 
     brew install caskroom/versions/java6
 

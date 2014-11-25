@@ -79,3 +79,8 @@ killall Finder
 # AndroidStudio style.xml setting.
 curl -L https://raw.githubusercontent.com/android/platform_development/master/ide/intellij/codestyles/AndroidStyle.xml > ~/Library/Preferences/AndroidStudioBeta/codestyles/AndroidStyle.xml
 
+
+# opamの設定
+# opam init
+# opam 
+
