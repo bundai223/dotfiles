@@ -10,7 +10,7 @@ zstyle ':completion:*:default' menu select=2
 # 補完関数の表示を強化する
 zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' verbose yes
-zstyle ':completion:*' completer _oldlist _expand _complete _match _prefix _approximate _list _history
+zstyle ':completion:*' completer _oldlist _expand _complete _match _prefix _approximate _list
 zstyle ':completion:*:messages' format '%F{YELLOW}%d%f'
 zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d%f'
 zstyle ':completion:*:options' description 'yes'
