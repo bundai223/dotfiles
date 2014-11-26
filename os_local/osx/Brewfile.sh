@@ -5,7 +5,7 @@ brew update
 # gui tools
 if [[ $OSTYPE == darwin* ]]; then
     # brew tap caskroom/versions
-    brew install caskroom/homebrew-cask/brew-cask
+    brew install caskroom/cask/brew-cask
     brew cask update
 
     brew cask install xquartz
@@ -94,9 +94,9 @@ if [[ $OSTYPE == darwin* ]]; then
     # 本当は本家版が最新っぽいのでいいがビルドエラーが出るのでフォーク版。
     brew install cscope
     brew install lua
-    brew install --HEAD KazuakiM/homebrew-splhack/cmigemo-mk
-    brew install --HEAD KazuakiM/homebrew-splhack/ctags-objc-ja
-    brew install KazuakiM/homebrew-splhack/macvim-kaoriya --HEAD --with-lua --with-cscope
+    brew install --HEAD KazuakiM/splhack/cmigemo-mk
+    brew install --HEAD KazuakiM/splhack/ctags-objc-ja
+    brew install KazuakiM/splhack/macvim-kaoriya --HEAD --with-lua --with-cscope
     brew linkapps
     ln -s /usr/local/opt/macvim/MacVim.app ~/Applications/
 
