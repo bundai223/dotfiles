@@ -291,8 +291,8 @@ nnoremap <F5> :source %<CR>
 nnoremap [myleader]b :b#<CR>
 
 " Insert date
-inoremap <Leader>date <C-R>=strftime('%Y/%m/%d (%a)')<CR>
-inoremap <Leader>time <C-R>=strftime('%H:%M')<CR>
+inoremap <C-d>d <C-R>=strftime('%Y/%m/%d (%a)')<CR>
+inoremap <C-d>t <C-R>=strftime('%H:%M')<CR>
 
 " Easy to help
 nnoremap [myleader]h :<C-u>vert bel help<Space>
