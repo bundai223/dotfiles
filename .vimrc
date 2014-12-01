@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 " Common setting {{{
 
 " 変数を読み込む
@@ -5,8 +7,6 @@ if filereadable(expand('~/.vimrc_local_env'))
   source ~/.vimrc_local_env
 endif
 
-scriptencoding utf-8
-set nocompatible
 
 " help日本語・英語優先
 "set helplang=ja,en
@@ -266,15 +266,15 @@ noremap <C-S> <nop>
 " Easy to esc
 noremap [easy_to_esc] <nop>
 if has('mac')
-  inoremap <C-]> <C-[>
-  nnoremap <C-]> <C-[>
-  vnoremap <C-]> <C-[>
-  cnoremap <C-]> <C-[>
+  inoremap <C-]> <Esc>
+  nnoremap <C-]> <Esc>
+  vnoremap <C-]> <Esc>
+  cnoremap <C-]> <Esc>
 else
-  inoremap <C-\> <C-[>
-  nnoremap <C-\> <C-[>
-  vnoremap <C-\> <C-[>
-  cnoremap <C-\> <C-[>
+  inoremap <C-\> <Esc>
+  nnoremap <C-\> <Esc>
+  vnoremap <C-\> <Esc>
+  cnoremap <C-\> <Esc>
 endif
 
 
@@ -1018,7 +1018,6 @@ if neobundle#tap('vim-automatic')
     nnoremap <silent> <plug>(quit) :<C-u>q<cr>
     function! s:my_temporary_window_init(config, context)
       nmap <buffer> <C-[> <plug>(quit)
-      nmap <buffer> <C-_> <plug>(quit)
     endfunction
 
     let g:automatic_default_match_config = {
@@ -1623,7 +1622,6 @@ set nowrap
 set background=dark
 set t_Co=256
 colorscheme solarized
-syntax enable
 "colorscheme molokai
 
 " colorschemeでの設定を上書きするため
@@ -1647,6 +1645,7 @@ highlight ZenkakuSpace cterm=underline ctermfg=red gui=underline guifg=red
 au BufNew,BufRead * match ZenkakuSpace /　/
 " }}}
 
+syntax on
 " }}}
 
 " }}}
