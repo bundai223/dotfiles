@@ -632,6 +632,11 @@ function git_pullall() {
     done
 }
 
+function listup_ip() {
+    LANG=C ifconfig | grep 'inet ' | awk '{print $2;}' | cut -d: -f2
+    #LANG=C ifconfig | grep 'inet addr' | awk '{print $2;}' | cut -d: -f2
+}
+
 # OPAM configuration
 . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
