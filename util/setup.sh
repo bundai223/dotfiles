@@ -94,6 +94,8 @@ TOOL_NAMES_ARRAY=\
  'zsh-users/zsh-completions.git'\
  'zsh-users/antigen.git'\
  'altercation/solarized'\
+ 'ajaxorg/cloud9.git'\
+ 'csabahenk/dedrm-ebook-tools.git'\
 )
 for toolname in ${TOOL_NAMES_ARRAY[@]}; do
     ghq get ${toolname}

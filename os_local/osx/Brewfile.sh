@@ -29,6 +29,9 @@ if [[ $OSTYPE == darwin* ]]; then
     #brew cask install cheatsheet
     brew cask install clipmenu
     brew cask install appcleaner
+    brew cask install fluid
+    brew cask install platypus
+    brew cask install cd-to
 
     brew install caskroom/versions/java6
 
@@ -45,6 +48,7 @@ if [[ $OSTYPE == darwin* ]]; then
         brew cask install steam
         #brew cask install dropbox
         brew cask install cooviewer
+        brew cask install calibre
         brew cask install dolphin openemu
     #    mediahuman
     #    mikutter
