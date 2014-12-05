@@ -658,7 +658,7 @@ NeoBundle 'vim-jp/vimdoc-ja'
 
 "=====================================
 " Color Scheme
-NeoBundle 'bundai223/vim-colors-solarized'
+NeoBundleFetch 'bundai223/vim-colors-solarized'
 NeoBundleLazy 'tomasr/molokai'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/newspaper.vim'
@@ -702,6 +702,15 @@ endfunction
 let s:bundle = neobundle#get('vim-colors-solarized')
 function! s:bundle.hooks.on_source(bundle)
   "let g:solarized_visibility="high"
+
+  " colorschemeでの設定を上書きするため
+  " colorschemeより後で記述
+  " solarized darkでのgitgutter表示調整
+  highlight GitGutterAdd ctermfg=green guifg=darkgreen
+  highlight GitGutterChange ctermfg=yellow guifg=darkyellow
+  highlight GitGutterDelete ctermfg=red guifg=darkred
+  highlight GitGutterChangeDelete ctermfg=yellow guifg=darkyellow
+
 endfunction
 "}}}
 
@@ -1101,8 +1110,9 @@ let g:gitgutter_sign_modified = '➜'
 let g:gitgutter_sign_removed = '✘'
 
 " lightline.vim {{{
+      "\ 'colorscheme': 'wombat',
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'default',
       \ 'mode_map': {'c': 'NORMAL'},
       \ 'active': {
       \   'left': [
@@ -1407,7 +1417,7 @@ nnoremap <silent> [unite]t   :<C-u>Unite -buffer-name=todo -no-quit picktodo<CR>
 nnoremap <silent> [unite]tw  :<C-u>Unite -buffer-name=tweet tweetvim<CR>
 nnoremap <silent> [unite]g   :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
 nnoremap <silent> [unite]ns  :<C-u>Unite -buffer-name=snippet neosnippet<CR>
-nnoremap <silent> [unite]esn :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
+nnoremap <silent> [unite]ens :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
 nnoremap <silent> [unite]nb  :<C-u>Unite -buffer-name=neobundle neobundle/update:all -auto-quit -keep-focus -log<CR>
 nnoremap <silent> [unite]b   :<C-u>Unite -buffer-name=buffer buffer<CR>
 nnoremap <silent> [unite]c   :<C-u>Unite -buffer-name=colorscheme -auto-preview colorscheme<CR>
@@ -1621,16 +1631,8 @@ set nowrap
 " Color scheme setting {{{
 set background=dark
 set t_Co=256
-colorscheme solarized
-"colorscheme molokai
-
-" colorschemeでの設定を上書きするため
-" colorschemeより後で記述
-" solarized darkでのgitgutter表示調整
-highlight GitGutterAdd ctermfg=green guifg=darkgreen
-highlight GitGutterChange ctermfg=yellow guifg=darkyellow
-highlight GitGutterDelete ctermfg=red guifg=darkred
-highlight GitGutterChangeDelete ctermfg=yellow guifg=darkyellow
+colorscheme desert
+"colorscheme solarized
 
 " IMEの状態でカーソル色変更 {{{
 "IME状態に応じたカーソル色を設定
