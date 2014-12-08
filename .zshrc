@@ -625,11 +625,14 @@ function peco_gitmodified() {
 }
 
 function git_pullall() {
-    for repo in $(ghq list -p | grep $1); do
+    CURDIR=`pwd`
+    #for repo in $(ghq list -p | grep $1); do
+    $(ghq list -p | grep $1) | while read repo; do
         echo $repo
         cd $repo
         git pull --rebase
     done
+    cd $CURDIR
 }
 
 function listup_ip() {
