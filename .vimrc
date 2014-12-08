@@ -35,7 +35,7 @@ set clipboard=unnamed
 set matchpairs=(:),{:},[:],<:>
 
 " 改行時の自動コメントをなしに
-set formatoptions-=ro
+autocmd FileType * setlocal formatoptions-=o
 
 " シンボリックなファイルを編集するとリンクが消されてしまうことがあったので
 " 参照先を変数に上書き
@@ -143,6 +143,8 @@ set hlsearch
 " http://cohama.hateblo.jp/entry/20130529/1369843236
 " Auto complete backslash when input slash on search command(search by slash).
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
 
 " Expand 単語境界入力
 " https://github.com/cohama/.vim/blob/master/.vimrc
@@ -198,10 +200,13 @@ set grepprg=grep\ -nH
 " :verbose :setlocal filetype?
 "
 " Set encoding when open file {{{
-command! -bang -complete=file -nargs=? Utf8 edit<bang> ++enc=utf-8 <args>
-command! -bang -complete=file -nargs=? Utf16 edit<bang> ++enc=utf-16 <args>
-command! -bang -complete=file -nargs=? Sjis edit<bang> ++enc=cp932 <args>
-command! -bang -complete=file -nargs=? Euc edit<bang> ++enc=eucjp <args>
+command! Utf8 edit ++enc=utf-8 %
+command! Utf16 edit ++enc=utf-16 %
+command! Cp932 edit ++enc=cp932 %
+command! Euc edit ++enc=eucjp %
+
+command! Unix edit ++ff=unix %
+command! Dos edit ++ff=dos %
 " }}}
 
 " カレントパスをクリップボードにコピー {{{
@@ -264,18 +269,10 @@ noremap <C-s> <nop>
 noremap <C-S> <nop>
 
 " Easy to esc
-noremap [easy_to_esc] <nop>
-if has('mac')
-  inoremap <C-]> <Esc>
-  nnoremap <C-]> <Esc>
-  vnoremap <C-]> <Esc>
-  cnoremap <C-]> <Esc>
-else
-  inoremap <C-\> <Esc>
-  nnoremap <C-\> <Esc>
-  vnoremap <C-\> <Esc>
-  cnoremap <C-\> <Esc>
-endif
+inoremap <C-]> <Esc>
+nnoremap <C-]> <Esc>
+vnoremap <C-]> <Esc>
+cnoremap <C-]> <Esc>
 
 
 " Easy to cmd mode
@@ -544,7 +541,8 @@ NeoBundleLazy 'vim-scripts/nginx.vim', {
 
 
 " textobj
-NeoBundle 'tpope/vim-surround'
+"NeoBundle 'tpope/vim-surround'
+NeoBundleFetch 'rhysd/vim-operator-surround'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'sgur/vim-textobj-parameter'
 NeoBundle 'osyo-manga/vim-textobj-multiblock'
@@ -584,7 +582,6 @@ NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'airblade/vim-gitgutter'
-"NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
 NeoBundle 'thinca/vim-prettyprint'
@@ -613,6 +610,8 @@ NeoBundleLazy 'Shougo/vimshell', {
       \   'autoload' : {'commands' : ['VimShell', 'VimShellPop'] },
       \ }
 NeoBundle 'LeafCage/foldCC'
+NeoBundle 'rhysd/committia.vim'
+NeoBundle 'rhysd/vim-grammarous'
 
 " Cursor move
 NeoBundle 'rhysd/clever-f.vim'
@@ -1670,5 +1669,4 @@ endif
 if filereadable(expand('~/.vimrc_local'))
   source ~/.vimrc_local
 endif
-
 
