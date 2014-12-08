@@ -19,9 +19,12 @@ _git-ignore ()
 	local curcontext="$curcontext" state line
 	typeset -A opt_args
 
+#	_arguments -C \
+#		':command:->command' \
+#		'*::options:->options'
+
 	_arguments -C \
-		':command:->command' \
-		'*::options:->options'
+		':command:->command'
 
 	case $state in
 		(command)
