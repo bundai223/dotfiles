@@ -105,6 +105,12 @@ bindkey $'\e' vi-cmd-mode
 # 全履歴表示
 function history-all { history -E 1 }
 
+# 最後に入力した内容を貼り付ける
+autoload -Uz smart-insert-last-word
+# [a-zA-Z], /, \ のうち少なくとも1文字を含む長さ2以上の単語
+zstyle :insert-last-word match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
+zle -N insert-last-word smart-insert-last-word
+bindkey '^]' insert-last-word
 #}}}
 
 # Command line stack {{{
