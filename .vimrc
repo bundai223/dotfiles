@@ -341,8 +341,8 @@ nnoremap j  gj
 nnoremap k  gk
 
 " 関数単位で移動
-noremap <C-p> [[
-noremap <C-n> ]]
+nmap <C-p> [[
+nmap <C-n> ]]
 
 " Toggle 0 and ^
 nnoremap <expr>0 col('.') == 1 ? '^' : '0'
