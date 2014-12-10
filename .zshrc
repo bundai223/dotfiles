@@ -646,6 +646,29 @@ function listup_ip() {
     #LANG=C ifconfig | grep 'inet addr' | awk '{print $2;}' | cut -d: -f2
 }
 
+function os_version() {
+    VERSION_FILE_ARRAY=(\
+        '/etc/redhat-release' \
+        '/etc/fedora-release' \
+        '/etc/debian_version' \
+        '/etc/turbolinux-release' \
+        '/etc/SuSE-release' \
+        '/etc/mandriva-release' \
+        '/etc/vine-release' \
+        '/etc/issue' \
+    )
+
+    if [ 'Darwin' = $(uname) ]; then
+        sw_vers
+    else
+        for file in $VERSION_FILE_ARRAY; do
+            if [ -e $file ]; then
+                cat $file; exit
+            fi
+        done
+    fi
+}
+
 # OPAM configuration
 . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
