@@ -12,6 +12,7 @@ setl cinwords=if,elif,else,for,while,try,except,finally,def,class
 " 実際のインデントはspace2文字
 setl expandtab
 setl tabstop=8
-setl shiftwidth=2
+setl shiftwidth=4
 setl softtabstop=0
+setl smarttab
 
