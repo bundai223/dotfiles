@@ -632,8 +632,8 @@ function peco_gitmodified() {
 
 function git_pullall() {
     CURDIR=`pwd`
-    #for repo in $(ghq list -p | grep $1); do
-    $(ghq list -p | grep $1) | while read repo; do
+    for repo in $(ghq list -p | grep $1); do
+    #$(ghq list -p | grep $1) | while read repo; do
         echo $repo
         cd $repo
         git pull --rebase
