@@ -23,7 +23,12 @@ alias eclipse_clean='/Applications/eclipse/Eclipse.app/Contents/MacOS/eclipse -c
 
 # ref) http://tukaikta.blog135.fc2.com/blog-entry-228.html
 # refresh memory
-alias refmem='du -sx / &> /dev/null & sleep 25 && kill $!'
+alias refmem='refresh_memory &>/dev/null &'
+
+refresh_memory()
+{
+    du -sx / &> /dev/null & sleep 25 && kill $!
+}
 
 function peco_work() {
     target=`find ~/work -maxdepth 2 -mindepth 1 -type d | peco`

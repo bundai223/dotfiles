@@ -84,7 +84,7 @@ brew install opam rlwrap
 brew install git mercurial
 brew install z zsh tmux
 brew install cmake
-brew install android ant apktool
+brew install android-sdk android-ndk ant apktool
 brew install the_silver_searcher
 
 brew install sanemat/font/ricty
@@ -95,7 +95,7 @@ if [[ $OSTYPE == darwin* ]]; then
     brew install reattach-to-user-namespace
 
     # macvim
-    # 本当は本家版が最新っぽいのでいいがビルドエラーが出るのでフォーク版。
+    # 本家版はビルドエラーが出るのでフォーク版。
     brew install cscope
     brew install lua
     brew install --HEAD KazuakiM/splhack/cmigemo-mk
