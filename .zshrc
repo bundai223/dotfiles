@@ -15,6 +15,7 @@ zstyle ':completion:*:messages' format '%F{YELLOW}%d%f'
 zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d%f'
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:descriptions' format '%F{yellow}Completing %B%d%b%f'
+zstyle ':completion:*:processes' command "ps -u $USER"
 
 # マッチ種別を別々に表示
 zstyle ':completion:*' group-name ''
