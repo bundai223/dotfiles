@@ -20,13 +20,13 @@ echo goimports
 go get code.google.com/p/go.tools/cmd/goimports # go formatter.
 
 echo godoc
-go get code.google.com/p/go.tools/cmd/godoc     # go document viewer.
+go get golang.org/x/tools/cmd/godoc     # go document viewer.
 
 echo vet
-go get code.google.com/p/go.tools/cmd/vet       # go static analyser.
+go get golang.org/x/tools/cmd/vet       # go static analyser.
 
 echo cover
-go get code.google.com/p/go.tools/cmd/cover     # go measure coverage on test.
+go get golang.org/x/tools/cmd/cover     # go measure coverage on test.
 
 echo gocode
 go get github.com/nsf/gocode                    # go completions for editor.
