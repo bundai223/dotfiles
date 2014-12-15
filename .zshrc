@@ -44,14 +44,28 @@ export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46
 # ファイル補完候補に色を付ける
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-# }}}
-
 # 小文字は大文字とごっちゃで検索できる
 # 大文字は小文字と区別される
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-# cdで表示しない例外設定
-zstyle ':completion:*:*:cd:*' ignored-patterns '.svn|.git'
 
+# ディレクトリを切り替える時の色々な補完スタイル
+#あらかじめcdpathを適当に設定しておく
+cdpath=(~ ~/repos/)
+# カレントディレクトリに候補がない場合のみ cdpath 上のディレクトリを候補に出す
+zstyle ':completion:*:cd:*' tag-order local-directories path-directories
+#cd は親ディレクトリからカレントディレクトリを選択しないので表示させないようにする (例: cd ../<TAB>):
+zstyle ':completion:*:cd:*' ignore-parents parent pwd
+
+zstyle ':completion:*:' ignore-parents parent pwd
+
+# 補完で表示しない例外設定
+zstyle ':completion:*:*:cd:*' ignored-patterns '.svn|.git'
+zstyle ':completion:*:*files' ignored-patterns '*?.o' '*?.pyc' '*\~'
+# ls,rmはすべてを補完
+zstyle ':completion:*:ls:*' ignored-patterns 
+zstyle ':completion:*:rm:*' ignored-patterns 
+
+# }}}
 
 setopt nobeep               # ビープ音なし
 setopt ignore_eof           # C-dでログアウトしない
