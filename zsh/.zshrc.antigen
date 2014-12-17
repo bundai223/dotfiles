@@ -12,9 +12,9 @@ if [[ -f ${ANTIGEN_ROOT}/antigen.zsh ]]; then
     brew
     vagrant
     mollifier/zload
-    bundai223/auto-fu.zsh
     zsh-users/zsh-syntax-highlighting
 EOBUNDLES
+    #bundai223/auto-fu.zsh
     #hchbaw/auto-fu.zsh
 
     antigen-apply

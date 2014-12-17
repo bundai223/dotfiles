@@ -105,7 +105,7 @@ setopt hist_reduce_blanks
 # 古いコマンドと同じものは無視
 setopt hist_save_no_dups
 
-# 補完時にヒストリを自動的に展開         
+# 補完時にヒストリを自動的に展開
 setopt hist_expand
 
 # 履歴をインクリメンタルに追加
@@ -232,6 +232,9 @@ alias scp="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config;scp"
 alias git="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config;git"
 alias knife="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config;knife"
 
+alias jgems="jruby -S gems"
+alias jrake="jruby -S rake"
+
 ## man zshall
 # ref) http://qiita.com/yuyuchu3333/items/67630d597c7700a51b95
 # zman [search word]
@@ -304,7 +307,7 @@ function update_vi_mode () {
 }
 
 function zle-line-init {
-    auto-fu-init
+#    auto-fu-init
     update_vi_mode
 }
 
@@ -648,7 +651,6 @@ function peco_gitmodified() {
 function git_pullall() {
     CURDIR=`pwd`
     for repo in $(ghq list -p | grep $1); do
-    #$(ghq list -p | grep $1) | while read repo; do
         echo $repo
         cd $repo
         git pull --rebase
