@@ -5,6 +5,8 @@ brew update
 # gui tools
 if [[ $OSTYPE == darwin* ]]; then
     # brew tap caskroom/versions
+    brew tap bundai223/personal
+
     brew install caskroom/cask/brew-cask
     brew cask update
 
@@ -50,6 +52,7 @@ if [[ $OSTYPE == darwin* ]]; then
         brew cask install cooviewer
         brew cask install calibre
         brew cask install dolphin openemu
+        brew cask install aquaskk
     #    mediahuman
     #    mikutter
     #    snes
