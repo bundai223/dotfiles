@@ -662,7 +662,7 @@ NeoBundle 'vim-jp/vimdoc-ja'
 
 "=====================================
 " Color Scheme
-NeoBundleFetch 'bundai223/vim-colors-solarized'
+NeoBundle 'bundai223/vim-colors-solarized'
 NeoBundleLazy 'tomasr/molokai'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/newspaper.vim'
@@ -719,10 +719,10 @@ function! s:bundle.hooks.on_source(bundle)
   " colorschemeでの設定を上書きするため
   " colorschemeより後で記述
   " solarized darkでのgitgutter表示調整
-  highlight GitGutterAdd ctermfg=green guifg=darkgreen
-  highlight GitGutterChange ctermfg=yellow guifg=darkyellow
-  highlight GitGutterDelete ctermfg=red guifg=darkred
-  highlight GitGutterChangeDelete ctermfg=yellow guifg=darkyellow
+  "highlight GitGutterAdd ctermfg=green guifg=darkgreen
+  "highlight GitGutterChange ctermfg=yellow guifg=darkyellow
+  "highlight GitGutterDelete ctermfg=red guifg=darkred
+  "highlight GitGutterChangeDelete ctermfg=yellow guifg=darkyellow
 
 endfunction
 "}}}
