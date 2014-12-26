@@ -51,6 +51,8 @@ fi
 DOT_VIM=.vim
 mkdir_noerror ~/${DOT_VIM}
 mkdir_noerror ~/${DOT_VIM}/undo
+mkdir_noerror ~/${DOT_VIM}/backup
+mkdir_noerror ~/${DOT_VIM}/swp
 
 # neobundleがないとvimのプラグインとってこれないので先にゲット
 NEOBUNDLE_PATH=~/${DOT_VIM}/neobundle.vim

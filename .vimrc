@@ -24,9 +24,10 @@ set fileformat=unix
 set fileformats=unix,dos
 
 " バックアップファイルの設定
-"set nowritebackup
-"set nobackup
-set noswapfile
+set backupdir=~/.vim/backup
+set backup
+set directory=~/.vim/swp
+set swapfile
 
 " クリップボードを使用する
 set clipboard=unnamed
@@ -224,7 +225,7 @@ endfunction
 
 " カーソルを指定位置に移動 {{{
 "展開後 <Cursor> 位置にカーソルが移動する
-"nnoremap <expr> <A-p> _(":%s/<Cursor>/ほむ/g")
+"nnoremap <expr> <A-p> s:_(":%s/<Cursor>/ほむ/g")
 "nnoremap <expr> <A-p> ":%s//ほむ/g\<Left>\<Left>\<Left>\<Left>\<Left>\<Left>\<Left>"
 function! s:move_cursor_pos_mapping(str, ...)
   let left = get(a:, 1, "<Left>")
@@ -232,7 +233,7 @@ function! s:move_cursor_pos_mapping(str, ...)
   return substitute(a:str, '<Cursor>', '', '') . lefts
 endfunction
 
-function! _(str)
+function! s:_(str)
   return s:move_cursor_pos_mapping(a:str, "\<Left>")
 endfunction
 
@@ -515,6 +516,10 @@ NeoBundleLazy 'vim-scripts/glsl.vim', {
       \ }
 
 " MarkDown
+NeoBundleLazy 'plasticboy/vim-markdown', {
+      \   'autoload' : {'filetypes': ['markdown']}
+      \ }
+
 NeoBundleLazy 'kannokanno/previm', {
       \   'autoload' : {'filetypes': ['markdown']}
       \ }
@@ -672,6 +677,15 @@ filetype plugin indent on
 " Plugin setting {{{
 
 " Load on_source
+" clever-f {{{
+let s:bundle = neobundle#get('previm')
+function! s:bundle.hooks.on_source(bundle)
+  let g:previm_disable_default_css = 1
+  let g:previm_custom_css_path = expand('~/repos/bitbucket.org/bundai223/css_utils/css/qiita_old.css')
+endfunction
+
+" }}}
+
 " clever-f {{{
 let s:bundle = neobundle#get('clever-f.vim')
 function! s:bundle.hooks.on_source(bundle)
