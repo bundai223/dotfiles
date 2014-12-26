@@ -30,7 +30,8 @@ DOTFILE_NAMES_ARRAY=\
  .ideavimrc\
  .tmux.conf\
  .tmux/utility\
- .ctags
+ .ctags\
+ .emacs.d/init.el
 )
 for dotfile in ${DOTFILE_NAMES_ARRAY[@]}; do
     if [ ! -e ${DOTFILES_PATH}/${dotfile} ]; then
@@ -110,4 +111,9 @@ if [[ $OSTYPE == darwin* ]]; then
 else
     ghq get rupa/z.git
 fi
+
+# pythonツール
+easy_install fabric
+easy_install vim-vint
+
 
