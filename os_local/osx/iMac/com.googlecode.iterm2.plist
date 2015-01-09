@@ -537,11 +537,11 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1402 236 445 270 0 0 2560 1418 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>515 331 924 485 0 0 2560 1417 </string>
+	<string>517 332 924 485 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>2641 117 1810 1053 2560 115 1920 1057 </string>
+	<string>610 364 1810 1053 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>1157 105 1210 1313 0 0 2560 1418 </string>
+	<string>2638 117 1810 1053 2560 115 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>419 144 490 351 0 0 2560 1418 </string>
 	<key>New Bookmarks</key>
@@ -2570,11 +2570,11 @@
 			<key>Normal Font</key>
 			<string>Ricty-Regular 12</string>
 			<key>Option Key Sends</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
 			<integer>0</integer>
 			<key>Right Option Key Sends</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Rows</key>
 			<integer>104</integer>
 			<key>Screen</key>
@@ -2809,7 +2809,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2014-12-05T07:22:34Z</date>
+	<date>2015-01-08T01:03:17Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
