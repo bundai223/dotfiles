@@ -626,7 +626,7 @@ function local_vimrc_create()
 }
 
 # cd git repository
-function cdrepos() {
+function cd_repos() {
     cd $(ghq list -p | peco)
 }
 
