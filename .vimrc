@@ -454,65 +454,9 @@ call neobundle#begin(expand('~/.vim/.bundle'))
 " Neobundle plugin list {{{
 
 " Language
-" C++
-NeoBundleLazy 'vim-jp/cpp-vim', {
-      \   'autoload': {'filetypes': ['cpp']}
-      \ }
-NeoBundleLazy 'vim-scripts/opengl.vim', {
-      \   'autoload': {'filetypes': ['cpp']}
-      \ }
-NeoBundleFetch 'Rip-Rip/clang_complete'
-" NeoBundleLazy 'Rip-Rip/clang_complete', {
-"            \   'autoload': {'filetypes': ['cpp']}
-"            \ }
-" NeoBundleFetch 'osyo-manga/vim-marching'
-NeoBundleLazy 'osyo-manga/vim-marching', {
-      \   'autoload': {'filetypes': ['cpp']}
-      \ }
-
-" C#
-NeoBundleLazy 'nosami/Omnisharp', {
-      \   'autoload': {'filetypes': ['cs']},
-      \   'build': {
-      \     'windows': 'MSBuild.exe server/OmniSharp.sln /p:Platform="Any CPU"',
-      \     'mac': 'xbuild server/OmniSharp.sln',
-      \     'unix': 'xbuild server/OmniSharp.sln',
-      \   }
-      \ }
-
 " Python
 NeoBundleLazy 'davidhalter/jedi-vim', {
       \   'autoload': {'filetypes': ['python']}
-      \ }
-
-" Haskell
-" indent
-NeoBundleLazy 'kana/vim-filetype-haskell', {
-      \   'autoload': {'filetypes': ['haskell']}
-      \ }
-" hilight
-NeoBundleLazy 'dag/vim2hs', {
-      \   'autoload': {'filetypes': ['haskell']}
-      \ }
-" reference
-NeoBundleLazy 'ujihisa/ref-hoogle', {
-      \   'autoload': {'filetypes': ['haskell']}
-      \ }
-NeoBundleLazy 'eagletmt/ghcmod-vim', {
-      \   'autoload': {'filetypes': ['haskell']}
-      \ }
-NeoBundleLazy 'eagletmt/neco-ghc', {
-      \   'autoload': {'filetypes': ['haskell']}
-      \ }
-NeoBundle 'ujihisa/unite-haskellimport'
-
-
-" shader
-NeoBundleLazy 'vim-scripts/glsl.vim', {
-      \   'autoload': {'filetypes': ['glsl']}
-      \ }
-"NeoBundleLazy 'bundai223/FX-HLSL', {
-      \   'autoload': {'filetypes': ['fx']}
       \ }
 
 " MarkDown
@@ -544,7 +488,6 @@ NeoBundleLazy 'vim-scripts/nginx.vim', {
       \   'autoload' : {'filetypes' : ['nginx']}
       \ }
 
-
 " textobj
 "NeoBundle 'tpope/vim-surround'
 NeoBundleFetch 'rhysd/vim-operator-surround'
@@ -556,9 +499,7 @@ NeoBundle 'osyo-manga/vim-textobj-multitextobj'
 " utility
 NeoBundle 'mattn/emmet-vim' " html ?
 NeoBundle 'mattn/gist-vim'
-NeoBundle 'fuenor/qfixhowm'
 
-NeoBundle 'basyura/twibill.vim'
 NeoBundle 'basyura/TweetVim'
 NeoBundle 'koron/codic-vim'
 NeoBundle 't9md/vim-quickhl'
@@ -571,16 +512,9 @@ NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'deris/vim-rengbang'
 NeoBundleFetch 'osyo-manga/vim-gift'
 NeoBundleFetch 'osyo-manga/vim-automatic'
-NeoBundle 'osyo-manga/shabadou.vim'
 NeoBundle 'osyo-manga/vim-anzu'
-NeoBundle 'osyo-manga/vim-over'
-NeoBundle 'osyo-manga/vim-reunions'
-NeoBundle 'osyo-manga/vim-watchdogs', {
-      \   'autoload' : {'commands' : ['WatchdogsRun'] },
-      \ }
 
 NeoBundle 'tpope/vim-fugitive'
-"NeoBundle 'gregsexton/gitv'
 NeoBundle 'cohama/agit.vim'
 NeoBundle 'tyru/open-browser.vim'
 
@@ -594,6 +528,7 @@ NeoBundle 'thinca/vim-scall'
 NeoBundle 'thinca/vim-singleton' , {
       \   'gui' : 1
       \ }
+
 NeoBundle 'tyru/restart.vim'
 NeoBundle 'tyru/capture.vim'
 NeoBundle 'mattn/webapi-vim'
@@ -620,7 +555,6 @@ NeoBundle 'rhysd/vim-grammarous'
 
 " Cursor move
 NeoBundle 'rhysd/clever-f.vim'
-NeoBundle 'Lokaltog/vim-easymotion'
 
 NeoBundleLazy 'supermomonga/jazzradio.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
 
@@ -639,12 +573,8 @@ NeoBundle 'Shougo/unite-build'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'osyo-manga/unite-fold'
 NeoBundle 'osyo-manga/unite-quickrun_config'
-NeoBundle 'osyo-manga/unite-qfixhowm'
-NeoBundle 'bundai223/unite-outline-sources'
-NeoBundle 'bundai223/unite-picktodo'
 NeoBundle 'ujihisa/unite-locate'
 NeoBundle 'tsukkee/unite-tag'
-"NeoBundle 'bundai223/unite-find'
 if has('mac')
   NeoBundle 'choplin/unite-spotlight'
   NeoBundle 'itchyny/dictionary.vim'
@@ -677,7 +607,7 @@ filetype plugin indent on
 " Plugin setting {{{
 
 " Load on_source
-" clever-f {{{
+" previm {{{
 let s:bundle = neobundle#get('previm')
 function! s:bundle.hooks.on_source(bundle)
   let g:previm_disable_default_css = 1
@@ -695,22 +625,6 @@ endfunction
 
 " }}}
 
-" easymotion {{{
-let s:bundle = neobundle#get('vim-easymotion')
-function! s:bundle.hooks.on_source(bundle)
-"  " ホームポジションに近いキーを使う
-"  let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
-"  " 「;」 + 何かにマッピング
-"  let g:EasyMotion_leader_key="s"
-"  " 1 ストローク選択を優先する
-"  let g:EasyMotion_grouping=1
-"  " カラー設定変更
-"  hi EasyMotionTarget ctermbg=none ctermfg=red
-"  hi EasyMotionShade  ctermbg=none ctermfg=blue
-endfunction
-
-" }}}
-
 " solarized {{{
 let s:bundle = neobundle#get('vim-colors-solarized')
 function! s:bundle.hooks.on_source(bundle)
@@ -724,63 +638,6 @@ function! s:bundle.hooks.on_source(bundle)
   "highlight GitGutterDelete ctermfg=red guifg=darkred
   "highlight GitGutterChangeDelete ctermfg=yellow guifg=darkyellow
 
-endfunction
-"}}}
-
-" marching {{{
-let s:bundle = neobundle#get('vim-marching')
-function! s:bundle.hooks.on_source(bundle)
-  " 非同期ではなくて同期処理で補完する
-  let g:marching_backend = "clang_command"
-  "let g:marching_backend = "sync_clang_command"
-
-  " オプションの設定
-  " これは clang のコマンドに渡される
-  "let g:marching_clang_command_option="-std=c++1y"
-
-
-  " neocomplete.vim と併用して使用する場合
-  " neocomplete.vim を使用すれば自動補完になる
-  let g:marching_enable_neocomplete = 1
-
-  if !exists('g:neocomplete#force_omni_input_patterns')
-    let g:neocomplete#force_omni_input_patterns = {}
-  endif
-
-  let g:neocomplete#force_omni_input_patterns.cpp =
-        \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-
-  imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
-endfunction
-
-" clang_complete
-let s:bundle = neobundle#get('clang_complete')
-function! s:bundle.hooks.on_source(bundle)
-
-  let g:clang_auto_select     = 0
-  let g:clang_use_library     = 1
-  " exp)  let g:clang_exec        = 'C:\path\to\clang.exe'
-  "       let g:clang_library_path= 'C:\path\to\(libclang.dll)'
-  "       let g:clang_user_options= '2> NUL || exit 0"'
-  if has('win32')
-    let g:clang_complete_auto = 0
-    let g:clang_exec          = 'clang'
-    "let g:clang_library_path  = 'D:\Home\tool\clang\bin\'
-    let g:clang_user_options  = '2> NUL || exit 0"'
-
-  elseif has('mac')
-    let g:clang_complete_auto = 1
-    let g:clang_exec          = 'clang'
-    let g:clang_library_path  = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/'
-    let g:clang_user_options  = '2>/dev/null || exit 0"'
-
-  elseif has('unix')
-    let g:clang_complete_auto = 1
-    let g:clang_exec          = '/usr/bin/clang'
-    let g:clang_library_path  = '/usr/local/lib/'
-    let g:clang_user_options  = '2>/dev/null || exit 0"'
-
-  endif
 endfunction
 "}}}
 
@@ -836,18 +693,6 @@ endfunction
 
 " }}}
 
-" unite-qfixhowm {{{
-let s:bundle = neobundle#get('unite-qfixhowm')
-function! s:bundle.hooks.on_source(bundle)
-  " How to open new memo
-  let g:unite_qfixhowm_new_memo_cmd = "tabnew"
-
-  call unite#custom_source('qfixhowm', 'sorters', ['sorter_qfixhowm_updatetime', 'sorter_reverse'])
-
-endfunction
-
-" }}}
-
 " singleton {{{
 let s:bundle = neobundle#get('vim-singleton')
 function! s:bundle.hooks.on_source(bundle)
@@ -861,13 +706,6 @@ function! s:bundle.hooks.on_source(bundle)
   nnoremap <silent> rs : <C-u> Restart <CR>
 endfunction
 "}}}
-
-" Watchdogs {{{
-let s:bundle = neobundle#get('vim-watchdogs')
-function! s:bundle.hooks.on_source(bundle)
-  call watchdogs#setup(g:quickrun_config)
-endfunction
-" }}}
 
 " eskk {{{
 let s:bundle = neobundle#get('eskk.vim')
@@ -1285,13 +1123,6 @@ set foldcolumn=2
 
 " }}}
 
-" Over vim {{{
-" ちょっとあやしい
-" http://leafcage.hateblo.jp/
-"cnoreabb <silent><expr>s getcmdtype()==':' && getcmdline()=~'^s' ? 'OverCommandLine<CR><C-u>%s/<C-r>=get([], getchar(0), '')<CR>' : 's'
-
-"}}}
-
 " quickhl {{{
 let g:quickhl_manual_enable_at_startup = 1
 
@@ -1436,7 +1267,6 @@ nnoremap <silent> [unite]b   :<C-u>Unite -buffer-name=buffer buffer<CR>
 nnoremap <silent> [unite]c   :<C-u>Unite -buffer-name=colorscheme -auto-preview colorscheme<CR>
 nnoremap <silent> [unite]s   :<C-u>Unite source -vertical<CR>
 nnoremap <silent> [unite]l   :<C-u>Unite locate<CR>
-nnoremap <silent> [unite]q   :<C-u>Unite qfixhowm/new qfixhowm:nocache -hide-source-names<CR>
 
 vnoremap <silent> [unite]aa  :<C-u>Unite alignta:arguments<CR>
 vnoremap <silent> [unite]ao  :<C-u>Unite alignta:options<CR>
@@ -1580,18 +1410,6 @@ nmap # <Plug>(anzu-sharp-with-echo)
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
-
-" }}}
-
-" qfixhowm {{{
-let howm_dir = '~/.vim/howm'
-let howm_filename        = '%Y/%m/%Y-%m-%d-%H%M%S.howm'
-let howm_fileencoding    = 'utf-8'
-let howm_fileformat      = 'unix'
-
-let QFixHowm_Key = 'g'
-let QFix_PreviewEnable = 0
-let QFix_CursorLine = 0
 
 " }}}
 
