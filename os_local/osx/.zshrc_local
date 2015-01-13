@@ -10,8 +10,8 @@ alias updatedb='sudo /usr/libexec/locate.updatedb'
 #alias updatedb="sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist"
 alias chrome='open -a Google\ Chrome'
 alias xcode='open -a /Applications/Xcode.app/Contents/MacOS/Xcode'
-alias iossim='open -a /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app'
-alias andsim='open -a /Applications/Genymotion.app'
+alias ios_sim='open -a /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app'
+alias android_sim='open -a /Applications/Genymotion.app'
 alias createTags='~/repos/github.com/bundai223/codepocket/shell/mac/create_ctags.sh'
 
 alias -s xcodeproj=xcode
