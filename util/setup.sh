@@ -14,6 +14,7 @@ mkdir_noerror()
 
 mkdir_noerror ~/.tmux
 mkdir_noerror ~/.zsh
+mkdir_noerror ~/.emacs.d
 
 
 # Create symbolic link to dotfiles {{{
@@ -31,7 +32,7 @@ DOTFILE_NAMES_ARRAY=\
  .tmux.conf\
  .tmux/utility\
  .ctags\
- .emacs.d/init.el
+ .emacs.d/inits\
 )
 for dotfile in ${DOTFILE_NAMES_ARRAY[@]}; do
     if [ ! -e ${DOTFILES_PATH}/${dotfile} ]; then
