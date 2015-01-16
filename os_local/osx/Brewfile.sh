@@ -71,7 +71,7 @@ fi
 # brew install mecab
 # brew install node redis
 
-brew install wget
+brew install wget coreutils
 brew install platntuml
 
 # program languages.
