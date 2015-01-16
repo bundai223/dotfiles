@@ -489,12 +489,14 @@ NeoBundleLazy 'vim-scripts/nginx.vim', {
       \ }
 
 " textobj
-"NeoBundle 'tpope/vim-surround'
-NeoBundleFetch 'rhysd/vim-operator-surround'
 NeoBundle 'kana/vim-textobj-user'
+"NeoBundle 'tpope/vim-surround'
 NeoBundle 'sgur/vim-textobj-parameter'
 NeoBundle 'osyo-manga/vim-textobj-multiblock'
 NeoBundle 'osyo-manga/vim-textobj-multitextobj'
+
+NeoBundle 'kana/vim-operator-user'
+NeoBundle 'rhysd/vim-operator-surround', { 'depends' : 'kana/vim-operator-user' }
 
 " utility
 NeoBundle 'mattn/emmet-vim' " html ?
@@ -1290,6 +1292,13 @@ nnoremap <silent> <Leader>f : <C-u> VimFilerBufferDir -buffer-name=explorer -spl
 
 " }}}
 
+" textobj-surround {{{
+nmap ys <Plug>(operator-surround-append)
+nmap ds <Plug>(operator-surround-delete)
+nmap cs <Plug>(operator-surround-replace)
+
+" }}}
+
 " textobj-multiblock {{{
 vmap ab <Plug>(textobj-multiblock-a)
 vmap ib <Plug>(textobj-multiblock-i)
@@ -1492,10 +1501,10 @@ syntax on
 "endif
 " }}}
 
-" 取り敢えずここで
-if !exists("loaded_matchit")
-  source $VIMRUNTIME/macros/matchit.vim
-endif
+"" 取り敢えずここで
+"if !exists("loaded_matchit")
+"  source $VIMRUNTIME/macros/matchit.vim
+"endif
 
 " ローカル設定を読み込む
 if filereadable(expand('~/.vimrc_local'))
