@@ -13,6 +13,7 @@ alias xcode='open -a /Applications/Xcode.app/Contents/MacOS/Xcode'
 alias ios_sim='open -a /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app'
 alias android_sim='open -a /Applications/Genymotion.app'
 alias createTags='~/repos/github.com/bundai223/codepocket/shell/mac/create_ctags.sh'
+alias startup='open -a startup'
 
 alias -s xcodeproj=xcode
 
