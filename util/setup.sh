@@ -8,14 +8,14 @@ DOTFILES_PATH=~
 mkdir_noerror()
 {
     if [ ! -d $1 ]; then
-        mkdir $1
+        mkdir -p $1
     fi
 }
 
 mkdir_noerror ~/.tmux
 mkdir_noerror ~/.zsh
 mkdir_noerror ~/.emacs.d
-
+mkdir_noerror ~/tools/bin
 
 # Create symbolic link to dotfiles {{{
 DOTFILE_NAMES_ARRAY=\

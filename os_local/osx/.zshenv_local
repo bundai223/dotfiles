@@ -21,6 +21,7 @@ export JFX_DIR=${JAVA_HOME}/jre/lib/ext
 PATH=$HOME/.nodebrew/current/bin:$PATH
 PATH=${BREW_PATH}/bin:$PATH
 PATH=~/.cabal/bin:$PATH
+PATH=~/tools/bin:$PATH
 #for android
 PATH=${ANDROID_HOME}/tools:$PATH
 #for ruby
@@ -37,4 +38,4 @@ fi
 PATH="/usr/local/heroku/bin:$PATH"
 PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
-
+export PATH
