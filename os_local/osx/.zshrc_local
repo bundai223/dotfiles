@@ -11,7 +11,7 @@ alias updatedb='sudo /usr/libexec/locate.updatedb'
 alias chrome='open -a Google\ Chrome'
 alias xcode='open -a /Applications/Xcode.app/Contents/MacOS/Xcode'
 alias ios_sim='open -a /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app'
-alias android_sim='open -a /Applications/Genymotion.app'
+alias android_sim='open -a ~/Applications/Genymotion.app'
 alias createTags='~/repos/github.com/bundai223/codepocket/shell/mac/create_ctags.sh'
 alias startup='open -a startup'
 
@@ -30,6 +30,15 @@ refresh_memory()
 {
     du -sx / &> /dev/null & sleep 25 && kill $!
 }
+
+# android
+SCREENSHOT_DIR='~/Desktop'
+alias adb='adbp'
+alias pidcat='pidcatp'
+alias restart-adb='adbp kill-server; adbp start-server'
+alias uninstallapp='adbp shell pm list package | sed -e s/package:// | peco | xargs adbp uninstall'
+alias installapp='find ./ -name *.apk | peco | xargs adbp install -r'
+alias screenshot='screenshot2 $SCREENSHOT_DIR/screenshot.png; open $SCREENSHOT_DIR/screenshot.png'
 
 function peco_work() {
     target=`find ~/work -maxdepth 2 -mindepth 1 -type d | peco`
@@ -54,3 +63,19 @@ function mvim() {
     fi
 }
 
+function genymotion_peco() {
+    if [ -z "$GENYMOTION_APP_HOME" ]
+    then
+        echo "GENYMOTION_APP_HOME is empty. Use '/Applications/Genymotion.app/' instead this time."
+        player="/Applications/Genymotion.app/Contents/MacOS/player" 
+    else
+        player="$GENYMOTION_APP_HOME/Contents/MacOS/player" 
+    fi
+    vm_name=`VBoxManage list vms | peco` 
+    if [[ $vm_name =~ ^\"(.+)\".* ]]
+    then
+        name=${match[1]} 
+        echo "boot $name"
+        $player --vm-name "$name" &
+    fi
+}

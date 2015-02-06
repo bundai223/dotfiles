@@ -100,6 +100,9 @@ TOOL_NAMES_ARRAY=\
  'altercation/solarized'\
  'ajaxorg/cloud9.git'\
  'csabahenk/dedrm-ebook-tools.git'\
+ 'tomorrowkey/adb-peco'\
+ 'JakeWharton/pidcat'\
+ 'sys1yagi/genymotion-peco'\
 )
 for toolname in ${TOOL_NAMES_ARRAY[@]}; do
     ghq get ${toolname}
