@@ -8,3 +8,5 @@
 *.py diff=python
 *.rb diff=ruby
 *.ml diff=ocaml
+.gitignore export-ignore
+

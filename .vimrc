@@ -258,9 +258,8 @@ noremap [myleader] <nop>
 map <Space> [myleader]
 "noremap map \ , "もとのバインドをつぶさないように
 
-if has('win32')
-else
-  let mapleader = "_"
+if has('macunix')
+  let mapleader = '_'
 endif
 
 " 有効な用途が見えるまであけとく
@@ -455,6 +454,10 @@ call neobundle#begin(expand('~/.vim/.bundle'))
 
 " Language
 " Python
+NeoBundleLazy 'Yggdroot/indentLine', {
+      \   'autoload': {'commands': ['IndentLinesToggle', 'IndentLinesReset']}
+      \ }
+
 NeoBundleLazy 'davidhalter/jedi-vim', {
       \   'autoload': {'filetypes': ['python']}
       \ }
@@ -554,6 +557,10 @@ NeoBundleLazy 'Shougo/vimshell', {
 NeoBundle 'LeafCage/foldCC'
 NeoBundle 'rhysd/committia.vim'
 NeoBundle 'rhysd/vim-grammarous'
+"
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'kevinw/pyflakes-vim'
+NeoBundle 'nvie/vim-flake8'
 
 " Cursor move
 NeoBundle 'rhysd/clever-f.vim'
@@ -609,6 +616,32 @@ filetype plugin indent on
 " Plugin setting {{{
 
 " Load on_source
+" indentLine {{{
+let s:bundle = neobundle#get('indentLine')
+function! s:bundle.hooks.on_source(bundle)
+  let g:indentLine_faster = 1
+endfunction
+" }}}
+
+" syntastic {{{
+let s:bundle = neobundle#get('syntastic')
+function! s:bundle.hooks.on_source(bundle)
+  let g:syntastic_python_checkers = ['pyflakes', 'pep8']
+  let g:syntastic_mode_map = {
+      \ 'mode': 'active',
+      \ 'active_filetypes': ['sh', 'zsh', 'vim'],
+      \ 'passive_filetypes': ['python']
+      \}
+endfunction
+" }}}
+
+" flake8 {{{
+let s:bundle = neobundle#get('vim-flake8')
+function! s:bundle.hooks.on_source(bundle)
+  nnoremap <myleader>I :call Flake8()
+endfunction
+" }}}
+
 " previm {{{
 let s:bundle = neobundle#get('previm')
 function! s:bundle.hooks.on_source(bundle)
@@ -947,6 +980,10 @@ let g:variable_style_switch_definitions = [
 nnoremap [myleader]+ :call switch#Switch(g:variable_style_switch_definitions)<CR>
 nnoremap [myleader]- :Switch<CR>
 
+" }}}
+
+" indentLines {{{
+nnoremap <silent>[myleader]i :<C-u>IndentLinesToggle<CR>
 " }}}
 
 "VimでGitk的なツール
