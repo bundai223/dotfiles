@@ -686,6 +686,16 @@ function os_version() {
     fi
 }
 
+function py_help() {
+    target=$1
+    python -c "import ${target}; help(${target})"
+}
+
+function py3_help() {
+    target=$1
+    python3 -c "import ${target}; help(${target})"
+}
+
 # OPAM configuration
 . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 

@@ -63,6 +63,16 @@ function! InsertRubyFileEncoding()
 endfunction
 " }}}
 
+" python {{{
+au BufNewFile *.py call InsertPython3FileEncoding()
+
+function! InsertPython3FileEncoding()
+  normal! gg
+  execute "normal! i#!/usr/bin/env python3\<CR>"
+  execute "normal! 0Di# -*- coding: utf-8 -*-\<CR>"
+endfunction
+" }}}
+
 " *.hを作成するときにインクルードガードを作成する {{{
 au BufNewFile *.h call InsertCppHeaderHeader()
 au BufNewFile *.cpp call InsertCppSourceHeader()
