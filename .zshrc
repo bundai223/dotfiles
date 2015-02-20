@@ -696,6 +696,14 @@ function py3_help() {
     python3 -c "import ${target}; help(${target})"
 }
 
+# Displayの製造元を表示
+# LP : LG製（はずれ）
+# LSN : Samsung製（当たり）
+function display_info_15inch()
+{
+    ioreg -lw0 | grep \"EDID\" | sed "/[^<]*</s///" | xxd -p -r | strings -6
+}
+
 # OPAM configuration
 . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
