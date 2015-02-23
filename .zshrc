@@ -649,11 +649,27 @@ function peco_gitmodified() {
 }
 
 function git_pullall() {
+    if [ $# -eq 0 ]; then
+        echo "usage"
+        echo " git_pullall [username]"
+        return 1
+    fi
+
     CURDIR=`pwd`
+    ERROR_LIST=()
     for repo in $(ghq list -p | grep $1); do
-        echo $repo
+        echo "==== $repo ===="
         cd $repo
         git pull --rebase
+        if [ $? -ne 0 ]; then
+            ERROR_LIST=(${ERROR_LIST[@]} `pwd`)
+        fi
+    done
+
+    echo
+    echo "==== error repositories ===="
+    for error_repo in $ERROR_LIST; do
+        echo $error_repo
     done
     cd $CURDIR
 }
