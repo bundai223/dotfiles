@@ -512,12 +512,12 @@ NeoBundle 'kana/vim-arpeggio'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kana/vim-submode'
 NeoBundle 'tyru/caw.vim'
-NeoBundle 'tyru/eskk.vim'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'deris/vim-rengbang'
 NeoBundleFetch 'osyo-manga/vim-gift'
 NeoBundleFetch 'osyo-manga/vim-automatic'
 NeoBundle 'osyo-manga/vim-anzu'
+NeoBundle 'tyru/eskk.vim'
 
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'cohama/agit.vim'
@@ -618,193 +618,184 @@ filetype plugin indent on
 " Load on_source
 " indentLine {{{
 let s:bundle = neobundle#get('indentLine')
-function! s:bundle.hooks.on_source(bundle)
-  let g:indentLine_faster = 1
-endfunction
+if !empty(s:bundle)
+  function! s:bundle.hooks.on_source(bundle)
+    let g:indentLine_faster = 1
+  endfunction
+endif
 " }}}
 
 " syntastic {{{
 let s:bundle = neobundle#get('syntastic')
-function! s:bundle.hooks.on_source(bundle)
-"  let g:syntastic_python_checkers = ['pyflakes', 'pep8']
-  let g:syntastic_mode_map = {
-      \ 'mode': 'active',
-      \ 'active_filetypes': ['sh', 'zsh', 'vim'],
-      \ 'passive_filetypes': ['python']
-      \}
-endfunction
+if !empty(s:bundle)
+  function! s:bundle.hooks.on_source(bundle)
+    "  let g:syntastic_python_checkers = ['pyflakes', 'pep8']
+    let g:syntastic_mode_map = {
+          \ 'mode': 'active',
+          \ 'active_filetypes': ['sh', 'zsh', 'vim'],
+          \ 'passive_filetypes': ['python']
+          \}
+  endfunction
+endif
 " }}}
 
 " flake8 {{{
 let s:bundle = neobundle#get('vim-flake8')
-function! s:bundle.hooks.on_source(bundle)
-  nnoremap <myleader>I :call Flake8()
-endfunction
+if !empty(s:bundle)
+  function! s:bundle.hooks.on_source(bundle)
+    nnoremap <myleader>I :call Flake8()
+  endfunction
+endif
 " }}}
 
 " previm {{{
 let s:bundle = neobundle#get('previm')
-function! s:bundle.hooks.on_source(bundle)
-  let g:previm_disable_default_css = 1
-  let g:previm_custom_css_path = expand('~/repos/bitbucket.org/bundai223/css_utils/css/qiita_old.css')
-endfunction
+if !empty(s:bundle)
+  function! s:bundle.hooks.on_source(bundle)
+    let g:previm_disable_default_css = 1
+    let g:previm_custom_css_path = expand('~/repos/bitbucket.org/bundai223/css_utils/css/qiita_old.css')
+  endfunction
+endif
 
 " }}}
 
 " clever-f {{{
 let s:bundle = neobundle#get('clever-f.vim')
-function! s:bundle.hooks.on_source(bundle)
-  nmap [myleader]f <Plug>(clever-f-reset)
-  let g:clever_f_use_migemo = 1
-endfunction
+if !empty(s:bundle)
+  function! s:bundle.hooks.on_source(bundle)
+    nmap [myleader]f <Plug>(clever-f-reset)
+    let g:clever_f_use_migemo = 1
+  endfunction
+endif
 
 " }}}
 
 " solarized {{{
 let s:bundle = neobundle#get('vim-colors-solarized')
-function! s:bundle.hooks.on_source(bundle)
-  "let g:solarized_visibility="high"
+if !empty(s:bundle)
+  function! s:bundle.hooks.on_source(bundle)
+    "let g:solarized_visibility="high"
 
-  " colorschemeでの設定を上書きするため
-  " colorschemeより後で記述
-  " solarized darkでのgitgutter表示調整
-  "highlight GitGutterAdd ctermfg=green guifg=darkgreen
-  "highlight GitGutterChange ctermfg=yellow guifg=darkyellow
-  "highlight GitGutterDelete ctermfg=red guifg=darkred
-  "highlight GitGutterChangeDelete ctermfg=yellow guifg=darkyellow
+    " colorschemeでの設定を上書きするため
+    " colorschemeより後で記述
+    " solarized darkでのgitgutter表示調整
+    "highlight GitGutterAdd ctermfg=green guifg=darkgreen
+    "highlight GitGutterChange ctermfg=yellow guifg=darkyellow
+    "highlight GitGutterDelete ctermfg=red guifg=darkred
+    "highlight GitGutterChangeDelete ctermfg=yellow guifg=darkyellow
 
-endfunction
+  endfunction
+endif
 "}}}
 
 " vimfiler {{{
 let s:bundle = neobundle#get('vimfiler')
-function! s:bundle.hooks.on_source(bundle)
-  let g:vimfiler_as_default_explorer=1
-  let g:vimfiler_safe_mode_by_default=0
+if !empty(s:bundle)
+  function! s:bundle.hooks.on_source(bundle)
+    let g:vimfiler_as_default_explorer=1
+    let g:vimfiler_safe_mode_by_default=0
 
-  " Disable default keymap.
-  "let g:vimfiler_no_default_key_mappings=1
+    " Disable default keymap.
+    "let g:vimfiler_no_default_key_mappings=1
 
-  " Not write statusline.
-  let g:vimfiler_force_overwrite_statusline=0
-endfunction
+    " Not write statusline.
+    let g:vimfiler_force_overwrite_statusline=0
+  endfunction
+endif
 "}}}
 
 " vimshell {{{
 let s:bundle = neobundle#get('vimshell')
-function! s:bundle.hooks.on_source(bundle)
-  if has('win32')
-    let g:vimshell_interactive_cygwin_path='c:/cygwin/bin'
-  endif
-  let g:vimshell_user_prompt = '$USERNAME . "@" . hostname() . " " . fnamemodify(getcwd(), ":~")'
-  let g:vimshell_prompt='$ '
-  "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
-  let g:vimshell_split_command="split"
+if !empty(s:bundle)
+  function! s:bundle.hooks.on_source(bundle)
+    if has('win32')
+      let g:vimshell_interactive_cygwin_path='c:/cygwin/bin'
+    endif
+    let g:vimshell_user_prompt = '$USERNAME . "@" . hostname() . " " . fnamemodify(getcwd(), ":~")'
+    let g:vimshell_prompt='$ '
+    "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+    let g:vimshell_split_command="split"
 
-  let g:vimshell_vimshrc_path = expand($DOTFILES.'/.vimshrc')
-endfunction
+    let g:vimshell_vimshrc_path = expand($DOTFILES.'/.vimshrc')
+  endfunction
+endif
 "}}}
 
 " unite {{{
 let s:bundle = neobundle#get('unite.vim')
-function! s:bundle.hooks.on_source(bundle)
-  " 入力モードで開始
-  let g:unite_enable_start_insert=1
-  let g:unite_source_grep_max_candidates=1000
+if !empty(s:bundle)
+  function! s:bundle.hooks.on_source(bundle)
+    " 入力モードで開始
+    let g:unite_enable_start_insert=1
+    let g:unite_source_grep_max_candidates=1000
 
-  " Not write statusline.
-  let g:unite_force_overwrite_statusline=0
+    " Not write statusline.
+    let g:unite_force_overwrite_statusline=0
 
-  " For silver searcher.
-  " Use ag in unite grep source.
-  if executable('ag')
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts =
-    \ '--line-numbers --nocolor --nogroup --hidden --smart-case --ignore ' .
-    \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-    let g:unite_source_grep_recursive_opt = ''
-  endif
-endfunction
+    " For silver searcher.
+    " Use ag in unite grep source.
+    if executable('ag')
+      let g:unite_source_grep_command = 'ag'
+      let g:unite_source_grep_default_opts =
+            \ '--line-numbers --nocolor --nogroup --hidden --smart-case --ignore ' .
+            \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+      let g:unite_source_grep_recursive_opt = ''
+    endif
+  endfunction
+endif
 
 " }}}
 
 " singleton {{{
 let s:bundle = neobundle#get('vim-singleton')
-function! s:bundle.hooks.on_source(bundle)
-  call singleton#enable()
-endfunction
+if !empty(s:bundle)
+  function! s:bundle.hooks.on_source(bundle)
+    call singleton#enable()
+  endfunction
+endif
 "}}}
 
 " restart {{{
 let s:bundle = neobundle#get('restart.vim')
-function! s:bundle.hooks.on_source(bundle)
-  nnoremap <silent> rs : <C-u> Restart <CR>
-endfunction
+if !empty(s:bundle)
+  function! s:bundle.hooks.on_source(bundle)
+    nnoremap <silent> rs : <C-u> Restart <CR>
+  endfunction
+endif
 "}}}
-
-" eskk {{{
-let s:bundle = neobundle#get('eskk.vim')
-function! s:bundle.hooks.on_source(bundle)
-  set imdisable
-  let g:eskk#dictionary = {
-  \	'path': "~/repos/github.com/bundai223/dotfiles/util/SKK-JISYO.L",
-  \	'sorted': 1,
-  \	'encoding': 'euc-jp',
-  \}
-
-  if has('mac')
-    let g:eskk#large_dictionary = {
-    \	'path': "~/Library/Application\ Support/AquaSKK/SKK-JISYO.L",
-    \	'sorted': 1,
-    \	'encoding': 'euc-jp',
-    \}
-  elseif has('win32') || has('win64')
-    let g:eskk#large_dictionary = {
-    \	'path': "~/SKK_JISYO.L"
-    \	'sorted': 1,
-    \	'encoding': 'euc-jp',
-    \}
-  else
-  endif
-
-  let g:eskk_debug = 0
-  let g:eskk_egg_like_newline = 1
-  let g:eskk_revert_henkan_style = "okuri"
-  let g:eskk_enable_completion = 0
-endfunction
-
-" }}}
 
 " submode {{{
 let s:bundle = neobundle#get('vim-submode')
-function! s:bundle.hooks.on_source(bundle)
-  " let g:submode_timeout = 0
-  " TELLME: The above setting do not work.
-  " Use the following instead of above.
-  let g:submode_timeoutlen = 1000000
+if !empty(s:bundle)
+  function! s:bundle.hooks.on_source(bundle)
+    " let g:submode_timeout = 0
+    " TELLME: The above setting do not work.
+    " Use the following instead of above.
+    let g:submode_timeoutlen = 1000000
 
-  let g:submode_keep_leaving_key=1
+    let g:submode_keep_leaving_key=1
 
-  " http://d.hatena.ne.jp/thinca/20130131/1359567419
-  " https://gist.github.com/thinca/1518874
-  " Window size mode.{{{
-  call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
-  call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
-  call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>+')
-  call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>-')
-  call submode#map('winsize', 'n', '', '>', '<C-w>>')
-  call submode#map('winsize', 'n', '', '<', '<C-w><')
-  call submode#map('winsize', 'n', '', '+', '<C-w>+')
-  call submode#map('winsize', 'n', '', '-', '<C-w>-')
-  " }}}
+    " http://d.hatena.ne.jp/thinca/20130131/1359567419
+    " https://gist.github.com/thinca/1518874
+    " Window size mode.{{{
+    call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
+    call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
+    call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>+')
+    call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>-')
+    call submode#map('winsize', 'n', '', '>', '<C-w>>')
+    call submode#map('winsize', 'n', '', '<', '<C-w><')
+    call submode#map('winsize', 'n', '', '+', '<C-w>+')
+    call submode#map('winsize', 'n', '', '-', '<C-w>-')
+    " }}}
 
-  " Tab move mode.{{{
-  call submode#enter_with('tabmove', 'n', '', 'gt', 'gt')
-  call submode#enter_with('tabmove', 'n', '', 'gT', 'gT')
-  call submode#map('tabmove', 'n', '', 't', 'gt')
-  call submode#map('tabmove', 'n', '', 'T', 'gT')
-  " }}}
-endfunction
+    " Tab move mode.{{{
+    call submode#enter_with('tabmove', 'n', '', 'gt', 'gt')
+    call submode#enter_with('tabmove', 'n', '', 'gT', 'gT')
+    call submode#map('tabmove', 'n', '', 't', 'gt')
+    call submode#map('tabmove', 'n', '', 'T', 'gT')
+    " }}}
+  endfunction
+endif
 
 " }}}
 
@@ -885,18 +876,18 @@ endif
 if neobundle#tap('dash.vim')
   function! neobundle#tapped.hooks.on_source(bundle)
     function! s:dash(...)
-        if len(a:000) == 1 && len(a:1) == 0
-            echomsg 'No keyword'
-        else
-            let ft = &filetype
-            if &filetype == 'python'
-                let ft = 'py'
-                let ft = ft.'2'
-            endif
-            let ft = ft.':'
-            let word = len(a:000) == 0 ? input('Keyword: ', ft.expand('<cword>')) : ft.join(a:000, ' ')
-            call system(printf("open dash://'%s'", word))
+      if len(a:000) == 1 && len(a:1) == 0
+        echomsg 'No keyword'
+      else
+        let ft = &filetype
+        if &filetype == 'python'
+          let ft = 'py'
+          let ft = ft.'2'
         endif
+        let ft = ft.':'
+        let word = len(a:000) == 0 ? input('Keyword: ', ft.expand('<cword>')) : ft.join(a:000, ' ')
+        call system(printf("open dash://'%s'", word))
+      endif
     endfunction
 
     command! -nargs=* Dash call <SID>dash(<f-args>)
@@ -962,21 +953,21 @@ endif
 " Load not on_source
 " switch.vim {{{
 let g:variable_style_switch_definitions = [
-        \   {
-        \     '\<[a-z0-9]\+_\k\+\>': {
-        \       '_\(.\)': '\U\1'
-        \     },
-        \     '\<[a-z0-9]\+[A-Z]\k\+\>': {
-        \       '\([A-Z]\)': '_\l\1'
-        \     },
-        \     '=': {
-        \       '==': '!='
-        \     },
-        \     '!': {
-        \       '!=': '=='
-        \     },
-        \   }
-        \ ]
+      \   {
+      \     '\<[a-z0-9]\+_\k\+\>': {
+      \       '_\(.\)': '\U\1'
+      \     },
+      \     '\<[a-z0-9]\+[A-Z]\k\+\>': {
+      \       '\([A-Z]\)': '_\l\1'
+      \     },
+      \     '=': {
+      \       '==': '!='
+      \     },
+      \     '!': {
+      \       '!=': '=='
+      \     },
+      \   }
+      \ ]
 nnoremap [myleader]+ :call switch#Switch(g:variable_style_switch_definitions)<CR>
 nnoremap [myleader]- :Switch<CR>
 
@@ -1000,7 +991,7 @@ let g:gitgutter_sign_modified = '➜'
 let g:gitgutter_sign_removed = '✘'
 
 " lightline.vim {{{
-      "\ 'colorscheme': 'wombat',
+"\ 'colorscheme': 'wombat',
 let g:lightline = {
       \ 'colorscheme': 'default',
       \ 'mode_map': {'c': 'NORMAL'},
@@ -1172,6 +1163,42 @@ xmap <Leader>H <Plug>(quickhl-manual-reset)
 "nmap <Leader>j <Plug>(quickhl-match)
 
 "}}}
+
+" eskk {{{
+set imdisable
+if has('mac')
+  let g:eskk#dictionary = {
+        \  'path': expand("~/Library/Application\ Support/AquaSKK/skk-jisyo.utf8"),
+        \  'sorted': 0,
+        \  'encoding': 'utf-8',
+        \}
+
+  let g:eskk#large_dictionary = {
+        \  'path': expand("~/Library/Application\ Support/AquaSKK/SKK-JISYO.L"),
+        \  'sorted': 1,
+        \  'encoding': 'euc-jp',
+        \}
+elseif has('win32') || has('win64')
+  let g:eskk#dictionary = {
+        \  'path': "~/SKK_JISYO.L"
+        \  'sorted': 1,
+        \  'encoding': 'euc-jp',
+        \}
+
+  let g:eskk#large_dictionary = {
+        \  'path': "~/SKK_JISYO.L"
+        \  'sorted': 1,
+        \  'encoding': 'euc-jp',
+        \}
+else
+endif
+
+let g:eskk_debug = 0
+let g:eskk_egg_like_newline = 1
+let g:eskk_revert_henkan_style = "okuri"
+let g:eskk_enable_completion = 0
+
+" }}}
 
 " smartinput{{{
 let g:smartinput_no_default_key_mappings = 1
