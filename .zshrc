@@ -655,14 +655,17 @@ function git_pullall() {
         return 1
     fi
 
+    username=$1
     CURDIR=`pwd`
     ERROR_LIST=()
-    for repo in $(ghq list -p | grep $1); do
-        echo "==== $repo ===="
+    for repo in $(ghq list -p | grep $username); do
         cd $repo
+        hostname=$(basename $(cd ../..;pwd))
+        reposname=$(basename $(pwd))
+        echo "==== $hostname:$username/$reposname ===="
         git pull --rebase
         if [ $? -ne 0 ]; then
-            ERROR_LIST=(${ERROR_LIST[@]} `pwd`)
+            ERROR_LIST=(${ERROR_LIST[@]} $hostname:$username/$reposname)
         fi
     done
 
