@@ -1,6 +1,6 @@
 #! /bin/bash
 # golang のインストール・ghqのインストールを完了させる必要がある。
-# TODO: 繰り返し行なうと重たい処理はフラグなどで切り替えるようにしたい。
+#qua TODO: 繰り返し行なうと重たい処理はフラグなどで切り替えるようにしたい。
 
 PATH_TO_HERE=`dirname ${0}`
 ABS_PATH=`cd $PATH_TO_HERE && pwd`
@@ -52,8 +52,10 @@ done
 
 
 # Make setting files link.
-ln -s $ABS_PATH/SKK-JISYO.L ~/Library/Application\ Support/AquaSKK/SKK-JISYO.L
-ln -s $OS_LOCAL_PATH/AquaSKK/kana-rule.conf ~/Library/Application\ Support/AquaSKK/
+mkdir -p ~/Library/Application\ Support/AquaSKK
+sudo ln -s $ABS_PATH/SKK-JISYO.L ~/Library/Application\ Support/AquaSKK
+sudo ln -s $ABS_PATH/skk-jisyo.utf8 ~/Library/Application\ Support/AquaSKK
+sudo ln -s $OS_LOCAL_PATH/AquaSKK/kana-rule.conf ~/Library/Application\ Support/AquaSKK/
 ln -s $OS_LOCAL_PATH/.vimrc_local ~/.vimrc_local
 ln -s $OS_LOCAL_PATH/.zshrc_local ~/.zshrc_local
 ln -s $OS_LOCAL_PATH/.zshenv_local ~/.zshenv_local
