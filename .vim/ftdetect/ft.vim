@@ -4,9 +4,9 @@
 "
 "=============================================================
 " my local setting files
-au BufNewFile,BufRead .zshrc_local set filetype=zsh
-au BufNewFile,BufRead .vimrc_local set filetype=vim
-au BufNewFile,BufRead .gvimrc_local set filetype=vim
+au BufNewFile,BufRead .zshrc* set filetype=zsh
+au BufNewFile,BufRead .vimrc* set filetype=vim
+au BufNewFile,BufRead .gvimrc* set filetype=vim
 au BufNewFile,BufRead .tmux.conf set filetype=tmux
 
 " direct x shader file
@@ -28,7 +28,7 @@ au BufNewFile,BufRead *.go set filetype=go
 au BufNewFile,BufRead *.md set filetype=markdown
 
 " git
-au BufNewFile,BufRead .gitconfig_local set filetype=gitconfig
+au BufNewFile,BufRead .gitconfig* set filetype=gitconfig
 
 " groovy
 au BufNewFile,BufRead *.gradle set filetype=groovy
