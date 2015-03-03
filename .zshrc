@@ -226,6 +226,7 @@ alias -g SS='| sed'
 alias -g AA='| awk'
 alias -g WW='| wc'
 alias -g XX='| xargs'
+alias -g PP='| peco'
 
 alias ssh="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config;ssh"
 alias scp="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config;scp"
