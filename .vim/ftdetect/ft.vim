@@ -42,68 +42,47 @@ au BufNewFile,BufRead *.uml set filetype=plantuml
 " nginx
 au BufNewFile,BufRead *nginx.conf set filetype=nginx
 
-" Setting newfile setting
-" shell {{{
-au BufNewFile *.sh call InsertShellShebang()
+" shell
+autocmd BufNewFile *.sh 0r ~/.vim/.bundle/vim-template/template/template.sh
 
-function! InsertShellShebang()
-  normal! gg
-  execute "normal! i#!/usr/bin/env bash\<CR>"
-  execute "normal! 0D"
-endfunction
-" }}}
+" ruby
+autocmd BufNewFile *.rb 0r ~/.vim/.bundle/vim-template/template/template.rb
 
-" ruby {{{
-au BufNewFile *.rb call InsertRubyFileEncoding()
+" python
+autocmd BufNewFile *.py 0r ~/.vim/.bundle/vim-template/template/template.py
 
-function! InsertRubyFileEncoding()
-  normal! gg
-  execute "normal! i#!/usr/bin/env ruby\<CR>"
-  execute "normal! 0Di# coding: utf-8\<CR>"
-endfunction
-" }}}
-
-" python {{{
-au BufNewFile *.py call InsertPython3FileEncoding()
-
-function! InsertPython3FileEncoding()
-  normal! gg
-  execute "normal! i#!/usr/bin/env python3\<CR>"
-  execute "normal! 0Di# -*- coding: utf-8 -*-\<CR>"
-endfunction
-" }}}
-
-" *.hを作成するときにインクルードガードを作成する {{{
-au BufNewFile *.h call InsertCppHeaderHeader()
-au BufNewFile *.cpp call InsertCppSourceHeader()
-
-function! IncludeGuard()
-  let fl = getline(1)
-  if fl =~ "^#if"
-    return
-  endif
-   let gatename = substitute(toupper(expand("%:t")), "??.", "_", "g")
-  let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
-  normal! gg
-  execute "normal! i#ifndef _" . gatename . "_INCLUDED_"
-  execute "normal! o#define _" . gatename .  "_INCLUDED_\<CR>\<CR>\<CR>\<CR>"
-  execute "normal! Go#endif // _" . gatename . "_INCLUDED_\<CR>"
-  4
-endfunction
-
-function! InsertCppSourceHeader()
-  let filename = expand("%:t")
-  normal! gg
-  execute "normal! i//**********************************************************************\<CR>"
-  execute "normal! i//! @file   " . filename . "\<CR>"
-  execute "normal! i//! @brief  describe\<CR>"
-  execute "normal! i//**********************************************************************\<CR>"
-endfunction
-
-function! InsertCppHeaderHeader()
-  call IncludeGuard()
-  call InsertCppSourceHeader()
-endfunction
-" }}}
-
+" cpp
+autocmd BufNewFile *.h 0r ~/.vim/.bundle/vim-template/template/template.h
+autocmd BufNewFile *.cpp 0r ~/.vim/.bundle/vim-template/template/template.cpp
+" *.hを作成するときにインクルードガードを作成する
+" au BufNewFile *.h call InsertCppHeaderHeader()
+" au BufNewFile *.cpp call InsertCppSourceHeader()
+" 
+" function! IncludeGuard()
+"   let fl = getline(1)
+"   if fl =~ "^#if"
+"     return
+"   endif
+"    let gatename = substitute(toupper(expand("%:t")), "??.", "_", "g")
+"   let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+"   normal! gg
+"   execute "normal! i#ifndef _" . gatename . "_INCLUDED_"
+"   execute "normal! o#define _" . gatename .  "_INCLUDED_\<CR>\<CR>\<CR>\<CR>"
+"   execute "normal! Go#endif // _" . gatename . "_INCLUDED_\<CR>"
+"   4
+" endfunction
+" 
+" function! InsertCppSourceHeader()
+"   let filename = expand("%:t")
+"   normal! gg
+"   execute "normal! i//**********************************************************************"
+"   execute "normal! o//! @file   " . filename
+"   execute "normal! o//! @brief  describe"
+"   execute "normal! o//**********************************************************************"
+" endfunction
+" 
+" function! InsertCppHeaderHeader()
+"   call IncludeGuard()
+"   call InsertCppSourceHeader()
+" endfunction
 

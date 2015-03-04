@@ -593,6 +593,7 @@ endif
 " private snippet
 NeoBundle 'bundai223/mysnip'
 NeoBundle 'bundai223/myvim_dict'
+NeoBundle 'bundai223/vim-template'
 
 "=====================================
 " other
