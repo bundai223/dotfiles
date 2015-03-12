@@ -37,7 +37,7 @@ alias adb='adbp'
 alias pidcat='pidcatp'
 alias restart-adb='adbp kill-server; adbp start-server'
 alias uninstallapp='adbp shell pm list package | sed -e s/package:// | peco | xargs adbp uninstall'
-alias installapp='find ./ -name *.apk | peco | xargs adbp install -r'
+alias installapp='find ./ -name "*.apk" | peco | xargs adbp install -r'
 alias screenshot='screenshot2 $SCREENSHOT_DIR/screenshot.png; open $SCREENSHOT_DIR/screenshot.png'
 
 function peco_work() {
@@ -77,5 +77,21 @@ function genymotion_peco() {
         name=${match[1]} 
         echo "boot $name"
         $player --vm-name "$name" &
+    fi
+}
+
+function show_allfile_on_finder() {
+    flag="$1"
+    if [ "on" = $flag ]; then
+        echo "Enable show all files on finder."
+        defaults write com.apple.finder AppleShowAllFiles -boolean true
+        killall Finder
+    elif [ "off" = $flag ]; then
+        echo "Reset show all files on finder."
+        defaults delete com.apple.finder AppleShowAllFiles
+        killall Finder
+    else
+        echo "usage:"
+        echo "    show_allfile_on_finder [on|off]"
     fi
 }

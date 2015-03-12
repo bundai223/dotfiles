@@ -228,10 +228,9 @@ alias -g WW='| wc'
 alias -g XX='| xargs'
 alias -g PP='| peco'
 
-alias ssh="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config;ssh"
-alias scp="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config;scp"
-alias git="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config;git"
-alias knife="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config;knife"
+alias ssh="cat ~/.ssh/conf.d/*.conf >~/.ssh/config;ssh"
+alias scp="cat ~/.ssh/conf.d/*.conf >~/.ssh/config;scp"
+alias git="cat ~/.ssh/conf.d/*.conf >~/.ssh/config;git"
 
 alias jgems="jruby -S gems"
 alias jrake="jruby -S rake"
@@ -636,13 +635,19 @@ function peco_find_ext() {
 }
 
 function ls_sshhost() {
-    cat ~/.ssh/config | grep "^Host" | sed s/"^Host "//
+    awk '
+        tolower($1)=="host" {
+            for (i=2; i<=NF; i++) {
+                if ($i !~ "[*?]") {
+                    print $i
+                }
+            }
+        }
+    ' ~/.ssh/config | sort
 }
 
 function peco_ssh() {
-    hostname=$(ls-sshhost | peco)
-    echo $hostname
-    ssh $hostname
+    ssh $(ls_sshhost | peco)
 }
 
 function peco_gitmodified() {
