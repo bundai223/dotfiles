@@ -539,9 +539,9 @@
 	<key>NSWindow Frame Preferences</key>
 	<string>1316 722 924 485 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1470 169 1090 1066 0 0 2560 1417 </string>
+	<string>1431 93 1090 1066 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>3135 119 1210 1053 2560 115 1920 1057 </string>
+	<string>3024 117 1210 1053 2560 115 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>419 144 490 351 0 0 2560 1418 </string>
 	<key>New Bookmarks</key>
@@ -738,7 +738,7 @@
 			<key>Close Sessions On End</key>
 			<true/>
 			<key>Columns</key>
-			<integer>180</integer>
+			<integer>240</integer>
 			<key>Command</key>
 			<string></string>
 			<key>Cursor Color</key>
@@ -1112,7 +1112,7 @@
 			<key>Right Option Key Sends</key>
 			<integer>2</integer>
 			<key>Rows</key>
-			<integer>80</integer>
+			<integer>100</integer>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
@@ -5005,7 +5005,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-03-09T01:00:04Z</date>
+	<date>2015-03-16T01:11:47Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>

@@ -509,8 +509,52 @@ NeoBundle 'basyura/TweetVim'
 NeoBundle 'koron/codic-vim'
 NeoBundle 't9md/vim-quickhl'
 NeoBundle 'kana/vim-arpeggio'
+if neobundle#tap('vim-arpeggio') " {{{
+  function! neobundle#tapped.hooks.on_source(bundle)
+    call arpeggio#load() " arpeggioをこのvimrc内で有効にする。
+    "Arpeggiomap fj <C-[>
+  endfunction
+  call neobundle#untap()
+endif
+"}}}
+
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kana/vim-submode'
+if neobundle#tap('vim-submode') "{{{
+  function! neobundle#tapped.hooks.on_source(bundle)
+    " let g:submode_timeout = 0
+    " TELLME: The above setting do not work.
+    " Use the following instead of above.
+    let g:submode_timeoutlen = 1000000
+
+    let g:submode_keep_leaving_key=1
+
+    " http://d.hatena.ne.jp/thinca/20130131/1359567419
+    " https://gist.github.com/thinca/1518874
+    " Window size mode.{{{
+    call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
+    call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
+    call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>+')
+    call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>-')
+    call submode#map('winsize', 'n', '', '>', '<C-w>>')
+    call submode#map('winsize', 'n', '', '<', '<C-w><')
+    call submode#map('winsize', 'n', '', '+', '<C-w>+')
+    call submode#map('winsize', 'n', '', '-', '<C-w>-')
+    " }}}
+
+    " Tab move mode.{{{
+    call submode#enter_with('tabmove', 'n', '', 'gt', 'gt')
+    call submode#enter_with('tabmove', 'n', '', 'gT', 'gT')
+    call submode#map('tabmove', 'n', '', 't', 'gt')
+    call submode#map('tabmove', 'n', '', 'T', 'gT')
+    " }}}
+  endfunction
+  call neobundle#untap()
+endif
+"}}}
+
+
+NeoBundle 'edsono/vim-matchit'
 NeoBundle 'tyru/caw.vim'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'deris/vim-rengbang'
@@ -566,6 +610,30 @@ NeoBundle 'nvie/vim-flake8'
 NeoBundle 'rhysd/clever-f.vim'
 
 NeoBundleLazy 'supermomonga/jazzradio.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
+if neobundle#tap('jazzradio.vim') "{{{
+  " ref) http://blog.supermomonga.com/articles/vim/jazzradio-vim-released.html
+  " brew install mplayer / sudo apt-get install -y mplayer
+  " :JazzradioUpdateChannels
+
+  call neobundle#config({
+        \   'autoload' : {
+        \     'unite_sources' : [
+        \       'jazzradio'
+        \     ],
+        \     'commands' : [
+        \       'JazzradioUpdateChannels',
+        \       'JazzradioStop',
+        \       {
+        \         'name' : 'JazzradioPlay',
+        \         'complete' : 'customlist,jazzradio#channel_id_complete'
+        \       }
+        \     ],
+        \     'function_prefix' : 'jazzradio'
+        \   }
+        \ })
+endif
+"}}}
+
 
 " unite
 NeoBundleLazy 'Shougo/unite.vim',{
@@ -765,52 +833,6 @@ if !empty(s:bundle)
 endif
 "}}}
 
-" submode {{{
-let s:bundle = neobundle#get('vim-submode')
-if !empty(s:bundle)
-  function! s:bundle.hooks.on_source(bundle)
-    " let g:submode_timeout = 0
-    " TELLME: The above setting do not work.
-    " Use the following instead of above.
-    let g:submode_timeoutlen = 1000000
-
-    let g:submode_keep_leaving_key=1
-
-    " http://d.hatena.ne.jp/thinca/20130131/1359567419
-    " https://gist.github.com/thinca/1518874
-    " Window size mode.{{{
-    call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
-    call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
-    call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>+')
-    call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>-')
-    call submode#map('winsize', 'n', '', '>', '<C-w>>')
-    call submode#map('winsize', 'n', '', '<', '<C-w><')
-    call submode#map('winsize', 'n', '', '+', '<C-w>+')
-    call submode#map('winsize', 'n', '', '-', '<C-w>-')
-    " }}}
-
-    " Tab move mode.{{{
-    call submode#enter_with('tabmove', 'n', '', 'gt', 'gt')
-    call submode#enter_with('tabmove', 'n', '', 'gT', 'gT')
-    call submode#map('tabmove', 'n', '', 't', 'gt')
-    call submode#map('tabmove', 'n', '', 'T', 'gT')
-    " }}}
-  endfunction
-endif
-
-" }}}
-
-" vim-arpeggio {{{
-if neobundle#tap('vim-arpeggio')
-  function! neobundle#tapped.hooks.on_source(bundle)
-    call arpeggio#load() " arpeggioをこのvimrc内で有効にする。
-    "Arpeggiomap fj <C-[>
-  endfunction
-  call neobundle#untap()
-endif
-
-"}}}
-
 " vim-airline {{{
 if neobundle#tap('vim-airline')
   function! neobundle#tapped.hooks.on_source(bundle)
@@ -847,31 +869,6 @@ if neobundle#tap('vim-airline')
 endif
 
 "}}}
-
-" jazzradio {{{
-" ref) http://blog.supermomonga.com/articles/vim/jazzradio-vim-released.html
-" brew install mplayer / sudo apt-get install -y mplayer
-" :JazzradioUpdateChannels
-
-if neobundle#tap('jazzradio.vim')
-  call neobundle#config({
-        \   'autoload' : {
-        \     'unite_sources' : [
-        \       'jazzradio'
-        \     ],
-        \     'commands' : [
-        \       'JazzradioUpdateChannels',
-        \       'JazzradioStop',
-        \       {
-        \         'name' : 'JazzradioPlay',
-        \         'complete' : 'customlist,jazzradio#channel_id_complete'
-        \       }
-        \     ],
-        \     'function_prefix' : 'jazzradio'
-        \   }
-        \ })
-endif
-" }}}
 
 " Dash.app {{{
 if neobundle#tap('dash.vim')
