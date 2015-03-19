@@ -10,6 +10,7 @@ if [[ $OSTYPE == darwin* ]]; then
     brew install caskroom/cask/brew-cask
     brew cask update
 
+    brew cask install kobito
     brew cask install xquartz
     brew cask install google-chrome
     brew cask install iterm2
