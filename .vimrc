@@ -639,6 +639,48 @@ endif
 NeoBundleLazy 'Shougo/unite.vim',{
       \   'autoload' : {'commands' : ['Unite', 'UniteWithBufferDir'] },
       \ }
+" unite key bind {{{
+" <Space>をuniteのキーに
+nnoremap [unite] <Nop>
+nmap <C-u> [unite]
+
+" source
+" unite file
+nnoremap <silent> [unite]/   :<C-u>Unite -input=/ -buffer-name=file_root file<CR>
+nnoremap <silent> [unite]f   :<C-u>UniteWithBufferDir -buffer-name=file_current file<CR>
+nnoremap <silent> [unite]d   :<C-u>Unite -input=~/.vim/ -buffer-name=file_dotfiles file<CR>
+nnoremap <silent> [unite]m   :<C-u>Unite -buffer-name=multi file_mru file buffer<CR>
+nnoremap <silent> [unite]o   :<C-u>Unite -buffer-name=outline -no-quit -wrap outline<CR>
+nnoremap <silent> [unite]t   :<C-u>Unite -buffer-name=todo -no-quit picktodo<CR>
+nnoremap <silent> [unite]tw  :<C-u>Unite -buffer-name=tweet tweetvim<CR>
+nnoremap <silent> [unite]g   :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
+nnoremap <silent> [unite]ns  :<C-u>Unite -buffer-name=snippet neosnippet<CR>
+nnoremap <silent> [unite]ens :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
+nnoremap <silent> [unite]nb  :<C-u>Unite -buffer-name=neobundle neobundle/update:all -auto-quit -keep-focus -log<CR>
+nnoremap <silent> [unite]b   :<C-u>Unite -buffer-name=buffer buffer<CR>
+nnoremap <silent> [unite]c   :<C-u>Unite -buffer-name=colorscheme -auto-preview colorscheme<CR>
+nnoremap <silent> [unite]s   :<C-u>Unite source -vertical<CR>
+nnoremap <silent> [unite]l   :<C-u>Unite locate<CR>
+nnoremap <silent> [unite]j   :<C-u>Unite jazzradio<CR>
+
+vnoremap <silent> [unite]aa  :<C-u>Unite alignta:arguments<CR>
+vnoremap <silent> [unite]ao  :<C-u>Unite alignta:options<CR>
+
+" unite resume
+nnoremap <silent> [unite]r   :<C-u>UniteResume<CR>
+
+if has('mac')
+  nnoremap <silent> [unite]<Space> :<C-u>Unite spotlite<CR>
+endif
+
+
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()
+  " 単語単位からパス単位で削除するように変更
+  imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+endfunction" }}}
+
+
 if has('mac')
   NeoBundle 'rizzatti/dash.vim' " for dash.app
 endif
@@ -1309,45 +1351,6 @@ endif
 let g:neosnippet#snippets_directory='~/.vim/.bundle/mysnip'
 " }}}
 
-" unite {{{
-" <Space>をuniteのキーに
-nnoremap [unite] <Nop>
-nmap <C-u> [unite]
-
-" source
-" unite file
-nnoremap <silent> [unite]/   :<C-u>Unite -input=/ -buffer-name=file_root file<CR>
-nnoremap <silent> [unite]f   :<C-u>UniteWithBufferDir -buffer-name=file_current file<CR>
-nnoremap <silent> [unite]d   :<C-u>Unite -input=~/.vim/ -buffer-name=file_dotfiles file<CR>
-nnoremap <silent> [unite]m   :<C-u>Unite -buffer-name=multi file_mru file buffer<CR>
-nnoremap <silent> [unite]o   :<C-u>Unite -buffer-name=outline -no-quit -wrap outline<CR>
-nnoremap <silent> [unite]t   :<C-u>Unite -buffer-name=todo -no-quit picktodo<CR>
-nnoremap <silent> [unite]tw  :<C-u>Unite -buffer-name=tweet tweetvim<CR>
-nnoremap <silent> [unite]g   :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
-nnoremap <silent> [unite]ns  :<C-u>Unite -buffer-name=snippet neosnippet<CR>
-nnoremap <silent> [unite]ens :<C-u>Unite -buffer-name=snippet neosnippet/user<CR>
-nnoremap <silent> [unite]nb  :<C-u>Unite -buffer-name=neobundle neobundle/update:all -auto-quit -keep-focus -log<CR>
-nnoremap <silent> [unite]b   :<C-u>Unite -buffer-name=buffer buffer<CR>
-nnoremap <silent> [unite]c   :<C-u>Unite -buffer-name=colorscheme -auto-preview colorscheme<CR>
-nnoremap <silent> [unite]s   :<C-u>Unite source -vertical<CR>
-nnoremap <silent> [unite]l   :<C-u>Unite locate<CR>
-
-vnoremap <silent> [unite]aa  :<C-u>Unite alignta:arguments<CR>
-vnoremap <silent> [unite]ao  :<C-u>Unite alignta:options<CR>
-
-" unite resume
-nnoremap <silent> [unite]r   :<C-u>UniteResume<CR>
-
-if has('mac')
-  nnoremap <silent> [unite]<Space> :<C-u>Unite spotlite<CR>
-endif
-
-
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-  " 単語単位からパス単位で削除するように変更
-  imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
-endfunction" }}}
 
 " vimfiler {{{
 nnoremap <silent> <Leader>f : <C-u> VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
