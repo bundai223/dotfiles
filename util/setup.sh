@@ -4,6 +4,8 @@
 DOTFILES_ENTITY_PATH=~/repos/github.com/bundai223/dotfiles
 DOTFILES_PATH=~
 
+REPOS_PATH=~/repos
+
 # エラーなしのmkdir
 mkdir_noerror()
 {
@@ -12,10 +14,52 @@ mkdir_noerror()
     fi
 }
 
+mkln()
+{
+  src=${1}
+  dst=${2}
+  if [ ! -e ${src} ]; then
+    echo "Not exist source.: ${src}"
+    return 1
+  fi
+  if [ ! -e ${dst} ]; then
+    ln -s ${src} ${dst} && echo "Create link:${dst}"
+  else
+    echo "Already Exists ${dst}"
+  fi
+}
+
 mkdir_noerror ~/.tmux
 mkdir_noerror ~/.zsh
 mkdir_noerror ~/.emacs.d
 mkdir_noerror ~/tools/bin
+
+# Get tools repositories.
+mkdir_noerror ${REPOS_PATH}
+
+TOOL_NAMES_ARRAY=\
+(\
+ 'Shougo/neobundle.vim'\
+ 'github/gitignore.git'\
+ 'zsh-users/zsh-completions.git'\
+ 'zsh-users/antigen.git'\
+ 'altercation/solarized'\
+ 'ajaxorg/cloud9.git'\
+ 'csabahenk/dedrm-ebook-tools.git'\
+ 'tomorrowkey/adb-peco'\
+ 'JakeWharton/pidcat'\
+ 'sys1yagi/genymotion-peco'\
+ 'rupa/z.git'\
+ 'bundai223/zsh-utils'\
+)
+for toolname in ${TOOL_NAMES_ARRAY[@]}; do
+    ghq get ${toolname}
+done
+
+# pythonツール
+easy_install fabric
+easy_install vim-vint
+
 
 # Create symbolic link to dotfiles {{{
 DOTFILE_NAMES_ARRAY=\
@@ -34,19 +78,18 @@ DOTFILE_NAMES_ARRAY=\
  .ctags\
  .emacs.d/inits\
 )
+
 for dotfile in ${DOTFILE_NAMES_ARRAY[@]}; do
-    if [ ! -e ${DOTFILES_PATH}/${dotfile} ]; then
-        ln -s ${DOTFILES_ENTITY_PATH}/${dotfile} ${DOTFILES_PATH}/${dotfile}
-        echo "Create complete ${dotfile}"
-    else
-        echo "Already Exist ${dotfile}"
-    fi
+  mkln ${DOTFILES_ENTITY_PATH}/${dotfile} ${DOTFILES_PATH}/${dotfile}
 done
+
 # Make git configuration file that include common config to make local setting.
 if [ ! -e ${DOTFILES_PATH}/.gitconfig ]; then
     cp ${DOTFILES_ENTITY_PATH}/.gitconfig_local ${DOTFILES_PATH}/.gitconfig
 fi
 #}}}
+
+mkln ${REPOS_PATH}/github.com/bundai223/zsh-utils ~/.zsh/zsh-utils
 
 # vim setting {{{
 DOT_VIM=.vim
@@ -54,13 +97,6 @@ mkdir_noerror ~/${DOT_VIM}
 mkdir_noerror ~/${DOT_VIM}/undo
 mkdir_noerror ~/${DOT_VIM}/backup
 mkdir_noerror ~/${DOT_VIM}/swp
-
-# neobundleがないとvimのプラグインとってこれないので先にゲット
-NEOBUNDLE_PATH=~/${DOT_VIM}/neobundle.vim
-if [ ! -d ${NEOBUNDLE_PATH} ]; then
-    cd ~/${DOT_VIM}
-    git clone https://github.com/Shougo/neobundle.vim.git
-fi
 
 # link to .vim dir
 VIMDIR_NAMES_ARRAY=\
@@ -70,12 +106,7 @@ VIMDIR_NAMES_ARRAY=\
  after\
 )
 for dir in ${VIMDIR_NAMES_ARRAY[@]}; do
-    if [ ! -e ~/${DOT_VIM}/${dir} ]; then
-        ln -s ${DOTFILES_ENTITY_PATH}/${DOT_VIM}/${dir} ~/${DOT_VIM}/${dir}
-        echo "Create complete ${dir}"
-    else
-        echo "Already Exist ${dir}"
-    fi
+  mkln ${DOTFILES_ENTITY_PATH}/${DOT_VIM}/${dir} ~/${DOT_VIM}/${dir}
 done
 
 # path to dotfile
@@ -87,39 +118,5 @@ else
 fi
 
 #}}}
-
-# Setup utility.
-TOOL_DIR_PATH=~/repos
-mkdir_noerror ${TOOL_DIR_PATH}
-
-TOOL_NAMES_ARRAY=\
-(\
- 'github/gitignore.git'\
- 'zsh-users/zsh-completions.git'\
- 'zsh-users/antigen.git'\
- 'altercation/solarized'\
- 'ajaxorg/cloud9.git'\
- 'csabahenk/dedrm-ebook-tools.git'\
- 'tomorrowkey/adb-peco'\
- 'JakeWharton/pidcat'\
- 'sys1yagi/genymotion-peco'\
-)
-for toolname in ${TOOL_NAMES_ARRAY[@]}; do
-    ghq get ${toolname}
-done
-
-# OS Type Settings.
-# Refactoring now.
-# For OSX
-echo "OS type ${OSTYPE}"
-if [[ $OSTYPE == darwin* ]]; then
-    echo "nothing to do."
-else
-    ghq get rupa/z.git
-fi
-
-# pythonツール
-easy_install fabric
-easy_install vim-vint
 
 
