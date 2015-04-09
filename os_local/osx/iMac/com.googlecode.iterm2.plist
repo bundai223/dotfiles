@@ -539,9 +539,9 @@
 	<key>NSWindow Frame Preferences</key>
 	<string>1316 722 924 485 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1431 93 1090 1066 0 0 2560 1417 </string>
+	<string>590 351 1210 1066 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>3024 117 1210 1053 2560 115 1920 1057 </string>
+	<string>2891 117 1210 1053 2560 115 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>419 144 490 351 0 0 2560 1418 </string>
 	<key>New Bookmarks</key>
@@ -740,7 +740,7 @@
 			<key>Columns</key>
 			<integer>240</integer>
 			<key>Command</key>
-			<string></string>
+			<string>/usr/local/bin/zsh</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -762,7 +762,7 @@
 			<key>Cursor Type</key>
 			<integer>2</integer>
 			<key>Custom Command</key>
-			<string>No</string>
+			<string>Yes</string>
 			<key>Custom Directory</key>
 			<string>No</string>
 			<key>Default Bookmark</key>
@@ -2204,7 +2204,7 @@
 			<key>Columns</key>
 			<integer>300</integer>
 			<key>Command</key>
-			<string></string>
+			<string>/usr/local/bin/zsh</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -2226,7 +2226,7 @@
 			<key>Cursor Type</key>
 			<integer>2</integer>
 			<key>Custom Command</key>
-			<string>No</string>
+			<string>Yes</string>
 			<key>Custom Directory</key>
 			<string>No</string>
 			<key>Default Bookmark</key>
@@ -5005,7 +5005,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-03-16T01:11:47Z</date>
+	<date>2015-03-19T01:05:59Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
