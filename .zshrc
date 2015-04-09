@@ -72,8 +72,6 @@ setopt ignore_eof           # C-dでログアウトしない
 setopt no_auto_param_slash  # 自動で末尾に/を補完しない
 setopt auto_pushd           # cd履歴を残す
 
-# 個別にパス設定が必要な場合は.zshrc_localで再設定する。
-
 # ローカル用設定を読み込む
 if [ -f ${PERSONAL_ZSH_DIR}/.zshrc.antigen ]; then
     source ${PERSONAL_ZSH_DIR}/.zshrc.antigen
@@ -131,9 +129,9 @@ bindkey '^]' insert-last-word
 # Command line stack {{{
 # http://qiita.com/ikm/items/1f2c7793944b1f6cc346
 show_buffer_stack() {
-  POSTDISPLAY="
-stack: $LBUFFER"
-  zle push-line-or-edit
+    POSTDISPLAY="
+    stack: $LBUFFER"
+    zle push-line-or-edit
 }
 zle -N show_buffer_stack
 
@@ -160,23 +158,23 @@ bindkey '^Q' show_buffer_stack
 # Show ls & git status when pressed only enter. {{{
 # ref) http://qiita.com/yuyuchu3333/items/e9af05670c95e2cc5b4d
 function do_enter() {
-    if [ -n "$BUFFER" ]; then
-        zle accept-line
-        return 0
-    fi
-    echo
-    ls -FG
-    # ls_abbrev
-    if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
-        echo
-        echo -e "\e[0;33m--- git status ---\e[0m"
-        git status -sb
-    fi
-
-    echo
-    echo
-    zle reset-prompt
+if [ -n "$BUFFER" ]; then
+    zle accept-line
     return 0
+fi
+echo
+ls -FG
+# ls_abbrev
+if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
+    echo
+    echo -e "\e[0;33m--- git status ---\e[0m"
+    git status -sb
+fi
+
+echo
+echo
+zle reset-prompt
+return 0
 }
 zle -N do_enter
 bindkey '^m' do_enter
@@ -184,8 +182,8 @@ bindkey '^m' do_enter
 
 # mkdir & cd newdir. {{{
 function mkcddir() {
-    eval dirpath=$"$#"
-    mkdir ${@} && cd $dirpath
+eval dirpath=$"$#"
+mkdir ${@} && cd $dirpath
 }
 # }}}
 
@@ -230,10 +228,13 @@ alias -g PP='| peco'
 
 alias ssh="cat ~/.ssh/conf.d/*.conf >~/.ssh/config;ssh"
 alias scp="cat ~/.ssh/conf.d/*.conf >~/.ssh/config;scp"
-alias git="cat ~/.ssh/conf.d/*.conf >~/.ssh/config;git"
+# alias git="cat ~/.ssh/conf.d/*.conf >~/.ssh/config;git"
 
 alias jgems="jruby -S gems"
 alias jrake="jruby -S rake"
+
+alias v="vagrant"
+alias v_restart="vagrant halt; vagrant up"
 
 ## man zshall
 # ref) http://qiita.com/yuyuchu3333/items/67630d597c7700a51b95
@@ -263,16 +264,16 @@ zfman() {
 
 # Man colorfull
 function man (){
-    env \
-        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-        LESS_TERMCAP_md=$(printf "\e[1;31m") \
-        LESS_TERMCAP_me=$(printf "\e[0m") \
-        LESS_TERMCAP_se=$(printf "\e[0m") \
-        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-        LESS_TERMCAP_ue=$(printf "\e[0m") \
-        LESS_TERMCAP_us=$(printf "\e[1;32m") \
-        LANG=C \
-        man "$@"
+env \
+    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    LANG=C \
+    man "$@"
 }
 #}}}
 
@@ -280,6 +281,12 @@ function man (){
 if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
+
+# Load utilities
+utilities=($(find -L ~/.zsh -type f -name "*.zsh"))
+for utility in ${utilities}; do
+    source ${utility}
+done
 
 # Prompt setting {{{
 # 実際のプロンプトの表示設定
@@ -295,24 +302,24 @@ PROMPT=${INSERT_MODE_PROMPT}
 
 # Set prompt color by vim mode. {{{
 function update_vi_mode () {
-  case $KEYMAP in
+case $KEYMAP in
     vicmd)
         PROMPT=${NORMAL_MODE_PROMPT}
-    ;;
+        ;;
     main|viins)
         PROMPT=${INSERT_MODE_PROMPT}
-    ;;
-  esac
-  zle reset-prompt
+        ;;
+esac
+zle reset-prompt
 }
 
 function zle-line-init {
 #    auto-fu-init
-    update_vi_mode
+update_vi_mode
 }
 
 function zle-keymap-select {
-    update_vi_mode
+update_vi_mode
 }
 
 zle -N zle-line-init
@@ -370,42 +377,42 @@ if is-at-least 4.3.11; then
     # 今回の設定の場合はformat の時は2つ, actionformats の時は3つメッセージがあるので
     # 各関数が最大3回呼び出される。
     zstyle ':vcs_info:git+set-message:*' hooks \
-                                            git-hook-begin \
-                                            git-untracked \
-                                            git-push-status \
-                                            git-diff-remote \
-                                            git-stash-count
+        git-hook-begin \
+        git-untracked \
+        git-push-status \
+        git-diff-remote \
+        git-stash-count
 
     # フックの最初の関数
     # git の作業コピーのあるディレクトリのみフック関数を呼び出すようにする {{{
     # (.git ディレクトリ内にいるときは呼び出さない)
     # .git ディレクトリ内では git status --porcelain などがエラーになるため
     function +vi-git-hook-begin() {
-        if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
-            # 0以外を返すとそれ以降のフック関数は呼び出されない
-            return 1
-        fi
+    if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+        # 0以外を返すとそれ以降のフック関数は呼び出されない
+        return 1
+    fi
 
-        return 0
-    }
-    #}}}
+    return 0
+}
+#}}}
 
-    # untracked ファイル表示 {{{
-    #
-    # untracked ファイル(バージョン管理されていないファイル)がある場合は
-    # unstaged (%u) に ? を表示
-    function +vi-git-untracked() {
-        # zstyle formats, actionformats の2番目のメッセージのみ対象にする
-        if [[ "$1" != "1" ]]; then
-            return 0
-        fi
+# untracked ファイル表示 {{{
+#
+# untracked ファイル(バージョン管理されていないファイル)がある場合は
+# unstaged (%u) に ? を表示
+function +vi-git-untracked() {
+# zstyle formats, actionformats の2番目のメッセージのみ対象にする
+if [[ "$1" != "1" ]]; then
+    return 0
+fi
 
-        if command git status --porcelain 2> /dev/null \
-            | awk '{print $1}' \
-            | command grep -F '??' > /dev/null 2>&1 ; then
+if command git status --porcelain 2> /dev/null \
+    | awk '{print $1}' \
+    | command grep -F '??' > /dev/null 2>&1 ; then
 
-            # unstaged (%u) に追加
-            hook_com[unstaged]+='?'
+# unstaged (%u) に追加
+hook_com[unstaged]+='?'
         fi
     }
     #}}}
@@ -415,76 +422,76 @@ if is-at-least 4.3.11; then
     # 現在のブランチ上でまだpushしていないcommit(ahead)、
     # pullしていないcommit(behind)を↑ahead↓behindという形式で表示する。
     function +vi-git-diff-remote() {
-        # zstyle formats, actionformats の2番目のメッセージのみ対象にする
-        if [[ "$1" != "1" ]]; then
-            return 0
+    # zstyle formats, actionformats の2番目のメッセージのみ対象にする
+    if [[ "$1" != "1" ]]; then
+        return 0
+    fi
+
+    local localBranch
+    localBranch=${hook_com[branch]}
+    local remoteBranch
+    remoteBranch=${$(git rev-parse --verify ${localBranch}@{upstream} \
+        --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
+
+    # 追従ブランチなければなし
+    if [[ ${remoteBranch} == "" ]]; then
+        return 0
+    fi
+
+    local revlist
+    revlist=$(command git rev-list --left-right ${remoteBranch}...HEAD 2>/dev/null)
+    if [[ ${revlist} == "" ]]; then
+        # 空の場合は処理終わり
+        return 0
+    fi
+
+    local diffCommit
+    diffCommit=$(command echo ${revlist} \
+        | wc -l \
+        | tr -d ' ')
+
+    # TODO: 文字列を一行ごとに評価したいがうまいこと分割できてない
+    # とりあえずちょいとムダ目に分割して評価してる
+    local commitlist
+    commitlist=${(z)revlist}
+
+    local ahead=0
+    for commit in ${commitlist}; do
+        if [[ "${commit}" == ">" ]]; then
+            ((ahead = ahead + 1))
         fi
+    done
 
-        local localBranch
-        localBranch=${hook_com[branch]}
-        local remoteBranch
-        remoteBranch=${$(git rev-parse --verify ${localBranch}@{upstream} \
-                --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
+    local behind
+    ((behind = ${diffCommit} - ${ahead}))
 
-        # 追従ブランチなければなし
-        if [[ ${remoteBranch} == "" ]]; then
-            return 0
-        fi
+    # misc () に追加
+    if [[ "$ahead" -gt 0 ]] ; then
+        #hook_com[misc]+="%F{red}a%f%F{white}${ahead}%f"
+        hook_com[misc]+="%F{red}↑ %f%F{white}${ahead}%f"
+    fi
+    if [[ "$behind" -gt 0 ]] ; then
+        #hook_com[misc]+="%F{blue}b%f%F{white}${behind}%f"
+        hook_com[misc]+="%F{blue}↓ %f%F{white}${behind}%f"
+    fi
+}
+#}}}
 
-        local revlist
-        revlist=$(command git rev-list --left-right ${remoteBranch}...HEAD 2>/dev/null)
-        if [[ ${revlist} == "" ]]; then
-            # 空の場合は処理終わり
-            return 0
-        fi
+# stash 件数表示 {{{
+#
+# stash している場合は :SN という形式で misc (%m) に表示
+function +vi-git-stash-count() {
+# zstyle formats, actionformats の2番目のメッセージのみ対象にする
+if [[ "$1" != "1" ]]; then
+    return 0
+fi
 
-        local diffCommit
-        diffCommit=$(command echo ${revlist} \
-            | wc -l \
-            | tr -d ' ')
-
-        # TODO: 文字列を一行ごとに評価したいがうまいこと分割できてない
-        # とりあえずちょいとムダ目に分割して評価してる
-        local commitlist
-        commitlist=${(z)revlist}
-
-        local ahead=0
-        for commit in ${commitlist}; do
-            if [[ "${commit}" == ">" ]]; then
-                ((ahead = ahead + 1))
-            fi
-        done
-
-        local behind
-        ((behind = ${diffCommit} - ${ahead}))
-
-        # misc () に追加
-        if [[ "$ahead" -gt 0 ]] ; then
-            #hook_com[misc]+="%F{red}a%f%F{white}${ahead}%f"
-            hook_com[misc]+="%F{red}↑ %f%F{white}${ahead}%f"
-        fi
-        if [[ "$behind" -gt 0 ]] ; then
-            #hook_com[misc]+="%F{blue}b%f%F{white}${behind}%f"
-            hook_com[misc]+="%F{blue}↓ %f%F{white}${behind}%f"
-        fi
-    }
-    #}}}
-
-    # stash 件数表示 {{{
-    #
-    # stash している場合は :SN という形式で misc (%m) に表示
-    function +vi-git-stash-count() {
-        # zstyle formats, actionformats の2番目のメッセージのみ対象にする
-        if [[ "$1" != "1" ]]; then
-            return 0
-        fi
-
-        local stash
-        stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
-        if [[ "${stash}" -gt 0 ]]; then
-            # misc (%m) に追加
-            hook_com[misc]+="%F{yellow}⚑%f %F{white}${stash}%f"
-        fi
+local stash
+stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
+if [[ "${stash}" -gt 0 ]]; then
+    # misc (%m) に追加
+    hook_com[misc]+="%F{yellow}⚑%f %F{white}${stash}%f"
+fi
     }
     #}}}
 
@@ -492,29 +499,29 @@ fi
 
 # メインの関数 {{{
 function _update_vcs_info_msg() {
-    local -a messages
-    local prompt
+local -a messages
+local prompt
 
-    LANG=en_US.UTF-8 vcs_info
+LANG=en_US.UTF-8 vcs_info
 
-    if [[ -z ${vcs_info_msg_0_} ]]; then
-        # vcs_info で何も取得していない場合はプロンプトを表示しない
-        prompt=""
-    else
-        # vcs_info で情報を取得した場合
-        # $vcs_info_msg_0_ , $vcs_info_msg_1_ , $vcs_info_msg_2_ を
-        # それぞれ緑、黄色、赤で表示する
-        [[ -n "$vcs_info_msg_0_" ]] && messages+=( "${vcs_info_msg_0_}:" )
-        [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
-        [[ -n "$vcs_info_msg_1_" ]] || messages+=( "%F{green}✔ %f" )
-        [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
+if [[ -z ${vcs_info_msg_0_} ]]; then
+    # vcs_info で何も取得していない場合はプロンプトを表示しない
+    prompt=""
+else
+    # vcs_info で情報を取得した場合
+    # $vcs_info_msg_0_ , $vcs_info_msg_1_ , $vcs_info_msg_2_ を
+    # それぞれ緑、黄色、赤で表示する
+    [[ -n "$vcs_info_msg_0_" ]] && messages+=( "${vcs_info_msg_0_}:" )
+    [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
+    [[ -n "$vcs_info_msg_1_" ]] || messages+=( "%F{green}✔ %f" )
+    [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
 
-        prompt="[${(j::)messages}]"
-#        # 間にスペースを入れて連結する
-#        prompt="${(j: :)messages}"
-    fi
+    prompt="[${(j::)messages}]"
+    #        # 間にスペースを入れて連結する
+    #        prompt="${(j: :)messages}"
+fi
 
-    RPROMPT="$prompt"
+RPROMPT="$prompt"
 }
 #}}}
 add-zsh-hook precmd _update_vcs_info_msg
@@ -542,22 +549,7 @@ else
     alias t-ks='tmux kill-session'
 fi
 
-# tmux 自動起動 {{{
-if [ -z "$TMUX" -a -z "$STY" ]; then
-    if type tmuxx >/dev/null 2>&1; then
-        tmuxx
-    elif type tmux >/dev/null 2>&1; then
-        if tmux has-session && tmux list-sessions | /usr/bin/grep -qE '.*]$'; then
-            tmux attach && echo "tmux attached session "
-        else
-            tmux new-session && echo "tmux created new session"
-        fi
-    elif type screen >/dev/null 2>&1; then
-        screen -rx || screen -D -RR
-    fi
-fi
-#}}}
-
+tmux_autostart
 #}}}
 
 # for z {{{
@@ -569,167 +561,11 @@ else
     . ~/repos/github.com/rupa/z/z.sh
 fi
 precmd () {
-   z --add "$(pwd -P)"
+    z --add "$(pwd -P)"
 }
 
 # }}}
 
-# Generate .gitignore
-function gen_gitignore() {
-    curl https://www.gitignore.io/api/$@
-}
-
-# Remove non tracked file.(like tortoiseSVN)
-function git_rm_untrackedfile()
-{
-    git status --short|grep '^??'|sed 's/^...//'|xargs rm -r
-#    pathlist=(`git status --short|grep '^??'|sed 's/^...//'`)
-#    for rmpath in ${pathlist}; do
-#        if [ $rmpath != "" ]; then
-#          rm ./$rmpath
-#        fi
-#    done
-}
-
-function git_stash_revert()
-{
-    git stash show ${@} -p
-    #git stash show ${@} -p | git apply -R
-}
-
-# create .local.vimrc
-function local_vimrc_create()
-{
-    if [[ "" == ${1} ]]; then
-        echo "usage : local_vimrc_create /path/to/target"
-        return
-    fi
-
-    echo "Create local vimrc file."
-    if [ -d ${1} ]; then
-        dirpath=`cd ${1}&&pwd`
-        filename=".local.vimrc"
-        filepath="${dirpath}/${filename}"
-
-        if [ -f ${filepath} ]; then
-            echo "*Error* Already exist file. : ${filepath}"
-        else
-            echo "\" .local.vimrc">${filepath}
-            echo "let \$PROJECT_ROOT=expand(\"${dirpath}\")">>${filepath}
-            echo "lcd \$PROJECT_ROOT">>${filepath}
-
-            echo "Done. : ${filepath}"
-        fi
-    else
-        echo "*Error* Not find directory. : ${1}"
-    fi
-}
-
-# cd git repository
-function cd_repos() {
-    cd $(ghq list -p | peco)
-}
-
-function peco_find_ext() {
-    find . -name '*.'$1 | peco
-}
-
-function ls_sshhost() {
-    awk '
-        tolower($1)=="host" {
-            for (i=2; i<=NF; i++) {
-                if ($i !~ "[*?]") {
-                    print $i
-                }
-            }
-        }
-    ' ~/.ssh/config | sort
-}
-
-function peco_ssh() {
-    ssh $(ls_sshhost | peco)
-}
-
-function peco_gitmodified() {
-    git status --short | peco | sed s/"^..."//
-}
-
-function git_pullall() {
-    if [ $# -eq 0 ]; then
-        echo "usage"
-        echo " git_pullall [username]"
-        return 1
-    fi
-
-    username=$1
-    CURDIR=`pwd`
-    ERROR_LIST=()
-    for repo in $(ghq list -p | grep $username); do
-        cd $repo
-        hostname=$(basename $(cd ../..;pwd))
-        reposname=$(basename $(pwd))
-        echo "==== $hostname:$username/$reposname ===="
-        git pull --rebase
-        if [ $? -ne 0 ]; then
-            ERROR_LIST=(${ERROR_LIST[@]} $hostname:$username/$reposname)
-        fi
-    done
-
-    echo
-    echo "==== error repositories ===="
-    for error_repo in $ERROR_LIST; do
-        echo $error_repo
-    done
-    cd $CURDIR
-}
-
-function listup_ip() {
-    LANG=C ifconfig | grep 'inet ' | awk '{print $2;}' | cut -d: -f2
-    #LANG=C ifconfig | grep 'inet addr' | awk '{print $2;}' | cut -d: -f2
-}
-
-function os_version() {
-    VERSION_FILE_ARRAY=(\
-        '/etc/redhat-release' \
-        '/etc/fedora-release' \
-        '/etc/debian_version' \
-        '/etc/turbolinux-release' \
-        '/etc/SuSE-release' \
-        '/etc/mandriva-release' \
-        '/etc/vine-release' \
-        '/etc/issue' \
-    )
-
-    if [ 'Darwin' = $(uname) ]; then
-        sw_vers
-    else
-        for file in $VERSION_FILE_ARRAY; do
-            if [ -e $file ]; then
-                cat $file; exit
-            fi
-        done
-    fi
-}
-
-function py_help() {
-    target=$1
-    python -c "import ${target}; help(${target})"
-}
-
-function py3_help() {
-    target=$1
-    python3 -c "import ${target}; help(${target})"
-}
-
-# Displayの製造元を表示
-# LP : LG製（はずれ）
-# LSN : Samsung製（当たり）
-function display_info_15inch()
-{
-    ioreg -lw0 | grep \"EDID\" | sed "/[^<]*</s///" | xxd -p -r | strings -6
-}
-
 # OPAM configuration
 . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
 
