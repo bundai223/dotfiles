@@ -76,6 +76,8 @@ cp ~/repos/github.com/altercation/solarized/intellij-colors-solarized/Solarized*
 
 # Set show AbsolutePath on finder tab.
 defaults write com.apple.finder _FXShowPosixPathInTitle -boolean true
+# Don't write ds_store on remote directory.
+defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 killall Finder
 
 # AndroidStudio style.xml setting.
