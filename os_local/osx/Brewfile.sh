@@ -102,9 +102,9 @@ if [[ $OSTYPE == darwin* ]]; then
     # 本家版はビルドエラーが出るのでフォーク版。
     brew install cscope
     brew install lua
-    brew install --HEAD KazuakiM/splhack/cmigemo-mk
-    brew install --HEAD KazuakiM/splhack/ctags-objc-ja
-    brew install KazuakiM/splhack/macvim-kaoriya --HEAD --with-lua --with-cscope
+    brew install --HEAD KazuakiM/macvim/cmigemo-mk
+    brew install --HEAD KazuakiM/macvim/gettext-mk
+    brew install KazuakiM/macvim/macvim-kaoriya --HEAD --with-lua --with-cscope
     brew linkapps
     ln -s /usr/local/opt/macvim/MacVim.app ~/Applications/
 

@@ -444,7 +444,7 @@ cnoremap <C-c> <Nop>
 
 " NeoBundle path setting {{{
 if has('vim_starting')
-  set rtp+=~/.vim/neobundle.vim
+  set rtp+=~/repos/github.com/Shougo/neobundle.vim
 endif
 
 " }}}
