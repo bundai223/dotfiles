@@ -1,5 +1,9 @@
 scriptencoding utf-8
 
+let $dotvim_path = '~/.vim'
+let $neobundle_path = $dotvim_path . '/.bundle'
+let $repos_path = '~/repos'
+
 " Common setting {{{
 
 " 変数を読み込む
@@ -471,11 +475,6 @@ NeoBundleLazy 'kannokanno/previm', {
       \   'autoload' : {'filetypes': ['markdown']}
       \ }
 
-" tmux
-NeoBundleLazy 'zaiste/tmux.vim', {
-      \   'autoload': {'filetypes': ['tmux']}
-      \ }
-
 " Ocaml
 NeoBundleLazy 'cohama/the-ocamlspot.vim', {
       \   'autoload' : {'filetypes' : ['ocaml']}
@@ -484,6 +483,22 @@ NeoBundleLazy 'cohama/the-ocamlspot.vim', {
 " Golang
 NeoBundleLazy 'vim-jp/vim-go-extra', {
       \   'autoload' : {'filetypes' : ['go']}
+      \ }
+
+" C, C++, Objc
+" luajit使ってるとSEGVるのでなし
+NeoBundleFetch 'jeaye/color_coded', {
+      \   'autoload' : {'filetypes' : ['c', 'cpp']},
+      \   'build': {
+      \     'windows': './configure && make',
+      \     'mac'    : './configure && make',
+      \     'unix'   : './configure && make',
+      \   },
+      \ }
+
+" tmux
+NeoBundleLazy 'zaiste/tmux.vim', {
+      \   'autoload': {'filetypes': ['tmux']}
       \ }
 
 " Nginx
@@ -686,16 +701,17 @@ if has('mac')
 endif
 
 " unite source
-NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'Shougo/unite-outline'
-NeoBundle 'Shougo/unite-build'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'osyo-manga/unite-fold'
-NeoBundle 'osyo-manga/unite-quickrun_config'
-NeoBundle 'ujihisa/unite-locate'
-NeoBundle 'tsukkee/unite-tag'
+NeoBundle 'Shougo/unite-session.vim',         { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundle 'ujihisa/unite-colorscheme',        { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundle 'Shougo/unite-outline',             { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundle 'Shougo/unite-build',               { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundle 'Shougo/neomru.vim',                { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundle 'osyo-manga/unite-fold',            { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundle 'osyo-manga/unite-quickrun_config', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundle 'ujihisa/unite-locate',             { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundle 'tsukkee/unite-tag',                { 'depends' : [ 'Shougo/unite.vim' ] }
 if has('mac')
-  NeoBundle 'choplin/unite-spotlight'
+  NeoBundle 'choplin/unite-spotlight', { 'depends' : [ 'Shougo/unite.vim' ] }
   NeoBundle 'itchyny/dictionary.vim'
 endif
 
