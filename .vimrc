@@ -651,9 +651,40 @@ endif
 
 
 " unite
-NeoBundleLazy 'Shougo/unite.vim',{
-      \   'autoload' : {'commands' : ['Unite', 'UniteWithBufferDir'] },
-      \ }
+NeoBundleLazy 'Shougo/unite.vim'
+if neobundle#tap('unite.vim') "{{{
+  call neobundle#config({
+        \   'autoload' : {
+        \     'commands' : [
+        \       'Unite',
+        \       'UniteWithBufferDir',
+        \     ],
+        \   }
+        \ })
+
+  function! neobundle#tapped.hooks.on_source(bundle)
+    " 入力モードで開始
+    let g:unite_enable_start_insert=1
+    let g:unite_source_grep_max_candidates=1000
+
+    " Not write statusline.
+    let g:unite_force_overwrite_statusline=0
+
+    " For silver searcher.
+    " Use ag in unite grep source.
+    if executable('ag')
+      let g:unite_source_grep_command = 'ag'
+      let g:unite_source_grep_default_opts =
+            \ '--line-numbers --nocolor --nogroup --hidden --smart-case --ignore ' .
+            \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+      let g:unite_source_grep_recursive_opt = ''
+    endif
+  endfunction
+endif
+
+" }}}
+
+
 " unite key bind {{{
 " <Space>をuniteのキーに
 nnoremap [unite] <Nop>
@@ -847,31 +878,6 @@ if !empty(s:bundle)
   endfunction
 endif
 "}}}
-
-" unite {{{
-let s:bundle = neobundle#get('unite.vim')
-if !empty(s:bundle)
-  function! s:bundle.hooks.on_source(bundle)
-    " 入力モードで開始
-    let g:unite_enable_start_insert=1
-    let g:unite_source_grep_max_candidates=1000
-
-    " Not write statusline.
-    let g:unite_force_overwrite_statusline=0
-
-    " For silver searcher.
-    " Use ag in unite grep source.
-    if executable('ag')
-      let g:unite_source_grep_command = 'ag'
-      let g:unite_source_grep_default_opts =
-            \ '--line-numbers --nocolor --nogroup --hidden --smart-case --ignore ' .
-            \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-      let g:unite_source_grep_recursive_opt = ''
-    endif
-  endfunction
-endif
-
-" }}}
 
 " singleton {{{
 let s:bundle = neobundle#get('vim-singleton')
