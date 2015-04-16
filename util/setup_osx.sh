@@ -56,6 +56,7 @@ mkdir -p ~/Library/Application\ Support/AquaSKK
 sudo ln -s $ABS_PATH/SKK-JISYO.L ~/Library/Application\ Support/AquaSKK
 sudo ln -s $ABS_PATH/skk-jisyo.utf8 ~/Library/Application\ Support/AquaSKK
 sudo ln -s $OS_LOCAL_PATH/AquaSKK/kana-rule.conf ~/Library/Application\ Support/AquaSKK/
+sudo ln -s $OS_LOCAL_PATH/Karabiner/private.xml ~/Library/Application\ Support/Karabiner/
 ln -s $OS_LOCAL_PATH/.vimrc_local ~/.vimrc_local
 ln -s $OS_LOCAL_PATH/.zshrc_local ~/.zshrc_local
 ln -s $OS_LOCAL_PATH/.zshenv_local ~/.zshenv_local

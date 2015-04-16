@@ -34,6 +34,7 @@ if [[ $OSTYPE == darwin* ]]; then
     brew cask install fluid
     brew cask install platypus
     brew cask install cd-to
+    brew cask install karabiner
 
     brew install caskroom/versions/java6
 
