@@ -3,6 +3,7 @@ scriptencoding utf-8
 let $dotvim_path = '~/.vim'
 let $neobundle_path = $dotvim_path . '/.bundle'
 let $repos_path = '~/repos'
+let $dotfiles_path = $repos_path . '/github.com/bundai223/dotfiles'
 
 " Common setting {{{
 
@@ -301,7 +302,7 @@ nnoremap [myleader]H :<C-u>vert bel help<Space><C-r><C-w><CR>
 
 " MYVIMRC
 nnoremap [myleader]v :e $MYVIMRC<CR>
-nnoremap [myleader]g :e $MYGVIMRC<CR>
+" nnoremap [myleader]g :e $MYGVIMRC<CR>
 
 " カレントパスをバッファに合わせる
 nnoremap <silent>[myleader]<Space> :<C-u>lcd %:h<CR>:pwd<CR>
@@ -502,6 +503,11 @@ NeoBundleLazy 'vim-scripts/nginx.vim', {
       \   'autoload' : {'filetypes' : ['nginx']}
       \ }
 
+" Nginx
+NeoBundleLazy 'yoppi/fluentd.vim', {
+      \   'autoload' : {'filetypes' : ['fluentd']}
+      \ }
+
 " textobj
 NeoBundle 'kana/vim-textobj-user'
 "NeoBundle 'tpope/vim-surround'
@@ -643,7 +649,7 @@ if neobundle#tap('ag.vim') "{{{
 endif
 "}}}
 nmap [myleader]? :Ag <c-r>=expand("<cword>")<cr><cr>
-nnoremap [myleader]/ :Ag<Space>
+" nnoremap [myleader]/ :Ag<Space>
 
 
 NeoBundle 'tyru/eskk.vim'
@@ -1709,4 +1715,5 @@ endif
 if filereadable(expand('~/.vimrc_local'))
   source ~/.vimrc_local
 endif
+
 

@@ -36,11 +36,10 @@ au BufNewFile,BufRead *.gradle set filetype=groovy
 " ruby
 au BufNewFile,BufRead Vagrantfile set filetype=ruby
 
-" PlantUML
+" tool
 au BufNewFile,BufRead *.uml set filetype=plantuml
-
-" nginx
 au BufNewFile,BufRead *nginx.conf set filetype=nginx
+au BufNewFile,BufRead td-agent.conf set filetype=fluentd
 
 " shell
 autocmd BufNewFile *.sh 0r ~/.vim/.bundle/vim-template/template/template.sh
