@@ -15,7 +15,7 @@ endif
 " help日本語・英語優先
 "set helplang=ja,en
 set helplang=en
-" カーソル下の単語をhelp/Users/daiji/labo/dotfiles/.vimrc
+" カーソル下の単語をhelp
 set keywordprg =:help
 
 " 文字エンコード
@@ -340,10 +340,6 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
-" 見た目の行移動をやりやすく
-nnoremap j  gj
-nnoremap k  gk
-
 " 関数単位で移動
 nmap <C-p> [[
 nmap <C-n> ]]
@@ -404,9 +400,9 @@ set relativenumber
 function! s:norelativenumber()
   augroup restore_op
     autocmd!
-    autocmd CursorMoved * setlocal norelativenumber 
+    autocmd CursorMoved * setlocal norelativenumber
     autocmd CursorMoved * augroup restore_op | execute "autocmd!" | execute "augroup END"
-    autocmd CursorHold * setlocal norelativenumber 
+    autocmd CursorHold * setlocal norelativenumber
     autocmd CursorHold * augroup restore_op | execute "autocmd!" | execute "augroup END"
   augroup END
   return ""
@@ -487,14 +483,14 @@ NeoBundleLazy 'vim-jp/vim-go-extra', {
 
 " C, C++, Objc
 " luajit使ってるとSEGVるのでなし
-NeoBundleFetch 'jeaye/color_coded', {
-      \   'autoload' : {'filetypes' : ['c', 'cpp']},
-      \   'build': {
-      \     'windows': './configure && make',
-      \     'mac'    : './configure && make',
-      \     'unix'   : './configure && make',
-      \   },
-      \ }
+" NeoBundleFetch 'jeaye/color_coded', {
+"       \   'autoload' : {'filetypes' : ['c', 'cpp']},
+"       \   'build': {
+"       \     'windows': './configure && make',
+"       \     'mac'    : './configure && make',
+"       \     'unix'   : './configure && make',
+"       \   },
+"       \ }
 
 " tmux
 NeoBundleLazy 'zaiste/tmux.vim', {
@@ -522,12 +518,56 @@ NeoBundle 'mattn/gist-vim'
 
 NeoBundle 'basyura/TweetVim'
 NeoBundle 'koron/codic-vim'
+if neobundle#tap('codic-vim') "{{{
+  " http://sgur.tumblr.com/post/91906146884/codic-vim
+  inoremap <silent> <C-x><C-t>  <C-R>=<SID>codic_complete()<CR>
+  function! s:codic_complete()
+    let line = getline('.')
+    let start = match(line, '\k\+$')
+    let cand = s:codic_candidates(line[start :])
+    call complete(start +1, cand)
+    return ''
+  endfunction
+  function! s:codic_candidates(arglead)
+    let cand = codic#search(a:arglead, 30)
+    " error
+    if type(cand) == type(0)
+      return []
+    endif
+    " english -> english terms
+    if a:arglead =~# '^\w\+$'
+      return map(cand, '{"word": v:val["label"], "menu": join(map(copy(v:val["values"]), "v:val.word"), ",")}')
+    endif
+    " japanese -> english terms
+    return s:reverse_candidates(cand)
+  endfunction
+  function! s:reverse_candidates(cand)
+    let _ = []
+    for c in a:cand
+      for v in c.values
+        call add(_, {"word": v.word, "menu": !empty(v.desc) ? v.desc : c.label })
+      endfor
+    endfor
+    return _
+  endfunction
+
+  call neobundle#untap()
+endif
+"}}}
+
 NeoBundle 't9md/vim-quickhl'
 NeoBundle 'kana/vim-arpeggio'
 if neobundle#tap('vim-arpeggio') " {{{
   function! neobundle#tapped.hooks.on_source(bundle)
     call arpeggio#load() " arpeggioをこのvimrc内で有効にする。
-    "Arpeggiomap fj <C-[>
+    Arpeggiomap kl <C-[>
+    let g:arpeggio_timeoutlen = 80
+    " 見た目の行移動をやりやすく
+"     nnoremap j  gj
+"     nnoremap k  gk
+"     vnoremap j  gj
+"     vnoremap k  gk
+
   endfunction
   call neobundle#untap()
 endif
@@ -572,28 +612,106 @@ endif
 NeoBundle 'edsono/vim-matchit'
 NeoBundle 'tyru/caw.vim'
 NeoBundle 'h1mesuke/vim-alignta'
+NeoBundle 'junegunn/vim-easy-align'
+vnoremap <silent> <Enter> :EasyAlign<CR>
 NeoBundle 'deris/vim-rengbang'
 NeoBundleFetch 'osyo-manga/vim-gift'
 NeoBundleFetch 'osyo-manga/vim-automatic'
 NeoBundle 'osyo-manga/vim-anzu'
+if neobundle#tap('vim-anzu') "{{{
+  function! neobundle#tapped.hooks.on_source(bundle)
+    " こっちを使用すると
+    " 移動後にステータス情報をコマンドラインへと出力を行います。
+    " statusline を使用したくない場合はこっちを使用して下さい。
+    nmap n <Plug>(anzu-n-with-echo)
+    nmap N <Plug>(anzu-N-with-echo)
+    nmap * <Plug>(anzu-star-with-echo)
+    nmap # <Plug>(anzu-sharp-with-echo)
+  endfunction
+  call neobundle#untap()
+endif
+"}}}
+
+NeoBundleLazy 'rking/ag.vim'
+if neobundle#tap('ag.vim') "{{{
+  call neobundle#config({
+        \   'autoload' : {
+        \    'commands' : 'Ag'
+        \   }
+        \ })
+  call neobundle#untap()
+endif
+"}}}
+nmap [myleader]? :Ag <c-r>=expand("<cword>")<cr><cr>
+nnoremap [myleader]/ :Ag<Space>
+
+
 NeoBundle 'tyru/eskk.vim'
 
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'cohama/agit.vim'
+NeoBundleLazy 'cohama/agit.vim'
+if neobundle#tap('agit.vim') "{{{
+  call neobundle#config({
+        \   'autoload' : {
+        \    'commands' : ['Agit', 'AgitFile']
+        \   }
+        \ })
+  call neobundle#untap()
+endif
+"}}}
+
 NeoBundle 'tyru/open-browser.vim'
 
 NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'airblade/vim-gitgutter'
+if neobundle#tap('vim-gitgutter') "{{{
+  function! neobundle#tapped.hooks.on_source(bundle)
+    let g:gitgutter_sign_added = '✚'
+    let g:gitgutter_sign_modified = '➜'
+    let g:gitgutter_sign_removed = '✘'
+  endfunction
+  call neobundle#untap()
+endif
+"}}}
+
+
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-localrc'
-NeoBundle 'thinca/vim-prettyprint'
-NeoBundle 'thinca/vim-scall'
-NeoBundle 'thinca/vim-singleton' , {
-      \   'gui' : 1
-      \ }
+NeoBundleLazy 'thinca/vim-prettyprint'
+if neobundle#tap('vim-prettyprint') "{{{
+  call neobundle#config({
+        \   'autoload' : {
+        \    'commands' : 'PP'
+        \   }
+        \ })
+  call neobundle#untap()
+endif
+"}}}
 
-NeoBundle 'tyru/restart.vim'
+
+NeoBundle 'thinca/vim-scall'
+NeoBundleLazy 'thinca/vim-singleton'
+if neobundle#tap('vim-singleton') "{{{
+  call neobundle#config({
+        \ 'gui' : 1,
+        \ })
+  call neobundle#untap()
+endif
+"}}}
+
+NeoBundleLazy 'tyru/restart.vim'
+if neobundle#tap('restart.vim') "{{{
+  call neobundle#config({
+        \   'gui' : 1,
+        \   'autoload' : {
+        \    'commands' : 'Restart'
+        \   }
+        \ })
+  call neobundle#untap()
+endif
+"}}}
+
 NeoBundle 'tyru/capture.vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'Shougo/vinarise'
@@ -616,6 +734,24 @@ NeoBundleLazy 'Shougo/vimshell', {
 NeoBundle 'LeafCage/foldCC'
 NeoBundle 'rhysd/committia.vim'
 NeoBundle 'rhysd/vim-grammarous'
+NeoBundleLazy 'LeafCage/nebula.vim'
+if neobundle#tap('nebula.vim') "{{{
+  call neobundle#config({
+        \   'autoload': {
+        \     'commands': [
+        \       'NebulaPutLazy',
+        \       'NebulaPutFromClipboard',
+        \       'NebulaYankOptions',
+        \       'NebulaYankConfig',
+        \       'NebulaPutConfig',
+        \       'NebulaYankTap'
+        \     ]
+        \   }
+        \ })
+endif
+"}}}
+
+nnoremap [myleader]n :NebulaYankTap!<CR>
 "
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'kevinw/pyflakes-vim'
@@ -646,6 +782,7 @@ if neobundle#tap('jazzradio.vim') "{{{
         \     'function_prefix' : 'jazzradio'
         \   }
         \ })
+  call neobundle#untap()
 endif
 "}}}
 
@@ -670,6 +807,11 @@ if neobundle#tap('unite.vim') "{{{
     " Not write statusline.
     let g:unite_force_overwrite_statusline=0
 
+    " Using ag as recursive command.
+    let g:unite_source_rec_async_command =
+    \ 'ag --follow --nocolor --nogroup --hidden -g ""'
+    call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
     " For silver searcher.
     " Use ag in unite grep source.
     if executable('ag')
@@ -680,6 +822,7 @@ if neobundle#tap('unite.vim') "{{{
       let g:unite_source_grep_recursive_opt = ''
     endif
   endfunction
+  call neobundle#untap()
 endif
 
 " }}}
@@ -714,10 +857,9 @@ vnoremap <silent> [unite]ao  :<C-u>Unite alignta:options<CR>
 
 " unite resume
 nnoremap <silent> [unite]r   :<C-u>UniteResume<CR>
+nnoremap <silent> [unite]R   <Plug>(unite_restart)
 
-if has('mac')
-  nnoremap <silent> [unite]<Space> :<C-u>Unite spotlite<CR>
-endif
+nnoremap <silent> [unite]<Space> :<C-u>Unite file_rec/async<CR>
 
 
 autocmd FileType unite call s:unite_my_settings()
@@ -732,7 +874,7 @@ if has('mac')
 endif
 
 " unite source
-NeoBundle 'Shougo/unite-session.vim',         { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundle 'Shougo/unite-session',             { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'ujihisa/unite-colorscheme',        { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'Shougo/unite-outline',             { 'depends' : [ 'Shougo/unite.vim' ] }
 NeoBundle 'Shougo/unite-build',               { 'depends' : [ 'Shougo/unite.vim' ] }
@@ -756,6 +898,12 @@ NeoBundle 'bundai223/vim-template'
 " other
 NeoBundle 'vim-jp/vital.vim'
 NeoBundle 'vim-jp/vimdoc-ja'
+NeoBundle 'bronson/vim-trailing-whitespace'
+if neobundle#tap('vim-trailing-whitespace') "{{{
+  " uniteでスペースが表示されるので、設定でoffる
+  let g:extra_whitespace_ignored_filetypes = ['unite']
+endif
+"}}}
 
 "=====================================
 " Color Scheme
@@ -888,15 +1036,6 @@ if !empty(s:bundle)
 endif
 "}}}
 
-" restart {{{
-let s:bundle = neobundle#get('restart.vim')
-if !empty(s:bundle)
-  function! s:bundle.hooks.on_source(bundle)
-    nnoremap <silent> rs : <C-u> Restart <CR>
-  endfunction
-endif
-"}}}
-
 " vim-airline {{{
 if neobundle#tap('vim-airline')
   function! neobundle#tapped.hooks.on_source(bundle)
@@ -956,6 +1095,7 @@ if neobundle#tap('dash.vim')
 
     nnoremap [myleader]d :call <SID>dash(expand('<cword>'))<CR>
   endfunction
+  call neobundle#untap()
 endif
 
 "}}}
@@ -1046,11 +1186,6 @@ let g:Gitv_DoNotMapCtrlKey = 1
 " Agit
 " 自動で差分の更新をしないようにする。
 let g:agit_enable_auto_show_commit = 0
-
-" vim-gitgutter
-let g:gitgutter_sign_added = '✚'
-let g:gitgutter_sign_modified = '➜'
-let g:gitgutter_sign_removed = '✘'
 
 " lightline.vim {{{
 "\ 'colorscheme': 'wombat',
@@ -1434,13 +1569,6 @@ let g:unite_source_alignta_preset_options = [
 
 " }}}
 
-" PrettyPrint {{{
-" 変数の中身を表示
-command! -nargs=+ GlobalVars PP filter(copy(g:), 'v:key =~# "^<args>"')
-command! -nargs=+ BufVars PP filter(copy(b:), 'v:key =~# "^<args>"')
-
-" }}}
-
 " caw {{{
 nmap <Leader>c <Plug>(caw:I:toggle)
 vmap <Leader>c <Plug>(caw:I:toggle)
@@ -1478,27 +1606,6 @@ let g:quickrun_config._ = {
 
 "" <Space>qで強制終了
 "nnoremap <expr><silent><Space>q quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-
-"}}}
-
-" anzu {{{
-" " echo statusline to search index
-" " n や N の代わりに使用します。
-" nmap n <Plug>(anzu-n)
-" nmap N <Plug>(anzu-N)
-" nmap * <Plug>(anzu-star)
-" nmap # <Plug>(anzu-sharp)
-"
-" " ステータス情報を statusline へと表示する
-" set statusline=%{anzu#search_status()}
-
-" こっちを使用すると
-" 移動後にステータス情報をコマンドラインへと出力を行います。
-" statusline を使用したくない場合はこっちを使用して下さい。
-nmap n <Plug>(anzu-n-with-echo)
-nmap N <Plug>(anzu-N-with-echo)
-nmap * <Plug>(anzu-star-with-echo)
-nmap # <Plug>(anzu-sharp-with-echo)
 
 "}}}
 
@@ -1576,6 +1683,11 @@ au BufNew,BufRead * match ZenkakuSpace /　/
 
 syntax on
 " }}}
+
+if (exists('+colorcolumn'))
+  set colorcolumn=80
+  highlight ColorColumn ctermbg=9
+endif
 
 " }}}
 
