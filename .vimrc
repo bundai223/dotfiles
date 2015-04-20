@@ -816,7 +816,7 @@ if neobundle#tap('unite.vim') "{{{
     " Using ag as recursive command.
     let g:unite_source_rec_async_command =
     \ 'ag --follow --nocolor --nogroup --hidden -g ""'
-    call unite#filters#matcher_default#use(['matcher_fuzzy'])
+"     call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
     " For silver searcher.
     " Use ag in unite grep source.
