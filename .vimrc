@@ -673,9 +673,9 @@ NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'airblade/vim-gitgutter'
 if neobundle#tap('vim-gitgutter') "{{{
   function! neobundle#tapped.hooks.on_source(bundle)
-    let g:gitgutter_sign_added = '✚'
-    let g:gitgutter_sign_modified = '➜'
-    let g:gitgutter_sign_removed = '✘'
+"     let g:gitgutter_sign_added = '✚'
+"     let g:gitgutter_sign_modified = '➜'
+"     let g:gitgutter_sign_removed = '✘'
   endfunction
   call neobundle#untap()
 endif
@@ -1671,8 +1671,10 @@ set nowrap
 " Color scheme setting {{{
 set background=dark
 set t_Co=256
-colorscheme desert
-"colorscheme solarized
+if has('vim_starting')
+  colorscheme desert
+  "colorscheme solarized
+endif
 
 " IMEの状態でカーソル色変更 {{{
 "IME状態に応じたカーソル色を設定

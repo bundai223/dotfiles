@@ -72,8 +72,10 @@ if filereadable(expand('~/.gvimrc_local'))
     source ~/.gvimrc_local
 endif
 
-colorscheme solarized
-set bg=dark
+if has('vim_starting')
+  colorscheme solarized
+  set bg=dark
+endif
 
 let g:lightline.colorscheme='solarized'
 
