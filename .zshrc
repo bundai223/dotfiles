@@ -282,11 +282,33 @@ if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
 
-# Load utilities
-utilities=($(find -L ~/.zsh -type f -name "*.zsh"))
-for utility in ${utilities}; do
-    source ${utility}
-done
+# Load utility scripts. {{{
+source_script()
+{
+    script_root=${1}
+    utilities=($(find -L ${script_root} -type f -name "*.zsh"))
+
+    osx_suffix=_osx.zsh
+    win_suffix=_win.zsh
+    linux_suffix=_linux.zsh
+
+    case ${OSTYPE} in
+        darwin*)
+            #ここにMac向けの設定
+            utilities=($(for ut in ${utilities}; echo ${ut}|grep -v _win.zsh|grep -v _linux.zsh))
+            ;;
+        linux*)
+            #ここにLinux向けの設定
+            utilities=($(for ut in ${utilities}; echo ${ut}|grep -v _win.zsh|grep -v _osx.zsh))
+            ;;
+    esac
+    export utilities
+    for utility in ${utilities}; do
+        source ${utility}
+    done
+}
+source_script ~/.zsh
+# }}}
 
 # Prompt setting {{{
 # 実際のプロンプトの表示設定
@@ -549,7 +571,7 @@ else
     alias t-ks='tmux kill-session'
 fi
 
-tmux_autostart
+# start_tmux
 #}}}
 
 # for z {{{

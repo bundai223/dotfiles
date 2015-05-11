@@ -1,3 +1,8 @@
+" release autogroup in MyAutoCmd
+augroup MyAutoCmd
+  autocmd!
+augroup END
+
 scriptencoding utf-8
 
 let $dotvim_path = '~/.vim'
@@ -121,6 +126,11 @@ set tabstop=4
 " How many spaces to each indent level
 set shiftwidth=4
 
+" <>などでインデントする時にshiftwidthの倍数にまるめる
+set shiftround
+
+" 補完時に大文字小文字の区別なし
+set infercase
 "testing now {{{
 " Automatically adjust indent
 set autoindent
@@ -128,8 +138,19 @@ set autoindent
 " Automatically indent when insert a new line
 set smartindent
 " }}}
-"
+
+" バッファを閉じる代わりに隠す
+set hidden
+
+" 新しく開く代わりにすでに開いているバッファを使用する
+set switchbuf=useopen
+
 set smarttab
+
+" ▽スリーンベルを無効化
+
+set t_vb=
+set novisualbell
 " }}}
 
 " Search {{{
@@ -197,6 +218,12 @@ set tags+=tags;
 
 " 外部grepの設定
 set grepprg=grep\ -nH
+
+" make, grep などのコマンド後に自動的にQuickFixを開く
+autocmd MyAutoCmd QuickfixCmdPost make,grep,grepadd,vimgrep copen
+
+" QuickFixおよびHelpでは q でバッファを閉じる
+autocmd MyAutoCmd FileType help,qf nnoremap <buffer> q <C-w>c
 
 " }}}
 
@@ -455,13 +482,40 @@ call neobundle#begin(expand('~/.vim/.bundle'))
 
 " Language
 " Python
-NeoBundleLazy 'Yggdroot/indentLine', {
-      \   'autoload': {'commands': ['IndentLinesToggle', 'IndentLinesReset']}
-      \ }
+NeoBundleLazy 'davidhalter/jedi-vim'
+if neobundle#tap('jedi-vim')
+  call neobundle#config({
+      \   'autoload': {
+      \     "filetypes": ["python", "python3", "djangohtml"]
+      \   }
+      \ })
 
-NeoBundleLazy 'davidhalter/jedi-vim', {
-      \   'autoload': {'filetypes': ['python']}
-      \ }
+  function! neobundle#tapped.hooks.on_source(bundle)
+    " jediにvimの設定を任せると'completeopt+=preview'するので
+    " 自動設定機能をOFFにし手動で設定を行う
+    let g:jedi#auto_vim_configuration = 0
+    " 補完の最初の項目が選択された状態だと使いにくいためオフにする
+    let g:jedi#popup_select_first = 0
+    " quickrunと被るため大文字に変更
+    let g:jedi#rename_command = '<Leader>R'
+    " gundoと被るため大文字に変更 (2013-06-24 10:00 追記）
+"     let g:jedi#goto_command = '<Leader>G'
+  endfunction
+
+  call neobundle#untap()
+endif
+
+
+" Djangoを正しくVimで読み込めるようにする
+NeoBundleLazy "lambdalisue/vim-django-support", {
+      \ "autoload": {
+      \   "filetypes": ["python", "python3", "djangohtml"]
+      \ }}
+" Vimで正しくvirtualenvを処理できるようにする
+NeoBundleLazy "jmcantrell/vim-virtualenv", {
+      \ "autoload": {
+      \   "filetypes": ["python", "python3", "djangohtml"]
+      \ }}
 
 " MarkDown
 NeoBundleLazy 'plasticboy/vim-markdown', {
@@ -519,6 +573,10 @@ NeoBundle 'kana/vim-operator-user'
 NeoBundle 'rhysd/vim-operator-surround', { 'depends' : 'kana/vim-operator-user' }
 
 " utility
+NeoBundleLazy 'Yggdroot/indentLine', {
+      \   'autoload': {'commands': ['IndentLinesToggle', 'IndentLinesReset']}
+      \ }
+
 NeoBundle 'mattn/emmet-vim' " html ?
 NeoBundle 'mattn/gist-vim'
 
@@ -721,9 +779,18 @@ endif
 NeoBundle 'tyru/capture.vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'Shougo/vinarise'
-NeoBundle 'Shougo/neocomplete'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundleLazy 'Shougo/neocomplete', {
+      \ "autoload": {
+      \   "insert": 1,
+      \ }}
+
+NeoBundleLazy 'Shougo/neosnippet', {
+      \   'autoload': {'insert': 1}
+      \ }
+NeoBundleLazy 'Shougo/neosnippet-snippets', {
+      \   'autoload': {'insert': 1},
+      \   'depends' : [ 'Shougo/neosnippet' ]
+      \ }
 NeoBundle 'Shougo/vimproc', {
       \   'build': {
       \     'windows': 'nmake -f Make_msvc.mak nodebug=1',
@@ -933,6 +1000,7 @@ let s:bundle = neobundle#get('indentLine')
 if !empty(s:bundle)
   function! s:bundle.hooks.on_source(bundle)
     let g:indentLine_faster = 1
+    IndentLinesReset
   endfunction
 endif
 " }}}
@@ -1650,6 +1718,7 @@ set relativenumber
 set list
 " tab 行末spaceを表示
 set listchars=tab:^\ ,trail:~,extends:>,precedes:<,nbsp:%
+" set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
 
 " always show tab
 set showtabline=2
