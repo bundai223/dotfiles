@@ -537,11 +537,11 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1402 236 445 270 0 0 2560 1418 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>1316 722 924 485 0 0 2560 1417 </string>
+	<string>1315 721 924 485 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>590 351 1210 1066 0 0 2560 1417 </string>
+	<string>870 77 1930 1340 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>2891 117 1210 1053 2560 115 1920 1057 </string>
+	<string>704 76 1450 1326 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>419 144 490 351 0 0 2560 1418 </string>
 	<key>New Bookmarks</key>
@@ -1100,11 +1100,11 @@
 			<key>Name</key>
 			<string>DarkOriginal</string>
 			<key>Non Ascii Font</key>
-			<string>Ricty-Regular 12</string>
+			<string>SauceCodePowerline-Regular 12</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Ricty-Regular 12</string>
+			<string>SauceCodePowerline-Regular 12</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -4941,6 +4941,10 @@
 	</array>
 	<key>NoSyncNeverRemindPrefsChangesCopy</key>
 	<true/>
+	<key>NoSyncTimeOfLastPromo</key>
+	<real>453346155.92969501</real>
+	<key>NoSyncTimeOfLastPromoDownload</key>
+	<real>453346155.92992002</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -5005,7 +5009,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-03-19T01:05:59Z</date>
+	<date>2015-05-15T01:12:32Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -5051,6 +5055,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.0.0.20141103</string>
+	<string>2.1.1</string>
 </dict>
 </plist>

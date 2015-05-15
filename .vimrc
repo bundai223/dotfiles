@@ -329,7 +329,7 @@ nnoremap [myleader]H :<C-u>vert bel help<Space><C-r><C-w><CR>
 
 " MYVIMRC
 nnoremap [myleader]v :e $MYVIMRC<CR>
-" nnoremap [myleader]g :e $MYGVIMRC<CR>
+nnoremap [myleader]g :e $MYGVIMRC<CR>
 
 " カレントパスをバッファに合わせる
 nnoremap <silent>[myleader]<Space> :<C-u>lcd %:h<CR>:pwd<CR>

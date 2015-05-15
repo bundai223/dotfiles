@@ -92,7 +92,7 @@ brew install android-sdk android-ndk ant apktool
 brew install the_silver_searcher
 brew install emacs --cocoa --with-gnutls
 
-brew install sanemat/font/ricty
+brew install sanemat/font/ricty --vim-powerline
 
 
 if [[ $OSTYPE == darwin* ]]; then

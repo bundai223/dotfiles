@@ -37,36 +37,13 @@ mkdir_noerror ~/tools/bin
 # Get tools repositories.
 mkdir_noerror ${REPOS_PATH}
 
-TOOL_NAMES_ARRAY=\
-(\
- 'Shougo/neobundle.vim'\
- 'github/gitignore.git'\
- 'zsh-users/zsh-completions.git'\
- 'zsh-users/antigen.git'\
- 'altercation/solarized'\
- 'ajaxorg/cloud9.git'\
- 'csabahenk/dedrm-ebook-tools.git'\
- 'tomorrowkey/adb-peco'\
- 'JakeWharton/pidcat'\
- 'sys1yagi/genymotion-peco'\
- 'rupa/z.git'\
- 'bundai223/zsh-utils'\
-)
-for toolname in ${TOOL_NAMES_ARRAY[@]}; do
-    ghq get ${toolname}
-done
-
-# pythonツール
-easy_install fabric
-easy_install vim-vint
-
-
 # Create symbolic link to dotfiles {{{
 DOTFILE_NAMES_ARRAY=\
 (\
  .gitconfig_global\
  .gitignore_global\
  .gitattributes_global\
+ .pydistutils.cfg\
  .zshenv\
  .zshrc\
  .vimrc\
@@ -90,6 +67,32 @@ fi
 #}}}
 
 mkln ${REPOS_PATH}/github.com/bundai223/zsh-utils ~/.zsh/zsh-utils
+
+TOOL_NAMES_ARRAY=\
+(\
+ 'Shougo/neobundle.vim'\
+ 'github/gitignore.git'\
+ 'zsh-users/zsh-completions.git'\
+ 'zsh-users/antigen.git'\
+ 'altercation/solarized'\
+ 'ajaxorg/cloud9.git'\
+ 'csabahenk/dedrm-ebook-tools.git'\
+ 'tomorrowkey/adb-peco'\
+ 'JakeWharton/pidcat'\
+ 'sys1yagi/genymotion-peco'\
+ 'powerline/fonts'\
+ 'rupa/z.git'\
+ 'bundai223/zsh-utils'\
+)
+for toolname in ${TOOL_NAMES_ARRAY[@]}; do
+    ghq get ${toolname}
+done
+
+# pythonツール
+pip fabric
+pip vim-vint
+pip install --user powerline-status
+pip install --user git+git://github.com/powerline/powerline
 
 # vim setting {{{
 DOT_VIM=.vim
