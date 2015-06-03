@@ -36,7 +36,7 @@ if has('win32')
   endif
 elseif has('mac')
 "   set guifont=Ricty\ Regular:h14
-  set guifont=Source\ Code\ Pro:h14
+  set guifont=Sauce\ Code\ Powerline:h14
 elseif has('xfontset')
   " UNIX用 (xfontsetを使用)
   set guifontset=a14,r14,k14
