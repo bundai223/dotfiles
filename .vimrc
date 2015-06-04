@@ -121,10 +121,10 @@ endif
 set expandtab
 
 " Width of tab
-set tabstop=4
+set tabstop=2
 
 " How many spaces to each indent level
-set shiftwidth=4
+set shiftwidth=2
 
 " <>などでインデントする時にshiftwidthの倍数にまるめる
 set shiftround
@@ -1781,10 +1781,21 @@ endif
 "endif
 " }}}
 
-"" 取り敢えずここで
-"if !exists("loaded_matchit")
-"  source $VIMRUNTIME/macros/matchit.vim
-"endif
+" Dvorak試したいので切り替え処理 {{{
+let g:is_dvorak = 0
+
+function! ToggleDvorakMode()
+  if g:is_dvorak
+    let g:is_dvorak = 0
+    set keymap=
+  else
+    let g:is_dvorak = 1
+    set keymap=dvorak
+  endif
+endfunction
+
+command! ToggleDvorakMode call ToggleDvorakMode()
+" }}}
 
 " ローカル設定を読み込む
 if filereadable(expand('~/.vimrc_local'))
