@@ -52,6 +52,8 @@ autocmd FileType * setlocal formatoptions-=o
 " 参照先を変数に上書き
 let $MYVIMRC=$DOTFILES."/.vimrc"
 let $MYGVIMRC=$DOTFILES."/.gvimrc"
+let $MYZSHRC=$DOTFILES."/.zshrc"
+let $MYTMUX_CONF=$DOTFILES."/.tmux.conf"
 
 " 分割方向を指定
 set splitbelow
@@ -330,6 +332,8 @@ nnoremap [myleader]H :<C-u>vert bel help<Space><C-r><C-w><CR>
 " MYVIMRC
 nnoremap [myleader]v :e $MYVIMRC<CR>
 nnoremap [myleader]g :e $MYGVIMRC<CR>
+nnoremap [myleader]z :e $MYZSHRC<CR>
+nnoremap [myleader]t :e $MYTMUX_CONF<CR>
 
 " カレントパスをバッファに合わせる
 nnoremap <silent>[myleader]<Space> :<C-u>lcd %:h<CR>:pwd<CR>

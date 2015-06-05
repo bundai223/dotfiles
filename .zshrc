@@ -102,6 +102,8 @@ setopt nobeep               # ビープ音なし
 setopt ignore_eof           # C-dでログアウトしない
 setopt no_auto_param_slash  # 自動で末尾に/を補完しない
 setopt auto_pushd           # cd履歴を残す
+setopt pushd_ignore_dups    # 重複cd履歴は残さない
+setopt auto_cd              # path名だけでcd
 
 # ローカル用設定を読み込む
 if [ -f ${PERSONAL_ZSH_DIR}/.zshrc.antigen ]; then
@@ -345,10 +347,18 @@ source_script ~/.zsh
 # 実際のプロンプトの表示設定
 autoload -Uz colors && colors
 
-NORMAL_MODE_PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%}
+# %# : 一般ユーザなら%、スーパーユーザなら#
+# %H : ホスト名
+# %m : ホスト名のうち最初のドットの前まで
+# %d : カレントディレクトリのパス
+# %~ : カレントディレクトリのパス(ホームの場合~)
+# %n : ユーザ名
+# %D : 年月日
+# %* : 時分秒
+NORMAL_MODE_PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*}%{${reset_color}%} %{${fg[yellow]}%}%~%{${reset_color}%}
 %{$bg_bold[magenta]%}%(!.#.$)%{$reset_color%} "
 
-INSERT_MODE_PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*} %{${fg[yellow]}%}%~%{${reset_color}%}
+INSERT_MODE_PROMPT="%{${fg[green]}%}${USER}@${HOST%%.*}%{${reset_color}%} %{${fg[yellow]}%}%~%{${reset_color}%}
 %{$reset_color%}%(!.#.$)%{$reset_color%} "
 
 PROMPT=${INSERT_MODE_PROMPT}
@@ -552,15 +562,15 @@ fi
 
 # メインの関数 {{{
 function _update_vcs_info_msg() {
-local -a messages
-local prompt
+  local -a messages
+  local prompt
 
-LANG=en_US.UTF-8 vcs_info
+  LANG=en_US.UTF-8 vcs_info
 
-if [[ -z ${vcs_info_msg_0_} ]]; then
+  if [[ -z ${vcs_info_msg_0_} ]]; then
     # vcs_info で何も取得していない場合はプロンプトを表示しない
     prompt=""
-else
+  else
     # vcs_info で情報を取得した場合
     # $vcs_info_msg_0_ , $vcs_info_msg_1_ , $vcs_info_msg_2_ を
     # それぞれ緑、黄色、赤で表示する
@@ -572,9 +582,9 @@ else
     prompt="[${(j::)messages}]"
     #        # 間にスペースを入れて連結する
     #        prompt="${(j: :)messages}"
-fi
+  fi
 
-RPROMPT="$prompt"
+  RPROMPT="$prompt [%*]"
 }
 #}}}
 add-zsh-hook precmd _update_vcs_info_msg
