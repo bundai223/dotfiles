@@ -428,18 +428,6 @@ nnoremap [fold]f zf
 " Toggle relative line numbers {{{
 "
 
-set relativenumber
-function! s:norelativenumber()
-  augroup restore_op
-    autocmd!
-    autocmd CursorMoved * setlocal norelativenumber
-    autocmd CursorMoved * augroup restore_op | execute "autocmd!" | execute "augroup END"
-    autocmd CursorHold * setlocal norelativenumber
-    autocmd CursorHold * augroup restore_op | execute "autocmd!" | execute "augroup END"
-  augroup END
-  return ""
-endfunction
-
 function! s:ToggleRelativeNumber()
   if &relativenumber
     set norelativenumber
@@ -455,7 +443,6 @@ endfunction
 
 nnoremap <silent> [myleader]m :call <SID>ToggleRelativeNumber()<CR>
 vnoremap <silent> [myleader]m :<C-U>call <SID>ToggleRelativeNumber()<CR>gv
-onoremap <expr> [myleader]m <SID>ToggleRelativeNumber() . <SID>norelativenumber()
 
 " }}}
 
@@ -561,10 +548,23 @@ NeoBundleLazy 'vim-scripts/nginx.vim', {
       \   'autoload' : {'filetypes' : ['nginx']}
       \ }
 
-" Nginx
+" Fluentd
 NeoBundleLazy 'yoppi/fluentd.vim', {
       \   'autoload' : {'filetypes' : ['fluentd']}
       \ }
+
+" Yaml
+NeoBundleLazy 'stephpy/vim-yaml'
+if neobundle#tap('vim-yaml') "{{{
+  call neobundle#config({
+      \   'autoload': {
+      \     "filetypes": ["yaml"]
+      \   }
+      \ })
+  call neobundle#untap()
+endif
+"}}}
+
 
 " textobj
 NeoBundle 'kana/vim-textobj-user'
@@ -583,6 +583,17 @@ NeoBundleLazy 'Yggdroot/indentLine', {
 
 NeoBundle 'mattn/emmet-vim' " html ?
 NeoBundle 'mattn/gist-vim'
+NeoBundleLazy 'mattn/benchvimrc-vim'
+if neobundle#tap('benchvimrc-vim') "{{{
+  call neobundle#config({
+      \   'autoload': {
+      \     "commands": ["BenchVimrc"]
+      \   }
+      \ })
+  call neobundle#untap()
+endif
+"}}}
+
 
 NeoBundle 'basyura/TweetVim'
 NeoBundle 'koron/codic-vim'
@@ -1720,7 +1731,7 @@ set foldmethod=marker
 
 " show line number
 set number
-set relativenumber
+" set relativenumber " relativenumber遅い。
 
 " show invisible chars
 set list
@@ -1740,7 +1751,7 @@ set lazyredraw
 " statusline常に表示
 set laststatus=2
 
-set cursorline
+"set cursorline
 
 " 自動折り返しなし
 set nowrap
@@ -1749,8 +1760,8 @@ set nowrap
 set background=dark
 set t_Co=256
 if has('vim_starting')
-  colorscheme desert
-  "colorscheme solarized
+"   colorscheme desert
+  colorscheme solarized
 endif
 
 " IMEの状態でカーソル色変更 {{{
