@@ -259,9 +259,15 @@ alias -g WW='| wc'
 alias -g XX='| xargs'
 alias -g PP='| peco'
 
-alias ssh="cat ~/.ssh/conf.d/*.conf >~/.ssh/config;ssh"
-alias scp="cat ~/.ssh/conf.d/*.conf >~/.ssh/config;scp"
-# alias git="cat ~/.ssh/conf.d/*.conf >~/.ssh/config;git"
+concat_sshconfig()
+{
+  target_path=~/.ssh/config
+  echo "ServerAliveInterval 10">$target_path
+  echo "ServerAliveCountMax 5">>$target_path
+  cat ~/.ssh/conf.d/*.conf >>$target_path
+}
+alias ssh="concat_sshconfig;ssh"
+alias scp="concat_sshconfig;scp"
 
 alias jgems="jruby -S gems"
 alias jrake="jruby -S rake"
