@@ -95,7 +95,8 @@ brew install the_silver_searcher
 brew install emacs --cocoa --with-gnutls
 
 brew install sanemat/font/ricty --vim-powerline
-
+brew install homebrew/completions/rustc-completion
+brew install homebrew/completions/cargo-completion
 
 if [[ $OSTYPE == darwin* ]]; then
     brew install terminal-notifier
