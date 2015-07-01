@@ -35,6 +35,7 @@ if [[ $OSTYPE == darwin* ]]; then
     brew cask install platypus
     brew cask install cd-to
     brew cask install karabiner
+    brew cask install cargo
 
     brew install caskroom/versions/java6
 
@@ -78,6 +79,7 @@ brew install platntuml
 # program languages.
 brew install global
 brew install haxe  # altJs languages.
+brew install rust
 brew install go --cross-compile-common
 brew install luajit
 brew install ruby

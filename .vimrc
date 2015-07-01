@@ -565,6 +565,18 @@ if neobundle#tap('vim-yaml') "{{{
 endif
 "}}}
 
+" Rust
+NeoBundle 'rust-lang/rust.vim'
+if neobundle#tap('rust.vim') "{{{
+"   call neobundle#config({
+"       \   'autoload': {
+"       \     "filetypes": ["rust"]
+"       \   }
+"       \ })
+  call neobundle#untap()
+endif
+"}}}
+
 
 " textobj
 NeoBundle 'kana/vim-textobj-user'
