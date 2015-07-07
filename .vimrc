@@ -566,8 +566,18 @@ endif
 "}}}
 
 " Rust
-NeoBundle 'rust-lang/rust.vim'
-if neobundle#tap('rust.vim') "{{{
+NeoBundleLazy 'rust-lang/rust.vim'
+" if neobundle#tap('rust.vim') "{{{
+"   call neobundle#config({
+"       \   'autoload': {
+"       \     "filetypes": ["rust"]
+"       \   }
+"       \ })
+"   call neobundle#untap()
+" endif
+
+NeoBundleLazy 'rhysd/rust-doc.vim'
+if neobundle#tap('rust-doc.vim') "{{{
 "   call neobundle#config({
 "       \   'autoload': {
 "       \     "filetypes": ["rust"]
@@ -585,7 +595,10 @@ NeoBundle 'sgur/vim-textobj-parameter'
 NeoBundle 'osyo-manga/vim-textobj-multiblock'
 NeoBundle 'osyo-manga/vim-textobj-multitextobj'
 
+" operator
 NeoBundle 'kana/vim-operator-user'
+" surround.vim: cs{surround text objectを表す一文字}
+" operator-surround: cs{テキストオブジェクトを選択する任意のキーストローク(a”, i’等)}
 NeoBundle 'rhysd/vim-operator-surround', { 'depends' : 'kana/vim-operator-user' }
 
 " utility
@@ -1685,10 +1698,16 @@ vmap <Leader>c <Plug>(caw:I:toggle)
 " バッファが空なら閉じる
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 let g:quickrun_config._ = {
-      \   "runner" : "vimproc",
-      \   "runner/vimproc/updatetime" : 60,
-      \   "outputter/buffer/split" : ":botright",
-      \   "outputter/buffer/close_on_empty" : 1,
+      \   'runner' : 'vimproc',
+      \   'runner/vimproc/updatetime' : 60,
+      \   'outputter/buffer/split' : ':botright',
+      \   'outputter/buffer/close_on_empty' : 1,
+      \}
+let g:quickrun_config['syntax/rust'] = {
+      \   'command' : 'rustc',
+      \   'cmdopt' : '-Zparse-only',
+      \   'exec' : '%c %o %s:p',
+      \   'outputter' : 'quickfix',
       \}
 "let g:quickrun_config = {
 "\ "_" : {
