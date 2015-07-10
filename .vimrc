@@ -567,14 +567,14 @@ endif
 
 " Rust
 NeoBundleLazy 'rust-lang/rust.vim'
-" if neobundle#tap('rust.vim') "{{{
-"   call neobundle#config({
-"       \   'autoload': {
-"       \     "filetypes": ["rust"]
-"       \   }
-"       \ })
-"   call neobundle#untap()
-" endif
+if neobundle#tap('rust.vim') "{{{
+  call neobundle#config({
+      \   'autoload': {
+      \     "filetypes": ["rust"]
+      \   }
+      \ })
+  call neobundle#untap()
+endif
 
 NeoBundleLazy 'rhysd/rust-doc.vim'
 if neobundle#tap('rust-doc.vim') "{{{
