@@ -44,7 +44,7 @@ bash $ABS_PATH/setup.sh
 ln -s $OS_LOCAL_PATH/.vimrc_local ~/.vimrc_local
 ln -s $OS_LOCAL_PATH/.zshrc_local ~/.zshrc_local
 ln -s $OS_LOCAL_PATH/.zshenv_local ~/.zshenv_local
-touch ~/.tmux/session
+touch ~/.config/tmux/session
 
 ZSH_PATH=`which zsh`
 chsh -s ${ZSH_PATH}

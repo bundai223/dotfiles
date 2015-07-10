@@ -29,10 +29,11 @@ mkln()
   fi
 }
 
-mkdir_noerror ~/.tmux
-mkdir_noerror ~/.zsh
 mkdir_noerror ~/.emacs.d
 mkdir_noerror ~/tools/bin
+mkdir_noerror ~/.config/git
+mkdir_noerror ~/.config/tmux
+mkdir_noerror ~/.config/zsh
 
 # Get tools repositories.
 mkdir_noerror ${REPOS_PATH}
@@ -43,7 +44,6 @@ DOTFILE_NAMES_ARRAY=\
  .gitconfig_global\
  .gitignore_global\
  .gitattributes_global\
- .pydistutils.cfg\
  .zshenv\
  .zshrc\
  .vimrc\
@@ -51,7 +51,8 @@ DOTFILE_NAMES_ARRAY=\
  .vrapperrc\
  .ideavimrc\
  .tmux.conf\
- .tmux/utility\
+ .config/tmux/utility\
+ .config/git/templates\
  .ctags\
  .emacs.d/inits\
 )
@@ -66,7 +67,7 @@ if [ ! -e ${DOTFILES_PATH}/.gitconfig ]; then
 fi
 #}}}
 
-mkln ${REPOS_PATH}/github.com/bundai223/zsh-utils ~/.zsh/zsh-utils
+mkln ${REPOS_PATH}/github.com/bundai223/zsh-utils ~/.config/zsh/zsh-utils
 
 TOOL_NAMES_ARRAY=\
 (\

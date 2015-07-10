@@ -346,7 +346,7 @@ source_script()
         source ${utility}
     done
 }
-source_script ~/.zsh
+source_script ~/.config/zsh
 # }}}
 
 # Prompt setting {{{
@@ -605,15 +605,15 @@ add-zsh-hook precmd _update_vcs_info_msg
 # Pane split on startup
 # ref) http://qiita.com/ken11_/items/1304c2eecc2657ac6265
 if [ $SHLVL = 1 ]; then
-    alias t='tmux attach || tmux new-session \; source-file ~/.tmux/session'
-    alias t-newsession='\tmux new-session \; source-file ~/.tmux/session'
+    alias t='tmux attach || tmux new-session \; source-file ~/.config/tmux/session'
+    alias t-newsession='\tmux new-session \; source-file ~/.config/tmux/session'
 else
     alias t='tmux'
     alias t-source='tmux source-file'
-    alias t-basicpane='tmux source-file ~/.tmux/session'
+    alias t-basicpane='tmux source-file ~/.config/tmux/session'
     alias t-2='tmux splitw -h'
-    alias t-3='tmux source-file ~/.tmux/utility/session_normal3'
-    alias t-4='tmux source-file ~/.tmux/utility/session_4'
+    alias t-3='tmux source-file ~/.config/tmux/utility/session_normal3'
+    alias t-4='tmux source-file ~/.config/tmux/utility/session_4'
     alias t-kw='tmux kill-window'
     alias t-ks='tmux kill-session'
 fi
