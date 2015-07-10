@@ -480,11 +480,11 @@ call neobundle#begin(expand('~/.vim/.bundle'))
 " Python
 NeoBundleLazy 'davidhalter/jedi-vim'
 if neobundle#tap('jedi-vim')
-  call neobundle#config({
-      \   'autoload': {
-      \     "filetypes": ["python", "python3", "djangohtml"]
-      \   }
-      \ })
+"   call neobundle#config({
+"       \   'autoload': {
+"       \     "filetypes": ["python", "python3", "djangohtml"]
+"       \   }
+"       \ })
 
   function! neobundle#tapped.hooks.on_source(bundle)
     " jediにvimの設定を任せると'completeopt+=preview'するので
@@ -578,6 +578,22 @@ if neobundle#tap('rust.vim') "{{{
       \     "filetypes": ["rust"]
       \   }
       \ })
+  call neobundle#untap()
+endif
+
+NeoBundleLazy 'phildawes/racer'
+if neobundle#tap('racer') "{{{
+  call neobundle#config({
+      \   'autoload': {
+      \     "filetypes": ["rust"]
+      \   },
+      \   'build': {
+      \     'mac': 'cargo build --release',
+      \     'unix': 'cargo build --release',
+      \   }
+      \ })
+  let g:racer_cmd = expand($neobundle_path . "/racer/target/release/racer")
+  let $RUST_SRC_PATH = expand($repos_path . "/github.com/rust-lang/rust/src/")
   call neobundle#untap()
 endif
 
