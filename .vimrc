@@ -46,7 +46,10 @@ set clipboard=unnamed
 set matchpairs=(:),{:},[:],<:>
 
 " 改行時の自動コメントをなしに
-autocmd FileType * setlocal formatoptions-=o
+augroup MyAutoCmd
+  autocmd FileType * setlocal formatoptions-=o
+augroup END
+
 
 " シンボリックなファイルを編集するとリンクが消されてしまうことがあったので
 " 参照先を変数に上書き
@@ -221,11 +224,13 @@ set tags+=tags;
 " 外部grepの設定
 set grepprg=grep\ -nH
 
-" make, grep などのコマンド後に自動的にQuickFixを開く
-autocmd MyAutoCmd QuickfixCmdPost make,grep,grepadd,vimgrep copen
+augroup MyAutoCmd
+  " make, grep などのコマンド後に自動的にQuickFixを開く
+  autocmd QuickfixCmdPost make,grep,grepadd,vimgrep copen
 
-" QuickFixおよびHelpでは q でバッファを閉じる
-autocmd MyAutoCmd FileType help,qf nnoremap <buffer> q <C-w>c
+  " QuickFixおよびHelpでは q でバッファを閉じる
+  autocmd FileType help,qf nnoremap <buffer> q <C-w>c
+augroup END
 
 " }}}
 
@@ -975,7 +980,7 @@ nnoremap <silent> [unite]R   <Plug>(unite_restart)
 nnoremap <silent> [unite]<Space> :<C-u>Unite file_rec/async<CR>
 
 
-autocmd FileType unite call s:unite_my_settings()
+autocmd MyAutoCmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
   " 単語単位からパス単位で削除するように変更
   imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
@@ -1573,12 +1578,14 @@ inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 " Enable omni completion.
-autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
-autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+augroup MyAutoCmd
+  autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+  "autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
+  autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+augroup END
 
 " omni pattern
 let g:neocomplete#sources#omni#input_patterns = get(g:, 'neocomplete#sources#omni#input_patterns', {})
@@ -1816,15 +1823,6 @@ if (exists('+colorcolumn'))
   highlight ColorColumn ctermbg=9
 endif
 
-" }}}
-
-" Toggle tmux status bar {{{
-"if !has('gui_running') && $TMUX !=# ''
-"  augroup Tmux
-"    autocmd!
-"    autocmd VimEnter,VimLeave * silent !tmux set status
-"  augroup END
-"endif
 " }}}
 
 " Dvorak試したいので切り替え処理 {{{
