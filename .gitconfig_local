@@ -1,2 +1,13 @@
 [include]
 	path = ~/.gitconfig_global
+
+[user]
+	name = Example Default
+	email = default@example.jp
+# refs) http://klabgames.tech.blog.jp.klab.com/archives/1033121546.html
+[user "ssh://git@ghe.example.jp/"]
+	name = Git Hanako
+	email = hanako@ghe.example.jp
+[user "ssh://git@github.com/bundai223/"]
+	name = bundai223
+	email = bundai223@gmail.com

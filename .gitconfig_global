@@ -1,6 +1,10 @@
 [init]
 	templatedir = ~/.config/git/templates
 
+[user "ssh://git@github.com/bundai223/"]
+	name = bundai223
+	email = bundai223@gmail.com
+
 [core]
 	attributesfile = ~/.gitattributes_global
 	excludesfile = ~/.gitignore_global
