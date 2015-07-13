@@ -22,20 +22,19 @@ if [[ $OSTYPE == darwin* ]]; then
     brew cask install atom
     brew cask install sourcetree
     brew cask install genymotion
-    brew cask install sequel-pro
-    brew cask install rcdefaultapp
+#     brew cask install sequel-pro
+#     brew cask install rcdefaultapp
     brew cask install virtualbox
-    brew cask install synergy
+#     brew cask install synergy
     brew cask install vlc
-    brew cask install menumeters
+#     brew cask install menumeters
     brew cask install hyperswitch
     #brew cask install cheatsheet
-    brew cask install appcleaner
+#     brew cask install appcleaner
     brew cask install fluid
     brew cask install platypus
     brew cask install cd-to
     brew cask install karabiner
-    brew cask install cargo
 
     brew install caskroom/versions/java6
 
@@ -48,7 +47,7 @@ if [[ $OSTYPE == darwin* ]]; then
         brew cask install blender
         brew cask install gimp
         brew cask install inkscape
-        brew cask install minecraft
+#         brew cask install minecraft
         brew cask install steam
         #brew cask install dropbox
         brew cask install cooviewer
@@ -92,11 +91,11 @@ brew install z zsh tmux
 brew install cmake
 brew install android-sdk android-ndk ant apktool
 brew install the_silver_searcher
-brew install emacs --cocoa --with-gnutls
+# brew install emacs --cocoa --with-gnutls
 
 brew install sanemat/font/ricty --vim-powerline
-brew install homebrew/completions/rustc-completion
-brew install homebrew/completions/cargo-completion
+# brew install homebrew/completions/rustc-completion
+# brew install homebrew/completions/cargo-completion
 
 if [[ $OSTYPE == darwin* ]]; then
     brew install terminal-notifier
