@@ -84,6 +84,7 @@ TOOL_NAMES_ARRAY=\
  'powerline/fonts'\
  'rupa/z.git'\
  'bundai223/zsh-utils'\
+ 'bundai223/dash_snippet'\
 )
 for toolname in ${TOOL_NAMES_ARRAY[@]}; do
     ghq get ${toolname}
