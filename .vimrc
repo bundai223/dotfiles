@@ -592,8 +592,10 @@ if neobundle#tap('racer') "{{{
       \     'unix': 'cargo build --release',
       \   }
       \ })
-  let g:racer_cmd = expand($neobundle_path . "/racer/target/release/racer")
-  let $RUST_SRC_PATH = expand($repos_path . "/github.com/rust-lang/rust/src/")
+  function! neobundle#tapped.hooks.on_source(bundle)
+    let g:racer_cmd = expand($neobundle_path . "/racer/target/release/racer")
+    let $RUST_SRC_PATH = expand($repos_path . "/github.com/rust-lang/rust/src/")
+  endfunction
   call neobundle#untap()
 endif
 
@@ -644,36 +646,38 @@ endif
 NeoBundle 'basyura/TweetVim'
 NeoBundle 'koron/codic-vim'
 if neobundle#tap('codic-vim') "{{{
-  " http://sgur.tumblr.com/post/91906146884/codic-vim
-  inoremap <silent> <C-x><C-t>  <C-R>=<SID>codic_complete()<CR>
-  function! s:codic_complete()
-    let line = getline('.')
-    let start = match(line, '\k\+$')
-    let cand = s:codic_candidates(line[start :])
-    call complete(start +1, cand)
-    return ''
-  endfunction
-  function! s:codic_candidates(arglead)
-    let cand = codic#search(a:arglead, 30)
-    " error
-    if type(cand) == type(0)
-      return []
-    endif
-    " english -> english terms
-    if a:arglead =~# '^\w\+$'
-      return map(cand, '{"word": v:val["label"], "menu": join(map(copy(v:val["values"]), "v:val.word"), ",")}')
-    endif
-    " japanese -> english terms
-    return s:reverse_candidates(cand)
-  endfunction
-  function! s:reverse_candidates(cand)
-    let _ = []
-    for c in a:cand
-      for v in c.values
-        call add(_, {"word": v.word, "menu": !empty(v.desc) ? v.desc : c.label })
+  function! neobundle#tapped.hooks.on_source(bundle)
+    " http://sgur.tumblr.com/post/91906146884/codic-vim
+    inoremap <silent> <C-x><C-t>  <C-R>=<SID>codic_complete()<CR>
+    function! s:codic_complete()
+      let line = getline('.')
+      let start = match(line, '\k\+$')
+      let cand = s:codic_candidates(line[start :])
+      call complete(start +1, cand)
+      return ''
+    endfunction
+    function! s:codic_candidates(arglead)
+      let cand = codic#search(a:arglead, 30)
+      " error
+      if type(cand) == type(0)
+        return []
+      endif
+      " english -> english terms
+      if a:arglead =~# '^\w\+$'
+        return map(cand, '{"word": v:val["label"], "menu": join(map(copy(v:val["values"]), "v:val.word"), ",")}')
+      endif
+      " japanese -> english terms
+      return s:reverse_candidates(cand)
+    endfunction
+    function! s:reverse_candidates(cand)
+      let _ = []
+      for c in a:cand
+        for v in c.values
+          call add(_, {"word": v.word, "menu": !empty(v.desc) ? v.desc : c.label })
+        endfor
       endfor
-    endfor
-    return _
+      return _
+    endfunction
   endfunction
 
   call neobundle#untap()
@@ -781,6 +785,13 @@ if neobundle#tap('agit.vim') "{{{
         \    'commands' : ['Agit', 'AgitFile']
         \   }
         \ })
+
+  function! neobundle#tapped.hooks.on_source(bundle)
+    " 自動で差分の更新をしないようにする。
+    let g:agit_enable_auto_show_commit = 0
+  endfunction
+
+  " }}}
   call neobundle#untap()
 endif
 "}}}
@@ -955,12 +966,34 @@ if neobundle#tap('unite.vim') "{{{
             \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
       let g:unite_source_grep_recursive_opt = ''
     endif
+
+    call s:setUniteCustomActions()
   endfunction
   call neobundle#untap()
 endif
 
-" }}}
-
+" unite.vimのcustomAction定義
+function! s:setUniteCustomActions()
+  " directory起点でagit.vim起動action {{{
+  let agit_action = {}
+  function! agit_action.func(dir)
+    if isdirectory(a:dir.word)
+      let dir = fnamemodify(a:dir.word, ':p')
+    else
+      let dir = fnamemodify(a:dir.word, ':p:h')
+    endif
+    execute 'Agit --dir=' . dir
+  endfunction
+  call unite#custom#action('file,cdable', 'agit', agit_action)
+  " }}}
+  " agit.vim を vimfiler や unite-file 内から開く {{{
+  let agit_file = { 'description' : 'open the file''s history in agit.vim' }
+  function! agit_file.func(candidate)
+      execute 'AgitFile' '--file='.a:candidate.action__path
+  endfunction
+  call unite#custom#action('file', 'agit-file', agit_file)
+  " }}}
+endfunction
 
 " unite key bind {{{
 " <Space>をuniteのキーに
@@ -1001,7 +1034,7 @@ function! s:unite_my_settings()
   " 単語単位からパス単位で削除するように変更
   imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
 endfunction" }}}
-
+" }}}
 
 if has('mac')
   NeoBundle 'rizzatti/dash.vim' " for dash.app
@@ -1034,8 +1067,10 @@ NeoBundle 'vim-jp/vital.vim'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'bronson/vim-trailing-whitespace'
 if neobundle#tap('vim-trailing-whitespace') "{{{
-  " uniteでスペースが表示されるので、設定でoffる
-  let g:extra_whitespace_ignored_filetypes = ['unite', 'vimfiler']
+  function! neobundle#tapped.hooks.on_source(bundle)
+    " uniteでスペースが表示されるので、設定でoffる
+    let g:extra_whitespace_ignored_filetypes = ['unite', 'vimfiler']
+  endfunction
 endif
 "}}}
 
@@ -1317,10 +1352,6 @@ nnoremap <silent>[myleader]i :<C-u>IndentLinesToggle<CR>
 "VimでGitk的なツール
 " Gitv
 let g:Gitv_DoNotMapCtrlKey = 1
-
-" Agit
-" 自動で差分の更新をしないようにする。
-let g:agit_enable_auto_show_commit = 0
 
 " lightline.vim {{{
 "\ 'colorscheme': 'wombat',
