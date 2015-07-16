@@ -321,6 +321,13 @@ if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
 
+GITHUB_TOKEN_PATH=~/.config/git/github_token
+if [ -f $GITHUB_TOKEN_PATH ]; then
+    HOMEBREW_GITHUB_API_TOKEN=`cat $GITHUB_TOKEN_PATH`
+else
+    echo "Please access: https://github.com/settings/tokens and put token to $GITHUB_TOKEN_PATH."
+fi
+
 # Load utility scripts. {{{
 source_script()
 {
