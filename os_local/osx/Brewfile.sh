@@ -1,4 +1,4 @@
-# 
+#
 brew update
 
 # cask
@@ -42,14 +42,12 @@ if [[ $OSTYPE == darwin* ]]; then
     if [ $OSX_PRIVATE ]; then
         brew cask install onepassword dropbox
         brew cask install skype
-        #brew cask install wireshark
         brew cask install xbox360-controller-driver
         brew cask install blender
         brew cask install gimp
         brew cask install inkscape
 #         brew cask install minecraft
         brew cask install steam
-        #brew cask install dropbox
         brew cask install cooviewer
         brew cask install calibre
         brew cask install dolphin openemu
@@ -80,7 +78,7 @@ brew install global
 brew install haxe  # altJs languages.
 brew install rust
 brew install go --cross-compile-common
-brew install luajit
+brew install luajit lua
 brew install ruby
 brew install python
 brew install opam rlwrap
@@ -101,12 +99,8 @@ if [[ $OSTYPE == darwin* ]]; then
     brew install terminal-notifier
     brew install reattach-to-user-namespace
 
-    # macvim
-    # 本家版はビルドエラーが出るのでフォーク版。
+    # macvim-kaoriya
     brew install cscope
-    brew install lua
-    brew install --HEAD KazuakiM/macvim/cmigemo-mk
-    brew install --HEAD KazuakiM/macvim/gettext-mk
     brew install KazuakiM/macvim/macvim-kaoriya --HEAD --with-lua --with-cscope
     brew linkapps
     ln -s /usr/local/opt/macvim/MacVim.app ~/Applications/
