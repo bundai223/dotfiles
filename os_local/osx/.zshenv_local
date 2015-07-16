@@ -45,3 +45,9 @@ PATH="/Users/nishimuradaiji/repos/github.com/bundai223/terminal-tools/bin:$PATH"
 #export LDFLAGS=-L/usr/local/opt/qt5/lib
 #export CPPFLAGS=-I/usr/local/opt/qt5/include
 export PATH
+
+export DOCKER_HOST=tcp://192.168.59.103:2376
+export DOCKER_CERT_PATH=/Users/nishimuradaiji/.boot2docker/certs/boot2docker-vm
+export DOCKER_TLS_VERIFY=1
+
+
