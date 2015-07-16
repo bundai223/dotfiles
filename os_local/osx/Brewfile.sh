@@ -89,6 +89,7 @@ brew install z zsh tmux
 brew install cmake
 brew install android-sdk android-ndk ant apktool
 brew install the_silver_searcher
+brew install docker boot2docker
 # brew install emacs --cocoa --with-gnutls
 
 brew install sanemat/font/ricty --vim-powerline
