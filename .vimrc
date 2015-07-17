@@ -800,6 +800,164 @@ NeoBundle 'tyru/open-browser.vim'
 
 NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'itchyny/lightline.vim'
+if neobundle#tap('lightline.vim') "{{{
+  function! neobundle#tapped.hooks.on_source(bundle)
+    "\ 'colorscheme': 'wombat',
+    let g:lightline = {
+          \ 'colorscheme': 'solarized_dark',
+          \ 'separator': { 'left': '⮀', 'right': '⮂' },
+          \ 'subseparator': { 'left': '⮁', 'right': '⮃' },
+          \ 'mode_map': {'c': 'NORMAL'},
+          \ 'active': {
+          \   'left': [
+          \     [ 'mode', 'plugin', 'paste' ],
+          \     [ 'fugitive', 'gitgutter', 'filename' ],
+          \     [ 'pwd' ]
+          \   ],
+          \   'right': [
+          \     ['lineinfo', 'syntastic'],
+          \     ['percent'],
+          \     ['charcode', 'fileformat', 'fileencoding', 'filetype']
+          \   ]
+          \ },
+          \ 'component_function': {
+          \   'mode': 'MyMode',
+          \   'plugin': 'MySpPlugin',
+          \   'fugitive': 'MyFugitive',
+          \   'gitgutter': 'MyGitgutter',
+          \   'filename': 'MyFilename',
+          \   'pwd': 'MyPwd',
+          \   'syntastic': 'SyntasticStatuslineFlag',
+          \   'charcode': 'MyCharCode',
+          \   'fileformat': 'MyFileformat',
+          \   'fileencoding': 'MyFileencoding',
+          \   'filetype': 'MyFiletype'
+          \ },
+          \ }
+
+    function! MyModified()
+      return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+    endfunction
+
+    function! MyReadonly()
+      return &readonly ? 'x'  : ''
+    endfunction
+
+    function! MyFilename()
+      return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+            \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+            \  &ft == 'unite' ? unite#get_status_string() :
+            \  &ft == 'vimshell' ? vimshell#get_status_string() :
+            \ '' != expand('%') ? expand('%') : '[No Name]') .
+            \ ('' != MyModified() ? ' ' . MyModified() : '')
+    endfunction
+
+    function! MyFugitive()
+      try
+        if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+          return fugitive#head()
+        endif
+      catch
+      endtry
+      return ''
+    endfunction
+
+    function! MyGitgutter()
+      if ! exists('*GitGutterGetHunkSummary')
+            \ || ! get(g:, 'gitgutter_enabled', 0)
+            \ || winwidth('.') <= 90
+        return ''
+      endif
+      let symbols = [
+            \ g:gitgutter_sign_added . ' ',
+            \ g:gitgutter_sign_modified . ' ',
+            \ g:gitgutter_sign_removed . ' '
+            \ ]
+      let hunks = GitGutterGetHunkSummary()
+      let ret = []
+      for i in [0, 1, 2]
+        if hunks[i] > 0
+          call add(ret, symbols[i] . hunks[i])
+        endif
+      endfor
+      return join(ret, ' ')
+    endfunction
+    function! MyFileformat()
+      return winwidth(0) > 70 ? &fileformat : ''
+    endfunction
+
+    function! MyFiletype()
+      return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+    endfunction
+
+    function! MyFileencoding()
+      return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+    endfunction
+
+    function! MyMode()
+      return winwidth(0) > 60 ? lightline#mode() : ''
+    endfunction
+
+    function! MySpPlugin()
+      return  winwidth(0) <= 60 ? '' :
+            \ &ft == 'unite' ? 'Unite' :
+            \ &ft == 'vimfiler' ? 'VimFiler' :
+            \ &ft == 'vimshell' ? 'VimShell' :
+            \ ''
+    endfunction
+
+    function! MyPwd()
+      if winwidth(0) > 60
+        " $HOMEは'~'表示の方が好きなので置き換え
+        let s:homepath = expand('~')
+        return substitute(getcwd(), expand('~'), '~', '')
+      else
+        return ''
+      endif
+    endfunction
+
+
+    function! MyCharCode()
+      if winwidth('.') <= 70
+        return ''
+      endif
+
+      " Get the output of :ascii
+      redir => ascii
+      silent! ascii
+      redir END
+
+      if match(ascii, 'NUL') != -1
+        return 'NUL'
+      endif
+
+      " Zero pad hex values
+      let nrformat = '0x%02x'
+
+      let encoding = (&fenc == '' ? &enc : &fenc)
+
+      if encoding == 'utf-8'
+        " Zero pad with 4 zeroes in unicode files
+        let nrformat = '0x%04x'
+      endif
+
+      " Get the character and the numeric value from the return value of :ascii
+      " This matches the two first pieces of the return value, e.g.
+      " "<F>  70" => char: 'F', nr: '70'
+      let [str, char, nr; rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
+
+      " Format the numeric value
+      let nr = printf(nrformat, nr)
+
+      return "'". char ."' ". nr
+    endfunction
+  endfunction
+
+  call neobundle#untap()
+endif
+"}}}
+
+
 NeoBundle 'airblade/vim-gitgutter'
 if neobundle#tap('vim-gitgutter') "{{{
   function! neobundle#tapped.hooks.on_source(bundle)
@@ -1352,157 +1510,6 @@ nnoremap <silent>[myleader]i :<C-u>IndentLinesToggle<CR>
 "VimでGitk的なツール
 " Gitv
 let g:Gitv_DoNotMapCtrlKey = 1
-
-" lightline.vim {{{
-"\ 'colorscheme': 'wombat',
-let g:lightline = {
-      \ 'colorscheme': 'default',
-      \ 'mode_map': {'c': 'NORMAL'},
-      \ 'active': {
-      \   'left': [
-      \     [ 'mode', 'plugin', 'paste' ],
-      \     [ 'fugitive', 'gitgutter', 'filename' ],
-      \     [ 'pwd' ]
-      \   ],
-      \   'right': [
-      \     ['lineinfo', 'syntastic'],
-      \     ['percent'],
-      \     ['charcode', 'fileformat', 'fileencoding', 'filetype']
-      \   ]
-      \ },
-      \ 'component_function': {
-      \   'mode': 'MyMode',
-      \   'plugin': 'MySpPlugin',
-      \   'fugitive': 'MyFugitive',
-      \   'gitgutter': 'MyGitgutter',
-      \   'filename': 'MyFilename',
-      \   'pwd': 'MyPwd',
-      \   'syntastic': 'SyntasticStatuslineFlag',
-      \   'charcode': 'MyCharCode',
-      \   'fileformat': 'MyFileformat',
-      \   'fileencoding': 'MyFileencoding',
-      \   'filetype': 'MyFiletype'
-      \ },
-      \ }
-
-function! MyModified()
-  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
-
-function! MyReadonly()
-  return &readonly ? 'x'  : ''
-endfunction
-
-function! MyFilename()
-  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \  &ft == 'unite' ? unite#get_status_string() :
-        \  &ft == 'vimshell' ? vimshell#get_status_string() :
-        \ '' != expand('%') ? expand('%') : '[No Name]') .
-        \ ('' != MyModified() ? ' ' . MyModified() : '')
-endfunction
-
-function! MyFugitive()
-  try
-    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-      return fugitive#head()
-    endif
-  catch
-  endtry
-  return ''
-endfunction
-
-function! MyGitgutter()
-  if ! exists('*GitGutterGetHunkSummary')
-        \ || ! get(g:, 'gitgutter_enabled', 0)
-        \ || winwidth('.') <= 90
-    return ''
-  endif
-  let symbols = [
-        \ g:gitgutter_sign_added . ' ',
-        \ g:gitgutter_sign_modified . ' ',
-        \ g:gitgutter_sign_removed . ' '
-        \ ]
-  let hunks = GitGutterGetHunkSummary()
-  let ret = []
-  for i in [0, 1, 2]
-    if hunks[i] > 0
-      call add(ret, symbols[i] . hunks[i])
-    endif
-  endfor
-  return join(ret, ' ')
-endfunction
-function! MyFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
-endfunction
-
-function! MyFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-endfunction
-
-function! MyFileencoding()
-  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-endfunction
-
-function! MyMode()
-  return winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
-
-function! MySpPlugin()
-  return  winwidth(0) <= 60 ? '' :
-        \ &ft == 'unite' ? 'Unite' :
-        \ &ft == 'vimfiler' ? 'VimFiler' :
-        \ &ft == 'vimshell' ? 'VimShell' :
-        \ ''
-endfunction
-
-function! MyPwd()
-  if winwidth(0) > 60
-    " $HOMEは'~'表示の方が好きなので置き換え
-    let s:homepath = expand('~')
-    return substitute(getcwd(), expand('~'), '~', '')
-  else
-    return ''
-  endif
-endfunction
-
-
-function! MyCharCode()
-  if winwidth('.') <= 70
-    return ''
-  endif
-
-  " Get the output of :ascii
-  redir => ascii
-  silent! ascii
-  redir END
-
-  if match(ascii, 'NUL') != -1
-    return 'NUL'
-  endif
-
-  " Zero pad hex values
-  let nrformat = '0x%02x'
-
-  let encoding = (&fenc == '' ? &enc : &fenc)
-
-  if encoding == 'utf-8'
-    " Zero pad with 4 zeroes in unicode files
-    let nrformat = '0x%04x'
-  endif
-
-  " Get the character and the numeric value from the return value of :ascii
-  " This matches the two first pieces of the return value, e.g.
-  " "<F>  70" => char: 'F', nr: '70'
-  let [str, char, nr; rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
-
-  " Format the numeric value
-  let nr = printf(nrformat, nr)
-
-  return "'". char ."' ". nr
-endfunction
-
-" }}}
 
 " vital {{{
 let g:V = vital#of('vital')
