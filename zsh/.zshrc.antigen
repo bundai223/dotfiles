@@ -11,6 +11,8 @@ if [[ -f ${ANTIGEN_ROOT}/antigen.zsh ]]; then
     git
     brew
     vagrant
+    boot2docker
+    urltools
     mollifier/zload
     zsh-users/zsh-syntax-highlighting
 EOBUNDLES
