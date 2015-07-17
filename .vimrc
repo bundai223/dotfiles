@@ -811,7 +811,7 @@ if neobundle#tap('lightline.vim') "{{{
           \ 'active': {
           \   'left': [
           \     [ 'mode', 'plugin', 'paste' ],
-          \     [ 'fugitive', 'gitgutter', 'filename' ],
+          \     [ 'fugitive', 'filename' ],
           \     [ 'pwd' ]
           \   ],
           \   'right': [
@@ -840,22 +840,27 @@ if neobundle#tap('lightline.vim') "{{{
     endfunction
 
     function! MyReadonly()
-      return &readonly ? 'x'  : ''
+      return &readonly ? '⭤'  : ''
     endfunction
 
     function! MyFilename()
-      return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+      let fname = expand("%:t")
+      return
+            \ fname =~ '__Gundo' ? '' :
             \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
             \  &ft == 'unite' ? unite#get_status_string() :
             \  &ft == 'vimshell' ? vimshell#get_status_string() :
-            \ '' != expand('%') ? expand('%') : '[No Name]') .
-            \ ('' != MyModified() ? ' ' . MyModified() : '')
+            \ ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+            \ ('' != MyModified() ? ' ' . MyModified() : '') .
+            \ '' != fname ? fname : '[No Name]')
+"             \ '' != expand('%') ? expand('%') : '[No Name]')
     endfunction
 
     function! MyFugitive()
       try
-        if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-          return fugitive#head()
+        if expand('%:t') !~? 'Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+          let _ = fugitive#head()
+          return strlen(_) ? '⭠ '._ : ''
         endif
       catch
       endtry
@@ -899,7 +904,10 @@ if neobundle#tap('lightline.vim') "{{{
     endfunction
 
     function! MySpPlugin()
+      let fname = expand("%:t")
       return  winwidth(0) <= 60 ? '' :
+            \ fname == '__Gundo__' ? 'Gundo' :
+            \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
             \ &ft == 'unite' ? 'Unite' :
             \ &ft == 'vimfiler' ? 'VimFiler' :
             \ &ft == 'vimshell' ? 'VimShell' :
