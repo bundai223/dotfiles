@@ -53,6 +53,7 @@ DOTFILE_NAMES_ARRAY=\
  .tmux.conf\
  .config/tmux/utility\
  .config/git/templates\
+ .config/powerline\
  .ctags\
  .emacs.d/inits\
 )
