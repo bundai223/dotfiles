@@ -15,6 +15,7 @@ alias android_sim='open -a ~/Applications/Genymotion.app'
 alias createTags='~/repos/github.com/bundai223/codepocket/shell/mac/create_ctags.sh'
 alias startup='open -a startup'
 alias swift='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift'
+alias bd='boot2docker'
 
 alias -s xcodeproj=xcode
 
