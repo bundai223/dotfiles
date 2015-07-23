@@ -44,7 +44,9 @@ source $ABS_PATH/setup.sh
 
 OSX_TOOL_NAMES_ARRAY=\
 (\
+ 'alexblunck/Dash-Docset-Creator'\
  'JugglerShu/XVim.git'\
+ 'bundai223/dash_snippet'\
 )
 for toolname in ${OSX_TOOL_NAMES_ARRAY[@]}; do
     ghq get ${toolname}
