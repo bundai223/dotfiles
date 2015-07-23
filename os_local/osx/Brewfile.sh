@@ -36,11 +36,11 @@ if [[ $OSTYPE == darwin* ]]; then
     brew cask install cd-to
     brew cask install karabiner
 
-    brew install caskroom/versions/java6
+    #brew install caskroom/versions/java6
 
     # for hobby
     if [ $OSX_PRIVATE ]; then
-        brew cask install onepassword dropbox
+        brew cask install 1password dropbox
         brew cask install skype
         brew cask install xbox360-controller-driver
         brew cask install blender
@@ -71,7 +71,7 @@ fi
 # brew install node redis
 
 brew install wget coreutils
-brew install platntuml
+brew install plantuml
 
 # program languages.
 brew install global
