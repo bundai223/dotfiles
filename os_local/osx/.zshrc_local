@@ -37,4 +37,7 @@ alias uninstallapp='adbp shell pm list package | sed -e s/package:// | peco | xa
 alias installapp='find ./ -name "*.apk" | peco | xargs adbp install -r'
 alias screenshot='screenshot2 $SCREENSHOT_DIR/screenshot.png; open $SCREENSHOT_DIR/screenshot.png'
 
-
+vagrant_list()
+{
+  v status | grep virtualbox | awk '{ print $1 }'
+}
