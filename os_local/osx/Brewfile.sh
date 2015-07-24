@@ -18,18 +18,15 @@ if [[ $OSTYPE == darwin* ]]; then
     brew cask install dash
     brew cask install android-file-transfer
     brew cask install android-studio
-    #brew cask install intellij-idea-ce
     brew cask install atom
     brew cask install sourcetree
     brew cask install genymotion
-#     brew cask install sequel-pro
 #     brew cask install rcdefaultapp
     brew cask install virtualbox
-#     brew cask install synergy
+    brew cask install vagrant
     brew cask install vlc
 #     brew cask install menumeters
     brew cask install hyperswitch
-    #brew cask install cheatsheet
 #     brew cask install appcleaner
     brew cask install fluid
     brew cask install platypus
@@ -62,9 +59,6 @@ if [[ $OSTYPE == darwin* ]]; then
 fi
 
 # cui tools
-# Kensho chu
-# brew install sonar # current name is "sonarqube". static source code analyser.
-
 # brew install jenkins
 # brew install nodebrew
 # brew install mecab

@@ -601,11 +601,11 @@ endif
 
 NeoBundleLazy 'rhysd/rust-doc.vim'
 if neobundle#tap('rust-doc.vim') "{{{
-"   call neobundle#config({
-"       \   'autoload': {
-"       \     "filetypes": ["rust"]
-"       \   }
-"       \ })
+  call neobundle#config({
+      \   'autoload': {
+      \     "filetypes": ["rust"]
+      \   }
+      \ })
   call neobundle#untap()
 endif
 "}}}
