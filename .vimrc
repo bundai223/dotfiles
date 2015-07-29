@@ -308,10 +308,10 @@ noremap <C-s> <nop>
 noremap <C-S> <nop>
 
 " Easy to esc
-inoremap <C-]> <Esc>
-nnoremap <C-]> <Esc>
-vnoremap <C-]> <Esc>
-cnoremap <C-]> <Esc>
+inoremap <C-g> <Esc>
+nnoremap <C-g> <Esc>
+vnoremap <C-g> <Esc>
+cnoremap <C-g> <Esc>
 
 
 " Easy to cmd mode
@@ -1518,6 +1518,10 @@ nnoremap <silent>[myleader]i :<C-u>IndentLinesToggle<CR>
 "VimでGitk的なツール
 " Gitv
 let g:Gitv_DoNotMapCtrlKey = 1
+
+" Dictionaly {{{
+  nmap [myleader]<C-]> :Dictionary '' . expand("<cword>")
+" }}}
 
 " vital {{{
 let g:V = vital#of('vital')
