@@ -571,7 +571,7 @@ endif
 "}}}
 
 " Rust
-NeoBundleLazy 'rust-lang/rust.vim'
+NeoBundle 'rust-lang/rust.vim'
 if neobundle#tap('rust.vim') "{{{
   call neobundle#config({
       \   'autoload': {
@@ -1272,9 +1272,10 @@ let s:bundle = neobundle#get('syntastic')
 if !empty(s:bundle)
   function! s:bundle.hooks.on_source(bundle)
     "  let g:syntastic_python_checkers = ['pyflakes', 'pep8']
+
     let g:syntastic_mode_map = {
           \ 'mode': 'active',
-          \ 'active_filetypes': ['sh', 'zsh', 'vim'],
+          \ 'active_filetypes': ['sh', 'zsh', 'vim', 'rust'],
           \ 'passive_filetypes': ['python']
           \}
   endfunction
