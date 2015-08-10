@@ -3,6 +3,9 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
+" 文字エンコード
+set encoding=utf-8
+set fileencoding=utf-8
 scriptencoding utf-8
 
 let $dotvim_path = '~/.vim'
@@ -24,9 +27,6 @@ set helplang=en
 " カーソル下の単語をhelp
 set keywordprg =:help
 
-" 文字エンコード
-set encoding=utf-8
-set fileencoding=utf-8
 " こいつのせいで<C-o>などでのジャンプがおかしくなってた
 " 原因はよくわからない
 "set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
@@ -53,10 +53,10 @@ augroup END
 
 " シンボリックなファイルを編集するとリンクが消されてしまうことがあったので
 " 参照先を変数に上書き
-let $MYVIMRC=$DOTFILES."/.vimrc"
-let $MYGVIMRC=$DOTFILES."/.gvimrc"
-let $MYZSHRC=$DOTFILES."/.zshrc"
-let $MYTMUX_CONF=$DOTFILES."/.tmux.conf"
+let $MYVIMRC=$DOTFILES.'/.vimrc'
+let $MYGVIMRC=$DOTFILES.'/.gvimrc'
+let $MYZSHRC=$DOTFILES.'/.zshrc'
+let $MYTMUX_CONF=$DOTFILES.'/.tmux.conf'
 
 " 分割方向を指定
 set splitbelow
@@ -267,8 +267,8 @@ endfunction
 "nnoremap <expr> <A-p> s:_(":%s/<Cursor>/ほむ/g")
 "nnoremap <expr> <A-p> ":%s//ほむ/g\<Left>\<Left>\<Left>\<Left>\<Left>\<Left>\<Left>"
 function! s:move_cursor_pos_mapping(str, ...)
-  let left = get(a:, 1, "<Left>")
-  let lefts = join(map(split(matchstr(a:str, '.*<Cursor>\zs.*\ze'), '.\zs'), 'left'), "")
+  let left = get(a:, 1, '<Left>')
+  let lefts = join(map(split(matchstr(a:str, '.*<Cursor>\zs.*\ze'), '.\zs'), 'left'), '')
   return substitute(a:str, '<Cursor>', '', '') . lefts
 endfunction
 
@@ -436,7 +436,7 @@ nnoremap [fold]f zf
 function! s:ToggleRelativeNumber()
   if &relativenumber
     set norelativenumber
-    let &number = exists("b:togglernu_number") ? b:togglernu_number : 1
+    let &number = exists('b:togglernu_number') ? b:togglernu_number : 1
   else
     let b:togglernu_number = &number
     set relativenumber
@@ -475,6 +475,19 @@ endif
 
 call neobundle#begin(expand('~/.vim/.bundle'))
 " Neobundle plugin list {{{
+NeoBundle 'Shougo/vimproc', {
+      \   'build': {
+      \     'windows': 'nmake -f Make_msvc.mak nodebug=1',
+      \     'mac'    : 'make -f make_mac.mak',
+      \     'unix'   : 'make -f make_unix.mak',
+      \   },
+      \ }
+NeoBundleLazy 'Shougo/vimfiler', {
+      \   'autoload' : {'commands' : ['VimFilerBufferDir'] },
+      \ }
+NeoBundleLazy 'Shougo/vimshell', {
+      \   'autoload' : {'commands' : ['VimShell', 'VimShellPop'] },
+      \ }
 
 " Language
 " Python
@@ -563,7 +576,7 @@ NeoBundleLazy 'stephpy/vim-yaml'
 if neobundle#tap('vim-yaml') "{{{
   call neobundle#config({
       \   'autoload': {
-      \     "filetypes": ["yaml"]
+      \     'filetypes': ['yaml']
       \   }
       \ })
   call neobundle#untap()
@@ -575,7 +588,7 @@ NeoBundle 'rust-lang/rust.vim'
 if neobundle#tap('rust.vim') "{{{
   call neobundle#config({
       \   'autoload': {
-      \     "filetypes": ["rust"]
+      \     'filetypes': ['rust']
       \   }
       \ })
   call neobundle#untap()
@@ -585,7 +598,7 @@ NeoBundleLazy 'phildawes/racer'
 if neobundle#tap('racer') "{{{
   call neobundle#config({
       \   'autoload': {
-      \     "filetypes": ["rust"]
+      \     'filetypes': ['rust']
       \   },
       \   'build': {
       \     'mac': 'cargo build --release',
@@ -593,17 +606,18 @@ if neobundle#tap('racer') "{{{
       \   }
       \ })
   function! neobundle#tapped.hooks.on_source(bundle)
-    let g:racer_cmd = expand($neobundle_path . "/racer/target/release/racer")
-    let $RUST_SRC_PATH = expand($repos_path . "/github.com/rust-lang/rust/src/")
+    let g:racer_cmd = expand($neobundle_path . '/racer/target/release/racer')
+    let $RUST_SRC_PATH = expand($repos_path . '/github.com/rust-lang/rust/src/')
   endfunction
   call neobundle#untap()
 endif
+" }}}
 
 NeoBundleLazy 'rhysd/rust-doc.vim'
 if neobundle#tap('rust-doc.vim') "{{{
   call neobundle#config({
       \   'autoload': {
-      \     "filetypes": ["rust"]
+      \     'filetypes': ['rust']
       \   }
       \ })
   call neobundle#untap()
@@ -622,7 +636,7 @@ NeoBundle 'osyo-manga/vim-textobj-multitextobj'
 NeoBundle 'kana/vim-operator-user'
 " surround.vim: cs{surround text objectを表す一文字}
 " operator-surround: cs{テキストオブジェクトを選択する任意のキーストローク(a”, i’等)}
-NeoBundle 'rhysd/vim-operator-surround', { 'depends' : 'kana/vim-operator-user' }
+NeoBundle 'rhysd/vim-operator-surround', { 'depends': 'kana/vim-operator-user' }
 
 " utility
 NeoBundleLazy 'Yggdroot/indentLine', {
@@ -635,7 +649,7 @@ NeoBundleLazy 'mattn/benchvimrc-vim'
 if neobundle#tap('benchvimrc-vim') "{{{
   call neobundle#config({
       \   'autoload': {
-      \     "commands": ["BenchVimrc"]
+      \     'commands': ['BenchVimrc']
       \   }
       \ })
   call neobundle#untap()
@@ -673,7 +687,7 @@ if neobundle#tap('codic-vim') "{{{
       let _ = []
       for c in a:cand
         for v in c.values
-          call add(_, {"word": v.word, "menu": !empty(v.desc) ? v.desc : c.label })
+          call add(_, {'word': v.word, 'menu': !empty(v.desc) ? v.desc : c.label })
         endfor
       endfor
       return _
@@ -844,7 +858,7 @@ if neobundle#tap('lightline.vim') "{{{
     endfunction
 
     function! MyFilename()
-      let fname = expand("%:t")
+      let fname = expand('%:t')
       return
             \ fname =~ '__Gundo' ? '' :
             \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
@@ -904,7 +918,7 @@ if neobundle#tap('lightline.vim') "{{{
     endfunction
 
     function! MySpPlugin()
-      let fname = expand("%:t")
+      let fname = expand('%:t')
       return  winwidth(0) <= 60 ? '' :
             \ fname == '__Gundo__' ? 'Gundo' :
             \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
@@ -978,7 +992,30 @@ endif
 "}}}
 
 
-NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'thinca/vim-quickrun', { 'depends': 'Shougo/vimproc' }
+if neobundle#tap('vim-quickrun') "{{{
+  function! neobundle#tapped.hooks.on_source(bundle)
+    " vimprocで起動
+    " バッファが空なら閉じる
+    let g:quickrun_config = get(g:, 'quickrun_config', {})
+    let g:quickrun_config._ = {
+          \   'runner' : 'vimproc',
+          \   'runner/vimproc/updatetime' : 60,
+          \   'outputter/buffer/split' : ':botright',
+          \   'outputter/buffer/close_on_empty' : 1,
+          \}
+    let g:quickrun_config['syntax/rust'] = {
+          \   'command' : 'rustc',
+          \   'cmdopt' : '-Zparse-only',
+          \   'exec' : '%c %o %s:p',
+          \   'outputter' : 'quickfix',
+          \}
+  endfunction
+  call neobundle#untap()
+endif
+"}}}
+
+
 NeoBundle 'thinca/vim-localrc'
 NeoBundleLazy 'thinca/vim-prettyprint'
 if neobundle#tap('vim-prettyprint') "{{{
@@ -1027,20 +1064,7 @@ NeoBundleLazy 'Shougo/neosnippet', {
       \ }
 NeoBundleLazy 'Shougo/neosnippet-snippets', {
       \   'autoload': {'insert': 1},
-      \   'depends' : [ 'Shougo/neosnippet' ]
-      \ }
-NeoBundle 'Shougo/vimproc', {
-      \   'build': {
-      \     'windows': 'nmake -f Make_msvc.mak nodebug=1',
-      \     'mac'    : 'make -f make_mac.mak',
-      \     'unix'   : 'make -f make_unix.mak',
-      \   },
-      \ }
-NeoBundleLazy 'Shougo/vimfiler', {
-      \   'autoload' : {'commands' : ['VimFilerBufferDir'] },
-      \ }
-NeoBundleLazy 'Shougo/vimshell', {
-      \   'autoload' : {'commands' : ['VimShell', 'VimShellPop'] },
+      \   'depends' : 'Shougo/neosnippet',
       \ }
 NeoBundle 'LeafCage/foldCC'
 NeoBundle 'rhysd/committia.vim'
@@ -1064,14 +1088,34 @@ endif
 
 nnoremap [myleader]n :NebulaYankTap!<CR>
 "
-NeoBundle 'scrooloose/syntastic'
+NeoBundleFetch 'scrooloose/syntastic'  "TODO:  watchdogsに置き換え予定
+NeoBundle 'osyo-manga/shabadou.vim'
+if neobundle#tap('shabadou.vim') "{{{
+  call neobundle#config({
+        \   'depends': 'thinca/vim-quickrun',
+        \ })
+  call neobundle#untap()
+endif
+"}}}
+NeoBundle 'osyo-manga/vim-watchdogs', { 'depends': [ 'Shougo/vimproc', 'osyo-manga/shabadou.vim' ] }
+if neobundle#tap('vim-watchdogs') "{{{
+  function! neobundle#tapped.hooks.on_source(bundle)
+    " 書き込み後にシンタックスチェックを行う
+    let g:watchdogs_check_BufWritePost_enable = 1
+    " こっちは一定時間キー入力がなかった場合にシンタックスチェックを行う
+    " バッファに書き込み後、1度だけ行われる
+    let g:watchdogs_check_CursorHold_enable = 1
+  endfunction
+  call neobundle#untap()
+endif
+"}}}
 NeoBundle 'kevinw/pyflakes-vim'
 NeoBundle 'nvie/vim-flake8'
 
 " Cursor move
 NeoBundle 'rhysd/clever-f.vim'
 
-NeoBundleLazy 'supermomonga/jazzradio.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundleLazy 'supermomonga/jazzradio.vim', { 'depends': 'Shougo/unite.vim' }
 if neobundle#tap('jazzradio.vim') "{{{
   " ref) http://blog.supermomonga.com/articles/vim/jazzradio-vim-released.html
   " brew install mplayer / sudo apt-get install -y mplayer
@@ -1207,17 +1251,17 @@ if has('mac')
 endif
 
 " unite source
-NeoBundle 'Shougo/unite-session',             { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundle 'ujihisa/unite-colorscheme',        { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundle 'Shougo/unite-outline',             { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundle 'Shougo/unite-build',               { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundle 'Shougo/neomru.vim',                { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundle 'osyo-manga/unite-fold',            { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundle 'osyo-manga/unite-quickrun_config', { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundle 'ujihisa/unite-locate',             { 'depends' : [ 'Shougo/unite.vim' ] }
-NeoBundle 'tsukkee/unite-tag',                { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundle 'Shougo/unite-session',             { 'depends': 'Shougo/unite.vim' }
+NeoBundle 'ujihisa/unite-colorscheme',        { 'depends': 'Shougo/unite.vim' }
+NeoBundle 'Shougo/unite-outline',             { 'depends': 'Shougo/unite.vim' }
+NeoBundle 'Shougo/unite-build',               { 'depends': 'Shougo/unite.vim' }
+NeoBundle 'Shougo/neomru.vim',                { 'depends': 'Shougo/unite.vim' }
+NeoBundle 'osyo-manga/unite-fold',            { 'depends': 'Shougo/unite.vim' }
+NeoBundle 'osyo-manga/unite-quickrun_config', { 'depends': 'Shougo/unite.vim' }
+NeoBundle 'ujihisa/unite-locate',             { 'depends': 'Shougo/unite.vim' }
+NeoBundle 'tsukkee/unite-tag',                { 'depends': 'Shougo/unite.vim' }
 if has('mac')
-  NeoBundle 'choplin/unite-spotlight', { 'depends' : [ 'Shougo/unite.vim' ] }
+  NeoBundle 'choplin/unite-spotlight', { 'depends': 'Shougo/unite.vim' }
   NeoBundle 'itchyny/dictionary.vim'
 endif
 
@@ -1272,6 +1316,8 @@ let s:bundle = neobundle#get('syntastic')
 if !empty(s:bundle)
   function! s:bundle.hooks.on_source(bundle)
     "  let g:syntastic_python_checkers = ['pyflakes', 'pep8']
+    let g:syntastic_extra_filetypes = get(g:, 'syntastic_extra_filetypes', [])
+    call add(g:syntastic_extra_filetypes, 'rust')
 
     let g:syntastic_mode_map = {
           \ 'mode': 'active',
@@ -1357,7 +1403,7 @@ if !empty(s:bundle)
     let g:vimshell_user_prompt = '$USERNAME . "@" . hostname() . " " . fnamemodify(getcwd(), ":~")'
     let g:vimshell_prompt='$ '
     "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
-    let g:vimshell_split_command="split"
+    let g:vimshell_split_command='split'
 
     let g:vimshell_vimshrc_path = expand($DOTFILES.'/.vimshrc')
   endfunction
@@ -1551,25 +1597,25 @@ xmap <Leader>H <Plug>(quickhl-manual-reset)
 set imdisable
 if has('mac')
   let g:eskk#dictionary = {
-        \  'path': expand("~/Library/Application\ Support/AquaSKK/skk-jisyo.utf8"),
+        \  'path': expand('~/Library/Application\ Support/AquaSKK/skk-jisyo.utf8'),
         \  'sorted': 0,
         \  'encoding': 'utf-8',
         \}
 
   let g:eskk#large_dictionary = {
-        \  'path': expand("~/Library/Application\ Support/AquaSKK/SKK-JISYO.L"),
+        \  'path': expand('~/Library/Application\ Support/AquaSKK/SKK-JISYO.L'),
         \  'sorted': 1,
         \  'encoding': 'euc-jp',
         \}
 elseif has('win32') || has('win64')
   let g:eskk#dictionary = {
-        \  'path': "~/SKK_JISYO.L"
+        \  'path': '~/SKK_JISYO.L',
         \  'sorted': 1,
         \  'encoding': 'euc-jp',
         \}
 
   let g:eskk#large_dictionary = {
-        \  'path': "~/SKK_JISYO.L"
+        \  'path': '~/SKK_JISYO.L',
         \  'sorted': 1,
         \  'encoding': 'euc-jp',
         \}
@@ -1578,7 +1624,7 @@ endif
 
 let g:eskk_debug = 0
 let g:eskk_egg_like_newline = 1
-let g:eskk_revert_henkan_style = "okuri"
+let g:eskk_revert_henkan_style = 'okuri'
 let g:eskk_enable_completion = 0
 
 " }}}
@@ -1766,46 +1812,6 @@ nmap <Leader>c <Plug>(caw:I:toggle)
 vmap <Leader>c <Plug>(caw:I:toggle)
 
 " }}}
-
-" quickrun {{{
-" vimprocで起動
-" バッファが空なら閉じる
-let g:quickrun_config = get(g:, 'quickrun_config', {})
-let g:quickrun_config._ = {
-      \   'runner' : 'vimproc',
-      \   'runner/vimproc/updatetime' : 60,
-      \   'outputter/buffer/split' : ':botright',
-      \   'outputter/buffer/close_on_empty' : 1,
-      \}
-let g:quickrun_config['syntax/rust'] = {
-      \   'command' : 'rustc',
-      \   'cmdopt' : '-Zparse-only',
-      \   'exec' : '%c %o %s:p',
-      \   'outputter' : 'quickfix',
-      \}
-"let g:quickrun_config = {
-"\ "_" : {
-"\   "runner" : "vimproc",
-"\   "runner/vimproc/updatetime" : 60,
-"\   "outputter/buffer/split" : ":botright",
-"\   "outputter/buffer/close_on_empty" : 1,
-"\ },
-"\ "cpp" : {
-"\   "type" : "cpp/clang++"
-"\ },
-"\ "cpp/clangc++": {
-"\   "command": "clang++",
-"\   "exec": ['%c %o %s -o %s:p:r', '%s:p:r %a'],
-"\   "tempfile": '%{tempname()}.cpp',
-"\   "hook/sweep/files": ['%S:p:r'],
-"\ },
-"\}
-
-
-"" <Space>qで強制終了
-"nnoremap <expr><silent><Space>q quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-
-"}}}
 
 " open-browser {{{
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
