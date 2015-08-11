@@ -813,6 +813,16 @@ endif
 NeoBundle 'tyru/open-browser.vim'
 
 NeoBundle 'AndrewRadev/switch.vim'
+NeoBundle "KazuakiM/vim-qfstatusline"
+if neobundle#tap('vim-qfstatusline') "{{{
+  function! neobundle#tapped.hooks.on_source(bundle)
+    " :WatchdogsRun後にlightline.vimを更新
+    let g:Qfstatusline#UpdateCmd = function('lightline#update')
+  endfunction
+  call neobundle#untap()
+endif
+"}}}
+
 NeoBundle 'itchyny/lightline.vim'
 if neobundle#tap('lightline.vim') "{{{
   function! neobundle#tapped.hooks.on_source(bundle)
@@ -829,7 +839,7 @@ if neobundle#tap('lightline.vim') "{{{
           \     [ 'pwd' ]
           \   ],
           \   'right': [
-          \     ['lineinfo', 'syntastic'],
+          \     ['lineinfo', 'syntax_check'],
           \     ['percent'],
           \     ['charcode', 'fileformat', 'fileencoding', 'filetype']
           \   ]
@@ -841,13 +851,18 @@ if neobundle#tap('lightline.vim') "{{{
           \   'gitgutter': 'MyGitgutter',
           \   'filename': 'MyFilename',
           \   'pwd': 'MyPwd',
-          \   'syntastic': 'SyntasticStatuslineFlag',
           \   'charcode': 'MyCharCode',
           \   'fileformat': 'MyFileformat',
           \   'fileencoding': 'MyFileencoding',
           \   'filetype': 'MyFiletype'
           \ },
-          \ }
+          \ 'conponent_expand': {
+          \   'syntax_check': 'qfstatusline#Update',
+          \ },
+          \ 'conponent_type': {
+          \   'syntax_check': 'error',
+          \ },
+          \}
 
     function! MyModified()
       return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -981,18 +996,8 @@ endif
 
 
 NeoBundle 'airblade/vim-gitgutter'
-if neobundle#tap('vim-gitgutter') "{{{
-  function! neobundle#tapped.hooks.on_source(bundle)
-"     let g:gitgutter_sign_added = '✚'
-"     let g:gitgutter_sign_modified = '➜'
-"     let g:gitgutter_sign_removed = '✘'
-  endfunction
-  call neobundle#untap()
-endif
-"}}}
 
-
-NeoBundle 'thinca/vim-quickrun', { 'depends': 'Shougo/vimproc' }
+NeoBundle 'thinca/vim-quickrun', { 'depends': [ 'Shougo/vimproc', 'KazuakiM/vim-qfstatusline' ] }
 if neobundle#tap('vim-quickrun') "{{{
   function! neobundle#tapped.hooks.on_source(bundle)
     " vimprocで起動
@@ -1004,17 +1009,31 @@ if neobundle#tap('vim-quickrun') "{{{
           \   'outputter/buffer/split' : ':botright',
           \   'outputter/buffer/close_on_empty' : 1,
           \}
+    let g:quickrun_config['watchdogs_checker/_'] = {
+          \ 'outputter/quickfix/open_cmd' : "",
+          \ 'hook/qfstatusline_update/enable_exit' : 1,
+          \ 'hook/qfstatusline_update/priority_exit' : 4,
+          \ "hook/copen/enable_exist_data" : 1,
+          \ "hook/back_window/enable_exit" : 1,
+          \ "hook/back_window/priority_exit" : 100,
+          \}
+    let g:quickrun_config['rust'] = {
+          \   'type' : 'rust/cargo',
+          \}
     let g:quickrun_config['syntax/rust'] = {
-          \   'command' : 'rustc',
-          \   'cmdopt' : '-Zparse-only',
-          \   'exec' : '%c %o %s:p',
+          \   'command' : 'cargo',
+          \   'cmdopt' : 'rustc -- -Zno-trans',
+          \   'exec' : '%c %o',
           \   'outputter' : 'quickfix',
+          \}
+"           \   'cmdopt' : '-Zparse-only',
+    let g:quickrun_config['rust/watchdogs_checker'] = {
+          \ 'type' : 'syntax/rust',
           \}
   endfunction
   call neobundle#untap()
 endif
 "}}}
-
 
 NeoBundle 'thinca/vim-localrc'
 NeoBundleLazy 'thinca/vim-prettyprint'
@@ -1085,10 +1104,10 @@ if neobundle#tap('nebula.vim') "{{{
         \ })
 endif
 "}}}
-
 nnoremap [myleader]n :NebulaYankTap!<CR>
-"
-NeoBundleFetch 'scrooloose/syntastic'  "TODO:  watchdogsに置き換え予定
+
+NeoBundle "dannyob/quickfixstatus"
+NeoBundle 'cohama/vim-hier'
 NeoBundle 'osyo-manga/shabadou.vim'
 if neobundle#tap('shabadou.vim') "{{{
   call neobundle#config({
@@ -1097,7 +1116,7 @@ if neobundle#tap('shabadou.vim') "{{{
   call neobundle#untap()
 endif
 "}}}
-NeoBundle 'osyo-manga/vim-watchdogs', { 'depends': [ 'Shougo/vimproc', 'osyo-manga/shabadou.vim' ] }
+NeoBundle 'osyo-manga/vim-watchdogs', { 'depends': [ 'Shougo/vimproc', 'osyo-manga/shabadou.vim', 'thinca/vim-quickrun' ] }
 if neobundle#tap('vim-watchdogs') "{{{
   function! neobundle#tapped.hooks.on_source(bundle)
     " 書き込み後にシンタックスチェックを行う
@@ -1105,6 +1124,8 @@ if neobundle#tap('vim-watchdogs') "{{{
     " こっちは一定時間キー入力がなかった場合にシンタックスチェックを行う
     " バッファに書き込み後、1度だけ行われる
     let g:watchdogs_check_CursorHold_enable = 1
+
+    call watchdogs#setup(g:quickrun_config)
   endfunction
   call neobundle#untap()
 endif
@@ -1307,23 +1328,6 @@ if !empty(s:bundle)
   function! s:bundle.hooks.on_source(bundle)
     let g:indentLine_faster = 1
     IndentLinesReset
-  endfunction
-endif
-" }}}
-
-" syntastic {{{
-let s:bundle = neobundle#get('syntastic')
-if !empty(s:bundle)
-  function! s:bundle.hooks.on_source(bundle)
-    "  let g:syntastic_python_checkers = ['pyflakes', 'pep8']
-    let g:syntastic_extra_filetypes = get(g:, 'syntastic_extra_filetypes', [])
-    call add(g:syntastic_extra_filetypes, 'rust')
-
-    let g:syntastic_mode_map = {
-          \ 'mode': 'active',
-          \ 'active_filetypes': ['sh', 'zsh', 'vim', 'rust'],
-          \ 'passive_filetypes': ['python']
-          \}
   endfunction
 endif
 " }}}
