@@ -1009,6 +1009,10 @@ if neobundle#tap('vim-quickrun') "{{{
           \   'outputter/buffer/split' : ':botright',
           \   'outputter/buffer/close_on_empty' : 1,
           \}
+    let g:quickrun_config['rust'] = {
+          \   'type' : 'rust/cargo',
+          \}
+    " for watchdogs
     let g:quickrun_config['watchdogs_checker/_'] = {
           \ 'outputter/quickfix/open_cmd' : "",
           \ 'hook/qfstatusline_update/enable_exit' : 1,
@@ -1016,9 +1020,6 @@ if neobundle#tap('vim-quickrun') "{{{
           \ "hook/copen/enable_exist_data" : 1,
           \ "hook/back_window/enable_exit" : 1,
           \ "hook/back_window/priority_exit" : 100,
-          \}
-    let g:quickrun_config['rust'] = {
-          \   'type' : 'rust/cargo',
           \}
     let g:quickrun_config['syntax/rust'] = {
           \   'command' : 'cargo',
@@ -1029,6 +1030,9 @@ if neobundle#tap('vim-quickrun') "{{{
 "           \   'cmdopt' : '-Zparse-only',
     let g:quickrun_config['rust/watchdogs_checker'] = {
           \ 'type' : 'syntax/rust',
+          \}
+    let g:quickrun_config['python/watchdogs_checker'] = {
+          \ 'type' : 'watchdogs_checker/flake8',
           \}
   endfunction
   call neobundle#untap()
