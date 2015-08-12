@@ -622,7 +622,7 @@ fi
 
 # for z {{{
 # http://d.hatena.ne.jp/naoya/20130108/1357630895
-
+_Z_DATA=~/.config/zsh/z/.z
 if [[ $OSTYPE == darwin* ]]; then
     . `brew --prefix`/etc/profile.d/z.sh
 else
