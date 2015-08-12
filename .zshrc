@@ -221,11 +221,11 @@ mkdir ${@} && cd $dirpath
 # }}}
 
 # Alias {{{
-alias SU='sudo -H -s'
-alias ls='ls -FG'
-alias lsl='ls -lFG'
-alias lsdir='ls -FG | grep /'
-alias lsfile='ls -FG | grep -v /'
+alias h='history'
+alias c='clear'
+alias l='ls -FG'
+alias ll='ls -lFG'
+alias la='ls -lFGa'
 alias pd=popd
 
 alias ocaml='rlwrap ocaml'
@@ -237,9 +237,8 @@ alias find-vimbackup='find **/*~'
 # silver searcher
 alias ag='ag -S'
 
-alias g='git'
-
 # git {{{
+alias g='git'
 alias gittaglist="git for-each-ref --sort=-taggerdate --format='%(taggerdate:short) %(tag) %(taggername) %(subject)' refs/tags"
 alias gf=git-flow
 # }}}
