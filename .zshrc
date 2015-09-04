@@ -261,12 +261,13 @@ alias -g PP='| peco'
 concat_sshconfig()
 {
   target_path=~/.ssh/config
+  if [[ -e ${target_path} ]]; then
+    rm -f ${target_path}
+  fi
   echo "ServerAliveInterval 10">$target_path
   echo "ServerAliveCountMax 5">>$target_path
   cat ~/.ssh/conf.d/*.conf >>$target_path
 }
-alias ssh="concat_sshconfig;ssh"
-alias scp="concat_sshconfig;scp"
 
 alias jgems="jruby -S gems"
 alias jrake="jruby -S rake"
