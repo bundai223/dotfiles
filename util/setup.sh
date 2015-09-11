@@ -92,9 +92,9 @@ done
 
 # pythonツール
 pip install --upgrade pip setuptools
-pip install fabric
-pip install vim-vint
-pip install git+git://github.com/powerline/powerline psutil
+pip install --upgrade fabric
+pip install --upgrade vim-vint
+pip install --upgrade git+git://github.com/powerline/powerline psutil
 
 # vim setting {{{
 DOT_VIM=.vim
