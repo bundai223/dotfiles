@@ -489,6 +489,7 @@ NeoBundleLazy 'Shougo/vimshell', {
       \   'autoload' : {'commands' : ['VimShell', 'VimShellPop'] },
       \ }
 
+
 " Language
 " Python
 NeoBundleLazy 'davidhalter/jedi-vim'
@@ -555,6 +556,9 @@ NeoBundleLazy 'vim-jp/vim-go-extra', {
 "       \     'unix'   : './configure && make',
 "       \   },
 "       \ }
+
+NeoBundle 'cocopon/colorswatch.vim'
+NeoBundle 'cocopon/lightline-hybrid.vim'
 
 " tmux
 NeoBundleLazy 'zaiste/tmux.vim', {
@@ -826,9 +830,13 @@ endif
 NeoBundle 'itchyny/lightline.vim'
 if neobundle#tap('lightline.vim') "{{{
   function! neobundle#tapped.hooks.on_source(bundle)
+    let s:colorscheme = 'solarized_dark'
+    if !empty($COLORSCHEME)
+      let s:colorscheme = $COLORSCHEME
+    endif
     "\ 'colorscheme': 'wombat',
     let g:lightline = {
-          \ 'colorscheme': 'solarized_dark',
+          \ 'colorscheme': s:colorscheme,
           \ 'separator': { 'left': '⮀', 'right': '⮂' },
           \ 'subseparator': { 'left': '⮁', 'right': '⮃' },
           \ 'mode_map': {'c': 'NORMAL'},
@@ -1134,7 +1142,6 @@ if neobundle#tap('vim-watchdogs') "{{{
   call neobundle#untap()
 endif
 "}}}
-NeoBundle 'kevinw/pyflakes-vim'
 NeoBundle 'nvie/vim-flake8'
 
 " Cursor move
@@ -1879,7 +1886,6 @@ set nowrap
 set background=dark
 set t_Co=256
 if has('vim_starting')
-"   colorscheme desert
   colorscheme solarized
 endif
 
