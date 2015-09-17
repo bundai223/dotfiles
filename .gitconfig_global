@@ -96,9 +96,6 @@
 [push]
 	default = simple
 
-[pull]
-	rebase = preserve
-
 [ghq]
 	root = ~/repos
 	root = ~/go
