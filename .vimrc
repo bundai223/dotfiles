@@ -589,14 +589,7 @@ endif
 
 " Rust
 NeoBundle 'rust-lang/rust.vim'
-if neobundle#tap('rust.vim') "{{{
-  call neobundle#config({
-      \   'autoload': {
-      \     'filetypes': ['rust']
-      \   }
-      \ })
-  call neobundle#untap()
-endif
+NeoBundle 'cespare/vim-toml'
 
 NeoBundleLazy 'phildawes/racer'
 if neobundle#tap('racer') "{{{
