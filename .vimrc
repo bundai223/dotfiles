@@ -830,8 +830,8 @@ if neobundle#tap('lightline.vim') "{{{
     "\ 'colorscheme': 'wombat',
     let g:lightline = {
           \ 'colorscheme': s:colorscheme,
-          \ 'separator': { 'left': '⮀', 'right': '⮂' },
-          \ 'subseparator': { 'left': '⮁', 'right': '⮃' },
+          \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+          \ 'subseparator': { 'left': "\u20b1", 'right': "\ue0b3" },
           \ 'mode_map': {'c': 'NORMAL'},
           \ 'active': {
           \   'left': [
