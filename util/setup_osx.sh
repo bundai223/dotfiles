@@ -29,7 +29,7 @@ echo "OS type ${OSTYPE}"
 echo $GOPATH
 
 # Get utility
-cd $OS_LOCAL_PATH && sh Brewfile.sh
+sh $OS_LOCAL_PATH/Brewfile.sh
 
 # リポジトリの取得にも必要なのでgoの初期化
 source $ABS_PATH/setup_golang.sh

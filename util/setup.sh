@@ -90,6 +90,9 @@ for toolname in ${TOOL_NAMES_ARRAY[@]}; do
     ghq get ${toolname}
 done
 
+ghq_root=$(ghq root)
+sh ${ghq_root}/$(ghq list powerline/fonts)/install.sh
+
 # pythonツール
 pip install --upgrade pip setuptools
 pip install --upgrade fabric
