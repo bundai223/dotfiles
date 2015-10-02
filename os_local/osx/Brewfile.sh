@@ -72,7 +72,7 @@ brew install plantuml
 brew install global
 # brew install haxe  # altJs languages.
 brew install rust
-# brew install go --cross-compile-common
+brew install go --cross-compile-common
 brew install luajit lua
 # brew install ruby
 brew install python
