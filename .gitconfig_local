@@ -11,3 +11,9 @@
 [user "ssh://git@github.com/bundai223/"]
 	name = bundai223
 	email = bundai223@gmail.com
+
+[mergetool "mymvimdiff"]
+	cmd = /Applications/MacVim.app/Contents/MacOS/mvim -f -d -c 'wincmd J' \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+[mergetool "myvimdiff"]
+	cmd = /Applications/MacVim.app/Contents/MacOS/Vim -f -d -c 'wincmd J' \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+

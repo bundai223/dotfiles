@@ -102,5 +102,5 @@
 	root = ~/sample
 
 [merge]
-	tool = myvimdiff
+	tool = mymvimdiff
 

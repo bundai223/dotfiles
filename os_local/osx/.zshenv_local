@@ -5,7 +5,8 @@ BREW_PATH=`/usr/local/bin/brew --prefix`
 FBXSDK_ROOT=/Applications/Autodesk/FBX\ SDK/2013.3/
 
 # path setting
-export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+export EDITOR=/Applications/MacVim.app/Contents/MacOS/mvim
+# export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 export SHELL=${BREW_PATH}/bin/zsh
 
 # for android path setting
