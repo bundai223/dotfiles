@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby
 #
 
-# .git/hooks/prepare-commit-msg に配置する
+# commitメーセージに情報を追加するスクリプト。
+# .git/hooks/prepare-commit-msg に配置する。
+# ブランチ名にチケット番号などがついていたら参照設定を行う。
 
 # コミットメッセージのテンプレ追加
 if ARGV[1] && ARGV[1].include?("message")
