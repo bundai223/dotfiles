@@ -4,42 +4,42 @@
 "
 "=============================================================
 " my local setting files
-au BufNewFile,BufRead .zshrc* set filetype=zsh
-au BufNewFile,BufRead .vimrc* set filetype=vim
-au BufNewFile,BufRead .gvimrc* set filetype=vim
-au BufNewFile,BufRead .tmux.conf set filetype=tmux
+au BufNewFile,BufRead .zshrc* setl filetype=zsh
+au BufNewFile,BufRead .vimrc* setl filetype=vim
+au BufNewFile,BufRead .gvimrc* setl filetype=vim
+au BufNewFile,BufRead .tmux.conf setl filetype=tmux
 
 " direct x shader file
-au BufNewFile,BufRead *.fx set filetype=fx
+au BufNewFile,BufRead *.fx setl filetype=fx
 " opengl shader file
-au BufNewFile,BufRead *.vsh set filetype=glsl
-au BufNewFile,BufRead *.fsh set filetype=glsl
-au BufNewFile,BufRead *.gsh set filetype=glsl
-au BufNewFile,BufRead *.vertexshader set filetype=glsl
-au BufNewFile,BufRead *.fragmentshader set filetype=glsl
+au BufNewFile,BufRead *.vsh setl filetype=glsl
+au BufNewFile,BufRead *.fsh setl filetype=glsl
+au BufNewFile,BufRead *.gsh setl filetype=glsl
+au BufNewFile,BufRead *.vertexshader setl filetype=glsl
+au BufNewFile,BufRead *.fragmentshader setl filetype=glsl
 
 " squirrel script
-au BufNewFile,BufRead *.nut set filetype=squirrel
+au BufNewFile,BufRead *.nut setl filetype=squirrel
 
 " go lang
-au BufNewFile,BufRead *.go set filetype=go
+au BufNewFile,BufRead *.go setl filetype=go
 
 " markdown(not modula2)
-au BufNewFile,BufRead *.md set filetype=markdown
+au BufNewFile,BufRead *.md setl filetype=markdown
 
 " git
-au BufNewFile,BufRead .gitconfig* set filetype=gitconfig
+au BufNewFile,BufRead .gitconfig* setl filetype=gitconfig
 
 " groovy
-au BufNewFile,BufRead *.gradle set filetype=groovy
+au BufNewFile,BufRead *.gradle setl filetype=groovy
 
 " ruby
-au BufNewFile,BufRead Vagrantfile set filetype=ruby
+au BufNewFile,BufRead Vagrantfile setl filetype=ruby
 
 " tool
-au BufNewFile,BufRead *.uml set filetype=plantuml
-au BufNewFile,BufRead *nginx.conf set filetype=nginx
-au BufNewFile,BufRead td-agent.conf set filetype=fluentd
+au BufNewFile,BufRead *.uml setl filetype=plantuml
+au BufNewFile,BufRead *nginx.conf setl filetype=nginx commentstring=#%s
+au BufNewFile,BufRead td-agent.conf setl filetype=fluentd
 
 " shell
 autocmd BufNewFile *.sh 0r ~/.vim/.bundle/vim-template/template/template.sh

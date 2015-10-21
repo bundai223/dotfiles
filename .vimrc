@@ -592,6 +592,7 @@ NeoBundle 'rust-lang/rust.vim'
 NeoBundle 'cespare/vim-toml'
 
 NeoBundleLazy 'phildawes/racer'
+NeoBundleLazy 'racer-rust/vim-racer'
 if neobundle#tap('racer') "{{{
   call neobundle#config({
       \   'autoload': {
@@ -603,8 +604,20 @@ if neobundle#tap('racer') "{{{
       \   }
       \ })
   function! neobundle#tapped.hooks.on_source(bundle)
+  endfunction
+  call neobundle#untap()
+endif
+
+if neobundle#tap('vim-racer')
+  call neobundle#config({
+      \   'autoload': {
+      \     'filetypes': ['rust']
+      \   },
+      \   'depends': 'phildawes/racer'
+      \ })
+  function! neobundle#tapped.hooks.on_source(bundle)
     let g:racer_cmd = expand($neobundle_path . '/racer/target/release/racer')
-    let $RUST_SRC_PATH = expand($repos_path . '/github.com/rust-lang/rust/src/')
+    let $RUST_SRC_PATH = expand($repos_path . '/github.com/rust-lang/rust/src')
   endfunction
   call neobundle#untap()
 endif
