@@ -718,11 +718,9 @@
 	<key>NSFontPanelAttributes</key>
 	<string>1, 0</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/repos/github.com/bundai223/dotfiles/os_local/osx</string>
+	<string>~/repos/github.com/bundai223/dotfiles/os_local/osx/iMac</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
-	<string>{712, 448}</string>
-	<key>NSNavPanelExpandedStateForSaveMode</key>
-	<true/>
+	<string>{712, 459}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -747,15 +745,13 @@
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>1402 236 445 270 0 0 2560 1418 </string>
+	<string>867 313 445 103 0 0 1440 877 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>1315 721 924 485 0 0 2560 1417 </string>
+	<string>95 115 924 485 0 0 1440 877 </string>
+	<key>NSWindow Frame UKCrashReporter</key>
+	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>114 4 2410 1413 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 1</key>
-	<string>702 4 1858 1204 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 2</key>
-	<string>150 4 2410 1413 0 0 2560 1417 </string>
+	<string>0 4 1440 873 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -4419,12 +4415,10 @@
 			<string>/Users/nishimuradaiji</string>
 		</dict>
 	</array>
-	<key>NoSyncNeverRemindPrefsChangesCopy</key>
-	<true/>
 	<key>NoSyncTimeOfLastPromo</key>
-	<real>453346155.92969501</real>
+	<real>465445571.88545799</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>463454102.37826502</real>
+	<real>465445571.88588202</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -4471,7 +4465,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/nishimuradaiji/labo/github.com/dotfiles/os_local/osx/iMac</string>
+	<string>/Users/nishimuradaiji/repos/github.com/bundai223/dotfiles/os_local/osx/Mbp</string>
 	<key>PromptOnClose</key>
 	<true/>
 	<key>PromptOnQuit</key>
@@ -4489,7 +4483,9 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-09-09T01:07:27Z</date>
+	<date>2015-10-13T15:05:47Z</date>
+	<key>SUSendProfileInfo</key>
+	<false/>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -4512,6 +4508,8 @@
 	<integer>10</integer>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
+	<key>UKCrashReporterLastCrashReportDate</key>
+	<real>1443752704</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>UseBorder</key>
@@ -4523,7 +4521,7 @@
 	<key>WebKitDefaultFontSize</key>
 	<integer>11</integer>
 	<key>WebKitStandardFont</key>
-	<string>.Helvetica Neue DeskInterface</string>
+	<string>.AppleSystemUIFont</string>
 	<key>WindowNumber</key>
 	<false/>
 	<key>WindowStyle</key>
