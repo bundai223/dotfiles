@@ -1829,8 +1829,8 @@ let g:unite_source_alignta_preset_options = [
 " }}}
 
 " caw {{{
-nmap <Leader>c <Plug>(caw:I:toggle)
-vmap <Leader>c <Plug>(caw:I:toggle)
+nmap <Leader>c <Plug>(caw:i:toggle)
+vmap <Leader>c <Plug>(caw:i:toggle)
 
 " }}}
 
@@ -1913,7 +1913,7 @@ syntax on
 
 if (exists('+colorcolumn'))
   set colorcolumn=80
-  highlight ColorColumn ctermbg=9
+  " highlight ColorColumn ctermbg=9
 endif
 
 " }}}
