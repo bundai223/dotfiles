@@ -3,6 +3,7 @@
 # Alias
 alias vi='/Applications/MacVim.app/Contents/MacOS/Vim -u NONE -U NONE --noplugin "$@"'
 alias vim='/Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+alias nvim='nvim -i NONE $@'
 alias vimdiff='/Applications/MacVim.app/Contents/MacOS/Vim -d "$@"'
 alias mvimdiff='/Applications/MacVim.app/Contents/MacOS/mvimdiff "$@"'
 

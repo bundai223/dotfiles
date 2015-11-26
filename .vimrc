@@ -1072,10 +1072,17 @@ endif
 NeoBundle 'tyru/capture.vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'Shougo/vinarise'
-NeoBundleLazy 'Shougo/neocomplete', {
-      \ "autoload": {
-      \   "insert": 1,
-      \ }}
+if has('nvim')
+  NeoBundleLazy 'Shougo/deoplete', {
+        \ "autoload": {
+        \   "insert": 1,
+        \ }}
+else
+  NeoBundleLazy 'Shougo/neocomplete', {
+        \ "autoload": {
+        \   "insert": 1,
+        \ }}
+endif
 
 NeoBundleLazy 'Shougo/neosnippet', {
       \   'autoload': {'insert': 1}
@@ -1684,74 +1691,79 @@ nnoremap <silent> <Leader>s : <C-u> VimShell<CR>
 
 " }}}
 
-" neocomplete {{{
-" disable AutoComplPop
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
+if has('nvim')
+  " deoplete {{{
+  " }}}
+else
+  " neocomplete {{{
+  " disable AutoComplPop
+  let g:acp_enableAtStartup = 0
+  " Use neocomplete.
+  let g:neocomplete#enable_at_startup = 1
 
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-      \ 'default'  : '',
-      \ 'vimshell' : s:conf_root . '/vimshell/hist',
-      \ 'cpp'      : s:bundles_path . '/myvim_dict/cpp.dict',
-      \ 'squirrel' : s:bundles_path . '/myvim_dict/squirrel.dict',
-      \ 'groovy'   : s:bundles_path . '/myvim_dict/gradle.dict',
-      \ 'gitcommit': s:bundles_path . '/myvim_dict/gitcommit.dict',
-      \ }
+  " Define dictionary.
+  let g:neocomplete#sources#dictionary#dictionaries = {
+        \ 'default'  : '',
+        \ 'vimshell' : s:conf_root . '/vimshell/hist',
+        \ 'cpp'      : s:bundles_path . '/myvim_dict/cpp.dict',
+        \ 'squirrel' : s:bundles_path . '/myvim_dict/squirrel.dict',
+        \ 'groovy'   : s:bundles_path . '/myvim_dict/gradle.dict',
+        \ 'gitcommit': s:bundles_path . '/myvim_dict/gitcommit.dict',
+        \ }
 
-" Define keyword.
-let g:neocomplete#keyword_patterns = get(g:, 'neocomplete#keyword_patterns', {})
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+  " Define keyword.
+  let g:neocomplete#keyword_patterns = get(g:, 'neocomplete#keyword_patterns', {})
+  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
+  " Plugin key-mappings.
+  inoremap <expr><C-g>     neocomplete#undo_completion()
+  inoremap <expr><C-l>     neocomplete#complete_common_string()
 
-" Recommended key-mappings.
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#mappings()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
+  " Recommended key-mappings.
+  " <C-h>, <BS>: close popup and delete backword char.
+  inoremap <expr><C-h> neocomplete#mappings()."\<C-h>"
+  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><C-y>  neocomplete#close_popup()
+  inoremap <expr><C-e>  neocomplete#cancel_popup()
 
-" Enable omni completion.
-augroup MyAutoCmd
-  autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-  "autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
-  autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-augroup END
+  " Enable omni completion.
+  augroup MyAutoCmd
+    autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+    "autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
+    autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+  augroup END
 
-" omni pattern
-let g:neocomplete#sources#omni#input_patterns = get(g:, 'neocomplete#sources#omni#input_patterns', {})
-"let g:neocomplete#sources#omni#input_patterns.c         = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
-"let g:neocomplete#sources#omni#input_patterns.cpp       = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-""let g:neocomplete#sources#omni#input_patterns.ruby      = '[^. *\t]\.\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.ruby      = ''
-"let g:neocomplete#sources#omni#input_patterns.php       = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-""let g:neocomplete#sources#omni#input_patterns.go        = '[^.]\.\%(\u\{2,}\)\?'
-"let g:neocomplete#sources#omni#input_patterns.squirrel  = '[^.]\.\%(\u\{2,}\)\?'
+  " omni pattern
+  let g:neocomplete#sources#omni#input_patterns = get(g:, 'neocomplete#sources#omni#input_patterns', {})
+  "let g:neocomplete#sources#omni#input_patterns.c         = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
+  "let g:neocomplete#sources#omni#input_patterns.cpp       = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+  ""let g:neocomplete#sources#omni#input_patterns.ruby      = '[^. *\t]\.\h\w*\|\h\w*::'
+  "let g:neocomplete#sources#omni#input_patterns.ruby      = ''
+  "let g:neocomplete#sources#omni#input_patterns.php       = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+  ""let g:neocomplete#sources#omni#input_patterns.go        = '[^.]\.\%(\u\{2,}\)\?'
+  "let g:neocomplete#sources#omni#input_patterns.squirrel  = '[^.]\.\%(\u\{2,}\)\?'
 
-" force omni pattern
-let g:neocomplete#force_overwrite_completefunc = 1
-let g:neocomplete#force_omni_input_patterns = get(g:, 'neocomplete#force_omni_input_patterns', {})
-"" let g:neocomplete#force_omni_input_patterns.python      = '[^. \t]\.\w*'
-"let g:neocomplete#force_omni_input_patterns.python      = '\h\w|[^. \t].\w'
-"let g:neocomplete#force_omni_input_patterns.cs          = '[^.]\.\%(\u\{2,}\)\?'
-"let g:neocomplete#force_omni_input_patterns.c           = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
-"
-""let g:neocomplete#force_omni_input_patterns.cpp         = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-"let g:neocomplete#force_omni_input_patterns.objc        = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-"let g:neocomplete#force_omni_input_patterns.objcpp      = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-"let g:neocomplete#force_omni_input_patterns.java        = '\%(\h\w*\|)\)\.\w*'
-"
-"" external omni func
-"let g:neocomplete#sources#omni#functions = get(g:, 'neocomplete#sources#omni#functions', {})
-"let g:neocomplete#sources#omni#functions.go = 'gocomplete#Complete'
-" }}}
+  " force omni pattern
+  let g:neocomplete#force_overwrite_completefunc = 1
+  let g:neocomplete#force_omni_input_patterns = get(g:, 'neocomplete#force_omni_input_patterns', {})
+  "" let g:neocomplete#force_omni_input_patterns.python      = '[^. \t]\.\w*'
+  "let g:neocomplete#force_omni_input_patterns.python      = '\h\w|[^. \t].\w'
+  "let g:neocomplete#force_omni_input_patterns.cs          = '[^.]\.\%(\u\{2,}\)\?'
+  "let g:neocomplete#force_omni_input_patterns.c           = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
+  "
+  ""let g:neocomplete#force_omni_input_patterns.cpp         = '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+  "let g:neocomplete#force_omni_input_patterns.objc        = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+  "let g:neocomplete#force_omni_input_patterns.objcpp      = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+  "let g:neocomplete#force_omni_input_patterns.java        = '\%(\h\w*\|)\)\.\w*'
+  "
+  "" external omni func
+  "let g:neocomplete#sources#omni#functions = get(g:, 'neocomplete#sources#omni#functions', {})
+  "let g:neocomplete#sources#omni#functions.go = 'gocomplete#Complete'
+  " }}}
+endif
 
 " neosnippet {{{
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
