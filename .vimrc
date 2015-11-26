@@ -1,3 +1,11 @@
+let s:conf_root = expand('~/.config/vim')
+let s:repos_path = expand('~/repos')
+let s:bundles_path = s:conf_root . '/bundles'
+let s:dotfiles_path = s:repos_path . '/github.com/bundai223/dotfiles'
+let s:backupdir = s:conf_root . '/backup'
+let s:swapdir = s:conf_root . '/swp'
+let s:undodir = s:conf_root . '/undo'
+
 " release autogroup in MyAutoCmd
 augroup MyAutoCmd
   autocmd!
@@ -7,11 +15,6 @@ augroup END
 set encoding=utf-8
 set fileencoding=utf-8
 scriptencoding utf-8
-
-let $dotvim_path = '~/.vim'
-let $neobundle_path = $dotvim_path . '/.bundle'
-let $repos_path = '~/repos'
-let $dotfiles_path = $repos_path . '/github.com/bundai223/dotfiles'
 
 " Common setting {{{
 
@@ -34,9 +37,9 @@ set fileformat=unix
 set fileformats=unix,dos
 
 " バックアップファイルの設定
-set backupdir=~/.vim/backup
+let &backupdir=s:backupdir
 set backup
-set directory=~/.vim/swp
+let &directory=s:swapdir
 set swapfile
 
 " クリップボードを使用する
@@ -86,8 +89,8 @@ if has('vim_starting')
   endif
 
   if has('win32')
-    set rtp+=~/.vim
-    set rtp+=~/.vim/after
+    set rtp+=s:conf_root
+    set rtp+=s:conf_root . '/after'
   else
     " 自前で用意したものへの path
     set path=.,/usr/include,/usr/local/include
@@ -116,7 +119,7 @@ set wildmenu
 set history=10000
 
 if has('persistent_undo' )
-  set undodir=~/.vim/undo
+  let &undodir=s:undodir
   set undofile
 endif
 " }}}
@@ -473,7 +476,7 @@ endif
 
 " }}}
 
-call neobundle#begin(expand('~/.vim/.bundle'))
+call neobundle#begin(expand(s:bundles_path))
 " Neobundle plugin list {{{
 NeoBundle 'Shougo/vimproc', {
       \   'build': {
@@ -616,8 +619,8 @@ if neobundle#tap('vim-racer')
       \   'depends': 'phildawes/racer'
       \ })
   function! neobundle#tapped.hooks.on_source(bundle)
-    let g:racer_cmd = expand($neobundle_path . '/racer/target/release/racer')
-    let $RUST_SRC_PATH = expand($repos_path . '/github.com/rust-lang/rust/src')
+    let g:racer_cmd = expand(s:bundles_path . '/racer/target/release/racer')
+    let $RUST_SRC_PATH = expand(s:repos_path . '/github.com/rust-lang/rust/src')
   endfunction
   call neobundle#untap()
 endif
@@ -1252,7 +1255,7 @@ nmap <C-u> [unite]
 " unite file
 nnoremap <silent> [unite]/   :<C-u>Unite -input=/ -buffer-name=file_root file<CR>
 nnoremap <silent> [unite]f   :<C-u>UniteWithBufferDir -buffer-name=file_current file<CR>
-nnoremap <silent> [unite]d   :<C-u>Unite -input=~/.vim/ -buffer-name=file_dotfiles file<CR>
+nnoremap <silent> [unite]d   :<C-u>Unite -input=s:conf_root -buffer-name=file_dotfiles file<CR>
 nnoremap <silent> [unite]m   :<C-u>Unite -buffer-name=multi file_mru file buffer<CR>
 nnoremap <silent> [unite]o   :<C-u>Unite -buffer-name=outline -no-quit -wrap outline<CR>
 nnoremap <silent> [unite]t   :<C-u>Unite -buffer-name=todo -no-quit picktodo<CR>
@@ -1690,11 +1693,11 @@ let g:neocomplete#enable_at_startup = 1
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
       \ 'default'  : '',
-      \ 'vimshell' : '~/.vimshell_hist',
-      \ 'cpp'      : '~/.vim/.bundle/myvim_dict/cpp.dict',
-      \ 'squirrel' : '~/.vim/.bundle/myvim_dict/squirrel.dict',
-      \ 'groovy'   : '~/.vim/.bundle/myvim_dict/gradle.dict',
-      \ 'gitcommit': '~/.vim/.bundle/myvim_dict/gitcommit.dict',
+      \ 'vimshell' : s:conf_root . '/vimshell/hist',
+      \ 'cpp'      : s:bundles_path . '/myvim_dict/cpp.dict',
+      \ 'squirrel' : s:bundles_path . '/myvim_dict/squirrel.dict',
+      \ 'groovy'   : s:bundles_path . '/myvim_dict/gradle.dict',
+      \ 'gitcommit': s:bundles_path . '/myvim_dict/gitcommit.dict',
       \ }
 
 " Define keyword.
@@ -1765,7 +1768,7 @@ if has('conceal')
 endif
 
 " path to mysnippet
-let g:neosnippet#snippets_directory='~/.vim/.bundle/mysnip'
+let g:neosnippet#snippets_directory=expand(s:bundles_path . '/mysnip')
 " }}}
 
 
