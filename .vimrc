@@ -84,13 +84,13 @@ set commentstring=%s
 if has('vim_starting')
   " Goのpath
   if $GOROOT != ''
-    set rtp+=$GOROOT/misc/vim
-    "set rtp+=$GOPATH/src/github.com/nsf/gocode/vim
+    set runtimepath+=$GOROOT/misc/vim
+    "set runtimepath+=$GOPATH/src/github.com/nsf/gocode/vim
   endif
 
+  let &runtimepath .= ',' . s:conf_root
+  let &runtimepath .= ',' . s:conf_root . '/after'
   if has('win32')
-    set rtp+=s:conf_root
-    set rtp+=s:conf_root . '/after'
   else
     " 自前で用意したものへの path
     set path=.,/usr/include,/usr/local/include
@@ -471,7 +471,7 @@ cnoremap <C-c> <Nop>
 
 " NeoBundle path setting {{{
 if has('vim_starting')
-  set rtp+=~/repos/github.com/Shougo/neobundle.vim
+  set runtimepath+=~/repos/github.com/Shougo/neobundle.vim
 endif
 
 " }}}
