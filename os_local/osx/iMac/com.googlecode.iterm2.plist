@@ -718,7 +718,7 @@
 	<key>NSFontPanelAttributes</key>
 	<string>1, 0</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/repos/github.com/bundai223/dotfiles/os_local/osx</string>
+	<string>~</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 448}</string>
 	<key>NSNavPanelExpandedStateForSaveMode</key>
@@ -753,7 +753,7 @@
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>150 4 2410 1413 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>2336 117 2410 1052 2560 115 1920 1057 </string>
+	<string>150 4 2410 1413 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>148 -107 2410 1413 0 0 2560 1417 </string>
 	<key>New Bookmarks</key>
@@ -3863,7 +3863,7 @@
 			<key>Blur</key>
 			<false/>
 			<key>Blur Radius</key>
-			<real>2.4009175300598145</real>
+			<real>7.1418890953063965</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -5156,7 +5156,7 @@
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>453346155.92969501</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>466651267.97800899</real>
+	<real>470281015.27729702</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -5223,7 +5223,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-10-16T01:09:00Z</date>
+	<date>2015-11-27T01:25:32Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
