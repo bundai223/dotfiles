@@ -42,17 +42,17 @@ au BufNewFile,BufRead *nginx.conf setl filetype=nginx commentstring=#%s
 au BufNewFile,BufRead td-agent.conf setl filetype=fluentd
 
 " shell
-autocmd BufNewFile *.sh 0r ~/.vim/.bundle/vim-template/template/template.sh
+autocmd BufNewFile *.sh 0r ~/.config/vim/bundles/vim-template/template/template.sh
 
 " ruby
-autocmd BufNewFile *.rb 0r ~/.vim/.bundle/vim-template/template/template.rb
+autocmd BufNewFile *.rb 0r ~/.config/vim/bundles/vim-template/template/template.rb
 
 " python
-autocmd BufNewFile *.py 0r ~/.vim/.bundle/vim-template/template/template.py
+autocmd BufNewFile *.py 0r ~/.config/vim/bundles/vim-template/template/template.py
 
 " cpp
-autocmd BufNewFile *.h 0r ~/.vim/.bundle/vim-template/template/template.h
-autocmd BufNewFile *.cpp 0r ~/.vim/.bundle/vim-template/template/template.cpp
+autocmd BufNewFile *.h 0r ~/.config/vim/bundles/vim-template/template/template.h
+autocmd BufNewFile *.cpp 0r ~/.config/vim/bundles/vim-template/template/template.cpp
 " *.hを作成するときにインクルードガードを作成する
 " au BufNewFile *.h call InsertCppHeaderHeader()
 " au BufNewFile *.cpp call InsertCppSourceHeader()

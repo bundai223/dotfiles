@@ -1,3 +1,8 @@
+set encoding=utf-8
+scriptencoding utf-8
+set fileencoding=utf-8
+
+
 let s:conf_root = expand('~/.config/vim')
 let s:repos_path = expand('~/repos')
 let s:bundles_path = s:conf_root . '/bundles'
@@ -10,11 +15,6 @@ let s:undodir = s:conf_root . '/undo'
 augroup MyAutoCmd
   autocmd!
 augroup END
-
-" 文字エンコード
-set encoding=utf-8
-set fileencoding=utf-8
-scriptencoding utf-8
 
 " Common setting {{{
 
@@ -67,6 +67,7 @@ set splitbelow
 
 " BS can delete newline or indent
 set backspace=indent,eol,start
+let vim_indent_cont=6 " ' '*6+'\'+' ' →実質8sp
 
 set completeopt=menu,preview
 " 補完でプレビューしない
