@@ -20,6 +20,8 @@ export JFX_DIR=${JAVA_HOME}/jre/lib/ext
 export GENYMOTION_APP_HOME='/Users/nishimuradaiji/Applications/Genymotion.app'
 
 export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib"
+export RUST_SRC_PATH="/Users/nishimuradaiji/repos/github.com/rust-lang/rust/src"
+
 
 # for homebrew
 PATH=$HOME/.nodebrew/current/bin:$PATH

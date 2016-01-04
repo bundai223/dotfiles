@@ -163,6 +163,16 @@ set novisualbell
 " }}}
 
 " Search {{{
+"
+"virtualモードの時にスターで選択位置のコードを検索するようにする"
+xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
+function! s:VSetSearch()
+  let temp = @s
+  norm! gv"sy
+  let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g')
+  let @s = temp
+endfunction
 
 " Match words with ignore upper-lower case
 set ignorecase
@@ -1693,7 +1703,10 @@ nnoremap <silent> <Leader>s : <C-u> VimShell<CR>
 " }}}
 
 if has('nvim')
+  let g:python_host_prog = '/usr/local/bin/python'
+  let g:python3_host_prog = '/usr/local/bin/python3'
   " deoplete {{{
+  let g:deoplete#enable_at_startup = 1
   " }}}
 else
   " neocomplete {{{
