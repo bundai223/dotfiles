@@ -1917,6 +1917,10 @@ set laststatus=2
 
 " 自動折り返しなし
 set nowrap
+augroup MyAutoCmd
+  autocmd FileType text setlocal textwidth=0
+augroup END
+
 
 " Color scheme setting {{{
 set background=dark
