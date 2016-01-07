@@ -814,6 +814,58 @@ nmap [myleader]? :Ag <c-r>=expand("<cword>")<cr><cr>
 
 
 NeoBundle 'tyru/eskk.vim'
+if neobundle#tap('eskk.vim') "{{{
+  " call neobundle#config({
+  "       \   'autoload' : {
+  "       \    'commands' : ['Agit', 'AgitFile']
+  "       \   }
+  "       \ })
+  "
+  function! neobundle#tapped.hooks.on_source(bundle)
+    set imdisable
+    if has('mac')
+      let g:eskk#dictionary = {
+            \  'path': expand('~/Library/Application\ Support/AquaSKK/skk-jisyo.utf8'),
+            \  'sorted': 0,
+            \  'encoding': 'utf-8',
+            \}
+
+      let g:eskk#large_dictionary = {
+            \  'path': expand('~/Library/Application\ Support/AquaSKK/SKK-JISYO.L'),
+            \  'sorted': 1,
+            \  'encoding': 'euc-jp',
+            \}
+    elseif has('win32') || has('win64')
+      let g:eskk#dictionary = {
+            \  'path': '~/SKK_JISYO.L',
+            \  'sorted': 1,
+            \  'encoding': 'euc-jp',
+            \}
+
+      let g:eskk#large_dictionary = {
+            \  'path': '~/SKK_JISYO.L',
+            \  'sorted': 1,
+            \  'encoding': 'euc-jp',
+            \}
+    else
+    endif
+
+    let g:eskk_debug = 0
+    let g:eskk_egg_like_newline = 1
+    let g:eskk_revert_henkan_style = 'okuri'
+    let g:eskk_enable_completion = 0
+    let g:eskk#server = {
+          \ 'host': 'localhost',
+          \ 'port': 1178,
+          \}
+
+  endfunction
+
+  " }}}
+  call neobundle#untap()
+endif
+"}}}
+
 
 NeoBundle 'tpope/vim-fugitive'
 NeoBundleLazy 'cohama/agit.vim'
@@ -1635,42 +1687,6 @@ xmap <Leader>H <Plug>(quickhl-manual-reset)
 "nmap <Leader>j <Plug>(quickhl-match)
 
 "}}}
-
-" eskk {{{
-set imdisable
-if has('mac')
-  let g:eskk#dictionary = {
-        \  'path': expand('~/Library/Application\ Support/AquaSKK/skk-jisyo.utf8'),
-        \  'sorted': 0,
-        \  'encoding': 'utf-8',
-        \}
-
-  let g:eskk#large_dictionary = {
-        \  'path': expand('~/Library/Application\ Support/AquaSKK/SKK-JISYO.L'),
-        \  'sorted': 1,
-        \  'encoding': 'euc-jp',
-        \}
-elseif has('win32') || has('win64')
-  let g:eskk#dictionary = {
-        \  'path': '~/SKK_JISYO.L',
-        \  'sorted': 1,
-        \  'encoding': 'euc-jp',
-        \}
-
-  let g:eskk#large_dictionary = {
-        \  'path': '~/SKK_JISYO.L',
-        \  'sorted': 1,
-        \  'encoding': 'euc-jp',
-        \}
-else
-endif
-
-let g:eskk_debug = 0
-let g:eskk_egg_like_newline = 1
-let g:eskk_revert_henkan_style = 'okuri'
-let g:eskk_enable_completion = 0
-
-" }}}
 
 " smartinput{{{
 let g:smartinput_no_default_key_mappings = 1
