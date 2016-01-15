@@ -29,8 +29,16 @@ if has('win32')
     set ambiwidth=auto
   endif
 elseif has('mac')
-"   set guifont=Ricty\ Regular:h14
-  set guifont=Sauce\ Code\ Powerline:h14
+  " set guifont=Sauce\ Code\ Powerline:h14
+  " set guifontwide=Sauce\ Code\ Powerline:h14
+
+  " set guifont=Ricty\ Regular:h14
+  " set guifontwide=Ricty\ Regular:h14
+  " set guifont=Ricty\ Diminished\ For\ Powerline:h14
+  " set guifontwide=Ricty\ Diminished\ For\ Powerline:h14
+  "
+  set guifont=Ricty\ Diminished\ Discord\ For\ Powerline:h14
+  set guifontwide=Ricty\ Diminished\ Discord\ For\ Powerline:h14
 elseif has('xfontset')
   " UNIX用 (xfontsetを使用)
   set guifontset=a14,r14,k14

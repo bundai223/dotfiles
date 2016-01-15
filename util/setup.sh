@@ -83,6 +83,7 @@ TOOL_NAMES_ARRAY=\
  'powerline/fonts'\
  'rupa/z.git'\
  'bundai223/zsh-utils'\
+ 'mzyy94/RictyDiminished-for-Powerline'\
 )
 #  'ajaxorg/cloud9.git'\
 #  'csabahenk/dedrm-ebook-tools.git'\

@@ -240,7 +240,7 @@ set grepprg=grep\ -nH
 
 augroup MyAutoCmd
   " make, grep などのコマンド後に自動的にQuickFixを開く
-  autocmd QuickfixCmdPost make,grep,grepadd,vimgrep copen
+  autocmd QuickfixCmdPost make,grep,grepadd,vimgrep cwindow
 
   " QuickFixおよびHelpでは q でバッファを閉じる
   autocmd FileType help,qf nnoremap <buffer> q <C-w>c
