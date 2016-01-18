@@ -751,7 +751,7 @@
 	<key>NSWindow Frame Preferences</key>
 	<string>1315 721 924 485 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>144 28 2410 1375 0 0 2560 1417 </string>
+	<string>396 193 2110 1121 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>150 4 2410 1413 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -4240,11 +4240,11 @@
 			<key>Name</key>
 			<string>Solarized Dark Tmux</string>
 			<key>Non Ascii Font</key>
-			<string>RictyDiminishedDiscord-RegularForPowerline 14</string>
+			<string>RictyDiminishedDiscordForPowerline-Regular 14</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>RictyDiminishedDiscord-RegularForPowerline 14</string>
+			<string>RictyDiminishedDiscordForPowerline-Regular 14</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
