@@ -1,6 +1,8 @@
 #! /bin/bash
 # golang のインストール・ghqのインストールを完了させる必要がある。
-#qua TODO: 繰り返し行なうと重たい処理はフラグなどで切り替えるようにしたい。
+# TODO: 繰り返し行なうと重たい処理はフラグなどで切り替えるようにしたい。
+
+#xcode-select --install
 
 PATH_TO_HERE=`dirname ${0}`
 ABS_PATH=`cd $PATH_TO_HERE && pwd`

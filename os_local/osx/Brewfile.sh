@@ -36,29 +36,27 @@ if [[ $OSTYPE == darwin* ]]; then
   )
 
   # for hobby
-  if [ $PRIVATE ]; then
-    caskapp=(
-      "${caskapp}"
-      1password
-      dropbox
-      skype
-      xbox360-controller-driver
-      blender
-      gimp
-      inkscape
-      minecraft
-      steam
-      cooviewer
-      calibre
-      dolphin
-      openemu
-      aquaskk
-    )
-    #    mediahuman
-    #    mikutter
-    #    snes
-    #    grafittipod
-  fi
+  caskapp=(
+    "${caskapp}"
+    1password
+    dropbox
+    skype
+    xbox360-controller-driver
+    blender
+    gimp
+    inkscape
+    minecraft
+    steam
+    cooviewer
+    calibre
+    dolphin
+    openemu
+    aquaskk
+  )
+  #    mediahuman
+  #    mikutter
+  #    snes
+  #    grafittipod
 
   brew cask install --appdir="/Applications" ${caskapp[@]}
   brew cask cleanup
