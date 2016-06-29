@@ -54,13 +54,16 @@ TOOL_NAMES_ARRAY=\
  'rupa/z.git'\
  'bundai223/zsh-utils'\
  'bundai223/dotfiles'\
- 'mzyy94/RictyDiminished-for-Powerline'\
+ 'bundai223/RictyDiminished-for-Powerline'\
 )
 #  'ajaxorg/cloud9.git'\
 #  'csabahenk/dedrm-ebook-tools.git'\
 for toolname in ${TOOL_NAMES_ARRAY[@]}; do
     ghq get ${toolname}
 done
+
+ghq look bundai223/RictyDiminished-for-Powerline
+git checkout -t origin/newfontpatcher
 
 mkln ${REPOS_PATH}/github.com/bundai223/zsh-utils ~/.config/zsh/zsh-utils
 
