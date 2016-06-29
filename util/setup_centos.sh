@@ -7,8 +7,8 @@ OS_LOCAL_PATH=$ABS_PATH/../os_local/unix
 # 初回の処理のために環境変数を読み込み
 source $OS_LOCAL_PATH/.zshenv_local
 
-sudo yum -y update
-sudo yum -y install git ssh zsh tmux wget ntp
+# sudo yum -y update
+sudo yum -y install git zsh tmux wget ntp python
 
 # install go
 ZIPNAME=go1.6.2.linux-386.tar.gz
@@ -25,8 +25,8 @@ export PATH
 # ghqのパス設定のために一時的にコピーしておく
 TMP_GITCONFIG=0
 if [ ! -e ~/.gitconfig ]; then
-	TMP_GITCONFIG=1
-	cp $ABS_PATH/../.gitconfig ~/
+    TMP_GITCONFIG=1
+    cp $ABS_PATH/../.gitconfig_global ~/.gitconfig
 fi
 
 

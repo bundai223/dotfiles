@@ -1942,7 +1942,10 @@ augroup END
 set background=dark
 set t_Co=256
 if has('vim_starting')
-  colorscheme solarized
+  if has('unix')
+  else
+    colorscheme solarized
+  endif
 endif
 
 " IMEの状態でカーソル色変更 {{{

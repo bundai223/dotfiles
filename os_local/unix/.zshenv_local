@@ -28,3 +28,5 @@ fi
 
 export PATH
 
+# ctrl + sがterminalを停止させるのをなしに
+stty stop undef

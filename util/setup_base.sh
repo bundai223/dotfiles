@@ -34,6 +34,8 @@ mkdir_noerror ~/tools/bin
 mkdir_noerror ~/.config/git
 mkdir_noerror ~/.config/tmux
 mkdir_noerror ~/.config/zsh
+mkdir_noerror ~/.config/zsh/z
+mkdir_noerror ~/.config/vim
 
 # Get tools repositories.
 mkdir_noerror ${REPOS_PATH}
@@ -102,7 +104,7 @@ pip install --upgrade vim-vint
 pip install --upgrade git+git://github.com/powerline/powerline psutil
 
 # vim setting {{{
-DOT_VIM=.vim
+DOT_VIM=.config/vim
 mkdir_noerror ~/${DOT_VIM}
 mkdir_noerror ~/${DOT_VIM}/undo
 mkdir_noerror ~/${DOT_VIM}/backup

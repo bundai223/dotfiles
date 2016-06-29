@@ -23,8 +23,8 @@ sudo apt-get -y install git mercurial ssh zsh aptitude tmux ssh ntp silversearch
 # ghqのパス設定のために一時的にコピーしておく
 TMP_GITCONFIG=0
 if [ ! -e ~/.gitconfig ]; then
-	TMP_GITCONFIG=1
-	cp $ABS_PATH/../.gitconfig ~/
+    TMP_GITCONFIG=1
+    cp $ABS_PATH/../.gitconfig_global ~/.gitconfig
 fi
 
 

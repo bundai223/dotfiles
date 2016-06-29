@@ -34,7 +34,7 @@ echo $GOPATH
 sh $OS_LOCAL_PATH/Brewfile.sh
 
 # リポジトリの取得にも必要なのでgoの初期化
-source $ABS_PATH/setup_golang.sh
+source $ABS_PATH/install_golang.sh
 
 if [ $TMP_GITCONFIG == 1 ]; then
     rm ~/.gitconfig
