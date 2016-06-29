@@ -13,12 +13,16 @@ sudo yum -y install git zsh tmux wget ntp python
 curl -kL https://bootstrap.pypa.io/get-pip.py | sudo python
 
 # install go
-ZIPNAME=go1.6.2.linux-386.tar.gz
-# intel64
-#ZIPNAME=go1.6.2.linux-amd64.tar.gz
-wget http://golang.org/dl/${ZIPNAME}
-sudo tar zxvf ${ZIPNAME} -C /usr/local
-rm ${ZIPNAME}
+OS_TYPE=linux-386
+#OS_TYPE=linux-amd64
+GO_VERSION=1.6.2
+ZIPNAME=go${GO_VERSION}.${OS_TYPE}.tar.gz
+CHECK_VERSION=$(go version|grep ${GO_VERSION})
+if [ -z "${CHECK_VERSION}" ]; then
+  wget http://golang.org/dl/${ZIPNAME}
+  sudo tar zxvf ${ZIPNAME} -C /usr/local
+  rm ${ZIPNAME}
+fi
 
 PATH=/usr/local/go/bin/:$PATH
 export PATH
@@ -27,15 +31,15 @@ export PATH
 # ghqのパス設定のために一時的にコピーしておく
 TMP_GITCONFIG=0
 if [ ! -e ~/.gitconfig ]; then
-    TMP_GITCONFIG=1
-    cp $ABS_PATH/../.gitconfig_global ~/.gitconfig
+  TMP_GITCONFIG=1
+  cp $ABS_PATH/../.gitconfig_global ~/.gitconfig
 fi
 
 
 bash $ABS_PATH/install_golang.sh
 
 if [ $TMP_GITCONFIG == 1 ]; then
-	rm ~/.gitconfig
+  rm ~/.gitconfig
 fi
 
 #bash $ABS_PATH/install_ricty.sh
