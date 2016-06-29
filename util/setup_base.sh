@@ -98,10 +98,10 @@ ghq_root=$(ghq root)
 sh ${ghq_root}/$(ghq list powerline/fonts)/install.sh
 
 # pythonツール
-pip install --upgrade pip setuptools
-pip install --upgrade fabric
-pip install --upgrade vim-vint
-pip install --upgrade git+git://github.com/powerline/powerline psutil
+sudo pip install --upgrade pip setuptools virtualenv
+#sudo pip install --upgrade fabric
+sudo pip install --upgrade vim-vint
+sudo pip install --upgrade git+git://github.com/powerline/powerline psutil
 
 # vim setting {{{
 DOT_VIM=.config/vim

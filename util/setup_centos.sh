@@ -8,7 +8,7 @@ OS_LOCAL_PATH=$ABS_PATH/../os_local/unix
 source $OS_LOCAL_PATH/.zshenv_local
 
 # sudo yum -y update
-sudo yum -y install git zsh tmux wget ntp python
+sudo yum -y install git zsh tmux wget ntp python python-devel
 # install pip
 curl -kL https://bootstrap.pypa.io/get-pip.py | sudo python
 
@@ -42,7 +42,7 @@ if [ $TMP_GITCONFIG == 1 ]; then
   rm ~/.gitconfig
 fi
 
-#bash $ABS_PATH/install_ricty.sh
+bash $ABS_PATH/install_ricty.sh
 #bash $ABS_PATH/install_vim.sh
 
 # common setting
