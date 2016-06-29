@@ -17,7 +17,7 @@ fi
 
 # go utility tools.
 echo goimports
-go get code.google.com/p/go.tools/cmd/goimports # go formatter.
+go get golang.org/x/tools/cmd/goimports # go formatter.
 
 echo godoc
 go get golang.org/x/tools/cmd/godoc     # go document viewer.

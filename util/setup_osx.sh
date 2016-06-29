@@ -42,7 +42,7 @@ fi
 
 # 共通の初期化処理
 # 各ツールの設定ファイルのリンクなど
-source $ABS_PATH/setup.sh
+source $ABS_PATH/setup_base.sh
 
 OSX_TOOL_NAMES_ARRAY=\
 (\

@@ -7,17 +7,19 @@ OS_LOCAL_PATH=$ABS_PATH/../os_local/unix
 # 初回の処理のために環境変数を読み込み
 source $OS_LOCAL_PATH/.zshenv_local
 
+sudo yum -y update
+sudo yum -y install git ssh zsh tmux wget ntp
+
 # install go
-ZIPNAME=go1.3.linux-amd64.tar.gz
+ZIPNAME=go1.6.2.linux-386.tar.gz
+# intel64
+#ZIPNAME=go1.6.2.linux-amd64.tar.gz
 wget http://golang.org/dl/${ZIPNAME}
 sudo tar zxvf ${ZIPNAME} -C /usr/local
 rm ${ZIPNAME}
 
 PATH=/usr/local/go/bin/:$PATH
 export PATH
-
-sudo apt-get -y update
-sudo apt-get -y install git mercurial ssh zsh aptitude tmux ssh ntp silversearcher-ag
 
 # go setting
 # ghqのパス設定のために一時的にコピーしておく
@@ -34,8 +36,8 @@ if [ $TMP_GITCONFIG == 1 ]; then
 	rm ~/.gitconfig
 fi
 
-bash $ABS_PATH/install_ricty.sh
-bash $ABS_PATH/ubuntu/install_vim.sh
+#bash $ABS_PATH/install_ricty.sh
+#bash $ABS_PATH/install_vim.sh
 
 # common setting
 bash $ABS_PATH/setup_base.sh
@@ -51,5 +53,3 @@ chsh -s ${ZSH_PATH}
 # 
 # exit
 
-# Set dirname English.
-LANG=C xdg-user-dirs-gtk-update
