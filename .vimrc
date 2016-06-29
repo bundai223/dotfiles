@@ -1751,10 +1751,8 @@ else
 
   " Recommended key-mappings.
   " <C-h>, <BS>: close popup and delete backword char.
-  inoremap <expr><C-h> neocomplete#mappings()."\<C-h>"
+  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
   inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-  inoremap <expr><C-y>  neocomplete#close_popup()
-  inoremap <expr><C-e>  neocomplete#cancel_popup()
 
   " Enable omni completion.
   augroup MyAutoCmd
