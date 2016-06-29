@@ -9,6 +9,8 @@ source $OS_LOCAL_PATH/.zshenv_local
 
 # sudo yum -y update
 sudo yum -y install git zsh tmux wget ntp python
+# install pip
+curl -kL https://bootstrap.pypa.io/get-pip.py | sudo python
 
 # install go
 ZIPNAME=go1.6.2.linux-386.tar.gz
