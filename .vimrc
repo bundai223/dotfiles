@@ -1437,7 +1437,7 @@ if !empty(s:bundle)
   function! s:bundle.hooks.on_source(bundle)
     let g:previm_disable_default_css = 1
     "let g:previm_custom_css_path = expand('~/.config/vim/css/qiita_old.css')
-    let g:previm_custom_css_path = expand('~/.config/vim/css/github.css')
+    "let g:previm_custom_css_path = expand('~/.config/vim/css/github.css')
   endfunction
 endif
 
