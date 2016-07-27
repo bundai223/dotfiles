@@ -28,5 +28,7 @@ fi
 
 export PATH
 
+export XDG_CONFIG_HOME=~/.config
+
 # ctrl + sがterminalを停止させるのをなしに
 stty stop undef
