@@ -113,9 +113,9 @@ fi
 # History setting {{{
 # End of lines added by compinstal
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.zsh_history
-HISTSIZE=100000
-SAVEHIST=100000
+export HISTFILE=~/.zsh_history
+export HISTSIZE=100000
+export SAVEHIST=100000
 setopt appendhistory extendedglob notify
 setopt extended_history 
 

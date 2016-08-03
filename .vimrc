@@ -1874,8 +1874,8 @@ let g:unite_source_alignta_preset_options = [
 " }}}
 
 " caw {{{
-nmap <Leader>c <Plug>(caw:i:toggle)
-vmap <Leader>c <Plug>(caw:i:toggle)
+nmap <Leader>c <Plug>(caw:hatpos:toggle)
+vmap <Leader>c <Plug>(caw:hatpos:toggle)
 
 " }}}
 
