@@ -49,7 +49,7 @@ endif
 "---------------------------------
 " ローカル設定を読み込む
 if filereadable(expand('~/.gvimrc_local'))
-    source ~/.gvimrc_local
+    source ~/.gimrc_local
 endif
 
 if has('vim_starting')

@@ -1942,6 +1942,7 @@ set background=dark
 set t_Co=256
 if has('vim_starting')
   if has('unix')
+  elseif has('win32') && !has('gui_running')
   else
     colorscheme solarized
   endif

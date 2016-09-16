@@ -21,33 +21,8 @@ mkdir_noerror ~/.config/vim
 
 # Get tools repositories.
 mkdir_noerror ${REPOS_PATH}
-
-TOOL_NAMES_ARRAY=\
-(\
- 'Shougo/neobundle.vim'\
- 'github/gitignore.git'\
- 'zsh-users/zsh-completions.git'\
- 'zsh-users/antigen.git'\
- 'altercation/solarized'\
- 'tomorrowkey/adb-peco'\
- 'JakeWharton/pidcat'\
- 'sys1yagi/genymotion-peco'\
- 'powerline/fonts'\
- 'rupa/z.git'\
- 'bundai223/zsh-utils'\
- 'bundai223/dotfiles'\
- 'bundai223/RictyDiminished-for-Powerline'\
-)
-#  'ajaxorg/cloud9.git'\
-#  'csabahenk/dedrm-ebook-tools.git'\
-for toolname in ${TOOL_NAMES_ARRAY[@]}; do
-    ghq get ${toolname}
-done
-
-ghq look bundai223/RictyDiminished-for-Powerline
-git checkout -t origin/newfontpatcher
-
-mkln ${REPOS_PATH}/github.com/bundai223/zsh-utils ~/.config/zsh/zsh-utils
+mkdir_noerror ${REPOS_PATH}/github.com/bundai223
+git clone git@github.com:bundai223/dotfiles.git ${REPOS_PATH}/github.com/bundai223/dotfiles
 
 # Create symbolic link to dotfiles {{{
 DOTFILE_NAMES_ARRAY=\
@@ -79,14 +54,40 @@ if [ ! -e ${DOTFILES_PATH}/.gitconfig ]; then
 fi
 #}}}
 
+TOOL_NAMES_ARRAY=\
+(\
+ 'Shougo/neobundle.vim'\
+ 'github/gitignore.git'\
+ 'zsh-users/zsh-completions.git'\
+ 'zsh-users/antigen.git'\
+ 'altercation/solarized'\
+ 'tomorrowkey/adb-peco'\
+ 'JakeWharton/pidcat'\
+ 'sys1yagi/genymotion-peco'\
+ 'powerline/fonts'\
+ 'rupa/z.git'\
+ 'bundai223/zsh-utils'\
+ 'bundai223/RictyDiminished-for-Powerline'\
+)
+#  'ajaxorg/cloud9.git'\
+#  'csabahenk/dedrm-ebook-tools.git'\
+for toolname in ${TOOL_NAMES_ARRAY[@]}; do
+    ghq get ${toolname}
+done
+
+cd ${REPOS_PATH}/$(ghq list bundai223/RictyDiminished-for-Powerline)
+git checkout -t origin/newfontpatcher
+
+mkln ${REPOS_PATH}/github.com/bundai223/zsh-utils ~/.config/zsh/zsh-utils
+
 ghq_root=$(ghq root)
 sh ${ghq_root}/$(ghq list powerline/fonts)/install.sh
 
 # pythonツール
-sudo pip install --upgrade pip setuptools virtualenv
-#sudo pip install --upgrade fabric
-sudo pip install --upgrade vim-vint
-sudo pip install --upgrade git+git://github.com/powerline/powerline psutil
+pip install --upgrade pip setuptools virtualenv
+#pip install --upgrade fabric
+pip install --upgrade vim-vint
+pip install --upgrade git+git://github.com/powerline/powerline psutil
 
 # vim setting {{{
 DOT_VIM=.config/vim
