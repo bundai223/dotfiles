@@ -902,7 +902,7 @@ endif
 NeoBundle 'itchyny/lightline.vim'
 if neobundle#tap('lightline.vim') "{{{
   function! neobundle#tapped.hooks.on_source(bundle)
-    let s:colorscheme = 'solarized_dark'
+    let s:colorscheme = 'solarized'
     if !empty($COLORSCHEME)
       let s:colorscheme = $COLORSCHEME
     endif
