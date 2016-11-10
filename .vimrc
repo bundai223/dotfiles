@@ -656,6 +656,39 @@ if neobundle#tap('rust-doc.vim') "{{{
 endif
 "}}}
 
+" ruby
+NeoBundle 'pocke/dicts'
+if neobundle#tap('dicts') "{{{
+  call neobundle#config({
+        \  'autoload': {
+        \    'filetypes': ['ruby']
+        \  }
+        \})
+  call neobundle#untap()
+endif
+"}}}
+
+NeoBundle 'vim-ruby/vim-ruby'
+if neobundle#tap('vim-ruby') "{{{
+  call neobundle#config({
+        \  'autoload': {
+        \    'filetypes': ['ruby']
+        \  }
+        \})
+  call neobundle#untap()
+endif
+"}}}
+
+NeoBundleLazy 'rhysd/vim-textobj-ruby'
+if neobundle#tap('vim-textobj-ruby') "{{{
+  call neobundle#config({
+        \  'autoload': {
+        \    'filetypes': ['ruby']
+        \  }
+        \})
+  call neobundle#untap()
+endif
+"}}}
 
 " textobj
 NeoBundle 'kana/vim-textobj-user'
@@ -663,6 +696,16 @@ NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'sgur/vim-textobj-parameter'
 NeoBundle 'osyo-manga/vim-textobj-multiblock'
 NeoBundle 'osyo-manga/vim-textobj-multitextobj'
+NeoBundleLazy 'rhysd/vim-textobj-ruby'
+if neobundle#tap('vim-textobj-ruby') "{{{
+  call neobundle#config({
+        \  'autoload': {
+        \    'filetypes': ['ruby']
+        \  }
+        \})
+  call neobundle#untap()
+endif
+"}}}
 
 " operator
 NeoBundle 'kana/vim-operator-user'
@@ -1748,6 +1791,7 @@ else
         \ 'squirrel' : s:bundles_path . '/myvim_dict/squirrel.dict',
         \ 'groovy'   : s:bundles_path . '/myvim_dict/gradle.dict',
         \ 'gitcommit': s:bundles_path . '/myvim_dict/gitcommit.dict',
+        \ 'ruby'     : s:bundles_path . '/dicts/ruby.dict',
         \ }
 
   " Define keyword.
@@ -1769,7 +1813,7 @@ else
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
     "autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
+    " autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
     autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
   augroup END
 
@@ -1786,6 +1830,7 @@ else
   " force omni pattern
   let g:neocomplete#force_overwrite_completefunc = 1
   let g:neocomplete#force_omni_input_patterns = get(g:, 'neocomplete#force_omni_input_patterns', {})
+  let g:neocomplete#force_omni_input_patterns.ruby      = '[^. *\t]\.\w*\|\h\w*::'
   "" let g:neocomplete#force_omni_input_patterns.python      = '[^. \t]\.\w*'
   "let g:neocomplete#force_omni_input_patterns.python      = '\h\w|[^. \t].\w'
   "let g:neocomplete#force_omni_input_patterns.cs          = '[^.]\.\%(\u\{2,}\)\?'
@@ -1798,7 +1843,9 @@ else
   "
   "" external omni func
   "let g:neocomplete#sources#omni#functions = get(g:, 'neocomplete#sources#omni#functions', {})
-  "let g:neocomplete#sources#omni#functions.go = 'gocomplete#Complete'
+  " let g:neocomplete#sources#omni#functions.go = 'gocomplete#Complete'
+
+  let g:neocomplete#sources#rsense#home_directory = '/usr/local/rbenv/shims/rsense'
   " }}}
 endif
 
@@ -1943,6 +1990,10 @@ set nowrap
 augroup MyAutoCmd
   autocmd FileType text setlocal textwidth=0
 augroup END
+augroup MyAutoCmd
+  autocmd FileType ruby setlocal iskeyword+=?
+augroup END
+
 
 
 " Color scheme setting {{{

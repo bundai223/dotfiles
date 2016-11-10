@@ -36,3 +36,6 @@ rbenv global 2.3.1
 
 # rails
 gem install rails --no-ri --no-doc
+
+# rsense
+gem install rsense
