@@ -113,9 +113,9 @@ fi
 # History setting {{{
 # End of lines added by compinstal
 # Lines configured by zsh-newuser-install
-export HISTFILE=~/.zsh_history
-export HISTSIZE=100000
-export SAVEHIST=100000
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
 setopt appendhistory extendedglob notify
 setopt extended_history 
 
@@ -146,8 +146,6 @@ setopt inc_append_history
 bindkey "^R" history-incremental-search-backward
 bindkey "^S" history-incremental-search-forward
 
-bindkey $'\e' vi-cmd-mode
-
 # 全履歴表示
 function history-all { history -E 1 }
 
@@ -172,7 +170,8 @@ zle -N show_buffer_stack
 
 # Key bind {{{
 # vi風バインド
-bindkey -v
+# bindkey -v
+# bindkey $'\e' vi-cmd-mode
 
 # 履歴表示
 # 履歴から入力の続きを補完
@@ -334,11 +333,15 @@ source_scripts_in_tree()
     case ${OSTYPE} in
         darwin*)
             #ここにMac向けの設定
-            utilities=($(for ut in ${utilities}; echo ${ut}|grep -v _win.zsh|grep -v _linux.zsh))
+            utilities=($(for ut in ${utilities}; echo ${ut}|grep -v $win_suffix|grep -v $linux_suffix))
             ;;
         linux*)
             #ここにLinux向けの設定
-            utilities=($(for ut in ${utilities}; echo ${ut}|grep -v _win.zsh|grep -v _osx.zsh))
+            utilities=($(for ut in ${utilities}; echo ${ut}|grep -v $win_suffix|grep -v $osx_suffix))
+            ;;
+        cygwin*|msys*)
+            #ここにWindows向けの設定
+            utilities=($(for ut in ${utilities}; echo ${ut}|grep -v $osx_suffix|grep -v $linux_suffix))
             ;;
     esac
     export utilities
@@ -354,9 +357,11 @@ source_scripts_in_tree ~/.config/zsh
 autoload -Uz colors && colors
 
 # prompt
-source ${PERSONAL_ZSH_DIR}/themes/prompt_cygwin.zsh
-# rprompt
-source ${PERSONAL_ZSH_DIR}/themes/rprompt_vcsinfo.zsh
+source ${PERSONAL_ZSH_DIR}/themes/prompt_vcsinfo.zsh
+## prompt
+#source ${PERSONAL_ZSH_DIR}/themes/prompt_cygwin.zsh
+## rprompt
+#source ${PERSONAL_ZSH_DIR}/themes/rprompt_vcsinfo.zsh
 
 #}}}
 
