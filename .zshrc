@@ -170,6 +170,7 @@ zle -N show_buffer_stack
 
 # Key bind {{{
 # vi風バインド
+bindkey -e
 # bindkey -v
 # bindkey $'\e' vi-cmd-mode
 
