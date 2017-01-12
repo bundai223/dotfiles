@@ -1,4 +1,5 @@
 #! /bin/sh
+tmux_version=2.2
 pwd=$(pwd)
 work_dir=/tmp
 
@@ -25,8 +26,8 @@ cd $pwd
 
 # tmuxをインストール
 cd ${work_dir}
-wget https://github.com/tmux/tmux/releases/download/2.2/tmux-2.2.tar.gz
-tar xvf tmux-2.2.tar.gz
-cd tmux-2.2
+wget https://github.com/tmux/tmux/releases/download/${tmux_version}/tmux-${tmux_version}.tar.gz
+tar xvf tmux-${tmux_version}.tar.gz
+cd tmux-${tmux_version}
 ./configure && make
 sudo make install
