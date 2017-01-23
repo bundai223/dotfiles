@@ -188,7 +188,7 @@ function _update_vcs_info_msg() {
     #        prompt="${(j: :)messages}"
   fi
 
-  echo "$prompt [%*]">~/test.txt
+  # echo "$prompt [%*]">~/test.txt
   echo "$prompt [%*]"
 }
 
