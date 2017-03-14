@@ -8,7 +8,7 @@ DOTFILES_PATH=~
 
 REPOS_PATH=~/repos
 
-source $ABS_PATH/setup_functions.sh
+source share/functions.sh
 
 # common setting
 mkdir_noerror ~/.emacs.d

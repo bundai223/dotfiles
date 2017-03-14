@@ -23,15 +23,11 @@ if [ ! -e ~/.gitconfig ]; then
   cp $ABS_PATH/../.gitconfig_global ~/.gitconfig
 fi
 
-
-bash $ABS_PATH/install_golang.sh
+./share/install_tool_by_golang.sh
 
 if [ $TMP_GITCONFIG == 1 ]; then
   rm ~/.gitconfig
 fi
-
-bash $ABS_PATH/install_ricty.sh
-#bash $ABS_PATH/install_vim.sh
 
 # common setting
 bash $ABS_PATH/setup_base.sh
@@ -44,6 +40,6 @@ touch ~/.config/tmux/session
 
 ZSH_PATH=`which zsh`
 chsh -s ${ZSH_PATH}
-# 
+#
 # exit
 
