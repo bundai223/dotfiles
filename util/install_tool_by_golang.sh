@@ -2,7 +2,7 @@
 
 function usage()
 {
-    "usage : bash setup_golang.sh"
+    "usage : bash install_tools_golang.sh"
 }
 
 # not setting GOPATH
@@ -29,11 +29,11 @@ echo cover
 go get golang.org/x/tools/cmd/cover     # go measure coverage on test.
 
 echo gocode
-go get github.com/nsf/gocode                    # go completions for editor.
+go get github.com/nsf/gocode            # go completions for editor.
 
 echo golint
-go get github.com/golang/lint                   # go lint
+go get github.com/golang/lint           # go lint
 
 # install tool made by go.
-go get github.com/motemen/ghq        # git repos manager
-go get github.com/peco/peco/cmd/peco # search interface looks like unite.vim
+go get github.com/motemen/ghq           # git repos manager
+go get github.com/peco/peco/cmd/peco    # search interface looks like unite.vim
