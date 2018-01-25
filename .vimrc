@@ -16,6 +16,14 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
+function! s:GitExecutable()
+  return (has('macunix'))
+endfunction
+
+function! s:DashExecutable()
+  return (has('mac'))
+endfunction
+
 " Common setting {{{
 
 " 変数を読み込む
@@ -337,13 +345,10 @@ cnoremap <C-g> <Esc>
 
 
 " Easy to cmd mode
-nnoremap ; :
-vnoremap ; :
-nnoremap : q:i
-vnoremap : q:i
-
-" Reload
-nnoremap <F5> :source %<CR>
+" nnoremap ; :
+" vnoremap ; :
+" nnoremap : q:i
+" vnoremap : q:i
 
 " 直前のバッファに移動
 nnoremap [myleader]b :b#<CR>
@@ -496,14 +501,6 @@ endif
 " }}}
 
 call neobundle#begin(expand(s:bundles_path))
-" Neobundle plugin list {{{
-NeoBundle 'Shougo/vimproc', {
-      \   'build': {
-      \     'windows': 'nmake -f Make_msvc.mak nodebug=1',
-      \     'mac'    : 'make -f make_mac.mak',
-      \     'unix'   : 'make -f make_unix.mak',
-      \   },
-      \ }
 NeoBundleLazy 'Shougo/vimfiler', {
       \   'autoload' : {'commands' : ['VimFilerBufferDir'] },
       \ }
@@ -567,17 +564,6 @@ NeoBundleLazy 'cohama/the-ocamlspot.vim', {
 NeoBundleLazy 'vim-jp/vim-go-extra', {
       \   'autoload' : {'filetypes' : ['go']}
       \ }
-
-" C, C++, Objc
-" luajit使ってるとSEGVるのでなし
-" NeoBundleFetch 'jeaye/color_coded', {
-"       \   'autoload' : {'filetypes' : ['c', 'cpp']},
-"       \   'build': {
-"       \     'windows': './configure && make',
-"       \     'mac'    : './configure && make',
-"       \     'unix'   : './configure && make',
-"       \   },
-"       \ }
 
 NeoBundle 'cocopon/colorswatch.vim'
 NeoBundle 'cocopon/lightline-hybrid.vim'
@@ -863,63 +849,6 @@ endif
 nmap [myleader]? :Ag <c-r>=expand("<cword>")<cr><cr>
 " nnoremap [myleader]/ :Ag<Space>
 
-
-NeoBundle 'tyru/eskk.vim'
-if neobundle#tap('eskk.vim') "{{{
-  " call neobundle#config({
-  "       \   'autoload' : {
-  "       \    'commands' : ['Agit', 'AgitFile']
-  "       \   }
-  "       \ })
-  "
-  function! neobundle#tapped.hooks.on_source(bundle)
-    set imdisable
-    if has('mac')
-      let g:eskk#dictionary = {
-            \  'path': expand('~/Library/Application\ Support/AquaSKK/skk-jisyo.utf8'),
-            \  'sorted': 0,
-            \  'encoding': 'utf-8',
-            \}
-
-      let g:eskk#large_dictionary = {
-            \  'path': expand('~/Library/Application\ Support/AquaSKK/SKK-JISYO.L'),
-            \  'sorted': 1,
-            \  'encoding': 'euc-jp',
-            \}
-    elseif has('win32') || has('win64')
-      let g:eskk#dictionary = {
-            \  'path': '~/SKK_JISYO.L',
-            \  'sorted': 1,
-            \  'encoding': 'euc-jp',
-            \}
-
-      let g:eskk#large_dictionary = {
-            \  'path': '~/SKK_JISYO.L',
-            \  'sorted': 1,
-            \  'encoding': 'euc-jp',
-            \}
-    else
-    endif
-
-    let g:eskk_debug = 0
-    let g:eskk_egg_like_newline = 1
-    let g:eskk_revert_henkan_style = 'okuri'
-    let g:eskk_enable_completion = 0
-    let g:eskk#server = {
-          \ 'host': 'localhost',
-          \ 'port': 1178,
-          \}
-
-  endfunction
-
-  " }}}
-  call neobundle#untap()
-endif
-"}}}
-
-
-NeoBundle 'tpope/vim-fugitive'
-NeoBundleLazy 'cohama/agit.vim'
 if neobundle#tap('agit.vim') "{{{
   call neobundle#config({
         \   'autoload' : {
@@ -932,7 +861,6 @@ if neobundle#tap('agit.vim') "{{{
     let g:agit_enable_auto_show_commit = 0
   endfunction
 
-  " }}}
   call neobundle#untap()
 endif
 "}}}
@@ -1028,6 +956,9 @@ if neobundle#tap('lightline.vim') "{{{
     endfunction
 
     function! MyGitgutter()
+      if ! s:GitExecutable()
+        return ''
+      endif
       if ! exists('*GitGutterGetHunkSummary')
             \ || ! get(g:, 'gitgutter_enabled', 0)
             \ || winwidth('.') <= 90
@@ -1124,9 +1055,6 @@ if neobundle#tap('lightline.vim') "{{{
   call neobundle#untap()
 endif
 "}}}
-
-
-NeoBundle 'airblade/vim-gitgutter'
 
 NeoBundle 'thinca/vim-quickrun', { 'depends': [ 'Shougo/vimproc', 'KazuakiM/vim-qfstatusline' ] }
 if neobundle#tap('vim-quickrun') "{{{
@@ -1408,8 +1336,13 @@ function! s:unite_my_settings()
 endfunction" }}}
 " }}}
 
-if has('mac')
+if s:DashExecutable()
   NeoBundle 'rizzatti/dash.vim' " for dash.app
+endif
+if s:GitExecutable()
+  NeoBundle 'airblade/vim-gitgutter'
+  NeoBundle 'tpope/vim-fugitive'
+  NeoBundleLazy 'cohama/agit.vim'
 endif
 
 " unite source
@@ -1510,15 +1443,6 @@ endif
 let s:bundle = neobundle#get('vim-colors-solarized')
 if !empty(s:bundle)
   function! s:bundle.hooks.on_source(bundle)
-    "let g:solarized_visibility="high"
-
-    " colorschemeでの設定を上書きするため
-    " colorschemeより後で記述
-    " solarized darkでのgitgutter表示調整
-    "highlight GitGutterAdd ctermfg=green guifg=darkgreen
-    "highlight GitGutterChange ctermfg=yellow guifg=darkyellow
-    "highlight GitGutterDelete ctermfg=red guifg=darkred
-    "highlight GitGutterChangeDelete ctermfg=yellow guifg=darkyellow
 
   endfunction
 endif
@@ -1766,7 +1690,6 @@ call smartinput#define_rule({ 'at': '[ *\%#', 'char': ']', 'input': '<BS>]', })
 "}}}
 
 " vimshell {{{
-nnoremap <silent> <Leader>s : <C-u> VimShell<CR>
 
 " }}}
 
@@ -1853,11 +1776,6 @@ endif
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
-" Tabでスニペット選択 Spaceで選択中スニペット展開
-"imap <expr><Space> pumvisible() ? neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>" : "\<Space>"
-"imap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>"
-"smap <expr><Space> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Space>"
-
 " For snippet_complete marker
 if has('conceal')
   set conceallevel=2 concealcursor=i
@@ -1867,11 +1785,6 @@ endif
 let g:neosnippet#snippets_directory=expand(s:bundles_path . '/mysnip')
 " }}}
 
-
-" vimfiler {{{
-nnoremap <silent> <Leader>f : <C-u> VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
-
-" }}}
 
 " textobj-surround {{{
 nmap ys <Plug>(operator-surround-append)
