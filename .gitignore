@@ -1,3 +1,4 @@
 # ignore file type
 *~
 .DS_Store
+bin/*

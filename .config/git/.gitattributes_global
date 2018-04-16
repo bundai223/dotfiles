@@ -1,0 +1,12 @@
+*.c diff=cpp
+*.h diff=cpp
+*.cpp diff=cpp
+*.hpp diff=cpp
+*.m diff=objc
+*.java diff=java
+*.html diff=html
+*.py diff=python
+*.rb diff=ruby
+*.ml diff=ocaml
+.gitignore export-ignore
+

@@ -1,0 +1,54 @@
+#!/usr/bin/env ruby
+#
+# commitメーセージに情報を追加するスクリプト。
+# .git/hooks/prepare-commit-msg に配置する。
+# ブランチ名にチケット番号などがついていたら参照設定を行う。
+
+# ブランチ名からチケット番号を抜き出す関数
+def get_issue_no(branch_name)
+  result = branch_name.match(/feature\/#(\d+)/) if result.nil? # feature/#0000
+  result = branch_name.match(/feature\/(\d+)(\/|_)/) if result.nil? # feature/0000/brach_name
+
+  return nil if result.nil?
+  result[1]
+end
+
+# マージコミットのコメントか？
+def merge_commit?(message)
+  message.include?("Merge")
+end
+
+# refsコメントがすでにあるかチェック
+def include_refs?(message)
+  result = message.match(/(\A| )#(\d+)( |\n|\)|\Z)/)
+  return false if result.nil?
+  true
+end
+
+# refsコメントとコミットコメントを連結
+def generate_message(issue_no, original_message)
+  if !issue_no.nil?
+    "refs ##{issue_no} #{original_message}"
+  else
+    original_message
+  end
+end
+
+# コミットメッセージのテンプレ追加
+if ARGV[1] && ARGV[1].include?("message")
+  # files = `git diff --cached --name-only`
+  # change_files = files.split("\n")
+
+  commit_message = File.readlines(ARGV[0]).join("")
+
+  # Mergeメッセージ以外はbranchのissue番号をrefsで記述する
+  if !merge_commit?(commit_message) && !include_refs?(commit_message)
+    branch_name = `git rev-parse --abbrev-ref HEAD`
+    # todo: release/hotfixに対応
+    issue_no = get_issue_no(branch_name)
+
+    open(ARGV[0], 'w') do |file|
+      file.puts generate_message(issue_no, commit_message)
+    end
+  end
+end

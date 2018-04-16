@@ -1,0 +1,10 @@
+[user]
+	name = Example Default
+	email = default@example.jp
+# refs) http://klabgames.tech.blog.jp.klab.com/archives/1033121546.html
+
+[mergetool "mymvimdiff"]
+	cmd = /Applications/MacVim.app/Contents/MacOS/mvim -f -d -c 'wincmd J' \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+[mergetool "myvimdiff"]
+	cmd = /Applications/MacVim.app/Contents/MacOS/Vim -f -d -c 'wincmd J' \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+
