@@ -1,6 +1,0 @@
-source ~/.vimrc
-
-nnoremap [myleader]_ :sp<CR>
-nnoremap [myleader]<Bar> :vsp<CR>
-
-
