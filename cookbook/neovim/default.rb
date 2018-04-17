@@ -19,3 +19,16 @@ when 'arch'
 when 'opensuse'
 else
 end
+
+execute 'install gem package' do
+  command <<-EOL
+    gem install neovim
+  EOL
+end
+
+execute 'install python package' do
+  command <<-EOL
+    pip3 install --upgrade neovim
+    pip install --upgrade neovim
+  EOL
+end

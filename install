@@ -61,9 +61,7 @@ brew_install()
 pip_install()
 {
   pip3 install --upgrade pip setuptools wheel
-  pip3 install --upgrade neovim
   pip install --upgrade pip setuptools wheel
-  pip install --upgrade neovim
 }
 
 # ruby
