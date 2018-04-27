@@ -1,0 +1,44 @@
+#.zshrc_local
+
+# Alias
+alias vi='/Applications/MacVim.app/Contents/MacOS/Vim -u NONE -U NONE --noplugin "$@"'
+alias vim='/Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+alias nvim='nvim -i NONE $@'
+alias vimdiff='/Applications/MacVim.app/Contents/MacOS/Vim -d "$@"'
+alias mvimdiff='/Applications/MacVim.app/Contents/MacOS/mvimdiff "$@"'
+
+alias updatedb='sudo /usr/libexec/locate.updatedb'
+#alias updatedb="sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist"
+alias chrome='open -a Google\ Chrome'
+alias xcode='open -a /Applications/Xcode.app/Contents/MacOS/Xcode'
+alias ios_sim='open -a /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app'
+alias android_sim='open -a ~/Applications/Genymotion.app'
+alias createTags='~/repos/github.com/bundai223/codepocket/shell/mac/create_ctags.sh'
+alias startup='open -a startup'
+alias swift='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift'
+alias bd='boot2docker'
+
+alias -s xcodeproj=xcode
+
+#alias rm='~/tool/osx-mv2trash/bin/mv2trash'
+#alias rm-vimbackup='find **/*~| xargs ~/tool/osx-mv2trash/bin/mv2trash'
+
+alias eclipse_clean='/Applications/eclipse/Eclipse.app/Contents/MacOS/eclipse -clean'
+
+# ref) http://tukaikta.blog135.fc2.com/blog-entry-228.html
+# refresh memory
+alias refmem='refresh_memory &>/dev/null &'
+
+# android
+SCREENSHOT_DIR='~/Desktop'
+alias adb='adbp'
+alias pidcat='pidcatp'
+alias restart-adb='adbp kill-server; adbp start-server'
+alias uninstallapp='adbp shell pm list package | sed -e s/package:// | peco | xargs adbp uninstall'
+alias installapp='find ./ -name "*.apk" | peco | xargs adbp install -r'
+alias screenshot='screenshot2 $SCREENSHOT_DIR/screenshot.png; open $SCREENSHOT_DIR/screenshot.png'
+
+vagrant_list()
+{
+  v status | grep virtualbox | awk '{ print $1 }'
+}

@@ -3,8 +3,12 @@ case node[:platform]
 when 'debian', 'ubuntu', 'mint'
   package 'software-properties-common'
   execute 'add-apt-repository ppa:neovim-ppa/stable' do
-    run_command 'add-apt-repository ppa:neovim-ppa/stable'
-    run_command 'apt-get update'
+    command <<-EOL
+      add-apt-repository -y ppa:neovim-ppa/stable'
+      apt-get update
+    EOL
+
+    not_if 'ls /etc/source.list.d | grep neovim'
   end
   package 'python-dev'
   package 'python-pip'

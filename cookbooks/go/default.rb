@@ -1,40 +1,28 @@
 
 case node[:platform]
-when 'debian', 'ubuntu', 'mint'
-  package 'software-properties-common'
-  execute 'add-apt-repository ppa:longsleep/golang-backports' do
-    run_command 'apt-get update'
+when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon'
+  execute 'install go from official binary' do
+    command <<-EOL
+      VERSION=1.9.2
+      OS=linux
+      ARCH=amd64
+
+      tgz=go${VERSION}.${OS}-${ARCH}.tar.gz
+      wget https://redirector.gvt1.com/edgedl/go/${tgz}
+      tar -C /usr/local -xzf ${tgz}
+      rm -f ${tgz}
+
+      echo '* Please set path'
+      echo 'export PATH=$PATH:/usr/local/go/bin'
+    EOL
+
+    not_if 'test -e /usr/local/go'
   end
-  package 'golang-go'
 
-when 'fedora', 'redhat', 'amazon'
-  # #!/bin/bash
-  # VERSION=1.9.2
-  # OS=linux
-  # ARCH=amd64
-  # WORKDIR=work_go
-
-  # install_go()
-  # {
-  #   which go 2>/dev/null 1>$2 && return
-
-  #   cur=$(pwd)
-  #   mkdir -p ${WORKDIR}
-  #   cd ${WORKDIR}
-
-  #   tgz=go${VERSION}.${OS}-${ARCH}.tar.gz
-  #   wget https://redirector.gvt1.com/edgedl/go/${tgz}
-  #   sudo tar -C /usr/local -xzf ${tgz}
-
-  #   cd ${cur}
-  #   rm -rf ${WORKDIR}
-
-  #   echo '* Please set path'
-  #   echo 'export PATH=$PATH:/usr/local/go/bin'
-  # }
-
-  # install_go
-
+  remote_file '/etc/profile.d/go.sh' do
+    source 'files/go.sh'
+    mode '644'
+  end
 when 'osx', 'darwin'
 when 'arch'
 when 'opensuse'

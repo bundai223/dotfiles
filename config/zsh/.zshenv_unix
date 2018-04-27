@@ -1,0 +1,50 @@
+#.zshenv_local
+
+TOOLS_PATH=/usr/local
+
+# path setting
+export EDITOR=nvim
+
+# for android path setting
+#export ANDROID_HOME=${TOOLS_PATH}/opt/android-sdk
+export JAVA_OPTS='-Dgroovy.source.encoding=UTF-8 -Dfile.encoding=UTF-8'
+
+# PATH=/usr/bin:/bin:/usr/sbin:/sbin
+# for tools
+PATH=${TOOLS_PATH}/bin:$PATH
+PATH=${TOOLS_PATH}/go/bin:$PATH
+PATH=~/.cargo/bin:$PATH
+#for android
+#PATH=${ANDROID_HOME}/tools/:$PATH
+#for ruby
+#PATH=${TOOLS_PATH}/opt/ruby/bin:$PATH
+PATH=~/repos/github.com/bundai223/terminal-tools/bin:$PATH
+
+export GOROOT=${TOOLS_PATH}/go
+export GOPATH=~/go
+## go lang
+if [ "$GOROOT" != "" ]; then
+    PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+fi
+
+export PATH
+
+# for ruby
+export PATH=$PATH:/usr/local/rbenv/bin
+eval "$(rbenv init -)"
+
+export GEMSRC_USE_GHQ=true
+#
+
+export XDG_CONFIG_HOME=~/.config
+
+# ctrl + sがterminalを停止させるのをなしに
+stty stop undef
+
+if [ -e /var/www/rails/ai_q_env ]; then
+  . /var/www/rails/ai_q_env
+fi
+
+export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
+export NVIM_PYTHON_LOG_FILE=~/.config/nvim/log
+export NVIM_PYTHON_LOG_LEVEL=DEBUG

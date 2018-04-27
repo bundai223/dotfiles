@@ -1,0 +1,467 @@
+[[plugins]]
+repo = 'andrewradev/switch.vim'
+
+[[plugins]]
+repo = 'bundai223/mysnip'
+
+[[plugins]]
+repo = 'bundai223/mysyntax.vim'
+
+[[plugins]]
+repo = 'bundai223/vim-template'
+
+[[plugins]]
+repo ='bronson/vim-trailing-whitespace'
+
+[[plugins]]
+repo = 'nixprime/cpsm'
+build = 'env PY3=ON ./install.sh'
+
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+on_i = 1
+hook_post_source = '''
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#enable_smart_case = 1
+
+  let g:deoplete#enable_profile = 1
+  call deoplete#enable_logging('DEBUG', 'deoplete.log')
+
+  "
+  " let g:deoplete#omni#input_patterns = {}
+  " let g:deoplete#omni#input_patterns.ruby =
+  "       \ ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
+  "
+  " let g:deoplete#omni#functions = {}
+  " let g:deoplete#omni#functions.ruby = 'rubycomplete#Complete'
+  "
+  let g:deoplete#sources#rust#racer_binary=g:racer_cmd
+  let g:deoplete#sources#rust#rust_source_path=$RUST_SOURCE_PATH
+  let g:deoplete#sources#rust#show_duplicates=1
+  let g:deoplete#sources#rust#disable_keymap=1
+  nmap <buffer> gd <plug>DeopleteRustGoToDefinitionDefault
+  nmap <buffer> K  <plug>DeopleteRustShowDocumentation
+'''
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+hook_add = '''
+  " denite key bind
+  " <Space>をdeniteのキーに
+  nnoremap [denite] <Nop>
+  nmap <C-u> [denite]
+
+  " source
+  " denite file
+  nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file_rec<CR>
+  " nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file_rec buffer<CR>
+  nnoremap <silent> [denite]m   :<C-u>Denite file_mru<CR>
+  nnoremap <silent> [denite]o   :<C-u>Denite -no-quit -wrap outline<CR>
+  nnoremap <silent> [denite]g   :<C-u>Denite -auto-preview grep<CR>
+  nnoremap <silent> [denite]tw  :<C-u>Denite tweetvim<CR>
+  nnoremap <silent> [denite]ns  :<C-u>Denite neosnippet<CR>
+  nnoremap <silent> [denite]ens :<C-u>Denite neosnippet/user<CR>
+  nnoremap <silent> [denite]b   :<C-u>Denite buffer<CR>
+  nnoremap <silent> [denite]c   :<C-u>Denite -auto-preview colorscheme<CR>
+
+  " denite resume
+  nnoremap <silent> [denite]r   :<C-u>Denite -resume<CR>
+  nnoremap <silent> [denite]R   <Plug>(denite_restart)
+
+  nnoremap <silent> [denite]<Space> :<C-u>Denite menu<CR>
+
+  let g:neomru#time_format = "(%Y/%m/%d %H:%M:%S) "
+
+  """""""""""""o
+  " Change file_rec command.
+  " For silver searcher
+  "call denite#custom#var('file_rec', 'command',
+  "\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+
+  " For ripgrep
+  " Note: It is slower than ag
+  call denite#custom#var('file_rec', 'command',
+  \ ['rg', '--files', '--glob', '!.git'])
+
+  " Change mappings.
+  call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>')
+  call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>')
+
+  " Change matchers.
+  " call denite#custom#source(
+  " \ 'file_mru', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
+  call denite#custom#source(
+  \ 'file_rec', 'matchers', ['matcher_cpsm'])
+
+  " Change sorters.
+  call denite#custom#source(
+  \ 'file_rec', 'sorters', ['sorter_sublime'])
+
+  " Ripgrep command on grep source
+  call denite#custom#var('grep', 'command', ['rg'])
+  call denite#custom#var('grep', 'default_opts',
+      \ ['--vimgrep', '--no-heading'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+  call denite#custom#var('grep', 'separator', ['--'])
+  call denite#custom#var('grep', 'final_opts', [])
+
+  " Add custom menus
+  let s:menus = {}
+
+  let s:menus.memo = {
+    \ 'description': 'Edit your memo'
+    \ }
+  let s:menus.memo.file_candidates = [
+    \ ['memo', g:memo_dir . '/changelog.memo'],
+    \ ]
+
+  let s:menus.nvim = {
+    \ 'description': 'Edit your import nvim configuration'
+    \ }
+  let s:menus.nvim.file_candidates = [
+    \ ['init.vim', '~/.config/nvim/init.vim'],
+    \ ['ginit.vim', '~/.config/nvim/ginit.vim'],
+    \ ['dein.toml', g:dein_toml],
+    \ ]
+
+  let s:menus.zsh = {
+    \ 'description': 'Edit your import zsh configuration'
+    \ }
+  let s:menus.zsh.file_candidates = [
+    \ ['zshrc', '~/.zshrc'],
+    \ ['zshrc local', '~/.zshrc_local'],
+    \ ['zshenv', '~/.zshenv'],
+    \ ['zshenv local', '~/.zshenv_local'],
+    \ ['zsh setting repos', g:pub_repos_path . '/zshrc'],
+    \ ]
+
+  let s:menus.tmux = {
+    \ 'description': 'Edit your import tmux configuration'
+    \ }
+  let s:menus.tmux.file_candidates = [
+    \ ['tmux.conf', '~/.tmux.conf'],
+    \ ]
+
+  call denite#custom#var('menu', 'menus', s:menus)
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+on_i = 1
+hook_post_source = '''
+  " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+  " SuperTab like snippets' behavior.
+  " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+  "imap <expr><TAB>
+  " \ pumvisible() ? "\<C-n>" :
+  " \ neosnippet#expandable_or_jumpable() ?
+  " \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+  "smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+  " \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+  " For conceal markers.
+  if has('conceal')
+    set conceallevel=2 concealcursor=niv
+  endif
+
+  " path to mysnippet
+  let s:mysnip_path=dein#get('mysnip').path
+  let g:neosnippet#snippets_directory=s:mysnip_path
+
+  " Enable snipMate compatibility feature.
+  " let g:neosnippet#enable_snipmate_compatibility = 1
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+on_i = 1
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+hook_add = '''
+  if !exists('g:context_filetype#filetypes')
+    let g:context_filetype#filetypes = {}
+  endif
+
+  let g:context_filetype#filetypes.changelog = [
+        \   {
+        \    'start' : '^\s*- ```\s*\(\h\w*\)',
+        \    'end' : '^\s*- ```$', 'filetype' : '\1',
+        \   },
+        \ ]
+'''
+
+[[plugins]]
+repo = 'vim-scripts/dbext.vim'
+
+[[plugins]]
+repo = 'osyo-manga/vim-anzu'
+hook_add = '''
+  nmap n <Plug>(anzu-n-with-echo)
+  nmap N <Plug>(anzu-N-with-echo)
+  nmap * <Plug>(anzu-star-with-echo)
+  nmap # <Plug>(anzu-sharp-with-echo)
+'''
+
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = 'context_filetype.vim'
+
+[[plugins]]
+repo = 'tyru/caw.vim'
+hook_add = '''
+  nmap <Leader>c <Plug>(caw:hatpos:toggle)
+  vmap <Leader>c <Plug>(caw:hatpos:toggle)
+'''
+
+[[plugins]]
+repo = 'kana/vim-submode'
+hook_add = '''
+  " let g:submode_timeout = 0
+  " TELLME: The above setting do not work.
+  " Use the following instead of above.
+  let g:submode_timeoutlen = 1000000
+
+  let g:submode_keep_leaving_key=1
+
+  " http://d.hatena.ne.jp/thinca/20130131/1359567419
+  " https://gist.github.com/thinca/1518874
+  " Window size mode.
+  call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
+  call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
+  call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>+')
+  call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>-')
+  call submode#map('winsize', 'n', '', '>', '<C-w>>')
+  call submode#map('winsize', 'n', '', '<', '<C-w><')
+  call submode#map('winsize', 'n', '', '+', '<C-w>+')
+  call submode#map('winsize', 'n', '', '-', '<C-w>-')
+
+  " Tab move mode.
+  call submode#enter_with('tabmove', 'n', '', 'gt', 'gt')
+  call submode#enter_with('tabmove', 'n', '', 'gT', 'gT')
+  call submode#map('tabmove', 'n', '', 't', 'gt')
+  call submode#map('tabmove', 'n', '', 'T', 'gT')
+'''
+
+[[plugins]]
+repo = 'kana/vim-smartinput'
+on_i = 1
+
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+
+[[plugins]]
+repo = 'kana/vim-textobj-indent'
+depends = 'vim-textobj-user'
+
+# [[plugins]]
+# repo = 'kana/vim-textobj-function'
+# depends = 'vim-textobj-user'
+#
+[[plugins]]
+repo = 'kana/vim-textobj-lastpat'
+depends = 'vim-textobj-user'
+
+[[plugins]]
+repo = 'rhysd/clever-f.vim'
+hook_add = '''
+  nmap [myleader]f <Plug>(clever-f-reset)
+  let g:clever_f_use_migemo = 1
+'''
+
+[[plugins]]
+repo = 'rhysd/vim-textobj-ruby'
+depends = 'vim-textobj-user'
+
+[[plugins]]
+repo = 'sgur/vim-textobj-parameter'
+depends = 'vim-textobj-user'
+
+[[plugins]]
+repo = 'osyo-manga/vim-textobj-multiblock'
+depends = 'vim-textobj-user'
+hook_add = '''
+  vmap ab <Plug>(textobj-multiblock-a)
+  vmap ib <Plug>(textobj-multiblock-i)
+'''
+
+[[plugins]]
+repo = 'osyo-manga/vim-textobj-multitextobj'
+depends = 'vim-textobj-user'
+
+[[plugins]]
+repo = 'kana/vim-operator-user'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+hook_add = '''
+  " バッファが空なら閉じる
+  let g:quickrun_config = get(g:, 'quickrun_config', {})
+  let g:quickrun_config._ = {
+        \   'outputter/buffer/split' : ':botright',
+        \   'outputter/buffer/close_on_empty' : 1,
+        \}
+  let g:quickrun_config['rust'] = {
+        \   'type' : 'rust/cargo',
+        \}
+
+  let g:quickrun_config['ruby.rspec'] = {
+        \   'command' : 'bin/rspec',
+        \   'cmdopt'  : '-c -fd --tty',
+        \}
+  let g:quickrun_config['ruby.rspec_line'] = {
+        \     "command": "bin/rspec",
+        \     "exec": "%c %s:%{line('.')} %o" ,
+        \     "cmdopt": '-c -fd --tty'
+        \   }
+
+'''
+
+[[plugins]]
+repo = 'thinca/vim-localrc'
+
+[[plugins]]
+repo = 'thinca/vim-ref'
+
+[[plugins]]
+repo = 'Yggdroot/indentLine'
+hook_add = '''
+  let g:indentLine_faster = 1
+'''
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+
+[[plugins]]
+repo = 'w0rp/ale'
+hook_add = '''
+  let g:ale_linters = {
+        \   'ruby': ['rubocop'],
+        \}
+  let g:ale_sign_column_always = 1
+  let g:ale_sign_error = '>'
+  let g:ale_sign_warning = '>'
+'''
+
+[[plugins]]
+repo = 'tyru/operator-camelize.vim'
+hook_add = '''
+  nmap <leader>s <plug>(operator-camelize-toggle)
+  vmap <leader>s <plug>(operator-camelize-toggle)
+'''
+
+[[plugins]]
+repo = 'cohama/agit.vim'
+
+[[plugins]]
+repo = 'koron/codic-vim'
+on_cmd = ['Codic']
+
+[[plugins]]
+repo ='tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+
+# rust
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+on_ft = 'rust'
+
+[[plugins]]
+repo = 'racer-rust/vim-racer'
+on_ft = 'rust'
+
+
+# go
+[[plugins]]
+repo    = 'zchee/deoplete-go'
+depends = 'deoplete.nvim'
+on_i    = 1
+on_ft   = 'go'
+
+[[plugins]]
+repo  = 'fatih/vim-go'
+on_ft = 'go'
+
+
+[[plugins]]
+repo    = 'zchee/deoplete-zsh'
+depends = 'deoplete.nvim'
+on_i    = 1
+on_ft   = 'zsh'
+
+[[plugins]]
+repo    = 'Shougo/neco-vim'
+depends = 'deoplete.nvim'
+on_i    = 1
+on_ft   = 'vim'
+
+# ruby
+[[plugins]]
+repo  = 'tpope/vim-rails'
+on_ft = 'ruby'
+
+[[plugins]]
+repo  = 'tpope/vim-bundler'
+on_ft = 'ruby'
+
+[[plugins]]
+repo  = 'tpope/vim-endwise'
+on_ft = 'ruby'
+on_i  = 1
+
+[[plugins]]
+repo  = 'yuku-t/vim-ref-ri'
+on_ft = 'ruby'
+
+[[plugins]]
+repo    = 'uplus/deoplete-solargraph'
+depends = 'deoplete.nvim'
+on_i    = 1
+on_ft   = 'ruby'
+
+[[plugins]]
+repo    = 'fishbullet/deoplete-ruby'
+depends = 'deoplete.nvim'
+on_i    = 1
+on_ft   = 'ruby'
+
+[[plugins]]
+repo    = 'todesking/ruby_hl_lvar.vim'
+# on_ft   = 'ruby'
+# hook_post_source = '''
+#   silent! execute 'doautocmd FileType' &filetype
+# '''
+
+[[plugins]]
+repo = 'pocke/dicts'
+
+# python
+[[plugins]]
+repo    = 'zchee/deoplete-jedi'
+depends = 'deoplete.nvim'
+on_i    = 1
+on_ft   = 'python'
+
+[[plugins]]
+repo = 'bundai223/vim-colors-solarized'

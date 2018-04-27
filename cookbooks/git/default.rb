@@ -1,5 +1,18 @@
+
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
+  package 'software-properties-common'
+
+  execute 'add apt repository' do
+    command <<-EOL
+      sudo add-apt-repository -y ppa:git-core/ppa
+      sudo apt-get update
+      sudo apt-get upgrade
+    EOL
+
+    not_if 'ls /etc/apt/source.list.d | grep git'
+  end
+
   package 'git'
 
 when 'fedora', 'redhat', 'amazon'

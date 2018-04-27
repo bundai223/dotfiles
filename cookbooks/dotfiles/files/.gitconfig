@@ -1,0 +1,7 @@
+[include]
+  path = ~/repos/github.com/bundai223/dotfiles/config/.gitconfig
+
+[user]
+  name = bundai223
+  email = bundai223@gmail.com
+

@@ -1,0 +1,5 @@
+#.local_zshrc
+
+# path setting
+#
+export EDITOR=nvim

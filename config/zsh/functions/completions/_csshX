@@ -1,0 +1,57 @@
+#compdef csshX
+# ------------------------------------------------------------------------------
+# Description
+# -----------
+#
+#  Completion script for csshX
+#
+# ------------------------------------------------------------------------------
+# Authors
+# -------
+#
+#  * Daiji Nishimura
+#
+# ------------------------------------------------------------------------------
+
+
+_csshX ()
+{
+  local curcontext="$curcontext" state line ret=1
+
+  _arguments -C \
+    '(-l --login)'{-l,--login}'[Remote user to authenticate as for all hosts.]' \
+    '(-c  --config)'{-c,--config}'[Alternative config file to use]' \
+    '(-h --help)'{-h,--help}'[Quick summary of program usage.]' \
+    '(-m --man)'{-m,--man}'[Full program man page.]' \
+    '(-v --version)'{-v,--version}'[Displays the version of csshX.]' \
+    '(--screen)--screen[Sets the screen(s) on which to display the terminals, if you have multiple monitors.]' \
+    '(--space)--space[Sets the space (if Spaces is enabled) on which to display the terminals.]' \
+    '(-x --tile_x)'{-x,--tile_x}'[The number of columns to use when tiling windows.]' \
+    '(-y --tile_y)'{-y,--tile_y}'[The number of rows to use when tiling windows. tile_x will be used if both are specified.]' \
+    '(--ssh)--ssh[Change the command that is run.]' \
+    '(--ssh_args)--ssh_args[Sets a list of arguments to pass to the ssh binary when run.]' \
+    '(--remote_command)--remote_command[Sets the command to run on the remote system after authenticating. If the command contains spaces, it should be quoted or escaped.]' \
+    '(--hosts)--hosts[Load a file containing a list of hostnames to connect to and, optionally, commands to run on each host.]' \
+    '(--session_max)--session_max[Set the maximum number of ssh Terminal sessions that can be opened during a single csshX session.]' \
+    '(--ping_test --ping)'{--ping_test,--ping}'[To avoid opening connections to machines that are down, or not running sshd, this option will make csshX ping each host/port that is specified.]' \
+    '(--ping_timeout)--ping_timeout[This sets the timeout used when the "ping_test" feature is enabled.]' \
+    '(--sock)--sock[Sets the Unix domain socket filename to be used for interprocess communication.]' \
+    '(--sorthosts)--sorthosts[Sort the host windows, by hostname, before opening them.]' \
+    '(--slave_settings_set --sss)'{--slave_settings_set,--sss}'[Change the "settings set" for slave windows.]' \
+    '(--master_settings_set --mss)'{--master_settings_set,--mss}'[Change the "settings set" for master windows.]' \
+    '(-i --interleave)'{-i,--interleave}'[Interleave the hosts that were passed in.]' \
+    '(--debug)--debug[Sets the debug level. Number is optional and will default to 1 if omitted.]' \
+    && ret=0
+
+  return ret
+}
+
+_csshX "$@"
+
+# Local Variables:
+# mode: Shell-Script
+# sh-indentation: 2
+# indent-tabs-mode: nil
+# sh-basic-offset: 2
+# End:
+# vim: ft=zsh sw=2 ts=2 et

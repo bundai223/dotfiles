@@ -1,0 +1,61 @@
+#.zshenv
+BREW_PATH=`/usr/local/bin/brew --prefix`
+
+# for FBX path setting
+FBXSDK_ROOT=/Applications/Autodesk/FBX\ SDK/2013.3/
+
+# path setting
+export EDITOR=nvim
+# export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+export SHELL=${BREW_PATH}/bin/zsh
+
+# for homebrew
+PATH=$HOME/.nodebrew/current/bin:$PATH
+PATH=${BREW_PATH}/bin:$PATH
+PATH=~/.cabal/bin:$PATH
+PATH=~/tools/bin:$PATH
+#for android
+PATH=${ANDROID_HOME}/tools:$PATH
+PATH=${ANDROID_HOME}/platform-tools:$PATH
+
+export GOROOT=${BREW_PATH}/opt/go/libexec
+export GOPATH=~/go
+## go lang
+if [ "$GOROOT" != "" ]; then
+    PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+fi
+
+PATH=~/.cargo/bin:$PATH
+
+### Added by the Heroku Toolbelt
+PATH="/usr/local/heroku/bin:$PATH"
+PATH="/usr/local/opt/qt/bin:$PATH"
+PATH="/Users/daiji/repos/github.com/tomorrowkey/adb-peco/bin:$PATH"
+PATH="/Users/daiji/repos/github.com/bundai223/terminal-tools/bin:$PATH"
+
+#export LDFLAGS=-L/usr/local/opt/qt5/lib
+#export CPPFLAGS=-I/usr/local/opt/qt5/include
+export PATH
+
+# for android path setting
+export ANDROID_HOME=~/Library/Android/sdk
+export NDK_ROOT=${ANDROID_HOME}/ndk-bundle
+export GRADLE_HOME=${BREW_PATH}/opt/gradle
+export ECLIPSE_HOME=/Applications/eclipse
+export JAVA_OPTS='-Dgroovy.source.encoding=UTF-8 -Dfile.encoding=UTF-8'
+export JAVA_HOME=`/usr/libexec/java_home -v "1.8"`
+export JFX_DIR=${JAVA_HOME}/jre/lib/ext
+export GENYMOTION_APP_HOME='/Users/daiji/Applications/Genymotion.app'
+
+export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib"
+# export RUST_SRC_PATH="/Users/daiji/repos/github.com/rust-lang/rust/src"
+export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
+
+# Docker
+export DOCKER_HOST=tcp://192.168.59.103:2376
+export DOCKER_CERT_PATH=/Users/daiji/.boot2docker/certs/boot2docker-vm
+export DOCKER_TLS_VERIFY=1
+
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"

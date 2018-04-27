@@ -1,0 +1,21 @@
+# antigen scripts
+#antigen bundle zsh-users/zsh-completions
+export ZPLUG_HOME=~/repos/github.com/zplug/zplug
+source $ZPLUG_HOME/init.zsh
+
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-history-substring-search"
+
+zplug "felixr/docker-zsh-completion"
+
+# Install plugins if there are plugins that have not been installed
+#if ! zplug check --verbose; then
+if ! zplug check; then
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  fi
+fi
+zplug load
+#zplug load --verbose

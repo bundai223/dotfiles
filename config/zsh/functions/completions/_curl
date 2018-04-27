@@ -1,0 +1,35 @@
+#compdef curl
+# ------------------------------------------------------------------------------
+# Description
+# -----------
+#
+#  Completion script for curl
+#
+# ------------------------------------------------------------------------------
+# Authors
+# -------
+#
+#  * Daiji Nishimura
+#
+# ------------------------------------------------------------------------------
+
+
+_curl ()
+{
+  local curcontext="$curcontext" state line ret=1
+
+  _arguments -C \
+    && ret=0
+
+  return ret
+}
+
+_curl "$@"
+
+# Local Variables:
+# mode: Shell-Script
+# sh-indentation: 2
+# indent-tabs-mode: nil
+# sh-basic-offset: 2
+# End:
+# vim: ft=zsh sw=2 ts=2 et

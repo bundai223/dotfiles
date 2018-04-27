@@ -1,0 +1,11 @@
+#include_cookbook 'dotfiles'
+#include_cookbook 'git'
+#include_cookbook 'python'
+#include_cookbook 'go'
+#include_cookbook 'rust'
+#include_cookbook 'tmux'
+#include_cookbook 'neovim'
+include_cookbook 'ruby'
+#include_cookbook 'ghq'
+
+#include_cookbook 'myrepos'

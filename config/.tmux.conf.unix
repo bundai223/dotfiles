@@ -1,0 +1,5 @@
+# vでマーク開始
+# yでヤンク (クリップボードを使用できるように)
+#bind -t vi-copy v begin-selection
+#bind -t vi-copy y copy-selection
+

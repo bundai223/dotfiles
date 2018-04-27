@@ -1,0 +1,89 @@
+#compdef vim
+# ------------------------------------------------------------------------------
+# Description
+# -----------
+#
+#  Completion script for vim
+#
+# ------------------------------------------------------------------------------
+# Authors
+# -------
+#
+#  * Daiji Nishimura
+#
+# ------------------------------------------------------------------------------
+
+
+_vim ()
+{
+  local curcontext="$curcontext" state line ret=1
+
+  _arguments -C \
+    '(-g)-g[GUIで起動する (gvim と同じ)]' \
+    '(-f --nofork)'{-f,--nofork}'[フォアグラウンド: GUIを始めるときにforkしない]' \
+    '(-v)-v[Viモード (vi と同じ)]' \
+    '(-e)-e[Exモード (ex と同じ)]' \
+    '(-E)-E[改良Exモード]' \
+    '(-s)-s[サイレント(バッチ)モード (ex 専用)]' \
+    '(-d)-d[差分モード (vidiff と同じ)]' \
+    '(-y)-y[イージーモード (evim と同じ, モード無)]' \
+    '(-R)-R[読込専用モード (view と同じ)]' \
+    '(-Z)-Z[制限モード (rvim と同じ)]' \
+    '(-m)-m[変更 (ファイル保存時) をできないようにする]' \
+    '(-M)-M[テキストの編集を行なえないようにする]' \
+    '(-b)-b[バイナリモード]' \
+    '(-l)-l[Lispモード]' \
+    '(-C)-C[Vi互換モード: compatible]' \
+    '(-N)-N[Vi非互換モード: nocompatible]' \
+    '(-V)-V[ログ出力設定 [レベル N] [ログファイル名 fname]]' \
+    '(-D)-D[デバッグモード]' \
+    '(-n)-n[スワップファイルを使用せずメモリだけ]' \
+    '(-r)-r[スワップファイルを列挙し終了]' \
+    '(-r)-r[ファイル名を指定してクラッシュしたセッションを復帰]' \
+    '(-L)-L[-rと同じ]' \
+    '(-A)-A[アラビア語モードで起動する]' \
+    '(-H)-H[ヘブライ語モードで起動する]' \
+    '(-F)-F[ペルシア語モードで起動する]' \
+    '(-T)-T[端末を <terminal> に設定する]' \
+    '(-u)-u[.vimrcの代わりに <vimrc> を使う]' \
+    '(-U)-U[.gvimrcの代わりに <gvimrc> を使う]' \
+    '(--noplugin)--noplugin[プラグインスクリプトをロードしない]' \
+    '(-p)-p[N 個タブページを開く(省略値: ファイルにつき1個)]' \
+    '(-o)-o[N 個ウィンドウを開く(省略値: ファイルにつき1個)]' \
+    '(-O)-O[-oと同じだが垂直分割]' \
+    '(+)+[ファイルの最後からはじめる]' \
+    '(+)+[(数値指定で)行からはじめる]' \
+    '(--cmd)--cmd[vimrcをロードする前に <command> を実行する]' \
+    '(-c)-c[最初のファイルをロード後 <command> を実行する]' \
+    '(-S)-S[最初のファイルをロード後ファイル <session> を取込む]' \
+    '(-s)-s[ファイル <scriptin> からノーマルコマンドを読込む]' \
+    '(-w)-w[入力した全コマンドをファイル <scriptout> に追加する]' \
+    '(-W)-W[入力した全コマンドをファイル <scriptout> に保存する]' \
+    '(-x)-x[暗号化されたファイルを編集する]' \
+    '(--remote)--remote[可能ならばVimサーバで <files> を編集する]' \
+    '(--remote-silent)--remote-silent[同上, サーバが無くても警告文を出力しない]' \
+    '(--remote-wait)--remote-wait[--remote後 ファイルの編集が終わるのを待つ]' \
+    '(--remote-wait-silent)--remote-wait-silent[同上, サーバが無くても警告文を出力しない]' \
+    '(--remote-tab)--remote-tab[--remoteでファイル1つにつき1つのタブページを開く]' \
+    '(--remote-send)--remote-send[Vimサーバに <keys> を送信して終了する]' \
+    '(--remote-expr)--remote-expr[サーバで <expr> を実行して結果を表示する]' \
+    '(--serverlist)--serverlist[Vimサーバ名の一覧を表示して終了する]' \
+    '(--servername)--servername[Vimサーバ <name> に送信/名前設定する]' \
+    '(--startuptime)--startuptime[起動にかかった時間の詳細を <file> へ出力する]' \
+    '(-i)-i[.viminfoの代わりに <viminfo> を使う]' \
+    '(-h --help)'{-h,--help}'[ヘルプ(このメッセージ)を表示し終了する]' \
+    '(--version)--version[バージョン情報を表示し終了する]' \
+    && ret=0
+
+  return ret
+}
+
+_vim "$@"
+
+# Local Variables:
+# mode: Shell-Script
+# sh-indentation: 2
+# indent-tabs-mode: nil
+# sh-basic-offset: 2
+# End:
+# vim: ft=zsh sw=2 ts=2 et

@@ -1,135 +1,54 @@
 #!/bin/bash
-export PATH=/usr/local/bin:${PATH}
 
-export CONF_BASE=~/.config
-export RUST_SRC_PATH=~/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src
+## prepare
+PWD=$(pwd)
+WORKDIR=work_dotfile
 
-
-brew_install()
-{
-  # brew install
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  #
-  brew tap caskroom/cask
-
-  caskapp=(
-   google-chrome
-   android-file-transfer
-   1password
-   buttercup
-   dropbox
-   skype
-   steam
-   cooviewer
-   vlc
-   iterm2
-   dash
-   android-studio
-   virtualbox
-   vagrant
-   java
-   docker
-   utorrent
-  )
-  brew cask install ${caskapp[@]}
-
-  cellers=(
-   wget
-   coreutils
-   findutils
-   luajit
-   lua
-   git
-   mercurial
-   zsh
-   z
-   tmux
-   the_silver_searcher
-   reattach-to-user-namespace
-   python
-   rbenv
-   go
-  )
-
-  brew install ${cellers[@]}
-
-  brew cleanup
-}
-
-# ruby
-ruby_install()
-{
-  rbenv install 2.5.1
-  rbenv global 2.5.1
-}
-
-
-go_install()
-{
-  # install go
-  #OS_TYPE=linux-386
-  OS_TYPE=linux-amd64
-  GO_VERSION=1.7.4
-  ZIPNAME=go${GO_VERSION}.${OS_TYPE}.tar.gz
-  set +eu
-  CHECK_VERSION=$(go version|grep ${GO_VERSION})
-  set -eu
-  if [ -z "${CHECK_VERSION}" ]; then
-    wget http://golang.org/dl/${ZIPNAME}
-    sudo tar zxvf ${ZIPNAME} -C /usr/local
-    rm ${ZIPNAME}
-  fi
-
-  PATH=/usr/local/go/bin/:$PATH
-  export PATH
-}
-
-
-
-
-if [ -n $CONF_BASE ]; then
-  mkdir -p $CONF_BASE
+if [ ! -d ${WORKDIR} ]; then
+  mkdir -p ${WORKDIR}
 fi
+cd ${WORKDIR}
 
 if [ "$(uname)" == 'Darwin' ]; then
   OS='Mac'
-  brew_install
+  MITAMAE_URL=https://github.com/itamae-kitchen/mitamae/releases/download/v1.5.6/mitamae-x86_64-darwin
 elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
   OS='Linux'
-  go_install
+  MITAMAE_URL=https://github.com/itamae-kitchen/mitamae/releases/download/v1.5.6/mitamae-x86_64-linux
+
+  # if ubuntu
+  sudo apt-get install -y unzip
 elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
   OS='Cygwin'
+  echo "Your platform ($(uname -a)) is not supported."
+  exit 1
 else
   echo "Your platform ($(uname -a)) is not supported."
   exit 1
 fi
 
-pip_install
-ruby_install
 
-
-
-# Create symbolic link to dotfiles
-DOTFILES_ENTITY_PATH=~/repos/github.com/bundai223/new_dotfiles
-DOTFILE_NAMES_ARRAY=\
-(\
- .gitconfig\
- .config/git/.gitignore_global\
- .config/git/.gitattributes_global\
- .config/git/templates\
- .ctags\
-)
-
-for dotfile in ${DOTFILE_NAMES_ARRAY[@]}; do
-  if [ ! -e ~/${dotfile} ]; then
-    ln -s ${DOTFILES_ENTITY_PATH}/${dotfile} ~/${dotfile}
-  fi
-done
-
-# Make git configuration file that include common config to make local setting.
-if [ ! -e ~/.config/git/.gitconfig_local ]; then
-    cp ${DOTFILES_ENTITY_PATH}/.config/git/.gitconfig_local ~/.config/git/.gitconfig_local
+DOTFILEDIR=dotfiles-new_dotfiles
+if [ ! -d ${DOTFILEDIR} ]; then
+  dotfile_github_url=https://github.com/bundai223/dotfiles/archive/new_dotfiles.zip
+  wget $dotfile_github_url
+  unzip new_dotfiles.zip
 fi
 
-wget https://github.com/itamae-kitchen/mitamae/releases/download/v1.5.6/mitamae-x86_64-darwin -O bin/mitamae
+cd $DOTFILEDIR
 
+if [ ! -e bin/mitamae ]; then
+  mkdir -p bin
+  wget ${MITAMAE_URL} -O bin/mitamae
+  chmod +x bin/mitamae
+fi
+
+# Homebrew does not allow sudo.
+case "$(uname)" in
+  "Darwin")  bin/mitamae local $@ lib/recipe.rb ;;
+  *) sudo -i $(pwd)/bin/mitamae local $@ $(pwd)/lib/recipe.rb" ;;
+esac
+  #*) sudo -E bin/mitamae local $@ lib/recipe.rb ;;
+
+## finish
+cd $PWD

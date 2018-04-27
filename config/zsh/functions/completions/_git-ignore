@@ -1,0 +1,54 @@
+#compdef git-ignore
+# ------------------------------------------------------------------------------
+# Description
+# -----------
+#
+#  Completion script for git-ignore (http://github.com/bundai223/git-ignore).
+#
+# ------------------------------------------------------------------------------
+# Authors
+# -------
+#
+#  * Daiji Nishimura
+#
+# ------------------------------------------------------------------------------
+
+
+_git-ignore ()
+{
+	local curcontext="$curcontext" state line
+	typeset -A opt_args
+
+#	_arguments -C \
+#		':command:->command' \
+#		'*::options:->options'
+
+	_arguments -C \
+		':command:->command'
+
+	case $state in
+		(command)
+
+			local -a subcommands
+			subcommands=(
+                'list:Print ignore patterns'
+                'add:Add pattens to .gitignore'
+                'remove:Remove patterns from .gitignore'
+                'pull:Pull gitignore from https://github.com/github/gitignore'
+                'help:Shows a list of commands or help'
+			)
+			_describe -t commands 'git ignore' subcommands
+		;;
+
+	esac
+}
+
+_git-ignore "$@"
+
+# Local Variables:
+# mode: Shell-Script
+# sh-indentation: 2
+# indent-tabs-mode: nil
+# sh-basic-offset: 2
+# End:
+# vim: ft=zsh sw=2 ts=2 et

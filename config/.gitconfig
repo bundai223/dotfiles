@@ -1,5 +1,11 @@
 [init]
-	templatedir = ~/.config/git/templates
+	templatedir = ~/repos/github.com/bundai223/dotfiles/config/git/templates
+
+[core]
+	attributesfile = ~/repos/github.com/bundai223/dotfiles/config/git/.gitattributes_global
+	excludesfile   = ~/repos/github.com/bundai223/dotfiles/config/git/.gitignore_global
+	quotepath = false
+	precomposeunicode = true
 
 [user "ssh://git@github.com/bundai223/"]
 	name = bundai223
@@ -10,12 +16,6 @@
 [user "http://github.com/bundai223/"]
 	name = bundai223
 	email = bundai223@gmail.com
-
-[core]
-	attributesfile = ~/.config/git/.gitattributes_global
-	excludesfile = ~/.config/git/.gitignore_global
-	quotepath = false
-	precomposeunicode = true
 
 [color]
 	status = auto
@@ -29,9 +29,6 @@
 	root = ~/repos
 	root = ~/go
 	root = ~/sample
-
-[include]
-  path = ~/.gitconfig_local
 
 [alias]
 	ps = push					# ステータスを短く。ブランチ名付き
