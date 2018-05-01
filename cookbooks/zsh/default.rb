@@ -63,8 +63,3 @@ when 'opensuse'
 else
 end
 
-execute "add zplug" do
-  command <<-EOL
-    ghq get zplug/zplug
-  EOL
-end

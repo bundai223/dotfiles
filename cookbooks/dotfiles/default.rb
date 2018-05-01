@@ -4,6 +4,12 @@ directory "#{node[:home]}/.config" do
   group node[:user]
 end
 
+
+directory "#{node[:home]}/.config/zsh/z" do
+  owner node[:user]
+  group node[:user]
+end
+
 directory "#{node[:home]}/.config/nvim" do
   owner node[:user]
   group node[:user]

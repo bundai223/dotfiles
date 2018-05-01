@@ -7,5 +7,30 @@ include_cookbook 'ruby'
 include_cookbook 'tmux'
 include_cookbook 'neovim'
 include_cookbook 'ghq'
+include_cookbook 'zsh'
 
-#include_cookbook 'myrepos'
+include_cookbook 'myrepos'
+
+execute "add zplug" do
+  command <<-EOL
+    ghq get zplug/zplug
+  EOL
+
+  not_if 'test -e ~/repos/github.com/zplug/zplug'
+end
+
+execute "add z" do
+  command <<-EOL
+    ghq get rupa/z
+  EOL
+
+  not_if 'test -e ~/repos/github.com/rupa/z'
+end
+
+execute "add neofetch" do
+  command <<-EOL
+    ghq get dylanaraps/neofetch
+  EOL
+
+  not_if 'test -e ~/repos/github.com/dylanaraps/neofetch'
+end
