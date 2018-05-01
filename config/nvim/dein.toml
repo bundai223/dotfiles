@@ -126,27 +126,34 @@ hook_add = '''
     \ 'description': 'Edit your import nvim configuration'
     \ }
   let s:menus.nvim.file_candidates = [
-    \ ['init.vim', '~/.config/nvim/init.vim'],
-    \ ['ginit.vim', '~/.config/nvim/ginit.vim'],
-    \ ['dein.toml', g:dein_toml],
+    \ ['init.vim',        '~/.config/nvim/init.vim'],
+    \ ['init.vim shared', g:pub_repos_path . '/dotfiles/config/nvim/init.vim'],
+    \ ['ginit.vim',       '~/.config/nvim/ginit.vim'],
+    \ ['dein.toml',       g:dein_toml],
     \ ]
 
   let s:menus.zsh = {
     \ 'description': 'Edit your import zsh configuration'
     \ }
   let s:menus.zsh.file_candidates = [
-    \ ['zshrc', '~/.zshrc'],
-    \ ['zshrc local', '~/.zshrc_local'],
-    \ ['zshenv', '~/.zshenv'],
-    \ ['zshenv local', '~/.zshenv_local'],
-    \ ['zsh setting repos', g:pub_repos_path . '/zshrc'],
+    \ ['zshrc',         '~/.zshrc'],
+    \ ['zshrc shared',  g:pub_repos_path . '/dotfiles/config/.zshrc' ],
+    \ ['zshrc osx',     g:pub_repos_path . '/dotfiles/config/zsh/.zshrc_osx' ],
+    \ ['zshrc unix',    g:pub_repos_path . '/dotfiles/config/zsh/.zshrc_unix' ],
+    \ ['zshenv',        '~/.zshenv'],
+    \ ['zshenv shared', g:pub_repos_path . '/dotfiles/config/.zshenv' ],
+    \ ['zshenv osx',    g:pub_repos_path . '/dotfiles/config/zsh/.zshenv_osx' ],
+    \ ['zshenv unix',   g:pub_repos_path . '/dotfiles/config/zsh/.zshenv_unix' ],
+    \ ['zsh utils',     g:pub_repos_path . '/dotfiles/config/zsh/zsh-utils'],
     \ ]
 
   let s:menus.tmux = {
     \ 'description': 'Edit your import tmux configuration'
     \ }
   let s:menus.tmux.file_candidates = [
-    \ ['tmux.conf', '~/.tmux.conf'],
+    \ ['tmux.conf',      g:pub_repos_path . '/dotfiles/config/.tmux.conf'],
+    \ ['tmux.conf osx',  g:pub_repos_path . '/dotfiles/config/tmux/.tmux.conf_osx'],
+    \ ['tmux.conf unix', g:pub_repos_path . '/dotfiles/config/tmux/.tmux.conf_unix'],
     \ ]
 
   call denite#custom#var('menu', 'menus', s:menus)
