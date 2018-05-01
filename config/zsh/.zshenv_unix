@@ -19,17 +19,6 @@ export PATH=~/.cargo/bin:$PATH
 #export PATH=${TOOLS_PATH}/opt/ruby/bin:$PATH
 export PATH=~/repos/github.com/bundai223/terminal-tools/bin:$PATH
 
-export GOROOT=${TOOLS_PATH}/go
-export GOPATH=~/go
-## go lang
-if [ "$GOROOT" != "" ]; then
-  export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
-fi
-
-# for ruby
-export PATH=$PATH:/usr/local/rbenv/bin
-eval "$(rbenv init -)"
-
 export GEMSRC_USE_GHQ=true
 #
 

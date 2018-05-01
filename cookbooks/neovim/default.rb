@@ -4,16 +4,13 @@ when 'debian', 'ubuntu', 'mint'
   package 'software-properties-common'
   execute 'add-apt-repository ppa:neovim-ppa/stable' do
     command <<-EOL
-      add-apt-repository -y ppa:neovim-ppa/stable'
+      add-apt-repository -y ppa:neovim-ppa/stable
       apt-get update
     EOL
 
-    not_if 'ls /etc/source.list.d | grep neovim'
+    # not_if 'test -e /etc/apt/sources.list.d/neovim-ppa-ubuntu-stable-xenial.list'
+    not_if 'ls /etc/apt/sources.list.d | grep neovim'
   end
-  package 'python-dev'
-  package 'python-pip'
-  package 'python3-dev'
-  package 'python3-pip'
   package 'neovim'
 
 when 'fedora', 'redhat'
@@ -63,6 +60,7 @@ end
 
 execute 'install gem package' do
   command <<-EOL
+    source /etc/profile.d/rbenv.sh
     gem install neovim
   EOL
 end

@@ -19,24 +19,28 @@ remote_file "#{node[:home]}/.gitconfig" do
   source 'files/.gitconfig'
   owner node[:user]
   group node[:user]
+  not_if "test -e #{node[:home]}/.gitconfig"
 end
 
 template "#{node[:home]}/.config/nvim/init.vim" do
   source 'templates/init.vim.erb'
   owner node[:user]
   group node[:user]
+  not_if "test -e #{node[:home]}/.config/nvim/init.vim"
 end
 
 template "#{node[:home]}/.zshrc" do
   source 'templates/.zshrc.erb'
   owner node[:user]
   group node[:user]
+  not_if "test -e #{node[:home]}/.zshrc"
 end
 
 template "#{node[:home]}/.zshenv" do
   source 'templates/.zshenv.erb'
   owner node[:user]
   group node[:user]
+  not_if "test -e #{node[:home]}/.zshenv"
 end
 
 ln '.tmux.conf'

@@ -10,7 +10,7 @@ when 'debian', 'ubuntu', 'mint'
       sudo apt-get upgrade
     EOL
 
-    not_if 'ls /etc/apt/source.list.d | grep git'
+    not_if 'ls /etc/apt/sources.list.d | grep git'
   end
 
   package 'git'
