@@ -1,0 +1,7 @@
+
+source ~/repos/github.com/bundai223/dotfiles/config/.zshenv
+<% if node[:platform] == 'osx' or node[:platform] == 'darwin' %>
+source ~/repos/github.com/bundai223/dotfiles/config/zsh/.zshenv_osx
+<% else %>
+source ~/repos/github.com/bundai223/dotfiles/config/zsh/.zshenv_unix
+<% end %>

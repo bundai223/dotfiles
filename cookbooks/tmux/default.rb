@@ -1,7 +1,28 @@
 
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
-  package 'tmux'
+  package 'build-essential'
+  package 'wget'
+  package 'automake'
+  package 'libevent-dev'
+  package 'ncurses-dev'
+
+  execute 'install tmux' do
+    command <<-EOL
+      VERSION=2.7
+
+      wget https://github.com/tmux/tmux/releases/download/${VERSION}/tmux-${VERSION}.tar.gz 
+      tar fx tmux-${VERSION}.tar.gz
+      cd tmux-${VERSION}
+      ./configure --prefix=/usr
+      make
+      sudo make install
+
+      rm -f tmux-${VERSION}.tar.gz
+    EOL
+
+    not_if 'test -e /usr/local/tmux'
+  end
 
 when 'fedora', 'redhat', 'amazon'
   # #!/bin/bash

@@ -1,0 +1,7 @@
+#!/bin/bash
+# Homebrew does not allow sudo.
+case "$(uname)" in
+  "Darwin")  bin/mitamae local $@ lib/recipe.rb ;;
+  *) sudo -i sh -c "cd $(pwd) && bin/mitamae local $@ lib/recipe.rb" ;;
+esac
+

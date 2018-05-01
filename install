@@ -43,12 +43,7 @@ if [ ! -e bin/mitamae ]; then
   chmod +x bin/mitamae
 fi
 
-# Homebrew does not allow sudo.
-case "$(uname)" in
-  "Darwin")  bin/mitamae local $@ lib/recipe.rb ;;
-  *) sudo -i $(pwd)/bin/mitamae local $@ $(pwd)/lib/recipe.rb" ;;
-esac
-  #*) sudo -E bin/mitamae local $@ lib/recipe.rb ;;
+bin/deploy $@
 
 ## finish
 cd $PWD

@@ -21,26 +21,27 @@ remote_file "#{node[:home]}/.gitconfig" do
   group node[:user]
 end
 
-remote_file "#{node[:home]}/.config/nvim/init.vim" do
-  source 'files/init.vim'
+template "#{node[:home]}/.config/nvim/init.vim" do
+  source 'templates/init.vim.erb'
   owner node[:user]
   group node[:user]
 end
 
-remote_file "#{node[:home]}/.zshrc" do
-  source 'files/.zshrc'
+template "#{node[:home]}/.zshrc" do
+  source 'templates/.zshrc.erb'
   owner node[:user]
   group node[:user]
 end
 
-remote_file "#{node[:home]}/.zshenv" do
-  source 'files/.zshenv'
+template "#{node[:home]}/.zshenv" do
+  source 'templates/.zshenv.erb'
   owner node[:user]
   group node[:user]
 end
 
-remote_file "#{node[:home]}/.tmux.conf" do
-  source 'files/.tmux.conf'
-  owner node[:user]
-  group node[:user]
-end
+ln '.tmux.conf'
+#remote_file "#{node[:home]}/.tmux.conf" do
+#  source 'files/.tmux.conf'
+#  owner node[:user]
+#  group node[:user]
+#end
