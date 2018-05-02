@@ -28,7 +28,6 @@
 [ghq]
 	root = ~/repos
 	root = ~/go
-	root = ~/sample
 
 [alias]
 	ps = push					# ステータスを短く。ブランチ名付き

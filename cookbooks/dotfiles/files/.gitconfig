@@ -5,3 +5,8 @@
   name = bundai223
   email = bundai223@gmail.com
 
+[ghq]
+  root = ~/repos
+  root = ~/go
+
+
