@@ -40,8 +40,9 @@ fi
 # install plugins
 cd $DOTFILEDIR/plugins
 if rmdir itamae-plugin-recipe-rbenv; then
-  wget https://github.com/k0kubun/itamae-plugin-recipe-rbenv/archive/master.zip
-  unzip master.zsh
+  rbenv_plugin_url=https://github.com/k0kubun/itamae-plugin-recipe-rbenv/archive/master.zip
+  wget $rbenv_plugin_url
+  unzip master.zip
 fi
 
 cd $DOTFILEDIR
