@@ -34,3 +34,6 @@ execute "add neofetch" do
 
   not_if 'test -e ~/repos/github.com/dylanaraps/neofetch'
 end
+
+execute "#{sudo(node[:user])} pip install --user powerline-status"
+
