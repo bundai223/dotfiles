@@ -2,7 +2,7 @@
 
 ## prepare
 PWD=$(pwd)
-WORKDIR=work_dotfile
+WORKDIR=~/work_dotfile
 
 if [ ! -d ${WORKDIR} ]; then
   mkdir -p ${WORKDIR}
@@ -30,7 +30,7 @@ else
 fi
 
 
-DOTFILEDIR=~/dotfiles-master
+DOTFILEDIR=$WORK_DIR/dotfiles-master
 if [ ! -d ${DOTFILEDIR} ]; then
   dotfile_github_url=https://github.com/bundai223/dotfiles/archive/master.zip
   wget $dotfile_github_url
