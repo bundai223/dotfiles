@@ -30,7 +30,7 @@ else
 fi
 
 
-DOTFILEDIR=dotfiles-master
+DOTFILEDIR=~/dotfiles-master
 if [ ! -d ${DOTFILEDIR} ]; then
   dotfile_github_url=https://github.com/bundai223/dotfiles/archive/master.zip
   wget $dotfile_github_url
