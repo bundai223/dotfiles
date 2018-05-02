@@ -4,12 +4,12 @@ set -eu
 
 ## prepare
 PWD=$(pwd)
-WORKDIR=~/work_dotfile
+WORK_DIR=~/work_dotfile
 
-if [ ! -d ${WORKDIR} ]; then
-  mkdir -p ${WORKDIR}
+if [ ! -d ${WORK_DIR} ]; then
+  mkdir -p ${WORK_DIR}
 fi
-cd ${WORKDIR}
+cd ${WORK_DIR}
 
 if [ "$(uname)" == 'Darwin' ]; then
   OS='Mac'
