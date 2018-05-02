@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu
+
 ## prepare
 PWD=$(pwd)
 WORKDIR=~/work_dotfile
@@ -39,10 +41,12 @@ fi
 
 # install plugins
 cd $DOTFILEDIR/plugins
-if rmdir itamae-plugin-recipe-rbenv; then
+rbenv_reponame=itamae-plugin-recipe-rbenv
+if rmdir $rbenv_reponame; then
   rbenv_plugin_url=https://github.com/k0kubun/itamae-plugin-recipe-rbenv/archive/master.zip
   wget $rbenv_plugin_url
   unzip master.zip
+  mv $rbenv_reponame-master $rbenv_reponame
 fi
 
 cd $DOTFILEDIR
