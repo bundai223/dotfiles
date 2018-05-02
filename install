@@ -17,7 +17,9 @@ elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
   MITAMAE_URL=https://github.com/itamae-kitchen/mitamae/releases/download/v1.5.6/mitamae-x86_64-linux
 
   # if ubuntu
-  sudo apt-get install -y unzip
+  if which apt-get >/dev/null; then
+    sudo apt-get install -y unzip
+  fi
 elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
   OS='Cygwin'
   echo "Your platform ($(uname -a)) is not supported."
@@ -28,15 +30,21 @@ else
 fi
 
 
-DOTFILEDIR=dotfiles-new_dotfiles
+DOTFILEDIR=dotfiles-master
 if [ ! -d ${DOTFILEDIR} ]; then
-  dotfile_github_url=https://github.com/bundai223/dotfiles/archive/new_dotfiles.zip
+  dotfile_github_url=https://github.com/bundai223/dotfiles/archive/master.zip
   wget $dotfile_github_url
-  unzip new_dotfiles.zip
+  unzip master.zip
+fi
+
+# install plugins
+cd $DOTFILEDIR/plugins
+if rmdir itamae-plugin-recipe-rbenv; then
+  wget https://github.com/k0kubun/itamae-plugin-recipe-rbenv/archive/master.zip
+  unzip master.zsh
 fi
 
 cd $DOTFILEDIR
-
 if [ ! -e bin/mitamae ]; then
   mkdir -p bin
   wget ${MITAMAE_URL} -O bin/mitamae
