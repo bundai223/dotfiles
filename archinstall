@@ -1,0 +1,5 @@
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
+sudo pacman -S unzip
+sudo pacman -Syy
+sudo pacman -Syu
