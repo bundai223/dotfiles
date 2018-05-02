@@ -33,12 +33,9 @@ when 'redhat', 'amazon'
   package 'mysql-community-devel'
 when 'osx', 'darwin'
 when 'arch'
+  package 'mysql'
 when 'opensuse'
 else
-end
-
-service 'mysqld' do
-  action [:start, :enable]
 end
 
 # cf) https://qiita.com/kotanbo/items/263841bae08044676c83
@@ -74,3 +71,7 @@ if check_temp_password_result.exit_status == 0
   end
 end
 
+
+service 'mysqld' do
+  action [:start, :enable]
+end

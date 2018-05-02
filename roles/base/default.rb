@@ -8,6 +8,7 @@ include_cookbook 'tmux'
 include_cookbook 'neovim'
 include_cookbook 'ghq'
 include_cookbook 'zsh'
+include_cookbook 'mysql'
 
 include_cookbook 'myrepos'
 

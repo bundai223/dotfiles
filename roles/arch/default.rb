@@ -16,5 +16,10 @@ package 'yaourt'
 execute 'yaourt -S --noconfirm \'base-devel\''
 package 'openssh'
 
+node.reverse_merge!({
+  mysql: {
+    root_password: 'D12uM3m4y+',
+  }
+})
 
 include_role('base')
