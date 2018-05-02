@@ -1,36 +1,20 @@
-include_cookbook 'dotfiles'
-include_cookbook 'git'
-include_cookbook 'python'
-include_cookbook 'go'
-include_cookbook 'rust'
-include_cookbook 'ruby'
-include_cookbook 'tmux'
-include_cookbook 'neovim'
-include_cookbook 'ghq'
-include_cookbook 'zsh'
+remote_file '/etc/pacman.d/archlinux'
 
-include_cookbook 'myrepos'
-
-execute "add zplug" do
-  command <<-EOL
-    ghq get zplug/zplug
-  EOL
-
-  not_if 'test -e ~/repos/github.com/zplug/zplug'
+file '/etc/pacman.conf' do
+  action :edit
+  block do |content|
+    if not content =~ /^[archlinuxfr]/i then
+      content << '[archlinuxfr]'
+      content << 'Include = /etc/pacman.d/archlinuxfr'
+    end
+  end
 end
 
-execute "add z" do
-  command <<-EOL
-    ghq get rupa/z
-  EOL
+execute 'pacman -Syy'
+execute 'pacman -Syu'
+package 'yaourt'
+execute 'yaourt -S --noconfirm \'base-devel\''
+package 'openssh'
 
-  not_if 'test -e ~/repos/github.com/rupa/z'
-end
 
-execute "add neofetch" do
-  command <<-EOL
-    ghq get dylanaraps/neofetch
-  EOL
-
-  not_if 'test -e ~/repos/github.com/dylanaraps/neofetch'
-end
+include_role('base')

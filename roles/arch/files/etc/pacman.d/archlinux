@@ -1,0 +1,2 @@
+SigLevel = Optional
+Server = http://repo.archlinux.fr/$arch

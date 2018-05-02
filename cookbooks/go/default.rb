@@ -25,6 +25,12 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon'
   end
 when 'osx', 'darwin'
 when 'arch'
+  package 'go'
+
+  remote_file '/etc/profile.d/go.sh' do
+    source 'files/go.sh'
+    mode '644'
+  end
 when 'opensuse'
 else
 end

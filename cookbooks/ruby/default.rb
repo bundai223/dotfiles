@@ -15,13 +15,12 @@ include_recipe 'rbenv::system'
 
 
 case node[:platform]
-when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon'
+when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
   remote_file '/etc/profile.d/rbenv.sh' do
     source 'files/rbenv.sh'
     mode '644'
   end
 when 'osx', 'darwin'
-when 'arch'
 when 'opensuse'
 else
 end

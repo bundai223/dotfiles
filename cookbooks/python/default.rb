@@ -17,6 +17,8 @@ when 'osx', 'darwin'
 
 when 'arch'
   package 'python'
+  package 'python2'
+  package 'python-pip'
 
 when 'opensuse'
   package 'python'

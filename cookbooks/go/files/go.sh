@@ -2,11 +2,12 @@
 
 TOOLS_PATH=/usr/local
 
-export GOROOT=${TOOLS_PATH}/go
+which go>/dev/null || export GOROOT=${TOOLS_PATH}/go
 export GOPATH=~/go
 ## go lang
 if [ "$GOROOT" != "" ]; then
-  export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+  export PATH=$GOROOT/bin:$PATH
 fi
-
-export PATH=/usr/local/go/bin:$PATH
+if [ "$GOPATH" != "" ]; then
+  export PATH=$GOPATH/bin:$PATH
+fi

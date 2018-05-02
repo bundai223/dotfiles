@@ -54,6 +54,7 @@ when 'amazon'
 when 'osx', 'darwin'
   package 'nvim'
 when 'arch'
+  package 'neovim'
 when 'opensuse'
 else
 end

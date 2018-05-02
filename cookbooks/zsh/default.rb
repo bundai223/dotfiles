@@ -59,6 +59,7 @@ when 'fedora', 'redhat', 'amazon'
 when 'osx', 'darwin'
   package 'zsh'
 when 'arch'
+  package 'zsh'
 when 'opensuse'
 else
 end

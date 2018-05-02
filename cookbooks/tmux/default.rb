@@ -54,6 +54,7 @@ when 'fedora', 'redhat', 'amazon'
 when 'osx', 'darwin'
   package 'tmux'
 when 'arch'
+  package 'tmux'
 when 'opensuse'
 else
 end

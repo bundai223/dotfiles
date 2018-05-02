@@ -48,6 +48,7 @@ when 'fedora', 'redhat', 'amazon'
 when 'osx', 'darwin'
   package 'git'
 when 'arch'
+  package 'git'
 when 'opensuse'
 else
 end
