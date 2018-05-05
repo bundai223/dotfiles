@@ -3,5 +3,5 @@ node.reverse_merge!(
 )
 
 execute "install ghq" do
-  command "#{sudo(node['user'])} go get github.com/motemen/ghq"
+  command "#{sudo(node['user'])}go get github.com/motemen/ghq"
 end

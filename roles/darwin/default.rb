@@ -1,3 +1,4 @@
+include_role('base')
 
 
 # osx
@@ -26,3 +27,4 @@ package 'caskroom/cask/dash'
 package 'caskroom/cask/android-studio'
 package 'caskroom/cask/virtualbox'
 package 'caskroom/cask/vagrant'
+package 'caskroom/cask/java'

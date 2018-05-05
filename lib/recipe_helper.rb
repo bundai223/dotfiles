@@ -1,4 +1,4 @@
-MItamae::RecipeContext.class_eval do
+::MItamae::RecipeContext.class_eval do
   def include_cookbook(name)
     root_dir = File.expand_path('../..', __FILE__)
     include_recipe File.join(root_dir, 'cookbooks', name, 'default')
@@ -14,11 +14,22 @@ MItamae::RecipeContext.class_eval do
     result.exit_status == 0
   end
 
+  def sudo(user)
+    if node[:platform] == 'darwin' or node[:platform] == 'osx'
+      ''
+    else
+      "sudo -u #{user} -i "
+    end
+  end
 end
 
-MItamae::ResourceContext.class_eval do
+::MItamae::ResourceContext.class_eval do
   def sudo(user)
-    "sudo -u #{user} -i"
+    if node[:platform] == 'darwin' or node[:platform] == 'osx'
+      ''
+    else
+      "sudo -u #{user} -i "
+    end
   end
 end
 
@@ -31,3 +42,20 @@ define :ln do
     not_if "test -e #{dotfile}"
   end
 end
+
+define :get_repo do
+  reponame = params[:name]
+
+  if node[:platform] == 'osx' or node[:platform] == 'darwin'
+    execute "git clone #{reponame}" do
+	    command "~/go/bin/ghq get -p #{reponame}"
+      not_if "test -d ~/reponame/github.com/#{reponame}"
+    end
+  else
+    execute "git clone #{reponame}" do
+      command "#{sudo(node[:user])} ghq get -p #{reponame}"
+      not_if "test -d ~/reponame/github.com/#{reponame}"
+    end
+  end
+end
+

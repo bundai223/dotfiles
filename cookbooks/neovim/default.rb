@@ -59,16 +59,24 @@ when 'opensuse'
 else
 end
 
-execute 'install gem package' do
-  command <<-EOL
-    source /etc/profile.d/rbenv.sh
-    gem install neovim
-  EOL
+if node[:platform] == 'darwin' or node[:platform] == 'osx'
+  execute 'install gem package' do
+    command <<-EOL
+      gem install --user neovim
+    EOL
+  end
+else
+  execute 'install gem package' do
+    command <<-EOL
+      source /etc/profile.d/rbenv.sh
+      gem install --user neovim
+    EOL
+  end
 end
 
 execute 'install python package' do
   command <<-EOL
-    pip3 install --upgrade neovim
-    pip install --upgrade neovim
+    pip3 install --user --upgrade neovim
+    pip install --user --upgrade neovim
   EOL
 end
