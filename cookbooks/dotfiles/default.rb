@@ -54,6 +54,7 @@ template "#{node[:home]}/.zshenv" do
 end
 
 ln '.tmux.conf'
+ln '.config/powerline'
 #remote_file "#{node[:home]}/.tmux.conf" do
 #  source 'files/.tmux.conf'
 #  owner node[:user]

@@ -43,7 +43,7 @@ export NDK_ROOT=${ANDROID_HOME}/ndk-bundle
 export GRADLE_HOME=${BREW_PATH}/opt/gradle
 export ECLIPSE_HOME=/Applications/eclipse
 export JAVA_OPTS='-Dgroovy.source.encoding=UTF-8 -Dfile.encoding=UTF-8'
-export JAVA_HOME=`/usr/libexec/java_home -v "1.8"`
+export JAVA_HOME=`/usr/libexec/java_home -v "10"`
 export JFX_DIR=${JAVA_HOME}/jre/lib/ext
 export GENYMOTION_APP_HOME='/Users/daiji/Applications/Genymotion.app'
 
