@@ -53,10 +53,10 @@ template "#{node[:home]}/.zshenv" do
   not_if "test -e #{node[:home]}/.zshenv"
 end
 
-ln '.tmux.conf'
+remote_file "#{node[:home]}/.tmux.conf" do
+  source 'files/.tmux.conf'
+  owner node[:user]
+  group node[:group]
+end
+
 ln '.config/powerline'
-#remote_file "#{node[:home]}/.tmux.conf" do
-#  source 'files/.tmux.conf'
-#  owner node[:user]
-#  group node[:group]
-#end
