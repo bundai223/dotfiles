@@ -1,4 +1,4 @@
-nclude_recipe 'dependency.rb'
+include_recipe 'dependency.rb'
 
 node.reverse_merge!({
   nodejs: {
@@ -29,6 +29,8 @@ when 'fedora', 'redhat', 'amazon'
 
 when 'osx', 'darwin'
 when 'arch'
+  package 'nodejs'
+  package 'npm'
 when 'opensuse'
 else
 end

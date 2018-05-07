@@ -9,6 +9,7 @@ include_cookbook 'neovim'
 include_cookbook 'ghq'
 include_cookbook 'zsh'
 #include_cookbook 'mysql'
+include_cookbook 'nodejs'
 
 include_cookbook 'myrepos'
 
