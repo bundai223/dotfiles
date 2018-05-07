@@ -1,9 +1,9 @@
 include_role('base')
 
 # for nokogiri for rails
-pakcage 'build-essential'
-pakcage 'patch'
-pakcage 'ruby-dev'
-pakcage 'zlib1g-dev'
-pakcage 'liblzma-dev'
-pakcage 'libxml2-dev'
+package 'build-essential'
+package 'patch'
+package 'ruby-dev'
+package 'zlib1g-dev'
+package 'liblzma-dev'
+package 'libxml2-dev'
