@@ -15,6 +15,8 @@ execute 'pacman -Syu'
 package 'yaourt'
 execute 'yaourt -S --noconfirm \'base-devel\''
 package 'openssh'
+package 'libxml2'
+package 'libxslt'
 
 node.reverse_merge!({
   mysql: {

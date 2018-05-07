@@ -23,6 +23,7 @@ when 'fedora', 'redhat', 'amazon'
 
 when 'osx', 'darwin'
 when 'arch'
+  package 'yarn'
 when 'opensuse'
 else
 end
