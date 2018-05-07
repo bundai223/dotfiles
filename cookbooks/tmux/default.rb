@@ -10,18 +10,24 @@ when 'debian', 'ubuntu', 'mint'
   execute 'install tmux' do
     command <<-EOL
       VERSION=2.7
+      WORKDIR=work_tmux
+
+      cur=$(pwd)
+      mkdir -p ${WORKDIR}
+      cd ${WORKDIR}
 
       wget https://github.com/tmux/tmux/releases/download/${VERSION}/tmux-${VERSION}.tar.gz 
       tar fx tmux-${VERSION}.tar.gz
       cd tmux-${VERSION}
-      ./configure --prefix=/usr
+      ./configure --prefix=/usr/local
       make
       sudo make install
 
-      rm -f tmux-${VERSION}.tar.gz
+      cd ${cur}
+      rm -rf ${WORKDIR}
     EOL
 
-    not_if 'test -e /usr/local/tmux'
+    not_if 'test -e /usr/local/bin/tmux'
   end
 
 when 'fedora', 'redhat', 'amazon'

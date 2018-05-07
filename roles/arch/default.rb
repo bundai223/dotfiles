@@ -15,7 +15,6 @@ execute 'pacman -Syu'
 package 'yaourt'
 execute 'yaourt -S --noconfirm \'base-devel\''
 package 'openssh'
-package 'fontforge'
 
 node.reverse_merge!({
   mysql: {

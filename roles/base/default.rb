@@ -22,3 +22,4 @@ repos.each {|name| get_repo name}
 
 execute "#{sudo(node[:user])} pip install --user powerline-status"
 
+package 'fontforge'
