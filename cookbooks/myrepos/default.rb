@@ -10,5 +10,6 @@ myrepos = [
   'bundai223/books-zero_kara_deep_learning',
   'bundai223/blog.bundai223',
   'bundai223/bundai223.github.io',
+  'bundai223/RictyDiminished-for-Powerline',
 ]
 myrepos.each {|name| get_repo name}
