@@ -566,7 +566,8 @@ endif
 
 if has('unix')
   if !has('gui_running')
-    colorscheme desert
+    "colorscheme desert
+    colorscheme iceberg
   endif
 endif
 
