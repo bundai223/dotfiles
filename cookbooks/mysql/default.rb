@@ -72,9 +72,10 @@ check_temp_password_result = run_command(%Q{grep "A temporary password is genera
 if check_temp_password_result.exit_status == 0
   temp_password = check_temp_password_result.stdout.chomp
 
+  #MItamae.logger.error "#{temp_password} #{new_password}"
   execute "mysql_secure_installation temp password" do
       user "root"
-      only_if "mysql -uroot -p'#{temp_password}' -e 'show databases' | grep information_schema" # パスワードがtemp passwordの場合
+      only_if "mysql -uroot -p'#{temp_password}' -e 'show databases' | grep 'connect-expired-password\|information_schema'" # パスワードがtemp passwordの場合
       command <<-EOL
           mysqladmin -uroot -p'#{temp_password}' password '#{new_password}'
           mysql_secure_installation -p'#{new_password}' -D
