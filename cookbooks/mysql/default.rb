@@ -23,6 +23,7 @@ when 'fedora'
 
   package 'mysql-community-server'
   package 'mysql-community-devel'
+
 when 'redhat', 'amazon'
   if 7 <= node['platform_version'].to_i
     execute 'remove old mariadb' do
@@ -31,17 +32,17 @@ when 'redhat', 'amazon'
     end
 
     execute 'yum localinstall -y http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm'
-    package 'mysql-community-server'
 
   else
     package_name = "mysql#{major_version}#{minor_version}-community-release-el6-11"
     package "https://dev.mysql.com/get/#{package_name}.noarch.rpm" do
       not_if "rpm -q #{package_name}"
     end
-
-    package 'mysql-community-server'
-    package 'mysql-community-devel'
   end
+
+  package 'mysql-community-server'
+  package 'mysql-community-devel'
+
 when 'osx', 'darwin'
 when 'arch'
   package 'mysql'
