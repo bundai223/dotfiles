@@ -1,3 +1,9 @@
+node.reverse_merge!({
+  mysql: {
+    root_password: 'D12uM3m4y+',
+  }
+})
+
 include_cookbook 'dotfiles'
 include_cookbook 'git'
 include_cookbook 'python'

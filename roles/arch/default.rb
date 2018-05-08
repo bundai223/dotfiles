@@ -18,10 +18,4 @@ package 'openssh'
 package 'libxml2'
 package 'libxslt'
 
-node.reverse_merge!({
-  mysql: {
-    root_password: 'D12uM3m4y+',
-  }
-})
-
 include_role('base')

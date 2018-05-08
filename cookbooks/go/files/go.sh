@@ -2,7 +2,7 @@
 
 TOOLS_PATH=/usr/local
 
-which go>/dev/null || export GOROOT=${TOOLS_PATH}/go
+which go>/dev/null 2>&1 || export GOROOT=${TOOLS_PATH}/go
 export GOPATH=~/go
 ## go lang
 if [ "$GOROOT" != "" ]; then
