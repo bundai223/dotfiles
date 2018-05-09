@@ -8,3 +8,8 @@ package 'zlib1g-dev'
 package 'liblzma-dev'
 package 'libxml2-dev'
 package 'python-fontforge'
+
+# locale
+#package 'language-pack-ja'
+
+execute 'locale-gen ja_JP.UTF-8'

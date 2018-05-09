@@ -1,6 +1,10 @@
 
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
+  package 'mecab'
+  package 'libmecab-dev'
+  package 'mecab-ipadic'
+
 when 'fedora', 'redhat', 'amazon'
   execute 'install mecab repos' do
     command <<-EOL
