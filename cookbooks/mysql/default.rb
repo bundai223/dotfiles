@@ -14,6 +14,8 @@ minor_version = node[:mysql][:minor_version]
 # cf) https://github.com/k0kubun/itamae-plugin-recipe-rbenv/blob/master/lib/itamae/plugin/recipe/rbenv/dependency.rb
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
+  package 'mysql-server'
+  package 'libmysqld-dev'
 when 'fedora'
   # cf) https://dev.mysql.com/downloads/repo/yum/
   package_name = "mysql#{major_version}#{minor_version}-community-release-fc27-10"
@@ -87,4 +89,5 @@ end
 
 service 'mysqld' do
   action [:start, :enable]
+  not_if 'uname -a | grep Microsoft'
 end
