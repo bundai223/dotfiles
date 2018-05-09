@@ -17,4 +17,5 @@ node.reverse_merge!(
 )
 
 
-include_role node[:platform]
+#include_role node[:platform]
+include_cookbook 'peco'
