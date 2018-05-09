@@ -20,6 +20,7 @@ include_cookbook 'neovim'
 include_cookbook 'zsh'
 #include_cookbook 'mysql'
 include_cookbook 'yarn'
+include_cookbook 'zeroconf'
 
 repos = [
   'mzyy94/RictyDiminished-for-Powerline',
