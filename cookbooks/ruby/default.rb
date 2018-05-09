@@ -16,7 +16,7 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
       ],
     },
     'rbenv-default-gems' => {
-      'default-gems' => %w[ bundler ]
+      'default-gems' => %w[ bundler neovim rubocop]
     }
   })
 
