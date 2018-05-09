@@ -7,13 +7,22 @@
 	quotepath = false
 	precomposeunicode = true
 
-[user "ssh://git@github.com/bundai223/"]
+[user "ssh://git@gitlab.com/"]
 	name = bundai223
 	email = bundai223@gmail.com
-[user "https://github.com/bundai223/"]
+[user "https://gitlab.com/"]
 	name = bundai223
 	email = bundai223@gmail.com
-[user "http://github.com/bundai223/"]
+[user "http://gitlab.com/"]
+	name = bundai223
+	email = bundai223@gmail.com
+[user "ssh://git@github.com/"]
+	name = bundai223
+	email = bundai223@gmail.com
+[user "https://github.com/"]
+	name = bundai223
+	email = bundai223@gmail.com
+[user "http://github.com/"]
 	name = bundai223
 	email = bundai223@gmail.com
 
