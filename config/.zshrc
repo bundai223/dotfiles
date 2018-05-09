@@ -235,7 +235,7 @@ alias ag='ag -S'
 # git {{{
 alias g='git'
 alias gittaglist="git for-each-ref --sort=-taggerdate --format='%(taggerdate:short) %(tag) %(taggername) %(subject)' refs/tags"
-alias gf=git-flow
+alias gf='git flow'
 # }}}
 
 alias -s html=chrome
