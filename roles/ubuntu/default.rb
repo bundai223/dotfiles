@@ -8,6 +8,7 @@ package 'zlib1g-dev'
 package 'liblzma-dev'
 package 'libxml2-dev'
 package 'python-fontforge'
+package 'apt-file'
 
 # locale
 #package 'language-pack-ja'
