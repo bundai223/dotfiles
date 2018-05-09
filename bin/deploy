@@ -1,6 +1,8 @@
 #!/bin/bash
 # Homebrew does not allow sudo.
 
+bin/setup
+
 mitamae() {
   case "$(uname)" in
     "Darwin")  bin/mitamae local $@;;

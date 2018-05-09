@@ -11,51 +11,33 @@ if [ ! -d ${WORK_DIR} ]; then
 fi
 cd ${WORK_DIR}
 
-if [ "$(uname)" == 'Darwin' ]; then
-  OS='Mac'
-  MITAMAE_URL=https://github.com/itamae-kitchen/mitamae/releases/download/v1.5.6/mitamae-x86_64-darwin
-elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
-  OS='Linux'
-  MITAMAE_URL=https://github.com/itamae-kitchen/mitamae/releases/download/v1.5.6/mitamae-x86_64-linux
-
+#if [ "$(uname)" == 'Darwin' ]; then
+#  # nothing
+#elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
+if [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
+  # if redhat
+  if which yum >/dev/null 2>&1; then
+    sudo yum install -y unzip
+  fi
   # if ubuntu
-  if which apt-get >/dev/null; then
+  if which apt-get >/dev/null 2>&1; then
     sudo apt-get install -y unzip
   fi
 elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
-  OS='Cygwin'
-  echo "Your platform ($(uname -a)) is not supported."
-  exit 1
-else
   echo "Your platform ($(uname -a)) is not supported."
   exit 1
 fi
-
 
 DOTFILEDIR=$WORK_DIR/dotfiles-master
 if [ ! -d ${DOTFILEDIR} ]; then
   dotfile_github_url=https://github.com/bundai223/dotfiles/archive/master.zip
-  wget $dotfile_github_url
+  curl -sOL $dotfile_github_url
   unzip master.zip
-fi
-
-# install plugins
-cd $DOTFILEDIR/plugins
-rbenv_reponame=itamae-plugin-recipe-rbenv
-if rmdir $rbenv_reponame; then
-  rbenv_plugin_url=https://github.com/k0kubun/itamae-plugin-recipe-rbenv/archive/master.zip
-  wget $rbenv_plugin_url
-  unzip master.zip
-  mv $rbenv_reponame-master $rbenv_reponame
 fi
 
 cd $DOTFILEDIR
-if [ ! -e bin/mitamae ]; then
-  mkdir -p bin
-  wget ${MITAMAE_URL} -O bin/mitamae
-  chmod +x bin/mitamae
-fi
 
+bin/setup
 bin/deploy $@
 
 ## finish
