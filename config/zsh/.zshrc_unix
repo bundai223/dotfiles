@@ -3,3 +3,5 @@
 # path setting
 #
 export EDITOR=nvim
+
+alias sudo='sudo -i'
