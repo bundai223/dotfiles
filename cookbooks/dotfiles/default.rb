@@ -4,6 +4,11 @@ directory "#{node[:home]}/.config" do
   group node[:group]
 end
 
+directory "#{node[:home]}/.local/bin" do
+  owner node[:user]
+  group node[:group]
+end
+
 directory "#{node[:home]}/.config/git" do
   owner node[:user]
   group node[:group]
@@ -24,7 +29,6 @@ directory "#{node[:home]}/repos" do
   group node[:group]
 end
 
-#ln '.gitconfig'
 remote_file "#{node[:home]}/.gitconfig" do
   source 'files/.gitconfig'
   owner node[:user]
@@ -59,4 +63,7 @@ remote_file "#{node[:home]}/.tmux.conf" do
   group node[:group]
 end
 
-ln '.config/powerline'
+#dotfile '.config/powerline'
+execute "ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/.config/powerline #{node[:home]}/.config/powerline" do
+  not_if "test -e #{node[:home]}/.config/powerline"
+end
