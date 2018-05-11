@@ -1,17 +1,24 @@
 #!/bin/bash
 # Homebrew does not allow sudo.
 
+set -eu
+
 bin/setup
 
 mitamae() {
+  echo $#
+  #echo "cd $(pwd) && bin/mitamae local lib/recipe_helper.rb $@"
   case "$(uname)" in
     "Darwin")  bin/mitamae local $@;;
-    *) sudo -i sh -c "cd $(pwd) && bin/mitamae local $@" ;;
+    *) sudo -i bash -c "echo $@; cd $(pwd) && bin/mitamae local $@" ;;
   esac
 }
+echo $#
+echo $@
+
 
 if [ "$1" = "" ]; then
   mitamae lib/recipe.rb
 else
-  mitamae $@
+  mitamae lib/recipe_helper.rb $@
 fi
