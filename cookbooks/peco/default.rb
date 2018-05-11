@@ -19,6 +19,9 @@ when 'debian', 'ubuntu', 'mint'
       chown #{node[:user]}:#{node[:group]} $LOCALBIN_DIR/peco
       rm -rf $WORK_DIR
     EOL
+
+    not_if "test -e #{node[:home]}/.local/bin/peco"
+    not_if "uname -a | grep Microsoft"
   end
 
 when 'fedora', 'redhat', 'amazon'
@@ -28,4 +31,8 @@ when 'osx', 'darwin'
 when 'arch'
 when 'opensuse'
 else
+end
+
+execute 'install cho cho' do
+  command "#{sudo(node['user'])}go get github.com/mattn/cho"
 end
