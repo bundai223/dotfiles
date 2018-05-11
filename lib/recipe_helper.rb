@@ -1,4 +1,23 @@
 ::MItamae::RecipeContext.class_eval do
+  # node hashのパラメータで必須のものを初期設定する。
+  def init_node
+    user = ENV['SUDO_USER'] || ENV['USER']
+    case node[:platform]
+    when 'osx', 'darwin'
+      home = ENV['HOME']
+      group = 'staff'
+    else
+      home = %x[cat /etc/passwd | grep #{user} | awk -F: '!/nologin/{print $(NF-1)}'].strip
+      group = user
+    end
+
+    node.reverse_merge!(
+      user: user,
+      group: group,
+      home: home
+    )
+  end
+
   def include_cookbook(name)
     root_dir = File.expand_path('../..', __FILE__)
     include_recipe File.join(root_dir, 'cookbooks', name, 'default')
@@ -33,7 +52,7 @@ end
   end
 end
 
-define :ln do
+define :dotfile do
   dotfile = File.join(node[:home], params[:name])
   #puts "aaaaa #{dotfile}"
   #puts "aaaaa #{File.expand_path("../../config/#{params[:name]}", __FILE__)}"
@@ -59,3 +78,4 @@ define :get_repo do
   end
 end
 
+init_node
