@@ -10,6 +10,8 @@ when 'debian', 'ubuntu', 'mint'
       gdebi -n $DEB
       rm $DEB
     EOL
+
+    not_if 'which google-chrome >/dev/null 2>&1'
   end
 
 
