@@ -1,4 +1,4 @@
-include_role('base')
+include_role 'base'
 
 
 # osx
@@ -13,7 +13,6 @@ package 'z'
 package 'the_silver_searcher'
 package 'reattach-to-user-namespace'
 # cask
-package 'caskroom/cask/google-chrome'
 package 'caskroom/cask/android-file-transfer'
 package 'caskroom/cask/1password'
 package 'caskroom/cask/buttercup'

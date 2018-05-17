@@ -21,6 +21,7 @@ include_cookbook 'zsh'
 #include_cookbook 'mysql'
 include_cookbook 'yarn'
 include_cookbook 'zeroconf'
+include_cookbook 'chrome'
 
 repos = [
   'mzyy94/RictyDiminished-for-Powerline',
