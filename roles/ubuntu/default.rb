@@ -21,3 +21,11 @@ package 'x11-utils'
 package 'x11-xserver-utils'
 package 'fonts-ipafont'
 execute 'locale-gen ja_JP.UTF-8'
+
+execute 'remove libpulse0' do
+  command <<-EOL
+    apt purge -y libpulse0
+  EOL
+
+  if 'uname -a | grep Microsoft'
+end
