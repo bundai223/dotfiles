@@ -22,7 +22,8 @@ when 'debian', 'ubuntu', 'mint'
   execute "#{sudo(node[:user])}ghq get h2o/h2o"
   execute 'install h2o' do
     command <<-EOL
-      cd repos/github.com/h2o/h2o
+      set -eu
+      #{sudo(node[:user])}cd ~/repos/github.com/h2o/h2o
       cmake -DWITH_BUNDLED_SSL=on .
       make
       make install
