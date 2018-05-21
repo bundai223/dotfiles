@@ -27,12 +27,13 @@ when 'debian', 'ubuntu', 'mint'
 when 'fedora', 'redhat', 'amazon'
 when 'osx', 'darwin'
   package 'peco'
+  package 'fzf'
 
 when 'arch'
 when 'opensuse'
 else
 end
 
-execute 'install cho cho' do
+execute 'install cho' do
   command "#{sudo(node['user'])}go get github.com/mattn/cho"
 end
