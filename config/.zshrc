@@ -71,11 +71,11 @@ compinit -u
 
 typeset -U path PATH
 
-# LS_COLORSを設定しておく
-export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-
-# ファイル補完候補に色を付ける
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+## LS_COLORSを設定しておく
+#export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+#
+## ファイル補完候補に色を付ける
+#zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # 小文字は大文字とごっちゃで検索できる
 # 大文字は小文字と区別される
@@ -343,7 +343,7 @@ alias t-ks='tmux kill-session'
 # start_tmux
 #}}}
 
-# for z {{{
+# for z
 # http://d.hatena.ne.jp/naoya/20130108/1357630895
 _Z_DATA=~/.config/zsh/z/.z
 if [[ $OSTYPE == darwin* ]]; then
@@ -355,7 +355,18 @@ precmd () {
     z --add "$(pwd -P)"
 }
 
-# }}}
+# for hyperterm
+#precmd() {
+#  pwd=$(pwd)
+#  cwd=${pwd##*/}
+#  print -Pn "\e]0;$cwd\a"
+#}
+#
+#preexec() {
+#  if overridden; then return; fi
+#  printf "\033]0;%s\a" "${1%% *} | $cwd"
+#}
+
 
 # 3秒以上かかる処理の後にtimeコマンドの結果を表示してくれる
 REPORTTIME=3

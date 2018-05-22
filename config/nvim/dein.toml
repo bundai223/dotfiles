@@ -59,22 +59,22 @@ hook_add = '''
 
   " source
   " denite file
-  nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file_rec<CR>
+  nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file_rec -highlight-mode-insert=Search<CR>
   " nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file_rec buffer<CR>
-  nnoremap <silent> [denite]m   :<C-u>Denite file_mru<CR>
-  nnoremap <silent> [denite]o   :<C-u>Denite -no-quit -wrap outline<CR>
-  nnoremap <silent> [denite]g   :<C-u>Denite -auto-preview grep<CR>
-  nnoremap <silent> [denite]tw  :<C-u>Denite tweetvim<CR>
-  nnoremap <silent> [denite]ns  :<C-u>Denite neosnippet<CR>
-  nnoremap <silent> [denite]ens :<C-u>Denite neosnippet/user<CR>
-  nnoremap <silent> [denite]b   :<C-u>Denite buffer<CR>
-  nnoremap <silent> [denite]c   :<C-u>Denite -auto-preview colorscheme<CR>
+  nnoremap <silent> [denite]m   :<C-u>Denite file_mru -highlight-mode-insert=Search<CR>
+  nnoremap <silent> [denite]o   :<C-u>Denite -no-quit -wrap outline -highlight-mode-insert=Search<CR>
+  nnoremap <silent> [denite]g   :<C-u>Denite -auto-preview grep -highlight-mode-insert=Search<CR>
+  nnoremap <silent> [denite]tw  :<C-u>Denite tweetvim -highlight-mode-insert=Search<CR>
+  nnoremap <silent> [denite]ns  :<C-u>Denite neosnippet -highlight-mode-insert=Search<CR>
+  nnoremap <silent> [denite]ens :<C-u>Denite neosnippet/user -highlight-mode-insert=Search<CR>
+  nnoremap <silent> [denite]b   :<C-u>Denite buffer -highlight-mode-insert=Search<CR>
+  nnoremap <silent> [denite]c   :<C-u>Denite -auto-preview colorscheme -highlight-mode-insert=Search<CR>
 
   " denite resume
   nnoremap <silent> [denite]r   :<C-u>Denite -resume<CR>
   nnoremap <silent> [denite]R   <Plug>(denite_restart)
 
-  nnoremap <silent> [denite]<Space> :<C-u>Denite menu<CR>
+  nnoremap <silent> [denite]<Space> :<C-u>Denite menu -highlight-mode-insert=Search<CR>
 
   let g:neomru#time_format = "(%Y/%m/%d %H:%M:%S) "
 
@@ -349,6 +349,174 @@ hook_add = '''
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
+hook_add = '''
+  let s:colorscheme = 'iceberg'
+  if !empty($COLORSCHEME)
+    let s:colorscheme = $COLORSCHEME
+  endif
+"        \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+"        \ 'subseparator': { 'left': "\u20b1", 'right': "\ue0b3" },
+  let g:lightline = {
+        \ 'colorscheme': s:colorscheme,
+        \ 'separator': { 'left': "|", 'right': "|" },
+        \ 'subseparator': { 'left': "|", 'right': "|" },
+        \ 'mode_map': {'c': 'NORMAL'},
+        \ 'active': {
+        \   'left': [
+        \     [ 'mode', 'plugin', 'paste' ],
+        \     [ 'fugitive', 'filename' ],
+        \     [ 'pwd' ]
+        \   ],
+        \   'right': [
+        \     ['lineinfo', 'syntax_check'],
+        \     ['percent'],
+        \     ['charcode', 'fileformat', 'fileencoding', 'filetype']
+        \   ]
+        \ },
+        \ 'component_function': {
+        \   'mode': 'MyMode',
+        \   'plugin': 'MySpPlugin',
+        \   'fugitive': 'MyFugitive',
+        \   'gitgutter': 'MyGitgutter',
+        \   'filename': 'MyFilename',
+        \   'pwd': 'MyPwd',
+        \   'charcode': 'MyCharCode',
+        \   'fileformat': 'MyFileformat',
+        \   'fileencoding': 'MyFileencoding',
+        \   'filetype': 'MyFiletype'
+        \ },
+        \ 'conponent_expand': {
+        \   'syntax_check': 'qfstatusline#Update',
+        \ },
+        \ 'conponent_type': {
+        \   'syntax_check': 'error',
+        \ },
+        \}
+
+  function! MyModified()
+    return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+  endfunction
+
+  function! MyReadonly()
+    return &readonly ? '⭤'  : ''
+  endfunction
+
+  function! MyFilename()
+    let fname = expand('%:t')
+    return
+          \ fname =~ '__Gundo' ? '' :
+          \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+          \  &ft == 'unite' ? unite#get_status_string() :
+          \  &ft == 'vimshell' ? vimshell#get_status_string() :
+          \ ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+          \ ('' != MyModified() ? ' ' . MyModified() : '') .
+          \ '' != fname ? fname : '[No Name]')
+  endfunction
+
+  function! MyFugitive()
+    try
+      if expand('%:t') !~? 'Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+        let _ = fugitive#head()
+        return strlen(_) ? '⭠ '._ : ''
+      endif
+    catch
+    endtry
+    return ''
+  endfunction
+
+  function! MyGitgutter()
+    if ! exists('*GitGutterGetHunkSummary')
+          \ || ! get(g:, 'gitgutter_enabled', 0)
+          \ || winwidth('.') <= 90
+      return ''
+    endif
+    let symbols = [
+          \ g:gitgutter_sign_added . ' ',
+          \ g:gitgutter_sign_modified . ' ',
+          \ g:gitgutter_sign_removed . ' '
+          \ ]
+    let hunks = GitGutterGetHunkSummary()
+    let ret = []
+    for i in [0, 1, 2]
+      if hunks[i] > 0
+        call add(ret, symbols[i] . hunks[i])
+      endif
+    endfor
+    return join(ret, ' ')
+  endfunction
+  function! MyFileformat()
+    return winwidth(0) > 70 ? &fileformat : ''
+  endfunction
+
+  function! MyFiletype()
+    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  endfunction
+
+  function! MyFileencoding()
+    return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+  endfunction
+
+  function! MyMode()
+    return winwidth(0) > 60 ? lightline#mode() : ''
+  endfunction
+
+  function! MySpPlugin()
+    let fname = expand('%:t')
+    return  winwidth(0) <= 60 ? '' :
+          \ fname == '__Gundo__' ? 'Gundo' :
+          \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
+          \ &ft == 'unite' ? 'Unite' :
+          \ &ft == 'vimfiler' ? 'VimFiler' :
+          \ &ft == 'vimshell' ? 'VimShell' :
+          \ ''
+  endfunction
+
+  function! MyPwd()
+    if winwidth(0) > 60
+      " $HOMEは'~'表示の方が好きなので置き換え
+      let s:homepath = expand('~')
+      return substitute(getcwd(), expand('~'), '~', '')
+    else
+      return ''
+    endif
+  endfunction
+
+
+  function! MyCharCode()
+    if winwidth('.') <= 70
+      return ''
+    endif
+
+    " Get the output of :ascii
+    redir => ascii
+    silent! ascii
+    redir END
+
+    if match(ascii, 'NUL') != -1
+      return 'NUL'
+    endif
+
+    " Zero pad hex values
+    let nrformat = '0x%02x'
+
+    let encoding = (&fenc == '' ? &enc : &fenc)
+
+    if encoding == 'utf-8'
+      " Zero pad with 4 zeroes in unicode files
+      let nrformat = '0x%04x'
+    endif
+
+    " Get the character and the numeric value from the return value of :ascii
+    " This matches the two first pieces of the return value, e.g.
+    " "<F>  70" => char: 'F', nr: '70'
+    let [str, char, nr; rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
+
+    " Format the numeric value
+    let nr = printf(nrformat, nr)
+
+    return "'". char ."' ". nr
+  endfunction
+'''
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
@@ -495,3 +663,9 @@ hook_post_source = '''
 
 [[plugins]]
 repo = 'bundai223/vim-colors-solarized'
+
+[[plugins]]
+repo = 'cocopon/iceberg.vim'
+hook_add = '''
+  colorscheme iceberg
+'''

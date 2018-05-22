@@ -14,7 +14,7 @@ let g:racer_cmd = expand("~/.cargo/bin/racer")
 let s:conf_root       = expand('~/.config/nvim')
 let s:repos_path      = expand('~/repos')
 let g:pub_repos_path  = s:repos_path . '/github.com/bundai223'
-let s:priv_repos_path = s:repos_path . '/bitbucket.org/bundai223'
+let s:priv_repos_path = s:repos_path . '/gitlab.com/bundai223'
 let s:dotfiles_path   = g:pub_repos_path . '/dotfiles'
 let s:backupdir       = s:conf_root . '/backup'
 let s:swapdir         = s:conf_root . '/swp'
@@ -150,6 +150,7 @@ set smartcase
 
 " Incremental search
 set incsearch
+set inccommand=split
 
 " Highlight searched words
 set hlsearch
@@ -374,7 +375,7 @@ augroup END
 
 " memo
 if !isdirectory(g:memo_dir)
-  execute '!ghq get -p bitbucket.org:bundai223/private-memo.git'
+  execute '!ghq get -p gitlab.com:bundai223/private-memo.git'
 endif
 
 augroup MyAutoCmd
@@ -382,172 +383,6 @@ augroup MyAutoCmd
   autocmd FileType changelog setlocal nomodeline
 augroup END
 
-
-""" lightline
-let s:colorscheme = 'wombat'
-if !empty($COLORSCHEME)
-  let s:colorscheme = $COLORSCHEME
-endif
-let g:lightline = {
-      \ 'colorscheme': s:colorscheme,
-      \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-      \ 'subseparator': { 'left': "\u20b1", 'right': "\ue0b3" },
-      \ 'mode_map': {'c': 'NORMAL'},
-      \ 'active': {
-      \   'left': [
-      \     [ 'mode', 'plugin', 'paste' ],
-      \     [ 'fugitive', 'filename' ],
-      \     [ 'pwd' ]
-      \   ],
-      \   'right': [
-      \     ['lineinfo', 'syntax_check'],
-      \     ['percent'],
-      \     ['charcode', 'fileformat', 'fileencoding', 'filetype']
-      \   ]
-      \ },
-      \ 'component_function': {
-      \   'mode': 'MyMode',
-      \   'plugin': 'MySpPlugin',
-      \   'fugitive': 'MyFugitive',
-      \   'gitgutter': 'MyGitgutter',
-      \   'filename': 'MyFilename',
-      \   'pwd': 'MyPwd',
-      \   'charcode': 'MyCharCode',
-      \   'fileformat': 'MyFileformat',
-      \   'fileencoding': 'MyFileencoding',
-      \   'filetype': 'MyFiletype'
-      \ },
-      \ 'conponent_expand': {
-      \   'syntax_check': 'qfstatusline#Update',
-      \ },
-      \ 'conponent_type': {
-      \   'syntax_check': 'error',
-      \ },
-      \}
-
-function! MyModified()
-  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
-
-function! MyReadonly()
-  return &readonly ? '⭤'  : ''
-endfunction
-
-function! MyFilename()
-  let fname = expand('%:t')
-  return
-        \ fname =~ '__Gundo' ? '' :
-        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \  &ft == 'unite' ? unite#get_status_string() :
-        \  &ft == 'vimshell' ? vimshell#get_status_string() :
-        \ ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-        \ ('' != MyModified() ? ' ' . MyModified() : '') .
-        \ '' != fname ? fname : '[No Name]')
-endfunction
-
-function! MyFugitive()
-  try
-    if expand('%:t') !~? 'Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-      let _ = fugitive#head()
-      return strlen(_) ? '⭠ '._ : ''
-    endif
-  catch
-  endtry
-  return ''
-endfunction
-
-function! MyGitgutter()
-  if ! exists('*GitGutterGetHunkSummary')
-        \ || ! get(g:, 'gitgutter_enabled', 0)
-        \ || winwidth('.') <= 90
-    return ''
-  endif
-  let symbols = [
-        \ g:gitgutter_sign_added . ' ',
-        \ g:gitgutter_sign_modified . ' ',
-        \ g:gitgutter_sign_removed . ' '
-        \ ]
-  let hunks = GitGutterGetHunkSummary()
-  let ret = []
-  for i in [0, 1, 2]
-    if hunks[i] > 0
-      call add(ret, symbols[i] . hunks[i])
-    endif
-  endfor
-  return join(ret, ' ')
-endfunction
-function! MyFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
-endfunction
-
-function! MyFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-endfunction
-
-function! MyFileencoding()
-  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-endfunction
-
-function! MyMode()
-  return winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
-
-function! MySpPlugin()
-  let fname = expand('%:t')
-  return  winwidth(0) <= 60 ? '' :
-        \ fname == '__Gundo__' ? 'Gundo' :
-        \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-        \ &ft == 'unite' ? 'Unite' :
-        \ &ft == 'vimfiler' ? 'VimFiler' :
-        \ &ft == 'vimshell' ? 'VimShell' :
-        \ ''
-endfunction
-
-function! MyPwd()
-  if winwidth(0) > 60
-    " $HOMEは'~'表示の方が好きなので置き換え
-    let s:homepath = expand('~')
-    return substitute(getcwd(), expand('~'), '~', '')
-  else
-    return ''
-  endif
-endfunction
-
-
-function! MyCharCode()
-  if winwidth('.') <= 70
-    return ''
-  endif
-
-  " Get the output of :ascii
-  redir => ascii
-  silent! ascii
-  redir END
-
-  if match(ascii, 'NUL') != -1
-    return 'NUL'
-  endif
-
-  " Zero pad hex values
-  let nrformat = '0x%02x'
-
-  let encoding = (&fenc == '' ? &enc : &fenc)
-
-  if encoding == 'utf-8'
-    " Zero pad with 4 zeroes in unicode files
-    let nrformat = '0x%04x'
-  endif
-
-  " Get the character and the numeric value from the return value of :ascii
-  " This matches the two first pieces of the return value, e.g.
-  " "<F>  70" => char: 'F', nr: '70'
-  let [str, char, nr; rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
-
-  " Format the numeric value
-  let nr = printf(nrformat, nr)
-
-  return "'". char ."' ". nr
-endfunction
 
 if system('uname -a | grep Microsoft') != ""
   let g:clipboard = {
@@ -562,12 +397,6 @@ if system('uname -a | grep Microsoft') != ""
         \   },
         \   'cache_enabled': 1,
         \ }
-endif
-
-if has('unix')
-  if !has('gui_running')
-    colorscheme desert
-  endif
 endif
 
 " for changelog memo
