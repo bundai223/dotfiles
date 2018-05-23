@@ -28,10 +28,6 @@ export XDG_CONFIG_HOME=~/.config
 # ctrl + sがterminalを停止させるのをなしに
 stty stop undef
 
-if [ -e /var/www/rails/ai_q_env ]; then
-  . /var/www/rails/ai_q_env
-fi
-
 export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
 # export NVIM_PYTHON_LOG_FILE=~/.config/nvim/log
 # export NVIM_PYTHON_LOG_LEVEL=DEBUG
