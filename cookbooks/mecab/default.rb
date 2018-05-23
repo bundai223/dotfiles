@@ -4,6 +4,7 @@ when 'debian', 'ubuntu', 'mint'
   package 'mecab'
   package 'libmecab-dev'
   package 'mecab-ipadic'
+  package 'mecab-ipadic-utf8'
 
 when 'fedora', 'redhat', 'amazon'
   execute 'install mecab repos' do
