@@ -57,6 +57,7 @@ end
 new_password = node[:mysql][:root_password]
 
 # password空の場合
+MItamae.logger.error "new password: #{new_password}"
 execute "mysql_secure_installation no password" do
     user "root"
     only_if "mysql -u root -e 'show databases' | grep information_schema" # パスワードが空の場合
@@ -75,7 +76,7 @@ check_temp_password_result = run_command(%Q{grep "A temporary password is genera
 if check_temp_password_result.exit_status == 0
   temp_password = check_temp_password_result.stdout.chomp
 
-  #MItamae.logger.error "#{temp_password} #{new_password}"
+  MItamae.logger.error "password change: #{temp_password} -> #{new_password}"
   execute "mysql_secure_installation temp password" do
       user "root"
       only_if "mysql -uroot -p'#{temp_password}' -e 'show databases' | grep 'connect-expired-password\|information_schema'" # パスワードがtemp passwordの場合
