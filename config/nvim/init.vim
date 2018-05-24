@@ -358,6 +358,11 @@ endif
 filetype plugin indent on
 syntax enable
 
+" vimprocをを先にインストール
+if dein#check_install(['vimproc.vim'])
+  call dein#install(['vimproc.vim'])
+endif
+
 if dein#check_install()
   call dein#install()
 endif

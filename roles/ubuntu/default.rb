@@ -11,6 +11,10 @@ package 'zlib1g-dev'
 package 'liblzma-dev'
 package 'libxml2-dev'
 package 'python-fontforge'
+package 'cmake'
+package 'libboost-all-dev'
+package 'libicu-dev'
+# package 'python-dev'
 
 
 # locale
