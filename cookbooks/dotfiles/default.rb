@@ -63,6 +63,12 @@ remote_file "#{node[:home]}/.tmux.conf" do
   group node[:group]
 end
 
+remote_file "#{node[:home]}/.ctags" do
+  source '../../config/.ctags'
+  owner node[:user]
+  group node[:group]
+end
+
 #dotfile '.config/powerline'
 execute "ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/.config/powerline #{node[:home]}/.config/powerline" do
   not_if "test -e #{node[:home]}/.config/powerline"

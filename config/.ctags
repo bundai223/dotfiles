@@ -2,6 +2,7 @@
 --tag-relative=no
 --sort=yes
 --exclude=".git*"
+--langmap=Ruby:+.yml.haml.erb
 --langdef=haxe
 --langmap=haxe:.hx
 --regex-haxe=/^package[ \t]+([A-Za-z0-9_.]+)/\1/p,package/
