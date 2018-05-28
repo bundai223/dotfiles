@@ -34,6 +34,4 @@ when 'opensuse'
 else
 end
 
-execute 'install cho' do
-  command "#{sudo(node['user'])}go get github.com/mattn/cho"
-end
+go_get 'github.com/mattn/cho'

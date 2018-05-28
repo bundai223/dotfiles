@@ -78,4 +78,10 @@ define :get_repo do
   end
 end
 
+define :go_get do
+  execute "go get #{reponame}" do
+    command "#{sudo(node['user'])}go get #{reponame}"
+  end
+end
+
 init_node
