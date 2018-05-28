@@ -159,7 +159,7 @@ zle -N insert-last-word smart-insert-last-word
 bindkey '^]' insert-last-word
 #}}}
 
-# Command line stack {{{
+# Command line stack
 # http://qiita.com/ikm/items/1f2c7793944b1f6cc346
 show_buffer_stack() {
     POSTDISPLAY="
@@ -168,12 +168,11 @@ show_buffer_stack() {
 }
 zle -N show_buffer_stack
 
-# }}}
 
-# Key bind {{{
-# vi風バインド
-bindkey -e
-# bindkey -v
+# Key bind
+bindkey -e # emacs風バインド
+
+# bindkey -v # vi風バインド
 # bindkey $'\e' vi-cmd-mode
 
 # 履歴表示
@@ -188,34 +187,34 @@ bindkey " " magic-space
 # コマンドラインスタックをviバインドで使用できるように
 setopt noflowcontrol
 bindkey '^Q' show_buffer_stack
-#}}}
 
-# Show ls & git status when pressed only enter. {{{
+
+# Show ls & git status when pressed only enter.
 # ref) http://qiita.com/yuyuchu3333/items/e9af05670c95e2cc5b4d
 function do_enter() {
-if [ -n "$BUFFER" ]; then
+  if [ -n "$BUFFER" ]; then
     zle accept-line
     return 0
-fi
-echo
-ls -FG
-# ls_abbrev
-if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
+  fi
+  echo
+  ls -FG
+  # ls_abbrev
+  if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
     echo
     echo -e "\e[0;33m--- git status ---\e[0m"
     git status -sb
-fi
+  fi
 
-echo
-echo
-zle reset-prompt
-return 0
+  echo
+  echo
+  zle reset-prompt
+  return 0
 }
 zle -N do_enter
 bindkey '^m' do_enter
-# }}}
 
-# Alias {{{
+
+# Alias
 alias h='history'
 alias c='clear'
 alias l='ls -FG'
