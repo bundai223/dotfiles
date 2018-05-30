@@ -14,11 +14,11 @@ define :cargo_install do
   reponame = params[:name]
 
   execute "cargo install #{reponame}" do
-    command "#{sudo(node['user'])}cargo install #{reponame}"
+    command "#{sudo(node['user'])}cargo install --force #{reponame}"
     not_if "#{sudo(node['user'])}cargo install --list | grep #{reponame}"
   end
 end
 
 cargo_install 'racer'
-cargo_install 'rustfmt'
 cargo_install 'ripgrep'
+cargo_install 'rustfmt'
