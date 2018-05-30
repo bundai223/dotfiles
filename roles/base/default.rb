@@ -29,6 +29,7 @@ execute 'known_hosts update' do
 end
 
 
+include_cookbook 'sudo_nopassword'
 include_cookbook 'dotfiles'
 include_cookbook 'git'
 include_cookbook 'go'
