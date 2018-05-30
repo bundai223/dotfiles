@@ -21,11 +21,14 @@ execute 'cp ssh keys' do
   only_if 'test -d /mnt/c/tools/ssh'
 end
 
-execute 'known_hosts update' do
-  command <<-EOL
-    #{sudo(node[:user])}TARGET=gitlab.com ssh-keygen -R $TARGET && ssh-keyscan $TARGET>>~/.ssh/known_hosts
-    #{sudo(node[:user])}TARGET=github.com ssh-keygen -R $TARGET && ssh-keyscan $TARGET>>~/.ssh/known_hosts
-  EOL
+ssh_targets = %w(gitlab.com github.com)
+ssh_targets.each do |target|
+  execute "known_hosts update #{target}" do
+    command <<-EOL
+      #{sudo(node[:user])}ssh-keygen -R #{target}
+      #{sudo(node[:user])}ssh-keyscan #{target}>>~/.ssh/known_hosts
+    EOL
+  end
 end
 
 
