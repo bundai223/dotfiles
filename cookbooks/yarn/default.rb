@@ -5,6 +5,7 @@ when 'debian', 'ubuntu', 'mint'
     command <<-EOL
       curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
       echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+      apt update
     EOL
 
     not_if 'ls /etc/apt/sources.list.d | grep yarn.list'
