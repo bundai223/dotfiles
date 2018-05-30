@@ -30,7 +30,7 @@ fi
 
 # install plugins
 if [ -e .git ]; then
-  git submodule --init --recursive update
+  git submodule update --init --recursive
 else
   cd plugins
   rbenv_reponame=itamae-plugin-recipe-rbenv

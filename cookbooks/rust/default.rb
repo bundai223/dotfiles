@@ -10,11 +10,12 @@ end
 
 # Cargo
 define :cargo_install do
+  # MItamae.logger.error "#{params}"
   reponame = params[:name]
 
   execute "cargo install #{reponame}" do
     command "#{sudo(node['user'])}cargo install #{reponame}"
-    not_if "#{sudo(node['user'])}which #{reponame}"
+    not_if "#{sudo(node['user'])}cargo install --list | grep #{reponame}"
   end
 end
 
