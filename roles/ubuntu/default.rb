@@ -1,8 +1,14 @@
-execute 'apt purge ebtables' do
+execute 'apt purge -y ebtables' do
+  command <<-EOL
+    rm /var/lib/dpkg/info/ebtables.prerm
+    apt purge -y ebtables
+  EOL
+
   only_if 'uname -a | grep Microsoft'
+  only_if 'test -e /var/lib/dpkg/info/ebtables.prerm'
 end
 
-execute 'apt purge nano' do
+execute 'apt purge -y nano' do
   only_if 'which nano'
 end
 
