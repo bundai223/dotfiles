@@ -39,6 +39,7 @@
 	root = ~/go
 
 [alias]
+	clone = clone --recursive # cloneする時にsubmoduleも取得
 	ps = push					# ステータスを短く。ブランチ名付き
 	pl = pull					# ステータスを短く。ブランチ名付き
 	st = status --short --branch					# ステータスを短く。ブランチ名付き
