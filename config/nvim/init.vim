@@ -39,11 +39,10 @@ call MkDir(s:undodir)
 "set helplang=ja,en
 set helplang=en
 " カーソル下の単語をhelp
-set keywordprg =:help
+set keywordprg=:help
 
 set fileformat=unix
 set fileformats=unix,dos
-
 
 " バックアップファイルの設定
 let &backupdir=s:backupdir
@@ -114,46 +113,28 @@ if has('persistent_undo' )
   set undofile
 endif
 
+set virtualedit=block " visualモードで文字がなくてもカーソル移動可能
+
 " Indent
-set expandtab
-
-" Width of tab
-set tabstop=2
-
-" How many spaces to each indent level
-set shiftwidth=2
-
-" <>などでインデントする時にshiftwidthの倍数にまるめる
-set shiftround
-
-" 補完時に大文字小文字の区別なし
-set infercase
-
-" Automatically adjust indent
-set autoindent
-
-" Automatically indent when insert a new line
-set smartindent
-set smarttab
+set expandtab    " indent use space
+set tabstop=2    " Width of tab
+set shiftwidth=2 " How many spaces to each indent level
+set shiftround   " <>などでインデントする時にshiftwidthの倍数にまるめる
+set infercase    " 補完時に大文字小文字の区別なし
+set autoindent   " Automatically adjust indent
+set smartindent  " Automatically indent when insert a new line
+set smarttab     " hoge
 
 " スリーンベルを無効化
-
 set t_vb=
 set novisualbell
 
 " Search
-" Match words with ignore upper-lower case
-set ignorecase
-
-" Don't think upper-lower case until upper-case input
-set smartcase
-
-" Incremental search
-set incsearch
+set ignorecase " Match words with ignore upper-lower case
+set smartcase " Don't think upper-lower case until upper-case input
+set incsearch " Incremental search
 set inccommand=split
-
-" Highlight searched words
-set hlsearch
+set hlsearch " Highlight searched words
 
 " http://cohama.hateblo.jp/entry/20130529/1369843236
 " Auto complete backslash when input slash on search command(search by slash).
@@ -277,12 +258,6 @@ vnoremap <C-g> <Esc>
 cnoremap <C-g> <Esc>
 tnoremap <silent> <Esc> <C-\><C-n>
 
-
-" Easy to cmd mode
-" nnoremap ; :
-" vnoremap ; :
-" nnoremap : q:i
-" vnoremap : q:i
 
 " Easy to help
 nnoremap [myleader]h :<C-u>vert bel help<Space>

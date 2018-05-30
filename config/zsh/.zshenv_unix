@@ -34,6 +34,6 @@ export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
 
 
 if uname -a | grep Microsoft>/dev/null; then
-  export PATH=/mnt/c/tools/win32yank-x64/:$PATH
+#  export PATH=/mnt/c/tools/win32yank-x64/:$PATH
   unsetopt BG_NICE
 fi
