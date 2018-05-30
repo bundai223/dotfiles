@@ -68,7 +68,7 @@ if node[:platform] == 'darwin' or node[:platform] == 'osx'
 else
   execute 'install gem package' do
     command <<-EOL
-      source /etc/profile.d/rbenv.sh
+      . /etc/profile.d/rbenv.sh
       gem install neovim
     EOL
   end
