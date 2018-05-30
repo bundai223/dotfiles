@@ -10,7 +10,9 @@ end
 
 # Cargo
 define cargo_install do
-  execute 'cargo install #{reponame}' do
+  reponame = params[:name]
+
+  execute "cargo install #{reponame}" do
     command "#{sudo(node['user'])}cargo install #{reponame}"
     not_if "#{sudo(node['user'])}which #{reponame}"
   end

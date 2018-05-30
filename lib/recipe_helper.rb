@@ -79,6 +79,8 @@ define :get_repo do
 end
 
 define :go_get do
+  reponame = params[:name]
+
   execute "go get #{reponame}" do
     command "#{sudo(node['user'])}go get #{reponame}"
   end
