@@ -2,6 +2,10 @@ execute 'apt purge ebtables' do
   only_if 'uname -a | grep Microsoft'
 end
 
+execute 'apt purge nano' do
+  only_if 'which nano'
+end
+
 execute 'apt update'
 execute 'apt upgrade -y'
 
