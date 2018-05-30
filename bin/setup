@@ -32,17 +32,16 @@ fi
 if [ -e .git ]; then
   git submodule init
   git submodule update
+else
+  cd plugins
+  rbenv_reponame=itamae-plugin-recipe-rbenv
+  if rmdir $rbenv_reponame; then
+    rbenv_plugin_url=https://github.com/k0kubun/itamae-plugin-recipe-rbenv/archive/master.zip
+    curl -sOL $rbenv_plugin_url
+    unzip master.zip
+    mv $rbenv_reponame-master $rbenv_reponame
+    rm -f master.zip
+  fi
 fi
-#else
-#  cd plugins
-#  rbenv_reponame=itamae-plugin-recipe-rbenv
-#  if rmdir $rbenv_reponame; then
-#    rbenv_plugin_url=https://github.com/k0kubun/itamae-plugin-recipe-rbenv/archive/master.zip
-#    curl -sOL $rbenv_plugin_url
-#    unzip master.zip
-#    mv $rbenv_reponame-master $rbenv_reponame
-#    rm -f master.zip
-#  fi
-#fi
 
 cd ..
