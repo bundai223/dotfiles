@@ -73,19 +73,17 @@ execute "mysql_secure_installation no password" do
 end
 
 # passwordが初期値の場合
-check_temp_password_result = run_command(%Q{grep "A temporary password is generated" /var/log/mysqld.log | sed -s 's/.*root@localhost: //'})
-if check_temp_password_result.exit_status == 0
-  temp_password = check_temp_password_result.stdout.chomp
+tmp_password_cmd = %Q{grep "A temporary password is generated" /var/log/mysqld.log | sed -s 's/.*root@localhost: //'}
+MItamae.logger.error "password change: $(#{tmp_password_cmd}) -> #{new_password}"
+execute "mysql_secure_installation temp password" do
+  user "root"
+  only_if 'test -e /var/log/mysqld.log'
+  only_if %Q{mysql -uroot -p"$(#{tmp_password_cmd})" -e 'show databases' | grep 'connect-expired-password\|information_schema'} # パスワードがtemp passwordの場合
 
-  MItamae.logger.error "password change: #{temp_password} -> #{new_password}"
-  execute "mysql_secure_installation temp password" do
-    user "root"
-    only_if "mysql -uroot -p'#{temp_password}' -e 'show databases' | grep 'connect-expired-password\|information_schema'" # パスワードがtemp passwordの場合
-    command <<-EOL
-          mysqladmin -uroot -p'#{temp_password}' password '#{new_password}'
-          mysql_secure_installation -p'#{new_password}' -D
-    EOL
-  end
+  command <<-EOL
+        mysqladmin -uroot -p"$(#{tmp_password_cmd})" password '#{new_password}'
+        mysql_secure_installation -p'#{new_password}' -D
+  EOL
 end
 
 
