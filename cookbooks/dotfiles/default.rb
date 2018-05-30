@@ -4,6 +4,11 @@ directory "#{node[:home]}/.config" do
   group node[:group]
 end
 
+directory "#{node[:home]}/.local" do
+  owner node[:user]
+  group node[:group]
+end
+
 directory "#{node[:home]}/.local/bin" do
   owner node[:user]
   group node[:group]
