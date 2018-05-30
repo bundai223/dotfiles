@@ -5,9 +5,8 @@ when 'debian', 'ubuntu', 'mint'
 
   execute 'add apt repository' do
     command <<-EOL
-      sudo add-apt-repository -y ppa:git-core/ppa
-      sudo apt-get update
-      sudo apt-get upgrade
+      add-apt-repository -y ppa:git-core/ppa
+      apt update
     EOL
 
     not_if 'ls /etc/apt/sources.list.d | grep git'
@@ -24,12 +23,11 @@ when 'fedora', 'redhat', 'amazon'
   package 'zlib-devel'
   package 'perl-ExtUtils-MakeMaker'
   package 'autoconf'
-  package 'git'
 
   execute 'install git' do
     command <<-EOL
       #!/bin/bash
-      VERSION=2.17.0
+      VERSION=2.17.1
       WORKDIR=work_git
 
       cur=$(pwd)

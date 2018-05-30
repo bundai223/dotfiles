@@ -1,6 +1,8 @@
 
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
+  execute 'apt purge -y cmdtest'
+
   execute "install yarn" do
     command <<-EOL
       curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
