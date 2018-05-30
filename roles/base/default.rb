@@ -26,7 +26,7 @@ ssh_targets.each do |target|
   execute "known_hosts update #{target}" do
     command <<-EOL
       #{sudo(node[:user])}ssh-keygen -R #{target}
-      #{sudo(node[:user])}ssh-keyscan #{target}>>~/.ssh/known_hosts
+      #{sudo(node[:user])}ssh-keyscan #{target}>>#{node[:home]}/.ssh/known_hosts
     EOL
   end
 end
