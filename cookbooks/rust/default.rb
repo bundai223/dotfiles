@@ -9,7 +9,7 @@ end
 
 
 # Cargo
-define cargo_install do
+define :cargo_install do
   reponame = params[:name]
 
   execute "cargo install #{reponame}" do
