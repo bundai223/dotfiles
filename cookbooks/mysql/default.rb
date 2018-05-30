@@ -16,6 +16,7 @@ case node[:platform]
 when 'debian', 'ubuntu', 'mint'
   package 'mysql-server'
   package 'libmysqld-dev'
+
 when 'fedora'
   # cf) https://dev.mysql.com/downloads/repo/yum/
   package_name = "mysql#{major_version}#{minor_version}-community-release-fc27-10"
@@ -59,16 +60,16 @@ new_password = node[:mysql][:root_password]
 # password空の場合
 MItamae.logger.error "new password: #{new_password}"
 execute "mysql_secure_installation no password" do
-    user "root"
-    only_if "mysql -u root -e 'show databases' | grep information_schema" # パスワードが空の場合
-    command <<-EOL
+  user "root"
+  only_if "mysql -u root -e 'show databases' | grep information_schema" # パスワードが空の場合
+  command <<-EOL
         mysqladmin -u root password #{new_password}
         mysql -u root -ppassword -e "DELETE FROM mysql.user WHERE User='';"
         mysql -u root -ppassword -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1');"
         mysql -u root -ppassword -e "DROP DATABASE test;"
         mysql -u root -ppassword -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';"
         mysql -u root -ppassword -e "FLUSH PRIVILEGES;"
-    EOL
+  EOL
 end
 
 # passwordが初期値の場合
@@ -78,12 +79,12 @@ if check_temp_password_result.exit_status == 0
 
   MItamae.logger.error "password change: #{temp_password} -> #{new_password}"
   execute "mysql_secure_installation temp password" do
-      user "root"
-      only_if "mysql -uroot -p'#{temp_password}' -e 'show databases' | grep 'connect-expired-password\|information_schema'" # パスワードがtemp passwordの場合
-      command <<-EOL
+    user "root"
+    only_if "mysql -uroot -p'#{temp_password}' -e 'show databases' | grep 'connect-expired-password\|information_schema'" # パスワードがtemp passwordの場合
+    command <<-EOL
           mysqladmin -uroot -p'#{temp_password}' password '#{new_password}'
           mysql_secure_installation -p'#{new_password}' -D
-      EOL
+    EOL
   end
 end
 
