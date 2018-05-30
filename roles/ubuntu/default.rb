@@ -1,3 +1,10 @@
+execute 'apt purge ebtables' do
+  only_if 'uname -a | grep Microsoft'
+end
+
+execute 'apt update'
+execute 'apt upgrade -y'
+
 include_role('base')
 
 # for nokogiri for rails

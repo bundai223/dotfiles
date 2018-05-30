@@ -1,3 +1,5 @@
+execute 'yum update -y'
+
 package 'wget'
 package 'unzip'
 package 'vim'

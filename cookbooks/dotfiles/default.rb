@@ -71,5 +71,5 @@ end
 
 #dotfile '.config/powerline'
 execute "ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/.config/powerline #{node[:home]}/.config/powerline" do
-  not_if "test -e #{node[:home]}/.config/powerline"
+  not_if "test -L #{node[:home]}/.config/powerline"
 end

@@ -1,5 +1,7 @@
-include_role 'base'
+execute 'brew update'
+execute 'brew upgrade'
 
+include_role 'base'
 
 # osx
 package 'wget'
