@@ -58,7 +58,7 @@ end
 new_password = node[:mysql][:root_password]
 
 # password空の場合
-MItamae.logger.error "new password: #{new_password}"
+#MItamae.logger.error "new password: #{new_password}"
 execute "mysql_secure_installation no password" do
   user "root"
   only_if "mysql -u root -e 'show databases' | grep information_schema" # パスワードが空の場合
@@ -74,7 +74,7 @@ end
 
 # passwordが初期値の場合
 tmp_password_cmd = %Q{grep "A temporary password is generated" /var/log/mysqld.log | sed -s 's/.*root@localhost: //'}
-MItamae.logger.error "password change: $(#{tmp_password_cmd}) -> #{new_password}"
+#MItamae.logger.error "password change: $(#{tmp_password_cmd}) -> #{new_password}"
 execute "mysql_secure_installation temp password" do
   user "root"
   only_if 'test -e /var/log/mysqld.log'
