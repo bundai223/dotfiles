@@ -20,7 +20,6 @@ include_role('base')
 # for nokogiri for rails
 package 'build-essential'
 package 'apt-file'
-package 'sysv-rc-conf'
 
 package 'patch'
 package 'ruby-dev'
