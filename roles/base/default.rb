@@ -4,34 +4,6 @@ node.reverse_merge!({
   }
 })
 
-directory "#{node[:home]}/.ssh" do
-  owner node[:user]
-  group node[:group]
-  mode '700'
-end
-
-execute 'cp ssh keys' do
-  command <<-EOL
-    cp /mnt/c/tools/ssh/* #{node[:home]}/.ssh/
-    chown #{node[:user]}:#{node[:group]} #{node[:home]}/.ssh/*
-    chmod 600 #{node[:home]}/.ssh/*
-  EOL
-
-  only_if 'uname -a | grep Microsoft'
-  only_if 'test -d /mnt/c/tools/ssh'
-end
-
-ssh_targets = %w(gitlab.com github.com)
-ssh_targets.each do |target|
-  execute "known_hosts update #{target}" do
-    command <<-EOL
-      #{sudo(node[:user])}ssh-keygen -R #{target}
-      #{sudo(node[:user])}ssh-keyscan #{target}>>#{node[:home]}/.ssh/known_hosts
-    EOL
-  end
-end
-
-
 include_cookbook 'sudo_nopassword'
 include_cookbook 'dotfiles'
 include_cookbook 'git'
