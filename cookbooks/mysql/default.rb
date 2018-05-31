@@ -4,7 +4,8 @@ node.reverse_merge!({
   mysql: {
     major_version: 5,
     minor_version: 7,
-    root_password: ''
+    root_password: '',
+    root_password: 'D12uM3m4y+',
   }
 })
 
@@ -16,6 +17,24 @@ case node[:platform]
 when 'debian', 'ubuntu', 'mint'
   package 'mysql-server'
   package 'libmysqld-dev'
+
+  service 'mysql' do
+    action [:start, :enable]
+    not_if 'uname -a | grep Microsoft'
+  end
+
+  execute 'service mysql start' do
+    only_if 'uname -a | grep Microsoft'
+  end
+
+  file "#{node[:home]}/.bashrc" do
+    action [:edit]
+    block do |content|
+      content.gsub!('sudo service mysql start', '')
+      content << 'sudo service mysql start'
+    end
+    only_if 'uname -a | grep Microsoft'
+  end
 
 when 'fedora'
   # cf) https://dev.mysql.com/downloads/repo/yum/
@@ -46,6 +65,11 @@ when 'redhat', 'amazon'
   package 'mysql-community-server'
   package 'mysql-community-devel'
 
+  service 'mysqld' do
+    action [:start, :enable]
+    not_if 'uname -a | grep Microsoft'
+  end
+
 when 'osx', 'darwin'
 when 'arch'
   package 'mysql'
@@ -59,16 +83,18 @@ new_password = node[:mysql][:root_password]
 
 # password空の場合
 #MItamae.logger.error "new password: #{new_password}"
-execute "mysql_secure_installation no password" do
+execute "initialize on no password" do
   user "root"
-  only_if "mysql -u root -e 'show databases' | grep information_schema" # パスワードが空の場合
+  only_if "mysql -u root -e 'show databases' | grep information_schema"
+
   command <<-EOL
-        mysqladmin -u root password #{new_password}
-        mysql -u root -ppassword -e "DELETE FROM mysql.user WHERE User='';"
-        mysql -u root -ppassword -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1');"
-        mysql -u root -ppassword -e "DROP DATABASE test;"
-        mysql -u root -ppassword -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';"
-        mysql -u root -ppassword -e "FLUSH PRIVILEGES;"
+    set -eu
+    mysql -u root -e "DELETE FROM mysql.user WHERE User='';"
+    mysql -u root -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1');"
+    mysql -u root -e "DROP DATABASE test;"
+    mysql -u root -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';"
+    mysql -u root -e "FLUSH PRIVILEGES;"
+    mysqladmin password #{new_password} -u root
   EOL
 end
 
@@ -77,8 +103,7 @@ tmp_password_cmd = %Q{grep "A temporary password is generated" /var/log/mysqld.l
 #MItamae.logger.error "password change: $(#{tmp_password_cmd}) -> #{new_password}"
 execute "mysql_secure_installation temp password" do
   user "root"
-  only_if 'test -e /var/log/mysqld.log'
-  only_if %Q{mysql -uroot -p"$(#{tmp_password_cmd})" -e 'show databases' | grep 'connect-expired-password\|information_schema'} # パスワードがtemp passwordの場合
+  only_if %Q{test -e /var/log/mysqld.log && mysql -uroot -p"$(#{tmp_password_cmd})" -e 'show databases' | grep 'connect-expired-password\|information_schema'} # パスワードがtemp passwordの場合
 
   command <<-EOL
         mysqladmin -uroot -p"$(#{tmp_password_cmd})" password '#{new_password}'
@@ -86,8 +111,13 @@ execute "mysql_secure_installation temp password" do
   EOL
 end
 
+execute 'mysql user add for auth_socket' do
+  only_if "mysql -u root -p#{new_password} -e 'show databases' | grep information_schema"
 
-service 'mysqld' do
-  action [:start, :enable]
-  not_if 'uname -a | grep Microsoft'
+  command <<-EOL
+    set -eu
+    #mysql -uroot -p'#{new_password}' -e "CREATE USER IF NOT EXISTS '#{node[:user]}'@localhost IDENTIFIED BY '#{new_password}';"
+    mysql -uroot -p'#{new_password}' -e "CREATE USER IF NOT EXISTS '#{node[:user]}'@localhost IDENTIFIED VIA unix_socket;"
+    mysql -uroot -p'#{new_password}' -e "GRANT ALL ON *.* TO '#{node[:user]}'@'localhost';"
+  EOL
 end

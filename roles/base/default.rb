@@ -1,7 +1,7 @@
 node.reverse_merge!({
-  mysql: {
-    root_password: 'D12uM3m4y+',
-  }
+#  mysql: {
+#    root_password: 'D12uM3m4y+',
+#  }
 })
 
 include_cookbook 'sudo_nopassword'
