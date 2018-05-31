@@ -66,14 +66,14 @@ define :get_repo do
   reponame = params[:name]
 
   if node[:platform] == 'osx' or node[:platform] == 'darwin'
-    execute "git clone #{reponame}" do
+    execute "get_repo #{reponame}" do
 	    command "~/go/bin/ghq get -p #{reponame}"
       not_if "test -d ~/repos/github.com/#{reponame}"
     end
   else
-    execute "git clone #{reponame}" do
+    execute "get_repo #{reponame}" do
       command "#{sudo(node[:user])} ghq get -p #{reponame}"
-      not_if "test -d ~/repos/github.com/#{reponame}"
+      not_if "test -d #{node[:home]}/repos/github.com/#{reponame}"
     end
   end
 end

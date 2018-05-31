@@ -11,5 +11,6 @@ myrepos = [
   'bundai223/blog.bundai223',
   'bundai223/bundai223.github.io',
   'gitlab.com:bundai223/RictyDiminished-for-Powerline',
+  'gitlab.com:bundai223/private-memo.git',
 ]
 myrepos.each {|name| get_repo name}
