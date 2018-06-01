@@ -1,9 +1,7 @@
 # vim <=> tmux 間でクリップボード利用を可能にする
 set-option -g default-command 'reattach-to-user-namespace -l $SHELL'
 
-# vでマーク開始
 # yでヤンク (クリップボードを使用できるように)
-#bind -t vi-copy v begin-selection
 #bind -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
 #
 ## Update default binding of `Enter` to also use copy-pipe

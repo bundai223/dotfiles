@@ -158,6 +158,7 @@ hook_add = '''
     \ ['tmux.conf',      g:pub_repos_path . '/dotfiles/config/.tmux.conf'],
     \ ['tmux.conf osx',  g:pub_repos_path . '/dotfiles/config/tmux/.tmux.conf_osx'],
     \ ['tmux.conf unix', g:pub_repos_path . '/dotfiles/config/tmux/.tmux.conf_unix'],
+    \ ['tmux.conf wsl', g:pub_repos_path . '/dotfiles/config/tmux/.tmux.conf_wsl'],
     \ ]
 
   call denite#custom#var('menu', 'menus', s:menus)
