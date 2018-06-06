@@ -1,4 +1,3 @@
-
 # 数値の合計
 sum() {
   if [ -p /dev/stdin ]; then
@@ -59,7 +58,10 @@ os_version() {
 ssh() {
   # tmux起動時
   if [[ -n $(printenv TMUX) ]] ; then
-    h=$1
+    h=${@: -1}
+
+    tmux rename-window "ssh: $h"  # window名をhostnameに
+
     # 接続先ホスト名に応じて背景色を切り替え
     if [[ `echo $h | grep 'prod-'` ]] ; then
       tmux select-pane -P 'fg=red'
@@ -74,6 +76,10 @@ ssh() {
     fi
     # 通常通りssh続行
     command ssh $@
+
+    # window名を元に戻す
+    tmux set-window-option automatic-rename "on" 1>/dev/null
+
     # デフォルトの背景色に戻す
     tmux select-pane -P 'default'
 
