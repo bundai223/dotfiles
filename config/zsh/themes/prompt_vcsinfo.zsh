@@ -3,11 +3,12 @@
 
 # バージョン管理の状態に合わせた表示
 autoload -Uz vcs_info
-precmd () {
+precmd_theme () {
   psvar=()
   LANG=en_US.UTF-8 vcs_info
   [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
+add-zsh-hook precmd precmd_theme
 
 BRANCH='%F{white}%b%f'
 VCS_NAME='%F{gray}(%s)%f'

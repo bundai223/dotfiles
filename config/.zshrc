@@ -53,11 +53,11 @@ zstyle ':completion:*' group-name ''
 
 # path
 zstyle ':completion:*:sudo:*' command-path \
-    /usr/local/bin \
-    /usr/sbin \
-    /usr/bin \
-    /sbin \
-    /bin
+  /usr/local/bin \
+  /usr/sbin \
+  /usr/bin \
+  /sbin \
+  /bin
 
 # セパレータを設定する
 zstyle ':completion:*' list-separator '-->'
@@ -109,7 +109,7 @@ setopt pushd_ignore_dups    # 重複cd履歴は残さない
 # plugin
 # ローカル用設定を読み込む
 if [ -f ${PERSONAL_ZSH_DIR}/.zshrc.plugin ]; then
-    source ${PERSONAL_ZSH_DIR}/.zshrc.plugin
+  source ${PERSONAL_ZSH_DIR}/.zshrc.plugin
 fi
 
 # History setting {{{
@@ -162,9 +162,9 @@ bindkey '^]' insert-last-word
 # Command line stack
 # http://qiita.com/ikm/items/1f2c7793944b1f6cc346
 show_buffer_stack() {
-    POSTDISPLAY="
-    stack: $LBUFFER"
-    zle push-line-or-edit
+  POSTDISPLAY="
+  stack: $LBUFFER"
+  zle push-line-or-edit
 }
 zle -N show_buffer_stack
 
@@ -268,31 +268,31 @@ fi
 # ref) http://qiita.com/yuyuchu3333/items/67630d597c7700a51b95
 # zman [search word]
 zman() {
-    if [[ -n $1 ]]; then
-        PAGER="less -g -s '+/"$1"'" man zshall
-        echo "Search word: $1"
-    else
-        man zshall
-    fi
+  if [[ -n $1 ]]; then
+    PAGER="less -g -s '+/"$1"'" man zshall
+    echo "Search word: $1"
+  else
+    man zshall
+  fi
 }
 
 # zsh 用語検索
 # http://qiita.com/mollifier/items/14bbea7503910300b3ba
 zwman() {
-    zman "^       $1"
+  zman "^       $1"
 }
 
 # zsh フラグ検索
 zfman() {
-    local w='^'
-    w=${(r:8:)w}
-    w="$w${(r:7:)1}|$w$1(\[.*\].*)|$w$1:.*:|$w$1/.*/.*"
-    zman "$w"
+  local w='^'
+  w=${(r:8:)w}
+  w="$w${(r:7:)1}|$w$1(\[.*\].*)|$w$1:.*:|$w$1/.*/.*"
+  zman "$w"
 }
 
 # Man colorfull
 function man (){
-env \
+  env \
     LESS_TERMCAP_mb=$(printf "\e[1;31m") \
     LESS_TERMCAP_md=$(printf "\e[1;31m") \
     LESS_TERMCAP_me=$(printf "\e[0m") \
@@ -307,7 +307,7 @@ env \
 
 # ローカル用設定を読み込む
 if [ -f ~/.zshrc_local ]; then
-    source ~/.zshrc_local
+  source ~/.zshrc_local
 fi
 
 # Load utility scripts. {{{
@@ -346,13 +346,15 @@ alias t-ks='tmux kill-session'
 # http://d.hatena.ne.jp/naoya/20130108/1357630895
 _Z_DATA=~/.config/zsh/z/.z
 if [[ $OSTYPE == darwin* ]]; then
-    . `brew --prefix`/etc/profile.d/z.sh
+  . `brew --prefix`/etc/profile.d/z.sh
 else
-    . ~/repos/github.com/rupa/z/z.sh
+  . ~/repos/github.com/rupa/z/z.sh
 fi
-precmd () {
-    z --add "$(pwd -P)"
-}
+# precmd_z () {
+#   z --add "$(pwd -P)"
+# }
+# add-zsh-hook precmd precmd_z
+
 
 # for hyperterm
 #precmd() {
@@ -365,7 +367,6 @@ precmd () {
 #  if overridden; then return; fi
 #  printf "\033]0;%s\a" "${1%% *} | $cwd"
 #}
-
 
 # 3秒以上かかる処理の後にtimeコマンドの結果を表示してくれる
 REPORTTIME=3

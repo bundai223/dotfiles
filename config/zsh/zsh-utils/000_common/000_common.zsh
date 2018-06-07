@@ -60,7 +60,8 @@ ssh() {
   if [[ -n $(printenv TMUX) ]] ; then
     h=${@: -1}
 
-    tmux rename-window "ssh: $h"  # window名をhostnameに
+    #tmux rename-window "ssh: $h"  # window名をhostnameに
+    tmux select-pane -T "ssh: $h"  # window名をhostnameに
 
     # 接続先ホスト名に応じて背景色を切り替え
     if [[ `echo $h | grep 'prod-'` ]] ; then
@@ -77,8 +78,8 @@ ssh() {
     # 通常通りssh続行
     command ssh $@
 
-    # window名を元に戻す
-    tmux set-window-option automatic-rename "on" 1>/dev/null
+    #tmux set-window-option automatic-rename "on" 1>/dev/null # window名を元に戻す
+    tmux select-pane -T "$(hostname)"                         # pane名を元に戻す
 
     # デフォルトの背景色に戻す
     tmux select-pane -P 'default'

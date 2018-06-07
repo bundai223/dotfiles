@@ -64,3 +64,10 @@ tmux_multissh()
   tmux attach -t $session
 }
 
+
+#if [ -n "$TMUX" ]; then
+#  _tmux_pane_preexec() {
+#    tmux select-pane -T "local: ${1%% *}"
+#  }
+#  add-zsh-hook preexec _tmux_pane_preexec
+#fi
