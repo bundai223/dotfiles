@@ -19,6 +19,7 @@ export PATH=~/.local/bin:$PATH
 #for ruby
 #export PATH=${TOOLS_PATH}/opt/ruby/bin:$PATH
 export PATH=~/repos/github.com/bundai223/terminal-tools/bin:$PATH
+export PATH=~/swift/usr/bin:$PATH
 
 export GEMSRC_USE_GHQ=true
 #

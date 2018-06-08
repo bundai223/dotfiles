@@ -11,7 +11,7 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon'
       mkdir -p ${WORKDIR}
       cd ${WORKDIR}
 
-      wget https://github.com/tmux/tmux/releases/download/${VERSION}/tmux-${VERSION}.tar.gz 
+      wget https://github.com/tmux/tmux/releases/download/${VERSION}/tmux-${VERSION}.tar.gz
       tar fx tmux-${VERSION}.tar.gz
       cd tmux-${VERSION}
       ./configure --prefix=/usr/local
