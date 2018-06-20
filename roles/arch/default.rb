@@ -17,5 +17,15 @@ execute 'yaourt -S --noconfirm \'base-devel\''
 package 'openssh'
 package 'libxml2'
 package 'libxslt'
+package 'fcitx-im'
+package 'fcitx-configtool'
+package 'fcitx-skk'
+package 'skk-jisyo'
+
+execute 'yaourt -S --noconfirm buttercup-desktop'
+execute 'yaourt -S --noconfirm dropbox'
+execute 'yaourt -S --noconfirm hfsprogs'
+execute 'yaourt -S --noconfirm cerebro'
+execute 'yaourt -S --noconfirm zeal'
 
 include_role('base')
