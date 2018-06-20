@@ -363,7 +363,6 @@ augroup MyAutoCmd
   autocmd FileType changelog setlocal nomodeline
 augroup END
 
-
 if system('uname -a | grep Microsoft') != ""
   let g:clipboard = {
         \   'name': 'myClipboard',
