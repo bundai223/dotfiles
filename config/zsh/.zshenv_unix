@@ -27,7 +27,7 @@ export GEMSRC_USE_GHQ=true
 export XDG_CONFIG_HOME=~/.config
 
 # ctrl + sがterminalを停止させるのをなしに
-stty stop undef
+#stty stop undef
 
 export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
 # export NVIM_PYTHON_LOG_FILE=~/.config/nvim/log
