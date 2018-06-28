@@ -1,7 +1,6 @@
 {
 	"common": {
-		"term_truecolor": false,
-		"default_top_theme": "ascii"
+		"term_truecolor": false
 	},
 	"ext": {
 		"ipython": {
