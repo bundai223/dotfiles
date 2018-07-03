@@ -1,11 +1,13 @@
 disable_laptop_keyboard()
 {
   # get id $(xinput list)
-  xinput float 13
+  id=$(xinput list|grep Apple|sed 's/.*id=\([0-9]*\).*$/\1/g')
+  xinput float $id
 }
 
 enable_laptop_keyboard()
 {
-  xinput reattach 13 3
+  id=$(xinput list|grep Apple|sed 's/.*id=\([0-9]*\).*$/\1/g')
+  xinput reattach $id 3
 }
 
