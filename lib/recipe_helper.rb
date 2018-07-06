@@ -6,6 +6,9 @@
     when 'osx', 'darwin'
       home = ENV['HOME']
       group = 'staff'
+    when 'arch'
+      home = %x[cat /etc/passwd | grep #{user} | awk -F: '!/nologin/{print $(NF-1)}'].strip
+      group = 'users'
     else
       home = %x[cat /etc/passwd | grep #{user} | awk -F: '!/nologin/{print $(NF-1)}'].strip
       group = user

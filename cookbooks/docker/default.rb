@@ -31,14 +31,25 @@ when 'osx', 'darwin'
 when 'arch'
   execute 'install docker' do
     command "#{sudo(node[:user])}yaourt -S --noconfirm docker"
+    not_if 'which docker'
+  end
+
+  execute 'install docker' do
+    command "#{sudo(node[:user])}yaourt -S --noconfirm docker-compose"
+    not_if 'which docker-compose'
   end
 when 'opensuse'
 else
 end
 
+execute "usermod -G #{node[:group]},docker #{node[:user]}"
 
 remote_file '/etc/profile.d/docker.sh' do
   source 'files/docker.sh'
   mode '644'
   only_if 'uname -a | grep Microsoft'
+end
+
+service 'docker' do
+  action [:enable, :start]
 end
