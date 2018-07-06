@@ -29,6 +29,9 @@ when 'ubuntu'
 when 'fedora', 'redhat', 'amazon'
 when 'osx', 'darwin'
 when 'arch'
+  execute 'install docker' do
+    command "#{sudo(node[:user])}yaourt -S --noconfirm docker"
+  end
 when 'opensuse'
 else
 end
