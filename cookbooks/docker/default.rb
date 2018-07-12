@@ -26,8 +26,18 @@ when 'ubuntu'
 
   package 'docker-ce'
 
+  execute 'install docker-compose' do
+    command <<-EOL
+      curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+      chmod +x /usr/local/bin/docker-compose
+    EOL
+    not_if 'which docker-compose'
+  end
+
 when 'fedora', 'redhat', 'amazon'
+
 when 'osx', 'darwin'
+
 when 'arch'
   execute 'install docker' do
     command "#{sudo(node[:user])}yaourt -S --noconfirm docker"
@@ -38,6 +48,7 @@ when 'arch'
     command "#{sudo(node[:user])}yaourt -S --noconfirm docker-compose"
     not_if 'which docker-compose'
   end
+
 when 'opensuse'
 else
 end
