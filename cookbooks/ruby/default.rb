@@ -16,11 +16,20 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
       ],
     },
     'rbenv-default-gems' => {
-      'default-gems' => %w[ bundler neovim rubocop]
+      'default-gems' => %w[bundler neovim rubocop]
     }
   })
 
   include_recipe 'rbenv::system'
+
+  execute 'install rbenv-update' do
+    command <<-EOL
+      mkdir "$(rbenv root)/plugins"
+      git clone git clone https://github.com/rkh/rbenv-update.git "$(rbenv root)/plugins/rbenv-update"
+    EOL
+
+    not_if 'test -e "$(rbenv root)/plugins/rbenv-update"'
+  end
 
 when 'osx', 'darwin'
   package 'rbenv'
