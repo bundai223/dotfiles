@@ -10,7 +10,11 @@ end
 
 execute 'spacemacs' do
   command <<-EOL
-    git clone https://github.com/syl20bnr/spacemacs #{node[:home]}/.emacs.d
+    U=#{node[:user]}
+    G=#{node[:group]}
+    UH=#{node[:home]}
+    git clone https://github.com/syl20bnr/spacemacs $UH/.emacs.d
+    chown $U:$G -R $UH
   EOL
 
   not_if "test -e #{node[:home]}/.emacs.d"
