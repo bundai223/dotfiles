@@ -20,6 +20,15 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
     }
   })
 
+  execute 'uninstall system ruby' do
+    commands <<-EOL
+      apt purge -y ruby
+    EOL
+
+    only_if 'uname -a | grep Microsoft'
+    only_if 'test -e /usr/bin/ruby'
+  end
+
   include_recipe 'rbenv::system'
 
   execute 'install rbenv-update' do
