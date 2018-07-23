@@ -391,6 +391,7 @@ hook_add = '''
         \     [ 'pwd' ]
         \   ],
         \   'right': [
+        \     ['sky_color_clock'],
         \     ['lineinfo', 'syntax_check'],
         \     ['percent'],
         \     ['charcode', 'fileformat', 'fileencoding', 'filetype']
@@ -408,10 +409,13 @@ hook_add = '''
         \   'fileencoding': 'MyFileencoding',
         \   'filetype': 'MyFiletype'
         \ },
-        \ 'conponent_expand': {
+        \ 'component': {
+        \   'sky_color_clock': "%#SkyColorClock#%{' ' . sky_color_clock#statusline() . ' '}%#SkyColorClockTemp# ",
+        \ },
+        \ 'component_expand': {
         \   'syntax_check': 'qfstatusline#Update',
         \ },
-        \ 'conponent_type': {
+        \ 'component_type': {
         \   'syntax_check': 'error',
         \ },
         \}
@@ -699,4 +703,10 @@ repo = 'bundai223/vim-colors-solarized'
 repo = 'cocopon/iceberg.vim'
 hook_add = '''
   colorscheme iceberg
+'''
+
+[[plugins]]
+repo = 'mopp/sky-color-clock.vim'
+hook_add = '''
+  let g:sky_color_clock#enable_emoji_icon = 1
 '''
