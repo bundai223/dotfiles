@@ -21,7 +21,7 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
   })
 
   execute 'uninstall system ruby' do
-    commands <<-EOL
+    command <<-EOL
       apt purge -y ruby
     EOL
 
@@ -33,8 +33,9 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
 
   execute 'install rbenv-update' do
     command <<-EOL
-      mkdir "$(rbenv root)/plugins"
-      git clone git clone https://github.com/rkh/rbenv-update.git "$(rbenv root)/plugins/rbenv-update"
+      p=$(rbenv root)/plugins
+      test -e $p || mkdir $p
+      git clone https://github.com/rkh/rbenv-update.git $p/rbenv-update
     EOL
 
     not_if 'test -e "$(rbenv root)/plugins/rbenv-update"'
@@ -46,3 +47,4 @@ when 'osx', 'darwin'
 when 'opensuse'
 else
 end
+

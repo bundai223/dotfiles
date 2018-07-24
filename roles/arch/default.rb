@@ -10,10 +10,18 @@ file '/etc/pacman.conf' do
   end
 end
 
+define :yaourt do
+  name = params[:name]
+
+  execute "#{sudo(node[:user])} yaourt -S --noconfirm #{name}" do
+    not_if "yaourt -Q #{name}"
+  end
+end
+
 execute 'pacman -Syy'
 execute 'pacman -Syu'
 package 'yaourt'
-execute 'yaourt -S --noconfirm \'base-devel\''
+yaourt 'base-devel'
 package 'openssh'
 package 'libxml2'
 package 'libxslt'
@@ -22,10 +30,10 @@ package 'fcitx-configtool'
 package 'fcitx-skk'
 package 'skk-jisyo'
 
-execute 'yaourt -S --noconfirm buttercup-desktop'
-execute 'yaourt -S --noconfirm dropbox'
-execute 'yaourt -S --noconfirm hfsprogs'
-execute 'yaourt -S --noconfirm cerebro'
-execute 'yaourt -S --noconfirm zeal'
+yaourt "buttercup-desktop"
+yaourt "dropbox"
+yaourt "hfsprogs"
+yaourt "cerebro"
+yaourt "zeal"
 
 include_role('base')
