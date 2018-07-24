@@ -1,9 +1,16 @@
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
+  package 'aspell'
+  package 'aspell-en'
+
   package 'emacs'
 when 'fedora', 'redhat', 'amazon'
 when 'osx', 'darwin'
 when 'arch'
+  package 'aspell'
+  package 'aspell-en'
+
+  package 'emacs'
 when 'opensuse'
 else
 end
