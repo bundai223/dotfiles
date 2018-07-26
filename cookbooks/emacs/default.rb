@@ -26,3 +26,11 @@ execute 'spacemacs' do
 
   not_if "test -e #{node[:home]}/.emacs.d"
 end
+
+get_repo 'kenjimyzk/spacemacs-japanese'
+
+# spacemacs-japanese
+execute "#{sudo(node[:user])} ln -s #{node[:home]}/repos/github.com/kenjimyzk/spacemacs-japanese #{node[:home]}/.config/spacemacs/layers/japanese" do
+  not_if "test -L #{node[:home]}/.config/spacemacs/layers/japanese"
+end
+

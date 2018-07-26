@@ -35,6 +35,11 @@ directory "#{node[:home]}/.config/nvim" do
   group node[:group]
 end
 
+directory "#{node[:home]}/.config/spacemacs/layers" do
+  owner node[:user]
+  group node[:group]
+end
+
 directory "#{node[:home]}/repos" do
   owner node[:user]
   group node[:group]
