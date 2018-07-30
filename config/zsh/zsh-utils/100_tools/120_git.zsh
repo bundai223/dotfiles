@@ -63,18 +63,4 @@ git_status_all()
   done
 }
 
-git_change_commiter()
-{
-  # refs) https://git-scm.com/book/ja/v1/Git-%E3%81%AE%E3%81%95%E3%81%BE%E3%81%96%E3%81%BE%E3%81%AA%E3%83%84%E3%83%BC%E3%83%AB-%E6%AD%B4%E5%8F%B2%E3%81%AE%E6%9B%B8%E3%81%8D%E6%8F%9B%E3%81%88#%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%AE%E5%88%86%E5%89%B2
-  git filter-branch --commit-filter '
-    if [ "$GIT_COMMITTER_EMAIL" = "localhost@localhost.jp" ];
-    then
-      GIT_COMMITTER_NAME="bundai223";
-      GIT_AUTHOR_NAME="bundai223";
-      GIT_COMMITTER_EMAIL="bundai223@gmail.com";
-      GIT_AUTHOR_EMAIL="bundai223@gmail.com";
-      git commit-tree "$@";
-    else
-      git commit-tree "$@";
-    fi' HEAD
-}
+

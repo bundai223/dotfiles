@@ -126,6 +126,17 @@ hook_add = '''
     \ ['memo', g:memo_dir . '/changelog.memo'],
     \ ]
 
+  let s:menus.git = {
+    \ 'description': 'Edit your git config'
+    \ }
+  let s:menus.git.file_candidates = [
+    \ ['gitconfig', '~/.gitconfig'],
+    \ ['gitconfig shared',  g:pub_repos_path . '/dotfiles/config/.gitconfig' ],
+    \ ['gitattributes',     g:pub_repos_path . '/dotfiles/config/git/.gitattributes_global' ],
+    \ ['gitignore shared',  g:pub_repos_path . '/dotfiles/config/git/.gitignore_global' ],
+    \ ['template',          g:pub_repos_path . '/dotfiles/config/git/templates' ],
+    \ ]
+
   let s:menus.nvim = {
     \ 'description': 'Edit your import nvim configuration'
     \ }
