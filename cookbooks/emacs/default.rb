@@ -34,3 +34,10 @@ execute "#{sudo(node[:user])} ln -s #{node[:home]}/repos/github.com/kenjimyzk/sp
   not_if "test -L #{node[:home]}/.config/spacemacs/layers/japanese"
 end
 
+file "#{node[:home]}/.aspell.conf" do
+  action :create
+  owner node[:user]
+  group node[:group]
+
+  content "lang en_US"
+end
