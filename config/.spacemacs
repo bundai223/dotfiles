@@ -175,7 +175,7 @@ values."
    ;; works in the GUI. (default nil)
    dotspacemacs-distinguish-gui-tab nil
    ;; If non nil `Y' is remapped to `y$' in Evil states. (default nil)
-   dotspacemacs-remap-Y-to-y$ nil
+   dotspacemacs-remap-Y-to-y$ t
    ;; If non-nil, the shift mappings `<' and `>' retain visual state if used
    ;; there. (default t)
    dotspacemacs-retain-visual-state-on-shift t
@@ -341,21 +341,21 @@ you should place your code here."
   (push '(:eval (sky-color-clock)) (default-value 'mode-line-format))
 
   ;; requirement: win32yank (https://github.com/equalsraf/win32yank)
-  (when (and (executable-find "uname")
-            (executable-find "win32yank.exe")
-            (string-match-p "Microsoft"
-                            (shell-command-to-string "uname -r")))
-    (setq interprogram-paste-function
-          (lambda ()
-            (replace-regexp-in-string
-            "\r" "" (shell-command-to-string "win32yank.exe -o"))))
-    (setq interprogram-cut-function
-          (lambda (text &optional rest)
-            (let* ((process-connection-type nil)
-                  (proc (start-process
-                          "win32yank-cut" "*Messages*" "win32yank.exe" "-i")))
-              (process-send-string proc text)
-              (process-send-eof proc)))))
+  ;; (when (and (executable-find "uname")
+  ;;           (executable-find "win32yank.exe")
+  ;;           (string-match-p "Microsoft"
+  ;;                           (shell-command-to-string "uname -r")))
+  ;;   (setq interprogram-paste-function
+  ;;         (lambda ()
+  ;;           (replace-regexp-in-string
+  ;;           "\r" "" (shell-command-to-string "win32yank.exe -o"))))
+  ;;   (setq interprogram-cut-function
+  ;;         (lambda (text &optional rest)
+  ;;           (let* ((process-connection-type nil)
+  ;;                 (proc (start-process
+  ;;                         "win32yank-cut" "*Messages*" "win32yank.exe" "-i")))
+  ;;             (process-send-string proc text)
+  ;;             (process-send-eof proc)))))
 
   )
 
