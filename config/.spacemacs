@@ -37,7 +37,6 @@ values."
      javascript
      rust
      html
-     haml
      ruby
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -324,6 +323,8 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;; TAGS reload automatically when TAGS updated.
+  (setq tags-revert-without-query 1)
   ;; set font ricty
   (set-fontset-font
    nil 'japanese-jisx0208
