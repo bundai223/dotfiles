@@ -77,7 +77,7 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(auto-complete)
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -335,6 +335,11 @@ you should place your code here."
   ;; TAGS reload automatically when TAGS updated.
   (setq tags-revert-without-query 1)
 
+  ;; enable company to auto-complete
+  ;; (global-company-mode)
+  (eval-after-load 'company
+    '(push 'company-robe company-backends))
+
   ;; tab
   (require 'evil-tabs)
   (global-evil-tabs-mode t)
@@ -374,6 +379,9 @@ you should place your code here."
 
   (autoload 'clmemo "clmemo" "ChangeLog memo mode." t)
   (setq clmemo-file-name "~/repos/gitlab.com/bundai223/private-memo/changelog.memo")
+
+  ;; ruby
+  (setq ruby-insert-encoding-magic-comment nil)
   )
 
 
