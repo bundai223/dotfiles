@@ -10,13 +10,14 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
 
   node.reverse_merge!({
     rbenv: {
-      global: '2.4.3',
+      global: '2.5.1',
       versions: %w[
-        2.4.3
+        2.5.1
       ],
     },
     'rbenv-default-gems' => {
-      'default-gems' => %w[bundler neovim rubocop]
+      'default-gems' => %w[bundler neovim rubocop rcodetools ruby_parser pry pry-doc method_source],
+      'install': true
     }
   })
 
