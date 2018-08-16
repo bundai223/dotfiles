@@ -68,6 +68,7 @@ values."
    dotspacemacs-additional-packages
    '(
      clmemo
+     blgrep
      quickrun
      elscreen
      evil-tabs
@@ -403,6 +404,18 @@ you should place your code here."
   (autoload 'clmemo "clmemo" "ChangeLog memo mode." t)
   (setq clmemo-file-name "~/repos/gitlab.com/bundai223/private-memo/changelog.memo")
   (global-set-key "\C-xM" 'clmemo)
+  (setq clmemo-title-list ;; 補完されるタイトルのリスト
+        '("ruby" "bookmark" "book" "idea" "git"))
+
+  (autoload 'clgrep "clgrep" "grep mode for ChangeLog file." t)
+  (autoload 'clgrep-title "clgrep" "grep first line of entry in ChangeLog." t)
+  (autoload 'clgrep-header "clgrep" "grep header line of ChangeLog." t)
+  (autoload 'clgrep-other-window "clgrep" "clgrep in other window." t)
+  (autoload 'clgrep-clmemo "clgrep" "clgrep directly ChangeLog MEMO." t)
+  (add-hook 'change-log-mode-hook
+            '(lambda ()
+               (define-key change-log-mode-map "\C-c\C-g" 'clgrep)
+               (define-key change-log-mode-map "\C-c\C-t" 'clgrep-title)))
 
   ;; ruby
   (setq ruby-insert-encoding-magic-comment nil)
