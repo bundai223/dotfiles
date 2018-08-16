@@ -1,7 +1,6 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: itamae-platform
-# key: itamae-platform
-# itamaeのplatform分岐
+# -*- mode: snippet -*-
+# name: itamae platform os
+# key: itamae-os
 # --
 case node[:platform]
 when 'arch'
