@@ -402,6 +402,7 @@ you should place your code here."
 
   (autoload 'clmemo "clmemo" "ChangeLog memo mode." t)
   (setq clmemo-file-name "~/repos/gitlab.com/bundai223/private-memo/changelog.memo")
+  (global-set-key "\C-xM" 'clmemo)
 
   ;; ruby
   (setq ruby-insert-encoding-magic-comment nil)

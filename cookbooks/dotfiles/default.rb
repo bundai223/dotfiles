@@ -123,9 +123,11 @@ execute "#{sudo(node[:user])} ln -s #{node[:home]}/repos/github.com/bundai223/do
   not_if "test -L #{node[:home]}/.config/powerline"
 end
 
-# emacs
+# spacemacs
 execute "#{sudo(node[:user])} ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/.spacemacs #{node[:home]}/.spacemacs" do
   not_if "test -L #{node[:home]}/.spacemacs"
 end
 
-
+execute "#{sudo(node[:user])} ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/.spacemacs.d #{node[:home]}/.spacemacs.d" do
+  not_if "test -L #{node[:home]}/.spacemacs.d"
+end

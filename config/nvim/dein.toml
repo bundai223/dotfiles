@@ -176,6 +176,12 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'roxma/nvim-yarp'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+
+[[plugins]]
 repo = 'Shougo/neosnippet.vim'
 on_i = 1
 hook_post_source = '''

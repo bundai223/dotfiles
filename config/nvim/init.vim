@@ -380,7 +380,7 @@ endif
 
 " for changelog memo
 let g:changelog_dateformat = '%Y-%m-%d'
-let g:changelog_username   = 'Daiji NISHIMURA <bundai223@gmail.com>'
+let g:changelog_username   = 'bundai223 <bundai223@gmail.com>'
 
 " set runtimepath+=~/repos/github.com/bundai223/denite-changelog-memo.nvim
 

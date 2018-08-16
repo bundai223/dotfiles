@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: snippet_skeleton
+# key:  snippet
+# binding: direct-keybinding
+# snippetの基本系
+# --
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: $0
+# key:  $1
+# binding: direct-keybinding
+# $2
+# --
