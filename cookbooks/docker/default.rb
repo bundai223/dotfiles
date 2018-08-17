@@ -9,6 +9,8 @@ when 'ubuntu'
       curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
       sudo apt-key fingerprint 0EBFCD88
     EOL
+
+    not_if 'uname -a | grep Microsoft'
   end
 
   execute 'add repository' do
@@ -22,9 +24,23 @@ when 'ubuntu'
 
       apt update
     EOL
+
+    not_if 'uname -a | grep Microsoft'
   end
 
-  package 'docker-ce'
+  package 'docker-ce' do
+    not_if 'uname -a | grep Microsoft'
+  end
+
+  ### WSL
+  execute 'install docker v17.09.0' do
+    command <<-EOL
+      curl -O https://download.docker.com/linux/debian/dists/stretch/pool/stable/amd64/docker-ce_17.09.0~ce-0~debian_amd64.deb
+      dpkg -i docker-ce_17.09.0\~ce-0\~debian_amd64.deb
+      rm docker-ce_17.09.0\~ce-0\~debian_amd64.deb
+    EOL
+  end
+  ### WSL
 
   execute 'install docker-compose' do
     command <<-EOL
@@ -55,12 +71,13 @@ end
 
 execute "usermod -G #{node[:group]},docker #{node[:user]}"
 
-remote_file '/etc/profile.d/docker.sh' do
-  source 'files/docker.sh'
-  mode '644'
-  only_if 'uname -a | grep Microsoft'
-end
+#remote_file '/etc/profile.d/docker.sh' do
+#  source 'files/docker.sh'
+#  mode '644'
+#  only_if 'uname -a | grep Microsoft'
+#end
 
 service 'docker' do
   action [:enable, :start]
+  not_if 'uname -a | grep Microsoft'
 end
