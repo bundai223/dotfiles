@@ -124,6 +124,7 @@
 	rebase = preserve
 
 [merge]
+  ff = false
   tool = vimdiff
 [mergetool]
   prompt = true
