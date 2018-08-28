@@ -695,6 +695,10 @@ repo    = 'mxw/vim-jsx'
 on_ft   = 'js'
 
 [[plugins]]
+repo    = 'posva/vim-vue'
+on_ft   = 'js'
+
+[[plugins]]
 repo    = 'skywind3000/asyncrun.vim'
 hook_add = '''
   autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
