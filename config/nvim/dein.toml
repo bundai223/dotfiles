@@ -27,13 +27,14 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 on_i = 1
-hook_post_source = '''
+hook_source = '''
   let g:deoplete#enable_at_startup = 1
   let g:deoplete#enable_smart_case = 1
 
   let g:deoplete#enable_profile = 1
-  call deoplete#enable_logging('DEBUG', 'deoplete.log')
-
+  " call deoplete#enable_logging('DEBUG', '~/deoplete.log')
+'''
+hook_post_source = '''
   "
   " let g:deoplete#omni#input_patterns = {}
   " let g:deoplete#omni#input_patterns.ruby =
@@ -42,6 +43,10 @@ hook_post_source = '''
   " let g:deoplete#omni#functions = {}
   " let g:deoplete#omni#functions.ruby = 'rubycomplete#Complete'
   "
+  call deoplete#custom#var('omni', 'input_patterns', {
+      \ 'ruby': ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
+      \})
+
   let g:deoplete#sources#rust#racer_binary=g:racer_cmd
   let g:deoplete#sources#rust#rust_source_path=$RUST_SOURCE_PATH
   let g:deoplete#sources#rust#show_duplicates=1
@@ -215,6 +220,7 @@ hook_post_source = '''
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 on_i = 1
+depends = 'neosnippet.vim'
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
@@ -665,17 +671,11 @@ on_i  = 1
 repo  = 'yuku-t/vim-ref-ri'
 on_ft = 'ruby'
 
-[[plugins]]
-repo    = 'uplus/deoplete-solargraph'
-depends = 'deoplete.nvim'
-on_i    = 1
-on_ft   = 'ruby'
-
-[[plugins]]
-repo    = 'fishbullet/deoplete-ruby'
-depends = 'deoplete.nvim'
-on_i    = 1
-on_ft   = 'ruby'
+#[[plugins]]
+#repo    = 'fishbullet/deoplete-ruby'
+#depends = 'deoplete.nvim'
+#on_i    = 1
+#on_ft   = 'ruby'
 
 [[plugins]]
 repo    = 'todesking/ruby_hl_lvar.vim'
@@ -748,6 +748,7 @@ rev = 'next'
 build = 'bash install.sh'
 hook_add = '''
   let g:LanguageClient_serverCommands = {
+        \ 'ruby': ['solargraph', 'stdio'],
         \ 'rust': ['rustup', 'run', 'stable', 'rls'],
         \ 'vue': ['vls'],
         \ 'html': [],
@@ -757,3 +758,5 @@ hook_add = '''
         \}
 '''
 
+[[plugins]]
+repo = 'justinmk/vim-dirvish'

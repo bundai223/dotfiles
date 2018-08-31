@@ -16,7 +16,7 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
       ],
     },
     'rbenv-default-gems' => {
-      'default-gems' => %w[bundler neovim rubocop rcodetools ruby_parser pry pry-doc method_source],
+      'default-gems' => %w[bundler neovim rubocop rcodetools ruby_parser pry pry-doc method_source solargraph],
       'install': true
     }
   })
@@ -49,3 +49,7 @@ when 'opensuse'
 else
 end
 
+
+execute 'gem install solargraph'
+execute 'yard gems'
+execute 'yard config --gem-install-yri'
