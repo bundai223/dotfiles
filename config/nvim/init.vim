@@ -348,9 +348,12 @@ set hidden
 augroup MyAutoCmd
   autocmd BufNewFile,BufRead *_spec.rb setl filetype=ruby.rspec
   autocmd FileType ruby setlocal iskeyword+=?
-
   autocmd FileType ruby setlocal dictionary+=~/.config/nvim/dein/repos/github.com/pocke/dicts/ruby.dict
   autocmd FileType javascript,ruby setlocal dictionary+=~/.config/nvim/dein/repos/github.com/pocke/dicts/jquery.dict
+
+  "autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+  autocmd FileType vue setlocal iskeyword+=$
+  autocmd FileType vue setlocal iskeyword+=-
 augroup END
 
 " memo

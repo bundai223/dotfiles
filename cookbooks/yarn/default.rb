@@ -31,3 +31,6 @@ when 'opensuse'
 else
 end
 
+execute 'install node modules' do
+  commands 'yarn global add vue-language-server'
+end

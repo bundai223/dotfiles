@@ -251,6 +251,16 @@ repo = 'osyo-manga/vim-precious'
 depends = 'context_filetype.vim'
 
 [[plugins]]
+repo = 'tyru/open-browser.vim'
+on_cmd = ['OpenBrowser', 'OpenBrowserSearch', 'OpenBrowserSmartSearch']
+hook_add = '''
+  let g:netrw_nogx = 1 " disable netrw's gx mapping.
+  nmap gx <Plug>(openbrowser-smart-search)
+  vmap gx <Plug>(openbrowser-smart-search)
+'''
+
+
+[[plugins]]
 repo = 'tyru/caw.vim'
 hook_add = '''
   nmap <Leader>c <Plug>(caw:hatpos:toggle)
@@ -696,7 +706,7 @@ on_ft   = 'js'
 
 [[plugins]]
 repo    = 'posva/vim-vue'
-on_ft   = 'js'
+on_ft   = 'vue'
 
 [[plugins]]
 repo    = 'skywind3000/asyncrun.vim'
@@ -731,3 +741,19 @@ repo = 'mopp/sky-color-clock.vim'
 hook_add = '''
   let g:sky_color_clock#enable_emoji_icon = 1
 '''
+
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+rev = 'next'
+build = 'bash install.sh'
+hook_add = '''
+  let g:LanguageClient_serverCommands = {
+        \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+        \ 'vue': ['vls'],
+        \ 'html': [],
+        \ 'css': [],
+        \ 'javascript': ['javascript-typescript-stdio'],
+        \ 'typescript': ['javascript-typescript-stdio'],
+        \}
+'''
+
