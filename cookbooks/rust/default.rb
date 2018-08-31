@@ -3,8 +3,8 @@ execute 'install rustup' do
   command "curl https://sh.rustup.rs -sSf | #{sudo(node['user'])}sh -s -- -y"
 end
 
-execute 'get rust src' do
-  command "#{sudo(node['user'])}rustup component add rust-src"
+execute 'get rust component' do
+  command "#{sudo(node['user'])}rustup component add rls-preview rust-analysis rust-src"
 end
 
 
