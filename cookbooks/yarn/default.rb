@@ -31,6 +31,12 @@ when 'opensuse'
 else
 end
 
+remote_file '/etc/profile.d/yarn.sh' do
+  source 'files/yarn.sh'
+  mode '644'
+end
+
 execute 'install node modules' do
-  commands 'yarn global add vue-language-server'
+  command 'yarn global add vue-language-server'
+  command 'yarn global add javascript-typescript-langserver'
 end
