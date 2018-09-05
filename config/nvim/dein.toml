@@ -756,4 +756,4 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'justinmk/vim-dirvish'
+repo = 'cocopon/vaffle.vim'
