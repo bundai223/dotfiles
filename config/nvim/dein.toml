@@ -46,13 +46,6 @@ hook_post_source = '''
   call deoplete#custom#var('omni', 'input_patterns', {
       \ 'ruby': ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
       \})
-
-  let g:deoplete#sources#rust#racer_binary=g:racer_cmd
-  let g:deoplete#sources#rust#rust_source_path=$RUST_SOURCE_PATH
-  let g:deoplete#sources#rust#show_duplicates=1
-  let g:deoplete#sources#rust#disable_keymap=1
-  nmap <buffer> gd <plug>DeopleteRustGoToDefinitionDefault
-  nmap <buffer> K  <plug>DeopleteRustShowDocumentation
 '''
 
 [[plugins]]
@@ -623,10 +616,9 @@ on_ft = 'toml'
 [[plugins]]
 repo = 'rust-lang/rust.vim'
 on_ft = 'rust'
-
-[[plugins]]
-repo = 'racer-rust/vim-racer'
-on_ft = 'rust'
+hook_source = '''
+  let g:rustfmt_autosave = 1
+'''
 
 
 # go

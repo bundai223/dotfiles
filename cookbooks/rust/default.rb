@@ -3,10 +3,20 @@ execute 'install rustup' do
   command "curl https://sh.rustup.rs -sSf | #{sudo(node['user'])}sh -s -- -y"
 end
 
-execute 'get rust component' do
-  command "#{sudo(node['user'])}rustup component add rls-preview rust-analysis rust-src"
+execute 'install toolchain nightly' do
+  not_if "#{sudo(node['user'])}rustup toolchain list |grep nightly"
+  command "#{sudo(node['user'])}rustup install nightly"
 end
 
+execute 'default toolchain nightly' do
+  not_if "#{sudo(node['user'])}rustup toolchain list | grep nightly | grep default"
+  command "#{sudo(node['user'])}rustup default nightly"
+end
+
+execute 'get rust component' do
+  command "#{sudo(node['user'])}rustup component add rls-preview rust-analysis rust-src"
+  # rustfmt-preview
+end
 
 # Cargo
 define :cargo_install do
@@ -21,4 +31,4 @@ end
 
 cargo_install 'racer'
 cargo_install 'ripgrep'
-cargo_install 'rustfmt'
+cargo_install 'rustfmt' # 'rustfmt-nightly'
