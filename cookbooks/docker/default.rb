@@ -39,6 +39,8 @@ when 'ubuntu'
       dpkg -i docker-ce_17.09.0\~ce-0\~debian_amd64.deb
       rm docker-ce_17.09.0\~ce-0\~debian_amd64.deb
     EOL
+
+    only_if 'uname -a | grep Microsoft'
   end
   ### WSL
 
