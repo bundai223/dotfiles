@@ -3,11 +3,14 @@
 ### Vim local setting ###
 *~
 .local.vimrc
-tags
-
 ,*
 .personal/
-.local.vimrc
+
+### tags
+tags
+GTAGS
+GRTAGS
+GPATH
 
 # Created by http://www.gitignore.io
 

@@ -363,19 +363,20 @@ hook_add = '''
         \}
 
   let g:quickrun_config['ruby.rspec'] = {
-        \   'command' : 'rspec',
-        \   'exec' : 'bundle exec %c %o %s',
-        \   'cmdopt'  : '-c -fd --tty',
+        \  'command' : 'rspec',
+        \  'exec'    : 'bundle exec %c %o %s',
+        \  'cmdopt'  : '-c -fd --tty',
+        \  'filetype': 'rspec-result'
         \}
   let g:quickrun_config['ruby.rspec_line'] = {
-        \     "command": "rspec",
-        \     "exec": "bundle exec %c %s:%{line('.')} %o" ,
-        \     "cmdopt": '-c -fd --tty'
-        \   }
+        \  'command': 'rspec',
+        \  'exec': 'bundle exec %c %s:%{line('.')} %o',
+        \  'cmdopt': '-c -fd --tty',
+        \  'filetype': 'rspec-result'
+        \}
 
   augroup MyAutoCmd
-    autocmd FileType ruby.rspec nnoremap <silent><buffer> <Leader>rr :<C-u>QuickRun ruby.rspec_line<CR>
-    autocmd FileType quickrun AnsiEsc
+    autocmd FileType ruby.rspec nnoremap <silent><buffer> <Leader>rl :<C-u>QuickRun ruby.rspec_line<CR>
   augroup END
 
 '''
@@ -758,3 +759,22 @@ hook_add = '''
 
 [[plugins]]
 repo = 'cocopon/vaffle.vim'
+
+[[plugins]]
+repo = 'airblade/vim-rooter'
+
+[[plugins]]
+repo = 'jsfaint/gen_tags.vim'
+hook_source = '''
+  let g:gen_tags#ctags_auto_gen = 1
+  let g:gen_tags#gtags_auto_gen = 1
+'''
+
+[[plugins]]
+repo = 'lighttiger2505/gtags.vim'
+hook_source = '''
+  nnoremap <silent> <Space>f :Gtags -f %<CR>
+  nnoremap <silent> <Space>j :GtagsCursor<CR>
+  nnoremap <silent> <Space>d :<C-u>exe('Gtags '.expand('<cword>'))<CR>
+  nnoremap <silent> <Space>r :<C-u>exe('Gtags -r '.expand('<cword>'))<CR>
+'''
