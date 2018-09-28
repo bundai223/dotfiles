@@ -751,10 +751,11 @@ hook_add = '''
         \ 'javascript': ['javascript-typescript-stdio'],
         \ 'typescript': ['javascript-typescript-stdio'],
         \}
-  nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-  nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-  nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-  nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
+  nnoremap <silent> [myleader]lh :call LanguageClient#textDocument_hover()<CR>
+  nnoremap <silent> [myleader]ld :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <silent> [myleader]lr :call LanguageClient#textDocument_rename()<CR>
+  nnoremap <silent> [myleader]lf :call LanguageClient#textDocument_formatting()<CR>
+  nnoremap <silent> [myleader]lc :call LanguageClient_contextMenu()<CR>
 '''
 
 [[plugins]]
@@ -773,10 +774,10 @@ hook_source = '''
 [[plugins]]
 repo = 'lighttiger2505/gtags.vim'
 hook_source = '''
-  nnoremap <silent> <Space>f :Gtags -f %<CR>
-  nnoremap <silent> <Space>j :GtagsCursor<CR>
-  nnoremap <silent> <Space>d :<C-u>exe('Gtags '.expand('<cword>'))<CR>
-  nnoremap <silent> <Space>r :<C-u>exe('Gtags -r '.expand('<cword>'))<CR>
+  nnoremap <silent> [myleader]gf :Gtags -f %<CR>
+  nnoremap <silent> [myleader]gj :GtagsCursor<CR>
+  nnoremap <silent> [myleader]gd :<C-u>exe('Gtags '.expand('<cword>'))<CR>
+  nnoremap <silent> [myleader]gr :<C-u>exe('Gtags -r '.expand('<cword>'))<CR>
 '''
 
 [[plugins]]
