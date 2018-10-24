@@ -6,6 +6,7 @@
 	excludesfile   = ~/repos/github.com/bundai223/dotfiles/config/git/.gitignore_global
 	quotepath = false
 	precomposeunicode = true
+  commentChar = ";"
 
 [user "ssh://git@gitlab.com/"]
 	name = bundai223

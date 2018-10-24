@@ -96,14 +96,14 @@ hook_add = '''
   call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>')
 
   " Change matchers.
-  "call denite#custom#source(
-  "\ 'file_rec', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
   call denite#custom#source(
-  \ 'file_rec', 'matchers', ['matcher_cpsm'])
+  \ 'file_mru', 'matchers', ['matcher/regexp'])
+  call denite#custom#source(
+  \ 'file_rec', 'matchers', ['matcher/regexp'])
 
   " Change sorters.
   call denite#custom#source(
-  \ 'file_rec', 'sorters', ['sorter_sublime'])
+  \ 'file_rec', 'sorters', ['sorter/sublime'])
 
   " Ripgrep command on grep source
   call denite#custom#var('grep', 'command', ['rg'])
@@ -760,6 +760,10 @@ hook_add = '''
 
 [[plugins]]
 repo = 'cocopon/vaffle.vim'
+
+[[plugins]]
+repo = 'digitaltoad/vim-pug'
+on_ft = 'pug'
 
 [[plugins]]
 repo = 'airblade/vim-rooter'
