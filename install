@@ -23,6 +23,10 @@ if [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
   if which apt-get >/dev/null 2>&1; then
     sudo apt-get install -y unzip
   fi
+  # if archlinux
+  if which pacman >/dev/null 2>&1; then
+    sudo pacman -Sy unzip
+  fi
 elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
   echo "Your platform ($(uname -a)) is not supported."
   exit 1
