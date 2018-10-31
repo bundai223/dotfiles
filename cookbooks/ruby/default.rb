@@ -16,8 +16,8 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
       ],
     },
     'rbenv-default-gems' => {
-      'default-gems' => %w[bundler neovim rubocop rcodetools ruby_parser pry pry-doc method_source solargraph],
-      'install': true
+      default-gems: %w[bundler neovim rubocop rcodetools ruby_parser pry pry-doc method_source solargraph],
+      install: true
     }
   })
 
