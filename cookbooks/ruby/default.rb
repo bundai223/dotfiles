@@ -12,7 +12,7 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
     rbenv: {
       global: '2.5.1',
       versions: %w[
-        2.5.1
+        "2.5.1"
       ],
     },
     'rbenv-default-gems' => {
