@@ -25,7 +25,7 @@ if [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
   fi
   # if archlinux
   if which pacman >/dev/null 2>&1; then
-    sudo pacman -Sy unzip
+    sudo pacman -S --noconfirm unzip
   fi
 elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
   echo "Your platform ($(uname -a)) is not supported."
