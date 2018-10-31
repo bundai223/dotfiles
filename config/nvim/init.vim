@@ -23,6 +23,7 @@ let s:plugin_dir      = s:conf_root . '/dein'
 let s:dein_dir        = s:plugin_dir . '/repos/github.com/Shougo/dein.vim'
 let g:dein_toml       = g:pub_repos_path . '/dotfiles/config/nvim/dein.toml'
 let g:memo_dir        = s:priv_repos_path . '/private-memo'
+let g:outher_package_path = s:conf_root . '/tools'
 
 function! MkDir(dirpath)
   if !isdirectory(a:dirpath)

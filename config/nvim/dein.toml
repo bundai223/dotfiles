@@ -740,6 +740,13 @@ repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
 hook_add = '''
+  " `eclipse.jdt.ls`で利用する、データ保存先ディレクトリの存在確認
+  " ディレクトリが存在しない場合は作成する
+  let l:jdt_lsp_data_dir = expand(g:outher_package_path) . "/jdt-data"
+  if !isdirectory(l:jdt_lsp_data_dir)
+    call mkdir(l:jdt_lsp_data_dir, "p")
+  endif
+
   let g:LanguageClient_serverCommands = {
         \ 'ruby': ['solargraph', 'stdio'],
         \ 'rust': ['rustup', 'run', 'stable', 'rls'],
@@ -751,11 +758,45 @@ hook_add = '''
         \ 'javascript': ['javascript-typescript-stdio'],
         \ 'typescript': ['javascript-typescript-stdio'],
         \}
+
+  let g:LanguageClient_serverCommands["java"] = [
+        \ 'java',
+        \ '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=1044',
+        \ '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+        \ '-Dosgi.bundles.defaultStartLevel=4',
+        \ '-Declipse.product=org.eclipse.jdt.ls.core.product',
+        \ '-Dlog.protocol=true',
+        \ '-Dlog.level=ALL',
+        \ '-noverify',
+        \ '-Xmx1G',
+        \ '-jar',
+        \ expand(g:outher_package_path) . '/jdt-lsp/plugins/org.eclipse.equinox.launcher_1.5.200.v20180922-1751.jar',
+        \ '-configuration',
+        \ expand(g:outher_package_path) . '/jdt-lsp/config_mac',
+        \ '-data',
+        \ l:jdt_lsp_data_dir]
+
   nnoremap <silent> [myleader]lh :call LanguageClient#textDocument_hover()<CR>
   nnoremap <silent> [myleader]ld :call LanguageClient#textDocument_definition()<CR>
   nnoremap <silent> [myleader]lr :call LanguageClient#textDocument_rename()<CR>
   nnoremap <silent> [myleader]lf :call LanguageClient#textDocument_formatting()<CR>
   nnoremap <silent> [myleader]lc :call LanguageClient_contextMenu()<CR>
+'''
+hook_post_update = '''
+  " g:outher_package_pathは、`eclipse.jdt.ls`などの外部ツールのインストール先ディレクトリ。
+  " 省略しているが、`init.vim`で設定している。
+  let l:jdt_lsp_path = expand(g:outher_package_path) . "/jdt-lsp"
+  " 指定のディレクトリに`eclipse.jdt.ls`が存在するか確認
+  if !executable(l:jdt_lsp_path . "/plugins/org.eclipse.equinox.launcher_1.5.200.v20180922-1751.jar")
+    " `eclipse.jdt.ls`のダウンロード
+    !curl -o /tmp/tmp_jdt_lsp.tar.gz http://download.eclipse.org/jdtls/snapshots/jdt-language-server-0.27.0-201810230512.tar.gz
+    " `eclipse.jdt.ls`の保存先ディレクトリを作成
+    call mkdir(l:jdt_lsp_path, "p")
+    " ダウンロードしてきたファイルを保存先ディレクトリに解凍
+    execute "!tar xf /tmp/tmp_jdt_lsp.tar.gz -C " . l:jdt_lsp_path
+    " tar.gzファイルを削除
+    !rm /tmp/tmp_jdt_lsp.tar.gz
+  endif
 '''
 
 [[plugins]]
