@@ -43,6 +43,14 @@
       "sudo -u #{user} -i "
     end
   end
+
+  def run_as(user, cmd)
+    if node[:platform] == 'darwin' or node[:platform] == 'osx'
+      cmd
+    else
+      "su - #{user} -c \"cd ${PWD} && #{cmd}\""
+    end
+  end
 end
 
 ::MItamae::ResourceContext.class_eval do
@@ -51,6 +59,14 @@ end
       ''
     else
       "sudo -u #{user} -i "
+    end
+  end
+
+  def run_as(user, cmd)
+    if node[:platform] == 'darwin' or node[:platform] == 'osx'
+      cmd
+    else
+      "su - #{user} -c \"cd ${PWD} && #{cmd}\""
     end
   end
 end

@@ -1,27 +1,36 @@
-remote_file '/etc/pacman.d/archlinux'
+# remote_file '/etc/pacman.d/archlinux'
 
-file '/etc/pacman.conf' do
-  action :edit
-  block do |content|
-    if not content =~ /^[archlinuxfr]/i then
-      content << '[archlinuxfr]'
-      content << 'Include = /etc/pacman.d/archlinuxfr'
-    end
-  end
-end
+# file '/etc/pacman.conf' do
+#   action :edit
+#   block do |content|
+#     if not content =~ /^[archlinuxfr]/i then
+#       content << '[archlinuxfr]'
+#       content << 'Include = /etc/pacman.d/archlinuxfr'
+#     end
+#   end
+# end
 
-define :yaourt do
+# define :yaourt do
+#   name = params[:name]
+# 
+#   execute "#{sudo(node[:user])} yaourt -S --noconfirm #{name}" do
+#     not_if "yaourt -Q #{name}"
+#   end
+# end
+
+define :yay do
   name = params[:name]
 
-  execute "#{sudo(node[:user])} yaourt -S --noconfirm #{name}" do
-    not_if "yaourt -Q #{name}"
+  execute "#{sudo(node[:user])} yay -S --noconfirm #{name}" do
+    not_if "yay -Q #{name}"
   end
 end
 
-execute 'pacman -Syy'
-execute 'pacman -Syu'
-package 'yaourt'
-yaourt 'base-devel'
+execute 'pacman -Syy --noconfirm'
+execute 'pacman -Syu --noconfirm'
+include_cookbook('yay')
+# package 'yaourt'
+yay 'base-devel'
 package 'openssh'
 package 'libxml2'
 package 'libxslt'
@@ -30,10 +39,10 @@ package 'fcitx-configtool'
 package 'fcitx-skk'
 package 'skk-jisyo'
 
-yaourt "buttercup-desktop"
-yaourt "dropbox"
-yaourt "hfsprogs"
-yaourt "cerebro"
-yaourt "zeal"
+# yay "buttercup-desktop"
+# yay "dropbox"
+# yay "hfsprogs"
+# yay "cerebro"
+# yay "zeal"
 
 include_role('base')
