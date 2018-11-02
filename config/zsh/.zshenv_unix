@@ -13,7 +13,7 @@ export JAVA_OPTS='-Dgroovy.source.encoding=UTF-8 -Dfile.encoding=UTF-8'
 # for tools
 export PATH=${TOOLS_PATH}/bin:$PATH
 export PATH=~/.cargo/bin:$PATH
-export PATH=~/.local/bin:$PATH
+export PATH=~/.local/bin:$PATH:$(find ~/.local/bin/* -maxdepth 0 -type d)
 #for android
 #export PATH=${ANDROID_HOME}/tools/:$PATH
 #for ruby
