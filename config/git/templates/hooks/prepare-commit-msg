@@ -2,14 +2,15 @@
 #
 # author: orefalo
 
-hookname=`basename $0`
+hookname=$(basename $0)
+hookdir=$(dirname $0)
 
 
 FILE=`mktemp`
 trap 'rm -f $FILE' EXIT
 cat - > $FILE
 
-for hook in $GIT_DIR/hooks/$hookname.*
+for hook in $hookdir/$hookname.*
 do
   if test -x "$hook"; then
     # echo $hook
