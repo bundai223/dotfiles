@@ -9,13 +9,41 @@ API_KEY = ENV['REDMINE_API_KEY']
 # redmineのURL
 REDMINE_URL = ENV['REDMINE_URL']
 # ブランチの設定を書き込むgitのconfigファイルのpath
-GIT_CONFIG_FILE_PATH = File.dirname(File.expand_path(__dir__))
+GIT_CONFIG_FILE_PATH = "#{File.dirname(File.expand_path(__dir__))}/config"
 # 説明を表示したくないブランチ名
 NOT_COVERED_BRANCHES = %w[master, release, develop, hotfix]
+
+# ブランチ名からチケット番号を抜き出す関数
+def get_issue_no(branch_name)
+  result = branch_name.match(/feature\/#(\d+)/) if result.nil? # feature/#0000
+  result = branch_name.match(/feature\/(\d+)(\/|_)/) if result.nil? # feature/0000/brach_name
+
+  return nil if result.nil?
+  result[1]
+end
 
 def remote_is_redmine?
   `git remote -vv | grep redmine`
   ($?).success?
+end
+
+def issue_url(issue_id)
+  "#{REDMINE_URL}/issues/#{issue_id}"
+end
+def subject(issue_id)
+  uri = URI.parse("#{issue_url(issue_id)}.json?key=#{API_KEY}")
+  JSON.parse(Net::HTTP::get_response(uri).body)['issue']['subject']
+end
+def insecure_subject(issue_id)
+  url = "#{issue_url(issue_id)}.json?key=#{API_KEY}"
+  uri = URI.parse(url)
+  # puts "url: #{url}"
+  # puts "uri: #{uri}"
+
+  http = Net::HTTP.new(uri.host, uri.port)
+  http.use_ssl = true
+  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+  JSON.parse(http.get(uri).body)['issue']['subject']
 end
 
 unless remote_is_redmine?
@@ -27,17 +55,9 @@ if API_KEY.empty? || REDMINE_URL.empty? || GIT_CONFIG_FILE_PATH.empty?
   exit 0
 end
 
-def issue_url(issue_id)
-  "#{REDMINE_URL}/issues/#{issue_id}"
-end
-def subject(issue_id)
-  uri = URI.parse("#{issue_url(issue_id)}.json?key=#{API_KEY}")
-  JSON.parse(Net::HTTP::get_response(uri).body)['issue']['subject']
-end
-
 branch_name = `git rev-parse --abbrev-ref HEAD`.chomp.to_s
 description = `git config branch.#{branch_name}.description`
-issue_id = branch_name.split('/').last
+issue_id = get_issue_no(branch_name)
 
 exit unless NOT_COVERED_BRANCHES.select{|b| branch_name.include?(b)}.empty?
 if description.empty? == false
@@ -45,15 +65,17 @@ if description.empty? == false
   exit
 else
   begin
-    subject = subject(issue_id)
-    # File.open(GIT_CONFIG_FILE_PATH, 'a') do |file|
-    #   file.puts "[branch \"#{branch_name}\"]"
-    #   file.puts "\tdescription = #{REDMINE_URL}/issues/#{issue_id}\\n#{' ' * 5}#{subject}\n"
-    # end
+    # subject = subject(issue_id)
+    subject = insecure_subject(issue_id)
+    File.open(GIT_CONFIG_FILE_PATH, 'a') do |file|
+      file.puts "[branch \"#{branch_name}\"]"
+      file.puts "\tdescription = #{REDMINE_URL}/issues/#{issue_id}\\n#{' ' * 5}#{subject}\n"
+    end
     puts "Add description: #{branch_name} \033[35m#{subject}\033[0m"
     puts "\033[32m#{issue_url(issue_id)}\033[0m"
   rescue => e
     puts "Failed to add description: #{branch_name}"
+    puts "Pased URL: #{issue_url(issue_id)}"
     puts e
   end
 end
