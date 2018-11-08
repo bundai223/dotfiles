@@ -46,6 +46,6 @@ else
 end
 
 
-gem_package 'solargraph'
-execute 'yard gems'
-execute 'yard config --gem-install-yri'
+# gem_package 'solargraph'
+# execute 'yard gems'
+# execute 'yard config --gem-install-yri'
