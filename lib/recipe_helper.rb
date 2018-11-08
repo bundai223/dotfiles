@@ -37,7 +37,7 @@
   end
 
   def sudo(user)
-    if node[:platform] == 'darwin' or node[:platform] == 'osx'
+    if node[:platform] == 'darwin' || node[:platform] == 'osx'
       ''
     else
       "sudo -u #{user} -i "
@@ -45,7 +45,7 @@
   end
 
   def run_as(user, cmd)
-    if node[:platform] == 'darwin' or node[:platform] == 'osx'
+    if node[:platform] == 'darwin' || node[:platform] == 'osx'
       cmd
     else
       "su - #{user} -c \"cd ${PWD} && #{cmd}\""
@@ -55,7 +55,7 @@ end
 
 ::MItamae::ResourceContext.class_eval do
   def sudo(user)
-    if node[:platform] == 'darwin' or node[:platform] == 'osx'
+    if node[:platform] == 'darwin' || node[:platform] == 'osx'
       ''
     else
       "sudo -u #{user} -i "
@@ -63,7 +63,7 @@ end
   end
 
   def run_as(user, cmd)
-    if node[:platform] == 'darwin' or node[:platform] == 'osx'
+    if node[:platform] == 'darwin' || node[:platform] == 'osx'
       cmd
     else
       "su - #{user} -c \"cd ${PWD} && #{cmd}\""
@@ -84,14 +84,14 @@ end
 define :get_repo do
   reponame = params[:name]
 
-  if node[:platform] == 'osx' or node[:platform] == 'darwin'
+  if node[:platform] == 'osx' || node[:platform] == 'darwin'
     execute "get_repo #{reponame}" do
       command "~/go/bin/ghq get -p #{reponame}"
       not_if "test -d ~/repos/github.com/#{reponame}"
     end
   else
     execute "get_repo #{reponame}" do
-      command run_as(sudo(node[:user]), "ghq get -p #{reponame}")
+      command run_as(node[:user], "ghq get -p #{reponame}")
       not_if "test -d #{node[:home]}/repos/github.com/#{reponame}"
     end
   end
