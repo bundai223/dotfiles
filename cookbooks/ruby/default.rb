@@ -3,14 +3,9 @@
 
 case node[:platform]
 when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
-  rbenv_path = '/etc/profile.d/rbenv.sh'
-  remote_file rbenv_path do
-    source 'files/rbenv.sh'
-    mode '644'
-  end
-
   node.reverse_merge!({
     rbenv: {
+      rbenv_root: '/usr/local/rbenv',
       global: '2.5.1',
       versions: %w[
         "2.5.1"
@@ -22,13 +17,21 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
     }
   })
 
+  conf_path = '/etc/profile.d/rbenv.sh'
+  template conf_path do
+    action :create
+    source 'files/rbenv.sh.erb'
+    mode '644'
+    variables(rbenv_root: node[:rbenv][:rbenv_root])
+  end
+
   execute 'apt purge -y ruby' do
     only_if 'uname -a | grep Microsoft && test -e /usr/bin/ruby'
   end
 
   include_recipe 'rbenv::system'
 
-  rbenv_plugins = '$(rbenv root)/plugins'
+  rbenv_plugins = node[:rbenv][:rbenv_root]
 
   directory rbenv_plugins
   git "#{rbenv_plugins}/rbenv-update" do
