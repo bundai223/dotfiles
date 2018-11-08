@@ -17,11 +17,11 @@ package 'fcitx-configtool'
 package 'fcitx-skk'
 package 'skk-jisyo'
 
+include_role('base')
+
 include_cookbook('yay')
 # yay "buttercup-desktop"
 # yay "dropbox"
 # yay "hfsprogs"
 # yay "cerebro"
 # yay "zeal"
-
-include_role('base')
