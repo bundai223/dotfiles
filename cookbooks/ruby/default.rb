@@ -22,26 +22,19 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
     }
   })
 
-  execute 'uninstall system ruby' do
-    command <<-EOL
-      apt purge -y ruby
-    EOL
-
+  execute 'apt purge -y ruby' do
     only_if 'uname -a | grep Microsoft'
     only_if 'test -e /usr/bin/ruby'
   end
 
   include_recipe 'rbenv::system'
 
-  execute 'install rbenv-update' do
-    command <<-EOL
-      source #{rbenv_path}
-      p=$(rbenv root)/plugins
-      test -e $p || mkdir $p
-      git clone https://github.com/rkh/rbenv-update.git $p/rbenv-update
-    EOL
+  rbenv_root = run_command('rbenv root')
+  rbenv_plugins = "#{rbenv_root.stdout}/plugins"
 
-    not_if 'test -e "$(rfatal error: Killed signal terminated program cc1 benv root)/plugins/rbenv-update"'
+  directory rbenv_plugins
+  execute "git clone https://github.com/rkh/rbenv-update.git #{rbenv_plugins}/rbenv-update" do
+    not_if 'test -e "$(rbenv root)/plugins/rbenv-update"'
   end
 
 when 'osx', 'darwin'
@@ -52,6 +45,6 @@ else
 end
 
 
-execute 'gem install solargraph'
+gem_package 'solargraph'
 execute 'yard gems'
 execute 'yard config --gem-install-yri'
