@@ -4,7 +4,7 @@ package 'go'
 execute "install yay" do
   command <<-EOL
     ls yay >/dev/null || git clone https://aur.archlinux.org/yay.git
-    chown #{node[:user]}:#{node[:group]} yay
+    chown -R #{node[:user]}:#{node[:group]} yay
     cd yay
     #{run_as(node[:user], 'makepkg -si --noconfirm')}
     cd ../
