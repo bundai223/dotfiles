@@ -31,7 +31,7 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
 
   include_recipe 'rbenv::system'
 
-  rbenv_plugins = node[:rbenv][:rbenv_root]
+  rbenv_plugins = "#{node[:rbenv][:rbenv_root]}/plugins"
 
   directory rbenv_plugins
   git "#{rbenv_plugins}/rbenv-update" do
