@@ -86,12 +86,12 @@ define :get_repo do
 
   if node[:platform] == 'osx' or node[:platform] == 'darwin'
     execute "get_repo #{reponame}" do
-	    command "~/go/bin/ghq get -p #{reponame}"
+      command "~/go/bin/ghq get -p #{reponame}"
       not_if "test -d ~/repos/github.com/#{reponame}"
     end
   else
     execute "get_repo #{reponame}" do
-      command "#{sudo(node[:user])} ghq get -p #{reponame}"
+      command run_as(sudo(node[:user]), "ghq get -p #{reponame}")
       not_if "test -d #{node[:home]}/repos/github.com/#{reponame}"
     end
   end
