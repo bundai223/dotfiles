@@ -28,13 +28,11 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
 
   include_recipe 'rbenv::system'
 
-  execute 'ls /etc/profile.d/'
-  rbenv_root = run_command('rbenv root')
-  rbenv_plugins = "#{rbenv_root.stdout}/plugins"
+  rbenv_plugins = '$(rbenv root)/plugins'
 
   directory rbenv_plugins
-  execute "git clone https://github.com/rkh/rbenv-update.git #{rbenv_plugins}/rbenv-update" do
-    not_if 'test -e "$(rbenv root)/plugins/rbenv-update"'
+  git "#{rbenv_plugins}/rbenv-update" do
+    repository 'https://github.com/rkh/rbenv-update.git'
   end
 
 when 'osx', 'darwin'
