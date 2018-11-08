@@ -3,7 +3,8 @@
 
 case node[:platform]
 when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
-  remote_file '/etc/profile.d/rbenv.sh' do
+  rbenv_path = '/etc/profile.d/rbenv.sh'
+  remote_file rbenv_path do
     source 'files/rbenv.sh'
     mode '644'
   end
@@ -34,12 +35,13 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
 
   execute 'install rbenv-update' do
     command <<-EOL
+      source #{rbenv_path}
       p=$(rbenv root)/plugins
       test -e $p || mkdir $p
       git clone https://github.com/rkh/rbenv-update.git $p/rbenv-update
     EOL
 
-    not_if 'test -e "$(rbenv root)/plugins/rbenv-update"'
+    not_if 'test -e "$(rfatal error: Killed signal terminated program cc1 benv root)/plugins/rbenv-update"'
   end
 
 when 'osx', 'darwin'
