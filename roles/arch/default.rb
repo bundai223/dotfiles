@@ -5,6 +5,9 @@ define :yay do
     not_if "yay -Q #{name}"
   end
 end
+# https://wiki.archlinux.org/index.php/tmpfs
+# The tmpfs can also be temporarily resized without the need to reboot, for example when a large compile job needs to run soon. In this case, run:
+execute 'mount -o remount,size=4G,noatime /tmp'
 
 execute 'pacman -Syy --noconfirm'
 execute 'pacman -Syu --noconfirm'
