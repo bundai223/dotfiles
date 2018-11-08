@@ -23,12 +23,12 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
   })
 
   execute 'apt purge -y ruby' do
-    only_if 'uname -a | grep Microsoft'
-    only_if 'test -e /usr/bin/ruby'
+    only_if 'uname -a | grep Microsoft && test -e /usr/bin/ruby'
   end
 
   include_recipe 'rbenv::system'
 
+  execute 'ls /etc/profile.d/'
   rbenv_root = run_command('rbenv root')
   rbenv_plugins = "#{rbenv_root.stdout}/plugins"
 
