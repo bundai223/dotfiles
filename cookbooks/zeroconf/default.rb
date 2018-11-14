@@ -13,6 +13,8 @@ when 'fedora', 'redhat', 'amazon'
   package 'nss-mdns'
 when 'osx', 'darwin'
 when 'arch'
+  package 'avahi'
+  package 'nss-mdns'
 when 'opensuse'
 else
 end
