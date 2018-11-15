@@ -105,4 +105,12 @@ define :go_get do
   end
 end
 
+define :yay do
+  name = params[:name]
+
+  execute "#{sudo(node[:user])} yay -S --noconfirm #{name}" do
+    not_if "yay -Q #{name}"
+  end
+end
+
 init_node
