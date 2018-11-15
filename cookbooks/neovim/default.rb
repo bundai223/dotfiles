@@ -1,3 +1,4 @@
+include_recipe 'dependency.rb'
 
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
@@ -59,24 +60,4 @@ when 'opensuse'
 else
 end
 
-if node[:platform] == 'darwin' or node[:platform] == 'osx'
-  execute 'install gem package' do
-    command <<-EOL
-      gem install neovim
-    EOL
-  end
-else
-  execute 'install gem package' do
-    command <<-EOL
-      . /etc/profile.d/rbenv.sh
-      gem install neovim
-    EOL
-  end
-end
 
-execute 'install python package' do
-  command <<-EOL
-    pip3 install --upgrade neovim
-    pip install --upgrade neovim
-  EOL
-end
