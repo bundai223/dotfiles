@@ -2,6 +2,12 @@
 
 TOOLS_PATH=/usr/local
 
+# locale
+export LANG=ja_JP.UTF-8
+
+# git logでの文字化け対策
+export LESSCHARSET=utf-8
+
 # path setting
 export EDITOR=nvim
 
