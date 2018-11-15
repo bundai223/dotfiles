@@ -28,6 +28,10 @@ when 'osx', 'darwin'
   package 'zsh'
 when 'arch'
   package 'zsh'
+
+  execute 'ln -s /usr/bin/zsh /usr/local/bin/zsh' do
+    not_if 'test -e /usr/local/bin/zsh'
+  end
 when 'opensuse'
 else
 end
