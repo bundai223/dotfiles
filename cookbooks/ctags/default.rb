@@ -24,6 +24,7 @@ when 'osx', 'darwin'
   #package 'universal-ctags/universal-ctags/universal-ctags'
   package 'ctags'
 when 'arch'
+  package 'ctags'
 when 'opensuse'
 else
 end
