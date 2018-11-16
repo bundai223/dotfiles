@@ -19,3 +19,7 @@ install_font "#{node[:home]}/repos/gitlab.com/bundai223/RictyDiminished-for-Powe
 install_font "#{node[:home]}/repos/gitlab.com/bundai223/RictyDiminished-for-Powerline/Ricty_Diminished_Discord_Oblique_for_Powerline.ttf"
 install_font "#{node[:home]}/repos/gitlab.com/bundai223/RictyDiminished-for-Powerline/Ricty_Diminished_Discord_Bold_for_Powerline.ttf"
 install_font "#{node[:home]}/repos/gitlab.com/bundai223/RictyDiminished-for-Powerline/Ricty_Diminished_Discord_Bold_Oblique_for_Powerline.ttf"
+install_font "#{node[:home]}/repos/gitlab.com/bundai223/RictyDiminished-for-Powerline/Ricty_Diminished_Regular_for_Powerline.ttf"
+install_font "#{node[:home]}/repos/gitlab.com/bundai223/RictyDiminished-for-Powerline/Ricty_Diminished_Bold_for_Powerline.ttf"
+install_font "#{node[:home]}/repos/gitlab.com/bundai223/RictyDiminished-for-Powerline/Ricty_Diminished_Bold_Oblique_for_Powerline.ttf"
+install_font "#{node[:home]}/repos/gitlab.com/bundai223/RictyDiminished-for-Powerline/Ricty_Diminished_Oblique_for_Powerline.ttf"
