@@ -113,4 +113,13 @@ define :yay do
   end
 end
 
+define :install_font do
+  name = params[:name]
+  typename = File.extname(name) == 'otf' ? 'OTF' : 'TTF'
+  install_path = "/usr/share/fonts/#{typename}/"
+
+  directory install_path
+  execute "cp #{name} #{install_path}"
+end
+
 init_node

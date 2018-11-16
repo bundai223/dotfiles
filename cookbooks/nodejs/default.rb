@@ -5,7 +5,8 @@ node.reverse_merge!({
     version: 'v0.33.11',
   },
   nodejs: {
-    major_version: 8,
+    version: '10.13.0',
+    major_version: 10,
   }
 })
 
@@ -36,8 +37,9 @@ when 'fedora', 'redhat', 'amazon'
 
 when 'osx', 'darwin'
 when 'arch'
-  package 'nodejs'
-  package 'npm'
+  yay 'nvm'
+
+  execute 'nvm install ${node[:nodejs][:version]}'
 when 'opensuse'
 else
 end

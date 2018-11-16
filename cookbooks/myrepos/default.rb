@@ -14,3 +14,8 @@ myrepos = [
   'gitlab.com:bundai223/private-memo.git',
 ]
 myrepos.each {|name| get_repo name}
+
+install_font "#{node[:home]}/repos/gitlab.com/bundai223/RictyDiminished-for-Powerline/Ricty_Diminished_Discord_Regular_for_Powerline.ttf"
+install_font "#{node[:home]}/repos/gitlab.com/bundai223/RictyDiminished-for-Powerline/Ricty_Diminished_Discord_Oblique_for_Powerline.ttf"
+install_font "#{node[:home]}/repos/gitlab.com/bundai223/RictyDiminished-for-Powerline/Ricty_Diminished_Discord_Bold_for_Powerline.ttf"
+install_font "#{node[:home]}/repos/gitlab.com/bundai223/RictyDiminished-for-Powerline/Ricty_Diminished_Discord_Bold_Oblique_for_Powerline.ttf"
