@@ -73,6 +73,13 @@ template "#{node[:home]}/.zshenv" do
   not_if "test -e #{node[:home]}/.zshenv"
 end
 
+template "#{node[:home]}/.xinitrc" do
+  source 'templates/.xinitrc.erb'
+  owner node[:user]
+  group node[:group]
+  not_if "test -e #{node[:home]}/.xinitrc"
+end
+
 remote_file "#{node[:home]}/.tmux.conf" do
   source 'files/.tmux.conf'
   owner node[:user]
