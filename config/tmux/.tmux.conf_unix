@@ -1,5 +1,15 @@
+# bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xsel -ib'
+# bind ] run-shell 'xsel -ob | xargs -0 tmux set-buffer && tmux paste-buffer'
+
 # vでマーク開始
 # yでヤンク (クリップボードを使用できるように)
-#bind -t vi-copy v begin-selection
-#bind -t vi-copy y copy-selection
+unbind-key -T copy-mode-vi y         ; bind-key -T copy-mode-vi y     send-keys -X copy-pipe-and-cancel "xsel -ib"
+unbind-key -T copy-mode-vi Enter     ; bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "xsel -ib"
 
+# マウス選択でもcopy-pipe-and-cancel
+unbind-key -T copy-mode-vi MouseDragEnd1Pane ; bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "xsel -ib"
+
+# <prefix> ]でクリップボードからペースト
+unbind-key -T prefix P               ; bind-key P run "xsel -ob | tmux load-buffer - && tmux paste-buffer"
+unbind-key -T prefix ]               ; bind-key ] run "xsel -ob | tmux load-buffer - && tmux paste-buffer"
+unbind-key -T copy-mode-vi C-v       ; bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle

@@ -21,3 +21,4 @@ include_cookbook('yay')
 # yay "hfsprogs"
 # yay "cerebro"
 # yay "zeal"
+yay "xsel"
