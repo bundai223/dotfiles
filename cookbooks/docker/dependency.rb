@@ -11,6 +11,7 @@ when 'ubuntu'
 when 'fedora', 'redhat', 'amazon'
 when 'osx', 'darwin'
 when 'arch'
+  include_cookbook 'yay'
 when 'opensuse'
 else
 end

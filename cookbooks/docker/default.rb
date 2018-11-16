@@ -57,16 +57,8 @@ when 'fedora', 'redhat', 'amazon'
 when 'osx', 'darwin'
 
 when 'arch'
-  execute 'install docker' do
-    command "#{sudo(node[:user])}yaourt -S --noconfirm docker"
-    not_if 'which docker'
-  end
-
-  execute 'install docker' do
-    command "#{sudo(node[:user])}yaourt -S --noconfirm docker-compose"
-    not_if 'which docker-compose'
-  end
-
+  yay 'docker'
+  yay 'docker-compose'
 when 'opensuse'
 else
 end
