@@ -30,6 +30,9 @@ when 'osx', 'darwin'
   package 'fzf'
 
 when 'arch'
+  include_cookbook 'yay'
+
+  yay 'peco'
 when 'opensuse'
 else
 end

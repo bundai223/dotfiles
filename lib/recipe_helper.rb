@@ -21,6 +21,36 @@
     )
   end
 
+  def update_package
+    case node[:platform]
+    when 'arch'
+      execute 'yay -Syy'
+    when 'osx', 'darwin'
+      execute 'brew update'
+    when 'fedora', 'redhat', 'amazon'
+      # execute 'yum update -y' # '区別なし'
+    when 'debian', 'ubuntu', 'mint'
+      execute 'apt update -y'
+    when 'opensuse'
+    else
+    end
+  end
+
+  def upgrade_package
+    case node[:platform]
+    when 'arch'
+      execute 'yay -Syu --noconfirm'
+    when 'osx', 'darwin'
+      execute 'brew upgrade'
+    when 'fedora', 'redhat', 'amazon'
+      execute 'yum update -y' # 区別なし
+    when 'debian', 'ubuntu', 'mint'
+      execute 'apt upgrade -y'
+    when 'opensuse'
+    else
+    end
+  end
+
   def include_cookbook(name)
     root_dir = File.expand_path('../..', __FILE__)
     include_recipe File.join(root_dir, 'cookbooks', name, 'default')

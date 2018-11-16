@@ -10,6 +10,7 @@ node.reverse_merge!({
   }
 })
 
+node_version = node[:nodejs][:version]
 major_version = node[:nodejs][:major_version]
 nvm_version = node[:nvm][:version]
 
@@ -39,7 +40,7 @@ when 'osx', 'darwin'
 when 'arch'
   yay 'nvm'
 
-  execute 'nvm install ${node[:nodejs][:version]}'
+  execute run_as(node[:user], "nvm install #{node_version}")
 when 'opensuse'
 else
 end
