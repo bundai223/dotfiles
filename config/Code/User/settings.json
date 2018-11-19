@@ -1,0 +1,22 @@
+{
+    "explorer.confirmDelete": false,
+    "terminal.integrated.shell.windows": "C:/Windows/System32/wsl.exe",
+    "git.path": "C:/tools/wslgit/wslgit.exe",
+    "files.eol": "\n",
+
+    "editor.fontSize": 18,
+    "editor.fontFamily": "Ricty Diminished Discord for Powerline",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.minimap.enabled": true,
+    "vim.history": 1000,
+    "vim.hlsearch": true,
+    "files.trimTrailingWhitespace": true,
+    "vim.visualstar": true,
+    "debug.inlineValues": true,
+    "vim.useSystemClipboard": true,
+    "vim.ignorecase": true,
+    "vim.smartcase": true,
+    "terminal.integrated.fontSize": 18,
+    "editor.renderWhitespace": "all"
+}
