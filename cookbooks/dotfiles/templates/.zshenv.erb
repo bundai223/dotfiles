@@ -3,4 +3,7 @@ source ~/repos/github.com/bundai223/dotfiles/config/.zshenv
 source ~/repos/github.com/bundai223/dotfiles/config/zsh/.zshenv_osx
 <% else -%>
 source ~/repos/github.com/bundai223/dotfiles/config/zsh/.zshenv_unix
+  <%- if node[:is_wsl] -%>
+source ~/repos/github.com/bundai223/dotfiles/config/zsh/.zshenv_wsl
+  <%- end -%>
 <% end -%>

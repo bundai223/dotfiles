@@ -1,7 +1,9 @@
-
 source ~/repos/github.com/bundai223/dotfiles/config/.zshrc
 <% if node[:platform] == 'osx' or node[:platform] == 'darwin' -%>
 source ~/repos/github.com/bundai223/dotfiles/config/zsh/.zshrc_osx
 <% else -%>
 source ~/repos/github.com/bundai223/dotfiles/config/zsh/.zshrc_unix
+  <%- if node[:is_wsl] -%>
+source ~/repos/github.com/bundai223/dotfiles/config/zsh/.zshrc_wsl
+  <%- end -%>
 <% end -%>

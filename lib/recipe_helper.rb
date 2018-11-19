@@ -14,10 +14,13 @@
       group = user
     end
 
+    is_wsl = run_command('uname -a | grep Microsoft').exit_status == 0
+
     node.reverse_merge!(
       user: user,
       group: group,
-      home: home
+      home: home,
+      is_wsl: is_wsl
     )
   end
 
