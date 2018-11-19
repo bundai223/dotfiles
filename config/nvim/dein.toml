@@ -153,10 +153,12 @@ hook_add = '''
     \ ['zshrc shared',  g:pub_repos_path . '/dotfiles/config/.zshrc' ],
     \ ['zshrc osx',     g:pub_repos_path . '/dotfiles/config/zsh/.zshrc_osx' ],
     \ ['zshrc unix',    g:pub_repos_path . '/dotfiles/config/zsh/.zshrc_unix' ],
+    \ ['zshrc wsl',    g:pub_repos_path . '/dotfiles/config/zsh/.zshrc_wsl' ],
     \ ['zshenv',        '~/.zshenv'],
     \ ['zshenv shared', g:pub_repos_path . '/dotfiles/config/.zshenv' ],
     \ ['zshenv osx',    g:pub_repos_path . '/dotfiles/config/zsh/.zshenv_osx' ],
     \ ['zshenv unix',   g:pub_repos_path . '/dotfiles/config/zsh/.zshenv_unix' ],
+    \ ['zshenv wsl',   g:pub_repos_path . '/dotfiles/config/zsh/.zshenv_wsl' ],
     \ ['zsh utils',     g:pub_repos_path . '/dotfiles/config/zsh/zsh-utils'],
     \ ]
 
