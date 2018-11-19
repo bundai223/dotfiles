@@ -40,6 +40,11 @@ directory "#{node[:home]}/.config/spacemacs/layers" do
   group node[:group]
 end
 
+directory "#{node[:home]}/.config/Code/User" do
+  owner node[:user]
+  group node[:group]
+end
+
 directory "#{node[:home]}/repos" do
   owner node[:user]
   group node[:group]
@@ -137,4 +142,8 @@ end
 
 execute run_as(node[:user], "ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/.spacemacs.d #{node[:home]}/.spacemacs.d") do
   not_if "test -L #{node[:home]}/.spacemacs.d"
+end
+
+execute run_as(node[:user], "ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/Code/User/settings.json #{node[:home]}/.config/Code/User/settings.json") do
+  not_if "test -L #{node[:home]}/.config/Code/User/settings.json"
 end
