@@ -3,46 +3,37 @@ include_recipe 'dependency.rb'
 case node[:platform]
 when 'debian', 'mint'
 when 'ubuntu'
-  execute 'add docker official gpg' do
-    command <<-EOL
-      set -xu
-      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-      sudo apt-key fingerprint 0EBFCD88
-    EOL
+  unless node[:is_wsl]
+    execute 'install docker v17.09.0' do
+      command <<-EOL
+        curl -O https://download.docker.com/linux/debian/dists/stretch/pool/stable/amd64/docker-ce_17.09.0~ce-0~debian_amd64.deb
+        dpkg -i docker-ce_17.09.0\~ce-0\~debian_amd64.deb
+        rm docker-ce_17.09.0\~ce-0\~debian_amd64.deb
+      EOL
+    end
+  else
+    execute 'add docker official gpg' do
+      command <<-EOL
+        set -xu
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        sudo apt-key fingerprint 0EBFCD88
+      EOL
+    end
 
-    not_if 'uname -a | grep Microsoft'
+    execute 'add repository' do
+      command <<-EOL
+        set -xu
+
+        add-apt-repository \
+          "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+          $(lsb_release -cs) \
+          stable"
+      EOL
+    end
+
+    update_package
+    package 'docker-ce'
   end
-
-  execute 'add repository' do
-    command <<-EOL
-      set -xu
-
-      add-apt-repository \
-        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-        $(lsb_release -cs) \
-        stable"
-
-      apt update
-    EOL
-
-    not_if 'uname -a | grep Microsoft'
-  end
-
-  package 'docker-ce' do
-    not_if 'uname -a | grep Microsoft'
-  end
-
-  ### WSL
-  execute 'install docker v17.09.0' do
-    command <<-EOL
-      curl -O https://download.docker.com/linux/debian/dists/stretch/pool/stable/amd64/docker-ce_17.09.0~ce-0~debian_amd64.deb
-      dpkg -i docker-ce_17.09.0\~ce-0\~debian_amd64.deb
-      rm docker-ce_17.09.0\~ce-0\~debian_amd64.deb
-    EOL
-
-    only_if 'uname -a | grep Microsoft'
-  end
-  ### WSL
 
   execute 'install docker-compose' do
     command <<-EOL
@@ -65,13 +56,8 @@ end
 
 execute "usermod -G #{node[:group]},docker #{node[:user]}"
 
-#remote_file '/etc/profile.d/docker.sh' do
-#  source 'files/docker.sh'
-#  mode '644'
-#  only_if 'uname -a | grep Microsoft'
-#end
-
-service 'docker' do
-  action [:enable, :start]
-  not_if 'uname -a | grep Microsoft'
+unless node[:is_wsl]
+  service 'docker' do
+    action [:enable, :start]
+  end
 end

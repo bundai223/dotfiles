@@ -6,7 +6,7 @@ when 'debian', 'ubuntu', 'mint'
   # for wsl
   service 'dbus' do
     action [:start, :enable]
-    not_if 'uname -a | grep Microsoft'
+    not_if node[:is_wsl]
   end
 when 'fedora', 'redhat', 'amazon'
   package 'avahi'
@@ -19,7 +19,8 @@ when 'opensuse'
 else
 end
 
-service 'avahi-daemon' do
-  action [:start, :enable]
-  not_if 'uname -a | grep Microsoft'
+unless node[:is_wsl]
+  service 'avahi-daemon' do
+    action [:start, :enable]
+  end
 end

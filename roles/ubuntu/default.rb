@@ -4,7 +4,7 @@ execute 'apt purge -y ebtables' do
     apt purge -y ebtables
   EOL
 
-  only_if 'uname -a | grep Microsoft'
+  only_if node['is_wsl']
   only_if 'test -e /var/lib/dpkg/info/ebtables.prerm'
 end
 
@@ -42,10 +42,10 @@ package 'x11-xserver-utils'
 package 'fonts-ipafont'
 execute 'locale-gen ja_JP.UTF-8'
 
-execute 'remove libpulse0'  do
-  command <<-EOL
+if node[:is_wsl]
+  execute 'remove libpulse0'  do
+    command <<-EOL
     apt purge -y libpulse0
-  EOL
-
-  only_if 'uname -a | grep Microsoft'
+    EOL
+  end
 end

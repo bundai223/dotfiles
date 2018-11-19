@@ -18,22 +18,21 @@ when 'debian', 'ubuntu', 'mint'
   package 'mysql-server'
   package 'libmysqld-dev'
 
-  service 'mysql' do
-    action [:start, :enable]
-    not_if 'uname -a | grep Microsoft'
-  end
-
-  execute 'service mysql start' do
-    only_if 'uname -a | grep Microsoft'
-  end
-
-  file "#{node[:home]}/.bashrc" do
-    action [:edit]
-    block do |content|
-      content.gsub!('sudo service mysql start', '')
-      content << 'sudo service mysql start'
+  if node[:is_wsl]
+    execute 'service mysql start' do
     end
-    only_if 'uname -a | grep Microsoft'
+
+    file "#{node[:home]}/.bashrc" do
+      action [:edit]
+      block do |content|
+        content.gsub!('sudo service mysql start', '')
+        content << 'sudo service mysql start'
+      end
+    end
+  else
+    service 'mysql' do
+      action [:start, :enable]
+    end
   end
 
 when 'fedora'
@@ -65,9 +64,9 @@ when 'redhat', 'amazon'
   package 'mysql-community-server'
   package 'mysql-community-devel'
 
+  unless node[:is_wsl]
   service 'mysqld' do
     action [:start, :enable]
-    not_if 'uname -a | grep Microsoft'
   end
 
 when 'osx', 'darwin'

@@ -25,8 +25,10 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
     variables(rbenv_root: node[:rbenv][:rbenv_root])
   end
 
-  execute 'apt purge -y ruby' do
-    only_if 'uname -a | grep Microsoft && test -e /usr/bin/ruby'
+  if node[:is_wsl]
+    execute 'apt purge -y ruby' do
+      only_if 'test -e /usr/bin/ruby'
+    end
   end
 
   include_recipe 'rbenv::system'

@@ -93,14 +93,16 @@ remote_file "#{node[:home]}/.ctags" do
 end
 
 # ssh setting
-execute 'cp ssh keys' do
-  command <<-EOL
-    cp /mnt/c/tools/ssh/* #{node[:home]}/.ssh/
-    chown #{node[:user]}:#{node[:group]} #{node[:home]}/.ssh/*
-    chmod 600 #{node[:home]}/.ssh/*
-  EOL
+if node[:is_wsl]
+  execute 'cp ssh keys' do
+    command <<-EOL
+      cp /mnt/c/tools/ssh/* #{node[:home]}/.ssh/
+      chown #{node[:user]}:#{node[:group]} #{node[:home]}/.ssh/*
+      chmod 600 #{node[:home]}/.ssh/*
+    EOL
 
-  only_if 'uname -a | grep Microsoft && test -d /mnt/c/tools/ssh'
+    only_if 'test -d /mnt/c/tools/ssh'
+  end
 end
 
 ssh_targets = %w(gitlab.com github.com)
@@ -114,13 +116,15 @@ ssh_targets.each do |target|
 end
 
 # github_token
-execute 'cp github_token' do
-  command <<-EOL
-    cp /mnt/c/tools/github_token #{node[:home]}/.config/git/
-    chown #{node[:user]}:#{node[:group]} #{node[:home]}/.config/git/github_token
-  EOL
+if node[:is_wsl]
+  execute 'cp github_token' do
+    command <<-EOL
+      cp /mnt/c/tools/github_token #{node[:home]}/.config/git/
+      chown #{node[:user]}:#{node[:group]} #{node[:home]}/.config/git/github_token
+    EOL
 
-  only_if 'uname -a | grep Microsoft && test -e /mnt/c/tools/github_token'
+    only_if 'test -e /mnt/c/tools/github_token'
+  end
 end
 
 
