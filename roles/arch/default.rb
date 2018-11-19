@@ -22,3 +22,4 @@ include_cookbook('yay')
 # yay 'zeal'
 yay 'xsel'
 yay 'terminator'
+yay 'lxterminal'
