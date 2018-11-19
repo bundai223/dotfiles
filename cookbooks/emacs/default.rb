@@ -7,30 +7,25 @@ when 'debian', 'ubuntu', 'mint'
 when 'fedora', 'redhat', 'amazon'
 when 'osx', 'darwin'
 when 'arch'
+  include_cookbook 'yay'
   package 'aspell'
   package 'aspell-en'
+  yay 'cmigemo'
 
   package 'emacs'
 when 'opensuse'
 else
 end
 
-execute 'spacemacs' do
-  command <<-EOL
-    U=#{node[:user]}
-    G=#{node[:group]}
-    UH=#{node[:home]}
-    git clone https://github.com/syl20bnr/spacemacs $UH/.emacs.d
-    chown $U:$G -R $UH
-  EOL
+get_repo 'kenjimyzk/spacemacs-japanese'
+get_repo 'syl20bnr/spacemacs'
 
+execute "ln -s #{node[:home]}/repos/github.com/syl20bnr/spacemacs #{node[:home]}/.emacs.d" do
   not_if "test -e #{node[:home]}/.emacs.d"
 end
 
-get_repo 'kenjimyzk/spacemacs-japanese'
-
 # spacemacs-japanese
-execute "#{sudo(node[:user])} ln -s #{node[:home]}/repos/github.com/kenjimyzk/spacemacs-japanese #{node[:home]}/.config/spacemacs/layers/japanese" do
+execute run_as(node[:user], "ln -s #{node[:home]}/repos/github.com/kenjimyzk/spacemacs-japanese #{node[:home]}/.config/spacemacs/layers/japanese") do
   not_if "test -L #{node[:home]}/.config/spacemacs/layers/japanese"
 end
 

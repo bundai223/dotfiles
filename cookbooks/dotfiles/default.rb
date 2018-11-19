@@ -107,12 +107,8 @@ end
 
 ssh_targets = %w(gitlab.com github.com)
 ssh_targets.each do |target|
-  execute "known_hosts update #{target}" do
-    command <<-EOL
-      #{sudo(node[:user])}ssh-keygen -R #{target}
-      #{sudo(node[:user])}ssh-keyscan #{target}>>#{node[:home]}/.ssh/known_hosts
-    EOL
-  end
+  execute run_as(node[:user], "ssh-key-gen -R #{target}")
+  execute run_as(node[:user], "ssh-keyscan #{target}>>#{node[:home]}/.ssh/known_hosts")
 end
 
 # github_token
@@ -130,15 +126,15 @@ end
 
 # powerline
 #dotfile '.config/powerline'
-execute "#{sudo(node[:user])} ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/.config/powerline #{node[:home]}/.config/powerline" do
+execute run_as(node[:user], "ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/.config/powerline #{node[:home]}/.config/powerline") do
   not_if "test -L #{node[:home]}/.config/powerline"
 end
 
 # spacemacs
-execute "#{sudo(node[:user])} ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/.spacemacs #{node[:home]}/.spacemacs" do
+execute run_as(node[:user], "ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/.spacemacs #{node[:home]}/.spacemacs") do
   not_if "test -L #{node[:home]}/.spacemacs"
 end
 
-execute "#{sudo(node[:user])} ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/.spacemacs.d #{node[:home]}/.spacemacs.d" do
+execute run_as(node[:user], "ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/.spacemacs.d #{node[:home]}/.spacemacs.d") do
   not_if "test -L #{node[:home]}/.spacemacs.d"
 end

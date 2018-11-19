@@ -19,6 +19,8 @@ when 'fedora', 'redhat', 'amazon'
 when 'osx', 'darwin'
   package 'caskroom/cask/google-chrome'
 when 'arch'
+  include_cookbook 'yay'
+  yay 'google-chrome'
 when 'opensuse'
 else
 end

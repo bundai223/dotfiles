@@ -7,6 +7,9 @@ when 'fedora', 'redhat', 'amazon'
   package 'git-flow'
 when 'osx', 'darwin'
 when 'arch'
+  include_cookbook 'yay'
+
+  yay 'gitflow-avh'
 when 'opensuse'
 else
 end

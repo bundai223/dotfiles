@@ -21,3 +21,4 @@ include_cookbook('yay')
 # yay 'cerebro'
 # yay 'zeal'
 yay 'xsel'
+yay 'terminator'

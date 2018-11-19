@@ -51,7 +51,7 @@ unless remote_is_redmine?
 end
 
 # 未設定ならとくに何もなし
-if API_KEY.empty? || REDMINE_URL.empty? || GIT_CONFIG_FILE_PATH.empty?
+if API_KEY.nil? || REDMINE_URL.nil? || GIT_CONFIG_FILE_PATH.nil?
   exit 0
 end
 
