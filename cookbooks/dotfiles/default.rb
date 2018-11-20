@@ -64,6 +64,13 @@ template "#{node[:home]}/.config/nvim/init.vim" do
   not_if "test -e #{node[:home]}/.config/nvim/init.vim"
 end
 
+template "#{node[:home]}/.zlogin" do
+  source 'templates/.zlogin.erb'
+  owner node[:user]
+  group node[:group]
+  not_if "test -e #{node[:home]}/.zlogin"
+end
+
 template "#{node[:home]}/.zshrc" do
   source 'templates/.zshrc.erb'
   owner node[:user]
@@ -112,7 +119,7 @@ end
 
 ssh_targets = %w(gitlab.com github.com)
 ssh_targets.each do |target|
-  execute run_as(node[:user], "ssh-key-gen -R #{target}")
+  execute run_as(node[:user], "ssh-keygen -R #{target}")
   execute run_as(node[:user], "ssh-keyscan #{target}>>#{node[:home]}/.ssh/known_hosts")
 end
 
