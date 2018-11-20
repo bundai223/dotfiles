@@ -17,10 +17,8 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
     }
   })
 
-  conf_path = '/etc/profile.d/rbenv.sh'
-  template conf_path do
+  template '/etc/profile.d/rbenv.sh' do
     action :create
-    source 'files/rbenv.sh.erb'
     mode '644'
     variables(rbenv_root: node[:rbenv][:rbenv_root])
   end

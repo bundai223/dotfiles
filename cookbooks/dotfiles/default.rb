@@ -98,12 +98,6 @@ remote_file "#{node[:home]}/.tmux.conf" do
   group node[:group]
 end
 
-remote_file "#{node[:home]}/.ctags" do
-  source '../../config/.ctags'
-  owner node[:user]
-  group node[:group]
-end
-
 # ssh setting
 if node[:is_wsl]
   execute 'cp ssh keys' do
@@ -136,21 +130,8 @@ if node[:is_wsl]
 end
 
 
-# powerline
-#dotfile '.config/powerline'
-execute run_as(node[:user], "ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/.config/powerline #{node[:home]}/.config/powerline") do
-  not_if "test -L #{node[:home]}/.config/powerline"
-end
-
-# spacemacs
-execute run_as(node[:user], "ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/.spacemacs #{node[:home]}/.spacemacs") do
-  not_if "test -L #{node[:home]}/.spacemacs"
-end
-
-execute run_as(node[:user], "ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/.spacemacs.d #{node[:home]}/.spacemacs.d") do
-  not_if "test -L #{node[:home]}/.spacemacs.d"
-end
-
-execute run_as(node[:user], "ln -s #{node[:home]}/repos/github.com/bundai223/dotfiles/config/Code/User/settings.json #{node[:home]}/.config/Code/User/settings.json") do
-  not_if "test -L #{node[:home]}/.config/Code/User/settings.json"
-end
+dotfile '.config/powerline'
+dotfile '.spacemacs'
+dotfile '.spacemacs.d'
+dotfile '.config/Code/User/settings.json'
+dotfile '.ctags'

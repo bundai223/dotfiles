@@ -14,12 +14,16 @@
       group = user
     end
 
+    repos = "#{home}/repos"
+    dotfile_repos = "#{repos}/github.com/bundai223/dotfiles"
     is_wsl = run_command('uname -a | grep Microsoft', error: false).exit_status == 0
 
     node.reverse_merge!(
       user: user,
       group: group,
       home: home,
+      repos: repos,
+      dotfile_repos: dotfile_repos,
       is_wsl: is_wsl
     )
   end
@@ -104,13 +108,18 @@ end
   end
 end
 
-define :dotfile do
-  dotfile = File.join(node[:home], params[:name])
-  #puts "aaaaa #{dotfile}"
-  #puts "aaaaa #{File.expand_path("../../config/#{params[:name]}", __FILE__)}"
-  link dotfile do
-    to File.expand_path("../../config/#{params[:name]}", __FILE__)
-    not_if "test -e #{dotfile}"
+# 
+define :dotfile, source: nil, user:nil do
+  dst = File.join(node[:home], params[:name])
+  src = params[:source].nil? ? File.join(node[:dotfile_repos], 'config', params[:name]) : parmas[:source]
+  user = params[:user].nil? ? params[:user] : node[:user]
+  # puts "dst: #{dst}"
+  # puts "src: #{src}"
+
+  link dst do
+    to src
+    user user
+    not_if "test -L #{dst}"
   end
 end
 
