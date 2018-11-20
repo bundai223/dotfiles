@@ -60,4 +60,15 @@ when 'opensuse'
 else
 end
 
+get_repo 'equalsraf/neovim-qt' do
+  build <<-EOL
+    set -eu
+    mkdir -p build
+    cd build
+    cmake -DCMAKE_BUILD_TYPE=Release ..
+    make
+    sudo make install
+  EOL
 
+  not_if 'which nvim-qt'
+end

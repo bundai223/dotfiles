@@ -108,8 +108,8 @@ end
   end
 end
 
-# 
-define :dotfile, source: nil, user:nil do
+# dotfileリポジトリ内へのシンボリックリンク設定
+define :dotfile, source: nil, user: nil do
   dst = File.join(node[:home], params[:name])
   src = params[:source].nil? ? File.join(node[:dotfile_repos], 'config', params[:name]) : parmas[:source]
   user = params[:user].nil? ? params[:user] : node[:user]
@@ -123,18 +123,20 @@ define :dotfile, source: nil, user:nil do
   end
 end
 
-define :get_repo do
+define :get_repo, build: nil do
   reponame = params[:name]
+  repopath = "#{node[:repos]}/github.com/#{reponame}"
 
-  if node[:platform] == 'osx' || node[:platform] == 'darwin'
-    execute "get_repo #{reponame}" do
-      command "~/go/bin/ghq get -p #{reponame}"
-      not_if "test -d ~/repos/github.com/#{reponame}"
-    end
-  else
-    execute "get_repo #{reponame}" do
-      command run_as(node[:user], "ghq get -p #{reponame}")
-      not_if "test -d #{node[:home]}/repos/github.com/#{reponame}"
+  execute "get_repo #{reponame}" do
+    command run_as(node[:user], "ghq get -p #{reponame}")
+    not_if "test -d #{repopath}"
+  end
+
+  unless params[:build].nil?
+    execute "build #{reponame}" do
+      user node[:user]
+      cwd repopath
+      command params[:build]
     end
   end
 end
@@ -143,7 +145,7 @@ define :go_get do
   reponame = params[:name]
 
   execute "go get #{reponame}" do
-    command "#{sudo(node['user'])}go get #{reponame}"
+    command run_as(node['user'], "go get #{reponame}")
   end
 end
 
