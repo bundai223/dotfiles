@@ -39,9 +39,21 @@ when 'fedora', 'redhat', 'amazon'
 when 'osx', 'darwin'
 when 'arch'
   yay 'nvm'
-
-  execute run_as(node[:user], "nvm install #{node_version}")
 when 'opensuse'
 else
+end
+
+# setup conf
+conf_path = '/etc/profile.d/nodejs.sh'
+remote_file conf_path do
+  action :create
+  mode '644'
+end
+
+execute "nvm install #{node_version}" do
+  command <<-EOL
+    source #{conf_path}
+    nvm install #{node_version}
+  EOL
 end
 
