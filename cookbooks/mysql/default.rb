@@ -65,13 +65,25 @@ when 'redhat', 'amazon'
   package 'mysql-community-devel'
 
   unless node[:is_wsl]
-  service 'mysqld' do
-    action [:start, :enable]
+    service 'mysqld' do
+      action [:start, :enable]
+    end
   end
 
 when 'osx', 'darwin'
 when 'arch'
   package 'mysql'
+
+  execute 'mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql' do
+    not_if 'test -d /var/lib/mysql/mysql'
+  end
+  # execute 'mysql_secure_installation'
+
+  unless node[:is_wsl]
+    service 'mysqld' do
+      action [:start, :enable]
+    end
+  end
 when 'opensuse'
 else
 end
