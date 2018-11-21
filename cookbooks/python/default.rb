@@ -34,6 +34,7 @@ when 'arch'
   package 'python'
   package 'python2'
   package 'python-pip'
+  package 'python2-pip'
 
 when 'opensuse'
   package 'python'
@@ -47,6 +48,6 @@ end
 execute 'install python package' do
   command <<-EOL
     pip3 install --upgrade pip setuptools wheel
-    pip install --upgrade pip setuptools wheel
+    pip2 install --upgrade pip setuptools wheel
   EOL
 end

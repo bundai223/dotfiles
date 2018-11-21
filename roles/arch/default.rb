@@ -7,10 +7,6 @@ package 'base-devel'
 package 'openssh'
 package 'libxml2'
 package 'libxslt'
-package 'fcitx-im'
-package 'fcitx-configtool'
-package 'fcitx-skk'
-package 'skk-jisyo'
 
 include_role('base')
 
@@ -21,5 +17,14 @@ include_cookbook('yay')
 # yay 'cerebro'
 # yay 'zeal'
 yay 'xsel'
+yay 'fcitx-im'
+yay 'fcitx-configtool'
+yay 'fcitx-skk'
+yay 'skk-jisyo'
 yay 'terminator'
 yay 'lxterminal'
+
+yay 'ntp'
+service 'ntpd' do
+  action [:start, :enable]
+end
