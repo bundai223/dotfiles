@@ -334,6 +334,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; for vcxsrv on windows
+  (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
   ;; basic setting
   (setq tags-revert-without-query 1)  ; TAGS reload automatically when TAGS updated.
