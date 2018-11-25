@@ -10,5 +10,5 @@ else
 end
 
 service 'lightdm' do
-  action [:start, :enable]
+  action [:enable]
 end
