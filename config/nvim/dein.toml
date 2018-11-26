@@ -829,3 +829,6 @@ hook_source = '''
 
 [[plugins]]
 repo = 'AndrewRadev/gapply.vim'
+
+[[plugins]]
+repo = 'terryma/vim-multiple-cursors'

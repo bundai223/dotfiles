@@ -232,7 +232,14 @@ alias find-vimbackup='find **/*~'
 alias ag='ag -S'
 
 # git {{{
-alias g='git'
+# alias g='git'
+function g() {
+  if [[ $# -gt 0 ]]; then
+    git "$@"
+  else
+    git status
+  fi
+}
 alias gittaglist="git for-each-ref --sort=-taggerdate --format='%(taggerdate:short) %(tag) %(taggername) %(subject)' refs/tags"
 alias gf='git flow'
 # }}}
@@ -255,7 +262,14 @@ alias -g PP='| peco'
 alias jgems="jruby -S gems"
 alias jrake="jruby -S rake"
 
-alias v="vagrant"
+# alias v="vagrant"
+function v() {
+  if [[ $# -gt 0 ]]; then
+    vagrant "$@"
+  else
+    vagrant status
+  fi
+}
 alias v_restart="vagrant halt; vagrant up"
 
 if [[ -f ~/repos/github.com/dylanaraps/neofetch/neofetch ]]; then
