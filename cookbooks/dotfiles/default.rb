@@ -1,110 +1,88 @@
+home = node[:home]
+user = node[:user]
+group = node[:group]
 
-directory "#{node[:home]}/.ssh" do
-  owner node[:user]
-  group node[:group]
+define :mydir, mode: '755' do
+  dirpath = params[:name]
+
+  directory dirpath do
+    owner user
+    group group
+    mode params[:mode]
+  end
+end
+
+mydir "#{home}/.ssh" do
   mode '700'
 end
 
-directory "#{node[:home]}/.config" do
-  owner node[:user]
-  group node[:group]
-end
+mydir "#{home}/.config"
+mydir "#{home}/.local"
+mydir "#{home}/.local/bin"
+mydir "#{home}/.local/themes"
+mydir "#{home}/.local/icons"
+mydir "#{home}/.config/git"
+mydir "#{home}/.config/zsh/z"
+mydir "#{home}/.config/nvim"
+mydir "#{home}/.config/spacemacs/layers"
+mydir "#{home}/.config/Code/User"
+mydir "#{home}/repos"
 
-directory "#{node[:home]}/.local" do
-  owner node[:user]
-  group node[:group]
-end
-
-directory "#{node[:home]}/.local/bin" do
-  owner node[:user]
-  group node[:group]
-end
-
-directory "#{node[:home]}/.config/git" do
-  owner node[:user]
-  group node[:group]
-end
-
-directory "#{node[:home]}/.config/zsh/z" do
-  owner node[:user]
-  group node[:group]
-end
-
-directory "#{node[:home]}/.config/nvim" do
-  owner node[:user]
-  group node[:group]
-end
-
-directory "#{node[:home]}/.config/spacemacs/layers" do
-  owner node[:user]
-  group node[:group]
-end
-
-directory "#{node[:home]}/.config/Code/User" do
-  owner node[:user]
-  group node[:group]
-end
-
-directory "#{node[:home]}/repos" do
-  owner node[:user]
-  group node[:group]
-end
-
-remote_file "#{node[:home]}/.gitconfig" do
+remote_file "#{home}/.gitconfig" do
   source 'files/.gitconfig'
-  owner node[:user]
-  group node[:group]
-  not_if "test -e #{node[:home]}/.gitconfig"
+  owner user
+  group group
+  not_if "test -e #{home}/.gitconfig"
 end
 
-template "#{node[:home]}/.config/nvim/init.vim" do
+template "#{home}/.config/nvim/init.vim" do
   source 'templates/init.vim.erb'
-  owner node[:user]
-  group node[:group]
-  not_if "test -e #{node[:home]}/.config/nvim/init.vim"
+  owner user
+  group group
+  not_if "test -e #{home}/.config/nvim/init.vim"
 end
 
-template "#{node[:home]}/.zlogin" do
+template "#{home}/.zlogin" do
   source 'templates/.zlogin.erb'
-  owner node[:user]
-  group node[:group]
-  not_if "test -e #{node[:home]}/.zlogin"
+  owner user
+  group group
+  not_if "test -e #{home}/.zlogin"
 end
 
-template "#{node[:home]}/.zshrc" do
+template "#{home}/.zshrc" do
   source 'templates/.zshrc.erb'
-  owner node[:user]
-  group node[:group]
-  not_if "test -e #{node[:home]}/.zshrc"
+  owner user
+  group group
+  not_if "test -e #{home}/.zshrc"
 end
 
-template "#{node[:home]}/.zshenv" do
+template "#{home}/.zshenv" do
   source 'templates/.zshenv.erb'
-  owner node[:user]
-  group node[:group]
-  not_if "test -e #{node[:home]}/.zshenv"
+  owner user
+  group group
+  not_if "test -e #{home}/.zshenv"
 end
 
-template "#{node[:home]}/.xinitrc" do
+template "#{home}/.xinitrc" do
   source 'templates/.xinitrc.erb'
-  owner node[:user]
-  group node[:group]
-  not_if "test -e #{node[:home]}/.xinitrc"
+  owner user
+  group group
+  not_if "test -e #{home}/.xinitrc"
 end
 
-remote_file "#{node[:home]}/.tmux.conf" do
+remote_file "#{home}/.tmux.conf" do
   source 'files/.tmux.conf'
-  owner node[:user]
-  group node[:group]
+  owner user
+  group group
 end
 
 # ssh setting
 if node[:is_wsl]
   execute 'cp ssh keys' do
     command <<-EOL
-      cp /mnt/c/tools/ssh/* #{node[:home]}/.ssh/
-      chown #{node[:user]}:#{node[:group]} #{node[:home]}/.ssh/*
-      chmod 600 #{node[:home]}/.ssh/*
+      cp /mnt/c/tools/ssh/* #{home}/.ssh/
+      chown #{user}:#{group} #{home}/.ssh/*
+      chmod 600 #{home}/.ssh/*
     EOL
 
     only_if 'test -d /mnt/c/tools/ssh'
@@ -113,16 +91,16 @@ end
 
 ssh_targets = %w(gitlab.com github.com)
 ssh_targets.each do |target|
-  execute run_as(node[:user], "ssh-keygen -R #{target}")
-  execute run_as(node[:user], "ssh-keyscan #{target}>>#{node[:home]}/.ssh/known_hosts")
+  execute run_as(user, "ssh-keygen -R #{target}")
+  execute run_as(user, "ssh-keyscan #{target}>>#{home}/.ssh/known_hosts")
 end
 
 # github_token
 if node[:is_wsl]
   execute 'cp github_token' do
     command <<-EOL
-      cp /mnt/c/tools/github_token #{node[:home]}/.config/git/
-      chown #{node[:user]}:#{node[:group]} #{node[:home]}/.config/git/github_token
+      cp /mnt/c/tools/github_token #{home}/.config/git/
+      chown #{user}:#{group} #{home}/.config/git/github_token
     EOL
 
     only_if 'test -e /mnt/c/tools/github_token'
