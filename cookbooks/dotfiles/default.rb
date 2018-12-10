@@ -91,8 +91,12 @@ end
 
 ssh_targets = %w(gitlab.com github.com)
 ssh_targets.each do |target|
-  execute run_as(user, "ssh-keygen -R #{target}")
-  execute run_as(user, "ssh-keyscan #{target}>>#{home}/.ssh/known_hosts")
+  execute "ssh-keygen -R #{target}" do
+    user user
+  end
+  execute "ssh-keyscan #{target}>>#{home}/.ssh/known_hosts" do
+    user user
+  end
 end
 
 # github_token
@@ -108,8 +112,10 @@ if node[:is_wsl]
 end
 
 
+dotfile '.config/pip'
 dotfile '.config/powerline'
 dotfile '.spacemacs'
 dotfile '.spacemacs.d'
 dotfile '.config/Code/User/settings.json'
 dotfile '.ctags'
+dotfile '.conkyrc'

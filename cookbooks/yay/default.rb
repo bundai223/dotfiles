@@ -6,6 +6,7 @@ when 'arch'
 
   execute "install yay" do
     command <<-EOL
+      set -eu
       ls yay >/dev/null || git clone https://aur.archlinux.org/yay.git
       chown -R #{node[:user]}:#{node[:group]} yay
       cd yay

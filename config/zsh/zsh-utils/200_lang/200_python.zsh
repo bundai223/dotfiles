@@ -10,7 +10,7 @@ py3_help() {
 
 
 # pip zsh completion start
-function _pip3_completion {
+function _pip_completion {
   local words cword
   read -Ac words
   read -cn cword
@@ -18,6 +18,7 @@ function _pip3_completion {
              COMP_CWORD=$(( cword-1 )) \
              PIP_AUTO_COMPLETE=1 $words[1] ) )
 }
-compctl -K _pip3_completion pip3
+compctl -K _pip_completion pip3
+compctl -K _pip_completion pip
 # pip zsh completion end
 

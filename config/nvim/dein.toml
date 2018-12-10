@@ -581,6 +581,8 @@ repo = 'airblade/vim-gitgutter'
 repo = 'w0rp/ale'
 hook_add = '''
   let g:ale_linters = {
+        \   'sh': ['shellcheck'],
+        \   'bash': ['shellcheck'],
         \   'ruby': ['rubocop'],
         \}
   let g:ale_sign_column_always = 1
