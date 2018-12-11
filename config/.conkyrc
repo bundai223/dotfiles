@@ -1,76 +1,82 @@
-# --------------------------------------------------------------------------------------------- #
-#
-# .conkyrc - derived from various examples across the 'net
-#
-# Some of the sites that proved most usful include:
-#   http://mylinuxramblings.wordpress.com/2010/03/23/how-to-configure-the-conky-system-monitor/`
-#   http://crunchbanglinux.org/wiki/conky
-#   http://lusule.wordpress.com/2008/08/07/how-to-4/
-#
-# --------------------------------------------------------------------------------------------- #
+-- --------------------------------------------------------------------------------------------- #
 
-# -------------------- Conky's Run Time Parameters -------------------- #
+-- .conkyrc - derived from various examples across the 'net
 
-background yes
-update_interval 2.0                     # Conky update interval in seconds
-total_run_times 0                       # Number of updates before quitting.  Set to zero to run forever.
-no_buffers yes                          # Subtract file system buffers from used memory?
-cpu_avg_samples 2                       # Number of cpu samples to average. Set to 1 to disable averaging
-net_avg_samples 2                       # Number of net samples to average. Set to 1 to disable averaging
+-- Some of the sites that proved most usful include:
+--   http://mylinuxramblings.wordpress.com/2010/03/23/how-to-configure-the-conky-system-monitor/`
+--   http://crunchbanglinux.org/wiki/conky
+--   http://lusule.wordpress.com/2008/08/07/how-to-4/
 
-# -------------------- Conky's General Look & Feel -------------------- #
+-- --------------------------------------------------------------------------------------------- #
 
-# --- defualt values --- #
-default_color grey                      # Default color and border color
-default_bar_size 0 6            # Specify a default width and height for bars.
-default_gauge_size 25 25        # Specify a default width and height for gauges.
-default_graph_size 0 25         # Specify a default width and height for graphs.
-default_outline_color green     # Default border and text outline color
-default_shade_color yellow      # Default border and text shading color
+conky.config = {
+-- -------------------- Conky's Run Time Parameters -------------------- #
 
-# --- predefined colors - http://www.kgym.jp/freesoft/xrgb.html --- #
-color0 FFFFFF                           # white
-color1 FFA500                           # orange
-color2 B22222                           # firebrick
-color3 696969                           # dim gray
-color4 D3D3D3                           # light gray
-color5 2F4F4F                           # dark slate gray
-color6 FFEC8B                           # light golden rod
-color7 54FF9F                           # sea green
-color8 FF8C69                           # salmon
-color9 FFE7BA                           # wheat
+	background = true,
+	update_interval = 2.0,-- Conky update interval in seconds
+	total_run_times = 0,-- Number of updates before quitting.  Set to zero to run forever.
+	no_buffers = true,-- Subtract file system buffers from used memory?
+	cpu_avg_samples = 2,-- Number of cpu samples to average. Set to 1 to disable averaging
+	net_avg_samples = 2,-- Number of net samples to average. Set to 1 to disable averaging
 
-# --- window layout & options --- #
-own_window yes                          # Conky creates its own window instead of using desktop
-own_window_type normal          # If own_window is yes, use type normal, desktop, or override
-own_window_transparent yes      # Use pseudo transparency with own_window?
-own_window_colour blue          # If own_window_transparent is no, set the background colour
-double_buffer yes                       # Use double buffering (reduces flicker)
-use_spacer right                        # Adds spaces to stop object from moving
-maximum_width 600                       # Maximum width of window in pixels
-own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+-- -------------------- Conky's General Look & Feel -------------------- #
 
-# --- window placment --- #
-alignment top_right
+-- --- defualt values --- #
+	default_color = 'grey',-- Default color and border color
+	default_bar_width = 0, default_bar_height = 6,-- Specify a default width and height for bars.
+	default_gauge_width = 25, default_gauge_height = 25,-- Specify a default width and height for gauges.
+	default_graph_width = 0, default_graph_height = 25,-- Specify a default width and height for graphs.
+	default_outline_color = 'green',-- Default border and text outline color
+	default_shade_color = 'yellow',-- Default border and text shading color
 
-# --- borders, margins, and outlines --- #
-draw_graph_borders yes          # Do you want to draw borders around graphs
-border_inner_margin 9           # Window's inner border margin (in pixels)
-border_outer_margin 5           # Window's outer border margin (in pixels)
-gap_x 10                                        # Gap between borders of screen and text (on x-axis)
-gap_y 24                                        # Gap between borders of screen and text (on y-axis)
-border_width 10                         # Window's border width (in pixels)
+-- --- predefined colors - http://www.kgym.jp/freesoft/xrgb.html --- #
+	color0 = '#FFFFFF',-- white
+	color1 = '#FFA500',-- orange
+	color2 = '#B22222',-- firebrick
+	color3 = '#696969',-- dim gray
+	color4 = '#D3D3D3',-- light gray
+	color5 = '#2F4F4F',-- dark slate gray
+	color6 = '#FFEC8B',-- light golden rod
+	color7 = '#54FF9F',-- sea green
+	color8 = '#FF8C69',-- salmon
+	color9 = '#FFE7BA',-- wheat
 
-# --- Text --- #
-draw_outline no                         # Do you want ot draw outlines
-draw_shades no                          # Do you want to draw shades
-draw_borders no                         # Do you want to draw borders around text
-uppercase no                            # set to yes if you want all text to be in uppercase
-use_xft yes                                     # use the X FreeType interface library (anti-aliased font)
-xftfont Monospace:size=9:weight=bold    # Xft font to be used
+-- --- window layout & options --- #
+	own_window = true,-- Conky creates its own window instead of using desktop
+	own_window_type = 'normal',-- If own_window is yes, use type normal, desktop, or override
+	own_window_transparent = true,-- Use pseudo transparency with own_window?
+	own_window_colour = 'blue',-- If own_window_transparent is no, set the background colour
+	double_buffer = true,-- Use double buffering (reduces flicker)
+	use_spacer = 'right',-- Adds spaces to stop object from moving
+	maximum_width = 600,-- Maximum width of window in pixels
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 
-# -------------------- Conky's Displayed System Monitoring Parameters -------------------- #
-TEXT
+-- --- window placment --- #
+	alignment = 'top_right',
+
+-- --- borders, margins, and outlines --- #
+	draw_graph_borders = true,-- Do you want to draw borders around graphs
+	border_inner_margin = 9,-- Window's inner border margin (in pixels)
+	border_outer_margin = 5,-- Window's outer border margin (in pixels)
+	gap_x = 10,-- Gap between borders of screen and text (on x-axis)
+	gap_y = 24,-- Gap between borders of screen and text (on y-axis)
+	border_width = 10,-- Window's border width (in pixels)
+
+-- --- Text --- #
+	draw_outline = false,-- Do you want ot draw outlines
+	draw_shades = false,-- Do you want to draw shades
+	draw_borders = false,-- Do you want to draw borders around text
+	uppercase = false,-- set to yes if you want all text to be in uppercase
+	use_xft = true,-- use the X FreeType interface library (anti-aliased font)
+	font = 'Monospace:size=9:weight=bold',-- Xft font to be used
+
+-- -------------------- Conky's Displayed System Monitoring Parameters -------------------- #
+-- network template
+  template0 = '\n${color0}\\1:${color}${cpugraph cpu\\1, 24, 96 ffff00 ff0000 -t} $alignr${color0}\\2:${color} ${cpugraph cpu\\2, 24, 96 ffff00 ff0000 -t}',
+  template1 = '${if_up \\2}\n${color0}\\1 (${addr \\2})\n${color0}Down:$color ${downspeed \\2}/s ${alignr}${color0}Up:$color ${upspeed \\2}/s\n${color0}Total:$color ${totaldown \\2} ${alignr}${color0}Total: $color${totalup \\2}\n${color0}${downspeedgraph \\2 25,120 000000 00ff00} ${alignr}${upspeedgraph \\2 25,120 000000 ff0000}$color\n${stippled_hr 2}$endif',
+};
+
+conky.text = [[
 # Title / Banner message
 ${color5}
 ${alignc 40}${font Arial Black:size=22}${time %H:%M:%S}${font}
@@ -91,9 +97,7 @@ ${color0}Avg. Load: $color $loadavg
 # なぜか取得できない
 # ${color0}CPU Temperature: $color${acpitemp}°C
 ${color0}CPU Usage:$color $cpu% ${color7}${cpubar}$color
-#${cpugraph 0000ff 00ff00}$color
-${color0}1:${color}${cpugraph cpu1, 24, 96 ffff00 ff0000 -t} $alignr${color0}2:${color} ${cpugraph cpu2, 24, 96 ffff00 ff0000 -t}
-${color0}3:${color}${cpugraph cpu3, 24, 96 ffff00 ff0000 -t} $alignr${color0}4:${color} ${cpugraph cpu4, 24, 96 ffff00 ff0000 -t}
+#${cpugraph 0000ff 00ff00}$color${template0 1 2}
 
 # Top running processes
 ${color1}TOP 5 PROCESSES ${hr 2}$color
@@ -132,19 +136,13 @@ ${color0}Reads: $color$diskio_read/s${alignr}${color0}Writes: $color$diskio_writ
 ${color8}${diskiograph_read 20,100 33FF00 FF3333 scale -t}$color${alignr}${color8}${diskiograph_write 20,100 33FF00 FF3333 scale -t}$color
 
 # Ethernet utilization
-${color1}NETWORKING ${hr 2}$color
-${color0}Wired (${addr enp0s8})
-${color0}Down:$color ${downspeed enp0s8}/s ${alignr}${color0}Up:$color ${upspeed enp0s8}/s
-${color0}Total:$color ${totaldown enp0s8} ${alignr}${color0}Total: $color${totalup enp0s8}
-${color0}${downspeedgraph enp0s8 25,120 000000 00ff00} ${alignr}${upspeedgraph enp0s8 25,120 000000 ff0000}$color
-${stippled_hr 2}
-${color0}Wireless (${addr wlan0})
-${color0}Down:$color ${downspeed wlan0}/s ${alignr}${color0}Up:$color ${upspeed wlan0}/s
-${color0}Total:$color ${totaldown wlan0} ${alignr}${color0}Total: $color${totalup wlan0}
-${color0}${downspeedgraph wlan0 25,120 000000 00ff00} ${alignr}${upspeedgraph wlan0 25,120 000000 ff0000}$color
+${color1}NETWORKING ${hr 2}$color${template1 Wired enp0s8}${template1 Wireless wlan0}
 
 #! not exists on arch linux.
 # Print the tail of the Linux message log
 # ${color1}LOG FILES ${hr 2}$color
 # ${color0}Linux Message Log$color
 # ${color4}${font Arial:size=6}${execi 30 tail -n3 /var/log/messages | fold -w50}$color$font
+]];
+
+-- vim: set ft=lua:
