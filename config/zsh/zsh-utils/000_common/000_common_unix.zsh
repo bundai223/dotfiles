@@ -11,3 +11,12 @@ enable_laptop_keyboard()
   xinput reattach $id 3
 }
 
+recovery-pacman() {
+    sudo pacman "$@"  \
+    --log /dev/null   \
+    --noscriptlet     \
+    --dbonly          \
+    --overwrite       \
+    --nodeps          \
+    --needed
+}
