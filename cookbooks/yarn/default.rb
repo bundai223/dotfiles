@@ -36,7 +36,5 @@ remote_file '/etc/profile.d/yarn.sh' do
   mode '644'
 end
 
-execute 'install node modules' do
-  command 'yarn global add vue-language-server'
-  command 'yarn global add javascript-typescript-langserver'
-end
+execute 'yarn global add vue-language-server'
+execute 'yarn global add javascript-typescript-langserver'
