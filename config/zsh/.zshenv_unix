@@ -3,7 +3,8 @@
 TOOLS_PATH=/usr/local
 
 # locale
-export LANG=ja_JP.UTF-8
+# export LANG=ja_JP.UTF-8
+export LANG=$(locale -a | grep -i ja | grep -iE 'utf-?8')
 
 # git logでの文字化け対策
 export LESSCHARSET=utf-8
