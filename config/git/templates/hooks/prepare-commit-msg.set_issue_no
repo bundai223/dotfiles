@@ -6,8 +6,8 @@
 
 # ブランチ名からチケット番号を抜き出す関数
 def get_issue_no(branch_name)
-  result = branch_name.match(/feature\/#(\d+)/) if result.nil? # feature/#0000
-  result = branch_name.match(/feature\/(\d+)(\/|_)/) if result.nil? # feature/0000/brach_name
+  result = branch_name.match(/feature\/#?(\d+)/) if result.nil? # feature/#0000
+  result = branch_name.match(/feature\/#?(\d+)(\/|_)/) if result.nil? # feature/0000/brach_name
 
   return nil if result.nil?
   result[1]
