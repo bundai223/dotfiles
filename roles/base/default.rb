@@ -26,6 +26,7 @@ include_cookbook 'myrepos'
 
 repos = [
   'mzyy94/RictyDiminished-for-Powerline',
+  'zsh-users/zsh-completions',
   'zplug/zplug',
   'rupa/z',
   'dylanaraps/neofetch'
