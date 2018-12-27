@@ -24,6 +24,7 @@ yay 'skk-jisyo'
 yay 'terminator'
 yay 'lxterminal'
 yay 'gtk-engine-murrine'
+yay 'httpie'
 execute 'yarn global add vue-cli' do
   user node[:user]
 end
