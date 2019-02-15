@@ -15,8 +15,9 @@ NOT_COVERED_BRANCHES = %w[master, release, develop, hotfix]
 
 # ブランチ名からチケット番号を抜き出す関数
 def get_issue_no(branch_name)
-  result = branch_name.match(/feature\/#(\d+)/) if result.nil? # feature/#0000
-  result = branch_name.match(/feature\/(\d+)(\/|_)/) if result.nil? # feature/0000/brach_name
+  # feature/#0000
+  # feature/0000/brach_name
+  result = branch_name.match(%r{feature/#?(\d+)(/|_)?})
 
   return nil if result.nil?
   result[1]
@@ -59,7 +60,9 @@ branch_name = `git rev-parse --abbrev-ref HEAD`.chomp.to_s
 description = `git config branch.#{branch_name}.description`
 issue_id = get_issue_no(branch_name)
 
+exit if issue_id.nil?
 exit unless NOT_COVERED_BRANCHES.select{|b| branch_name.include?(b)}.empty?
+
 if description.empty? == false
   puts "\033[35m#{description}\033[0m"
   exit
