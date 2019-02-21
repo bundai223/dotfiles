@@ -1,8 +1,16 @@
 #!/usr/local/bin/zsh
+scriptname=$(basename $0)
+
 target_email=$1
 
 dst_author="bundai223"
 dst_email="bundai223@gmail.com"
+
+usage()
+{
+  echo 'usage:'
+  echo "  $scriptname <target_email>"
+}
 
 git_change_commiter()
 {
@@ -24,5 +32,11 @@ git_change_commiter()
       git commit-tree \"\$@\";
     fi" HEAD
 }
+
+# main
+if [ -z "$target_email" ]; then
+  usage
+  exit 1
+fi
 
 git_change_commiter $target_email $dst_author $dst_email
