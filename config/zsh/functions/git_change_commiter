@@ -1,5 +1,5 @@
 #!/usr/local/bin/zsh
-target_email="localhost@localhost.com"
+target_email=$1
 
 dst_author="bundai223"
 dst_email="bundai223@gmail.com"
