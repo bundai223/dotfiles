@@ -89,6 +89,13 @@ if node[:is_wsl]
   end
 end
 
+file "#{home}/.ssh/known_hosts" do
+  content ''
+  owner user
+  group group
+  not_if "test -e #{home}/.ssh/known_hosts"
+end
+
 ssh_targets = %w(gitlab.com github.com)
 ssh_targets.each do |target|
   execute "ssh-keygen -R #{target}" do
