@@ -79,9 +79,9 @@ end
 # ssh setting
 if node[:is_wsl]
   cmds = [
-      "cp /mnt/c/tools/ssh/* #{home}/.ssh/",
-      "chown #{user}:#{group} #{home}/.ssh/*",
-      "chmod 600 #{home}/.ssh/*",
+    "cp /mnt/c/tools/ssh/* #{home}/.ssh/",
+    "chown #{user}:#{group} #{home}/.ssh/*",
+    "chmod 600 #{home}/.ssh/*",
   ]
 
   cmds.each do |cmd|
@@ -125,6 +125,7 @@ end
 include_cookbook 'git'
 execute "git clone git@github.com:bundai223/dotfiles.git #{home}/repos/github.com/bundai223/dotfiles" do
   user user
+  only_if "test -e #{home}/repos/github.com/bundai223/dotfiles"
 end
 
 dotfile '.config/pip'
