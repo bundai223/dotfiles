@@ -27,7 +27,6 @@ mydir "#{home}/.config/nvim"
 mydir "#{home}/.config/spacemacs/layers"
 mydir "#{home}/.config/Code/User"
 mydir "#{home}/repos"
-mydir "#{home}/repos/bundai223"
 
 remote_file "#{home}/.gitconfig" do
   source 'files/.gitconfig'
