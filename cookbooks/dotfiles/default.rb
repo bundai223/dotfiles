@@ -27,6 +27,7 @@ mydir "#{home}/.config/nvim"
 mydir "#{home}/.config/spacemacs/layers"
 mydir "#{home}/.config/Code/User"
 mydir "#{home}/repos"
+mydir "#{home}/repos/bundai223"
 
 remote_file "#{home}/.gitconfig" do
   source 'files/.gitconfig'
@@ -118,6 +119,8 @@ if node[:is_wsl]
   end
 end
 
+include_cookbook 'git'
+execute "git clone git@github.com:bundai223/dotfiles.git #{home}/repos/github.com/bundai223/dotfiles"
 
 dotfile '.config/pip'
 dotfile '.config/powerline'
