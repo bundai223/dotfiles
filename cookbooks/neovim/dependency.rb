@@ -5,7 +5,10 @@ include_cookbook 'yarn'
 package 'cmake'
 
 # ruby
-gem_package 'neovim'
+# gem_package 'neovim'
+execute 'gem install neovim' do
+  user node[:user]
+end
 
 # python
 execute 'pip3 install --upgrade --user neovim' do
