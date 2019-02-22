@@ -79,14 +79,16 @@ end
 
 # ssh setting
 if node[:is_wsl]
-  execute 'cp ssh keys' do
-    command <<-EOL
-      cp /mnt/c/tools/ssh/* #{home}/.ssh/
-      chown #{user}:#{group} #{home}/.ssh/*
-      chmod 600 #{home}/.ssh/*
-    EOL
+  cmds = [
+      "cp /mnt/c/tools/ssh/* #{home}/.ssh/",
+      "chown #{user}:#{group} #{home}/.ssh/*",
+      "chmod 600 #{home}/.ssh/*",
+  ]
 
-    only_if 'test -d /mnt/c/tools/ssh'
+  cmds.each do |cmd|
+    execute cmd do
+      only_if 'test -d /mnt/c/tools/ssh'
+    end
   end
 end
 
@@ -109,18 +111,22 @@ end
 
 # github_token
 if node[:is_wsl]
-  execute 'cp github_token' do
-    command <<-EOL
-      cp /mnt/c/tools/github_token #{home}/.config/git/
-      chown #{user}:#{group} #{home}/.config/git/github_token
-    EOL
-
-    only_if 'test -e /mnt/c/tools/github_token'
+  cmds = [
+      "cp /mnt/c/tools/github_token #{home}/.config/git/",
+      "chown #{user}:#{group} #{home}/.config/git/github_token",
+  ]
+  
+  cmds.each do |cmd|
+    execute cmd do
+      only_if 'test -e /mnt/c/tools/github_token'
+    end
   end
 end
 
 include_cookbook 'git'
-execute "git clone git@github.com:bundai223/dotfiles.git #{home}/repos/github.com/bundai223/dotfiles"
+execute "git clone git@github.com:bundai223/dotfiles.git #{home}/repos/github.com/bundai223/dotfiles" do
+  user user
+end
 
 dotfile '.config/pip'
 dotfile '.config/powerline'
