@@ -116,8 +116,7 @@ define :dotfile, source: nil, user: nil do
   # puts "dst: #{dst}"
   # puts "src: #{src}"
 
-  link dst do
-    to src
+  execute "ln -s #{src} #{dst}" do
     user user
     not_if "test -L #{dst}"
   end
