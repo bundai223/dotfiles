@@ -125,7 +125,7 @@ end
 include_cookbook 'git'
 execute "git clone git@github.com:bundai223/dotfiles.git #{home}/repos/github.com/bundai223/dotfiles" do
   user user
-  only_if "test -e #{home}/repos/github.com/bundai223/dotfiles"
+  not_if "test -e #{home}/repos/github.com/bundai223/dotfiles"
 end
 
 dotfile '.config/pip'
