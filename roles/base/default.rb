@@ -5,8 +5,8 @@ node.reverse_merge!({
 })
 
 include_cookbook 'sudo_nopassword'
-include_cookbook 'git'
 include_cookbook 'dotfiles'
+include_cookbook 'git'
 include_cookbook 'go'
 include_cookbook 'ghq'
 include_cookbook 'ruby'
