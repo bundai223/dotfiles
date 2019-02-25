@@ -232,7 +232,7 @@ alias preview-termcolor='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i}
 # silver searcher
 alias ag='ag -S'
 
-# git {{{
+# git
 # alias g='git'
 function g() {
   if [[ $# -gt 0 ]]; then
@@ -243,12 +243,16 @@ function g() {
 }
 alias gittaglist="git for-each-ref --sort=-taggerdate --format='%(taggerdate:short) %(tag) %(taggername) %(subject)' refs/tags"
 alias gf='git flow'
-# }}}
 
+# docker
+alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
+
+# filetype
 alias -s html=chrome
 alias -s rb=ruby
 alias -s py=python
 
+# global alias
 alias -g LL='| less'
 alias -g HH='| head'
 alias -g TT='| tail'
