@@ -1,6 +1,4 @@
-
-
-
+# cookbook for ruby
 case node[:platform]
 when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
   node.reverse_merge!({
