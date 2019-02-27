@@ -14,10 +14,6 @@ repo = 'bundai223/vim-template'
 repo ='bronson/vim-trailing-whitespace'
 
 [[plugins]]
-repo = 'nixprime/cpsm'
-build = 'env PY3=ON ./install.sh'
-
-[[plugins]]
 repo = 'Shougo/vimproc.vim'
 build = 'make'
 
@@ -35,17 +31,9 @@ hook_source = '''
   " call deoplete#enable_logging('DEBUG', '~/deoplete.log')
 '''
 hook_post_source = '''
-  "
-  " let g:deoplete#omni#input_patterns = {}
-  " let g:deoplete#omni#input_patterns.ruby =
-  "       \ ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
-  "
-  " let g:deoplete#omni#functions = {}
-  " let g:deoplete#omni#functions.ruby = 'rubycomplete#Complete'
-  "
-  call deoplete#custom#var('omni', 'input_patterns', {
-      \ 'ruby': ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
-      \})
+  let g:deoplete#sources#omni#input_patterns = {
+  \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+  \}
 '''
 
 [[plugins]]
@@ -672,11 +660,14 @@ on_i  = 1
 repo  = 'yuku-t/vim-ref-ri'
 on_ft = 'ruby'
 
-#[[plugins]]
-#repo    = 'fishbullet/deoplete-ruby'
-#depends = 'deoplete.nvim'
-#on_i    = 1
-#on_ft   = 'ruby'
+[[plugins]]
+repo    = 'osyo-manga/vim-monster'
+depends = 'deoplete.nvim'
+on_i    = 1
+on_ft   = 'ruby'
+hook_post_source = '''
+  let g:monster#completion#solargraph#backend = "async_solargraph_suggest"
+'''
 
 [[plugins]]
 repo    = 'todesking/ruby_hl_lvar.vim'
