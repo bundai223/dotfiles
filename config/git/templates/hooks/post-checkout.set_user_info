@@ -23,20 +23,15 @@ if [ "$current_remote_url" ]; then
   esac
 
   local_name="$(git config --local --get user.name)"
-  local_email="$(git config --local --get user.email)"
   if [ -z "$local_name" ]; then
-    default_name="$(git config --get user.name)"
     name="$(git config --get-urlmatch user.name $current_remote_url)"
-    if [ "$name" != "$default_name" ]; then
-      git config --local user.name "$name"
-    fi
+    git config --local user.name "$name"
   fi
+
+  local_email="$(git config --local --get user.email)"
   if [ -z "$local_email" ]; then
-    default_email="$(git config --get user.email)"
     email="$(git config --get-urlmatch user.email $current_remote_url)"
-    if [ "$email" != "$default_email" ]; then
-      git config --local user.email "$email"
-    fi
+    git config --local user.email "$email"
   fi
 else
   echo "No remote URL"
