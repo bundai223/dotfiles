@@ -25,13 +25,17 @@ if [ "$current_remote_url" ]; then
   local_name="$(git config --local --get user.name)"
   if [ -z "$local_name" ]; then
     name="$(git config --get-urlmatch user.name $current_remote_url)"
-    git config --local user.name "$name"
+    if [ "$name" ]; then
+      git config --local user.name "$name"
+    fi
   fi
 
   local_email="$(git config --local --get user.email)"
   if [ -z "$local_email" ]; then
     email="$(git config --get-urlmatch user.email $current_remote_url)"
-    git config --local user.email "$email"
+    if [ "$email" ]; then
+      git config --local user.email "$email"
+    fi
   fi
 else
   echo "No remote URL"
