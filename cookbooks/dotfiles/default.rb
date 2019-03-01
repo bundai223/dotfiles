@@ -127,6 +127,12 @@ execute "git clone git@github.com:bundai223/dotfiles.git #{home}/repos/github.co
   user user
   not_if "test -e #{home}/repos/github.com/bundai223/dotfiles"
 end
+execute 'git init' do
+  user user
+  cwd "#{home}/repos/github.com/bundai223/dotfiles"
+  only_if "test -e #{home}/repos/github.com/bundai223/dotfiles"
+end
+
 
 dotfile '.config/pip'
 dotfile '.config/powerline'
