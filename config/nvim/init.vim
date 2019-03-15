@@ -2,6 +2,15 @@ set encoding=utf-8
 scriptencoding utf-8
 set fileencoding=utf-8
 
+" 不可視文字の表示
+set list
+" tab: »-
+" 行末の空白: ･
+" ノーブレークスペース: ⍽
+" 画面の右側に文字があるとき: »
+" 画面の左側に文字があるとき: «
+set listchars=tab:»-,trail:･,nbsp:⍽,extends:»,precedes:«
+
 " release autogroup in MyAutoCmd
 augroup MyAutoCmd
   autocmd!
