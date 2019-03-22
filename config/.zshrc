@@ -215,12 +215,12 @@ bindkey '^m' do_enter
 
 
 # Alias
-alias h='history'
-alias c='clear'
-alias l='ls -FG'
-alias ll='ls -lFG'
-alias la='ls -lFGa'
-alias pd=popd
+alias h='history'; compdef h=history
+alias c='clear'; compdef c=clear
+alias l='ls -FG'; compdef l=ls
+alias ll='ls -lFG'; compdef ll=ls
+alias la='ls -lFGa'; compdef la=ls
+alias pd=popd; compdef pd=popd
 
 alias ocaml='rlwrap ocaml'
 
@@ -232,6 +232,14 @@ alias preview-termcolor='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i}
 # silver searcher
 alias ag='ag -S'
 
+# docker
+alias d='docker'; compdef d=docker
+alias dc='docker-compose'; compdef dc=docker-compose
+alias docker_rm_images='docker images -qf dangling=true | xargs docker rmi'
+alias docker_rm_containers='docker ps -aqf status=exited | xargs docker rm -v' # rm with volumes
+alias docker_rm_volumes='docker volume ls -qf dangling=true | xargs docker volume rm'
+alias docker_rm_compose_containers='docker-compose rm -fv'
+
 # git
 # alias g='git'
 function g() {
@@ -241,8 +249,9 @@ function g() {
     git status
   fi
 }
+compdef g=git
 alias gittaglist="git for-each-ref --sort=-taggerdate --format='%(taggerdate:short) %(tag) %(taggername) %(subject)' refs/tags"
-alias gf='git flow'
+alias gf='git flow'; compdef gf=git-flow
 
 # docker
 alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
