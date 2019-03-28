@@ -49,16 +49,18 @@ hook_add = '''
 
   " source
   " denite file
-  nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file_rec -highlight-mode-insert=Search<CR>
-  nnoremap <silent> [denite]p   :<C-u>DeniteProjectDir file_rec -highlight-mode-insert=Search<CR>
+  nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file/rec -highlight-mode-insert=Search<CR>
+  nnoremap <silent> [denite]p   :<C-u>DeniteProjectDir file/rec -highlight-mode-insert=Search<CR>
   nnoremap <silent> [denite]m   :<C-u>Denite file_mru -highlight-mode-insert=Search<CR>
   nnoremap <silent> [denite]o   :<C-u>Denite -no-quit -wrap outline -highlight-mode-insert=Search<CR>
-  nnoremap <silent> [denite]g   :<C-u>Denite -auto-preview grep -highlight-mode-insert=Search<CR>
+  nnoremap <silent> [denite]gr   :<C-u>Denite -auto-preview grep -highlight-mode-insert=Search<CR>
+  nnoremap <silent> [denite]gh   :<C-u>Denite ghq -highlight-mode-insert=Search<CR>
   nnoremap <silent> [denite]tw  :<C-u>Denite tweetvim -highlight-mode-insert=Search<CR>
   nnoremap <silent> [denite]ns  :<C-u>Denite neosnippet -highlight-mode-insert=Search<CR>
   nnoremap <silent> [denite]ens :<C-u>Denite neosnippet/user -highlight-mode-insert=Search<CR>
   nnoremap <silent> [denite]b   :<C-u>Denite buffer -highlight-mode-insert=Search<CR>
-  nnoremap <silent> [denite]c   :<C-u>Denite -auto-preview colorscheme -highlight-mode-insert=Search<CR>
+  nnoremap <silent> [denite]cl   :<C-u>Denite -auto-preview colorscheme -highlight-mode-insert=Search<CR>
+  nnoremap <silent> [denite]cg   :<C-u>Denite cgrep -highlight-mode-insert=Search<CR>
 
   " denite resume
   nnoremap <silent> [denite]r   :<C-u>Denite -resume<CR>
@@ -69,14 +71,13 @@ hook_add = '''
   let g:neomru#time_format = "(%Y/%m/%d %H:%M:%S) "
 
   """""""""""""o
-  " Change file_rec command.
-  " For silver searcher
-  "call denite#custom#var('file_rec', 'command',
-  "\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+  call denite#custom#option('default', {
+    \ 'split': 'floating',
+    \ })
 
   " For ripgrep
   " Note: It is slower than ag
-  call denite#custom#var('file_rec', 'command',
+  call denite#custom#var('file/rec', 'command',
   \ ['rg', '--files', '--glob', '!.git'])
 
   " Change mappings.
@@ -87,11 +88,11 @@ hook_add = '''
   call denite#custom#source(
   \ 'file_mru', 'matchers', ['matcher/regexp'])
   call denite#custom#source(
-  \ 'file_rec', 'matchers', ['matcher/regexp'])
+  \ 'file/rec', 'matchers', ['matcher/regexp'])
 
   " Change sorters.
   call denite#custom#source(
-  \ 'file_rec', 'sorters', ['sorter/sublime'])
+  \ 'file/rec', 'sorters', ['sorter/sublime'])
 
   " Ripgrep command on grep source
   call denite#custom#var('grep', 'command', ['rg'])
@@ -162,6 +163,20 @@ hook_add = '''
 
   call denite#custom#var('menu', 'menus', s:menus)
 '''
+
+[[plugins]]
+repo = 'Jagua/vim-denite-ghq'
+depends = 'denite.nvim'
+
+[[plugins]]
+repo = 'bundai223/vim-denite-shellcmd'
+# repo = '~/repos/github.com/bundai223/vim-denite-shellcmd'
+depends = 'denite.nvim'
+
+[[plugins]]
+repo = 'bundai223/vim-denite-cgrep'
+# repo = '~/repos/github.com/bundai223/vim-denite-cgrep'
+depends = 'denite.nvim'
 
 [[plugins]]
 repo = 'roxma/nvim-yarp'

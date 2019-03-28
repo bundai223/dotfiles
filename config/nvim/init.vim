@@ -364,6 +364,8 @@ augroup MyAutoCmd
   "autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
   autocmd FileType vue setlocal iskeyword+=$
   autocmd FileType vue setlocal iskeyword+=-
+
+  autocmd BufNewFile,BufRead *.gb setl filetype=goby
 augroup END
 
 " memo
