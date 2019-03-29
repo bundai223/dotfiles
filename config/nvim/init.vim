@@ -115,6 +115,9 @@ endif
 " Select last pasted.
 nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
 
+" w!! でスーパーユーザーとして保存
+cmap w!! w !sudo tee > /dev/null %
+
 " History
 set history=10000
 
