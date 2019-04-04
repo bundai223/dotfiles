@@ -1,18 +1,29 @@
 # antigen scripts
-#antigen bundle zsh-users/zsh-completions
-export ZPLUG_HOME=~/repos/github.com/zplug/zplug
+ghq list zplug/zplug >/dev/null 2>&1 || ghq get zplug/zplug
+
 source $ZPLUG_HOME/init.zsh
 
+# zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-history-substring-search"
+zplug "RobSis/zsh-completion-generator", if:"GENCOMPL_FPATH=$HOME/.zsh/complete"
+zplug "Tarrasch/zsh-functional" # each map filter fold
 
 zplug "felixr/docker-zsh-completion"
+
+zplug "zsh-users/zaw"
+zplug "GeneralD/zaw-src-directory", on:"zsh-users/zaw", defer:2
+zplug "GeneralD/zaw-src-bitbucket", on:"zsh-users/zaw", defer:2
+zplug "GeneralD/zaw-src-github", on:"zsh-users/zaw", defer:2
+zplug "GeneralD/zaw-src-ghq", on:"zsh-users/zaw", on:"Tarrasch/zsh-functional", defer:2
+zplug "GeneralD/zaw-src-package-managers", on:"zsh-users/zaw", defer:2
 
 # Install plugins if there are plugins that have not been installed
 #if ! zplug check --verbose; then
 if ! zplug check; then
-  printf "Install? [y/N]: "
+  printf "Install plugins? [y/N]: "
   if read -q; then
     echo; zplug install
   fi
