@@ -20,18 +20,19 @@ let g:racer_cmd = expand("~/.cargo/bin/racer")
 " let $RUST_SRC_PATH #terminal上で設定しているはず
 "
 
-let s:conf_root       = expand('~/.config/nvim')
-let s:repos_path      = expand('~/repos')
-let g:pub_repos_path  = s:repos_path . '/github.com/bundai223'
-let s:priv_repos_path = s:repos_path . '/gitlab.com/bundai223'
-let s:dotfiles_path   = g:pub_repos_path . '/dotfiles'
-let s:backupdir       = s:conf_root . '/backup'
-let s:swapdir         = s:conf_root . '/swp'
-let s:undodir         = s:conf_root . '/undo'
-let s:plugin_dir      = s:conf_root . '/dein'
-let s:dein_dir        = s:plugin_dir . '/repos/github.com/Shougo/dein.vim'
-let g:dein_toml       = g:pub_repos_path . '/dotfiles/config/nvim/dein.toml'
-let g:memo_dir        = s:priv_repos_path . '/private-memo'
+let s:conf_root            = expand('~/.config/nvim')
+let s:repos_path           = expand('~/repos')
+let g:pub_repos_path       = s:repos_path . '/github.com/bundai223'
+let g:priv_repos_path      = s:repos_path . '/gitlab.com/bundai223'
+let g:dotfiles_path        = g:pub_repos_path . '/dotfiles'
+let g:dotfiles_config_path = g:dotfiles_path . '/config'
+let s:backupdir            = s:conf_root . '/backup'
+let s:swapdir              = s:conf_root . '/swp'
+let s:undodir              = s:conf_root . '/undo'
+let s:plugin_dir           = s:conf_root . '/dein'
+let s:dein_dir             = s:plugin_dir . '/repos/github.com/Shougo/dein.vim'
+let g:dein_toml            = g:pub_repos_path . '/dotfiles/config/nvim/dein.toml'
+let g:memo_dir             = g:priv_repos_path . '/private-memo'
 let g:outher_package_path = s:conf_root . '/tools'
 
 function! MkDir(dirpath)

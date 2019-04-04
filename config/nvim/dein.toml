@@ -134,21 +134,23 @@ hook_add = '''
     \ ['dein.toml',       g:dein_toml],
     \ ]
 
+  let s:zsh_config_path = g:dotfiles_config_path . '/zsh'
   let s:menus.zsh = {
     \ 'description': 'Edit your import zsh configuration'
     \ }
   let s:menus.zsh.file_candidates = [
     \ ['zshrc',         '~/.zshrc'],
-    \ ['zshrc shared',  g:pub_repos_path . '/dotfiles/config/.zshrc' ],
-    \ ['zshrc osx',     g:pub_repos_path . '/dotfiles/config/zsh/.zshrc_osx' ],
-    \ ['zshrc unix',    g:pub_repos_path . '/dotfiles/config/zsh/.zshrc_unix' ],
-    \ ['zshrc wsl',    g:pub_repos_path . '/dotfiles/config/zsh/.zshrc_wsl' ],
+    \ ['zshrc shared',  g:dotfiles_config_path . '/.zshrc' ],
+    \ ['zshrc osx',     s:zsh_config_path . '/.zshrc_osx' ],
+    \ ['zshrc unix',    s:zsh_config_path . '/.zshrc_unix' ],
+    \ ['zshrc wsl',     s:zsh_config_path . '/.zshrc_wsl' ],
     \ ['zshenv',        '~/.zshenv'],
-    \ ['zshenv shared', g:pub_repos_path . '/dotfiles/config/.zshenv' ],
-    \ ['zshenv osx',    g:pub_repos_path . '/dotfiles/config/zsh/.zshenv_osx' ],
-    \ ['zshenv unix',   g:pub_repos_path . '/dotfiles/config/zsh/.zshenv_unix' ],
-    \ ['zshenv wsl',   g:pub_repos_path . '/dotfiles/config/zsh/.zshenv_wsl' ],
-    \ ['zsh utils',     g:pub_repos_path . '/dotfiles/config/zsh/zsh-utils'],
+    \ ['zshenv shared', g:dotfiles_config_path . '/.zshenv' ],
+    \ ['zshenv osx',    s:zsh_config_path . '/.zshenv_osx' ],
+    \ ['zshenv unix',   s:zsh_config_path . '/.zshenv_unix' ],
+    \ ['zshenv wsl',    s:zsh_config_path . '/.zshenv_wsl' ],
+    \ ['zsh plugins',   s:zsh_config_path . '/.zshrc.plugin'],
+    \ ['zsh utils',     s:zsh_config_path . '/zsh-utils'],
     \ ]
 
   let s:menus.tmux = {
