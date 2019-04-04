@@ -32,6 +32,8 @@ export ZSH_HISTORY_KEYBIND_SCREEN="^r^r"
 export ZSH_HISTORY_KEYBIND_ARROW_UP="^p"
 export ZSH_HISTORY_KEYBIND_ARROW_DOWN="^n"
 
+export ZPLUG_HOME=${GHQ_ROOT}/github.com/zplug/zplug
+
 export PATH=${PERSONAL_ZSH_DIR}/functions:$PATH
 
 # ローカル用設定を読み込む
