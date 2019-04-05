@@ -32,9 +32,11 @@ export ZSH_HISTORY_KEYBIND_SCREEN="^r^r"
 export ZSH_HISTORY_KEYBIND_ARROW_UP="^p"
 export ZSH_HISTORY_KEYBIND_ARROW_DOWN="^n"
 
-export ZPLUG_HOME=${GHQ_ROOT}/github.com/zplug/zplug
-
 export PATH=${PERSONAL_ZSH_DIR}/functions:$PATH
+
+# plugins
+export ZPLUG_HOME=${GHQ_ROOT}/github.com/zplug/zplug
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
 
 # ローカル用設定を読み込む
 if [ -f ~/.zshenv_local ]; then
