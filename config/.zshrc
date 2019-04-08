@@ -227,7 +227,6 @@ alias ocaml='rlwrap ocaml'
 alias reload_zshrc='source ~/.zshrc'
 
 alias find-vimbackup='find **/*~'
-alias preview-termcolor='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i}\x1b[0m\n"; done | xargs'
 
 # silver searcher
 alias ag='ag -S'
