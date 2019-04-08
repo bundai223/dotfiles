@@ -95,6 +95,12 @@ function mkcddir() {
   mkdir ${@} && cd $dirpath
 }
 
+function preview-termcolors () {
+  for c in {000..255}; do echo -n "\e[38;5;${c}m $c" ; [ $(($c%16)) -eq 15 ] && echo;done;echo
+}
+
+# alias preview-termcolor='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i}\x1b[0m\n"; done | xargs'
+
 function grepall() { git ls-files | xargs grep -l $1 }
 function sedall()  { grepall $1 | xargs sed -i "s/$1/$2/g" }
 function renameall() { git ls-files | grep $1 | while read LINE; do mv $LINE `echo $LINE | sed s/$1/$2/g`; done }
