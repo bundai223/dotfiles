@@ -13,3 +13,6 @@ when 'arch'
 when 'opensuse'
 else
 end
+
+include_cookbook 'ghq'
+get_repo 'bobthecow/git-flow-completion'

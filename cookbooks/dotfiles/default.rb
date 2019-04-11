@@ -111,10 +111,10 @@ end
 # github_token
 if node[:is_wsl]
   cmds = [
-      "cp /mnt/c/tools/github_token #{home}/.config/git/",
-      "chown #{user}:#{group} #{home}/.config/git/github_token",
+    "cp /mnt/c/tools/github_token #{home}/.config/git/",
+    "chown #{user}:#{group} #{home}/.config/git/github_token"
   ]
-  
+
   cmds.each do |cmd|
     execute cmd do
       only_if 'test -e /mnt/c/tools/github_token'
