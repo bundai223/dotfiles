@@ -846,3 +846,6 @@ repo = 'AndrewRadev/gapply.vim'
 
 [[plugins]]
 repo = 'terryma/vim-multiple-cursors'
+
+[[plugins]]
+repo = 'wakatime/vim-wakatime'
