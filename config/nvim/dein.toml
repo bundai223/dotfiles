@@ -57,7 +57,6 @@ hook_add = '''
   nnoremap <silent> [denite]gh   :<C-u>Denite ghq -highlight-mode-insert=Search<CR>
   nnoremap <silent> [denite]tw  :<C-u>Denite tweetvim -highlight-mode-insert=Search<CR>
   nnoremap <silent> [denite]ns  :<C-u>Denite neosnippet -highlight-mode-insert=Search<CR>
-  nnoremap <silent> [denite]ens :<C-u>Denite neosnippet/user -highlight-mode-insert=Search<CR>
   nnoremap <silent> [denite]b   :<C-u>Denite buffer -highlight-mode-insert=Search<CR>
   nnoremap <silent> [denite]cl   :<C-u>Denite -auto-preview colorscheme -highlight-mode-insert=Search<CR>
   nnoremap <silent> [denite]cg   :<C-u>Denite cgrep -highlight-mode-insert=Search<CR>
