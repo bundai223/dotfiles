@@ -253,7 +253,6 @@ noremap s <nop>
 noremap S <nop>
 noremap <C-s> <nop>
 noremap <C-S> <nop>
-
 " Invalidate that don't use commands
 nnoremap ZZ <Nop>
 " exモード？なし
@@ -317,6 +316,9 @@ nnoremap <silent>[myleader]/ :noh <CR>
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+" バッファ移動
+nnoremap <silent> bp :bprevious<CR>
+nnoremap <silent> bn :bnext<CR>
 
 if &compatible
   set nocompatible
