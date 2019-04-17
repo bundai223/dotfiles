@@ -99,7 +99,7 @@
   precommit = diff --cached --diff-algorithm=minimal -w
   unstage = reset -q HEAD --
 	uncommit = reset --mixed HEAD~
-	ammend = commit --amend
+	amend = commit --amend
   discard = checkout --
   unmerged = diff --name-only --diff-filter=U
   add-detail = add -p
