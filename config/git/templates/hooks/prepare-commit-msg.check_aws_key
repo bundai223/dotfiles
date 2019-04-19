@@ -1,4 +1,6 @@
 #!/bin/sh
+# ex) base: https://gist.github.com/bundai223/c593792a8f76de962ff719d05573cad1
+# ex) regex: https://gist.github.com/bundai223/fd251b31ca860454f51445bae4d6046e
 set -u
 
 if git rev-parse --verify HEAD >/dev/null 2>&1
