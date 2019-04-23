@@ -106,12 +106,6 @@ setopt no_auto_param_slash  # 自動で末尾に/を補完しない
 setopt auto_pushd           # cd履歴を残す
 setopt pushd_ignore_dups    # 重複cd履歴は残さない
 
-# plugin
-# ローカル用設定を読み込む
-if [ -f ${PERSONAL_ZSH_DIR}/.zshrc.plugin ]; then
-  source ${PERSONAL_ZSH_DIR}/.zshrc.plugin
-fi
-
 # History setting {{{
 # End of lines added by compinstal
 # Lines configured by zsh-newuser-install
@@ -332,6 +326,29 @@ function man (){
 }
 #}}}
 
+# 3秒以上かかる処理の後にtimeコマンドの結果を表示してくれる
+REPORTTIME=3
+
+# Ctrl+wでパス一段づつ削除
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
+# for tmux {{{
+# Pane split on startup
+# ref) http://qiita.com/ken11_/items/1304c2eecc2657ac6265
+alias t='tmux_start'
+alias tm='tmux_multissh'
+alias t-source='tmux source-file'
+alias t-basicpane='tmux source-file ~/.config/tmux/session'
+alias t-kw='tmux kill-window'
+alias t-ks='tmux kill-session'
+#}}}
+
+# plugin
+# ローカル用設定を読み込む
+if [ -f ${PERSONAL_ZSH_DIR}/.zshrc.plugin ]; then
+  source ${PERSONAL_ZSH_DIR}/.zshrc.plugin
+fi
+
 # ローカル用設定を読み込む
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
@@ -354,19 +371,6 @@ source ${PERSONAL_ZSH_DIR}/themes/prompt_vcsinfo.zsh
 ## rprompt
 #source ${PERSONAL_ZSH_DIR}/themes/rprompt_vcsinfo.zsh
 
-#}}}
-
-# for tmux {{{
-# Pane split on startup
-# ref) http://qiita.com/ken11_/items/1304c2eecc2657ac6265
-alias t='tmux_start'
-alias tm='tmux_multissh'
-alias t-source='tmux source-file'
-alias t-basicpane='tmux source-file ~/.config/tmux/session'
-alias t-kw='tmux kill-window'
-alias t-ks='tmux kill-session'
-
-# start_tmux
 #}}}
 
 # for z
@@ -394,12 +398,6 @@ fi
 #  if overridden; then return; fi
 #  printf "\033]0;%s\a" "${1%% *} | $cwd"
 #}
-
-# 3秒以上かかる処理の後にtimeコマンドの結果を表示してくれる
-REPORTTIME=3
-
-# Ctrl+wでパス一段づつ削除
-WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # OPAM configuration
 . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

@@ -11,7 +11,7 @@ zplug "zsh-users/zsh-history-substring-search"
 zplug "RobSis/zsh-completion-generator", if:"GENCOMPL_FPATH=$HOME/.zsh/complete"
 zplug "Tarrasch/zsh-functional" # each map filter fold
 
-zplug "felixr/docker-zsh-completion"
+zplug "docker/cli", use:"contrib/completion/zsh/_docker", lazy:true
 
 zplug "zsh-users/zaw"
 zplug "GeneralD/zaw-src-directory", on:"zsh-users/zaw", defer:2
