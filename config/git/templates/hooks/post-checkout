@@ -6,15 +6,15 @@ hookname=$(basename $0)
 hookdir=$(dirname $0)
 
 
-FILE=`mktemp`
-trap 'rm -f $FILE' EXIT
-cat - > $FILE
+f=$(mktemp)
+trap 'rm -f $f' EXIT
+cat - > $f
 
 for hook in $hookdir/$hookname.*
 do
   if test -x "$hook"; then
     # echo $hook
-    cat $FILE | $hook "$@"
+    cat $f | $hook "$@"
     status=$?
 
     if test $status -ne 0; then
