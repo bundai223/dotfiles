@@ -230,7 +230,7 @@ alias ag='ag -S'
 
 # docker
 alias d='docker'; compdef d=docker
-alias dc='docker-compose'; compdef dc=docker-compose
+alias dc='UID=$(id -u) GID=$(id -g) docker-compose'; compdef dc=docker-compose
 alias docker_rm_images='docker images -qf dangling=true | xargs docker rmi'
 alias docker_rm_containers='docker ps -aqf status=exited | xargs docker rm -v' # rm with volumes
 alias docker_rm_volumes='docker volume ls -qf dangling=true | xargs docker volume rm'
@@ -251,6 +251,7 @@ alias gf='git flow'; compdef gf=git-flow
 
 # docker
 alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
+alias aws="docker run -it --rm -v ~/.aws:/root/.aws lorentzca/aws"
 
 # filetype
 alias -s html=chrome
