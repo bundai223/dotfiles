@@ -22,7 +22,7 @@ git_pull_all()
 {
   if [ $# -eq 0 ]; then
     echo "usage"
-    echo " git_pullall [username]"
+    echo " git_pull_all [username]"
     return 1
   fi
 
@@ -51,16 +51,82 @@ git_pull_all()
   cd $CURDIR
 }
 
-git_status_all()
+git_status_normalize()
 {
-  CURDIR=`pwd`
-  for dir in $(ls -l | grep '^d' | awk '{print $(NF)}'); do
-  cd $dir
-  git fetch
-  linenum=$(git status --short | wc -l)
-  test $linenum -eq 0 || echo $dir $linenum
-  cd $CURDIR
+  local localBranch=$(git rev-parse --abbrev-ref HEAD)
+  local remoteBranch=${$(git rev-parse --verify ${localBranch}@{upstream} \
+    --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
+
+  echo "${localBranch} $remoteBranch"
+  # 追従ブランチなければなし
+  if [[ ${remoteBranch} == "" ]]; then
+    return 0
+  fi
+
+  local revlist
+  revlist=$(git rev-list --left-right ${remoteBranch}...HEAD 2>/dev/null)
+  echo "${revlist}"
+  if [[ ${revlist} == "" ]]; then
+    # 空の場合は処理終わり
+    return 0
+  fi
+
+  local diffCommit
+  diffCommit=$(echo ${revlist} \
+    | wc -l \
+    | tr -d ' ')
+
+  # TODO: 文字列を一行ごとに評価したいがうまいこと分割できてない
+  # とりあえずちょいとムダ目に分割して評価してる
+  local commitlist=${(z)revlist}
+
+  local ahead=0
+  for commit in ${commitlist}; do
+    if [[ "${commit}" == ">" ]]; then
+      ((ahead = ahead + 1))
+    fi
   done
+
+  local behind
+  ((behind = ${diffCommit} - ${ahead}))
+
+  # misc () に追加
+  if [[ "$ahead" -gt 0 ]] ; then
+    print "${fg[red]}↑ ${fg[white]}${ahead}"
+  fi
+  if [[ "$behind" -gt 0 ]] ; then
+    print "${fg[blue]}↓ ${fg[white]}${behind}"
+  fi
 }
 
+git_stash_status()
+{
+  local stash=$(kit stash list 2>/dev/null | wc -l | tr -d ' ')
+  if [[ "${stash}" -gt 0 ]]; then
+    # misc (%m) に追加
+    print "${fg[yellow]}⚑ ${fg[white]}${stash}"
+  fi
+}
 
+git_status_all()
+{
+  if [ $# -eq 0 ]; then
+    echo "usage"
+    echo " git_status_all [search word]"
+    return 1
+  fi
+
+  CURDIR=$(pwd)
+  search_word=$1
+
+  for repo in $(ghq list -p | grep $search_word); do
+    cd $repo
+    hostname=$(basename $(cd ../..;pwd))
+    reposname=$(basename $(pwd))
+
+    git fetch 1>/dev/null 2>&1
+    linenum=$(git status --short | wc -l)
+    echo "$linenum $hostname:$username/$reposname"
+    cd $CURDIR
+  done
+}
