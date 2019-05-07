@@ -9,22 +9,22 @@
   commentChar = ";"
 
 [user "ssh://git@gitlab.com/"]
-	name = bundai223
+	name = Daiji NISHIMURA
 	email = bundai223@gmail.com
 [user "https://gitlab.com/"]
-	name = bundai223
+	name = Daiji NISHIMURA
 	email = bundai223@gmail.com
 [user "http://gitlab.com/"]
-	name = bundai223
+	name = Daiji NISHIMURA
 	email = bundai223@gmail.com
 [user "ssh://git@github.com/"]
-	name = bundai223
+	name = Daiji NISHIMURA
 	email = bundai223@gmail.com
 [user "https://github.com/"]
-	name = bundai223
+	name = Daiji NISHIMURA
 	email = bundai223@gmail.com
 [user "http://github.com/"]
-	name = bundai223
+	name = Daiji NISHIMURA
 	email = bundai223@gmail.com
 
 [color]
