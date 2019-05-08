@@ -1,6 +1,16 @@
 # Show vcsinfo RPROMPT.
 # https://github.com/yonchu/dotfiles/blob/master/.zsh/themes/yonchu-2lines.zsh-theme
 
+## The symbols.
+ZSH_VCS_PROMPT_AHEAD_SIGIL='↑ '
+ZSH_VCS_PROMPT_BEHIND_SIGIL='↓ '
+ZSH_VCS_PROMPT_STAGED_SIGIL='+ '
+ZSH_VCS_PROMPT_CONFLICTS_SIGIL='✖ '
+ZSH_VCS_PROMPT_UNSTAGED_SIGIL='-'
+ZSH_VCS_PROMPT_UNTRACKED_SIGIL='… '
+ZSH_VCS_PROMPT_STASHED_SIGIL='⚑'
+ZSH_VCS_PROMPT_CLEAN_SIGIL='✔ '
+
 # バージョン管理の状態に合わせた表示
 autoload -Uz vcs_info
 precmd () {
@@ -35,8 +45,8 @@ if is-at-least 4.3.10; then
   zstyle ':vcs_info:git:*' formats $BRANCH$VCS_NAME '%c%u%m'
   zstyle ':vcs_info:git:*' actionformats $BRANCH$VCS_NAME '%c%u%m' '<!%a>'
   zstyle ':vcs_info:git:*' check-for-changes true
-  zstyle ':vcs_info:git:*' stagedstr "+"    # %c で表示する文字列
-  zstyle ':vcs_info:git:*' unstagedstr "-"  # %u で表示する文字列
+  zstyle ':vcs_info:git:*' stagedstr ${ZSH_VCS_PROMPT_STAGED_SIGIL}      # %c で表示する文字列
+  zstyle ':vcs_info:git:*' unstagedstr ${ZSH_VCS_PROMPT_UNSTAGED_SIGIL}  # %u で表示する文字列
 fi
 
 # hooks 設定
@@ -67,7 +77,6 @@ if is-at-least 4.3.11; then
     return 0
   }
 
-
   # untracked ファイル表示
   #
   # untracked ファイル(バージョン管理されていないファイル)がある場合は
@@ -83,7 +92,7 @@ if is-at-least 4.3.11; then
       | command grep -F '??' > /dev/null 2>&1 ; then
 
       # unstaged (%u) に追加
-      hook_com[unstaged]+='?'
+      hook_com[unstaged]+=${ZSH_VCS_PROMPT_UNTRACKED_SIGIL}
     fi
   }
 
@@ -138,11 +147,11 @@ if is-at-least 4.3.11; then
     # misc () に追加
     if [[ "$ahead" -gt 0 ]] ; then
       #hook_com[misc]+="%F{red}a%f%F{white}${ahead}%f"
-      hook_com[misc]+="%F{red}↑ %f%F{white}${ahead}%f"
+      hook_com[misc]+="%F{red}${ZSH_VCS_PROMPT_AHEAD_SIGIL}%f%F{white}${ahead}%f"
     fi
     if [[ "$behind" -gt 0 ]] ; then
       #hook_com[misc]+="%F{blue}b%f%F{white}${behind}%f"
-      hook_com[misc]+="%F{blue}↓ %f%F{white}${behind}%f"
+      hook_com[misc]+="%F{blue}${ZSH_VCS_PROMPT_BEHIND_SIGIL}%f%F{white}${behind}%f"
     fi
   }
 
@@ -159,7 +168,7 @@ if is-at-least 4.3.11; then
     stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
     if [[ "${stash}" -gt 0 ]]; then
       # misc (%m) に追加
-      hook_com[misc]+="%F{yellow}⚑%f %F{white}${stash}%f"
+      hook_com[misc]+="%F{yellow}${ZSH_VCS_PROMPT_STASHED_SIGIL}%f%F{white}${stash}%f"
     fi
   }
 fi
@@ -180,7 +189,7 @@ function _update_vcs_info_msg() {
     # それぞれ緑、黄色、赤で表示する
     [[ -n "$vcs_info_msg_0_" ]] && messages+=( "${vcs_info_msg_0_}:" )
     [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
-    [[ -n "$vcs_info_msg_1_" ]] || messages+=( "%F{green}✔ %f" )
+    [[ -n "$vcs_info_msg_1_" ]] || messages+=( "%F{green}${ZSH_VCS_PROMPT_CLEAN_SIGIL}%f" )
     [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
 
     prompt="[${(j::)messages}]"
