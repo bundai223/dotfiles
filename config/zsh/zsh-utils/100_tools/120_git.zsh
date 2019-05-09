@@ -1,18 +1,18 @@
 # git
 
 # Generate .gitignore
-git_gen_ignore() {
+git-gen_ignore() {
   curl https://www.gitignore.io/api/$@
 }
 
 # Remove non tracked file.(like tortoiseSVN)
 # Equal 'git clean -f'
-git_rm_untrackedfile()
+git-rm_untracked()
 {
   git status --short|grep '^??'|sed 's/^...//'|xargs rm -r
 }
 
-git_stash_revert()
+git-revert_stash()
 {
   git stash show ${@} -p | git apply -R
 }
@@ -57,28 +57,27 @@ git_status_normalize()
   local remoteBranch=${$(git rev-parse --verify ${localBranch}@{upstream} \
     --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
 
-  echo "${localBranch} $remoteBranch"
   # 追従ブランチなければなし
   if [[ ${remoteBranch} == "" ]]; then
     return 0
   fi
 
-  local revlist
-  revlist=$(git rev-list --left-right ${remoteBranch}...HEAD 2>/dev/null)
-  echo "${revlist}"
+  local revlist=$(git rev-list --left-right ${remoteBranch}...HEAD 2>/dev/null)
+
   if [[ ${revlist} == "" ]]; then
-    # 空の場合は処理終わり
+    # 空の場合は差分なし
+    print "${fg[green]}✔ ${fg[white]}"
     return 0
   fi
 
-  local diffCommit
-  diffCommit=$(echo ${revlist} \
+  local diffCommit=$(echo ${revlist} \
     | wc -l \
     | tr -d ' ')
 
   # TODO: 文字列を一行ごとに評価したいがうまいこと分割できてない
   # とりあえずちょいとムダ目に分割して評価してる
   local commitlist=${(z)revlist}
+  echo "$commitlist"
 
   local ahead=0
   for commit in ${commitlist}; do
@@ -89,6 +88,7 @@ git_status_normalize()
 
   local behind
   ((behind = ${diffCommit} - ${ahead}))
+  echo "${diffCommit} ↑ $ahead, ↓ $behind"
 
   # misc () に追加
   if [[ "$ahead" -gt 0 ]] ; then
@@ -101,7 +101,7 @@ git_status_normalize()
 
 git_stash_status()
 {
-  local stash=$(kit stash list 2>/dev/null | wc -l | tr -d ' ')
+  local stash=$(git stash list 2>/dev/null | wc -l | tr -d ' ')
   if [[ "${stash}" -gt 0 ]]; then
     # misc (%m) に追加
     print "${fg[yellow]}⚑ ${fg[white]}${stash}"

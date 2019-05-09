@@ -110,6 +110,9 @@
   remotes = remote -v
 
 	ranking = shortlog -s -n --no-merges
+  prjroot = rev-parse --show-toplevel
+  dotgit = rev-parse --git-dir
+  current-branch = !git branch | grep '*' | sed 's/* //'
 
   # log
 	# logは試行錯誤中
