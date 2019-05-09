@@ -209,8 +209,26 @@ bindkey '^m' do_enter
 
 
 # Alias
+if [[ $OSTYPE != darwin* ]]; then
+  open() {
+    which xdg-open > /dev/null 2>&1 && xdg-open $@
+    which gnome-open > /dev/null 2>&1 && gnome-open $@
+    echo $@ # TODO: not implement
+  }
+fi
+
+p() {
+  local pecoopts=()
+  while [[ "$#" -gt 0 ]]; do case $1 in
+    -*) pecoopts+=($1);;
+    *) break;;
+  esac; shift; done
+
+  peco $pecoopts | while read LINE; do $@ $LINE; done
+}
+alias o='git ls-files | p open'
+alias c='ghq list -p | p cd'
 alias h='history'; compdef h=history
-alias c='clear'; compdef c=clear
 alias l='ls -FG'; compdef l=ls
 alias ll='ls -lFG'; compdef ll=ls
 alias la='ls -lFGa'; compdef la=ls

@@ -1,16 +1,11 @@
 # peco
 
-# cd git repository
-cd_repos() {
-  cd $(ghq list -p | peco)
-}
-
 peco_find_ext() {
   find . -name '*.'$1 | peco
 }
 
 peco_ssh() {
-  ssh $(ls_sshhost | peco)
+  ls_sshhost | p ssh
 }
 
 peco_history() {

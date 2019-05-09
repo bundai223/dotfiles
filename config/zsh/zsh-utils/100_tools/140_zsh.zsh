@@ -1,4 +1,13 @@
 # zsh
+prjroot()
+{
+  git rev-parse --is-inside-work-tree > /dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    git prjroot # see .gitconfig
+  else
+    pwd
+  fi
+}
 
 filename()
 {
