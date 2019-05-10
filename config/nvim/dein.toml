@@ -209,7 +209,7 @@ hook_post_source = '''
   endif
 
   " path to mysnippet
-  let s:mysnip_path=dein#get('mysnip').path
+  let s:mysnip_path='~/repos/github.com/bundai223/mysnip'
   let g:neosnippet#snippets_directory=s:mysnip_path
 
   " Enable snipMate compatibility feature.
