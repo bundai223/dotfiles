@@ -33,6 +33,8 @@ hook_source = '''
 hook_post_source = '''
   let g:deoplete#sources#omni#input_patterns = {
   \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+  \  'javascript': '[^. *\t]\.\w*',
+  \  'typescript': '[^. *\t]\.\w*',
   \}
 '''
 
@@ -721,6 +723,10 @@ on_ft   = 'js'
 [[plugins]]
 repo    = 'posva/vim-vue'
 on_ft   = 'vue'
+
+[[plugins]]
+repo    = 'leafgarland/typescript-vim'
+on_ft   = 'typescript'
 
 [[plugins]]
 repo    = 'skywind3000/asyncrun.vim'
