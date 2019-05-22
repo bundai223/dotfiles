@@ -62,6 +62,9 @@
 	change-tag=!git checkout $(git tag | peco)
 	chtg=!git checkout $(git tag | peco)
 
+  chk-first=!git checkout $(git log --oneline | tail -1 | awk '{print $1}')
+  chk-next=!git checkout $(git log --oneline ORIG_HEAD | tail -$(($(git log --oneline | wc | awk '{print $1}')+1)) | head -1 | awk '{print $1}')
+  df-prev=!git diff $(git log --oneline -2 | awk '{print $1}' | tac | paste - -)
 # ref) http://yuroyoro.hatenablog.com/entry/20101008/1286531851
 # ref) http://qiita.com/yuya_presto/items/ef199e08021dea777715
 	add-modified = !git add $(git status --short | peco | sed s/"^..."//)				# 変更を全てadd
