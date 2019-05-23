@@ -45,9 +45,10 @@ else
 end
 
 
-execute 'install python package' do
-  command <<-EOL
-    pip3 install --upgrade pip setuptools wheel
-    pip2 install --upgrade pip setuptools wheel
-  EOL
+execute 'pip3 install --upgrade pip setuptools wheel' do
+  only_if 'which pip3'
+end
+
+ execute 'pip2 install --upgrade pip setuptools wheel' do
+  only_if 'which pip2'
 end
