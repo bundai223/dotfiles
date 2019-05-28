@@ -7,10 +7,12 @@ repos = [
   'rupa/z',
   'yuru7/HackGen',
   'zsh-users/zsh-completions',
-  'zplug/zplug',
+  'zplug/zplug'
 ]
 repos.each { |name| get_repo name }
 
-execute "#{sudo(node[:user])} pip install --user powerline-status"
+execute 'pip install --user powerline-status' do
+  user node[:user]
+end
 
 package 'fontforge'

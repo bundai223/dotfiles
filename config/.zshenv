@@ -39,6 +39,8 @@ export PATH=${PERSONAL_ZSH_DIR}/functions:$PATH
 export ZPLUG_HOME=${GHQ_ROOT}/github.com/zplug/zplug
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
 
+export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
+
 # ローカル用設定を読み込む
 if [ -f ~/.zshenv_local ]; then
   source ~/.zshenv_local

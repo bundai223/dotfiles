@@ -241,7 +241,8 @@ alias reload_zshrc='source ~/.zshrc'
 alias find-vimbackup='find **/*~'
 
 # vim
-alias nv='nvim'
+alias nv='vimalter'
+alias nvim='vimalter'
 
 # silver searcher
 alias ag='ag -S'
@@ -344,6 +345,11 @@ function man (){
     man "$@"
 }
 #}}}
+
+# neovim-remoteでneovimのカレントディレクトリを移動
+function nvcd (){
+  nvr -c "cd $(realpath $@)"
+}
 
 # 3秒以上かかる処理の後にtimeコマンドの結果を表示してくれる
 REPORTTIME=3

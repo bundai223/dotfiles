@@ -144,7 +144,7 @@ define :go_get do
   reponame = params[:name]
 
   execute "go get #{reponame}" do
-    command run_as(node['user'], "go get #{reponame}")
+    user node['user']
   end
 end
 
