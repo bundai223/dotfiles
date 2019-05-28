@@ -34,6 +34,7 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
   directory rbenv_plugins
   git "#{rbenv_plugins}/rbenv-update" do
     repository 'https://github.com/rkh/rbenv-update.git'
+    not_if "test -e #{rbenv_plugins}/rbenv-update"
   end
 
 when 'osx', 'darwin'
