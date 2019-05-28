@@ -7,9 +7,7 @@ package 'cmake'
 
 # ruby
 # gem_package 'neovim'
-execute 'gem install neovim' do
-  user node[:user]
-end
+execute run_as(node[:user], 'gem install neovim')
 
 # pips =
 %w[
