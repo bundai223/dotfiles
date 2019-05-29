@@ -14,18 +14,7 @@ when 'debian', 'ubuntu', 'mint'
   end
   package 'neovim'
 
-when 'fedora', 'redhat'
-  package 'epel-release'
-
-  execute 'add yum repository' do
-    command <<-EOL
-      curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo
-    EOL
-  end
-
-  package 'neovim'
-
-when 'amazon'
+when 'fedora', 'redhat', 'amazon'
   package 'libtool'
   package 'autoconf'
   package 'automake'
