@@ -1,9 +1,10 @@
 
 case node[:platform]
-when 'debian', 'ubuntu', 'mint'
+when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon'
   unless node[:is_wsl]
     execute 'install peco binary' do
       command <<-EOL
+        VERSION=0.5.3
         WORK_DIR=#{node[:home]}/work_peco
         LOCALBIN_DIR=#{node[:home]}/.local/bin
 
@@ -12,7 +13,7 @@ when 'debian', 'ubuntu', 'mint'
 
         PECO_DIR=peco_linux_amd64
         TGZ=$PECO_DIR.tar.gz
-        URL=https://github.com/peco/peco/releases/download/v0.5.3/$TGZ
+        URL=https://github.com/peco/peco/releases/download/v${VERSION}/$TGZ
         curl -sOL $URL
 
         tar xfz $TGZ
@@ -25,7 +26,6 @@ when 'debian', 'ubuntu', 'mint'
     end
   end
 
-when 'fedora', 'redhat', 'amazon'
 when 'osx', 'darwin'
   package 'peco'
   package 'fzf'

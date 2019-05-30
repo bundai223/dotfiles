@@ -241,8 +241,8 @@ alias reload_zshrc='source ~/.zshrc'
 alias find-vimbackup='find **/*~'
 
 # vim
-alias nv='vimalter'
-alias nvim='vimalter'
+alias nv='nvim'
+# alias nvim='vimalter'
 
 # silver searcher
 alias ag='ag -S'
