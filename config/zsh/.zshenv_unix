@@ -36,6 +36,9 @@ export XDG_CONFIG_HOME=~/.config
 # ctrl + sがterminalを停止させるのをなしに
 #stty stop undef
 
-export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
+which rustc > /dev/null 2>&1
+if [ -z $? ]; then
+  export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
+fi
 # export NVIM_PYTHON_LOG_FILE=~/.config/nvim/log
 # export NVIM_PYTHON_LOG_LEVEL=DEBUG
