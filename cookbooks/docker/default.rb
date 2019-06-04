@@ -44,6 +44,7 @@ when 'ubuntu'
   end
 
 when 'fedora', 'redhat', 'amazon'
+  package 'yum-utils'
   package 'device-mapper-persistent-data'
   package 'lvm2'
 
