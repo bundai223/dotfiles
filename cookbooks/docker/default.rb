@@ -44,6 +44,13 @@ when 'ubuntu'
   end
 
 when 'fedora', 'redhat', 'amazon'
+  package 'device-mapper-persistent-data'
+  package 'lvm2'
+
+  execute 'yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo'
+  package 'docker-ce'
+  package 'docker-ce-cli'
+  package 'containerd.io'
 
 when 'osx', 'darwin'
 
