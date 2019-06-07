@@ -9,10 +9,9 @@ package 'cmake'
 # gem_package 'neovim'
 execute run_as(node[:user], 'gem install neovim')
 
-# pips =
+# pip =
 %w[
   neovim
-  neovim-remote
 ].each do |pip|
   # cmds =
   %w[
@@ -24,6 +23,20 @@ execute run_as(node[:user], 'gem install neovim')
     end
   end
 end
+
+# pip3
+%w[
+  neovim-remote
+].each do |pip|
+  # cmds =
+  execute "pip3 install --upgrade --user #{pip}" do
+    user node[:user]
+    only_if 'which pip3'
+  end
+end
+
+
+
 
 # Node.js
 execute 'yarn global add neovim' do
