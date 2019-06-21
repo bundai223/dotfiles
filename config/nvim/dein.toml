@@ -45,36 +45,54 @@ repo = 'Shougo/neomru.vim'
 repo = 'Shougo/denite.nvim'
 hook_add = '''
   " denite key bind
+  autocmd FileType denite call s:denite_my_settings()
+  function! s:denite_my_settings() abort
+    nnoremap <silent><buffer><expr> <BS>    denite#do_map('move_up_path')
+    nnoremap <silent><buffer><expr> <C-a>   denite#do_map('do_action', 'my_file_rec')
+    nnoremap <silent><buffer><expr> <C-g>   denite#do_map('do_action', 'grep')
+    nnoremap <silent><buffer><expr> <C-n>   denite#do_map('do_action', 'dwm_new')
+    nnoremap <silent><buffer><expr> <C-x>   denite#do_map('do_action', 'quick_move')
+    nnoremap <silent><buffer><expr> <CR>    denite#do_map('do_action')
+    nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select).'j'
+    nnoremap <silent><buffer><expr> i       denite#do_map('open_filter_buffer')
+    nnoremap <silent><buffer><expr> p       denite#do_map('do_action', 'preview')
+    nnoremap <silent><buffer><expr> q       denite#do_map('quit')
+  endfunction
+
   " <Space>をdeniteのキーに
   nnoremap [denite] <Nop>
   nmap <C-u> [denite]
 
   " source
   " denite file
-  nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file/rec -highlight-mode-insert=Search<CR>
-  nnoremap <silent> [denite]p   :<C-u>DeniteProjectDir file/rec -highlight-mode-insert=Search<CR>
-  nnoremap <silent> [denite]m   :<C-u>Denite file_mru -highlight-mode-insert=Search<CR>
-  nnoremap <silent> [denite]o   :<C-u>Denite -no-quit -wrap outline -highlight-mode-insert=Search<CR>
-  nnoremap <silent> [denite]gr   :<C-u>Denite -auto-preview grep -highlight-mode-insert=Search<CR>
-  nnoremap <silent> [denite]gh   :<C-u>Denite ghq -highlight-mode-insert=Search<CR>
-  nnoremap <silent> [denite]tw  :<C-u>Denite tweetvim -highlight-mode-insert=Search<CR>
-  nnoremap <silent> [denite]ns  :<C-u>Denite neosnippet -highlight-mode-insert=Search<CR>
-  nnoremap <silent> [denite]b   :<C-u>Denite buffer -highlight-mode-insert=Search<CR>
-  nnoremap <silent> [denite]cl   :<C-u>Denite -auto-preview colorscheme -highlight-mode-insert=Search<CR>
-  nnoremap <silent> [denite]cg   :<C-u>Denite cgrep -highlight-mode-insert=Search<CR>
+  nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file/rec<CR>
+  nnoremap <silent> [denite]p   :<C-u>DeniteProjectDir file/rec<CR>
+  nnoremap <silent> [denite]m   :<C-u>Denite file_mru<CR>
+  nnoremap <silent> [denite]o   :<C-u>Denite -no-quit -wrap outline<CR>
+  nnoremap <silent> [denite]gr   :<C-u>Denite -auto-preview grep<CR>
+  nnoremap <silent> [denite]gh   :<C-u>Denite ghq<CR>
+  nnoremap <silent> [denite]tw  :<C-u>Denite tweetvim<CR>
+  nnoremap <silent> [denite]ns  :<C-u>Denite neosnippet<CR>
+  nnoremap <silent> [denite]b   :<C-u>Denite buffer<CR>
+  nnoremap <silent> [denite]cl   :<C-u>Denite -auto-preview colorscheme<CR>
+  nnoremap <silent> [denite]cg   :<C-u>Denite cgrep<CR>
 
   " denite resume
   nnoremap <silent> [denite]r   :<C-u>Denite -resume<CR>
   nnoremap <silent> [denite]R   <Plug>(denite_restart)
 
-  nnoremap <silent> [denite]<Space> :<C-u>Denite menu -highlight-mode-insert=Search<CR>
+  nnoremap <silent> [denite]<Space> :<C-u>Denite menu<CR>
 
   let g:neomru#time_format = "(%Y/%m/%d %H:%M:%S) "
 
   """""""""""""o
   call denite#custom#option('default', {
     \ 'split': 'floating',
+    \ 'start_filter': v:true
     \ })
+    "\ 'winheight': s:denite_winheight,
+    "\ 'winrow': s:denite_winrow,
+    "\ 'winwidth': s:denite_winwidth,
 
   " For ripgrep
   " Note: It is slower than ag
