@@ -132,7 +132,7 @@
 
 [pull]
 	ff = only
-	rebase = preserve
+	rebase = merges
 
 [merge]
   ff = false
