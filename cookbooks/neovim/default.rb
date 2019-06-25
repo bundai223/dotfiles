@@ -4,10 +4,10 @@ case node[:platform]
 when 'debian', 'ubuntu', 'mint'
   package 'software-properties-common'
   execute 'add-apt-repository ppa:neovim-ppa/stable' do
-    command <<-EOL
+    command <<-EOCMD
       add-apt-repository -y ppa:neovim-ppa/stable
       apt-get update
-    EOL
+    EOCMD
 
     # not_if 'test -e /etc/apt/sources.list.d/neovim-ppa-ubuntu-stable-xenial.list'
     not_if 'ls /etc/apt/sources.list.d | grep neovim'
@@ -26,7 +26,7 @@ when 'fedora', 'redhat', 'amazon'
   package 'unzip'
 
   execute 'install neovim' do
-    command <<-EOL
+    command <<-EOCMD
       BASEPATH=/usr/src
       cd $BASEPATH
 
@@ -38,7 +38,7 @@ when 'fedora', 'redhat', 'amazon'
       make clean
       make CMAKE_BUILD_TYPE=Release
       make && sudo make install
-    EOL
+    EOCMD
   end
 
 when 'osx', 'darwin'
