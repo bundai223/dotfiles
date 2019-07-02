@@ -372,6 +372,7 @@ augroup MyAutoCmd
   autocmd FileType vue setlocal iskeyword+=-
 
   autocmd BufNewFile,BufRead *.gb setl filetype=goby
+  autocmd FileType vue syntax sync fromstart
 augroup END
 
 " memo
