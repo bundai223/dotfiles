@@ -19,6 +19,7 @@ end
 
 get_repo 'kenjimyzk/spacemacs-japanese'
 get_repo 'syl20bnr/spacemacs'
+get_repo 'bundai223/iceberg-emacs'
 
 execute 'ln -s ~/repos/github.com/syl20bnr/spacemacs ~/.emacs.d' do
   user node[:user]

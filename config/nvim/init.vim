@@ -402,7 +402,7 @@ endif
 
 " for changelog memo
 let g:changelog_dateformat = '%Y-%m-%d'
-let g:changelog_username   = 'bundai223 <bundai223@gmail.com>'
+let g:changelog_username   = 'bundai223  <bundai223@gmail.com>'
 
 " termのバッファ名をプロセス名に変更する設定
 autocmd BufLeave * if exists('b:term_title') && exists('b:terminal_job_pid') | execute ":file term" . b:terminal_job_pid . "/" . b:term_title
