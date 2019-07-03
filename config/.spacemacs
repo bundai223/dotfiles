@@ -34,7 +34,9 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     yaml
      javascript
+     typescript
      rust
      html
      ruby
@@ -45,23 +47,25 @@ values."
      ;; ----------------------------------------------------------------
      ivy
      auto-completion
-     ;; better-defaults
+     better-defaults
      emacs-lisp
      git
      markdown
      org
      docker
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
      spell-checking
      syntax-checking
      version-control
      japanese
      gtags
 
+     (typescript :variables typescript-fmt-on-save t)
+     (shell :variables
+            shell-default-shell 'multi-term
+            shell-default-height 30
+            shell-default-position 'bottom)
      (gtags :variables gtags-enable-by-default t)
-     )
+   )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
@@ -75,6 +79,10 @@ values."
      evil-tabs
      undohist
      vue-mode
+     lsp-ui
+     lsp-vue
+     company-lsp
+     ;; (iceberg-emacs :location (recipe :fetcher github :repo :"apnsngr/iceberg-emacs"))
      )
 
    ;; A list of packages that cannot be updated.
@@ -370,10 +378,10 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "tn") 'elscreen-create)
   (define-key evil-normal-state-map (kbd "tc") 'elscreen-kill)
 
-  ;; set font ricty
+  ;; set font HackGen
   (set-fontset-font
    nil 'japanese-jisx0208
-   (font-spec :family "Ricty Diminished Discord for Powerline"))
+   (font-spec :family "HackGen53 Console for Powerline"))
   ;; (setq powerline-default-separator 'arrow)
   (set-fontset-font t 'symbol (font-spec :name "Hiragino Sans-16"))
 
@@ -410,7 +418,14 @@ you should place your code here."
   (setq clmemo-file-name "~/repos/gitlab.com/bundai223/private-memo/changelog.memo")
   (global-set-key "\C-xM" 'clmemo)
   (setq clmemo-title-list ;; 補完されるタイトルのリスト
-        '("ruby" "bookmark" "book" "idea" "git"))
+        '(
+          "bookmark"
+          "book"
+          "dialy"
+          "idea"
+          "git"
+          "ruby"
+          ))
 
   (autoload 'clgrep "clgrep" "grep mode for ChangeLog file." t)
   (autoload 'clgrep-title "clgrep" "grep first line of entry in ChangeLog." t)
@@ -424,6 +439,22 @@ you should place your code here."
 
   ;; ruby
   (setq ruby-insert-encoding-magic-comment nil)
+
+  ;; Vue.js
+  (require 'vue-mode)
+  (add-to-list 'vue-mode-hook #'smartparens-mode)
+
+  (require 'lsp-ui)
+  (require 'lsp-vue)
+  (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
+  (with-eval-after-load 'lsp-ui
+    (require 'lsp-ui-flycheck))
+
+  (require 'company-lsp)
+  (push 'company-lsp company-backends)
+
+  ;; multi-term
+  (require 'multi-term)
   )
 
 
@@ -436,7 +467,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (treepy graphql blgrep dockerfile-mode docker tablist docker-tramp undohist evil-tabs elscreen clmemo ggtags web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode toml-mode racer flycheck-rust cargo rust-mode pangu-spacing less-css-mode japanese-holidays evil-tutor-ja avy-migemo migemo web-mode tagedit slim-mode scss-mode sass-mode pug-mode haml-mode emmet-mode company-web web-completion-data vue-mode edit-indirect ssass-mode vue-html-mode ddskk cdb ccc quickrun smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub let-alist with-editor diff-hl auto-dictionary org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode htmlize gnuplot gh-md fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy))))
+    (yaml-mode iceberg-theme tide typescript-mode lsp-vue lsp-ui company-lsp lsp-mode ht xterm-color unfill shell-pop mwim multi-term eshell-z eshell-prompt-extras esh-help treepy graphql blgrep dockerfile-mode docker tablist docker-tramp undohist evil-tabs elscreen clmemo ggtags web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode toml-mode racer flycheck-rust cargo rust-mode pangu-spacing less-css-mode japanese-holidays evil-tutor-ja avy-migemo migemo web-mode tagedit slim-mode scss-mode sass-mode pug-mode haml-mode emmet-mode company-web web-completion-data vue-mode edit-indirect ssass-mode vue-html-mode ddskk cdb ccc quickrun smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub let-alist with-editor diff-hl auto-dictionary org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode htmlize gnuplot gh-md fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
