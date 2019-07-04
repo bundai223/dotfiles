@@ -61,6 +61,7 @@ hook_add = '''
     nnoremap <silent><buffer><expr> i       denite#do_map('open_filter_buffer')
     nnoremap <silent><buffer><expr> p       denite#do_map('do_action', 'preview')
     nnoremap <silent><buffer><expr> q       denite#do_map('quit')
+    nnoremap <silent><buffer><expr> <Esc>   denite#do_map('quit')
   endfunction
 
   autocmd FileType denite-filter call s:denite_filter_my_setting()
@@ -72,6 +73,9 @@ hook_add = '''
     nnoremap <silent><buffer><expr> <CR>    denite#do_map('do_action')
     inoremap <silent><buffer><expr> <C-c>   denite#do_map('quit')
     nnoremap <silent><buffer><expr> <C-c>   denite#do_map('quit')
+    nnoremap <silent><buffer><expr> q       denite#do_map('quit')
+    " filter bufferでescしたらdenite bufferに移動する
+    inoremap <silent><buffer>       <Esc>   <Esc><C-w>p
     " These mappings are not recommended in doc.
     inoremap <silent><buffer> <C-n>   <Esc><C-w>p:call cursor(line('.')+1,0)<CR><C-w>pA
     inoremap <silent><buffer> <C-p>   <Esc><C-w>p:call cursor(line('.')-1,0)<CR><C-w>pA
