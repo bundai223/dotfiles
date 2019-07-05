@@ -10,7 +10,7 @@ tmux_start()
   fi
 
   if [ -n "$TMUX" ]; then
-    echo "Error: tmux session has been already attached" 2>&1
+    # echo "Error: tmux session has been already attached" 2>&1
     return 1
   fi
 
