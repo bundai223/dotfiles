@@ -38,3 +38,4 @@ end
 
 execute 'yarn global add vue-language-server'
 execute 'yarn global add javascript-typescript-langserver'
+execute 'yarn global add tern js-beautify eslint jslint tslint'
