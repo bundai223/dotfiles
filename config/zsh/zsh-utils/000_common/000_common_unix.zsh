@@ -20,3 +20,11 @@ recovery-pacman() {
     --nodeps          \
     --needed
 }
+
+install_font () {
+  dir=~/.local/share/fonts
+  test -e $dir || mkdir -p $dir
+  cp $@ $dir
+  fc-cache -f
+  sudo fc-cache -f
+}
