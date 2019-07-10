@@ -29,7 +29,7 @@ values."
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path
    '(
-     "~/.config/spacemacs/layers/"
+     ;; "~/.config/spacemacs/layers/"
      )
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
@@ -45,18 +45,24 @@ values."
      rust
      html
      ruby
-     ivy
+     markdown
+     shell-scripts
+     chrome
+     pandoc
+     twitter
+
+     (ivy :variables ivy-enable-advanced-buffer-information t)
      auto-completion
      better-defaults
      emacs-lisp
      git
-     markdown
      org
+     dap
      lsp
      docker
      spell-checking
      syntax-checking
-     version-control
+     (version-control :variables version-control-diff-side 'left)
      japanese
      gtags
 
@@ -80,7 +86,11 @@ values."
      evil-tabs
      undohist
      vue-mode
-     ivy-rich
+     all-the-icons
+     all-the-icons-ivy
+     all-the-icons-dired
+     beacon
+     minimap
      )
 
    ;; A list of packages that cannot be updated.
@@ -159,6 +169,7 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(spacemacs-dark
                          spacemacs-light)
+   ;; dotspacemacs-mode-line-theme '(spacemacs :separator 'slant)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -382,15 +393,31 @@ you should place your code here."
   ;; (setq powerline-default-separator 'arrow)
   (set-fontset-font t 'symbol (font-spec :name "Hiragino Sans-16")) ;; modeline 崩れの対処
 
-  ;; (set-face-attribute 'mode-line nil :font "EmojiOne-10")
+  ;; all-the-icon
+  (use-package all-the-icons-ivy
+    :ensure t
+    :config
+    (all-the-icons-ivy-setup)
+    )
+
+  (use-package all-the-icons-dired
+    :config
+    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+    )
 
   ;; sky-color-clock
-  (add-to-list 'load-path "~/repos/github.com/zk-phi/sky-color-clock")
-  (require 'sky-color-clock)
-  (sky-color-clock-initialize 35)
-  (sky-color-clock-initialize-openweathermap-client "fcc2b1ff22bf1eda5821034a037383ab" 1850144)
-  ;; (setq sky-color-clock-enable-emoji-icon t)
-  (push '(:eval (sky-color-clock)) (default-value 'mode-line-format))
+  ;; (set-face-attribute 'mode-line nil :font "EmojiOne-10")
+  (use-package sky-color-clock
+    :load-path "~/repos/github.com/zk-phi/sky-color-clock"
+    :config
+      (sky-color-clock-initialize 35)
+      (sky-color-clock-initialize-openweathermap-client "fcc2b1ff22bf1eda5821034a037383ab" 1850144)
+      (setq sky-color-clock-format "%k:%M")
+      (setq sky-color-clock-enable-emoji-icon t)
+      ; (push '(:eval (sky-color-clock)) (default-value 'mode-line-format))
+      (add-to-list 'global-mode-string '(:eval (sky-color-clock)))
+      (display-time-mode -1)
+    )
 
   ;; requirement: win32yank (https://github.com/equalsraf/win32yank)
   ;; (when (and (executable-find "uname")
@@ -455,6 +482,67 @@ you should place your code here."
 
   ;; multi-term
   (require 'multi-term)
+
+  ;; 括弧みやすく色付け
+  (use-package rainbow-delimiters
+    :hook
+    (prog-mode . rainbow-delimiters-mode))
+
+  ;; ペーストしたときの色付け
+  (use-package volatile-highlights
+    :diminish
+    :hook
+    (after-init . volatile-highlights-mode)
+    )
+
+  ;; cursor位置みやすく
+  (use-package beacon
+    :custom
+    (beacon-color "yellow")
+    :config
+    (beacon-mode 1))
+
+  (use-package git-gutter+
+    :custom
+    (git-gutter+-modified-sign "~")
+    (git-gutter+-added-sign    "+")
+    (git-gutter+-deleted-sign  "-")
+    :custom-face
+    (git-gutter+-modified ((t (:background "#f1fa8c"))))
+    (git-gutter+-added    ((t (:background "#50fa7b"))))
+    (git-gutter+-deleted  ((t (:background "#ff79c6"))))
+    )
+
+  (use-package fill-column-indicator
+    :hook
+    ((markdown-mode
+      git-commit-mode) . fci-mode))
+
+  ;; minimap
+  ;; toggle
+  (use-package minimap
+    :commands
+    (minimap-bufname minimap-create minimap-kill)
+    :custom
+    (minimap-major-modes '(prog-mode))
+
+    (minimap-window-location 'right)
+    (minimap-update-delay 0.2)
+    (minimap-minimum-width 20)
+    :bind
+    ;; ("M-t m" . ladicle/toggle-minimap)
+    :preface
+    (defun ladicle/toggle-minimap ()
+      "Toggle minimap for current buffer."
+      (interactive)
+      (if (null minimap-bufname)
+          (minimap-create)
+        (minimap-kill)))
+    :config
+    (custom-set-faces
+     '(minimap-active-region-background
+       ((((background dark)) (:background "#555555555555"))
+        (t (:background "#C847D8FEFFFF"))) :group 'minimap)))
   )
 
 
