@@ -7,7 +7,7 @@
 .personal/
 
 ### tags
-tags
+# tags
 GTAGS
 GRTAGS
 GPATH
