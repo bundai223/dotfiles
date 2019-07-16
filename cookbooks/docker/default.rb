@@ -1,5 +1,8 @@
 include_recipe 'dependency.rb'
 
+dotfile_repos = node[:dotfile_repos]
+docker_compose_version = '1.21.2'
+
 case node[:platform]
 when 'debian', 'mint'
 when 'ubuntu'
@@ -37,7 +40,7 @@ when 'ubuntu'
 
   execute 'install docker-compose' do
     command <<-EOL
-      curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+      curl -L https://github.com/docker/compose/releases/download/#{docker_compose_version}/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
       chmod +x /usr/local/bin/docker-compose
     EOL
     not_if 'which docker-compose'
@@ -69,3 +72,12 @@ unless node[:is_wsl]
     action [:enable, :start]
   end
 end
+
+execute "update docker's zsh completions." do
+  command "curl -L https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker > #{dotfile_repos}/config/zsh/functions/completions/_docker"
+end
+
+execute "update docker-compose's zsh completions." do
+  command "curl -L https://raw.githubusercontent.com/docker/compose/#{docker_compose_version}/contrib/completion/zsh/_docker-compose> #{dotfile_repos}/config/zsh/functions/completions/_docker-compose"
+end
+
