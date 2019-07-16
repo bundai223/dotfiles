@@ -169,7 +169,7 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(spacemacs-dark
                          spacemacs-light)
-   ;; dotspacemacs-mode-line-theme '(spacemacs :separator 'slant)
+   dotspacemacs-mode-line-theme '(spacemacs :separator contour) ;; default
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -386,12 +386,15 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "tn") 'elscreen-create)
   (define-key evil-normal-state-map (kbd "tc") 'elscreen-kill)
 
+  ;; (set-face-attribute 'mode-line nil :family "Noto Color Emoji")
+  ;; (set-face-attribute 'mode-line nil :font "Noto Color Emoji-10")
   ;; set font HackGen53
   (set-fontset-font
    nil 'japanese-jisx0208
    (font-spec :family "HackGen53 Console for Powerline"))
   ;; (setq powerline-default-separator 'arrow)
-  (set-fontset-font t 'symbol (font-spec :name "Hiragino Sans-16")) ;; modeline 崩れの対処
+  (set-fontset-font t 'symbol (font-spec :name "Noto Color Emoji-16")) ;; modeline 崩れの対処
+  ;; (set-fontset-font t 'symbol (font-spec :name "Hiragino Sans-16")) ;; modeline 崩れの対処
 
   ;; all-the-icon
   (use-package all-the-icons-ivy
@@ -399,14 +402,12 @@ you should place your code here."
     :config
     (all-the-icons-ivy-setup)
     )
-
   (use-package all-the-icons-dired
     :config
     (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
     )
 
   ;; sky-color-clock
-  ;; (set-face-attribute 'mode-line nil :font "EmojiOne-10")
   (use-package sky-color-clock
     :load-path "~/repos/github.com/zk-phi/sky-color-clock"
     :config
@@ -449,6 +450,10 @@ you should place your code here."
           "idea"
           "git"
           "ruby"
+          "archlinux"
+          "linux"
+          "shell"
+          "memo"
           ))
 
   (autoload 'clgrep "clgrep" "grep mode for ChangeLog file." t)
