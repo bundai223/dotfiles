@@ -79,18 +79,20 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
-     clmemo
-     blgrep
-     quickrun
-     elscreen
-     evil-tabs
-     undohist
-     vue-mode
      all-the-icons
      all-the-icons-ivy
      all-the-icons-dired
      beacon
+     blgrep
+     clmemo
+     elscreen
+     evil-tabs
+     flymake
+     (lsp-dockerfile :location (recipe :fetcher github :repo "emacs-lsp-legacy/lsp-dockerfile"))
      minimap
+     quickrun
+     undohist
+     vue-mode
      )
 
    ;; A list of packages that cannot be updated.
@@ -371,13 +373,17 @@ you should place your code here."
     (setq css-indent-offset n)             ; css-mode
     )
   (setq-default indent-tabs-mode nil)      ; set expandtab
-  (setq tab-width 4)                       ; set tabwidth=4
+  (setq tab-width 2)                       ; set tabwidth=4
   (setq setup-indent 2)                    ; set tabwidth=4
 
   ;; enable company to auto-complete
-  ;; (global-company-mode t)
-  (eval-after-load 'company
-    '(push 'company-robe company-backends))
+  (use-package company
+    :config
+    (setq company-minimum-prefix-length 2)
+    (setq company-echo-delay 0)
+    (setq company-idle-delay 0.5)
+    (push 'company-robe company-backends)
+    (add-hook 'after-init-hook #'global-company-mode))
 
   ;; tab
   (require 'evil-tabs)
@@ -385,6 +391,9 @@ you should place your code here."
 
   (define-key evil-normal-state-map (kbd "tn") 'elscreen-create)
   (define-key evil-normal-state-map (kbd "tc") 'elscreen-kill)
+
+  (define-key evil-insert-state-map (kbd "C-n") 'company-select-next-if-tooltip-visible-or-complete-selection)
+  (define-key evil-insert-state-map (kbd "C-p") 'company-select-previous)
 
   ;; (set-face-attribute 'mode-line nil :family "Noto Color Emoji")
   ;; (set-face-attribute 'mode-line nil :font "Noto Color Emoji-10")
@@ -474,38 +483,53 @@ you should place your code here."
   (add-to-list 'vue-mode-hook #'smartparens-mode)
 
   (use-package lsp-mode
-    :hook (Ruby-mode . lsp)
-    :commands lsp)
+    :commands
+    lsp
+    :hook
+    (Bash-mode . lsp)
+    (CSS-mode . lsp)
+    (SCSS-mode . lsp)
+    (Typescript-mode . lsp)
+    (HTML-mode . lsp)
+    (Ruby-mode . lsp)
+    (Rust-mode . lsp)
+    (Vue-mode . lsp)
+    :custom
+    (lsp-prefer-flymake nil))
 
   ;; optionally
   (use-package lsp-ui :commands lsp-ui-mode)
-  (use-package company-lsp :commands company-lsp)
+  (use-package company-lsp
+    :commands company-lsp
+    :config
+    (push 'company-lsp company-backends)
+    (setf company-lsp-async t))
+
   (use-package helm-lsp :commands helm-lsp-workspace-symbol)
   (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
   ;; optionally if you want to use debugger
   (use-package dap-mode)
+
+  ;; (require 'lsp-dockerfile)
+  ;; (add-hook 'dockerfile-mode-hook #'lsp-dockerfile-enable)
 
   ;; multi-term
   (require 'multi-term)
 
   ;; 括弧みやすく色付け
   (use-package rainbow-delimiters
-    :hook
-    (prog-mode . rainbow-delimiters-mode))
+    :hook (prog-mode . rainbow-delimiters-mode))
 
   ;; ペーストしたときの色付け
   (use-package volatile-highlights
     :diminish
-    :hook
-    (after-init . volatile-highlights-mode)
+    :hook (after-init . volatile-highlights-mode)
     )
 
   ;; cursor位置みやすく
   (use-package beacon
-    :custom
-    (beacon-color "yellow")
-    :config
-    (beacon-mode 1))
+    :custom (beacon-color "yellow")
+    :config (beacon-mode 1))
 
   (use-package git-gutter+
     :custom
