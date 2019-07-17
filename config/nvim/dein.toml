@@ -26,15 +26,22 @@ on_i = 1
 hook_source = '''
   let g:deoplete#enable_at_startup = 1
   let g:deoplete#enable_smart_case = 1
+  let g:deoplete#auto_complete_delay = 0
+  let g:deoplete#auto_start_length = 1
+  let g:deoplete#enable_camel_case = 0
+  let g:deoplete#enable_ignore_case = 0
+  let g:deoplete#enable_refresh_always = 0
+  let g:deoplete#file#enable_buffer_path = 1
+  let g:deoplete#max_list = 1000
 
-  let g:deoplete#enable_profile = 1
+  " let g:deoplete#enable_profile = 1
   " call deoplete#enable_logging('DEBUG', '~/deoplete.log')
 '''
 hook_post_source = '''
   let g:deoplete#sources#omni#input_patterns = {
-  \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-  \  'javascript': '[^. *\t]\.\w*',
-  \  'typescript': '[^. *\t]\.\w*',
+  \   'ruby': ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
+  \   'javascript': '[^. *\t]\.\w*',
+  \   'typescript': '[^. *\t]\.\w*',
   \}
 '''
 
@@ -834,15 +841,21 @@ hook_add = '''
   endif
 
   let g:LanguageClient_serverCommands = {
+        \ 'sh': ['bash-language-server', 'start'],
+        \ 'Dockerfile': ['docker-langserver', '--stdio'],
         \ 'ruby': ['solargraph', 'stdio'],
-        \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+        \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
         \ 'go': ['~/go/bin/go-langserver'],
         \ 'vue': ['vls'],
-        \ 'html': [],
-        \ 'css': [],
-        \ 'javascript.jsx': ['javascript-typescript-stdio'],
-        \ 'javascript': ['javascript-typescript-stdio'],
-        \ 'typescript': ['javascript-typescript-stdio'],
+        \ 'html': ['html-languageserver', '--stdio'],
+        \ 'json': ['json-languageserver', '--stdio'],
+        \ 'css': ['css-languageserver', '--stdio'],
+        \ 'scss': ['css-languageserver', '--stdio'],
+        \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
+        \ 'javascript': ['typescript-language-server', '--stdio'],
+        \ 'typescript': ['typescript-language-server', '--stdio'],
+        \ 'yaml': ['yaml-language-server', '--stdio'],
+        \ 'vim': ['vim-language-server', '--stdio'],
         \}
 
   let g:LanguageClient_serverCommands["java"] = [

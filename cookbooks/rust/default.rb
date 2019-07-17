@@ -1,20 +1,26 @@
+user = node['user']
+
 execute 'install rustup' do
-  not_if "#{sudo(node['user'])}which rustup"
-  command "curl https://sh.rustup.rs -sSf | #{sudo(node['user'])}sh -s -- -y"
+  not_if "#{sudo(user)}which rustup"
+  command "curl https://sh.rustup.rs -sSf | #{sudo(user)}sh -s -- -y"
+end
+
+execute 'rustup update' do
+  user user
 end
 
 execute 'install toolchain nightly' do
-  not_if "#{sudo(node['user'])}rustup toolchain list |grep nightly"
-  command "#{sudo(node['user'])}rustup install nightly"
+  not_if "#{sudo(user)}rustup toolchain list |grep nightly"
+  command "#{sudo(user)}rustup install nightly"
 end
 
 execute 'default toolchain nightly' do
-  not_if "#{sudo(node['user'])}rustup toolchain list | grep nightly | grep default"
-  command "#{sudo(node['user'])}rustup default nightly"
+  not_if "#{sudo(user)}rustup toolchain list | grep nightly | grep default"
+  command "#{sudo(user)}rustup default nightly"
 end
 
 execute 'get rust component' do
-  command "#{sudo(node['user'])}rustup component add rls-preview rust-analysis rust-src"
+  command "#{sudo(user)}rustup component add rls rust-analysis rust-src"
   # rustfmt-preview
 end
 
@@ -24,8 +30,8 @@ define :cargo_install do
   reponame = params[:name]
 
   execute "cargo install #{reponame}" do
-    command "#{sudo(node['user'])}cargo install --force #{reponame}"
-    not_if "#{sudo(node['user'])}cargo install --list | grep #{reponame}"
+    command "#{sudo(user)}cargo install --force #{reponame}"
+    not_if "#{sudo(user)}cargo install --list | grep #{reponame}"
   end
 end
 
