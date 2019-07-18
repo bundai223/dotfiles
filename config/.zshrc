@@ -374,11 +374,6 @@ if [ -f ${PERSONAL_ZSH_DIR}/.zshrc.plugin ]; then
   source ${PERSONAL_ZSH_DIR}/.zshrc.plugin
 fi
 
-# ローカル用設定を読み込む
-if [ -f ~/.zshrc_local ]; then
-  source ~/.zshrc_local
-fi
-
 # Load utility scripts. {{{
 utils_dir=~/repos/github.com/bundai223/dotfiles/config/zsh/zsh-utils
 source $utils_dir/scripts/functions.zsh

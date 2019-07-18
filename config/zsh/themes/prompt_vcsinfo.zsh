@@ -10,10 +10,11 @@ precmd_theme () {
 }
 add-zsh-hook precmd precmd_theme
 
+symbol_clock='⌚'
 vcs_symbol_branch=''
-vcs_symbol_stash='⚑ '
-vcs_symbol_ahead='↑ '
-vcs_symbol_behind='↓ '
+vcs_symbol_stash=''
+vcs_symbol_ahead='↑'
+vcs_symbol_behind='↓'
 vcs_symbol_clean='✔ '
 
 BRANCH="%F{white}${vcs_symbol_branch}%b%f%"
@@ -183,7 +184,7 @@ function _update_vcs_info_msg() {
     # それぞれ緑、黄色、赤で表示する
     [[ -n "$vcs_info_msg_0_" ]] && messages+=( "${vcs_info_msg_0_}:" )
     [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
-    [[ -n "$vcs_info_msg_1_" ]] || messages+=( "%F{green}#{vcs_symbol_clean}%f" )
+    [[ -n "$vcs_info_msg_1_" ]] || messages+=( "%F{green}${vcs_symbol_clean}%f" )
     [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
 
     prompt="[${(j::)messages}]"
@@ -192,7 +193,7 @@ function _update_vcs_info_msg() {
   fi
 
   # echo "$prompt [%*]">~/test.txt
-  echo "$prompt [%*]"
+  echo "$prompt [${symbol_clock}%*]"
 }
 
 # add-zsh-hook precmd _update_vcs_info_msg
