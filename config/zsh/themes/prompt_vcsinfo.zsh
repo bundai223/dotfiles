@@ -10,8 +10,16 @@ precmd_theme () {
 }
 add-zsh-hook precmd precmd_theme
 
-BRANCH='%F{white}%b%f'
+vcs_symbol_branch=''
+vcs_symbol_stash='⚑ '
+vcs_symbol_ahead='↑ '
+vcs_symbol_behind='↓ '
+vcs_symbol_clean='✔ '
+
+BRANCH="%F{white}${vcs_symbol_branch}%b%f%"
 VCS_NAME='%F{gray}(%s)%f'
+
+
 #
 autoload -Uz add-zsh-hook
 autoload -Uz is-at-least
@@ -133,11 +141,11 @@ if is-at-least 4.3.11; then
     # misc () に追加
     if [[ "$ahead" -gt 0 ]] ; then
       #hook_com[misc]+="%F{red}a%f%F{white}${ahead}%f"
-      hook_com[misc]+="%F{red}↑ %f%F{white}${ahead}%f"
+      hook_com[misc]+="%F{red}${vcs_symbol_ahead}%f%F{white}${ahead}%f"
     fi
     if [[ "$behind" -gt 0 ]] ; then
       #hook_com[misc]+="%F{blue}b%f%F{white}${behind}%f"
-      hook_com[misc]+="%F{blue}↓ %f%F{white}${behind}%f"
+      hook_com[misc]+="%F{blue}${vcs_symbol_behind}%f%F{white}${behind}%f"
     fi
   }
 
@@ -154,7 +162,7 @@ if is-at-least 4.3.11; then
     stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
     if [[ "${stash}" -gt 0 ]]; then
       # misc (%m) に追加
-      hook_com[misc]+="%F{yellow}⚑%f %F{white}${stash}%f"
+      hook_com[misc]+="%F{yellow}${vcs_symbol_stash}%f %F{white}${stash}%f"
     fi
   }
 fi
@@ -175,7 +183,7 @@ function _update_vcs_info_msg() {
     # それぞれ緑、黄色、赤で表示する
     [[ -n "$vcs_info_msg_0_" ]] && messages+=( "${vcs_info_msg_0_}:" )
     [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
-    [[ -n "$vcs_info_msg_1_" ]] || messages+=( "%F{green}✔ %f" )
+    [[ -n "$vcs_info_msg_1_" ]] || messages+=( "%F{green}#{vcs_symbol_clean}%f" )
     [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
 
     prompt="[${(j::)messages}]"
