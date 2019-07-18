@@ -99,6 +99,15 @@ function preview-termcolors () {
   for c in {000..255}; do echo -n "\e[38;5;${c}m $c" ; [ $(($c%16)) -eq 15 ] && echo;done;echo
 }
 
+function preview-powerlinefonts () {
+  for i in {61545..62718}; do
+    codepoint=$(printf '%x' $i)
+    unicode=$(printf '\\u%x' $i)
+    echo -n ${codepoint}:
+    echo -e " ${unicode}"
+  done
+}
+
 # alias preview-termcolor='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i}\x1b[0m\n"; done | xargs'
 
 function grepall() { git ls-files | xargs grep -l $1 }

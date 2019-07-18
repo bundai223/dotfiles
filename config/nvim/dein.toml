@@ -483,12 +483,11 @@ hook_add = '''
     let s:colorscheme = $COLORSCHEME
   endif
 
-  let s:separator = { 'left': "\ue0b0", 'right': "\ue0b2" }
-  let s:subseparator = { 'left': "\ue0b1", 'right': "\ue0b3" }
-        "\ 'separator': { 'left': "|", 'right': "|" },
-        "\ 'subseparator': { 'left': "|", 'right': "|" },
-  let s:readonly = '⭤'
-  let s:branch = '⭠ '
+  let s:separator = { 'left': "", 'right': "" }
+  let s:subseparator = { 'left': "", 'right': "" }
+  let s:readonly = ''
+  let s:branch = ''
+  let s:line_number = ''
 
   let g:lightline = {
         \ 'colorscheme': s:colorscheme,
@@ -521,6 +520,7 @@ hook_add = '''
         \   'filetype': 'MyFiletype'
         \ },
         \ 'component': {
+        \   'lineinfo': s:line_number . '%3l:%-2v',
         \   'sky_color_clock': "%#SkyColorClock#%{' ' . sky_color_clock#statusline() . ' '}%#SkyColorClockTemp# ",
         \ },
         \ 'component_expand': {
@@ -825,8 +825,14 @@ hook_add = '''
 [[plugins]]
 repo = 'mopp/sky-color-clock.vim'
 hook_add = '''
+  let g:sky_color_clock#openweathermap_api_key = 'fcc2b1ff22bf1eda5821034a037383ab'
   let g:sky_color_clock#enable_emoji_icon = 1
+  let g:sky_color_clock#latitude = 35
+  let g:sky_color_clock#openweathermap_city_id = 1850144
 '''
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
 
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
