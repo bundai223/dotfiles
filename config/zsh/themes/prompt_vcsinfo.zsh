@@ -11,7 +11,7 @@ precmd_theme () {
 add-zsh-hook precmd precmd_theme
 
 symbol_clock='⌚'
-vcs_symbol_branch=''
+vcs_symbol_branch='' # ' '
 vcs_symbol_stash=''
 vcs_symbol_ahead='↑'
 vcs_symbol_behind='↓'

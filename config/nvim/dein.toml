@@ -486,7 +486,7 @@ hook_add = '''
   let s:separator = { 'left': "", 'right': "" }
   let s:subseparator = { 'left': "", 'right': "" }
   let s:readonly = ''
-  let s:branch = ''
+  let s:branch = ' ' "''
   let s:line_number = ''
 
   let g:lightline = {
@@ -938,3 +938,6 @@ repo = 'terryma/vim-multiple-cursors'
 
 [[plugins]]
 repo = 'wakatime/vim-wakatime'
+
+[[plugins]]
+repo = 'dhruvasagar/vim-table-mode'
