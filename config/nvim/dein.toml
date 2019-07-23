@@ -498,7 +498,7 @@ hook_add = '''
         \   'left': [
         \     [ 'mode', 'plugin', 'paste' ],
         \     [ 'fugitive', 'filename' ],
-        \     [ 'pwd' ]
+        \     [ 'prjname' ]
         \   ],
         \   'right': [
         \     ['sky_color_clock'],
@@ -513,7 +513,7 @@ hook_add = '''
         \   'fugitive': 'MyFugitive',
         \   'gitgutter': 'MyGitgutter',
         \   'filename': 'MyFilename',
-        \   'pwd': 'MyPwd',
+        \   'prjname': 'MyPrjName',
         \   'charcode': 'MyCharCode',
         \   'fileformat': 'MyFileformat',
         \   'fileencoding': 'MyFileencoding',
@@ -583,24 +583,25 @@ hook_add = '''
     return join(ret, ' ')
   endfunction
   function! MyFileformat()
-    return winwidth(0) > 70 ? &fileformat : ''
+    return winwidth(0) > 142 ? &fileformat : ''
   endfunction
 
   function! MyFiletype()
-    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+    return winwidth(0) > 142 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
   endfunction
 
   function! MyFileencoding()
-    return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+    return winwidth(0) > 142 ? (strlen(&fenc) ? &fenc : &enc) : ''
   endfunction
 
   function! MyMode()
-    return winwidth(0) > 60 ? lightline#mode() : ''
+    " return winwidth(0) > 60 ? lightline#mode() : ''
+    return lightline#mode()
   endfunction
 
   function! MySpPlugin()
     let fname = expand('%:t')
-    return  winwidth(0) <= 60 ? '' :
+    return  winwidth(0) <= 142 ? '' :
           \ fname == '__Gundo__' ? 'Gundo' :
           \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
           \ &ft == 'unite' ? 'Unite' :
@@ -609,19 +610,31 @@ hook_add = '''
           \ ''
   endfunction
 
-  function! MyPwd()
-    if winwidth(0) > 60
+  function! PrjRoot()
+    let s:exe_cmd = g:pub_repos_path . '/terminal-tools/bin/prjroot'
+    if executable(s:exe_cmd)
+      " let g:nishimura= system(s:exe_cmd)
+      return getcwd()
+    else
+      return getcwd()
+    endif
+  endfunction
+
+  function! MyPrjName()
+    if winwidth(0) > 142
+      let s:pwd = PrjRoot()
+
       " $HOMEは'~'表示の方が好きなので置き換え
-      let s:homepath = expand('~')
-      return substitute(getcwd(), expand('~'), '~', '')
+      let s:short_pwd = substitute(s:pwd, expand('~'), '~', '')
+      let s:normalized_pwd = substitute(s:short_pwd, '\~/repos/', '', '')
+      return s:normalized_pwd
     else
       return ''
     endif
   endfunction
 
-
   function! MyCharCode()
-    if winwidth('.') <= 70
+    if winwidth('.') <= 142
       return ''
     endif
 
