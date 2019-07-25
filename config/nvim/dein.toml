@@ -288,16 +288,16 @@ hook_add = '''
     let g:context_filetype#filetypes = {}
   endif
 
-  let g:context_filetype#filetypes.changelog = [
-        \   {
-        \    'start' : '^\s*```\s*\(\h\w*\)',
-        \    'end' : '^\s*```$', 'filetype' : '\1',
-        \   },
-        \   {
-        \    'start' : '^\s*- ```\s*\(\h\w*\)',
-        \    'end' : '^\s*- ```$', 'filetype' : '\1',
-        \   },
-        \ ]
+  " let g:context_filetype#filetypes.changelog = [
+  "      \   {
+  "      \    'start' : '^\s*```\s*\(\h\w*\)',
+  "      \    'end' : '^\s*```$', 'filetype' : '\1',
+  "      \   },
+  "      \   {
+  "      \    'start' : '^\s*- ```\s*\(\h\w*\)',
+  "      \    'end' : '^\s*- ```$', 'filetype' : '\1',
+  "      \   },
+  "      \ ]
 '''
 
 [[plugins]]
