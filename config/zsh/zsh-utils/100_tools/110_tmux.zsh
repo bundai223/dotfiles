@@ -14,9 +14,9 @@ tmux_start()
     return 1
   fi
 
-  if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '.*]$'; then
+  if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -v attached; then
     # detached session exists
-    tmux attach && echo "tmux attached session "
+    tmux attach -d && echo "tmux attached session "
   else
     if [[ ( $OSTYPE == darwin* ) && ( -x $(which reattach-to-user-namespace 2>/dev/null) ) ]]; then
       # on OS X force tmux's default command to spawn a shell in the user's namespace
