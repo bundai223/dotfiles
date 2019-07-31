@@ -1,10 +1,11 @@
+# vim: set ft=zsh:
 # antigen scripts
 ghq list | grep zplug/zplug >/dev/null 2>&1 || ghq get zplug/zplug
 
 source $ZPLUG_HOME/init.zsh
 
 # zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-autosuggestions", hook-load: "ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(do_enter $ZSH_AUTOSUGGEST_CLEAR_WIDGETS)"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-history-substring-search"
