@@ -11,6 +11,13 @@ zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-history-substring-search"
 zplug "RobSis/zsh-completion-generator", if:"GENCOMPL_FPATH=$HOME/.zsh/complete"
 zplug "Tarrasch/zsh-functional" # each map filter fold
+zplug "willghatch/zsh-hooks"
+zplug "unixorn/warhol.plugin.zsh" # ansi
+zplug "mollifier/zload"
+zplug "b4b4r07/enhancd", use:"init.sh"
+
+zplug "GeneralD/zsh-aliases-colorls"
+zplug "GeneralD/b3b7c2290db941ad5b2a5e3eb50e1e9e", from:gist, use:"expand-or-complete-with-dots.zsh", if:"WAITING_DOTS='···'"
 
 zplug "docker/cli", use:"contrib/completion/zsh/_docker", lazy:true
 
@@ -22,12 +29,11 @@ zplug "GeneralD/zaw-src-ghq", on:"zsh-users/zaw", on:"Tarrasch/zsh-functional", 
 zplug "GeneralD/zaw-src-package-managers", on:"zsh-users/zaw", defer:2
 
 # Install plugins if there are plugins that have not been installed
-#if ! zplug check --verbose; then
-if ! zplug check; then
-  printf "Install plugins? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  fi
-fi
+zplug check --verbose || zplug install
 zplug load
-#zplug load --verbose
+
+bindkey '^z^z' zaw
+bindkey '^zz' zaw
+
+# refs 
+# https://qiita.com/GeneralD/items/7aad84a6560206dc6e45
