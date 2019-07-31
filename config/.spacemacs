@@ -371,10 +371,11 @@ you should place your code here."
     (setq web-mode-css-indent-offset n)    ; web-mode, css in html file
     (setq web-mode-code-indent-offset n)   ; web-mode, js code in html file
     (setq css-indent-offset n)             ; css-mode
+    (setq typescript-indent-level n)       ; typescript
     )
   (setq-default indent-tabs-mode nil)      ; set expandtab
   (setq tab-width 2)                       ; set tabwidth=4
-  (setq setup-indent 2)                    ; set tabwidth=4
+  (setup-indent 2)                         ; set tabwidth=4
 
   ;; enable company to auto-complete
   (use-package company
@@ -514,7 +515,7 @@ you should place your code here."
   ;; (add-hook 'dockerfile-mode-hook #'lsp-dockerfile-enable)
 
   ;; multi-term
-  (require 'multi-term)
+  (use-package multi-term)
 
   ;; 括弧みやすく色付け
   (use-package rainbow-delimiters
