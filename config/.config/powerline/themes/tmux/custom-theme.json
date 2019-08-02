@@ -15,7 +15,7 @@
 			{
 				"function": "powerline.segments.common.time.date",
 				"name": "time",
-        "before": "⌚",
+				"before": "⌚",
 				"args": {
 					"format": "%H:%M",
 					"istime": true

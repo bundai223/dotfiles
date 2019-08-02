@@ -222,6 +222,16 @@ hook_add = '''
     \ ['tmux.conf wsl', g:pub_repos_path . '/dotfiles/config/tmux/.tmux.conf_wsl'],
     \ ]
 
+  let s:menus.powerline = {
+    \ 'description': 'Edit your import powerline configuration'
+    \ }
+  let s:menus.powerline.file_candidates = [
+    \ ['powerline config', g:pub_repos_path . '/dotfiles/config/.config/powerline/config.json'],
+    \ ['powerline colors', g:pub_repos_path . '/dotfiles/config/.config/powerline/colors.json'],
+    \ ['themes',           g:pub_repos_path . '/dotfiles/config/.config/powerline/themes'],
+    \ ['tmux themes',      g:pub_repos_path . '/dotfiles/config/.config/powerline/themes/tmux'],
+    \ ]
+
   call denite#custom#var('menu', 'menus', s:menus)
 '''
 
