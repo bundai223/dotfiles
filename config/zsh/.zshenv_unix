@@ -10,7 +10,7 @@ export LANG=$(locale -a | grep -i ja | grep -iE 'utf-?8')
 export LESSCHARSET=utf-8
 
 # path setting
-export EDITOR=nvim
+export EDITOR=nvimalter
 
 # for android path setting
 #export ANDROID_HOME=${TOOLS_PATH}/opt/android-sdk
