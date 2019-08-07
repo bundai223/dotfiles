@@ -1,4 +1,7 @@
 [[plugins]]
+repo = 'ConradIrwin/vim-bracketed-paste' # paste時に:set pasteしてくれるやつ
+
+[[plugins]]
 repo = 'andrewradev/switch.vim'
 
 [[plugins]]
