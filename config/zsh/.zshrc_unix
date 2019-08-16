@@ -2,8 +2,6 @@
 
 # path setting
 #
-export EDITOR=nvim
-
 
 # not found hack
 # command_not_found_handler() {
