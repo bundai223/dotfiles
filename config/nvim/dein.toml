@@ -496,18 +496,33 @@ hook_add = '''
     let s:colorscheme = $COLORSCHEME
   endif
 
-  let s:separator = { 'left': "", 'right': "" }
-  let s:subseparator = { 'left': "", 'right': "" }
   let s:readonly = ''
   let s:branch = ' ' "''
   let s:line_number = ''
 
-  let g:lightline = {
-        \ 'colorscheme': s:colorscheme,
-        \ 'separator': s:separator,
-        \ 'subseparator': s:subseparator,
-        \ 'mode_map': {'c': 'NORMAL'},
-        \ 'active': {
+  let g:lightline = get(g:, 'lightline', {})
+
+  let g:lightline.colorscheme        = s:colorscheme
+  let g:lightline.separator = {
+        \   'left': "", 'right': ""
+        \ }
+  let g:lightline.subseparator = {
+        \   'left': "", 'right': ""
+        \ }
+  let g:lightline.mode_map = {
+		    \ 'n' : 'N',
+		    \ 'i' : 'I',
+		    \ 'R' : 'R',
+		    \ 'v' : 'V',
+		    \ 'V' : 'V-L',
+		    \ "\<C-v>": 'V-B',
+		    \ 'c' : 'C',
+		    \ 's' : 'S',
+		    \ 'S' : 'S-L',
+		    \ "\<C-s>": 'S-B',
+		    \ 't': 'T',
+		    \ }
+  let g:lightline.active = {
         \   'left': [
         \     [ 'mode', 'plugin', 'paste' ],
         \     [ 'fugitive' ],
@@ -519,8 +534,8 @@ hook_add = '''
         \     ['percent'],
         \     ['charcode', 'fileformat', 'fileencoding', 'filetype']
         \   ]
-        \ },
-       \ 'component_function': {
+        \ }
+  let g:lightline.component_function = {
         \   'mode': 'MyMode',
         \   'plugin': 'MySpPlugin',
         \   'fugitive': 'MyFugitive',
@@ -531,19 +546,45 @@ hook_add = '''
         \   'fileformat': 'MyFileformat',
         \   'fileencoding': 'MyFileencoding',
         \   'filetype': 'MyFiletype'
-        \ },
-        \ 'component': {
+        \ }
+  let g:lightline.component          = {
         \   'lineinfo': s:line_number . '%3l:%-2v',
-        \   'sky_color_clock': "%#SkyColorClock#%{' ' . sky_color_clock#statusline() . ' '}%#SkyColorClockTemp# ",
-        \ },
-        \ 'component_expand': {
-        \   'syntax_check': 'qfstatusline#Update',
-        \ },
-        \ 'component_type': {
-        \   'syntax_check': 'error',
-        \ },
+        \   'sky_color_clock': "%#SkyColorClock#%{' ' . sky_color_clock#statusline() . ' '}%#SkyColorClockTemp# "
+        \ }
+  let g:lightline.component_expand = {
+        \   'syntax_check': 'qfstatusline#Update'
+        \ }
+  let g:lightline.component_type = {
+        \   'syntax_check': 'error'
+        \ }
+  let g:lightline.tab_component_function = {
+        \  'prefix':   'TalPrefix',
+        \  'filename': 'TalFilename'
         \}
+  let g:lightline.tab = {'active': ['prefix', 'filename']}
+  let g:lightline.tab.inactive = g:lightline.tab.active
 
+  " tab
+  function! TalPrefix(n)
+    " return lightline#tab#tabnum(a:n) . TalTabwins(a:n)
+    return lightline#tab#tabnum(a:n) . ' ' . g:lightline.subseparator.left
+  endfunction
+
+  function! TalTabwins(n)
+    return repeat(',', len(tabpagebuflist(a:n)))
+  endfunction
+
+  function! TalFilename(n)
+    " return TalBufnum(a:n). '-'. substitute(lightline#tab#filename(a:n), '.\{16}\zs.\{-}\(\.\w\+\)\?$', '~\1', '')
+    return substitute(lightline#tab#filename(a:n), '.\{16}\zs.\{-}\(\.\w\+\)\?$', '~\1', '')
+  endfunction
+  function! TalBufnum(n)
+    let buflist = tabpagebuflist(a:n)
+    let winnr = tabpagewinnr(a:n)
+    return buflist[winnr - 1]
+  endfunction
+
+  " lightline
   function! MyModified()
     return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
   endfunction
