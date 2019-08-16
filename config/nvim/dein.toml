@@ -576,7 +576,7 @@ hook_add = '''
 
   function! TalFilename(n)
     " return TalBufnum(a:n). '-'. substitute(lightline#tab#filename(a:n), '.\{16}\zs.\{-}\(\.\w\+\)\?$', '~\1', '')
-    return substitute(lightline#tab#filename(a:n), '.\{16}\zs.\{-}\(\.\w\+\)\?$', '~\1', '')
+    return substitute(lightline#tab#filename(a:n), '.\{40}\zs.\{-}\(\.\w\+\)\?$', '~\1', '')
   endfunction
   function! TalBufnum(n)
     let buflist = tabpagebuflist(a:n)
