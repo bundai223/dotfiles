@@ -6,17 +6,20 @@ set -eu
 
 ./bin/setup
 
+
+
 mitamae() {
   cookbooks=$@
   case "$(uname)" in
     "Darwin")  bin/mitamae local $cookbooks ;;
-    *) sudo -i bash -c "cd $(pwd) && bin/mitamae local -l debug lib/recipe_helper.rb $cookbooks" ;;
-    # *) sudo -i bash -c "cd $(pwd) && bin/mitamae local lib/recipe_helper.rb $cookbooks" ;;
+    # *) sudo -i bash -c "cd $(pwd) && bin/mitamae local -l debug lib/recipe_helper.rb $cookbooks" ;;
+    *) sudo -i bash -c "cd $(pwd) && bin/mitamae local lib/recipe_helper.rb $cookbooks" ;;
   esac
 }
 
 if [ "$#" = "0" ]; then
   mitamae lib/recipe.rb
 else
-  mitamae $@
+  # echo "mitamae $(./bin/normalize_cookbooks $@)"
+  mitamae $(./bin/normalize_cookbooks $@)
 fi

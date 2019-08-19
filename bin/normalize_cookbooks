@@ -1,0 +1,24 @@
+#!/usr/bin/env perl
+use utf8;
+
+my @raw_cookbooks = @ARGV;
+
+if (!@raw_cookbooks) {
+  print 'need cookbooks!';
+  exit 1;
+}
+
+foreach my $raw(@raw_cookbooks) {
+  if (-f "$raw") {
+    print "$raw ";
+  } elsif (-f "$raw.rb") {
+    print "$raw.rb ";
+  } elsif (-f "$raw/default.rb") {
+    print "$raw/default.rb ";
+  } else {
+    print 'please check cookbook name. : ${raw}';
+    exit 1;
+  }
+}
+
+print "\n"
