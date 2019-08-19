@@ -1,13 +1,24 @@
 include_recipe 'dependency.rb'
 
+version = '2.2.5'
+arch = 'x86_64'
+
 case node[:platform]
 when 'debian', 'mint', 'ubuntu'
-  url = 'https://releases.hashicorp.com/vagrant/2.2.2/vagrant_2.2.2_x86_64.deb'
-  filename = 'vagrant_2.2.2_x86_64.deb'
+  url = "https://releases.hashicorp.com/vagrant/#{version}/vagrant_#{version}_#{arch}.deb"
+  filename = "vagrant_#{version}_#{arch}.deb"
 
-  execute "curl -O #{url}"
-  execute "dpkg -i #{filename}"
-  execute "rm #{filename}"
+  cmds = [
+   "curl -O #{url}",
+   "dpkg -i #{filename}",
+   "rm #{filename}"
+  ]
+
+  cmds.each do |cmd|
+    execute cmd do
+      only_if "which vagrant > /dev/null && vagrant --version | perl -pe 's/Vagrant //' | #{version}"
+    end
+  end
 
 when 'fedora', 'redhat', 'amazon'
 
