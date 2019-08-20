@@ -12,6 +12,9 @@ set list
 set listchars=tab:»-,trail:･,nbsp:⍽,extends:»,precedes:«
 set showtabline=2
 
+set termguicolors " terminalでもTrue Colorを使えるようにする
+set pumblend=10
+
 " release autogroup in MyAutoCmd
 augroup MyAutoCmd
   autocmd!
