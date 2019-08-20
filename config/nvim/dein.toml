@@ -529,10 +529,17 @@ hook_add = '''
         \     [ 'prjname', 'cwd' ]
         \   ],
         \   'right': [
-        \     ['sky_color_clock'],
         \     ['lineinfo', 'syntax_check'],
         \     ['percent'],
         \     ['charcode', 'fileformat', 'fileencoding', 'filetype']
+        \   ]
+        \ }
+  let g:lightline.tabline = {
+        \   'left': [
+        \     ['tabs']
+        \   ],
+        \   'right': [
+        \     ['sky_color_clock'],
         \   ]
         \ }
   let g:lightline.component_function = {
@@ -547,9 +554,12 @@ hook_add = '''
         \   'fileencoding': 'MyFileencoding',
         \   'filetype': 'MyFiletype'
         \ }
-  let g:lightline.component          = {
+  let g:lightline.component = {
         \   'lineinfo': s:line_number . '%3l:%-2v',
         \   'sky_color_clock': "%#SkyColorClock#%{' ' . sky_color_clock#statusline() . ' '}%#SkyColorClockTemp# "
+        \ }
+  let g:lightline.component_raw = {
+        \   'sky_color_clock': 1
         \ }
   let g:lightline.component_expand = {
         \   'syntax_check': 'qfstatusline#Update'
@@ -575,9 +585,9 @@ hook_add = '''
   endfunction
 
   function! TalFilename(n)
-    " return TalBufnum(a:n). '-'. substitute(lightline#tab#filename(a:n), '.\{16}\zs.\{-}\(\.\w\+\)\?$', '~\1', '')
     return substitute(lightline#tab#filename(a:n), '.\{40}\zs.\{-}\(\.\w\+\)\?$', '~\1', '')
   endfunction
+
   function! TalBufnum(n)
     let buflist = tabpagebuflist(a:n)
     let winnr = tabpagewinnr(a:n)
