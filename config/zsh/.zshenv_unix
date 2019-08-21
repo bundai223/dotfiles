@@ -27,6 +27,7 @@ export PATH=~/.local/bin:$PATH:$(find ~/.local/bin/* -maxdepth 0 -type d)
 #export PATH=${TOOLS_PATH}/opt/ruby/bin:$PATH
 export PATH=~/repos/github.com/bundai223/terminal-tools/bin:$PATH
 export PATH=~/swift/usr/bin:$PATH
+export PATH=/home/bundai223/.gem/ruby/2.5.0/bin:$PATH
 
 export GEMSRC_USE_GHQ=true
 #
