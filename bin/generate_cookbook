@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -eu
+
+usage()
+{
+  echo 'USAGE:'
+  echo '  bin/generate_cookbook cookbook names'
+}
+
+mk_cookbook()
+{
+  cookbook=cookbooks/$1
+  dependency=$cookbook/dependency.rb
+  entrypoint=$cookbook/default.rb
+
+  test -e $cookbook || mkdir -p $cookbook
+  test -e $dependency || touch $dependency
+  test -e $entrypoint || echo "include_recipe 'dependency.rb'" >> $entrypoint
+}
+
+if [ $# -eq 0 ]; then
+  usage
+  exit 1
+fi
+
+for arg in $@
+do
+  mk_cookbook ${arg}
+done
+
