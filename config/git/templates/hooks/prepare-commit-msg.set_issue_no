@@ -1,54 +1,104 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env perl
 #
 # commitメーセージに情報を追加するスクリプト。
 # .git/hooks/prepare-commit-msg に配置する。
 # ブランチ名にチケット番号などがついていたら参照設定を行う。
+# 実行権限を与える必要がある。 例) chmod +x .git/hooks/prepare-commit-msg
 
-# ブランチ名からチケット番号を抜き出す関数
-def get_issue_no(branch_name)
-  result = branch_name.match(/feature\/#?(\d+)/) if result.nil? # feature/#0000
-  result = branch_name.match(/feature\/#?(\d+)(\/|_)/) if result.nil? # feature/0000/brach_name
+# ARGV sample
+# .git/COMMIT_EDITMSG
+# message
 
-  return nil if result.nil?
-  result[1]
-end
+use Encode;
+
+ # ブランチ名からチケット番号を抜き出す関数
+sub get_issue_no {
+  # feature/#0000
+  # feature/0000/brach_name
+  ($branch_name) = @_;
+  my $matchtime = $branch_name =~ /feature\/#?(\d+)/;
+  my $result = $1;
+
+  if ($result eq '') {
+    return undef;
+  }
+  return $result;
+}
 
 # マージコミットのコメントか？
-def merge_commit?(message)
-  message.include?("Merge")
-end
+sub is_merge_commit {
+  ($message) = @_;
+  return (0 < $message =~ /Merge/);
+}
 
 # refsコメントがすでにあるかチェック
-def include_refs?(message)
-  result = message.match(/(\A| )#(\d+)( |\n|\)|\Z)/)
-  return false if result.nil?
-  true
-end
+sub is_include_refs {
+  ($message) = @_;
+  return (0 < $message =~ /(^| )#(\d+)( |\n|\)|$)/m);
+}
+
+sub get_file_content {
+  ($filename) = @_;
+  open (my $fh, "<", $filename) or die "Can't open file($filename).";
+  # my @lines = <$fh>; # 配列で取得
+  my $content = do { local $/; <$fh> };
+  return $content;
+}
+
+sub write_file {
+  ($filename, $content) = @_;
+  open (my $fh, ">", $filename) or die "Can't open file($filename).";
+  print $fh $content;
+}
 
 # refsコメントとコミットコメントを連結
-def generate_message(issue_no, original_message)
-  if !issue_no.nil?
-    "refs ##{issue_no} #{original_message}"
-  else
-    original_message
-  end
-end
+sub generate_message {
+  ($issue_no, $original_message) = @_;
+  if ($issue_no eq '') {
+    return $original_message;
+  } else {
+    return "refs #${issue_no} ${original_message}";
+  }
+}
 
-# コミットメッセージのテンプレ追加
-if ARGV[1] && ARGV[1].include?("message")
-  # files = `git diff --cached --name-only`
-  # change_files = files.split("\n")
+# post-checkout.set_branchdesc_from_issuenameからコピペ ############################
+# TODO: 共通化する
+sub shellcmd {
+  ($cmd) = @_;
+  my $ret = qx/$cmd/;
+  if ($? eq 0) {
+    chomp($ret);
+    return decode('utf-8', $ret);
+  } else {
+    return undef;
+  }
+}
 
-  commit_message = File.readlines(ARGV[0]).join("")
+sub get_issue_no {
+  # feature/#0000
+  # feature/0000/brach_name
+  ($branch_name) = @_;
+  my $matchtime = $branch_name =~ /feature\/#?(\d+)/;
+  my $result = $1;
 
-  # Mergeメッセージ以外はbranchのissue番号をrefsで記述する
-  if !merge_commit?(commit_message) && !include_refs?(commit_message)
-    branch_name = `git rev-parse --abbrev-ref HEAD`
+  if ($result eq '') {
+    return undef;
+  }
+  return $result;
+}
+#############################
+
+
+if (1 <= $#ARGV && $ARGV[1] =~ /message/) {
+  my $filename = $ARGV[0];
+  my $commit_message = get_file_content($filename);
+
+  if (!is_merge_commit($commit_message) && !is_include_refs($commit_message)) {
+    my $branch_name = shellcmd('git rev-parse --abbrev-ref HEAD');
     # todo: release/hotfixに対応
-    issue_no = get_issue_no(branch_name)
+    my $issue_no = get_issue_no($branch_name);
 
-    open(ARGV[0], 'w') do |file|
-      file.puts generate_message(issue_no, commit_message)
-    end
-  end
-end
+    # print generate_message($issue_no, $commit_message);
+    write_file($filename, generate_message($issue_no, $commit_message));
+  }
+}

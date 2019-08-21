@@ -1,86 +1,100 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env perl
+#
+# git branch configにticket名を設定する
+# .git/hooks/post-checkout に配置する。
+# 環境変数REDMINE_URLが設定されている場合にticket名からタイトルを取得してくる
 # 実行権限を与える必要がある。 例) chmod +x .git/hooks/post-checkout
 
-require 'net/https'
-require 'json'
+use Encode;
+use JSON;
+use LWP::Simple;
+
+binmode(STDOUT, ":utf8");
+binmode(STDIN, ":utf8");
 
 # 各自のredmine apiキー
-API_KEY = ENV['REDMINE_API_KEY']
+my $API_KEY = %ENV{REDMINE_API_KEY};
 # redmineのURL
-REDMINE_URL = ENV['REDMINE_URL']
-# ブランチの設定を書き込むgitのconfigファイルのpath
-GIT_CONFIG_FILE_PATH = "#{File.dirname(File.expand_path(__dir__))}/config"
+my $REDMINE_URL = %ENV{REDMINE_URL};
 # 説明を表示したくないブランチ名
-NOT_COVERED_BRANCHES = %w[master, release, develop, hotfix]
-
-# ブランチ名からチケット番号を抜き出す関数
-def get_issue_no(branch_name)
-  # feature/#0000
-  # feature/0000/brach_name
-  result = branch_name.match(%r{feature/#?(\d+)(/|_)?})
-
-  return nil if result.nil?
-  result[1]
-end
-
-def remote_is_redmine?
-  `git remote -vv | grep redmine`
-  ($?).success?
-end
-
-def issue_url(issue_id)
-  "#{REDMINE_URL}/issues/#{issue_id}"
-end
-def subject(issue_id)
-  uri = URI.parse("#{issue_url(issue_id)}.json?key=#{API_KEY}")
-  JSON.parse(Net::HTTP::get_response(uri).body)['issue']['subject']
-end
-def insecure_subject(issue_id)
-  url = "#{issue_url(issue_id)}.json?key=#{API_KEY}"
-  uri = URI.parse(url)
-  # puts "url: #{url}"
-  # puts "uri: #{uri}"
-
-  http = Net::HTTP.new(uri.host, uri.port)
-  http.use_ssl = true
-  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-  JSON.parse(http.get(uri).body)['issue']['subject']
-end
-
-unless remote_is_redmine?
-  exit 0
-end
+my @NOT_COVERED_BRANCHES = (master, release, develop, hotfix);
 
 # 未設定ならとくに何もなし
-if API_KEY.nil? || REDMINE_URL.nil? || GIT_CONFIG_FILE_PATH.nil?
-  exit 0
-end
+if ($API_KEY eq '' || $REDMINE_URL eq '') {
+  exit 0;
+}
 
-branch_name = `git rev-parse --abbrev-ref HEAD`.chomp.to_s
-description = `git config branch.#{branch_name}.description`
-issue_id = get_issue_no(branch_name)
+sub shellcmd {
+  ($cmd) = @_;
+  my $ret = qx/$cmd/;
+  if ($? eq 0) {
+    chomp($ret);
+    return decode('utf-8', $ret);
+  } else {
+    return undef;
+  }
+}
 
-exit if issue_id.nil?
-exit unless NOT_COVERED_BRANCHES.select{|b| branch_name.include?(b)}.empty?
+ # ブランチ名からチケット番号を抜き出す関数
+sub get_issue_no {
+  # feature/#0000
+  # feature/0000/brach_name
+  ($branch_name) = @_;
+  my $matchtime = $branch_name =~ /feature\/#?(\d+)/;
+  my $result = $1;
 
-if description.empty? == false
-  puts "\033[35m#{description}\033[0m"
-  exit
-else
-  begin
-    # subject = subject(issue_id)
-    subject = insecure_subject(issue_id)
-    File.open(GIT_CONFIG_FILE_PATH, 'a') do |file|
-      file.puts "[branch \"#{branch_name}\"]"
-      file.puts "\tdescription = #{REDMINE_URL}/issues/#{issue_id}\\n#{' ' * 5}#{subject}\n"
-    end
-    puts "Add description: #{branch_name} \033[35m#{subject}\033[0m"
-    puts "\033[32m#{issue_url(issue_id)}\033[0m"
-  rescue => e
-    puts "Failed to add description: #{branch_name}"
-    puts "Pased URL: #{issue_url(issue_id)}"
-    puts e
-  end
-end
+  if ($result eq '') {
+    return undef;
+  }
+  return $result;
+}
 
-# vim: set ft=ruby:modeline
+my $branch_name = shellcmd('git rev-parse --abbrev-ref HEAD');
+
+if (grep { $_ eq $branch_name } @NOT_COVERED_BRANCHES) {
+  print "$branch_name branch is not covered.\n";
+  exit 0;
+}
+
+my $description = shellcmd("git config branch.${branch_name}.description");
+my $issue_id = get_issue_no($branch_name);
+
+if ($issue_id eq '') {
+  print "issue_id is null\n";
+  exit 0;
+}
+
+sub get_issue_url {
+  ($issue_id) = @_;
+  return "${REDMINE_URL}/issues/${issue_id}";
+}
+
+sub get_subject {
+  ($issue_id) = @_;
+  my $baseurl = get_issue_url($issue_id);
+  my $uri = "${baseurl}.json?key=${API_KEY}";
+  my $json = get($uri) or die "Couldn't get {$uri}!";
+  my $hash = decode_json($json);
+  return $hash->{'issue'}->{'subject'};
+}
+
+sub escape_branch_name {
+  ($branch_name) = @_;
+  my $escaped = $branch_name;
+  $escaped =~ s/#/\\#/g;
+  print "raw: ${branch_name}\n";
+  print "escaped ${escaped}\n";
+  return $escaped;
+}
+
+if ($description ne '') {
+  print "\033[35m${description}\033[0m\n";
+} else {
+  my $subject = get_subject($issue_id);
+  my $issue_url = get_issue_url($issue_id);
+  shellcmd("git config --local branch.${branch_name}.description \"${issue_url}\n    ${subject}\"");
+  print "Add description: ${branch_name} \033[35m${subject}\033[0m\n";
+  print "\033[32m${issue_url}\033[0m\n";
+}
+
+exit 0;
