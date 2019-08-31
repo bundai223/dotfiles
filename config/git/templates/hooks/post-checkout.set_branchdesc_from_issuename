@@ -24,9 +24,19 @@ if ($API_KEY eq '' || $REDMINE_URL eq '') {
   exit 0;
 }
 
+sub escape_command {
+  ($cmd) = @_;
+  my $escaped = $cmd;
+  $escaped =~ s/([\&\;\`\'\\\"\|\*\?\~\<\>\^\(\)\[\]\{\}\$\n\r])/\\$1/g;
+  # print "raw: ${cmd}\n";
+  # print "escaped ${escaped}\n";
+  return $escaped;
+}
+
 sub shellcmd {
   ($cmd) = @_;
-  my $ret = qx/$cmd/;
+  my $escaped_cmd = escape_command($cmd);
+  my $ret = qx/$escaped_cmd/;
   if ($? eq 0) {
     chomp($ret);
     return decode('utf-8', $ret);
@@ -60,7 +70,7 @@ my $description = shellcmd("git config branch.${branch_name}.description");
 my $issue_id = get_issue_no($branch_name);
 
 if ($issue_id eq '') {
-  print "issue_id is null\n";
+  # print "issue_id is null\n";
   exit 0;
 }
 
@@ -76,15 +86,6 @@ sub get_subject {
   my $json = get($uri) or die "Couldn't get {$uri}!";
   my $hash = decode_json($json);
   return $hash->{'issue'}->{'subject'};
-}
-
-sub escape_branch_name {
-  ($branch_name) = @_;
-  my $escaped = $branch_name;
-  $escaped =~ s/#/\\#/g;
-  print "raw: ${branch_name}\n";
-  print "escaped ${escaped}\n";
-  return $escaped;
 }
 
 if ($description ne '') {

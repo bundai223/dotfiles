@@ -99,6 +99,7 @@
   graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
 	oneline = log --pretty=oneline
 
+	pp=!git pull && git push
   precommit = diff --cached --diff-algorithm=minimal -w
   unstage = reset -q HEAD --
 	uncommit = reset --mixed HEAD~
