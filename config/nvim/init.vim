@@ -15,6 +15,8 @@ set showtabline=2
 set termguicolors " terminalでもTrue Colorを使えるようにする
 set pumblend=10
 
+set textwidth=0
+
 " release autogroup in MyAutoCmd
 augroup MyAutoCmd
   autocmd!
