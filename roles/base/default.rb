@@ -25,3 +25,4 @@ include_cookbook 'chrome'
 
 include_cookbook 'myrepos'
 include_cookbook 'fonts'
+include_cookbook 'favorite_repos'
