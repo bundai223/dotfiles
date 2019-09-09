@@ -44,7 +44,7 @@ when 'opensuse'
 else
 end
 
-execute run_as(node[:user], 'gem install colorls')
+execute 'gem install colorls'
 
 # gem_package 'solargraph'
 # execute 'yard gems'
