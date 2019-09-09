@@ -11,8 +11,11 @@ repos = [
 ]
 repos.each { |name| get_repo name }
 
-execute 'pip install --user powerline-status' do
-  user node[:user]
+['pip', 'pip3'].each do |pip|
+  execute "#{pip} install --user powerline-status" do
+    user node[:user]
+    only_if "which #{pip}>/dev/null"
+  end
 end
 
 package 'fontforge'
