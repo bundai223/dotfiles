@@ -1000,6 +1000,11 @@ hook_post_update = '''
 
 [[plugins]]
 repo = 'cocopon/vaffle.vim'
+# on_cmd = ['Vaffle']
+hook_source = '''
+  nnoremap <silent> [myleader]f :Vaffle<CR>
+'''
+
 
 [[plugins]]
 repo = 'digitaltoad/vim-pug'
@@ -1040,6 +1045,12 @@ repo = 'wakatime/vim-wakatime'
 
 [[plugins]]
 repo = 'dhruvasagar/vim-table-mode'
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+hook_source = '''
+  map [myleader]/ <Plug>(easymotion-prefix)
+'''
 
 [[plugins]]
 repo = 'kshenoy/vim-signature'
