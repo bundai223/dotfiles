@@ -194,6 +194,7 @@ hook_add = '''
     \ ['init.vim shared', g:pub_repos_path . '/dotfiles/config/nvim/init.vim'],
     \ ['ginit.vim',       '~/.config/nvim/ginit.vim'],
     \ ['dein.toml',       g:dein_toml],
+    \ ['snippets',        g:pub_repos_path . '/mysnip'],
     \ ]
 
   let s:zsh_config_path = g:dotfiles_config_path . '/zsh'
