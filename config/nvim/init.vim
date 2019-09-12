@@ -389,6 +389,7 @@ endif
 augroup MyAutoCmd
   autocmd FileType changelog setlocal modelines=0
   autocmd FileType changelog setlocal nomodeline
+  autocmd FileType changelog setlocal textwidth=0
 augroup END
 
 if system('uname -a | grep Microsoft') != ""
