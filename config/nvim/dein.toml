@@ -1055,3 +1055,6 @@ hook_source = '''
 
 [[plugins]]
 repo = 'kshenoy/vim-signature'
+
+[[plugins]]
+repo = 'sjl/gundo.vim'
