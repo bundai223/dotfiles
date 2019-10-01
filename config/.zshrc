@@ -143,7 +143,7 @@ bindkey "^R" history-incremental-search-backward
 bindkey "^S" history-incremental-search-forward
 
 # 全履歴表示
-function history-all { history -E 1 }
+function history-all { history -i 1 }
 
 # 最後に入力した内容を貼り付ける
 autoload -Uz smart-insert-last-word
@@ -228,7 +228,7 @@ p() {
 }
 alias o='git ls-files | p open'
 alias c='ghq list -p | p cd'
-alias h='history'; compdef h=history
+alias h='history -i'; compdef h=history
 alias l='ls -FG'; compdef l=ls
 alias ll='ls -lFG'; compdef ll=ls
 alias la='ls -lFGa'; compdef la=ls
