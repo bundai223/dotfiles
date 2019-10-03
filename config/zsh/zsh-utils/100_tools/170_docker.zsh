@@ -5,7 +5,7 @@ dcrun () {
   service_name=$1
   shift
 
-  if [ -z "$(docker-compose ps -q $service_name)" ]; then
+  if [ -z "$(docker-compose ps | tail +3 | grep $service_name | grep ' Up ')" ]; then
     docker-compose run --rm $service_name $@
   else
     # execのときはクオート不要だった

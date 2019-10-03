@@ -251,7 +251,8 @@ command! JsonFormat :execute '%!python -m json.tool'
 " Leaderを設定
 " 参考: http://deris.hatenablog.jp/entry/2013/05/02/192415
 noremap [myleader] <nop>
-map <Space> [myleader]
+map \ [myleader]
+let mapleader = "\<Space>"
 "noremap map \ , "もとのバインドをつぶさないように
 
 " 有効な用途が見えるまであけとく
@@ -279,19 +280,19 @@ tnoremap <silent> <Esc> <C-\><C-n>
 
 
 " Easy to help
-nnoremap [myleader]h :<C-u>vert bel help<Space>
-nnoremap [myleader]H :<C-u>vert bel help<Space><C-r><C-w><CR>
+nnoremap <leader>h :<C-u>vert bel help<Space>
+nnoremap <leader>H :<C-u>vert bel help<Space><C-r><C-w><CR>
 
 " カレントパスをバッファに合わせる
-nnoremap <silent>[myleader]<Space> :<C-u>lcd %:h<CR>:pwd<CR>
+nnoremap <silent><leader><Space> :<C-u>lcd %:h<CR>:pwd<CR>
 
 " Quick splits
-nnoremap [myleader]_ :sp<CR>
-nnoremap [myleader]<Bar> :vsp<CR>
+nnoremap <leader>_ :sp<CR>
+nnoremap <leader><Bar> :vsp<CR>
 
 " Delete line end space|tab.
-nnoremap [myleader]s<Space> :%s/ *$//g<CR>
-"nnoremap [myleader]s<Space> :%s/[ |\t]*$//g<CR>
+nnoremap <leader>s<Space> :%s/ *$//g<CR>
+"nnoremap <leader>s<Space> :%s/[ |\t]*$//g<CR>
 
 " Yank to end
 nnoremap Y y$
@@ -316,7 +317,7 @@ nnoremap <expr>0 col('.') == 1 ? '^' : '0'
 nnoremap <expr>^ col('.') == 1 ? '^' : '0'
 
 " highlight off
-nnoremap <silent>[myleader]/ :noh <CR>
+nnoremap <silent><leader>/ :noh <CR>
 
 " 検索結果をウインドウ真ん中に
 nnoremap n nzzzv
