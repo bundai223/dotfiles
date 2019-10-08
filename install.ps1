@@ -13,3 +13,4 @@ $buckets | % { scoop bucket add $_ }
 # install app
 $a = $apps -join ' '
 scoop install $a
+echo scoop install $a
