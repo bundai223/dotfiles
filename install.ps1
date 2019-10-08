@@ -3,12 +3,34 @@
 # install scoop
 Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
 
-$buckets = 'extras'
-$apps = 'googlechrome',
-        'brave'
+$known_buckets = @(
+  'extras'
+)
+$unknown_buckets = @(
+  @{ name = 'jp', url = 'https://github.com/rkbk60/scoop-for-jp'}
+)
+$apps = @(
+  'googlechrome',
+  'brave',
+  'vivaldi',
+  '7zip',
+  'bitwarden',
+  'hain',
+  'vcxsrv',
+  'phraseexpress',
+  'screentogif',
+  'vscode',
+  # 'buttercup',
+  # 'screenpresso',
+  # 'thilmera7',
+  # 'skkimefep',
+  # 'hhkbconfig',
+  # 'screeninfo', # https://v2.rakuchinn.jp/
+  'sudo'
+)
   
 # add bucekts
-$buckets | % { scoop bucket add $_ }
+$known_buckets | % { scoop bucket add $_ }
 
 # install app
 $apps | % { scoop install $_ }
