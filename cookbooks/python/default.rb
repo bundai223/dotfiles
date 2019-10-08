@@ -1,4 +1,3 @@
-
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
   package 'python-dev'
@@ -27,28 +26,52 @@ when 'amazon'
   package 'python'
   package 'python3'
 
+  execute 'pip3 install --upgrade --user pip setuptools wheel' do
+    only_if 'which pip3'
+  end
+
+  execute 'pip2 install --upgrade --user pip setuptools wheel' do
+    only_if 'which pip2'
+  end
+
 when 'osx', 'darwin'
   package 'python'
 
 when 'arch'
-  package 'python'
-  package 'python2'
-  package 'python-pip'
-  package 'python2-pip'
+  pythons = [ 'python', 'python2' ]
+  packages = [ 'pip', 'setuptools', 'wheel' ]
+
+  pythons.each do |p|
+    package p
+
+    packages.each do |pkg|
+      package "#{p}-#{pkg}"
+    end
+  end
 
 when 'opensuse'
   package 'python'
 
+  execute 'pip3 install --upgrade --user pip setuptools wheel' do
+    only_if 'which pip3'
+  end
+
+  execute 'pip2 install --upgrade --user pip setuptools wheel' do
+    only_if 'which pip2'
+  end
+
 else
   package 'python'
 
+  execute 'pip3 install --upgrade --user pip setuptools wheel' do
+    only_if 'which pip3'
+  end
+
+  execute 'pip2 install --upgrade --user pip setuptools wheel' do
+    only_if 'which pip2'
+  end
+
 end
 
 
-execute 'pip3 install --upgrade pip setuptools wheel' do
-  only_if 'which pip3'
-end
 
- execute 'pip2 install --upgrade pip setuptools wheel' do
-  only_if 'which pip2'
-end
