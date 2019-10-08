@@ -20,10 +20,11 @@ $apps = @(
   'phraseexpress',
   'screentogif',
   'vscode',
+  'vagrant',
   # 'buttercup',
   # 'screenpresso',
   # 'thilmera7',
-  # 'skkimefep',
+  # 'skkfep',
   # 'hhkbconfig',
   # 'screeninfo', # https://v2.rakuchinn.jp/
   'sudo'
