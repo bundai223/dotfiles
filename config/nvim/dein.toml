@@ -1,3 +1,41 @@
+# `g:context_filetype#search_offset`によって200行までしかhighlightされないので注意
+
+[[plugins]]
+repo = 'liuchengxu/vim-which-key'
+hook_source = '''
+  nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+
+  let g:which_key_map = get(g:, 'which_key_map', {})
+  " let g:which_key_map.q = {
+  "       \ 'name': '+quickfix',
+  "       \ 'o': ['copen', 'open-quickfix']
+  "       \ }
+  let g:which_key_map['f'] = {
+        \ 'name': '+files',
+        \ 'e': {
+        \   'name': '+edit',
+        \   'g': { 'name': '+git config' },
+        \   'm': { 'name': '+memo' },
+        \   't': { 'name': '+tmux' },
+        \   'v': { 'name': '+neovim config' },
+        \   'z': { 'name': '+zsh config' },
+        \ }
+        \ }
+  let g:which_key_map['l'] = {
+        \ 'name': '+language_server',
+        \ 'c': [ 'LanguageClient_contextMenu()', 'contextMenu' ],
+        \ 'd': [ 'LanguageClient#textDocument_definition()', 'definision' ],
+        \ 'f': [ 'LanguageClient#textDocument_formatting()', 'formatting' ],
+        \ 'h': [ 'LanguageClient#textDocument_hover()', 'hover' ],
+        \ 'r': [ 'LanguageClient#textDocument_rename()', 'rename' ],
+        \ }
+  let g:which_key_map['/'] = {
+        \ 'name': ':+search',
+        \ }
+  call which_key#register('<Space>', "g:which_key_map")
+  " let g:which_key_vertical = 1 # floating
+'''
+
 [[plugins]]
 repo = 'ConradIrwin/vim-bracketed-paste' # paste時に:set pasteしてくれるやつ
 
@@ -102,11 +140,27 @@ hook_add = '''
     endfunction
   endif
 
+  " source
+  " vim-which-key対応に伴い統一テスト
+  nnoremap <silent> <leader>/f   :<C-u>DeniteBufferDir file/rec<CR>
+  nnoremap <silent> <leader>/p   :<C-u>DeniteProjectDir file/rec<CR>
+  nnoremap <silent> <leader>/m   :<C-u>Denite file_mru<CR>
+  nnoremap <silent> <leader>/o   :<C-u>Denite -no-quit -wrap outline<CR>
+  nnoremap <silent> <leader>/gr   :<C-u>Denite -auto-preview grep<CR>
+  nnoremap <silent> <leader>/gh   :<C-u>Denite ghq<CR>
+  nnoremap <silent> <leader>/tw  :<C-u>Denite tweetvim<CR>
+  nnoremap <silent> <leader>/ns  :<C-u>Denite neosnippet<CR>
+  nnoremap <silent> <leader>/b   :<C-u>Denite buffer<CR>
+  nnoremap <silent> <leader>/cl   :<C-u>Denite -auto-preview colorscheme<CR>
+  nnoremap <silent> <leader>/cg   :<C-u>Denite cgrep<CR>
+  nnoremap <silent> <leader>/r   :<C-u>Denite -resume<CR>
+  nnoremap <silent> <leader>/<Space> :<C-u>Denite menu<CR>
+  nmap <silent> <leader>/R   <Plug>(denite_restart)
+
   " <Space>をdeniteのキーに
   nnoremap [denite] <Nop>
   nmap <C-u> [denite]
 
-  " source
   " denite file
   nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file/rec<CR>
   nnoremap <silent> [denite]p   :<C-u>DeniteProjectDir file/rec<CR>
@@ -122,7 +176,7 @@ hook_add = '''
 
   " denite resume
   nnoremap <silent> [denite]r   :<C-u>Denite -resume<CR>
-  nnoremap <silent> [denite]R   <Plug>(denite_restart)
+  nmap <silent> [denite]R   <Plug>(denite_restart)
 
   nnoremap <silent> [denite]<Space> :<C-u>Denite menu<CR>
 
@@ -179,10 +233,10 @@ hook_add = '''
     \ 'description': 'Edit your git config'
     \ }
   let s:menus.git.file_candidates = [
-    \ ['gitconfig', '~/.gitconfig'],
     \ ['gitconfig shared',  g:pub_repos_path . '/dotfiles/config/.gitconfig' ],
-    \ ['gitattributes',     g:pub_repos_path . '/dotfiles/config/git/.gitattributes_global' ],
     \ ['gitignore shared',  g:pub_repos_path . '/dotfiles/config/git/.gitignore_global' ],
+    \ ['gitconfig', '~/.gitconfig'],
+    \ ['gitattributes',     g:pub_repos_path . '/dotfiles/config/git/.gitattributes_global' ],
     \ ['template',          g:pub_repos_path . '/dotfiles/config/git/templates' ],
     \ ]
 
@@ -190,8 +244,8 @@ hook_add = '''
     \ 'description': 'Edit your import nvim configuration'
     \ }
   let s:menus.nvim.file_candidates = [
-    \ ['init.vim',        '~/.config/nvim/init.vim'],
     \ ['init.vim shared', g:pub_repos_path . '/dotfiles/config/nvim/init.vim'],
+    \ ['init.vim',        '~/.config/nvim/init.vim'],
     \ ['ginit.vim',       '~/.config/nvim/ginit.vim'],
     \ ['dein.toml',       g:dein_toml],
     \ ['snippets',        g:pub_repos_path . '/mysnip'],
@@ -202,13 +256,13 @@ hook_add = '''
     \ 'description': 'Edit your import zsh configuration'
     \ }
   let s:menus.zsh.file_candidates = [
-    \ ['zshrc',         '~/.zshrc'],
     \ ['zshrc shared',  g:dotfiles_config_path . '/.zshrc' ],
+    \ ['zshrc',         '~/.zshrc'],
     \ ['zshrc osx',     s:zsh_config_path . '/.zshrc_osx' ],
     \ ['zshrc unix',    s:zsh_config_path . '/.zshrc_unix' ],
     \ ['zshrc wsl',     s:zsh_config_path . '/.zshrc_wsl' ],
-    \ ['zshenv',        '~/.zshenv'],
     \ ['zshenv shared', g:dotfiles_config_path . '/.zshenv' ],
+    \ ['zshenv',        '~/.zshenv'],
     \ ['zshenv osx',    s:zsh_config_path . '/.zshenv_osx' ],
     \ ['zshenv unix',   s:zsh_config_path . '/.zshenv_unix' ],
     \ ['zshenv wsl',    s:zsh_config_path . '/.zshenv_wsl' ],
@@ -237,6 +291,40 @@ hook_add = '''
     \ ]
 
   call denite#custom#var('menu', 'menus', s:menus)
+
+  " vim-which-key対応に伴い統一テスト
+  let s:zsh_config_path = g:dotfiles_config_path . '/zsh'
+  nnoremap <silent> <leader>feme  :execute ":e " . g:memo_dir . "/changelog.memo"<CR>
+  nnoremap <silent> <leader>fegsc :execute ":e " . g:pub_repos_path . "/dotfiles/config/.gitconfig"<CR>
+  nnoremap <silent> <leader>fegsi :execute ":e " . g:pub_repos_path . "/dotfiles/config/git/.gitignore_global"<CR>
+  nnoremap <silent> <leader>fegc  :execute ":e " . "~/.gitconfig"<CR>
+  nnoremap <silent> <leader>fega  :execute ":e " . g:pub_repos_path . "/dotfiles/config/git/.gitattributes_global"<CR>
+  nnoremap <silent> <leader>fegt  :execute ":e " . g:pub_repos_path . "/dotfiles/config/git/templates"<CR>
+  nnoremap <silent> <leader>fevsi :execute ":e " . g:pub_repos_path . "/dotfiles/config/nvim/init.vim"<CR>
+  nnoremap <silent> <leader>fevi  :execute ":e " . "~/.config/nvim/init.vim"<CR>
+  nnoremap <silent> <leader>fevg  :execute ":e " . "~/.config/nvim/ginit.vim"<CR>
+  nnoremap <silent> <leader>fevp  :execute ":e " . "g:dein_toml"<CR>
+  nnoremap <silent> <leader>fevt  :execute ":e " . "g:pub_repos_path . /mysnip"<CR>
+  nnoremap <silent> <leader>fezsr :execute ":e " . "g:dotfiles_config_path . /.zshrc"<CR>
+  nnoremap <silent> <leader>fezr  :execute ":e " . "~/.zshrc"<CR>
+  nnoremap <silent> <leader>fezro :execute ":e " . "s:zsh_config_path . /.zshrc_osx"<CR>
+  nnoremap <silent> <leader>fezru :execute ":e " . "s:zsh_config_path . /.zshrc_unix"<CR>
+  nnoremap <silent> <leader>fezrw :execute ":e " . "s:zsh_config_path . /.zshrc_wsl"<CR>
+  nnoremap <silent> <leader>fezse :execute ":e " . "g:dotfiles_config_path . /.zshenv"<CR>
+  nnoremap <silent> <leader>feze  :execute ":e " . "~/.zshenv"<CR>
+  nnoremap <silent> <leader>fezeo :execute ":e " . "s:zsh_config_path . /.zshenv_osx"<CR>
+  nnoremap <silent> <leader>fezeu :execute ":e " . "s:zsh_config_path . /.zshenv_unix"<CR>
+  nnoremap <silent> <leader>fezew :execute ":e " . "s:zsh_config_path . /.zshenv_wsl"<CR>
+  nnoremap <silent> <leader>fezp  :execute ":e " . "s:zsh_config_path . /.zshrc.plugin"<CR>
+  nnoremap <silent> <leader>fezu  :execute ":e " . "s:zsh_config_path . /zsh-utils"<CR>
+  nnoremap <silent> <leader>fetc  :execute ":e " . "g:pub_repos_path . /dotfiles/config/.tmux.conf"<CR>
+  nnoremap <silent> <leader>feto  :execute ":e " . "g:pub_repos_path . /dotfiles/config/tmux/.tmux.conf_osx"<CR>
+  nnoremap <silent> <leader>fetu  :execute ":e " . "g:pub_repos_path . /dotfiles/config/tmux/.tmux.conf_unix"<CR>
+  nnoremap <silent> <leader>fetw  :execute ":e " . "g:pub_repos_path . /dotfiles/config/tmux/.tmux.conf_wsl"<CR>
+  nnoremap <silent> <leader>fepc  :execute ":e " . "g:pub_repos_path . /dotfiles/config/.config/powerline/config.json"<CR>
+  nnoremap <silent> <leader>fepl  :execute ":e " . "g:pub_repos_path . /dotfiles/config/.config/powerline/colors.json"<CR>
+  nnoremap <silent> <leader>fept  :execute ":e " . "g:pub_repos_path . /dotfiles/config/.config/powerline/themes"<CR>
+  nnoremap <silent> <leader>feptt :execute ":e " . "g:pub_repos_path . /dotfiles/config/.config/powerline/themes/tmux"<CR>
 '''
 
 [[plugins]]
@@ -401,7 +489,7 @@ depends = 'vim-textobj-user'
 [[plugins]]
 repo = 'rhysd/clever-f.vim'
 hook_add = '''
-  nmap <leader>f <Plug>(clever-f-reset)
+  nmap <leader>/cr <Plug>(clever-f-reset)
   let g:clever_f_use_migemo = 1
 '''
 
@@ -1065,26 +1153,3 @@ repo = 'kshenoy/vim-signature'
 
 [[plugins]]
 repo = 'sjl/gundo.vim'
-
-[[plugins]]
-repo = 'liuchengxu/vim-which-key'
-hook_source = '''
-  nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
-
-  let g:which_key_map = get(g:, 'which_key_map', {})
-  " let g:which_key_map.q = {
-  "       \ 'name': '+quickfix',
-  "       \ 'o': ['copen', 'open-quickfix']
-  "       \ }
-  let g:which_key_map.l = {
-        \ 'name': '+language_server',
-        \ 'c' : [ 'LanguageClient_contextMenu()', 'contextMenu' ],
-        \ 'd' : [ 'LanguageClient#textDocument_definition()', 'definision' ],
-        \ 'f' : [ 'LanguageClient#textDocument_formatting()', 'formatting' ],
-        \ 'h' : [ 'LanguageClient#textDocument_hover()', 'hover' ],
-        \ 'r' : [ 'LanguageClient#textDocument_rename()', 'rename' ],
-        \ }
-  call which_key#register('<Space>', "g:which_key_map")
-  " let g:which_key_vertical = 1 # floating
-'''
-
