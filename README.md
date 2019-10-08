@@ -15,3 +15,13 @@ iwr -useb https://raw.githubusercontent.com/bundai223/dotfiles/master/install.ps
 ```sh
 curl https://raw.githubusercontent.com/bundai223/dotfiles/master/install | bash -s
 ```
+
+## For Developer.
+
+### Windows install script is old. Is this cached?
+
+Yes. Try to use this scripts.
+
+```powershell
+iwr -Headers @{"Cache-Control"="no-cache"} -useb https://raw.githubusercontent.com/bundai223/dotfiles/master/install.ps1 | iex
+```
