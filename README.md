@@ -18,7 +18,7 @@ curl https://raw.githubusercontent.com/bundai223/dotfiles/master/install | bash 
 
 ## For Developer.
 
-### Windows install script is old. Is this cached?
+### Windows install script is old. Is `install.ps1` cached?
 
 Yes. Try to use this scripts.
 
