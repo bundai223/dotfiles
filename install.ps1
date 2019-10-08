@@ -36,3 +36,8 @@ $unknown_buckets | % { scoop bucket add $_['name'] $_['url'] }
 
 # install app
 $apps | % { scoop install $_ }
+
+# Storeアプリインストールしてちょ
+echo '* Please install store apps.'
+echo '* Launch WindowsStore app.'
+Start-Process shell:AppsFolder\Microsoft.WindowsStore_8wekyb3d8bbwe!App
