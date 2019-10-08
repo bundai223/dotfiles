@@ -7,7 +7,7 @@ $known_buckets = @(
   'extras'
 )
 $unknown_buckets = @(
-  @{ name = 'jp', url = 'https://github.com/rkbk60/scoop-for-jp'}
+  @{name = 'jp'; url = 'https://github.com/rkbk60/scoop-for-jp'}
 )
 $apps = @(
   'googlechrome',
@@ -31,6 +31,7 @@ $apps = @(
   
 # add bucekts
 $known_buckets | % { scoop bucket add $_ }
+$unknown_buckets | % { scoop bucket add $_['name'] $_['url'] }
 
 # install app
 $apps | % { scoop install $_ }
