@@ -317,7 +317,7 @@ nnoremap <expr>0 col('.') == 1 ? '^' : '0'
 nnoremap <expr>^ col('.') == 1 ? '^' : '0'
 
 " highlight off
-nnoremap <silent><leader>/ :noh <CR>
+nnoremap <silent><leader>/r :noh <CR>
 
 " 検索結果をウインドウ真ん中に
 nnoremap n nzzzv
