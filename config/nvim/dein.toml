@@ -303,28 +303,28 @@ hook_add = '''
   nnoremap <silent> <leader>fevsi :execute ":e " . g:pub_repos_path . "/dotfiles/config/nvim/init.vim"<CR>
   nnoremap <silent> <leader>fevi  :execute ":e " . "~/.config/nvim/init.vim"<CR>
   nnoremap <silent> <leader>fevg  :execute ":e " . "~/.config/nvim/ginit.vim"<CR>
-  nnoremap <silent> <leader>fevp  :execute ":e " . "g:dein_toml"<CR>
-  nnoremap <silent> <leader>fevt  :execute ":e " . "g:pub_repos_path . /mysnip"<CR>
-  nnoremap <silent> <leader>fezsr :execute ":e " . "g:dotfiles_config_path . /.zshrc"<CR>
+  nnoremap <silent> <leader>fevp  :execute ":e " . g:dein_toml<CR>
+  nnoremap <silent> <leader>fevt  :execute ":e " . g:pub_repos_path . "/mysnip"<CR>
+  nnoremap <silent> <leader>fezsr :execute ":e " . g:dotfiles_config_path . "/.zshrc"<CR>
   nnoremap <silent> <leader>fezr  :execute ":e " . "~/.zshrc"<CR>
-  nnoremap <silent> <leader>fezro :execute ":e " . "s:zsh_config_path . /.zshrc_osx"<CR>
-  nnoremap <silent> <leader>fezru :execute ":e " . "s:zsh_config_path . /.zshrc_unix"<CR>
-  nnoremap <silent> <leader>fezrw :execute ":e " . "s:zsh_config_path . /.zshrc_wsl"<CR>
-  nnoremap <silent> <leader>fezse :execute ":e " . "g:dotfiles_config_path . /.zshenv"<CR>
+  nnoremap <silent> <leader>fezro :execute ":e " . s:zsh_config_path . "/.zshrc_osx"<CR>
+  nnoremap <silent> <leader>fezru :execute ":e " . s:zsh_config_path . "/.zshrc_unix"<CR>
+  nnoremap <silent> <leader>fezrw :execute ":e " . s:zsh_config_path . "/.zshrc_wsl"<CR>
+  nnoremap <silent> <leader>fezse :execute ":e " . g:dotfiles_config_path . "/.zshenv"<CR>
   nnoremap <silent> <leader>feze  :execute ":e " . "~/.zshenv"<CR>
-  nnoremap <silent> <leader>fezeo :execute ":e " . "s:zsh_config_path . /.zshenv_osx"<CR>
-  nnoremap <silent> <leader>fezeu :execute ":e " . "s:zsh_config_path . /.zshenv_unix"<CR>
-  nnoremap <silent> <leader>fezew :execute ":e " . "s:zsh_config_path . /.zshenv_wsl"<CR>
-  nnoremap <silent> <leader>fezp  :execute ":e " . "s:zsh_config_path . /.zshrc.plugin"<CR>
-  nnoremap <silent> <leader>fezu  :execute ":e " . "s:zsh_config_path . /zsh-utils"<CR>
-  nnoremap <silent> <leader>fetc  :execute ":e " . "g:pub_repos_path . /dotfiles/config/.tmux.conf"<CR>
-  nnoremap <silent> <leader>feto  :execute ":e " . "g:pub_repos_path . /dotfiles/config/tmux/.tmux.conf_osx"<CR>
-  nnoremap <silent> <leader>fetu  :execute ":e " . "g:pub_repos_path . /dotfiles/config/tmux/.tmux.conf_unix"<CR>
-  nnoremap <silent> <leader>fetw  :execute ":e " . "g:pub_repos_path . /dotfiles/config/tmux/.tmux.conf_wsl"<CR>
-  nnoremap <silent> <leader>fepc  :execute ":e " . "g:pub_repos_path . /dotfiles/config/.config/powerline/config.json"<CR>
-  nnoremap <silent> <leader>fepl  :execute ":e " . "g:pub_repos_path . /dotfiles/config/.config/powerline/colors.json"<CR>
-  nnoremap <silent> <leader>fept  :execute ":e " . "g:pub_repos_path . /dotfiles/config/.config/powerline/themes"<CR>
-  nnoremap <silent> <leader>feptt :execute ":e " . "g:pub_repos_path . /dotfiles/config/.config/powerline/themes/tmux"<CR>
+  nnoremap <silent> <leader>fezeo :execute ":e " . s:zsh_config_path . "/.zshenv_osx"<CR>
+  nnoremap <silent> <leader>fezeu :execute ":e " . s:zsh_config_path . "/.zshenv_unix"<CR>
+  nnoremap <silent> <leader>fezew :execute ":e " . s:zsh_config_path . "/.zshenv_wsl"<CR>
+  nnoremap <silent> <leader>fezp  :execute ":e " . s:zsh_config_path . "/.zshrc.plugin"<CR>
+  nnoremap <silent> <leader>fezu  :execute ":e " . s:zsh_config_path . "/zsh-utils"<CR>
+  nnoremap <silent> <leader>fetc  :execute ":e " . g:pub_repos_path . "/dotfiles/config/.tmux.conf"<CR>
+  nnoremap <silent> <leader>feto  :execute ":e " . g:pub_repos_path . "/dotfiles/config/tmux/.tmux.conf_osx"<CR>
+  nnoremap <silent> <leader>fetu  :execute ":e " . g:pub_repos_path . "/dotfiles/config/tmux/.tmux.conf_unix"<CR>
+  nnoremap <silent> <leader>fetw  :execute ":e " . g:pub_repos_path . "/dotfiles/config/tmux/.tmux.conf_wsl"<CR>
+  nnoremap <silent> <leader>fepc  :execute ":e " . g:pub_repos_path . "/dotfiles/config/.config/powerline/config.json"<CR>
+  nnoremap <silent> <leader>fepl  :execute ":e " . g:pub_repos_path . "/dotfiles/config/.config/powerline/colors.json"<CR>
+  nnoremap <silent> <leader>fept  :execute ":e " . g:pub_repos_path . "/dotfiles/config/.config/powerline/themes"<CR>
+  nnoremap <silent> <leader>feptt :execute ":e " . g:pub_repos_path . "/dotfiles/config/.config/powerline/themes/tmux"<CR>
 '''
 
 [[plugins]]
