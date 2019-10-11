@@ -294,7 +294,7 @@ hook_add = '''
 
   " vim-which-key対応に伴い統一テスト
   let s:zsh_config_path = g:dotfiles_config_path . '/zsh'
-  nnoremap <silent> <leader>feme  :execute ":e " . g:memo_dir . "/changelog.memo"<CR>
+  nnoremap <silent> <leader>fem  :execute ":e " . g:memo_dir . "/changelog.memo"<CR>
   nnoremap <silent> <leader>fegsc :execute ":e " . g:pub_repos_path . "/dotfiles/config/.gitconfig"<CR>
   nnoremap <silent> <leader>fegsi :execute ":e " . g:pub_repos_path . "/dotfiles/config/git/.gitignore_global"<CR>
   nnoremap <silent> <leader>fegc  :execute ":e " . "~/.gitconfig"<CR>
