@@ -784,7 +784,7 @@ hook_add = '''
 
       " $HOMEは'~'表示の方が好きなので置き換え
       let s:short_pwd = substitute(s:pwd, expand('~'), '~', '')
-      let s:normalized_pwd = substitute(s:short_pwd, '\~/repos/.*/', '', '')
+      let s:normalized_pwd = substitute(s:short_pwd, '\~/repos/[^/]*/', '', '')
       return s:normalized_pwd
     else
       return ''
