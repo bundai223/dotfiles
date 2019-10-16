@@ -38,3 +38,5 @@ yay 'ntp'
 service 'ntpd' do
   action [:start, :enable]
 end
+yay 'thefuck'
+yay 'atool'
