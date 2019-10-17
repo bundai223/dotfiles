@@ -853,6 +853,7 @@ hook_add = '''
         \   'ts': ['eslint'],
         \   'jsx': ['eslint'],
         \   'tsx': ['eslint'],
+        \   'dockerfile': ['hadolint'],
         \}
   let g:ale_fixers = {
         \   'javascript': ['prettier', 'eslint']
@@ -862,6 +863,10 @@ hook_add = '''
   let g:ale_sign_warning = '>'
 
   let g:ale_lint_on_enter = 1
+
+  " Filetype settings
+  " see :ALEInfo on the filetype buffer.
+  let g:ale_dockerfile_hadolint_use_docker = 'yes'
 '''
 
 [[plugins]]
