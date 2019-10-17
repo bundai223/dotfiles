@@ -1,13 +1,23 @@
 user = node['user']
-# channel = 'stable'
-channel = 'nightly'
+channel = 'stable'
+# channel = 'nightly'
+
+# on arch
+package 'pkg-config'
+package 'openssl'
 
 # Cargo
-define :cargo_install do
+define :cargo_install, channel: 'stable' do
   # MItamae.logger.error "#{params}"
   reponame = params[:name]
+  channel = params[:channel]
 
-  execute "cargo install --force #{reponame}" do
+  install_cmd = "cargo install --force #{reponame}"
+  if channel != 'stable'
+    install_cmd = "cargo install +#{channel} --force #{reponame}"
+  end
+
+  execute install_cmd do
     not_if "cargo install --list | grep #{reponame}"
     user user
   end
@@ -52,7 +62,10 @@ else
   end
 end
 
-cargo_install 'racer'
+cargo_install 'racer' do
+  channel 'nightly'
+end
+
 cargo_install 'ripgrep'
 cargo_install 'rustfmt' # 'rustfmt-nightly'
 
