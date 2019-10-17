@@ -4,9 +4,9 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
   node.reverse_merge!({
     rbenv: {
       rbenv_root: '/usr/local/rbenv',
-      global: '2.5.1',
+      global: '2.6.5',
       versions: %w[
-        "2.5.1"
+        "2.6.5"
       ],
     },
     'rbenv-default-gems' => {
@@ -44,7 +44,9 @@ when 'opensuse'
 else
 end
 
-execute 'gem install colorls'
+execute 'gem install --user-install colorls' do
+  user node[:user]
+end
 
 # gem_package 'solargraph'
 # execute 'yard gems'
