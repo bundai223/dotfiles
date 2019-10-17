@@ -271,6 +271,7 @@ alias gf='git flow'; compdef gf=git-flow
 # docker
 alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 alias aws="docker run -it --rm -v ~/.aws:/root/.aws lorentzca/aws"
+alias hadolint="docker run -i --rm hadolint/hadolint"
 
 # filetype
 alias -s html=chrome
