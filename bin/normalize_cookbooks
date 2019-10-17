@@ -16,7 +16,7 @@ foreach my $raw(@raw_cookbooks) {
   } elsif (-f "$raw/default.rb") {
     print "$raw/default.rb ";
   } else {
-    print 'please check cookbook name. : ${raw}';
+    print "please check cookbook name. : ${raw}";
     exit 1;
   }
 }
