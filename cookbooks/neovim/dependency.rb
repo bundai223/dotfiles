@@ -1,13 +1,15 @@
 include_cookbook 'ruby'
 include_cookbook 'python'
-#include_cookbook 'yarn'
+include_cookbook 'yarn'
 include_cookbook 'ghq'
 
 package 'cmake'
 
 # ruby
 # gem_package 'neovim'
-execute run_as(node[:user], 'gem install neovim')
+execute 'gem install --user-install neovim' do
+  user node[:user]
+end
 
 # pip =
 %w[
