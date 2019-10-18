@@ -1045,7 +1045,7 @@ hook_add = '''
         \   'sh': ['bash-language-server', 'start'],
         \   'Dockerfile': ['docker-langserver', '--stdio'],
         \   'ruby': ['solargraph', 'stdio'],
-        \   'rust': ['rustup', 'run', 'nightly', 'rls'],
+        \   'rust': ['rls'],
         \   'go': ['~/go/bin/go-langserver'],
         \   'vue': ['vls'],
         \   'html': ['html-languageserver', '--stdio'],
