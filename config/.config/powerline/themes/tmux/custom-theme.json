@@ -2,7 +2,7 @@
 	"segments": {
 		"right": [
 			{
-				"function": "powerline.segments.common.sys.uptime",
+				"function": "powerline.segments.common.vcs.branch",
 				"priority": 50
 			},
 			{
