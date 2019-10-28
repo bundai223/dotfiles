@@ -1,9 +1,25 @@
+locale = 'ja_JP.UTF-8'
+
 include_recipe 'dependency.rb'
 
 case node[:platform]
 when 'arch'
-  execute 'sed -i.bk /etc/locale.gen -e "s/#ja_JP.UTF-8/ja_JP.UTF-8/g"'
-  execute 'locale-gen'
+  file '/etc/locale.gen' do
+    action :edit
+    not_if "localectl list-locales | grep #{locale}"
+    block do |content|
+      content.gsub!("##{locale}", locale)
+    end
+  end
+
+  execute 'locale-gen' do
+    not_if "localectl list-locales | grep #{locale}"
+  end
+
+  execute "localectl set-locale #{locale}" do
+    not_if "localectl status | grep Locale | grep #{locale}"
+  end
+
 when 'osx', 'darwin'
 when 'fedora', 'redhat', 'amazon'
 when 'debian', 'ubuntu', 'mint'
