@@ -387,11 +387,13 @@ source_scripts_in_tree $utils_dir
 autoload -Uz colors && colors
 
 # prompt
-source ${PERSONAL_ZSH_DIR}/themes/prompt_vcsinfo.zsh
-## prompt
-#source ${PERSONAL_ZSH_DIR}/themes/prompt_cygwin.zsh
-## rprompt
-#source ${PERSONAL_ZSH_DIR}/themes/rprompt_vcsinfo.zsh
+if [ -n "$TMUX" ]; then
+  # tmux連携用のprompt
+else
+  source ${PERSONAL_ZSH_DIR}/themes/prompt_vcsinfo.zsh
+  #source ${PERSONAL_ZSH_DIR}/themes/prompt_cygwin.zsh   # prompt
+  #source ${PERSONAL_ZSH_DIR}/themes/rprompt_vcsinfo.zsh # rprompt
+fi
 
 #}}}
 
