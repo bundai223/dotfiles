@@ -387,8 +387,10 @@ source_scripts_in_tree $utils_dir
 autoload -Uz colors && colors
 
 # prompt
+# http://tegetegekibaru.blogspot.com/2012/08/zsh_2.html
 if [ -n "$TMUX" ]; then
   # tmux連携用のprompt
+  PROMPT="%{${bg[blue]%}%}%{${fg[black]}%} %n %{${bg[white]}%}%{${fg[blue]}%} %{${bg[white]}%}%{${fg[black]}%} %c %{${reset_color}%}%{${fg[white]}%}%{${reset_color}%} $%{${reset_color}%}%{${fg[white]}%}   %{${reset_color}%}"
 else
   source ${PERSONAL_ZSH_DIR}/themes/prompt_vcsinfo.zsh
   #source ${PERSONAL_ZSH_DIR}/themes/prompt_cygwin.zsh   # prompt
