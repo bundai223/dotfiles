@@ -12,6 +12,15 @@ when 'arch'
   yay 'tumbler'
   yay 'file-roller'
 
+  yay 'xsel' # clipboard
+  # terminal
+  yay 'terminator'
+  yay 'lxterminal'
+  yay 'gtk-engine-murrine'
+
+  yay 'udisks2'
+  yay 'udevil'
+
 when 'osx', 'darwin'
 when 'fedora', 'redhat', 'amazon'
 when 'debian', 'ubuntu', 'mint'

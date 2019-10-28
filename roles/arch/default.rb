@@ -18,17 +18,7 @@ include_role('base')
 # yay 'hfsprogs'
 # yay 'cerebro'
 # yay 'zeal'
-yay 'xsel'
-yay 'fcitx-im'
-yay 'fcitx-configtool'
-yay 'fcitx-skk'
-yay 'skk-jisyo'
-yay 'terminator'
-yay 'lxterminal'
-yay 'gtk-engine-murrine'
 yay 'httpie'
-yay 'udisks2'
-yay 'udevil'
 yay 'inotify-tools'
 execute 'yarn global add vue-cli' do
   user node[:user]
