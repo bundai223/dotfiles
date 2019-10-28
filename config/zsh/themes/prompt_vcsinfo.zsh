@@ -192,8 +192,8 @@ function _update_vcs_info_msg() {
     #        prompt="${(j: :)messages}"
   fi
 
-  # echo "$prompt [%*]">~/test.txt
-  echo "$prompt [${symbol_clock}%*]"
+  # echo "$prompt [${symbol_clock}%*]"
+  echo "$prompt"
 }
 
 # add-zsh-hook precmd _update_vcs_info_msg

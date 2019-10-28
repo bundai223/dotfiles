@@ -233,6 +233,7 @@ alias l='ls -FG'; compdef l=ls
 alias ll='ls -lFG'; compdef ll=ls
 alias la='ls -lFGa'; compdef la=ls
 alias pd=popd; compdef pd=popd
+alias history='history -i'
 
 alias ocaml='rlwrap ocaml'
 
@@ -407,6 +408,14 @@ fi
 # }
 # add-zsh-hook precmd precmd_z
 
+
+if [ -n "$TMUX" ]; then
+  # tmux用powerlineのcwd更新
+  update_tmux_cwd() {
+    tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD"
+  }
+  add-zsh-hook chpwd update_tmux_cwd
+fi
 
 # for hyperterm
 #precmd() {
