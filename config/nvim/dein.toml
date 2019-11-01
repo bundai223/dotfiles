@@ -964,13 +964,6 @@ repo    = 'todesking/ruby_hl_lvar.vim'
 [[plugins]]
 repo = 'pocke/dicts'
 
-# python
-[[plugins]]
-repo    = 'zchee/deoplete-jedi'
-depends = 'deoplete.nvim'
-on_i    = 1
-on_ft   = 'python'
-
 # javascript
 [[plugins]]
 repo    = 'pangloss/vim-javascript'
@@ -1045,6 +1038,7 @@ hook_add = '''
         \   'sh': ['bash-language-server', 'start'],
         \   'Dockerfile': ['docker-langserver', '--stdio'],
         \   'ruby': ['solargraph', 'stdio'],
+        \   'python': ['pyls'],
         \   'rust': ['rls'],
         \   'go': ['~/go/bin/go-langserver'],
         \   'vue': ['vls'],

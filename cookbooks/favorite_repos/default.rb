@@ -14,6 +14,7 @@ repos.each { |name| get_repo name }
 pip_pkgs = [
   'powerline-status',
   'powerline-gitstatus',
+  'python-language-server',
 ]
 ['pip', 'pip3'].each do |pip|
   pip_pkgs.each do |pkg|
