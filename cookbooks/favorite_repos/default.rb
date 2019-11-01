@@ -11,8 +11,13 @@ repos = [
 ]
 repos.each { |name| get_repo name }
 
+pip_pkgs = [
+  'powerline-status',
+  'powerline-gitstatus',
+]
 ['pip', 'pip3'].each do |pip|
-  execute "#{pip} install --user powerline-status" do
+  pip_pkgs.each do |pkg|
+  execute "#{pip} install --user #{pkg}" do
     user node[:user]
     only_if "which #{pip}>/dev/null"
   end
