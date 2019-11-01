@@ -1,6 +1,8 @@
 {
 	"common": {
-		"term_truecolor": false
+		"term_truecolor": false,
+		"log_file": "~/powerlog",
+		"log_level": "ERROR"
 	},
 	"ext": {
 		"ipython": {
@@ -18,7 +20,7 @@
 		},
 		"shell": {
 			"colorscheme": "default",
-			"theme": "default",
+			"theme": "custom_simple",
 			"local_themes": {
 				"continuation": "continuation",
 				"select": "select"
