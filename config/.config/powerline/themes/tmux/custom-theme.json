@@ -6,10 +6,10 @@
 				"priority": 50
 			},
 			{
-				"function": "powerline.segments.common.time.date"
+				"function": "powerline_sky_color_clock.sky_color_clock"
 			},
 			{
-				"function": "powerline.segments.common.time.date",
+				"function": "powerline_sky_color_clock.sky_color_clock",
 				"name": "time",
 				"before": "⌚",
 				"args": {
