@@ -1,8 +1,8 @@
 {
 	"common": {
 		"term_truecolor": false,
-		"log_file": "~/powerlog",
-		"log_level": "ERROR"
+		"log_file": "~/powerline.log",
+		"log_level": "INFO"
 	},
 	"ext": {
 		"ipython": {
