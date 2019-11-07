@@ -7,6 +7,7 @@ include_cookbook('yay')
 update_package
 
 package 'base-devel'
+package 'downgrader'
 package 'openssh'
 package 'libxml2'
 package 'libxslt'
