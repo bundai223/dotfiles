@@ -11,6 +11,8 @@
 		"session":              {"fg": "black",      "bg": "gray90",   "attrs": ["bold"]},
 		"session:prefix":       {"fg": "gray90",     "bg": "darkblue", "attrs": ["bold"]},
 
+    "mouse_mode": {"fg": "white", "bg": "gray2", "attrs": []},
+
 		"gitstatus":                 { "fg": "gray8",           "bg": "gray2", "attrs": [] },
 		"gitstatus_branch":          { "fg": "gray8",           "bg": "gray2", "attrs": [] },
 		"gitstatus_branch_clean":    { "fg": "green",           "bg": "gray2", "attrs": [] },
