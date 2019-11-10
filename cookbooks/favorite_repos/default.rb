@@ -18,9 +18,10 @@ pip_pkgs = [
 ]
 ['pip', 'pip3'].each do |pip|
   pip_pkgs.each do |pkg|
-  execute "#{pip} install --user #{pkg}" do
-    user node[:user]
-    only_if "which #{pip}>/dev/null"
+    execute "#{pip} install --user #{pkg}" do
+      user node[:user]
+      only_if "which #{pip}>/dev/null"
+    end
   end
 end
 
