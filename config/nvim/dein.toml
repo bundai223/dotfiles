@@ -390,16 +390,17 @@ hook_add = '''
     let g:context_filetype#filetypes = {}
   endif
 
-  " let g:context_filetype#filetypes.changelog = [
-  "      \   {
-  "      \    'start' : '^\s*```\s*\(\h\w*\)',
-  "      \    'end' : '^\s*```$', 'filetype' : '\1',
-  "      \   },
-  "      \   {
-  "      \    'start' : '^\s*- ```\s*\(\h\w*\)',
-  "      \    'end' : '^\s*- ```$', 'filetype' : '\1',
-  "      \   },
-  "      \ ]
+  " changelogmemoもmarkdownと同じように書きたいので設定してみる
+  let g:context_filetype#filetypes.changelog = [
+       \   {
+       \    'start' : '^\s*```\s*\(\h\w*\)',
+       \    'end' : '^\s*```$', 'filetype' : '\1',
+       \   },
+       \   {
+       \    'start' : '^\s*- ```\s*\(\h\w*\)',
+       \    'end' : '^\s*- ```$', 'filetype' : '\1',
+       \   },
+       \ ]
 '''
 
 [[plugins]]
@@ -420,6 +421,16 @@ hook_add = '''
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
 depends = 'context_filetype.vim'
+hook_add = '''
+  let g:precious_enable_switchers = get(g:, 'precious_enable_switchers', {})
+  let g:precious_enable_switchers = {
+        \   '*': {
+        \     'setfiletype': 1
+        \   },
+        \   'vue': { 'setfiletype': 0 },
+        \   'changelog': { 'setfiletype': 0 }
+        \ }
+'''
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
