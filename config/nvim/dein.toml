@@ -4,6 +4,7 @@
 repo = 'liuchengxu/vim-which-key'
 hook_source = '''
   nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+  set timeoutlen=300
 
   let g:which_key_map = get(g:, 'which_key_map', {})
   " let g:which_key_map.q = {

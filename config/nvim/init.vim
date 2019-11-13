@@ -284,17 +284,13 @@ nnoremap <leader>h :<C-u>vert bel help<Space>
 nnoremap <leader>H :<C-u>vert bel help<Space><C-r><C-w><CR>
 
 " カレントパスをバッファに合わせる
-nnoremap <silent><leader><Space> :<C-u>lcd %:h<CR>:pwd<CR>
+nnoremap <silent><leader>cd :<C-u>lcd %:h<CR>:pwd<CR>
 
 nnoremap <silent><leader>te :term<CR>
 
 " Quick splits
 nnoremap <silent><leader>_ :sp<CR>
 nnoremap <silent><leader><Bar> :vsp<CR>
-
-" Delete line end space|tab.
-nnoremap <silent><leader>s<Space> :%s/ *$//g<CR>
-"nnoremap <leader>s<Space> :%s/[ |\t]*$//g<CR>
 
 " Yank to end
 nnoremap Y y$
