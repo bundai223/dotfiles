@@ -31,6 +31,7 @@ $apps = @(
 )
   
 # add bucekts
+scoop install git # bucketインストールにはgit必要
 $known_buckets | % { scoop bucket add $_ }
 $unknown_buckets | % { scoop bucket add $_['name'] $_['url'] }
 
