@@ -21,6 +21,7 @@ $apps = @(
   'screentogif',
   'vscode',
   'vagrant',
+  'zeal',
   # 'buttercup',
   # 'screenpresso',
   # 'thilmera7',
