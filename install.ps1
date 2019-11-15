@@ -7,7 +7,8 @@ $known_buckets = @(
   'extras'
 )
 $unknown_buckets = @(
-  @{name = 'jp'; url = 'https://github.com/bundai223/scoop-for-jp'}
+  @{name = 'bundai223'; url = 'https://github.com/bundai223/scoop-for-jp'},
+  @{name = 'anurse'; url = 'https://github.com/anurse/scoop-bucket'},
 )
 $apps = @(
   'googlechrome',
