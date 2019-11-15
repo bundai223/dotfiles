@@ -7,7 +7,7 @@ $known_buckets = @(
   'extras'
 )
 $unknown_buckets = @(
-  @{name = 'jp'; url = 'https://github.com/rkbk60/scoop-for-jp'}
+  @{name = 'jp'; url = 'https://github.com/bundai223/scoop-for-jp'}
 )
 $apps = @(
   'googlechrome',
@@ -22,11 +22,12 @@ $apps = @(
   'vscode',
   'vagrant',
   'zeal',
+  'skk-fep',
+  'thilmera7',
+  'hhkbcng',
+  'ctrl2cap',
   # 'buttercup',
   # 'screenpresso',
-  # 'thilmera7',
-  # 'skkfep',
-  # 'hhkbconfig',
   # 'screeninfo', # https://v2.rakuchinn.jp/
   'sudo'
 )
