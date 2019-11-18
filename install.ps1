@@ -8,7 +8,8 @@ $known_buckets = @(
 )
 $unknown_buckets = @(
   @{name = 'bundai223'; url = 'https://github.com/bundai223/scoop-for-jp'},
-  @{name = 'anurse'; url = 'https://github.com/anurse/scoop-bucket'}
+  @{name = 'anurse'; url = 'https://github.com/anurse/scoop-bucket'}, # 
+  @{name = 'sh4869221b'; url = 'https://github.com/sh4869221b/scoop-bucket'} # virtualbox
 )
 $apps = @(
   'googlechrome',
