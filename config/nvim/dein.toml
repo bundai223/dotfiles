@@ -227,7 +227,7 @@ hook_add = '''
     \ 'description': 'Edit your memo'
     \ }
   let s:menus.memo.file_candidates = [
-    \ ['memo', g:memo_dir . '/changelog.memo'],
+    \ ['memo', g:memo_dir . '/ChangeLog'],
     \ ]
 
   let s:menus.git = {
