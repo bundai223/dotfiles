@@ -4,6 +4,7 @@
 repo = 'liuchengxu/vim-which-key'
 hook_source = '''
   nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+  set timeoutlen=300
 
   let g:which_key_map = get(g:, 'which_key_map', {})
   " let g:which_key_map.q = {
@@ -226,7 +227,7 @@ hook_add = '''
     \ 'description': 'Edit your memo'
     \ }
   let s:menus.memo.file_candidates = [
-    \ ['memo', g:memo_dir . '/changelog.memo'],
+    \ ['memo', g:memo_dir . '/ChangeLog'],
     \ ]
 
   let s:menus.git = {
@@ -390,16 +391,17 @@ hook_add = '''
     let g:context_filetype#filetypes = {}
   endif
 
-  " let g:context_filetype#filetypes.changelog = [
-  "      \   {
-  "      \    'start' : '^\s*```\s*\(\h\w*\)',
-  "      \    'end' : '^\s*```$', 'filetype' : '\1',
-  "      \   },
-  "      \   {
-  "      \    'start' : '^\s*- ```\s*\(\h\w*\)',
-  "      \    'end' : '^\s*- ```$', 'filetype' : '\1',
-  "      \   },
-  "      \ ]
+  " changelogmemoもmarkdownと同じように書きたいので設定してみる
+  let g:context_filetype#filetypes.changelog = [
+       \   {
+       \    'start' : '^\s*```\s*\(\h\w*\)',
+       \    'end' : '^\s*```$', 'filetype' : '\1',
+       \   },
+       \   {
+       \    'start' : '^\s*- ```\s*\(\h\w*\)',
+       \    'end' : '^\s*- ```$', 'filetype' : '\1',
+       \   },
+       \ ]
 '''
 
 [[plugins]]
@@ -420,6 +422,16 @@ hook_add = '''
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
 depends = 'context_filetype.vim'
+hook_add = '''
+  let g:precious_enable_switchers = get(g:, 'precious_enable_switchers', {})
+  let g:precious_enable_switchers = {
+        \   '*': {
+        \     'setfiletype': 1
+        \   },
+        \   'vue': { 'setfiletype': 0 },
+        \   'changelog': { 'setfiletype': 0 }
+        \ }
+'''
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
@@ -964,13 +976,6 @@ repo    = 'todesking/ruby_hl_lvar.vim'
 [[plugins]]
 repo = 'pocke/dicts'
 
-# python
-[[plugins]]
-repo    = 'zchee/deoplete-jedi'
-depends = 'deoplete.nvim'
-on_i    = 1
-on_ft   = 'python'
-
 # javascript
 [[plugins]]
 repo    = 'pangloss/vim-javascript'
@@ -1045,7 +1050,8 @@ hook_add = '''
         \   'sh': ['bash-language-server', 'start'],
         \   'Dockerfile': ['docker-langserver', '--stdio'],
         \   'ruby': ['solargraph', 'stdio'],
-        \   'rust': ['rustup', 'run', 'nightly', 'rls'],
+        \   'python': ['pyls'],
+        \   'rust': ['rls'],
         \   'go': ['~/go/bin/go-langserver'],
         \   'vue': ['vls'],
         \   'html': ['html-languageserver', '--stdio'],

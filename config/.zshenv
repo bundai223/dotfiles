@@ -3,10 +3,9 @@
 export GHQ_ROOT=~/repos
 export PERSONAL_ZSH_DIR=${GHQ_ROOT}/github.com/bundai223/dotfiles/config/zsh
 
-fpath=(~/repos/github.com/zsh-users/zsh-completions/src(N-/) $fpath)
-fpath=(~/repos/github.com/bobthecow/git-flow-completion(N-/) $fpath)
-fpath=(${PERSONAL_ZSH_DIR}/functions/completions(N-/) $fpath)
-#fpath=(/usr/local/share/zsh/site-functions(N-/) $fpath)
+fpath=($fpath ~/repos/github.com/zsh-users/zsh-completions/src(N-/))
+fpath=($fpath ~/repos/github.com/bobthecow/git-flow-completion(N-/))
+fpath=($fpath ${PERSONAL_ZSH_DIR}/functions/completions(N-/))
 
 # export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 path=(${PERSONAL_ZSH_DIR}/functions(N-/) $path)
