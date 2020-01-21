@@ -16,7 +16,19 @@ mk_cookbook()
 
   test -e $cookbook || mkdir -p $cookbook
   test -e $dependency || touch $dependency
-  test -e $entrypoint || echo "include_recipe 'dependency.rb'" >> $entrypoint
+  test -e $entrypoint || cat <<EOF > $entrypoint
+include_recipe 'dependency.rb'
+
+case node[:platform]
+when 'arch'
+when 'osx', 'darwin'
+when 'fedora', 'redhat', 'amazon'
+when 'debian', 'ubuntu', 'mint'
+when 'opensuse'
+else
+end
+
+EOF
 }
 
 if [ $# -eq 0 ]; then

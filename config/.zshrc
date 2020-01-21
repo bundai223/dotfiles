@@ -233,6 +233,7 @@ alias l='ls -FG'; compdef l=ls
 alias ll='ls -lFG'; compdef ll=ls
 alias la='ls -lFGa'; compdef la=ls
 alias pd=popd; compdef pd=popd
+alias history='history -i'
 
 alias ocaml='rlwrap ocaml'
 
@@ -386,11 +387,17 @@ source_scripts_in_tree $utils_dir
 autoload -Uz colors && colors
 
 # prompt
-source ${PERSONAL_ZSH_DIR}/themes/prompt_vcsinfo.zsh
-## prompt
-#source ${PERSONAL_ZSH_DIR}/themes/prompt_cygwin.zsh
-## rprompt
-#source ${PERSONAL_ZSH_DIR}/themes/rprompt_vcsinfo.zsh
+# http://tegetegekibaru.blogspot.com/2012/08/zsh_2.html
+# if [ -n "$TMUX" ]; then
+#   # tmux連携用のprompt
+#   PROMPT="%{${bg[blue]%}%}%{${fg[black]}%} %n %{${bg[white]}%}%{${fg[blue]}%}%{${bg[white]}%}%{${fg[black]}%} %c %{${reset_color}%}%{${fg[white]}%}%{${reset_color}%} $%{${reset_color}%}%{${fg[white]}%} %{${reset_color}%} "
+# else
+#   source ${PERSONAL_ZSH_DIR}/themes/prompt_vcsinfo.zsh
+#   #source ${PERSONAL_ZSH_DIR}/themes/prompt_cygwin.zsh   # prompt
+#   #source ${PERSONAL_ZSH_DIR}/themes/rprompt_vcsinfo.zsh # rprompt
+# fi
+
+source ~/.local/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
 #}}}
 
@@ -407,6 +414,14 @@ fi
 # }
 # add-zsh-hook precmd precmd_z
 
+
+if [ -n "$TMUX" ]; then
+  # tmux用powerlineのcwd更新
+  update_tmux_cwd() {
+    tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD"
+  }
+  add-zsh-hook chpwd update_tmux_cwd
+fi
 
 # for hyperterm
 #precmd() {

@@ -1,19 +1,21 @@
 {
 	"segments": {
-		"right": [
+    "left": [
 			{
-				"function": "powerline.segments.common.sys.uptime",
+				"function": "powerline_ext_tmux.segments.global.mouse_mode",
 				"priority": 50
-			},
+			}
+    ],
+		"right": [
 			{
 				"function": "powerline.segments.common.sys.system_load",
 				"priority": 50
 			},
 			{
-				"function": "powerline.segments.common.time.date"
+				"function": "powerline_sky_color_clock.sky_color_clock"
 			},
 			{
-				"function": "powerline.segments.common.time.date",
+				"function": "powerline_sky_color_clock.sky_color_clock",
 				"name": "time",
 				"before": "⌚",
 				"args": {
@@ -23,6 +25,10 @@
 			},
 			{
 				"function": "powerline.segments.common.net.hostname"
+			},
+			{
+				"function": "powerline.segments.common.env.user",
+				"priority": 30
 			}
 		]
 	}
