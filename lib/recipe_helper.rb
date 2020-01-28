@@ -143,7 +143,7 @@ end
 define :go_get do
   reponame = params[:name]
 
-  execute "go get #{reponame}" dp
+  execute "go get #{reponame}" do
     user node[:user]
   end
 end
