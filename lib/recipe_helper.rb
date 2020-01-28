@@ -8,7 +8,7 @@
       group = 'staff'
     when 'arch'
       home = %x[cat /etc/passwd | grep #{user} | awk -F: '!/nologin/{print $(NF-1)}'].strip
-      group = 'users'
+      group = user
     else
       home = %x[cat /etc/passwd | grep #{user} | awk -F: '!/nologin/{print $(NF-1)}'].strip
       group = user
@@ -143,13 +143,16 @@ end
 define :go_get do
   reponame = params[:name]
 
-  execute run_as(node[:user], "go get #{reponame}")
+  execute "go get #{reponame}" dp
+    user node[:user]
+  end
 end
 
 define :yay do
   name = params[:name]
 
-  execute "#{sudo(node[:user])} yay -S --noconfirm #{name}" do
+  execute "yay -S --noconfirm #{name}" do
+    user node[:user]
     not_if "yay -Q #{name}"
   end
 end
