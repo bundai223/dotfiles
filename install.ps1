@@ -23,6 +23,7 @@ $apps = @(
   'brave',
   'vivaldi',
   '7zip',
+  'keypirinha',
   'bitwarden',
   'vcxsrv',
   'phraseexpress',
