@@ -24,7 +24,6 @@ $apps = @(
   'vivaldi',
   '7zip',
   'bitwarden',
-  'hain',
   'vcxsrv',
   'phraseexpress',
   'screentogif',
