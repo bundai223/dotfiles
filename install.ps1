@@ -33,7 +33,7 @@ $apps = @(
   'zeal',
   'skk-fep',
   'thilmera7',
-  'hhkbcng',
+  # 'hhkbcng',
   'ctrl2cap',
   # 'buttercup',
   # 'screenpresso',
