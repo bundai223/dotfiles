@@ -5,11 +5,18 @@ LABEL maintainer="bundai223@gmail.com"
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
 
 RUN apk update && \
-    apk upgrade && \
-    apk add --no-cache \
+    apk upgrade
+RUN apk add --no-cache \
     curl \
     gcc \
+    zsh \
+    tmux \
+    perl \
+    sudo \
     git \
+    build-base \
+    ruby \
+    ruby-dev \
     linux-headers \
     musl-dev\
     neovim \
@@ -21,7 +28,8 @@ RUN apk update && \
 
 ENV LANG="ja_JP.UTF-8" LANGUAGE="ja_JP:ja" LC_ALL="ja_JP.UTF-8"
 
-RUN pip3 install --upgrade pip neovim
+RUN pip3 install --upgrade pip neovim && \
+    gem install neovim colorls
 
 WORKDIR /usr/src/nvim
 
