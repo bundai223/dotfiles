@@ -48,7 +48,6 @@ values."
      markdown
      shell-scripts
      chrome
-     pandoc
      twitter
 
      (ivy :variables ivy-enable-advanced-buffer-information t)
@@ -57,7 +56,7 @@ values."
      emacs-lisp
      git
      org
-     dap
+     ;; dap
      lsp
      docker
      spell-checking
@@ -70,7 +69,9 @@ values."
      (shell :variables
             shell-default-shell 'multi-term
             shell-default-height 30
-            shell-default-position 'bottom)
+            shell-default-position 'bottom
+            shell-default-term-shell "/bin/bash"
+            multi-term-program "/bin/bash")
      (gtags :variables gtags-enable-by-default t)
    )
    ;; List of additional packages that will be installed without being
@@ -93,6 +94,7 @@ values."
      quickrun
      undohist
      vue-mode
+     ddskk
      )
 
    ;; A list of packages that cannot be updated.
@@ -176,7 +178,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("HackGen53 Console for Powerline"
+   dotspacemacs-default-font '("HackGen35 Console for Powerline"
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -396,12 +398,13 @@ you should place your code here."
   (define-key evil-insert-state-map (kbd "C-n") 'company-select-next-if-tooltip-visible-or-complete-selection)
   (define-key evil-insert-state-map (kbd "C-p") 'company-select-previous)
 
+  (setq locale-coding-system 'utf-8)
   ;; (set-face-attribute 'mode-line nil :family "Noto Color Emoji")
   ;; (set-face-attribute 'mode-line nil :font "Noto Color Emoji-10")
   ;; set font HackGen53
   (set-fontset-font
    nil 'japanese-jisx0208
-   (font-spec :family "HackGen53 Console for Powerline"))
+   (font-spec :family "HackGen35 Console for Powerline"))
   ;; (setq powerline-default-separator 'arrow)
   (set-fontset-font t 'symbol (font-spec :name "Noto Color Emoji-16")) ;; modeline 崩れの対処
   ;; (set-fontset-font t 'symbol (font-spec :name "Hiragino Sans-16")) ;; modeline 崩れの対処
@@ -450,20 +453,25 @@ you should place your code here."
   (autoload 'clmemo "clmemo" "ChangeLog memo mode." t)
   (setq user-full-name "bundai223")
   (setq user-mail-address "bundai223@gmail.com")
-  (setq clmemo-file-name "~/repos/gitlab.com/bundai223/private-memo/changelog.memo")
+  (setq clmemo-file-name "~/repos/gitlab.com/bundai223/private-memo/ChangeLog")
   (global-set-key "\C-xM" 'clmemo)
   (setq clmemo-title-list ;; 補完されるタイトルのリスト
         '(
-          "bookmark"
-          "book"
+          "memo"
           "dialy"
+          "book"
+          "game"
+          "shell"
+          "bookmark"
           "idea"
           "git"
           "ruby"
           "archlinux"
           "linux"
-          "shell"
-          "memo"
+          "windows"
+          "macos"
+          "android"
+          "ios"
           ))
 
   (autoload 'clgrep "clgrep" "grep mode for ChangeLog file." t)
@@ -509,7 +517,7 @@ you should place your code here."
   (use-package helm-lsp :commands helm-lsp-workspace-symbol)
   (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
   ;; optionally if you want to use debugger
-  (use-package dap-mode)
+  ;; (use-package dap-mode)
 
   ;; (require 'lsp-dockerfile)
   ;; (add-hook 'dockerfile-mode-hook #'lsp-dockerfile-enable)
@@ -527,7 +535,7 @@ you should place your code here."
     :hook (after-init . volatile-highlights-mode)
     )
 
-  ;; cursor位置みやすく
+  ;; cursor 位置みやすく
   (use-package beacon
     :custom (beacon-color "yellow")
     :config (beacon-mode 1))
