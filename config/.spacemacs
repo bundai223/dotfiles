@@ -57,7 +57,7 @@ This function should only modify configuration layer settings."
      (ruby :variables
            ruby-enable-ruby-on-rails-support t
            ;; ruby-enable-enh-ruby-mode t
-           ruby-backend 'lsp)
+           )
      (shell :variables
             shell-default-shell 'multi-term
             shell-default-height 30
@@ -515,6 +515,9 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+  (add-to-list 'exec-path "~/.asdf/shims/")
+  (add-to-list 'exec-path "~/.asdf/bin/")
+
   ;; for vcxsrv on windows
   (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
@@ -652,23 +655,7 @@ before packages are loaded."
   (require 'vue-mode)
   (add-to-list 'vue-mode-hook #'smartparens-mode)
 
-  (use-package lsp-mode
-    :commands
-    lsp
-    :hook
-    (Bash-mode . lsp)
-    (CSS-mode . lsp)
-    (SCSS-mode . lsp)
-    (Typescript-mode . lsp)
-    (HTML-mode . lsp)
-    (Ruby-mode . lsp)
-    (Rust-mode . lsp)
-    (Vue-mode . lsp)
-    :custom
-    (lsp-prefer-flymake nil))
-
   ;; optionally
-  (use-package lsp-ui :commands lsp-ui-mode)
   (use-package company-lsp
     :commands company-lsp
     :config
