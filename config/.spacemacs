@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp; lexical-binding: t -*-
+-*- mode: emacs-lisp; lexical-binding: t -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -44,8 +44,10 @@ This function should only modify configuration layer settings."
      docker
      git
      ghq
+     gtags
      (gtags :variables gtags-enable-by-default t)
      html
+     ivy
      (ivy :variables ivy-enable-advanced-buffer-information t)
      japanese
      javascript
@@ -54,10 +56,12 @@ This function should only modify configuration layer settings."
      multiple-cursors
      org
      rust
+     ruby
      (ruby :variables
            ruby-enable-ruby-on-rails-support t
            ;; ruby-enable-enh-ruby-mode t
            )
+     shell
      (shell :variables
             shell-default-shell 'multi-term
             shell-default-height 30
@@ -69,7 +73,9 @@ This function should only modify configuration layer settings."
      syntax-checking
      treemacs
      twitter
+     typescript
      (typescript :variables typescript-fmt-on-save t)
+     version-control
      (version-control :variables version-control-diff-side 'left)
      yaml
    )
@@ -543,15 +549,6 @@ before packages are loaded."
   (setq tab-width 2)                       ; set tabwidth=4
   (setup-indent 2)                         ; set tabwidth=4
 
-  ;; enable company to auto-complete
-  (use-package company
-    :config
-    (setq company-minimum-prefix-length 2)
-    (setq company-echo-delay 0)
-    (setq company-idle-delay 0.5)
-    (push 'company-robe company-backends)
-    (add-hook 'after-init-hook #'global-company-mode))
-
   ;; tab
   (require 'evil-tabs)
   (global-evil-tabs-mode t)
@@ -568,7 +565,7 @@ before packages are loaded."
   ;; set font HackGen53
   (set-fontset-font
    nil 'japanese-jisx0208
-   (font-spec :family "HackGen35 Console for Powerline"))
+   (font-spec :family "HackGen35Nerd Console"))
   ;; (setq powerline-default-separator 'arrow)
   (set-fontset-font t 'symbol (font-spec :name "Noto Color Emoji-16")) ;; modeline 崩れの対処
   ;; (set-fontset-font t 'symbol (font-spec :name "Hiragino Sans-16")) ;; modeline 崩れの対処
@@ -654,13 +651,6 @@ before packages are loaded."
   ;; Vue.js
   (require 'vue-mode)
   (add-to-list 'vue-mode-hook #'smartparens-mode)
-
-  ;; optionally
-  (use-package company-lsp
-    :commands company-lsp
-    :config
-    (push 'company-lsp company-backends)
-    (setf company-lsp-async t))
 
   (use-package helm-lsp :commands helm-lsp-workspace-symbol)
   (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
