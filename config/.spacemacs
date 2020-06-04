@@ -252,7 +252,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("HackGen35 Console for Powerline"
+   dotspacemacs-default-font '("HackGen35Nerd Console"
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -560,15 +560,13 @@ before packages are loaded."
   (define-key evil-insert-state-map (kbd "C-p") 'company-select-previous)
 
   (setq locale-coding-system 'utf-8)
-  ;; (set-face-attribute 'mode-line nil :family "Noto Color Emoji")
-  ;; (set-face-attribute 'mode-line nil :font "Noto Color Emoji-10")
   ;; set font HackGen53
-  (set-fontset-font
-   nil 'japanese-jisx0208
-   (font-spec :family "HackGen35Nerd Console"))
+  ;; (set-fontset-font
+  ;;  nil 'japanese-jisx0208
+  ;;  (font-spec :family "HackGen35Nerd Console"))
   ;; (setq powerline-default-separator 'arrow)
-  (set-fontset-font t 'symbol (font-spec :name "Noto Color Emoji-16")) ;; modeline 崩れの対処
-  ;; (set-fontset-font t 'symbol (font-spec :name "Hiragino Sans-16")) ;; modeline 崩れの対処
+  ;; (set-fontset-font t 'symbol (font-spec :name "Noto Color Emoji")) ;; fallback font
+  ;; (set-face-attribute 'mode-line nil :family "Noto Color Emoji")
 
   ;; all-the-icon
   (use-package all-the-icons-ivy
@@ -615,24 +613,28 @@ before packages are loaded."
   (setq user-full-name "bundai223")
   (setq user-mail-address "bundai223@gmail.com")
   (setq clmemo-file-name "~/repos/gitlab.com/bundai223/private-memo/ChangeLog")
+  (setq clmemo-time-string-with-weekday t) ;; 曜日付ける
   (global-set-key "\C-xM" 'clmemo)
-  (setq clmemo-title-list ;; 補完されるタイトルのリスト
-        '(
+  (setq clmemo-title-list '(
           "memo"
           "dialy"
-          "book"
-          "game"
-          "shell"
           "bookmark"
+          "dev"
+          ("word" . "格言")
           "idea"
-          "git"
+          ("buy". "購入")
+          ("will_buy" . "購入予定")
+          "game"
+          "learn"
+          "linux" "windows" "macos"
+          "android" "ios"
           "ruby"
-          "archlinux"
-          "linux"
-          "windows"
-          "macos"
-          "android"
-          "ios"
+          "rust"
+          "javascript" "typescript"
+          "devops"
+          "frontend" "backend"
+          "ml"
+          "vim" "emacs" "neovim" "spacemacs"
           ))
 
   (autoload 'clgrep "clgrep" "grep mode for ChangeLog file." t)
@@ -723,20 +725,6 @@ before packages are loaded."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (ivy-rich yaml-mode iceberg-theme tide typescript-mode lsp-vue lsp-ui company-lsp lsp-mode ht xterm-color unfill shell-pop mwim multi-term eshell-z eshell-prompt-extras esh-help treepy graphql blgrep dockerfile-mode docker tablist docker-tramp undohist evil-tabs elscreen clmemo ggtags web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode toml-mode racer flycheck-rust cargo rust-mode pangu-spacing less-css-mode japanese-holidays evil-tutor-ja avy-migemo migemo web-mode tagedit slim-mode scss-mode sass-mode pug-mode haml-mode emmet-mode company-web web-completion-data vue-mode edit-indirect ssass-mode vue-html-mode ddskk cdb ccc quickrun smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub let-alist with-editor diff-hl auto-dictionary org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode htmlize gnuplot gh-md fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 (defun dotspacemacs/emacs-custom-settings ()
   "Emacs custom settings.
 This is an auto-generated function, do not modify its content directly, use
@@ -749,7 +737,15 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (posframe dap-mode bui ivy-rich yaml-mode iceberg-theme tide typescript-mode lsp-vue lsp-ui company-lsp lsp-mode ht xterm-color unfill shell-pop mwim multi-term eshell-z eshell-prompt-extras esh-help treepy graphql blgrep dockerfile-mode docker tablist docker-tramp undohist evil-tabs elscreen clmemo ggtags web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode toml-mode racer flycheck-rust cargo rust-mode pangu-spacing less-css-mode japanese-holidays evil-tutor-ja avy-migemo migemo web-mode tagedit slim-mode scss-mode sass-mode pug-mode haml-mode emmet-mode company-web web-completion-data vue-mode edit-indirect ssass-mode vue-html-mode ddskk cdb ccc quickrun smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub let-alist with-editor diff-hl auto-dictionary org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode htmlize gnuplot gh-md fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy))))
+    (tern yasnippet-snippets yaml-mode xterm-color ws-butler writeroom-mode winum which-key wgrep web-mode web-beautify vue-mode vterm volatile-highlights vi-tilde-fringe uuidgen use-package unfill undohist twittering-mode treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toml-mode toc-org tide terminal-here tagedit symon symbol-overlay string-inflection spaceline-all-the-icons smex smeargle slim-mode shell-pop seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters racer quickrun pug-mode prettier-js posframe popwin password-generator paradox pangu-spacing overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-bullets org-brain open-junk-file nodejs-repl nameless mwim multi-term move-text minitest minimap markdown-toc magit-svn magit-section magit-gitflow macrostep lsp-ui lsp-ivy lsp-dockerfile lorem-ipsum livid-mode link-hint json-navigator js2-refactor js-doc japanese-holidays ivy-yasnippet ivy-xref ivy-rich ivy-purpose ivy-hydra insert-shebang indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio gnuplot gmail-message-mode gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ ghq gh-md ggtags fuzzy font-lock+ flyspell-correct-ivy flymd flycheck-rust flycheck-pos-tip flycheck-package flycheck-elsa flycheck-bashate flx-ido fish-mode fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor-ja evil-textobj-line evil-tabs evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emr emmet-mode elisp-slime-nav editorconfig edit-server dumb-jump dotenv-mode docker diminish devdocs define-word ddskk dap-mode counsel-projectile counsel-gtags counsel-css company-web company-shell column-enforce-mode clean-aindent-mode chruby centered-cursor-mode cargo bundler browse-at-remote blgrep beacon avy-migemo auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile all-the-icons-ivy all-the-icons-dired aggressive-indent ace-link ac-ispell)))
+ '(safe-local-variable-values
+   (quote
+    ((clmemo-mode . t)
+     (typescript-backend . tide)
+     (typescript-backend . lsp)
+     (javascript-backend . tide)
+     (javascript-backend . tern)
+     (javascript-backend . lsp)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
