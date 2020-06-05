@@ -561,12 +561,13 @@ before packages are loaded."
 
   (setq locale-coding-system 'utf-8)
   ;; set font HackGen53
-  ;; (set-fontset-font
-  ;;  nil 'japanese-jisx0208
-  ;;  (font-spec :family "HackGen35Nerd Console"))
+  (set-fontset-font
+   nil 'japanese-jisx0208
+   (font-spec :family "HackGen35Nerd Console"))
   ;; (setq powerline-default-separator 'arrow)
   ;; (set-fontset-font t 'symbol (font-spec :name "Noto Color Emoji")) ;; fallback font
   ;; (set-face-attribute 'mode-line nil :family "Noto Color Emoji")
+  (set-fontset-font "fontset-default" nil (font-spec :family "Noto Color Emoji"))
 
   ;; all-the-icon
   (use-package all-the-icons-ivy
