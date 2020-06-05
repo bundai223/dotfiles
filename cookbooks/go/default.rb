@@ -1,9 +1,10 @@
+version = '1.13.7'
 
 case node[:platform]
 when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon'
   execute 'install go from official binary' do
     command <<-EOL
-      VERSION=1.9.2
+      VERSION=#{version}
       OS=linux
       ARCH=amd64
 
