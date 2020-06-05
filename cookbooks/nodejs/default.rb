@@ -1,59 +1,35 @@
-include_recipe 'dependency.rb'
+include_recipe './dependency.rb'
 
-node.reverse_merge!({
-  nvm: {
-    version: 'v0.33.11',
-  },
-  nodejs: {
-    version: '10.13.0',
-    major_version: 10,
-  }
-})
+# node.reverse_merge!({
+#   nodejs: {
+#     version: '10.13.0',
+#   }
+# })
 
-node_version = node[:nodejs][:version]
-major_version = node[:nodejs][:major_version]
-nvm_version = node[:nvm][:version]
+node_version = 'latest'
+node_version = node[:nodejs][:version] unless node[:nodejs].nil?
+user = node[:user]
 
-case node[:platform]
-when 'debian', 'ubuntu', 'mint'
-  execute 'nvm install' do
-    command "curl -o- https://raw.githubusercontent.com/creationix/nvm/#{nvm_version}/install.sh | bash"
-  end
-  # execute "install nodejs#{major_version}" do
-  #   command <<-EOL
-  #     curl -sL https://deb.nodesource.com/setup_#{major_version}.x | sudo -E bash -
-  #   EOL
-  # end
-  #
-  # package 'nodejs'
+execute 'install asdf-nodejs' do
+  user user
+  command <<-EOS
+. ~/.asdf/asdf.sh
+asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+EOS
+  not_if 'test -d ~/.asdf/plugins/nodejs'
+end
 
-when 'fedora', 'redhat', 'amazon'
-  execute "install nodejs#{major_version}" do
-    command <<-EOL
-      curl --silent --location https://rpm.nodesource.com/setup_#{major_version}.x | sudo bash -
-    EOL
-  end
-
-  package 'nodejs'
-
-when 'osx', 'darwin'
-when 'arch'
-  yay 'nvm'
-when 'opensuse'
+execute 'install nodejs' do
+  user user
+  command <<-EOS
+VER=#{node_version}
+. ~/.asdf/asdf.sh
+asdf install nodejs ${VER}
+if [ ${VER} = 'latest' ]; then
+  asdf global nodejs $(asdf list nodejs)
 else
+  asdf global nodejs ${VER}
+fi
+EOS
 end
-
-# setup conf
-conf_path = '/etc/profile.d/nodejs.sh'
-remote_file conf_path do
-  action :create
-  mode '644'
-end
-
-execute "nvm install #{node_version}" do
-  command <<-EOL
-    source #{conf_path}
-    nvm install #{node_version}
-  EOL
-end
-
