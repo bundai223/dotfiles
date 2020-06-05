@@ -10,10 +10,10 @@ set -eu
 
 mitamae() {
   cookbooks=$@
+  cmd="bin/mitamae local --shell /bin/bash -l debug lib/recipe_helper.rb $cookbooks"
   case "$(uname)" in
     "Darwin")  bin/mitamae local $cookbooks ;;
-    *) sudo -i bash -c "cd $(pwd) && bin/mitamae local -l debug lib/recipe_helper.rb $cookbooks" ;;
-    # *) sudo -i bash -c "cd $(pwd) && bin/mitamae local lib/recipe_helper.rb $cookbooks" ;;
+    *) sudo -i bash -c "cd $(pwd) && $cmd" ;;
   esac
 }
 
