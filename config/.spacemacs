@@ -67,7 +67,6 @@ This function should only modify configuration layer settings."
      shell-scripts
      spell-checking
      syntax-checking
-     tern
      treemacs
      twitter
      (typescript :variables typescript-fmt-on-save t)
