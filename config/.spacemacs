@@ -65,7 +65,7 @@ This function should only modify configuration layer settings."
             shell-default-term-shell "/bin/bash"
             multi-term-program "/bin/bash")
      shell-scripts
-     spell-checking
+     ;; spell-checking
      syntax-checking
      treemacs
      twitter
@@ -467,7 +467,7 @@ It should only modify the values of Spacemacs settings."
    ;; `trailing' to delete only the whitespace at end of lines, `changed' to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup `trailing
 
    ;; If non nil activate `clean-aindent-mode' which tries to correct
    ;; virtual indentation of simple modes. This can interfer with mode specific
@@ -625,9 +625,9 @@ before packages are loaded."
           "android" "ios"
           "ruby"
           "rust"
-          "javascript" "typescript"
           "devops"
           "frontend" "backend"
+          "rails" "nodejs" "rust" "ruby" "javascript" "typescript"
           "ml"
           "vim" "emacs" "neovim" "spacemacs" "vscode"
           ))
@@ -716,6 +716,12 @@ before packages are loaded."
      '(minimap-active-region-background
        ((((background dark)) (:background "#555555555555"))
         (t (:background "#C847D8FEFFFF"))) :group 'minimap)))
+
+  (setq skk-server-prog "$ASDF_DIR/shims/google-ime-skk") ; google-ime-skkの場所
+  (setq skk-server-inhibit-startup-server nil) ; 辞書サーバが起動していなかったときに Emacs からプロセスを立ち上げる
+  (setq skk-server-host "localhost") ; サーバー機能を利用
+  (setq skk-server-portnum 55100)     ; ポートはgoogle-ime-skk
+  (setq skk-share-private-jisyo t)   ; 複数 skk 辞書を共有
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
