@@ -30,7 +30,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(csv
+   '(php
+     csv
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -85,7 +86,6 @@ This function should only modify configuration layer settings."
      beacon
      blgrep
      clmemo
-     ddskk
      elscreen
      evil-tabs
      flymake
@@ -717,11 +717,23 @@ before packages are loaded."
        ((((background dark)) (:background "#555555555555"))
         (t (:background "#C847D8FEFFFF"))) :group 'minimap)))
 
-  (setq skk-server-prog "$ASDF_DIR/shims/google-ime-skk") ; google-ime-skkの場所
-  (setq skk-server-inhibit-startup-server nil) ; 辞書サーバが起動していなかったときに Emacs からプロセスを立ち上げる
-  (setq skk-server-host "localhost") ; サーバー機能を利用
-  (setq skk-server-portnum 55100)     ; ポートはgoogle-ime-skk
-  (setq skk-share-private-jisyo t)   ; 複数 skk 辞書を共有
+  (use-package ddskk
+    :init
+    (add-hook 'text-mode-hook 'skk-mode)
+    :defer t
+    :config
+    (setq skk-server-prog "$ASDF_DIR/shims/google-ime-skk") ; google-ime-skkの場所
+    (setq skk-server-inhibit-startup-server nil) ; 辞書サーバが起動していなかったときに Emacs からプロセスを立ち上げる
+    (setq skk-server-host "localhost") ; サーバー機能を利用
+    (setq skk-server-portnum 55100)     ; ポートはgoogle-ime-skk
+    (setq skk-share-private-jisyo t)   ; 複数skk辞書を共有 akdfjakdfはおだ
+    )
+
+  ;;半角全角間の自動スペース
+  (use-package pangu-spacing
+    :config
+    (setq pangu-spacing-real-insert-separtor nil)
+    )
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -738,7 +750,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (csv-mode enh-ruby-mode tern yasnippet-snippets yaml-mode xterm-color ws-butler writeroom-mode winum which-key wgrep web-mode web-beautify vue-mode vterm volatile-highlights vi-tilde-fringe uuidgen use-package unfill undohist twittering-mode treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toml-mode toc-org tide terminal-here tagedit symon symbol-overlay string-inflection spaceline-all-the-icons smex smeargle slim-mode shell-pop seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters racer quickrun pug-mode prettier-js posframe popwin password-generator paradox pangu-spacing overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-bullets org-brain open-junk-file nodejs-repl nameless mwim multi-term move-text minitest minimap markdown-toc magit-svn magit-section magit-gitflow macrostep lsp-ui lsp-ivy lsp-dockerfile lorem-ipsum livid-mode link-hint json-navigator js2-refactor js-doc japanese-holidays ivy-yasnippet ivy-xref ivy-rich ivy-purpose ivy-hydra insert-shebang indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio gnuplot gmail-message-mode gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ ghq gh-md ggtags fuzzy font-lock+ flyspell-correct-ivy flymd flycheck-rust flycheck-pos-tip flycheck-package flycheck-elsa flycheck-bashate flx-ido fish-mode fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor-ja evil-textobj-line evil-tabs evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emr emmet-mode elisp-slime-nav editorconfig edit-server dumb-jump dotenv-mode docker diminish devdocs define-word ddskk dap-mode counsel-projectile counsel-gtags counsel-css company-web company-shell column-enforce-mode clean-aindent-mode chruby centered-cursor-mode cargo bundler browse-at-remote blgrep beacon avy-migemo auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile all-the-icons-ivy all-the-icons-dired aggressive-indent ace-link ac-ispell)))
+    (phpunit phpcbf php-extras php-auto-yasnippets helm-gtags helm helm-core geben drupal-mode company-phpactor phpactor composer php-runtime company-php ac-php-core xcscope php-mode csv-mode enh-ruby-mode tern yasnippet-snippets yaml-mode xterm-color ws-butler writeroom-mode winum which-key wgrep web-mode web-beautify vue-mode vterm volatile-highlights vi-tilde-fringe uuidgen use-package unfill undohist twittering-mode treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toml-mode toc-org tide terminal-here tagedit symon symbol-overlay string-inflection spaceline-all-the-icons smex smeargle slim-mode shell-pop seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters racer quickrun pug-mode prettier-js posframe popwin password-generator paradox pangu-spacing overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-bullets org-brain open-junk-file nodejs-repl nameless mwim multi-term move-text minitest minimap markdown-toc magit-svn magit-section magit-gitflow macrostep lsp-ui lsp-ivy lsp-dockerfile lorem-ipsum livid-mode link-hint json-navigator js2-refactor js-doc japanese-holidays ivy-yasnippet ivy-xref ivy-rich ivy-purpose ivy-hydra insert-shebang indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio gnuplot gmail-message-mode gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ ghq gh-md ggtags fuzzy font-lock+ flyspell-correct-ivy flymd flycheck-rust flycheck-pos-tip flycheck-package flycheck-elsa flycheck-bashate flx-ido fish-mode fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor-ja evil-textobj-line evil-tabs evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emr emmet-mode elisp-slime-nav editorconfig edit-server dumb-jump dotenv-mode docker diminish devdocs define-word ddskk dap-mode counsel-projectile counsel-gtags counsel-css company-web company-shell column-enforce-mode clean-aindent-mode chruby centered-cursor-mode cargo bundler browse-at-remote blgrep beacon avy-migemo auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile all-the-icons-ivy all-the-icons-dired aggressive-indent ace-link ac-ispell)))
  '(safe-local-variable-values
    (quote
     ((clmemo-mode . t)
