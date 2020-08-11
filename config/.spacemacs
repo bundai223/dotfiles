@@ -30,7 +30,10 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(php
+   '(python
+     windows-scripts
+     sql
+     php
      csv
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -44,7 +47,7 @@ This function should only modify configuration layer settings."
      dap
      docker
      git
-     ghq
+     ;; ghq
      (gtags :variables gtags-enable-by-default t)
      html
      (ivy :variables ivy-enable-advanced-buffer-information t)
@@ -68,6 +71,7 @@ This function should only modify configuration layer settings."
      shell-scripts
      ;; spell-checking
      syntax-checking
+     ;; tabbar
      treemacs
      twitter
      (typescript :variables typescript-fmt-on-save t)
@@ -467,7 +471,7 @@ It should only modify the values of Spacemacs settings."
    ;; `trailing' to delete only the whitespace at end of lines, `changed' to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup `trailing
+   dotspacemacs-whitespace-cleanup `nil
 
    ;; If non nil activate `clean-aindent-mode' which tries to correct
    ;; virtual indentation of simple modes. This can interfer with mode specific
@@ -550,6 +554,7 @@ before packages are loaded."
   (define-key evil-normal-state-map (kbd "tn") 'elscreen-create)
   (define-key evil-normal-state-map (kbd "tc") 'elscreen-kill)
 
+  ;; completion
   (define-key evil-insert-state-map (kbd "C-n") 'company-select-next-if-tooltip-visible-or-complete-selection)
   (define-key evil-insert-state-map (kbd "C-p") 'company-select-previous)
 
@@ -734,6 +739,18 @@ before packages are loaded."
     :config
     (setq pangu-spacing-real-insert-separtor nil)
     )
+
+  (use-package magit
+    :config
+    (setq magit-repository-directories
+      '(("~/ghq/" . 6)))
+    (with-eval-after-load 'projectile
+      (when (require 'magit nil t)
+        (mapc #'projectile-add-known-project
+              (mapcar #'file-name-as-directory (magit-list-repos)))
+        ;; Optionally write to persistent `projectile-known-projects-file'
+        (projectile-save-known-projects)))
+    )
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -750,7 +767,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (phpunit phpcbf php-extras php-auto-yasnippets helm-gtags helm helm-core geben drupal-mode company-phpactor phpactor composer php-runtime company-php ac-php-core xcscope php-mode csv-mode enh-ruby-mode tern yasnippet-snippets yaml-mode xterm-color ws-butler writeroom-mode winum which-key wgrep web-mode web-beautify vue-mode vterm volatile-highlights vi-tilde-fringe uuidgen use-package unfill undohist twittering-mode treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toml-mode toc-org tide terminal-here tagedit symon symbol-overlay string-inflection spaceline-all-the-icons smex smeargle slim-mode shell-pop seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters racer quickrun pug-mode prettier-js posframe popwin password-generator paradox pangu-spacing overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-bullets org-brain open-junk-file nodejs-repl nameless mwim multi-term move-text minitest minimap markdown-toc magit-svn magit-section magit-gitflow macrostep lsp-ui lsp-ivy lsp-dockerfile lorem-ipsum livid-mode link-hint json-navigator js2-refactor js-doc japanese-holidays ivy-yasnippet ivy-xref ivy-rich ivy-purpose ivy-hydra insert-shebang indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio gnuplot gmail-message-mode gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ ghq gh-md ggtags fuzzy font-lock+ flyspell-correct-ivy flymd flycheck-rust flycheck-pos-tip flycheck-package flycheck-elsa flycheck-bashate flx-ido fish-mode fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor-ja evil-textobj-line evil-tabs evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emr emmet-mode elisp-slime-nav editorconfig edit-server dumb-jump dotenv-mode docker diminish devdocs define-word ddskk dap-mode counsel-projectile counsel-gtags counsel-css company-web company-shell column-enforce-mode clean-aindent-mode chruby centered-cursor-mode cargo bundler browse-at-remote blgrep beacon avy-migemo auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile all-the-icons-ivy all-the-icons-dired aggressive-indent ace-link ac-ispell)))
+    (yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements lsp-python-ms live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-cscope cython-mode company-anaconda blacken anaconda-mode pythonic powershell sqlup-mode sql-indent phpunit phpcbf php-extras php-auto-yasnippets helm-gtags helm helm-core geben drupal-mode company-phpactor phpactor composer php-runtime company-php ac-php-core xcscope php-mode csv-mode enh-ruby-mode tern yasnippet-snippets yaml-mode xterm-color ws-butler writeroom-mode winum which-key wgrep web-mode web-beautify vue-mode vterm volatile-highlights vi-tilde-fringe uuidgen use-package unfill undohist twittering-mode treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toml-mode toc-org tide terminal-here tagedit symon symbol-overlay string-inflection spaceline-all-the-icons smex smeargle slim-mode shell-pop seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters racer quickrun pug-mode prettier-js posframe popwin password-generator paradox pangu-spacing overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-bullets org-brain open-junk-file nodejs-repl nameless mwim multi-term move-text minitest minimap markdown-toc magit-svn magit-section magit-gitflow macrostep lsp-ui lsp-ivy lsp-dockerfile lorem-ipsum livid-mode link-hint json-navigator js2-refactor js-doc japanese-holidays ivy-yasnippet ivy-xref ivy-rich ivy-purpose ivy-hydra insert-shebang indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio gnuplot gmail-message-mode gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ ghq gh-md ggtags fuzzy font-lock+ flyspell-correct-ivy flymd flycheck-rust flycheck-pos-tip flycheck-package flycheck-elsa flycheck-bashate flx-ido fish-mode fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor-ja evil-textobj-line evil-tabs evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emr emmet-mode elisp-slime-nav editorconfig edit-server dumb-jump dotenv-mode docker diminish devdocs define-word ddskk dap-mode counsel-projectile counsel-gtags counsel-css company-web company-shell column-enforce-mode clean-aindent-mode chruby centered-cursor-mode cargo bundler browse-at-remote blgrep beacon avy-migemo auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile all-the-icons-ivy all-the-icons-dired aggressive-indent ace-link ac-ispell)))
  '(safe-local-variable-values
    (quote
     ((clmemo-mode . t)
