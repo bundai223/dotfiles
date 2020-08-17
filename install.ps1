@@ -16,7 +16,7 @@ $unknown_buckets = @(
   @{name = 'bundai223'; url = 'https://github.com/bundai223/scoop-for-jp'},
   @{name = 'anurse'; url = 'https://github.com/anurse/scoop-bucket'}, # 
   @{name = 'sh4869221b'; url = 'https://github.com/sh4869221b/scoop-bucket'}, # virtualbox
-  @{name = 'wangzq'; url = 'https://github.com/wangzq/scoop-bucket'} # powershell-core
+  @{name = 'wangzq'; url = 'https://github.com/wangzq/scoop-bucket'}
 )
 $apps = @(
   'googlechrome',
@@ -33,12 +33,14 @@ $apps = @(
   'zeal',
   'skk-fep',
   'thilmera7',
-  # 'hhkbcng',
   'ctrl2cap',
   # 'buttercup',
   # 'screenpresso',
   # 'screeninfo', # https://v2.rakuchinn.jp/
-  'sudo'
+  'pwsh',
+  'sudo',
+  'vim',
+  'windows-terminal'
 )
   
 # add bucekts
@@ -48,6 +50,15 @@ $unknown_buckets | % { scoop bucket add $_['name'] $_['url'] }
 
 # install app
 $apps | % { scoop install $_ }
+
+# install powershell module
+Install-Module posh-git -Scope CurrentUser
+Install-Module oh-my-posh -Scope CurrentUser
+Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -Force -SkipPublisherCheck
+
+# symlink
+New-Item -Value "$HOME\ghq\github.com\bundai223\dotfiles\config\WindowsTerminal.settings.json" -Path "$HOME\AppData\Local\Microsoft\Windows Terminal" -Name settings.json -ItemType SymbolicLink
+New-Item -Value "$HOME\ghq\github.com\bundai223\dotfiles\config\Microsoft.PowerShell_profile.ps1" -Path "$HOME\Documents\PowerShell" -Name Microsoft.PowerShell_profile.ps1 -ItemType SymbolicLink
 
 # Storeアプリインストールしてちょ
 echo '* Please install store apps.'
