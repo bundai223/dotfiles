@@ -44,16 +44,15 @@ function RunSpacemacs {
     -e DISPLAY="host.docker.internal:0.0" `
     -v //var/run/docker.sock:/var/run/docker.sock `
     -v "$HOME/.ssh:/root/.ssh" `
-    -v "$HOME/ghq:/root/ghq" `
-    -v "$HOME/ghq:/root/repos" `
+    -v "$HOME/repos:/root/repos" `
     -v "$HOME/.gitconfig:/root/.gitconfig" `
     -v "$HOME/.bashrc:/root/.bashrc" `
-    -v "$HOME/ghq/github.com/bundai223/dotfiles/config/SKK-JISYO.L:/root/.skk-jisyo" `
+    -v "$HOME/repos/github.com/bundai223/dotfiles/config/SKK-JISYO.L:/root/.skk-jisyo" `
+    -v "$HOME/repos/github.com/bundai223/dotfiles/config/.spacemacs:/root/.spacemacs" `
     -v "dotemacs:/root/.emacs.d" `
     -v "dotasdf:/root/.asdf" `
     -v "dotlocal:/root/.local" `
     -v "aptlists:/var/lib/apt/lists" `
-    -v "$HOME/ghq/github.com/bundai223/dotfiles/config/.spacemacs:/root/.spacemacs" `
     bundai223/spacemacs `
     emacs --insecure
 }
@@ -65,18 +64,16 @@ function RunBashSpacemacs {
     -e DISPLAY="host.docker.internal:0.0" `
     -v //var/run/docker.sock:/var/run/docker.sock `
     -v "$HOME/.ssh:/root/.ssh" `
-    -v "$HOME/ghq:/root/ghq" `
-    -v "$HOME/ghq:/root/repos" `
+    -v "$HOME/repos:/root/repos" `
     -v "$HOME/.gitconfig:/root/.gitconfig" `
     -v "$HOME/.bashrc:/root/.bashrc" `
+    -v "$HOME/repos/github.com/bundai223/dotfiles/config/.spacemacs:/root/.spacemacs" `
     -v "dotemacs:/root/.emacs.d" `
     -v "dotasdf:/root/.asdf" `
     -v "dotlocal:/root/.local" `
     -v "aptlists:/var/lib/apt/lists" `
-    -v "$HOME/ghq/github.com/bundai223/dotfiles/config/.spacemacs:/root/.spacemacs" `
     bundai223/spacemacs `
     bash
-    # -v "$HOME/ghq/github.com/bundai223/dotfiles/config/.spacemacs:/root/.skk-jisho" `
 }
 Set-Alias bash_emacs RunBashSpacemacs
 
@@ -102,7 +99,7 @@ function RunIdp {
 
   docker run --rm --name=testsamlidp `
     -p "8080:8080" `
-    -v "${HOME}/ghq/gitlab-system-dev.k-idea.jp\sys-dev\ai_system\ai_package\Mitsubishi_H_I\ai_q/lib/idp/authsources.php:/var/www/simplesamlphp/config/authsources.php" `
+    -v "${HOME}/repos/gitlab-system-dev.k-idea.jp\sys-dev\ai_system\ai_package\Mitsubishi_H_I\ai_q/lib/idp/authsources.php:/var/www/simplesamlphp/config/authsources.php" `
     -e SIMPLESAMLPHP_SP_ENTITY_ID="$entity_id" `
     -e SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE="$assertion_consumer_service" `
     -e SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE="$single_logout_service" `

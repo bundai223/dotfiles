@@ -743,7 +743,7 @@ before packages are loaded."
   (use-package magit
     :config
     (setq magit-repository-directories
-      '(("~/ghq/" . 6)))
+      '(("~/repos/" . 6)))
     (with-eval-after-load 'projectile
       (when (require 'magit nil t)
         (mapc #'projectile-add-known-project
