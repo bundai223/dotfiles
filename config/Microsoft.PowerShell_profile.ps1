@@ -118,9 +118,18 @@ Set-Alias aws RunAws
 
 # fzf‚Åghq look
 function gf {
-  $path = ghq list | fzf
+  $repo = ghq list | fzf | % { $_ -replace "/", "\\" } # ghq‚ªpath‹æØ‚è‚ğ/‚Å•Ô‚·‚Ì‚Å\‚É•ÏŠ·
   if ($LastExitCode -eq 0) {
-    cd "$(ghq root)\$path"
+    $path = ghq list --full-path | Select-String -Pattern "$repo$"
+    cd "$path"
+  }
+}
+
+# fzf git switch
+function gsw {
+  $branch = g br | % { $_ -replace "\*? *", "" } | fzf
+  if ($LastExitCode -eq 0) {
+    git switch "$branch"
   }
 }
 
