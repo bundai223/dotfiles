@@ -4,6 +4,7 @@
 [core]
 	attributesfile = ~/repos/github.com/bundai223/dotfiles/config/git/.gitattributes_global
 	excludesfile   = ~/repos/github.com/bundai223/dotfiles/config/git/.gitignore_global
+	autocrlf = false
 	quotepath = false
 	precomposeunicode = true
   commentChar = ";"
@@ -48,6 +49,7 @@
 	ft = fetch
 	ad = add
 	chk = checkout
+	sw = switch
 	cm = commit
 	df = diff
 	lg = log
