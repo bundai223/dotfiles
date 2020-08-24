@@ -49,6 +49,7 @@ when 'arch'
     mode '644'
   end
   execute 'install ruby' do
+    user user
     command <<EOC
   source /opt/asdf-vm/asdf.sh
   asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
