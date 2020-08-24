@@ -16,7 +16,7 @@
 
     repos = "#{home}/repos"
     dotfile_repos = "#{repos}/github.com/bundai223/dotfiles"
-    is_wsl = run_command('uname -a | grep Microsoft', error: false).exit_status == 0
+    is_wsl = run_command('uname -a | grep -i Microsoft', error: false).exit_status == 0
 
     node.reverse_merge!(
       user: user,

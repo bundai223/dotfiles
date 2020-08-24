@@ -16,10 +16,8 @@ when 'arch'
     EOL
 
     not_if 'which yay >/dev/null 2>&1'
-    not_if 'which pamac'
   end
   package 'yay' do
-    only_if 'which pamac'
     not_if 'which yay'
   end
 when 'osx', 'darwin'
