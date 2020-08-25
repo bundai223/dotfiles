@@ -58,15 +58,20 @@ repo = 'Shougo/dein.vim'
 repo = 'Shougo/deoplete.nvim'
 on_i = 1
 hook_source = '''
+  call deoplete#custom#option({
+        \ 'auto_complete_delay': 0,
+        \ 'enable_refresh_always': 0,
+        \ 'deoplete#enable_smart_case': 1,
+        \ 'max_list': 1000,
+        \ })
   let g:deoplete#enable_at_startup = 1
-  let g:deoplete#enable_smart_case = 1
-  let g:deoplete#auto_complete_delay = 0
   let g:deoplete#auto_start_length = 1
   let g:deoplete#enable_camel_case = 0
   let g:deoplete#enable_ignore_case = 0
-  let g:deoplete#enable_refresh_always = 0
-  let g:deoplete#file#enable_buffer_path = 1
-  let g:deoplete#max_list = 1000
+
+  call deoplete#custom#var('file', {
+        \ 'enable_buffer_path': v:true,
+        \ })
 
   " let g:deoplete#enable_profile = 1
   " call deoplete#enable_logging('DEBUG', '~/deoplete.log')
@@ -1045,7 +1050,7 @@ on_ft = 'pug'
 [[plugins]]
 repo = 'airblade/vim-rooter'
 hook_source = '''
-  let g:rooter_use_lcd = 1
+  let g:rooter_cd_cmd="lcd"
   let g:rooter_silent_chdir = 1
   let g:rooter_resolve_links = 1
 '''
@@ -1118,3 +1123,4 @@ repo = 'thomasfaingnaert/vim-lsp-neosnippet'
 
 [[plugins]]
 repo = 'lighttiger2505/deoplete-vim-lsp'
+depends = 'deoplete.nvim'
