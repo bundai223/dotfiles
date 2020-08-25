@@ -6,6 +6,7 @@ when 'arch'
 when 'osx', 'darwin'
 when 'fedora', 'redhat', 'amazon'
 when 'debian', 'ubuntu', 'mint'
+  package 'libssl-dev'
   package 'cpanminus'
 when 'opensuse'
 else

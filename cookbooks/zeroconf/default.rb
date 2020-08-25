@@ -6,7 +6,7 @@ when 'debian', 'ubuntu', 'mint'
   # for wsl
   service 'dbus' do
     action [:start, :enable]
-    not_if node[:is_wsl]
+    not_if "#{node[:is_wsl]}"
   end
 when 'fedora', 'redhat', 'amazon'
   package 'avahi'

@@ -25,7 +25,7 @@
       repos: repos,
       dotfile_repos: dotfile_repos,
       is_wsl: is_wsl,
-      go_root: '/usr/local/go/bin'
+      go_root: "#{home}/.asdf/shims/"
     )
   end
 

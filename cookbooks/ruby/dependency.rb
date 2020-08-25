@@ -12,7 +12,7 @@ when 'debian', 'ubuntu', 'mint'
     zlib1g-dev
     libncurses5-dev
     libffi-dev
-    libgdbm5
+    libgdbm6
     libgdbm-dev
     libdb-dev
   ).each {|p| package p }
