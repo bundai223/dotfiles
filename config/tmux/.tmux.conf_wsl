@@ -1,12 +1,12 @@
 # vでマーク開始
 # yでヤンク (クリップボードを使用できるように)
-unbind-key -T copy-mode-vi y         ; bind-key -T copy-mode-vi y     send-keys -X copy-pipe-and-cancel "/mnt/c/tools/win32yank-x64/win32yank.exe -i"
-unbind-key -T copy-mode-vi Enter     ; bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "/mnt/c/tools/win32yank-x64/win32yank.exe -i"
+unbind-key -T copy-mode-vi y         ; bind-key -T copy-mode-vi y     send-keys -X copy-pipe-and-cancel "win32yank.exe -i"
+unbind-key -T copy-mode-vi Enter     ; bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "win32yank.exe -i"
 
 # マウス選択でもcopy-pipe-and-cancel
-unbind-key -T copy-mode-vi MouseDragEnd1Pane ; bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "/mnt/c/tools/tools/win32yank-x64/win32yank.exe -i"
+unbind-key -T copy-mode-vi MouseDragEnd1Pane ; bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "win32yank.exe -i"
 
 # <prefix> ]でクリップボードからペースト
-unbind-key -T prefix P               ; bind-key P run "/mnt/c/tools/win32yank-x64/win32yank.exe -o | tmux load-buffer - && tmux paste-buffer"
-unbind-key -T prefix ]               ; bind-key ] run "/mnt/c/tools/win32yank-x64/win32yank.exe -o | tmux load-buffer - && tmux paste-buffer"
+unbind-key -T prefix P               ; bind-key P run "win32yank.exe -o | tmux load-buffer - && tmux paste-buffer"
+unbind-key -T prefix ]               ; bind-key ] run "win32yank.exe -o | tmux load-buffer - && tmux paste-buffer"
 unbind-key -T copy-mode-vi C-v       ; bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle

@@ -1,7 +1,7 @@
 # 共通設定の記述と環境毎のファイル読み込み
 
-export GHQ_ROOT=~/repos
-export PERSONAL_ZSH_DIR=${GHQ_ROOT}/github.com/bundai223/dotfiles/config/zsh
+export REPOS_ROOT=~/repos
+export PERSONAL_ZSH_DIR=${REPOS_ROOT}/github.com/bundai223/dotfiles/config/zsh
 
 fpath=($fpath ~/repos/github.com/zsh-users/zsh-completions/src(N-/))
 fpath=($fpath ~/repos/github.com/bobthecow/git-flow-completion(N-/))
@@ -35,7 +35,7 @@ export ZSH_HISTORY_KEYBIND_ARROW_DOWN="^n"
 export PATH=${PERSONAL_ZSH_DIR}/functions:$PATH
 
 # plugins
-export ZPLUG_HOME=${GHQ_ROOT}/github.com/zplug/zplug
+export ZPLUG_HOME=${REPOS_ROOT}/github.com/zplug/zplug
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
 
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket

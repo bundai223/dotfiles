@@ -36,10 +36,6 @@
 	grep = auto
 	ui = auto
 
-[ghq]
-	root = ~/repos
-	root = ~/go
-
 [alias]
   # ショートカット系
 	ps = push					# ステータスを短く。ブランチ名付き
