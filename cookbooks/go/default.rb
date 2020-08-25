@@ -27,5 +27,5 @@ else
 fi
 asdf reshim golang
 EOC
-  not_if 'which go'
+  not_if '. /etc/profile.d/asdf.sh; which go'
 end
