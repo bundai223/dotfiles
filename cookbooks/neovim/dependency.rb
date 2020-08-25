@@ -30,7 +30,7 @@ end
 . /etc/profile.d/asdf.sh
 #{pipcmd} install --upgrade --user #{pip}
 EOS
-      only_if "which #{pipcmd}"
+      only_if ". /etc/profile.d/asdf.sh; which #{pipcmd}"
     end
   end
 end
