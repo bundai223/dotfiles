@@ -9,6 +9,10 @@ package 'cmake'
 # gem_package 'neovim'
 execute 'gem install --user-install neovim' do
   user node[:user]
+  command <<-EOS
+. /etc/profile.d/asdf.sh
+gem install --user-install neovim
+EOS
 end
 
 # pip =
@@ -21,28 +25,23 @@ end
   ].each do |pipcmd|
     execute "#{pipcmd} install --upgrade --user #{pip}" do
       user node[:user]
+
+      command <<-EOS
+. /etc/profile.d/asdf.sh
+#{pipcmd} install --upgrade --user #{pip}
+EOS
       only_if "which #{pipcmd}"
     end
   end
 end
 
-# pip3
-%w[
-  neovim-remote
-].each do |pip|
-  # cmds =
-  execute "pip3 install --upgrade --user #{pip}" do
-    user node[:user]
-    only_if 'which pip3'
-  end
-end
-
-
-
-
 # Node.js
 execute 'yarn global add neovim' do
   user node[:user]
+  command <<-EOS
+. /etc/profile.d/asdf.sh
+yarn global add neovim
+EOS
 end
 
 go_get 'github.com/tennashi/vimalter'

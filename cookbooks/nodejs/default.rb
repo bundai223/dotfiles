@@ -32,5 +32,7 @@ if [ ${VER} = 'latest' ]; then
 else
   asdf global nodejs ${VER}
 fi
+asdf reshim nodejs
 EOS
+  not_if 'which node'
 end

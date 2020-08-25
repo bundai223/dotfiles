@@ -1,9 +1,49 @@
+user = node[:user]
+python_version = 'latest'
+
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
-  package 'python-dev'
-  package 'python-pip'
-  package 'python3-dev'
-  package 'python3-pip'
+  # package 'python-dev'
+  # package 'python-pip'
+  # package 'python3-dev'
+  # package 'python3-pip'
+
+  # https://github.com/pyenv/pyenv/wiki/Common-build-problems
+  include_cookbook 'git'
+  dependencies = %w(
+build-essential libssl-dev zlib1g-dev libbz2-dev
+libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev
+xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+  )
+  dependencies.each do |p|
+    package p
+  end
+
+  execute 'install asdf-python' do
+    user user
+    command <<-EOS
+. ~/.asdf/asdf.sh
+asdf plugin-add python
+EOS
+    not_if 'test -d ~/.asdf/plugins/python'
+  end
+
+  execute 'install python' do
+    user user
+    command <<-EOS
+VER=#{python_version}
+. ~/.asdf/asdf.sh
+asdf install python ${VER}
+if [ ${VER} = 'latest' ]; then
+  asdf global python $(asdf list python)
+else
+  asdf global python ${VER}
+fi
+EOS
+    not_if 'test -d ~/.asdf/shims/python'
+  end
+
+
 
 when 'fedora', 'redhat'
   package 'https://centos7.iuscommunity.org/ius-release.rpm' do
