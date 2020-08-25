@@ -76,6 +76,7 @@ set matchpairs=(:),{:},[:],<:>
 " 改行時の自動コメントをなしに
 augroup MyAutoCmd
   autocmd FileType * setlocal formatoptions-=o
+  autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript
 augroup END
 
 " 分割方向を指定

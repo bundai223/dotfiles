@@ -9,22 +9,23 @@ include_recipe './dependency.rb'
 node_version = 'latest'
 node_version = node[:nodejs][:version] unless node[:nodejs].nil?
 user = node[:user]
+home = node[:home]
 
 execute 'install asdf-nodejs' do
   user user
   command <<-EOS
-. ~/.asdf/asdf.sh
+. /etc/profile.d/asdf.sh
 asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
 EOS
-  not_if 'test -d ~/.asdf/plugins/nodejs'
+  not_if "test -d #{home}/.asdf/plugins/nodejs"
 end
 
 execute 'install nodejs' do
   user user
   command <<-EOS
 VER=#{node_version}
-. ~/.asdf/asdf.sh
+. /etc/profile.d/asdf.sh
 asdf install nodejs ${VER}
 if [ ${VER} = 'latest' ]; then
   asdf global nodejs $(asdf list nodejs)

@@ -1,13 +1,16 @@
 # https://wiki.archlinux.org/index.php/tmpfs
 # The tmpfs can also be temporarily resized without the need to reboot, for example when a large compile job needs to run soon. In this case, run:
-execute 'mount -o remount,size=4G,noatime /tmp'
+# execute 'mount -o remount,size=4G,noatime /tmp'
+
 
 include_cookbook('yay')
+yay 'genie-systemd' if node['is_wsl']
+include_cookbook('locale')
 
 update_package
 
 package 'base-devel'
-package 'downgrader'
+yay 'downgrader'
 package 'openssh'
 package 'libxml2'
 package 'libxslt'
