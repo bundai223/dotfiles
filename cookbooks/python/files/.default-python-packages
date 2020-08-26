@@ -1,2 +1,5 @@
+pip
+wheel
+setuptools
 neovim
 neovim-remote
