@@ -35,8 +35,8 @@ let g:dotfiles_config_path = g:dotfiles_path . '/config'
 let s:backupdir            = s:conf_root . '/backup'
 let s:swapdir              = s:conf_root . '/swp'
 let s:undodir              = s:conf_root . '/undo'
-let s:plugin_dir           = s:conf_root . '/dein'
-let s:dein_dir             = s:plugin_dir . '/repos/github.com/Shougo/dein.vim'
+let g:plugin_dir           = s:conf_root . '/dein'
+let s:dein_dir             = g:plugin_dir . '/repos/github.com/Shougo/dein.vim'
 let g:dein_toml            = g:pub_repos_path . '/dotfiles/config/nvim/dein.toml'
 let g:memo_dir             = g:priv_repos_path . '/private-memo'
 let g:outher_package_path = s:conf_root . '/tools'
@@ -330,11 +330,11 @@ if &compatible
   set nocompatible
 endif
 if &runtimepath !~# '/dein.vim'
-  call MkDir(s:plugin_dir)
+  call MkDir(g:plugin_dir)
 
   if !isdirectory(s:dein_dir)
     execute '!curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer_dein.sh'
-    execute '!sh installer_dein.sh '. s:plugin_dir
+    execute '!sh installer_dein.sh '. g:plugin_dir
     execute '!rm installer_dein.sh'
 
   endif
@@ -343,7 +343,7 @@ if &runtimepath !~# '/dein.vim'
 endif
 
 if dein#load_state(expand(s:dein_dir))
-  call dein#begin(expand(s:plugin_dir))
+  call dein#begin(expand(g:plugin_dir))
 
   call dein#add('tpope/vim-fugitive')
   call dein#load_toml(g:dein_toml, {})

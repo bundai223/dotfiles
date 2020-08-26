@@ -48,6 +48,10 @@ repo = 'bundai223/vim-template'
 repo ='bronson/vim-trailing-whitespace'
 
 [[plugins]]
+repo = 'liuchengxu/vim-clap'
+build = 'make'
+
+[[plugins]]
 repo = 'Shougo/vimproc.vim'
 build = 'make'
 
@@ -141,7 +145,7 @@ hook_add = '''
   " source
   " vim-which-key対応に伴い統一テスト
   nnoremap <silent> <leader>/f   :<C-u>DeniteBufferDir file/rec<CR>
-  nnoremap <silent> <leader>/p   :<C-u>DeniteProjectDir file/rec<CR>
+  nnoremap <silent> <leader>/p   :<C-u>Denite file/rec/git<CR>
   nnoremap <silent> <leader>/m   :<C-u>Denite file_mru<CR>
   nnoremap <silent> <leader>/o   :<C-u>Denite -no-quit -wrap outline<CR>
   nnoremap <silent> <leader>/gr   :<C-u>Denite -auto-preview grep<CR>
@@ -161,7 +165,7 @@ hook_add = '''
 
   " denite file
   nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file/rec<CR>
-  nnoremap <silent> [denite]p   :<C-u>DeniteProjectDir file/rec<CR>
+  nnoremap <silent> [denite]p   :<C-u>Denite file/rec/git<CR>
   nnoremap <silent> [denite]m   :<C-u>Denite file_mru<CR>
   nnoremap <silent> [denite]o   :<C-u>Denite -no-quit -wrap outline<CR>
   nnoremap <silent> [denite]gr   :<C-u>Denite -auto-preview grep<CR>
@@ -189,33 +193,39 @@ hook_add = '''
     "\ 'winrow': s:denite_winrow,
     "\ 'winwidth': s:denite_winwidth,
 
-  " For ripgrep
-  " Note: It is slower than ag
-  call denite#custom#var('file/rec', 'command',
-  \ ['rg', '--files', '--hidden', '--glob', '!.git'])
-
   " Change mappings.
   call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>')
   call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>')
 
+  " filter
+  let s:clap = g:plugin_dir . '/repos/github.com/liuchengxu/vim-clap'
+  call denite#custom#filter('matcher/clap', 'clap_path', expand(s:clap))
+
   " Change matchers.
-  call denite#custom#source(
-  \ 'file_mru', 'matchers', ['matcher/regexp'])
-  call denite#custom#source(
-  \ 'file/rec', 'matchers', ['matcher/regexp'])
+  " call denite#custom#source('file_mru', 'matchers', ['matcher/regexp'])
+  call denite#custom#source('file_mru', 'matchers', ['matcher/clap'])
 
-  " Change sorters.
-  call denite#custom#source(
-  \ 'file/rec', 'sorters', ['sorter/sublime'])
+  " file/rec
+  call denite#custom#source('file/rec', 'matchers', ['matcher/clap'])
+  call denite#custom#source('file/rec/git', 'matchers', ['matcher/clap'])
 
-  " Ripgrep command on grep source
-  call denite#custom#var('grep', 'command', ['rg'])
-  call denite#custom#var('grep', 'default_opts',
-      \ ['--vimgrep', '--no-heading'])
-  call denite#custom#var('grep', 'recursive_opts', [])
-  call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-  call denite#custom#var('grep', 'separator', ['--'])
-  call denite#custom#var('grep', 'final_opts', [])
+	" Ripgrep command on grep source
+	call denite#custom#var('grep', {
+		\ 'command': ['rg'],
+		\ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
+		\ 'recursive_opts': [],
+		\ 'pattern_opt': ['--regexp'],
+		\ 'separator': ['--'],
+		\ 'final_opts': [],
+		\ })
+
+  " project file
+	call denite#custom#alias('source', 'file/rec/git', 'file/rec')
+	call denite#custom#var('file/rec/git', 'command',
+        \ ['git', 'ls-files', '-co', '--exclude-standard'])
+
+	call denite#custom#var('file/rec',
+        \ 'command', ['rg', '--files', '--glob', "'!.git'", '--color', 'never'])
 
   " Add custom menus
   let s:menus = {}
@@ -324,6 +334,7 @@ hook_add = '''
   nnoremap <silent> <leader>fept  :execute ":e " . g:pub_repos_path . "/dotfiles/config/.config/powerline/themes"<CR>
   nnoremap <silent> <leader>feptt :execute ":e " . g:pub_repos_path . "/dotfiles/config/.config/powerline/themes/tmux"<CR>
 '''
+depends = 'vim-clap'
 
 [[plugins]]
 repo = 'Jagua/vim-denite-ghq'

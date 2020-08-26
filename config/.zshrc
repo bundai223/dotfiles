@@ -226,6 +226,7 @@ p() {
 
   peco $pecoopts | while read LINE; do $@ $LINE; done
 }
+alias ls='colorls'
 alias o='git ls-files | p open'
 alias c='ghq list -p | p cd'
 alias h='history -i'; compdef h=history
@@ -290,9 +291,6 @@ alias -g AA='| awk'
 alias -g WW='| wc'
 alias -g XX='| xargs'
 alias -g PP='| peco'
-
-alias jgems="jruby -S gems"
-alias jrake="jruby -S rake"
 
 # alias v="vagrant"
 function v() {
