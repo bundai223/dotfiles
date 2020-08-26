@@ -164,7 +164,8 @@ hook_add = '''
   nmap <C-u> [denite]
 
   " denite file
-  nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file/rec<CR>
+  nnoremap <silent> [denite]f   :<C-u>Denite file/rec<CR>
+  " nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file/rec<CR>
   nnoremap <silent> [denite]p   :<C-u>Denite file/rec/git<CR>
   nnoremap <silent> [denite]m   :<C-u>Denite file_mru<CR>
   nnoremap <silent> [denite]o   :<C-u>Denite -no-quit -wrap outline<CR>
@@ -224,8 +225,8 @@ hook_add = '''
 	call denite#custom#var('file/rec/git', 'command',
         \ ['git', 'ls-files', '-co', '--exclude-standard'])
 
-	call denite#custom#var('file/rec',
-        \ 'command', ['rg', '--files', '--glob', "'!.git'", '--color', 'never'])
+	" call denite#custom#var('file/rec',
+  "       \ 'command', ['rg', '--files', '--glob', "'!.git'", '--color', 'never'])
 
   " Add custom menus
   let s:menus = {}
@@ -1061,6 +1062,7 @@ on_ft = 'pug'
 [[plugins]]
 repo = 'airblade/vim-rooter'
 hook_source = '''
+  let g:rooter_manual_only = 1
   let g:rooter_cd_cmd="lcd"
   let g:rooter_silent_chdir = 1
   let g:rooter_resolve_links = 1
