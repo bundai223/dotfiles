@@ -11,6 +11,12 @@ node_version = node[:nodejs][:version] unless node[:nodejs].nil?
 user = node[:user]
 home = node[:home]
 
+remote_file "#{home}/.default-npm-packages" do
+  source 'files/.default-npm-packages'
+  owner user
+  mode '644'
+end
+
 execute 'install asdf-nodejs' do
   user user
   command <<-EOS

@@ -18,6 +18,7 @@ end
 # pip =
 %w[
   neovim
+  neovim-remote
 ].each do |pip|
   # cmds =
   %w[

@@ -5,6 +5,12 @@ ruby_version = 'latest'
 user = node['user']
 home = node['home']
 
+remote_file "#{home}/.default-gems" do
+  source 'files/.default-gems'
+  owner user
+  mode '644'
+end
+
 execute 'install asdf-ruby' do
   user user
   command <<-EOS
