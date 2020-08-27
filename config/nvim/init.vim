@@ -379,6 +379,11 @@ augroup MyAutoCmd
 
   autocmd BufNewFile,BufRead *.gb setl filetype=goby
   autocmd FileType vue syntax sync fromstart
+
+  autocmd FileType python setl tabstop=8
+  autocmd FileType python setl softtabstop=4
+  autocmd FileType python setl shiftwidth=4
+  autocmd FileType python setl expandtab
 augroup END
 
 " memo
