@@ -1,31 +1,31 @@
 {
-	"groups": {
-		"active_window_status": {"fg": "darkblue",   "bg": "gray0",    "attrs": []},
-		"window_status":        {"fg": "gray70",     "bg": "gray0",    "attrs": []},
-		"activity_status":      {"fg": "yellow",     "bg": "gray0",    "attrs": []},
-		"bell_status":          {"fg": "red",        "bg": "gray0",    "attrs": []},
-		"window":               {"fg": "gray6",      "bg": "gray0",    "attrs": []},
-		"window:divider":       {"fg": "gray4",      "bg": "gray0",    "attrs": []},
-		"window:current":       {"fg": "mediumcyan", "bg": "darkblue", "attrs": []},
-		"window_name":          {"fg": "white",      "bg": "darkblue", "attrs": ["bold"]},
-		"session":              {"fg": "black",      "bg": "gray90",   "attrs": ["bold"]},
-		"session:prefix":       {"fg": "gray90",     "bg": "darkblue", "attrs": ["bold"]},
+  "groups": {
+    "active_window_status": {"fg": "darkblue",   "bg": "gray0",    "attrs": []},
+    "window_status":        {"fg": "gray70",     "bg": "gray0",    "attrs": []},
+    "activity_status":      {"fg": "yellow",     "bg": "gray0",    "attrs": []},
+    "bell_status":          {"fg": "red",        "bg": "gray0",    "attrs": []},
+    "window":               {"fg": "gray6",      "bg": "gray0",    "attrs": []},
+    "window:divider":       {"fg": "gray4",      "bg": "gray0",    "attrs": []},
+    "window:current":       {"fg": "mediumcyan", "bg": "darkblue", "attrs": []},
+    "window_name":          {"fg": "white",      "bg": "darkblue", "attrs": ["bold"]},
+    "session":              {"fg": "black",      "bg": "gray90",   "attrs": ["bold"]},
+    "session:prefix":       {"fg": "gray90",     "bg": "darkblue", "attrs": ["bold"]},
 
     "mouse_mode": {"fg": "white", "bg": "gray2", "attrs": []},
 
-		"gitstatus":                 { "fg": "gray8",           "bg": "gray2", "attrs": [] },
-		"gitstatus_branch":          { "fg": "gray8",           "bg": "gray2", "attrs": [] },
-		"gitstatus_branch_clean":    { "fg": "green",           "bg": "gray2", "attrs": [] },
-		"gitstatus_branch_dirty":    { "fg": "gray8",           "bg": "gray2", "attrs": [] },
-		"gitstatus_branch_detached": { "fg": "mediumpurple",    "bg": "gray2", "attrs": [] },
-		"gitstatus_tag":             { "fg": "darkcyan",        "bg": "gray2", "attrs": [] },
-		"gitstatus_behind":          { "fg": "gray10",          "bg": "gray2", "attrs": [] },
-		"gitstatus_ahead":           { "fg": "gray10",          "bg": "gray2", "attrs": [] },
-		"gitstatus_staged":          { "fg": "green",           "bg": "gray2", "attrs": [] },
-		"gitstatus_unmerged":        { "fg": "brightred",       "bg": "gray2", "attrs": [] },
-		"gitstatus_changed":         { "fg": "mediumorange",    "bg": "gray2", "attrs": [] },
-		"gitstatus_untracked":       { "fg": "brightestorange", "bg": "gray2", "attrs": [] },
-		"gitstatus_stashed":         { "fg": "darkblue",        "bg": "gray2", "attrs": [] },
-		"gitstatus:divider":         { "fg": "gray8",           "bg": "gray2", "attrs": [] }
-	}
+    "gitstatus":                 { "fg": "gray8",           "bg": "gray2", "attrs": [] },
+    "gitstatus_branch":          { "fg": "gray8",           "bg": "gray2", "attrs": [] },
+    "gitstatus_branch_clean":    { "fg": "green",           "bg": "gray2", "attrs": [] },
+    "gitstatus_branch_dirty":    { "fg": "gray8",           "bg": "gray2", "attrs": [] },
+    "gitstatus_branch_detached": { "fg": "mediumpurple",    "bg": "gray2", "attrs": [] },
+    "gitstatus_tag":             { "fg": "darkcyan",        "bg": "gray2", "attrs": [] },
+    "gitstatus_behind":          { "fg": "gray10",          "bg": "gray2", "attrs": [] },
+    "gitstatus_ahead":           { "fg": "gray10",          "bg": "gray2", "attrs": [] },
+    "gitstatus_staged":          { "fg": "green",           "bg": "gray2", "attrs": [] },
+    "gitstatus_unmerged":        { "fg": "brightred",       "bg": "gray2", "attrs": [] },
+    "gitstatus_changed":         { "fg": "mediumorange",    "bg": "gray2", "attrs": [] },
+    "gitstatus_untracked":       { "fg": "brightestorange", "bg": "gray2", "attrs": [] },
+    "gitstatus_stashed":         { "fg": "darkblue",        "bg": "gray2", "attrs": [] },
+    "gitstatus:divider":         { "fg": "gray8",           "bg": "gray2", "attrs": [] }
+  }
 }

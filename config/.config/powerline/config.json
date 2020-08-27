@@ -1,6 +1,6 @@
 {
 	"common": {
-		"term_truecolor": false,
+		"term_truecolor": true,
 		"log_file": "~/.powerline.log",
 		"log_level": "INFO"
 	},
