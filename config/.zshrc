@@ -274,6 +274,7 @@ alias gf='git flow'; compdef gf=git-flow
 alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 alias aws="docker run -it --rm -v ~/.aws:/root/.aws lorentzca/aws"
 alias hadolint="docker run -i --rm hadolint/hadolint"
+alias marp='docker run --rm -v $(pwd):/workdir -w /workdir -e LANG=$LANG -p 8080:8080 marpteam/marp-cli'
 
 # filetype
 alias -s html=chrome

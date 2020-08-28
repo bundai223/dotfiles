@@ -10,7 +10,7 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon', 'arch'
       version=0.0.13
       platform=linux
       arch=x64
-      url=https://github.com/yhatt/marp/releases/download/v${version}/${version}-Marp-${platform}-${arch}.tar.gz
+      url=https://github.com/marp-team/marp/releases/download/v${version}/${version}-Marp-${platform}-${arch}.tar.gz
 
       mkdir -p $WORK_DIR
       cd $WORK_DIR

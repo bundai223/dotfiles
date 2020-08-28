@@ -142,6 +142,12 @@ hook_add = '''
     endfunction
   endif
 
+  " disable deoplete completion on denite filter buffer
+	autocmd FileType denite-filter call s:denite_filter_my_settings()
+	function! s:denite_filter_my_settings() abort
+	  call deoplete#custom#buffer_option('auto_complete', v:false)
+	endfunction
+
   " source
   " vim-which-key対応に伴い統一テスト
   nnoremap <silent> <leader>/f   :<C-u>DeniteBufferDir file/rec<CR>
@@ -164,8 +170,7 @@ hook_add = '''
   nmap <C-u> [denite]
 
   " denite file
-  nnoremap <silent> [denite]f   :<C-u>Denite file/rec<CR>
-  " nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file/rec<CR>
+  nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file/rec<CR>
   nnoremap <silent> [denite]p   :<C-u>Denite file/rec/git<CR>
   nnoremap <silent> [denite]m   :<C-u>Denite file_mru<CR>
   nnoremap <silent> [denite]o   :<C-u>Denite -no-quit -wrap outline<CR>
@@ -176,6 +181,10 @@ hook_add = '''
   nnoremap <silent> [denite]b   :<C-u>Denite buffer<CR>
   nnoremap <silent> [denite]cl   :<C-u>Denite -auto-preview colorscheme<CR>
   nnoremap <silent> [denite]cg   :<C-u>Denite cgrep<CR>
+
+  " max candidate
+	call denite#custom#option('_',
+	\ 'max_dynamic_update_candidates', 100000)
 
   " denite resume
   nnoremap <silent> [denite]r   :<C-u>Denite -resume<CR>
