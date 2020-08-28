@@ -1,26 +1,27 @@
-
+# install chrome
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
-  execute 'install google chrome' do
-    command <<-EOL
-      DEB=google-chrome-stable_current_amd64.deb
-      URL=https://dl.google.com/linux/direct/$DEB
-      curl -sOL $URL
+  execute 'add repo' do
+    command <<-EOCMD
+      sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+      wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+      apt-get update
+    EOCMD
 
-      gdebi -n $DEB
-      rm $DEB
-    EOL
-
-    not_if 'which google-chrome >/dev/null 2>&1'
+    not_if 'test -f /etc/apt/sources.list.d/google.list'
   end
 
+  package 'google-chrome-stable'
 
 when 'fedora', 'redhat', 'amazon'
+  # not implemented
 when 'osx', 'darwin'
   package 'caskroom/cask/google-chrome'
 when 'arch'
   include_cookbook 'yay'
   yay 'google-chrome'
 when 'opensuse'
+  # not implemented
 else
+  # not implemented
 end
