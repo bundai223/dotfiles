@@ -1,7 +1,9 @@
 # include_recipe 'dependency.rb'
 
 case node[:platform]
-when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon'
+when 'debian', 'ubuntu', 'mint'
+  package 'cmigemo'
+when 'fedora', 'redhat', 'amazon'
   get_repo 'koron/cmigemo' do
     build <<-EOCMD
       ./configure
@@ -15,5 +17,6 @@ when 'osx', 'darwin'
 when 'arch'
   package 'migemo'
 when 'opensuse'
+  # nothing to do
 else
 end
