@@ -279,7 +279,6 @@ vnoremap <C-g> <Esc>
 cnoremap <C-g> <Esc>
 tnoremap <silent> <Esc> <C-\><C-n>
 
-
 " Easy to help
 nnoremap <leader>h :<C-u>vert bel help<Space>
 nnoremap <leader>H :<C-u>vert bel help<Space><C-r><C-w><CR>
@@ -325,6 +324,9 @@ nnoremap N Nzzzv
 " バッファ移動
 nnoremap <silent> bp :bprevious<CR>
 nnoremap <silent> bn :bnext<CR>
+
+" untab
+inoremap <S-Tab> <C-D>
 
 if &compatible
   set nocompatible

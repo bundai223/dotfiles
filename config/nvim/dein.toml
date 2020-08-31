@@ -1151,12 +1151,29 @@ depends = 'deoplete.nvim'
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
 on_ft = 'markdown'
+hook_add = '''
+  let g:vim_markdown_folding_disabled=1
+
+  function! s:GetSynStack()
+    return map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+  endfunc
+
+  function! s:IndentLikeHackMD()
+    " simply return a tab character if the cursor is not on list item line
+    if index(s:GetSynStack(), 'mkdListItemLine') < 0
+      return '	' " here is ^V^I
+    endif
+
+    return '' " here is ^V^T
+  endfunc
+  inoremap <expr> <Tab> <SID>IndentLikeHackMD()
+'''
+
 
 [[plugins]]
 repo = 'previm/previm'
 hook_add = '''
   nnoremap <silent> <C-p> :PrevimOpen<CR>
-  let g:vim_markdown_folding_disabled=1
   let g:previm_enable_realtime=1
 '''
 
