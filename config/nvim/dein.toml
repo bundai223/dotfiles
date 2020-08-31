@@ -1065,7 +1065,6 @@ hook_source = '''
   nnoremap <silent> <leader>ff :Vaffle<CR>
 '''
 
-
 [[plugins]]
 repo = 'digitaltoad/vim-pug'
 on_ft = 'pug'
@@ -1148,3 +1147,18 @@ repo = 'thomasfaingnaert/vim-lsp-neosnippet'
 [[plugins]]
 repo = 'lighttiger2505/deoplete-vim-lsp'
 depends = 'deoplete.nvim'
+
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+on_ft = 'markdown'
+
+[[plugins]]
+repo = 'previm/previm'
+hook_add = '''
+  nnoremap <silent> <C-p> :PrevimOpen<CR>
+  let g:vim_markdown_folding_disabled=1
+  let g:previm_enable_realtime=1
+'''
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
