@@ -207,7 +207,12 @@ endfunction
 set tags+=tags;
 
 " 外部grepの設定
-set grepprg=grep\ -nH
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+else
+  set grepprg=grep\ -nH
+endif
 
 augroup MyAutoCmd
   " make, grep などのコマンド後に自動的にQuickFixを開く
