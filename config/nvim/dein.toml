@@ -154,12 +154,12 @@ hook_add = '''
   nnoremap <silent> <leader>/p   :<C-u>Denite file/rec/git<CR>
   nnoremap <silent> <leader>/m   :<C-u>Denite file_mru<CR>
   nnoremap <silent> <leader>/o   :<C-u>Denite -no-quit -wrap outline<CR>
-  nnoremap <silent> <leader>/gr   :<C-u>Denite -auto-preview grep<CR>
+  nnoremap <silent> <leader>/gr   :<C-u>Denite -auto-action=preview grep<CR>
   nnoremap <silent> <leader>/gh   :<C-u>Denite ghq<CR>
   nnoremap <silent> <leader>/tw  :<C-u>Denite tweetvim<CR>
   nnoremap <silent> <leader>/ns  :<C-u>Denite neosnippet<CR>
   nnoremap <silent> <leader>/b   :<C-u>Denite buffer<CR>
-  nnoremap <silent> <leader>/cl   :<C-u>Denite -auto-preview colorscheme<CR>
+  nnoremap <silent> <leader>/cl   :<C-u>Denite -auto-action=preview colorscheme<CR>
   nnoremap <silent> <leader>/cg   :<C-u>Denite cgrep<CR>
   nnoremap <silent> <leader>/r   :<C-u>Denite -resume<CR>
   nnoremap <silent> <leader>/<Space> :<C-u>Denite menu<CR>
@@ -174,12 +174,12 @@ hook_add = '''
   nnoremap <silent> [denite]p   :<C-u>Denite file/rec/git<CR>
   nnoremap <silent> [denite]m   :<C-u>Denite file_mru<CR>
   nnoremap <silent> [denite]o   :<C-u>Denite -no-quit -wrap outline<CR>
-  nnoremap <silent> [denite]gr   :<C-u>Denite -auto-preview grep<CR>
+  nnoremap <silent> [denite]gr   :<C-u>Denite -auto-action=preview grep<CR>
   nnoremap <silent> [denite]gh   :<C-u>Denite ghq<CR>
   nnoremap <silent> [denite]tw  :<C-u>Denite tweetvim<CR>
   nnoremap <silent> [denite]ns  :<C-u>Denite neosnippet<CR>
   nnoremap <silent> [denite]b   :<C-u>Denite buffer<CR>
-  nnoremap <silent> [denite]cl   :<C-u>Denite -auto-preview colorscheme<CR>
+  nnoremap <silent> [denite]cl   :<C-u>Denite -auto-action=preview colorscheme<CR>
   nnoremap <silent> [denite]cg   :<C-u>Denite cgrep<CR>
 
   " max candidate
