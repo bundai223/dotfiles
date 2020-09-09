@@ -154,7 +154,7 @@ set novisualbell
 set ignorecase " Match words with ignore upper-lower case
 set smartcase " Don't think upper-lower case until upper-case input
 set incsearch " Incremental search
-set inccommand=split
+set inccommand= "split " 置換のプレビュー無効に " TODO: どれかのプラグインに問題あり
 set hlsearch " Highlight searched words
 
 " http://cohama.hateblo.jp/entry/20130529/1369843236

@@ -29,6 +29,9 @@
 #        .: 通常のファイルのみ残す
 #
 #************************************************************************** }}}
+# profiling
+# zmodload zsh/zprof && zprof
+
 #---------------------------------------------
 # 基本の設定
 #---------------------------------------------
@@ -224,7 +227,7 @@ p() {
     *) break;;
   esac; shift; done
 
-  peco $pecoopts | while read LINE; do $@ $LINE; done
+  $FILTER_CMD $pecoopts | while read LINE; do $@ $LINE; done
 }
 alias ls='colorls'
 alias o='git ls-files | p open'
@@ -272,9 +275,10 @@ alias gf='git flow'; compdef gf=git-flow
 
 # docker
 alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
-alias aws="docker run -it --rm -v ~/.aws:/root/.aws lorentzca/aws"
+alias aws="docker run -it --rm -v ~/.aws:/root/.aws amazon/aws-cli"
 alias hadolint="docker run -i --rm hadolint/hadolint"
 alias marp='docker run --rm --init -v $(pwd):/workdir -w /workdir -e LANG=$LANG -p 8080:8080 marpteam/marp-cli'
+alias mysql='docker run --rm -it mysql mysql'
 
 # filetype
 alias -s html=chrome
@@ -437,3 +441,10 @@ fi
 # OPAM configuration
 . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 which direnv >/dev/null && eval "$(direnv hook zsh)"
+
+[[ "$COLORTERM" == (24bit|truecolor) || "${terminfo[colors]}" -eq '16777216' ]] || zmodload zsh/nearcolor
+
+# if (which zsprof > /dev/null) ; then
+#   zprof | less
+# fi
+

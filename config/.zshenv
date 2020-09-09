@@ -23,6 +23,7 @@ export ZSH_HISTORY_FILE="$HOME/.config/zsh/zsh_histroy.db"
 # # 今までの履歴を全部候補に出すか切り分けらる
 export ZSH_HISTORY_KEYBIND_GET_BY_DIR="^r"
 export ZSH_HISTORY_KEYBIND_GET_ALL="^r^a"
+export FILTER_CMD=peco
 
 # 専用のセレクタ I/F から SQL を実行する
 export ZSH_HISTORY_KEYBIND_SCREEN="^r^r"

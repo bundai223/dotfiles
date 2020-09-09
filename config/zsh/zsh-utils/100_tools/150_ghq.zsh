@@ -7,7 +7,7 @@ ghq_path()
 
 cd_repos()
 {
-  pth=$(ghq list --full-path | sed "s#/home/$USERNAME#~#"| peco)
+  pth=$(ghq list --full-path | sed "s#${HOME}#~#"| $FILTER_CMD | sed "s#~#${HOME}#")
   if [ -n "$pth" ]; then
     eval "cd $pth"
   fi
