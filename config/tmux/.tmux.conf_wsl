@@ -7,6 +7,6 @@ unbind-key -T copy-mode-vi Enter     ; bind-key -T copy-mode-vi Enter send-keys 
 unbind-key -T copy-mode-vi MouseDragEnd1Pane ; bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "win32yank.exe -i"
 
 # <prefix> ]でクリップボードからペースト
-unbind-key -T prefix P               ; bind-key P run "win32yank.exe -o | tmux load-buffer - && tmux paste-buffer"
-unbind-key -T prefix ]               ; bind-key ] run "win32yank.exe -o | tmux load-buffer - && tmux paste-buffer"
+unbind-key -T prefix P               ; bind-key P run "win32yank.exe -o --lf | tmux load-buffer - && tmux paste-buffer"
+unbind-key -T prefix ]               ; bind-key ] run "win32yank.exe -o --lf | tmux load-buffer - && tmux paste-buffer"
 unbind-key -T copy-mode-vi C-v       ; bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
