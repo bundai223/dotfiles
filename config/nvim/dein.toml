@@ -3,7 +3,7 @@
 [[plugins]]
 repo = 'liuchengxu/vim-which-key'
 hook_source = '''
-  nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+  nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
   set timeoutlen=300
 
   let g:which_key_map = get(g:, 'which_key_map', {})
@@ -25,7 +25,7 @@ hook_source = '''
   let g:which_key_map['/'] = {
         \ 'name': ':+search',
         \ }
-  call which_key#register('<Space>', "g:which_key_map")
+  " call which_key#register('<Space>', "g:which_key_map")
   " let g:which_key_vertical = 1 # floating
 '''
 
@@ -371,6 +371,7 @@ repo = 'roxma/vim-hug-neovim-rpc'
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
 on_i = 1
+depends = 'neosnippet-snippets'
 hook_post_source = '''
   " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -402,7 +403,6 @@ hook_post_source = '''
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 on_i = 1
-depends = 'neosnippet.vim'
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
@@ -1085,11 +1085,25 @@ hook_add = '''
 repo = 'ryanoasis/vim-devicons'
 
 [[plugins]]
-repo = 'cocopon/vaffle.vim'
-# on_cmd = ['Vaffle']
-hook_source = '''
-  nnoremap <silent> <leader>ff :Vaffle<CR>
+repo = 'lambdalisue/fern.vim'
+# on_cmd = ['Fern']
+hook_add = '''
+  nnoremap <silent> <leader>f<Space> :Fern %:h -reveal=%<CR>
 '''
+hook_source = '''
+  let g:fern#renderer = "devicons"
+'''
+depends = ['fern-renderer-devicons.vim', 'FixCursorHold.nvim']
+
+[[plugins]]
+repo = 'lambdalisue/fern-renderer-devicons.vim'
+depends = ['vim-devicons']
+
+[[plugins]]
+repo = 'antoinemadec/FixCursorHold.nvim'
+
+[[plugins]]
+repo = 'mbbill/undotree'
 
 [[plugins]]
 repo = 'digitaltoad/vim-pug'
@@ -1205,3 +1219,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
+
+[[plugins]]
+repo = 'thinca/vim-qfreplace'

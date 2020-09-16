@@ -430,3 +430,4 @@ autocmd BufLeave * if exists('b:term_title') && exists('b:terminal_job_pid') | e
 " set runtimepath+=~/repos/github.com/bundai223/denite-changelog-memo.nvim
 
 set isfname+={,}
+
