@@ -431,3 +431,4 @@ autocmd BufLeave * if exists('b:term_title') && exists('b:terminal_job_pid') | e
 
 set isfname+={,}
 
+set mouse=a
