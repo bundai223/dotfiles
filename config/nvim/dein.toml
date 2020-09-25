@@ -213,8 +213,8 @@ hook_add = '''
 
   " file/rec
   " call denite#custom#source('file_mru', 'matchers', ['matcher/regexp'])
-  call denite#custom#source('file_mru', 'matchers', ['matcher/clap'])
-  " call denite#custom#source('file/rec',     'converters', ['converter/prioritize_basename'])
+  " call denite#custom#source('file_mru', 'matchers', ['matcher/clap'])
+  call denite#custom#source('file_mru', 'matchers', ['converter/prioritize_basename', 'matcher/clap'])
   call denite#custom#source('file/rec', 'matchers', ['converter/prioritize_basename', 'matcher/clap'])
   call denite#custom#source('file/rec/git', 'matchers', ['converter/prioritize_basename', 'matcher/clap'])
 
