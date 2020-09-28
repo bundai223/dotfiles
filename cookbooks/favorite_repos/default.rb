@@ -1,22 +1,23 @@
 include_cookbook 'dotfiles'
 include_cookbook 'ghq'
 
-repos = [
-  'dylanaraps/neofetch',
-  'mzyy94/RictyDiminished-for-Powerline',
-  'rupa/z',
-  'yuru7/HackGen',
-  'zsh-users/zsh-completions',
-  'zplug/zplug'
+repos = %w[
+  dylanaraps/neofetch
+  mzyy94/RictyDiminished-for-Powerline
+  rupa/z
+  yuru7/HackGen
+  zsh-users/zsh-completions
+  zplug/zplug
+  zk-phi/sky-color-clock
 ]
 repos.each { |name| get_repo name }
 
-pip_pkgs = [
-  'powerline-status',
-  'powerline-gitstatus',
-  'python-language-server',
+pip_pkgs = %w[
+  powerline-status
+  powerline-gitstatus
+  python-language-server
 ]
-['pip', 'pip3'].each do |pip|
+%w[pip pip3].each do |pip|
   pip_pkgs.each do |pkg|
     execute ". /etc/profile.d/asdf.sh; #{pip} install --user #{pkg}" do
       user node[:user]

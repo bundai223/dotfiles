@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 include_cookbook 'asdf'
 
 version = 'latest'
@@ -7,25 +9,25 @@ home = node['home']
 
 execute 'install asdf-golang' do
   user user
-  command <<EOC
-. /etc/profile.d/asdf.sh
-asdf plugin-add golang https://github.com/kennyp/asdf-golang.git
-EOC
+  command <<EOCMD
+  . /etc/profile.d/asdf.sh
+  asdf plugin-add golang https://github.com/kennyp/asdf-golang.git
+EOCMD
   not_if "test -d #{home}/.asdf/plugins/golang"
 end
 
 execute 'install golang' do
   user user
-  command <<EOC
-VER=#{version}
-. /etc/profile.d/asdf.sh
-asdf install golang ${VER}
-if [ ${VER} = 'latest' ]; then
-  asdf global golang $(asdf list golang)
-else
-  asdf global golang ${VER}
-fi
-asdf reshim golang
-EOC
-  not_if '. /etc/profile.d/asdf.sh; which go'
+  command <<EOCMD
+  VER=#{version}
+  . /etc/profile.d/asdf.sh
+  asdf install golang ${VER}
+  if [ ${VER} = 'latest' ]; then
+    asdf global golang $(asdf list golang)
+  else
+    asdf global golang ${VER}
+  fi
+  asdf reshim golang
+EOCMD
+  not_if 'test -e ~/.asdf/shims/golang'
 end
