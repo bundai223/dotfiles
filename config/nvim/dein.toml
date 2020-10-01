@@ -529,7 +529,7 @@ hook_add = '''
 repo = 'rhysd/migemo-search.vim'
 hook_add = '''
   if executable('cmigemo')
-    " cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
+    cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
   endif
 '''
 
