@@ -31,6 +31,11 @@ define :install_appimage, user: nil, url: nil, version: nil do
     not_if "ls #{appimage_ver_path}"
   end
 
+  execute "chmod +x #{appimage_ver_path}" do
+    user user
+    only_if "ls #{appimage_ver_path}"
+  end
+
   execute "ln -s #{appimage_ver_path} #{appimage_opt_path}" do
     user user
     not_if "ls #{appimage_opt_path}"
