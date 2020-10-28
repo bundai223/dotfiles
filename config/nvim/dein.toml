@@ -1084,10 +1084,13 @@ on_ft = 'pug'
 [[plugins]]
 repo = 'airblade/vim-rooter'
 hook_source = '''
-  " let g:rooter_manual_only = 1
+  let g:rooter_manual_only = 1
   let g:rooter_cd_cmd="lcd"
   let g:rooter_silent_chdir = 1
   let g:rooter_resolve_links = 1
+
+  nnoremap <silent><leader>c<Space> :Rooter<CR>
+  nnoremap <silent><leader>ct :RooterToggle<CR>
 '''
 
 [[plugins]]
