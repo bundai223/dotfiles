@@ -1220,9 +1220,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'tyru/open-browser.vim'
-
-[[plugins]]
 repo = 'thinca/vim-qfreplace'
 
 [[plugins]]

@@ -352,7 +352,6 @@ endif
 if dein#load_state(expand(s:dein_dir))
   call dein#begin(expand(g:plugin_dir))
 
-  call dein#add('tpope/vim-fugitive')
   call dein#load_toml(g:dein_toml, {})
 
   call dein#end()
