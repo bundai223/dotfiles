@@ -4,3 +4,5 @@
 bin/mitamae
 TAGS
 .spacemacs.env
+.envrc
+.env
