@@ -43,6 +43,7 @@ repo = 'bundai223/mysyntax.vim'
 
 [[plugins]]
 repo = 'bundai223/vim-template'
+name = 'my-vim-template'
 
 [[plugins]]
 repo ='bronson/vim-trailing-whitespace'
@@ -57,6 +58,10 @@ build = 'make'
 
 [[plugins]]
 repo = 'Shougo/dein.vim'
+hook_add = '''
+  " 初期起動時にイベント必要だったら自分で起動する設定が必要
+  " autocmd VimEnter * call dein#call_hook('post_source')
+'''
 
 # [[plugins]]
 # repo = 'Shougo/deoplete.nvim'
@@ -598,6 +603,10 @@ repo = 'thinca/vim-localrc'
 
 [[plugins]]
 repo = 'thinca/vim-ref'
+
+[[plugins]]
+repo = 'thinca/vim-template'
+depends = ['my-vim-template']
 
 [[plugins]]
 repo = 'Yggdroot/indentLine'

@@ -121,7 +121,7 @@ if has('unix')
 endif
 
 " Select last pasted.
-nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
+" nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
 
 " w!! でスーパーユーザーとして保存
 cmap w!! w !sudo tee > /dev/null %
@@ -332,6 +332,9 @@ nnoremap <silent> bn :bnext<CR>
 
 " untab
 inoremap <S-Tab> <C-D>
+
+" grep
+nnoremap <silent> <leader>gg :vimgrep '' %<left><left><left>
 
 if &compatible
   set nocompatible
