@@ -65,7 +65,7 @@ mkdir -p ${HOME}/repos/github.com/bundai223/
 git clone https://github.com/bundai223/dotfiles.git ${HOME}/repos/github.com/bundai223/dotfiles
 
 # symlink
-mkdir "$HOME\AppData\Local\Microsoft\Windows Terminal
+mkdir "$HOME\AppData\Local\Microsoft\Windows Terminal"
 mkdir "$HOME\Documents\PowerShell"
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\WindowsTerminal.settings.json" -Path "$HOME\AppData\Local\Microsoft\Windows Terminal" -Name settings.json -ItemType SymbolicLink
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\Microsoft.PowerShell_profile.ps1" -Path "$HOME\Documents\PowerShell" -Name Microsoft.PowerShell_profile.ps1 -ItemType SymbolicLink
