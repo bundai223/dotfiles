@@ -61,8 +61,8 @@ Install-Module posh-git -Scope CurrentUser
 Install-Module oh-my-posh -Scope CurrentUser
 Install-Module -Name PSReadLine -Scope CurrentUser -Force -SkipPublisherCheck
 
-mkdir -p ~/repos/github.com/bundai223/
-git clone https://github.com/bundai223/dotfiles.git ~/repos/github.com/bundai223/dotfiles
+mkdir -p ${HOME}/repos/github.com/bundai223/
+git clone https://github.com/bundai223/dotfiles.git ${HOME}/repos/github.com/bundai223/dotfiles
 
 # symlink
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\WindowsTerminal.settings.json" -Path "$HOME\AppData\Local\Microsoft\Windows Terminal" -Name settings.json -ItemType SymbolicLink
