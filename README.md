@@ -7,13 +7,13 @@ mydotfiles
 ### Linux
 
 ```sh
-curl https://raw.githubusercontent.com/bundai223/dotfiles/master/install | bash -s
+curl https://raw.githubusercontent.com/bundai223/dotfiles/main/install | bash -s
 ```
 
 ### For Windows
 
 ```powershell
-iwr -useb https://raw.githubusercontent.com/bundai223/dotfiles/master/install.ps1 | iex
+iwr -useb https://raw.githubusercontent.com/bundai223/dotfiles/main/install.ps1 | iex
 ```
 
 ## For Developer.
@@ -23,5 +23,5 @@ iwr -useb https://raw.githubusercontent.com/bundai223/dotfiles/master/install.ps
 Yes. Try to use this scripts.
 
 ```powershell
-iwr -Headers @{"Cache-Control"="no-cache"} -useb https://raw.githubusercontent.com/bundai223/dotfiles/master/install.ps1 | iex
+iwr -Headers @{"Cache-Control"="no-cache"} -useb https://raw.githubusercontent.com/bundai223/dotfiles/main/install.ps1 | iex
 ```
