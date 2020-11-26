@@ -1194,7 +1194,7 @@ on_i = 1
 repo = 'prabirshrestha/asyncomplete-neosnippet.vim'
 depends = ['asyncomplete.vim', 'neosnippet.vim']
 on_i = 1
-hook_add = '''
+hook_post_source = '''
   call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
       \ 'name': 'neosnippet',
       \ 'allowlist': ['*'],
@@ -1236,3 +1236,6 @@ repo = 'thinca/vim-qfreplace'
 
 [[plugins]]
 repo = 'tyru/capture.vim'
+
+[[plugins]]
+repo = 'chr4/nginx.vim'
