@@ -1176,9 +1176,47 @@ depends = 'vim-lsp'
 
 [[plugins]]
 repo = 'mattn/vim-lsp-settings'
-# Plug 'hrsh7th/vim-vsnip'
-# Plug 'hrsh7th/vim-vsnip-integ'
 depends = 'vim-lsp'
+hook_add = '''
+  " [cloud formation schema](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/cfn-resource-specification.html)
+  let g:lsp_settings = {
+    \   'yaml-language-server': {
+    \     'workspace_config': {
+    \       'yaml': {
+    \         'schemas': {
+    \           'https://raw.githubusercontent.com/docker/compose/master/compose/config/config_schema_v3.4.json': '/docker-compose.yml',
+    \           'https://d33vqc0rt9ld30.cloudfront.net/latest/gzip/CloudFormationResourceSpecification.json': ['*.cf.yaml', '*.cf.yml', 'cloud*formation/*.yaml', 'cloud*formation/*.yml'],
+    \         },
+    \         'customTags': [
+    \           '!Ref',
+    \           '!Sub scalar',
+    \           '!Sub sequence',
+    \           '!Join sequence',
+    \           '!FindInMap sequence',
+    \           '!GetAtt scalar',
+    \           '!GetAtt sequence',
+    \           '!Base64 mapping',
+    \           '!GetAZs',
+    \           '!Select scalar',
+    \           '!Select sequence',
+    \           '!Split sequence',
+    \           '!ImportValue',
+    \           '!Condition',
+    \           '!Equals sequence',
+    \           '!And',
+    \           '!If',
+    \           '!Not',
+    \           '!Or'
+    \         ],
+    \         'completion': v:true,
+    \         'hover': v:true,
+    \         'validate': v:true,
+    \       },
+    \     },
+    \     'whitelist': ['yaml.docker-compose'],
+    \   },
+    \ }
+'''
 
 [[plugins]]
 repo = 'thomasfaingnaert/vim-lsp-snippets'
