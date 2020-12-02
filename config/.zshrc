@@ -279,6 +279,8 @@ alias aws="docker run -it --rm -v ~/.aws:/root/.aws amazon/aws-cli"
 alias hadolint="docker run -i --rm hadolint/hadolint"
 alias marp='docker run --rm --init -v $(pwd):/workdir -w /workdir -e LANG=$LANG -p 8080:8080 marpteam/marp-cli'
 alias mysql='docker run --rm -it mysql mysql'
+alias owasp='docker run -v $(pwd):/zap/wrk/:rw -t --rm owasp/zap2docker-stable zap-baseline.py ' # -t https://coupa-staging-nowaf.ai-q.biz/XkEgFLFJHaHUZn_pxeQn/contact/top -r testreport.html
+alias pandoc='docker run --rm --volume "`pwd`:/data" --user `id -u`:`id -g` pandoc/core'
 
 # filetype
 alias -s html=chrome
