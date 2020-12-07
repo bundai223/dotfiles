@@ -918,6 +918,9 @@ on_cmd = ['Codic']
 
 [[plugins]]
 repo ='tpope/vim-fugitive'
+hook_add = '''
+  nnoremap <leader>gs :Gstatus<CR>
+'''
 
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
@@ -1154,7 +1157,7 @@ hook_add = '''
     setlocal signcolumn=yes
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> <f2> <plug>(lsp-rename)
-    inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
+    " inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
   endfunction
 
   augroup lsp_install
