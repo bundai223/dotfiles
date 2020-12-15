@@ -42,10 +42,6 @@ repo = 'bundai223/mysnip'
 repo = 'bundai223/mysyntax.vim'
 
 [[plugins]]
-repo = 'bundai223/vim-template'
-name = 'my-vim-template'
-
-[[plugins]]
 repo ='bronson/vim-trailing-whitespace'
 
 [[plugins]]
@@ -452,7 +448,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
-on_cmd = ['OpenBrowser', 'OpenBrowserSearch', 'OpenBrowserSmartSearch']
 hook_add = '''
   let g:netrw_nogx = 1 " disable netrw's gx mapping.
   nmap gx <Plug>(openbrowser-smart-search)
@@ -598,7 +593,9 @@ repo = 'thinca/vim-ref'
 
 [[plugins]]
 repo = 'thinca/vim-template'
-depends = ['my-vim-template']
+hook_add = '''
+  let g:template_basedir = '~/repos/github.com/bundai223/vim-template'
+'''
 
 [[plugins]]
 repo = 'Yggdroot/indentLine'
@@ -1271,6 +1268,7 @@ hook_add = '''
   nnoremap <silent> <C-p> :PrevimOpen<CR>
   let g:previm_enable_realtime=1
 '''
+depends = ['open-browser']
 
 [[plugins]]
 repo = 'thinca/vim-qfreplace'
