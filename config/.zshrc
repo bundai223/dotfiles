@@ -248,6 +248,8 @@ alias find-vimbackup='find **/*~'
 # vim
 alias nv='nvimalter'
 alias nvim='nvimalter'
+alias vim='nvimalter'
+alias v='nvimalter'
 
 # silver searcher
 alias ag='ag -S'
@@ -300,7 +302,7 @@ alias -g XX='| xargs'
 alias -g PP='| peco'
 
 # alias v="vagrant"
-function v() {
+function va() {
   if [[ $# -gt 0 ]]; then
     vagrant "$@"
   else
