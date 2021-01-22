@@ -283,6 +283,7 @@ alias marp='docker run --rm --init -v $(pwd):/workdir -w /workdir -e LANG=$LANG 
 alias mysql='docker run --rm -it mysql mysql'
 alias owasp='docker run -v $(pwd):/zap/wrk/:rw -t --rm owasp/zap2docker-stable zap-baseline.py ' # -t https://coupa-staging-nowaf.ai-q.biz/XkEgFLFJHaHUZn_pxeQn/contact/top -r testreport.html
 alias pandoc='docker run --rm --volume "`pwd`:/data" --user `id -u`:`id -g` pandoc/core'
+alias gixy='docker run --rm -v $(pwd):/workdir -w /workdir yandex/gixy'
 
 # filetype
 alias -s html=chrome
