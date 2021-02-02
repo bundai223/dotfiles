@@ -372,7 +372,6 @@ repo = 'roxma/vim-hug-neovim-rpc'
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
 depends = ['neosnippet-snippets']
-on_i = 1
 hook_add = '''
   " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -395,7 +394,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
-on_i = 1
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
@@ -1139,12 +1137,29 @@ repo = 'prabirshrestha/async.vim'
 
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete.vim'
-on_i = 1
 
 [[plugins]]
-repo = 'prabirshrestha/asyncomplete-lsp.vim'
-depends = ['asyncomplete.vim', 'vim-lsp']
-on_i = 1
+repo = 'prabirshrestha/asyncomplete-buffer.vim'
+hook_source = '''
+  autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+      \ 'name': 'buffer',
+      \ 'priority': 5,
+      \ 'whitelist': ['*'],
+      \ 'completor': function('asyncomplete#sources#buffer#completor'),
+      \ }))
+'''
+
+[[plugins]]
+# repo = 'prabirshrestha/asyncomplete-file.vim'
+repo = '~/repos/github.com/bundai223/asyncomplete-file.vim'
+hook_source = '''
+  autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+      \ 'name': 'file',
+      \ 'allowlist': ['*'],
+      \ 'priority': 10,
+      \ 'completor': function('asyncomplete#sources#file#completor')
+      \ }))
+'''
 
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
@@ -1168,7 +1183,6 @@ hook_add = '''
   let g:lsp_diagnostics_float_cursor = 1
   let g:lsp_text_edit_enabled = 1
 '''
-
 
 [[plugins]]
 repo = 'mattn/vim-lsp-icons'
@@ -1221,24 +1235,25 @@ hook_add = '''
 [[plugins]]
 repo = 'thomasfaingnaert/vim-lsp-snippets'
 depends = ['vim-lsp', 'neosnippet.vim']
-on_i = 1
 
 [[plugins]]
 repo = 'thomasfaingnaert/vim-lsp-neosnippet'
 depends = ['vim-lsp', 'neosnippet.vim']
-on_i = 1
 
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete-neosnippet.vim'
 depends = ['asyncomplete.vim', 'neosnippet.vim']
-on_i = 1
-hook_post_source = '''
+hook_source = '''
   call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
       \ 'name': 'neosnippet',
       \ 'allowlist': ['*'],
       \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
       \ }))
 '''
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+depends = ['asyncomplete.vim', 'vim-lsp']
 
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
@@ -1260,7 +1275,6 @@ hook_add = '''
   endfunc
   inoremap <expr> <Tab> <SID>IndentLikeHackMD()
 '''
-
 
 [[plugins]]
 repo = 'previm/previm'
