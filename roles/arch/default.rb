@@ -24,9 +24,7 @@ include_role('base')
 # yay 'zeal'
 yay 'httpie'
 yay 'inotify-tools'
-execute 'yarn global add vue-cli' do
-  user node[:user]
-end
+execute 'yarn global add vue-cli'
 
 yay 'ntp'
 service 'ntpd' do

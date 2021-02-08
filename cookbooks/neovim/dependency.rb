@@ -22,7 +22,7 @@ end
 ].each do |pip|
   # cmds =
   %w[
-    pip pip3 pip2
+    pip pip
   ].each do |pipcmd|
     execute "#{pipcmd} install --upgrade --user #{pip}" do
       user node[:user]
@@ -38,7 +38,7 @@ end
 
 # Node.js
 execute 'yarn global add neovim' do
-  user node[:user]
+  # user node[:user]
   command <<-EOS
 . /etc/profile.d/asdf.sh
 yarn global add neovim
