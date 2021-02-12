@@ -1,0 +1,7 @@
+# `fronzen_string_literal: true`を強制しない
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# 日本語コメント許可
+Style/AsciiComments:
+  Enabled: false
