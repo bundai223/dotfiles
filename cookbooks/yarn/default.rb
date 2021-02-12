@@ -1,32 +1,26 @@
+include_cookbook 'nodejs'
+include_cookbook 'asdf'
 
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
-  execute 'apt purge -y cmdtest'
-
-  execute "install yarn" do
-    command <<-EOL
-      curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-      echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-      apt update
-    EOL
-
-    not_if 'ls /etc/apt/sources.list.d | grep yarn.list'
+  source_asdf_and_execute 'npm install --global yarn' do
+    user node[:user]
+    not_if 'which yarn'
   end
-
-  package 'yarn'
 
 when 'fedora', 'redhat', 'amazon'
-  execute "install yarn" do
-    command <<-EOL
-      curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
-    EOL
+  source_asdf_and_execute 'npm install --global yarn' do
+    user node[:user]
+    not_if 'which yarn'
   end
-
-  package 'yarn'
 
 when 'osx', 'darwin'
 when 'arch'
-  package 'yarn'
+  source_asdf_and_execute 'npm install --global yarn' do
+    user node[:user]
+    not_if 'which yarn'
+  end
+
 when 'opensuse'
 else
 end
