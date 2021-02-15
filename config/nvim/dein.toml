@@ -738,9 +738,9 @@ hook_add = '''
     endif
 
     try
-      if expand('%:t') !~? 'Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+      if expand('%:t') !~? 'Gundo\|NERD' && &ft !~? 'vimfiler'
         let _ = fugitive#head()
-        return strlen(_) ? s:branch._ : ''
+        return strlen(_) ? s:branch . _ : ''
       endif
     catch
     endtry
