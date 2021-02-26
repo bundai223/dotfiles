@@ -262,6 +262,28 @@ alias docker_rm_containers='docker ps -aqf status=exited | xargs docker rm -v' #
 alias docker_rm_volumes='docker volume ls -qf dangling=true | xargs docker volume rm'
 alias docker_rm_compose_containers='docker-compose rm -fv'
 
+function dcattach() {
+  service=$1
+  container_name=$(docker-compose ps | grep "_${service}_" | awk '{print $1}')
+
+  how_to_detach=$(cat << EOUSAGE
+Attaching: ${container_name}!
+How to Detach: Ctrl+P, Ctrl+Q
+EOUSAGE
+)
+  echo $how_to_detach
+
+  if [ -n "$TMUX" ]; then
+    # paneを新規で開いてattach
+    # 抜けたらpane閉じてみる
+    tmux split-window -v -c "#{pane_current_path}"
+    tmux select-pane -T "🐳 ${container_name}: C+p,C+q"
+    tmux send-keys "docker attach $container_name; exit" C-m
+  else
+    docker attach $container_name
+  fi
+}
+
 # git
 # alias g='git'
 function g() {
