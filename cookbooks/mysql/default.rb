@@ -16,19 +16,18 @@ minor_version = node[:mysql][:minor_version]
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
   package 'mysql-server'
-  package 'libmysqld-dev'
+  package 'libmariadb-dev'
 
   if node[:is_wsl]
-    execute 'service mysql start' do
-    end
+    execute 'service mysql stop'
 
-    file "#{node[:home]}/.bashrc" do
-      action [:edit]
-      block do |content|
-        content.gsub!('sudo service mysql start', '')
-        content << 'sudo service mysql start'
-      end
-    end
+    # file "#{node[:home]}/.bashrc" do
+    #   action [:edit]
+    #   block do |content|
+    #     content.gsub!('sudo service mysql start', '')
+    #     content << 'sudo service mysql start'
+    #   end
+    # end
   else
     service 'mysql' do
       action [:start, :enable]

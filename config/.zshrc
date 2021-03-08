@@ -306,6 +306,7 @@ alias mysql='docker run --rm -it mysql mysql'
 alias owasp='docker run -v $(pwd):/zap/wrk/:rw -t --rm owasp/zap2docker-stable zap-baseline.py ' # -t https://coupa-staging-nowaf.ai-q.biz/XkEgFLFJHaHUZn_pxeQn/contact/top -r testreport.html
 alias pandoc='docker run --rm --volume "`pwd`:/data" --user `id -u`:`id -g` pandoc/core'
 alias gixy='docker run --rm -v $(pwd):/workdir -w /workdir yandex/gixy'
+alias dive='docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v  "$(pwd)":"$(pwd)" -w "$(pwd)" -v "$HOME/.dive.yaml":"$HOME/.dive.yaml" wagoodman/dive:latest'
 
 # filetype
 alias -s html=chrome

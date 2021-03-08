@@ -8,7 +8,6 @@ when 'fedora', 'redhat', 'amazon'
 when 'debian', 'ubuntu', 'mint'
   package 'conky-all'
 
-  execute 'add-apt-repository -y ppa:linuxmint-tr/araclar'
   package 'conky-manager'
   package 'conky-manager-extra'
 when 'opensuse'
