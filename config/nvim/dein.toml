@@ -46,7 +46,7 @@ repo ='bronson/vim-trailing-whitespace'
 
 [[plugins]]
 repo = 'liuchengxu/vim-clap'
-build = 'make'
+build = 'make build'
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
@@ -212,12 +212,13 @@ hook_add = '''
   let s:clap = g:plugin_dir . '/repos/github.com/liuchengxu/vim-clap'
   call denite#custom#filter('matcher/clap', 'clap_path', expand(s:clap))
 
-  " file/rec
+  " file/recfile/rec/git
   " call denite#custom#source('file_mru', 'matchers', ['matcher/regexp'])
   " call denite#custom#source('file_mru', 'matchers', ['matcher/clap'])
   call denite#custom#source('file_mru', 'matchers', ['converter/prioritize_basename', 'matcher/clap'])
   call denite#custom#source('file/rec', 'matchers', ['converter/prioritize_basename', 'matcher/clap'])
   call denite#custom#source('file/rec/git', 'matchers', ['converter/prioritize_basename', 'matcher/clap'])
+  call denite#custom#source('ghq', 'matchers', ['converter/prioritize_basename', 'matcher/clap'])
 
 	" Ripgrep command on grep source
 	call denite#custom#var('grep', {
