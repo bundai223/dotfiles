@@ -47,6 +47,13 @@ repo ='bronson/vim-trailing-whitespace'
 [[plugins]]
 repo = 'liuchengxu/vim-clap'
 build = 'make build'
+hook_add = '''
+  autocmd FileType clap_input inoremap <silent> <buffer> <C-n> <C-R>=clap#navigation#linewise('down')<CR>
+  autocmd FileType clap_input inoremap <silent> <buffer> <C-p> <C-R>=clap#navigation#linewise('up')<CR>
+'''
+
+[[plugins]]
+repo = 'markwu/vim-mrufiles'
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
@@ -154,6 +161,7 @@ hook_add = '''
   nnoremap <silent> <leader>/f   :<C-u>DeniteBufferDir file/rec<CR>
   nnoremap <silent> <leader>/p   :<C-u>Denite file/rec/git<CR>
   nnoremap <silent> <leader>/m   :<C-u>Denite file_mru<CR>
+  " nnoremap <silent> <leader>/m   :<C-u>Clap mrufiles<CR>
   nnoremap <silent> <leader>/o   :<C-u>Denite -no-quit -wrap outline<CR>
   nnoremap <silent> <leader>/gr   :<C-u>Denite -auto-action=preview grep<CR>
   nnoremap <silent> <leader>/gh   :<C-u>Denite ghq<CR>
@@ -172,10 +180,13 @@ hook_add = '''
 
   " denite file
   nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file/rec<CR>
-  nnoremap <silent> [denite]p   :<C-u>Denite file/rec/git<CR>
+  " nnoremap <silent> [denite]p   :<C-u>Denite file/rec/git<CR>
+  nnoremap <silent> [denite]p   :<C-u>Clap gfiles<CR>
   nnoremap <silent> [denite]m   :<C-u>Denite file_mru<CR>
+  " nnoremap <silent> <leader>/m   :<C-u>Clap mrufiles<CR>
   nnoremap <silent> [denite]o   :<C-u>Denite -no-quit -wrap outline<CR>
-  nnoremap <silent> [denite]gr   :<C-u>Denite -auto-action=preview grep<CR>
+  " nnoremap <silent> [denite]gr   :<C-u>Denite -auto-action=preview grep<CR>
+  nnoremap <silent> [denite]gr   :<C-u>Clap grep<CR>
   nnoremap <silent> [denite]gh   :<C-u>Denite ghq<CR>
   nnoremap <silent> [denite]tw  :<C-u>Denite tweetvim<CR>
   nnoremap <silent> [denite]ns  :<C-u>Denite neosnippet<CR>
@@ -615,7 +626,7 @@ hook_add = '''
   endif
 
   let s:readonly = ''
-  let s:branch = ' ' "''
+  let s:branch = ' ' "''
   let s:line_number = ''
 
   let g:lightline = get(g:, 'lightline', {})
@@ -647,7 +658,7 @@ hook_add = '''
         \     [ 'prjname', 'cwd' ]
         \   ],
         \   'right': [
-        \     ['lineinfo', 'syntax_check'],
+        \     ['nearest_func', 'lineinfo', 'syntax_check'],
         \     ['percent'],
         \     ['charcode', 'fileformat', 'fileencoding', 'filetype']
         \   ]
@@ -667,6 +678,7 @@ hook_add = '''
         \   'gitgutter': 'MyGitgutter',
         \   'prjname': 'MyPrjname',
         \   'cwd': 'MyCwd',
+        \   'nearest_func': 'NearestFunc',
         \   'charcode': 'MyCharCode',
         \   'fileformat': 'MyFileformat',
         \   'fileencoding': 'MyFileencoding',
@@ -813,7 +825,7 @@ hook_add = '''
 
       " $HOMEは'~'表示の方が好きなので置き換え
       let s:short_pwd = substitute(s:pwd, expand('~'), '~', '')
-      let s:normalized_pwd = substitute(s:short_pwd, '\~/repos/[^/]*/', '', '')
+      let s:normalized_pwd = substitute(s:short_pwd, '\~/\(repos\|\work\)/[^/]*/', '', '')
       return s:normalized_pwd
     else
       return ''
@@ -830,6 +842,10 @@ hook_add = '''
     else
       return ''
     endif
+  endfunction
+
+  function! NearestFunc() abort
+    return get(b:, 'vista_nearest_method_or_function', '')
   endfunction
 
   function! MyCharCode()
@@ -1060,7 +1076,7 @@ repo = 'ryanoasis/vim-devicons'
 repo = 'lambdalisue/fern.vim'
 # on_cmd = ['Fern']
 hook_add = '''
-  nnoremap <silent> <leader>f<Space> :Fern %:h -reveal=%<CR>
+  nnoremap <silent> <leader>f<Space> :Fern . -reveal=% -drawer<CR>
 '''
 hook_source = '''
   let g:fern#renderer = "devicons"
@@ -1084,7 +1100,7 @@ on_ft = 'pug'
 [[plugins]]
 repo = 'airblade/vim-rooter'
 hook_source = '''
-  let g:rooter_manual_only = 1
+  let g:rooter_manual_only = 0
   let g:rooter_cd_cmd="lcd"
   let g:rooter_silent_chdir = 1
   let g:rooter_resolve_links = 1
@@ -1294,3 +1310,9 @@ repo = 'tyru/capture.vim'
 
 [[plugins]]
 repo = 'chr4/nginx.vim'
+
+[[plugins]]
+repo = 'liuchengxu/vista.vim'
+hook_post_source = '''
+  autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+'''
