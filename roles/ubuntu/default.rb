@@ -1,11 +1,12 @@
-execute 'apt purge -y ebtables' do
-  command <<-EOL
-    rm /var/lib/dpkg/info/ebtables.prerm
-    apt purge -y ebtables
-  EOL
+if node['is_wsl']
+  execute 'apt purge -y ebtables' do
+    command <<-EOL
+      rm /var/lib/dpkg/info/ebtables.prerm
+      apt purge -y ebtables
+    EOL
 
-  only_if node['is_wsl']
-  only_if 'test -e /var/lib/dpkg/info/ebtables.prerm'
+    only_if 'test -e /var/lib/dpkg/info/ebtables.prerm'
+  end
 end
 
 execute 'apt purge -y nano' do
