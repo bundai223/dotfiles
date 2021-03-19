@@ -34,9 +34,9 @@ fi
 
 DOTFILEDIR=$WORK_DIR/dotfiles-master
 if [ ! -d ${DOTFILEDIR} ]; then
-  dotfile_github_url=https://github.com/bundai223/dotfiles/archive/master.zip
+  dotfile_github_url=https://github.com/bundai223/dotfiles/archive/main.zip
   curl -sOL $dotfile_github_url
-  unzip master.zip
+  unzip main.zip
 fi
 
 cd $DOTFILEDIR
