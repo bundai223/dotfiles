@@ -38,7 +38,7 @@ end
 
 # Node.js
 execute 'yarn global add neovim' do
-  # user node[:user]
+  user node[:user]
   command <<-EOS
 . /etc/profile.d/asdf.sh
 yarn global add neovim
