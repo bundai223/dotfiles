@@ -10,7 +10,7 @@ myrepos = [
   'bundai223/powerline-ext-tmux',
   'bundai223/blog.bundai223',
   'bundai223/bundai223.github.io',
-  'gitlab.com:bundai223/private-memo.git'
+  'git@gitlab.com:bundai223/private-memo.git'
 ]
 myrepos.each { |name| get_repo name }
 
