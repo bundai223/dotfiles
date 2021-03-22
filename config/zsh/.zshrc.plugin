@@ -14,7 +14,7 @@ zplug "Tarrasch/zsh-functional" # each map filter fold
 zplug "willghatch/zsh-hooks"
 zplug "unixorn/warhol.plugin.zsh" # ansi
 zplug "mollifier/zload"
-zplug "b4b4r07/enhancd", use:"init.sh"
+# zplug "b4b4r07/enhancd", use:"init.sh"
 
 zplug "GeneralD/zsh-aliases-colorls"
 zplug "GeneralD/b3b7c2290db941ad5b2a5e3eb50e1e9e", from:gist, use:"expand-or-complete-with-dots.zsh", if:"WAITING_DOTS='···'"
