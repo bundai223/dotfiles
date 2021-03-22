@@ -11,14 +11,17 @@ hook_source = '''
   "       \ 'name': '+quickfix',
   "       \ 'o': ['copen', 'open-quickfix']
   "       \ }
-  let g:which_key_map['f'] = {
+  let g:which_key_map.f = {
         \ 'name': '+files',
         \ 'e': {
         \   'name': '+edit',
         \   'g': { 'name': '+git config' },
         \   'm': { 'name': '+memo' },
         \   't': { 'name': '+tmux' },
-        \   'v': { 'name': '+neovim config' },
+        \   'v': {
+        \     'name': '+vim config',
+        \     'p': 'plugin'
+        \   },
         \   'z': { 'name': '+zsh config' },
         \ }
         \ }
@@ -1110,22 +1113,6 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'jsfaint/gen_tags.vim'
-hook_source = '''
-  let g:gen_tags#ctags_auto_gen = 1
-  let g:gen_tags#gtags_auto_gen = 1
-'''
-
-[[plugins]]
-repo = 'lighttiger2505/gtags.vim'
-hook_source = '''
-  nnoremap <silent> <leader>gf :Gtags -f %<CR>
-  nnoremap <silent> <leader>gj :GtagsCursor<CR>
-  nnoremap <silent> <leader>gd :<C-u>exe('Gtags '.expand('<cword>'))<CR>
-  nnoremap <silent> <leader>gr :<C-u>exe('Gtags -r '.expand('<cword>'))<CR>
-'''
-
-[[plugins]]
 repo = 'AndrewRadev/gapply.vim'
 
 [[plugins]]
@@ -1316,3 +1303,6 @@ repo = 'liuchengxu/vista.vim'
 hook_post_source = '''
   autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 '''
+
+[[plugins]]
+repo = 'ludovicchabant/vim-gutentags'
