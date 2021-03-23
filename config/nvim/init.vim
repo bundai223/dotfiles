@@ -393,6 +393,11 @@ augroup MyAutoCmd
   autocmd FileType python setl softtabstop=4
   autocmd FileType python setl shiftwidth=4
   autocmd FileType python setl expandtab
+
+  autocmd FileType markdown setl tabstop=4
+  autocmd FileType markdown setl softtabstop=4
+  autocmd FileType markdown setl shiftwidth=4
+  autocmd FileType markdown setl expandtab
 augroup END
 
 " memo
