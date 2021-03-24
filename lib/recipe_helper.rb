@@ -125,17 +125,13 @@ end
 
 define :get_repo, build: nil do
   reponame = params[:name]
-  repopath = "#{node[:repos]}/github.com/#{reponame}"
 
   execute "get_repo #{reponame}" do
-    command run_as(node[:user], "ghq get -p #{reponame}")
-    not_if "test -d #{repopath}"
+    command "ghq get -p #{reponame}"
   end
 
   unless params[:build].nil?
     execute "build #{reponame}" do
-      user node[:user]
-      cwd repopath
       command params[:build]
     end
   end
@@ -160,8 +156,8 @@ end
 
 define :install_font do
   name = params[:name]
-  typename = File.extname(name) == 'otf' ? 'OTF' : 'TTF'
-  install_path = "/usr/share/fonts/#{typename}/"
+  # typename = File.extname(name) == 'otf' ? 'OTF' : 'TTF'
+  install_path = "~/.local/share/fonts"
 
   directory install_path
   execute "cp #{name} #{install_path}"
