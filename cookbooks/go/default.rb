@@ -29,5 +29,5 @@ execute 'install golang' do
   fi
   asdf reshim golang
 EOCMD
-  not_if 'test -e ~/.asdf/shims/golang'
+  not_if 'test -e ~/.asdf/shims/go'
 end
