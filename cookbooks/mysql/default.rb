@@ -131,3 +131,7 @@ execute 'mysql user add for auth_socket' do
     mysql -uroot -p'#{new_password}' -e "GRANT ALL ON *.* TO '#{node[:user]}'@'localhost';"
   EOL
 end
+
+execute 'pip install mycli' do
+  not_if 'which mycli'
+end

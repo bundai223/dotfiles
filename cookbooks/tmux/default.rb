@@ -1,6 +1,6 @@
 include_recipe 'dependency.rb'
 
-version = '3.1b'
+version = '3.1c'
 
 case node[:platform]
 when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon'
