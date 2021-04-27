@@ -49,7 +49,11 @@ repo ='bronson/vim-trailing-whitespace'
 
 [[plugins]]
 repo = 'liuchengxu/vim-clap'
-build = 'make build'
+# build = 'make'
+hook_post_update = '''
+  " execute ':Clap install-binary'
+  call clap#(0, 'install-binary')
+'''
 hook_add = '''
   autocmd FileType clap_input inoremap <silent> <buffer> <C-n> <C-R>=clap#navigation#linewise('down')<CR>
   autocmd FileType clap_input inoremap <silent> <buffer> <C-p> <C-R>=clap#navigation#linewise('up')<CR>
@@ -66,7 +70,7 @@ build = 'make'
 repo = 'Shougo/dein.vim'
 hook_add = '''
   " 初期起動時にイベント必要だったら自分で起動する設定が必要
-  " autocmd VimEnter * call dein#call_hook('post_source')
+  autocmd VimEnter * call dein#call_hook('post_source')
 '''
 
 # [[plugins]]
@@ -581,13 +585,13 @@ hook_add = '''
 
   let g:quickrun_config['ruby.rspec'] = {
         \  'command' : 'rspec',
-        \  'exec'    : 'bundle exec %c %o %s',
+        \  'exec'    : 'docker-compose run --rm bundle bundle exec %c %o %s',
         \  'cmdopt'  : '-c -fd --tty',
         \  'filetype': 'rspec-result'
         \}
   let g:quickrun_config['ruby.rspec_line'] = {
         \  'command': 'rspec',
-        \  'exec': 'bundle exec %c %s:%{line(".")} %o',
+        \  'exec': 'docker-compose run --rm bundle bundle exec %c %s:%{line(".")} %o',
         \  'cmdopt': '-c -fd --tty',
         \  'filetype': 'rspec-result'
         \}
@@ -1166,6 +1170,17 @@ hook_source = '''
 '''
 
 [[plugins]]
+repo = 'htlsne/asyncomplete-look'
+depends = ['asyncomplete.vim']
+hook_source = '''
+  au User asyncomplete_setup call asyncomplete#register_source({
+      \ 'name': 'look',
+      \ 'allowlist': ['text', 'markdown', 'gitcommit'],
+      \ 'completor': function('asyncomplete#sources#look#completor'),
+      \ })
+'''
+
+[[plugins]]
 repo = 'prabirshrestha/vim-lsp'
 hook_add = '''
   function! s:on_lsp_buffer_enabled() abort
@@ -1306,3 +1321,25 @@ hook_post_source = '''
 
 [[plugins]]
 repo = 'ludovicchabant/vim-gutentags'
+
+# git
+[[plugins]]
+repo = 'rhysd/committia.vim'
+hook_post_source = '''
+  let g:committia_hooks = get(g:, 'committia_hooks', {})
+  function! g:committia_hooks.edit_open(info)
+      " Additional settings
+      setlocal spell
+      setlocal spelllang+=cjk
+
+      " If no commit message, start with insert mode
+      if a:info.vcs ==# 'git' && getline(1) ==# ''
+          startinsert
+      end
+
+      " Scroll the diff window from insert mode
+      " Map <C-n> and <C-p>
+      imap <buffer><C-n> <Plug>(committia-scroll-diff-down-half)
+      imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
+  endfunction
+'''
