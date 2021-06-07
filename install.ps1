@@ -45,7 +45,7 @@ $apps = @(
   'pwsh',
   'sudo',
   'vim',
-  'windows-terminal'
+  # 'windows-terminal'
 )
   
 # add bucekts
