@@ -44,8 +44,8 @@ $apps = @(
   # 'screeninfo', # https://v2.rakuchinn.jp/
   'pwsh',
   'sudo',
-  'vim'
-  # 'windows-terminal'
+  'vim',
+  'obsidian'
 )
   
 # add bucekts
