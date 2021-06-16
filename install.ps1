@@ -44,7 +44,7 @@ $apps = @(
   # 'screeninfo', # https://v2.rakuchinn.jp/
   'pwsh',
   'sudo',
-  'vim',
+  'vim'
   # 'windows-terminal'
 )
   
