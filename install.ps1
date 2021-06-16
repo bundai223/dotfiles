@@ -25,6 +25,7 @@ $unknown_buckets = @(
 )
 $apps = @(
   'googlechrome',
+  'ghq',
   'brave',
   'vivaldi',
   '7zip',
