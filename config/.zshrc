@@ -256,15 +256,15 @@ alias ag='ag -S'
 
 # docker
 alias d='docker'; compdef d=docker
-alias dc='UID=$(id -u) GID=$(id -g) docker-compose'; compdef dc=docker-compose
+alias dc='UID=$(id -u) GID=$(id -g) docker compose'; compdef dc=docker-compose
 alias docker_rm_images='docker images -qf dangling=true | xargs docker rmi'
 alias docker_rm_containers='docker ps -aqf status=exited | xargs docker rm -v' # rm with volumes
 alias docker_rm_volumes='docker volume ls -qf dangling=true | xargs docker volume rm'
-alias docker_rm_compose_containers='docker-compose rm -fv'
+alias docker_rm_compose_containers='docker compose rm -fv'
 
 function dcattach() {
   service=$1
-  container_name=$(docker-compose ps | grep "_${service}_" | awk '{print $1}')
+  container_name=$(docker compose ps | grep "_${service}_" | awk '{print $1}')
 
   how_to_detach=$(cat << EOUSAGE
 Attaching: ${container_name}!
@@ -298,9 +298,10 @@ alias gittaglist="git for-each-ref --sort=-taggerdate --format='%(taggerdate:sho
 alias gf='git flow'; compdef gf=git-flow
 
 # docker
-function aws() {
-  docker run -e AWS_PROFILE=$AWS_PROFILE -e AWS_REGION=$AWS_REGION -it --rm -v $(pwd):/aws -v ~/.aws:/root/.aws amazon/aws-cli $@
-}
+# System Manager pluginとの連携ができないのでawsはdockerやめる
+# function aws() {
+#   docker run -e AWS_PROFILE=$AWS_PROFILE -e AWS_REGION=$AWS_REGION -it --rm -v $(pwd):/aws -v ~/.aws:/root/.aws amazon/aws-cli $@
+# }
 alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 alias hadolint="docker run -i --rm hadolint/hadolint"
 alias marp='docker run --rm --init -v $(pwd):/workdir -w /workdir -e LANG=$LANG -p 8080:8080 marpteam/marp-cli'
