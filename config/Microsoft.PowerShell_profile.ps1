@@ -112,7 +112,7 @@ Set-Alias idp RunIdp
 Set-Alias idp_stop StopIdp
 
 function RunAws {
-  docker run -it --rm --name=awscli -v ~/.aws:/root/.aws lorentzca/aws $args
+  docker run -it --rm --name=awscli -v ${HOME}/.aws:/root/.aws lorentzca/aws $args
 }
 Set-Alias aws RunAws
 
@@ -140,3 +140,6 @@ Import-Module ZLocation
 Import-Module posh-git
 Import-Module oh-my-posh
 Set-Theme Paradox
+
+# WSLのユーザ変更メソッド
+Function WSL-SetDefaultUser ($distro, $user) { Get-ItemProperty Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss\*\ DistributionName | Where-Object -Property DistributionName -eq $distro | Set-ItemProperty -Name DefaultUid -Value ((wsl -d $distro -u $user -e id -u) | Out-String); };
