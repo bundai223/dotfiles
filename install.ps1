@@ -59,6 +59,7 @@ Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -Force -Skip
 # symlink
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\WindowsTerminal.settings.json" -Path "$HOME\AppData\Local\Microsoft\Windows Terminal" -Name settings.json -ItemType SymbolicLink
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\Microsoft.PowerShell_profile.ps1" -Path "$HOME\Documents\PowerShell" -Name Microsoft.PowerShell_profile.ps1 -ItemType SymbolicLink
+New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\keypirinha\Profile\User" -Path "$HOME\scoop\persist\keypirinha\portable\Profile" -Name User -ItemType SymbolicLink
 
 # Storeアプリインストールしてちょ
 echo '* Please install store apps.'
