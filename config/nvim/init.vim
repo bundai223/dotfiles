@@ -315,6 +315,10 @@ nnoremap tc :<C-u>tabclose<CR>
 nmap <C-p> [[
 nmap <C-n> ]]
 
+" fold
+nmap <Space>fc foldclose
+nmap <Space>fo foldopen
+
 " Toggle 0 and ^
 nnoremap <expr>0 col('.') == 1 ? '^' : '0'
 nnoremap <expr>^ col('.') == 1 ? '^' : '0'
@@ -376,9 +380,13 @@ endif
 """ racer
 set hidden
 
+set foldmethod=indent
+set foldlevel=100
+
 augroup MyAutoCmd
   autocmd BufNewFile,BufRead *_spec.rb setl filetype=ruby.rspec
   autocmd FileType ruby setlocal iskeyword+=?
+  autocmd FileType ruby.rspec setlocal number
   autocmd FileType ruby setlocal dictionary+=~/.config/nvim/dein/repos/github.com/pocke/dicts/ruby.dict
   autocmd FileType javascript,ruby setlocal dictionary+=~/.config/nvim/dein/repos/github.com/pocke/dicts/jquery.dict
 
