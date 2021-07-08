@@ -1,7 +1,7 @@
 dotfiles
 ========
 mydotfiles
-  
+
 ## How to install
 
 ### Linux
