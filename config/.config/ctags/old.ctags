@@ -1,0 +1,5 @@
+--recurse
+--tag-relative=no
+--sort=yes
+--exclude=".git*"
+--langmap=Ruby:+.yml.haml.erb

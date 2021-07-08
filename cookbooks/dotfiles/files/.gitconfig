@@ -7,6 +7,26 @@
 
 [ghq]
   root = ~/repos
-  root = ~/go
 
-
+# private    ==========
+# [ghq "https://github.com/"]
+#   root = ~/repos
+#
+# [ghq "https://gitlab.com/"]
+#   root = ~/repos
+#
+# [ghq "ssh://git@github.com"]
+#   root = ~/repos
+#
+# [ghq "ssh://git@gitlab.com"]
+#   root = ~/repos
+#
+# [includeIf "gitdir:~/repos/"]
+#   path = ~/repos/.gitconfig
+#
+# # 会社用設定 ==========
+# [ghq]
+#   root = ~/work
+#
+# [includeIf "gitdir:~/work/"]
+#   path = ~/work/.gitconfig

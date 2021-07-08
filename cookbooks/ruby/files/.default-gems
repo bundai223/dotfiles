@@ -1,0 +1,10 @@
+bundler
+pry
+pry-doc
+solargraph
+rubocop
+ruby_parser
+seeing_is_believing
+ruby-debug-ide
+debase
+colorls

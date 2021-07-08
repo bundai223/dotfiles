@@ -1,59 +1,31 @@
-include_recipe 'dependency.rb'
+include_recipe './dependency.rb'
+include_cookbook './asdf'
 
-node.reverse_merge!({
-  nvm: {
-    version: 'v0.33.11',
-  },
-  nodejs: {
-    version: '10.13.0',
-    major_version: 10,
-  }
-})
+# node.reverse_merge!({
+#   nodejs: {
+#     version: '10.13.0',
+#   }
+# })
 
-node_version = node[:nodejs][:version]
-major_version = node[:nodejs][:major_version]
-nvm_version = node[:nvm][:version]
+version = 'latest'
+version = node[:nodejs][:version] unless node[:nodejs].nil?
+user = node[:user]
+home = node[:home]
 
-case node[:platform]
-when 'debian', 'ubuntu', 'mint'
-  execute 'nvm install' do
-    command "curl -o- https://raw.githubusercontent.com/creationix/nvm/#{nvm_version}/install.sh | bash"
-  end
-  # execute "install nodejs#{major_version}" do
-  #   command <<-EOL
-  #     curl -sL https://deb.nodesource.com/setup_#{major_version}.x | sudo -E bash -
-  #   EOL
-  # end
-  #
-  # package 'nodejs'
-
-when 'fedora', 'redhat', 'amazon'
-  execute "install nodejs#{major_version}" do
-    command <<-EOL
-      curl --silent --location https://rpm.nodesource.com/setup_#{major_version}.x | sudo bash -
-    EOL
-  end
-
-  package 'nodejs'
-
-when 'osx', 'darwin'
-when 'arch'
-  yay 'nvm'
-when 'opensuse'
-else
-end
-
-# setup conf
-conf_path = '/etc/profile.d/nodejs.sh'
-remote_file conf_path do
-  action :create
+remote_file "#{home}/.default-npm-packages" do
+  source 'files/.default-npm-packages'
+  owner user
   mode '644'
 end
 
-execute "nvm install #{node_version}" do
-  command <<-EOL
-    source #{conf_path}
-    nvm install #{node_version}
-  EOL
+[
+  { cmd: 'asdf plugin add nodejs', not_if: 'asdf plugin list | grep nodejs' },
+  { cmd: "bash -c '${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-keyring'", not_if: 'which nodejs' },
+  { cmd: "asdf install nodejs #{version}", not_if: "asdf list nodejs | grep #{version}" },
+  { cmd: "asdf global nodejs #{version}", not_if: 'which nodejs' }
+].each do |op|
+  source_asdf_and_execute op[:cmd] do
+    user user
+    not_if_ op[:not_if] unless op[:not_if].nil?
+  end
 end
-

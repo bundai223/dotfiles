@@ -22,6 +22,9 @@ when 'arch'
     only_if 'which pamac'
     not_if 'which yay'
   end
+  package 'yay' do
+    not_if 'which yay'
+  end
 when 'osx', 'darwin'
 when 'fedora', 'redhat', 'amazon'
 when 'debian', 'ubuntu', 'mint'

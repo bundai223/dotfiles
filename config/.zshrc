@@ -29,6 +29,9 @@
 #        .: 通常のファイルのみ残す
 #
 #************************************************************************** }}}
+# profiling
+# zmodload zsh/zprof && zprof
+
 #---------------------------------------------
 # 基本の設定
 #---------------------------------------------
@@ -224,8 +227,10 @@ p() {
     *) break;;
   esac; shift; done
 
-  peco $pecoopts | while read LINE; do $@ $LINE; done
+  $FILTER_CMD $pecoopts | while read LINE; do $@ $LINE; done
 }
+
+alias ls='colorls'
 alias o='git ls-files | p open'
 alias c='ghq list -p | p cd'
 alias h='history -i'; compdef h=history
@@ -244,17 +249,41 @@ alias find-vimbackup='find **/*~'
 # vim
 alias nv='nvimalter'
 alias nvim='nvimalter'
+alias vim='nvimalter'
+alias v='nvimalter'
 
 # silver searcher
 alias ag='ag -S'
 
 # docker
 alias d='docker'; compdef d=docker
-alias dc='UID=$(id -u) GID=$(id -g) docker-compose'; compdef dc=docker-compose
+alias dc='UID=$(id -u) GID=$(id -g) docker compose'; compdef dc=docker-compose
 alias docker_rm_images='docker images -qf dangling=true | xargs docker rmi'
 alias docker_rm_containers='docker ps -aqf status=exited | xargs docker rm -v' # rm with volumes
 alias docker_rm_volumes='docker volume ls -qf dangling=true | xargs docker volume rm'
-alias docker_rm_compose_containers='docker-compose rm -fv'
+alias docker_rm_compose_containers='docker compose rm -fv'
+
+function dcattach() {
+  service=$1
+  container_name=$(docker compose ps | grep "_${service}_" | awk '{print $1}')
+
+  how_to_detach=$(cat << EOUSAGE
+Attaching: ${container_name}!
+How to Detach: Ctrl+P, Ctrl+Q
+EOUSAGE
+)
+  echo $how_to_detach
+
+  if [ -n "$TMUX" ]; then
+    # paneを新規で開いてattach
+    # 抜けたらpane閉じてみる
+    tmux split-window -v -c "#{pane_current_path}"
+    tmux select-pane -T "🐳 ${container_name}: C+p,C+q"
+    tmux send-keys "docker attach $container_name; exit" C-m
+  else
+    docker attach $container_name
+  fi
+}
 
 # git
 # alias g='git'
@@ -270,9 +299,18 @@ alias gittaglist="git for-each-ref --sort=-taggerdate --format='%(taggerdate:sho
 alias gf='git flow'; compdef gf=git-flow
 
 # docker
+# System Manager pluginとの連携ができないのでawsはdockerやめる
+# function aws() {
+#   docker run -e AWS_PROFILE=$AWS_PROFILE -e AWS_REGION=$AWS_REGION -it --rm -v $(pwd):/aws -v ~/.aws:/root/.aws amazon/aws-cli $@
+# }
 alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
-alias aws="docker run -it --rm -v ~/.aws:/root/.aws lorentzca/aws"
 alias hadolint="docker run -i --rm hadolint/hadolint"
+alias marp='docker run --rm --init -v $(pwd):/workdir -w /workdir -e LANG=$LANG -p 8080:8080 marpteam/marp-cli'
+alias mysql='docker run --rm -it mysql mysql'
+alias owasp='docker run -v $(pwd):/zap/wrk/:rw -t --rm owasp/zap2docker-stable zap-baseline.py ' # -t https://coupa-staging-nowaf.ai-q.biz/XkEgFLFJHaHUZn_pxeQn/contact/top -r testreport.html
+alias pandoc='docker run --rm --volume "`pwd`:/data" --user `id -u`:`id -g` pandoc/core'
+alias gixy='docker run --rm -v $(pwd):/workdir -w /workdir yandex/gixy'
+alias dive='docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v  "$(pwd)":"$(pwd)" -w "$(pwd)" -v "$HOME/.dive.yaml":"$HOME/.dive.yaml" wagoodman/dive:latest'
 
 # filetype
 alias -s html=chrome
@@ -291,11 +329,8 @@ alias -g WW='| wc'
 alias -g XX='| xargs'
 alias -g PP='| peco'
 
-alias jgems="jruby -S gems"
-alias jrake="jruby -S rake"
-
 # alias v="vagrant"
-function v() {
+function va() {
   if [[ $# -gt 0 ]]; then
     vagrant "$@"
   else
@@ -437,4 +472,12 @@ fi
 
 # OPAM configuration
 . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# direnv
 which direnv >/dev/null && eval "$(direnv hook zsh)"
+
+[[ "$COLORTERM" == (24bit|truecolor) || "${terminfo[colors]}" -eq '16777216' ]] || zmodload zsh/nearcolor
+
+# if (which zsprof > /dev/null) ; then
+#   zprof | less
+# fi

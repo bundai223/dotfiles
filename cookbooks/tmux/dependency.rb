@@ -4,7 +4,7 @@ when 'debian', 'ubuntu', 'mint'
   package 'wget'
   package 'automake'
   package 'libevent-dev'
-  package 'ncurses-dev'
+  package 'libncurses-dev'
 
 when 'fedora', 'redhat', 'amazon'
   package 'ncurses-devel'

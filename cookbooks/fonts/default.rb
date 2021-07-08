@@ -5,8 +5,13 @@ when 'arch'
   yay 'nerd-fonts-complete'
 
 when 'osx', 'darwin'
+  # not implemented
 when 'fedora', 'redhat', 'amazon'
+  # not implemented
 when 'debian', 'ubuntu', 'mint'
+  package 'fonts-noto-cjk'
+  package 'fonts-noto-cjk-extra'
 when 'opensuse'
+  # not implemented
 else
 end

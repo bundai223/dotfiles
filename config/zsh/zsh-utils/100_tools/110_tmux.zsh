@@ -16,14 +16,14 @@ tmux_start()
 
   if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -v attached; then
     # detached session exists
-    tmux attach -d && echo "tmux attached session "
+    tmux -2 attach -d && echo "tmux attached session "
   else
     if [[ ( $OSTYPE == darwin* ) && ( -x $(which reattach-to-user-namespace 2>/dev/null) ) ]]; then
       # on OS X force tmux's default command to spawn a shell in the user's namespace
       tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
-      tmux -f <(echo "$tmux_config") new-session $* && echo "tmux created new session supported OS X"
+      tmux -2 -f <(echo "$tmux_config") new-session $* && echo "tmux created new session supported OS X"
     else
-      tmux new-session $* && echo "tmux created new session"
+      tmux -2 new-session $* && echo "tmux created new session"
     fi
   fi
 }

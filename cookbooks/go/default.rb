@@ -1,36 +1,33 @@
+# frozen_string_literal: true
 
-case node[:platform]
-when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon'
-  execute 'install go from official binary' do
-    command <<-EOL
-      VERSION=1.9.2
-      OS=linux
-      ARCH=amd64
+include_cookbook 'asdf'
 
-      tgz=go${VERSION}.${OS}-${ARCH}.tar.gz
-      wget https://redirector.gvt1.com/edgedl/go/${tgz}
-      tar -C /usr/local -xzf ${tgz}
-      rm -f ${tgz}
+version = 'latest'
 
-      echo '* Please set path'
-      echo 'export PATH=$PATH:/usr/local/go/bin'
-    EOL
+user = node['user']
+home = node['home']
 
-    not_if 'test -e /usr/local/go'
-  end
+execute 'install asdf-golang' do
+  user user
+  command <<EOCMD
+  . /etc/profile.d/asdf.sh
+  asdf plugin-add golang https://github.com/kennyp/asdf-golang.git
+EOCMD
+  not_if "test -d #{home}/.asdf/plugins/golang"
+end
 
-  remote_file '/etc/profile.d/go.sh' do
-    source 'files/go.sh'
-    mode '644'
-  end
-when 'osx', 'darwin'
-when 'arch'
-  package 'go'
-
-  remote_file '/etc/profile.d/go.sh' do
-    source 'files/go.sh'
-    mode '644'
-  end
-when 'opensuse'
-else
+execute 'install golang' do
+  user user
+  command <<EOCMD
+  VER=#{version}
+  . /etc/profile.d/asdf.sh
+  asdf install golang ${VER}
+  if [ ${VER} = 'latest' ]; then
+    asdf global golang $(asdf list golang)
+  else
+    asdf global golang ${VER}
+  fi
+  asdf reshim golang
+EOCMD
+  not_if 'test -e ~/.asdf/shims/go'
 end

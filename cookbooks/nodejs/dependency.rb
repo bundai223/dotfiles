@@ -2,6 +2,9 @@
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
   package 'build-essential'
+  package 'dirmngr'
+  package 'gpg'
+  package 'curl'
 when 'redhat', 'fedora', 'amazon'
   package 'gcc-c++'
   package 'make'

@@ -16,7 +16,7 @@
 
     repos = "#{home}/repos"
     dotfile_repos = "#{repos}/github.com/bundai223/dotfiles"
-    is_wsl = run_command('uname -a | grep Microsoft', error: false).exit_status == 0
+    is_wsl = run_command('uname -a | grep -i Microsoft', error: false).exit_status == 0
 
     node.reverse_merge!(
       user: user,
@@ -24,7 +24,8 @@
       home: home,
       repos: repos,
       dotfile_repos: dotfile_repos,
-      is_wsl: is_wsl
+      is_wsl: is_wsl,
+      go_root: "#{home}/.asdf/shims/"
     )
   end
 
@@ -124,17 +125,13 @@ end
 
 define :get_repo, build: nil do
   reponame = params[:name]
-  repopath = "#{node[:repos]}/github.com/#{reponame}"
 
   execute "get_repo #{reponame}" do
-    command run_as(node[:user], "ghq get -p #{reponame}")
-    not_if "test -d #{repopath}"
+    command "ghq get -p #{reponame}"
   end
 
   unless params[:build].nil?
     execute "build #{reponame}" do
-      user node[:user]
-      cwd repopath
       command params[:build]
     end
   end
@@ -143,7 +140,7 @@ end
 define :go_get do
   reponame = params[:name]
 
-  execute "go get #{reponame}" do
+  execute "#{node[:go_root]}/go get #{reponame}" do
     user node[:user]
   end
 end
@@ -159,8 +156,8 @@ end
 
 define :install_font do
   name = params[:name]
-  typename = File.extname(name) == 'otf' ? 'OTF' : 'TTF'
-  install_path = "/usr/share/fonts/#{typename}/"
+  # typename = File.extname(name) == 'otf' ? 'OTF' : 'TTF'
+  install_path = "~/.local/share/fonts"
 
   directory install_path
   execute "cp #{name} #{install_path}"

@@ -3,3 +3,7 @@ export DISPLAY=localhost:0.0
 
 export PATH=/mnt/c/tools/win32yank-x64/:$PATH
 unsetopt BG_NICE
+export PATH="$PATH:/mnt/c/tools/bin:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin"
+
+export DOCKER_BUILDKIT=1
+export COMPOSE_DOCKER_CLI_BUILD=1

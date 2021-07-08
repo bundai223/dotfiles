@@ -36,10 +36,6 @@
 	grep = auto
 	ui = auto
 
-[ghq]
-	root = ~/repos
-	root = ~/go
-
 [alias]
   # ショートカット系
 	ps = push					# ステータスを短く。ブランチ名付き
@@ -137,17 +133,19 @@
 	ff = only
 	rebase = merges
 
+[diff]
+  tool = nvimdiff
+# [difftool]
+#   prompt = false
+[difftool "nvimdiff"]
+  cmd = "nvim -R -d -c \"wincmd l\" -d \"$LOCAL\" \"$REMOTE\""
 [merge]
   ff = false
-  tool = vimdiff
+  tool = nvimdiff
 [mergetool]
   prompt = true
-[mergetool "vimdiff"]
-  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
-[difftool]
-  prompt = false
-[diff]
-  tool = vimdiff
+[mergetool "nvimdiff"]
+  cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
 
 [log]
 	decorate = auto

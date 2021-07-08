@@ -1,10 +1,12 @@
 include_recipe 'dependency.rb'
 
+version = '3.2'
+
 case node[:platform]
 when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon'
   execute 'install tmux' do
     command <<-EOL
-      VERSION=2.7
+      VERSION=#{version}
       WORKDIR=work_tmux
 
       cur=$(pwd)
@@ -22,7 +24,7 @@ when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon'
       rm -rf ${WORKDIR}
     EOL
 
-    not_if 'test -e /usr/local/bin/tmux'
+    not_if "test -e /usr/local/bin/tmux && test \"$(/usr/local/bin/tmux -V)\" = \"tmux #{version}\""
   end
 when 'osx', 'darwin'
   package 'tmux'

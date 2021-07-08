@@ -4,6 +4,12 @@
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 
+# wget https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+# install wsl_update_x64.msi
+
+# nankano policy
+Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+
 wsl --set-default-version 2
 
 # install scoop
@@ -20,6 +26,7 @@ $unknown_buckets = @(
 )
 $apps = @(
   'googlechrome',
+  'ghq',
   'brave',
   'vivaldi',
   '7zip',
@@ -32,7 +39,7 @@ $apps = @(
   'vagrant',
   'zeal',
   'skk-fep',
-  'thilmera7',
+  # 'thilmera7',
   'ctrl2cap',
   # 'buttercup',
   # 'screenpresso',
@@ -40,7 +47,8 @@ $apps = @(
   'pwsh',
   'sudo',
   'vim',
-  'windows-terminal'
+  'windows-terminal',
+  'obsidian'
 )
   
 # add bucekts
@@ -54,9 +62,16 @@ $apps | % { scoop install $_ }
 # install powershell module
 Install-Module posh-git -Scope CurrentUser
 Install-Module oh-my-posh -Scope CurrentUser
+<<<<<<< HEAD
 Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -Force -SkipPublisherCheck
 
+mkdir -Force -p ${HOME}/repos/github.com/bundai223/
+git clone https://github.com/bundai223/dotfiles.git ${HOME}/repos/github.com/bundai223/dotfiles
+
 # symlink
+mkdir -Force -p "$HOME\AppData\Local\Microsoft\Windows Terminal"
+mkdir -Force -p "$HOME\Documents\PowerShell"
+
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\WindowsTerminal\settings.json" -Path "$HOME\AppData\Local\Microsoft\Windows Terminal" -Name settings.json -ItemType SymbolicLink
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\Microsoft.PowerShell_profile.ps1" -Path "$HOME\Documents\PowerShell" -Name Microsoft.PowerShell_profile.ps1 -ItemType SymbolicLink
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\keypirinha\Profile\User" -Path "$HOME\scoop\persist\keypirinha\portable\Profile" -Name User -ItemType SymbolicLink

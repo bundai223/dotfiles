@@ -112,7 +112,7 @@ Set-Alias idp RunIdp
 Set-Alias idp_stop StopIdp
 
 function RunAws {
-  docker run -it --rm --name=awscli -v ${HOME}/.aws:/root/.aws lorentzca/aws $args
+  docker run -it --rm --name=awscli -v ~/.aws:/root/.aws lorentzca/aws $args
 }
 Set-Alias aws RunAws
 

@@ -16,19 +16,18 @@ minor_version = node[:mysql][:minor_version]
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
   package 'mysql-server'
-  package 'libmysqld-dev'
+  package 'libmariadb-dev'
 
   if node[:is_wsl]
-    execute 'service mysql start' do
-    end
+    execute 'service mysql stop'
 
-    file "#{node[:home]}/.bashrc" do
-      action [:edit]
-      block do |content|
-        content.gsub!('sudo service mysql start', '')
-        content << 'sudo service mysql start'
-      end
-    end
+    # file "#{node[:home]}/.bashrc" do
+    #   action [:edit]
+    #   block do |content|
+    #     content.gsub!('sudo service mysql start', '')
+    #     content << 'sudo service mysql start'
+    #   end
+    # end
   else
     service 'mysql' do
       action [:start, :enable]
@@ -131,4 +130,8 @@ execute 'mysql user add for auth_socket' do
     mysql -uroot -p'#{new_password}' -e "CREATE USER IF NOT EXISTS '#{node[:user]}'@localhost IDENTIFIED VIA unix_socket;"
     mysql -uroot -p'#{new_password}' -e "GRANT ALL ON *.* TO '#{node[:user]}'@'localhost';"
   EOL
+end
+
+execute 'pip install mycli' do
+  not_if 'which mycli'
 end

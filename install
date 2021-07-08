@@ -32,11 +32,11 @@ elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
   exit 1
 fi
 
-DOTFILEDIR=$WORK_DIR/dotfiles-master
+DOTFILEDIR=$WORK_DIR/dotfiles-main
 if [ ! -d ${DOTFILEDIR} ]; then
-  dotfile_github_url=https://github.com/bundai223/dotfiles/archive/master.zip
+  dotfile_github_url=https://github.com/bundai223/dotfiles/archive/main.zip
   curl -sOL $dotfile_github_url
-  unzip master.zip
+  unzip main.zip
 fi
 
 cd $DOTFILEDIR

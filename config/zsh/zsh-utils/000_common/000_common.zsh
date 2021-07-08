@@ -71,7 +71,7 @@ ssh() {
       tmux select-pane -P 'fg=green'
     fi
     # 通常通りssh続行
-    command ssh $@
+    TERM=xterm command ssh $@
 
     #tmux set-window-option automatic-rename "on" 1>/dev/null # window名を元に戻す
     tmux select-pane -T $(hostname)                         # pane名を元に戻す
@@ -80,7 +80,7 @@ ssh() {
     tmux select-pane -P 'default'
 
   else
-    command ssh $@
+    TERM=xterm command ssh $@
   fi
 }
 
