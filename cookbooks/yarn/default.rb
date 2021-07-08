@@ -29,3 +29,14 @@ remote_file '/etc/profile.d/yarn.sh' do
   source 'files/yarn.sh'
   mode '644'
 end
+
+# # ほんとうはここじゃないが書くところないのでここで・・・
+# execute 'yarn global add bash-language-server'
+# execute 'yarn global add dockerfile-language-server-nodejs'
+# execute 'yarn global add vue-language-server'
+# execute 'yarn global add vscode-json-languageserver-bin'
+# execute 'yarn global add vscode-css-languageserver-bin'
+# execute 'yarn global add vscode-html-languageserver-bin'
+# execute 'yarn global add yaml-language-server'
+# execute 'yarn global add vim-language-server'
+# execute 'yarn global add eslint-plugin-vue'

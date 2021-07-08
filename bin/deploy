@@ -6,6 +6,8 @@ set -eu
 
 ./bin/setup
 
+
+
 mitamae() {
   cookbooks=$@
   cmd="bin/mitamae local --shell /bin/bash -l debug lib/recipe_helper.rb $cookbooks"

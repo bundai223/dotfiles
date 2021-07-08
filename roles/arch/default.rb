@@ -7,6 +7,8 @@ include_cookbook('yay')
 yay 'genie-systemd' if node['is_wsl']
 include_cookbook('locale')
 
+include_cookbook('yay')
+
 update_package
 
 package 'base-devel'
@@ -24,7 +26,9 @@ include_role('base')
 # yay 'zeal'
 yay 'httpie'
 yay 'inotify-tools'
-execute 'yarn global add vue-cli'
+execute 'yarn global add vue-cli' do
+  user node[:user]
+end
 
 yay 'ntp'
 service 'ntpd' do

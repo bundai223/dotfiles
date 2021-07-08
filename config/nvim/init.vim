@@ -126,6 +126,9 @@ endif
 " w!! でスーパーユーザーとして保存
 cmap w!! w !sudo tee > /dev/null %
 
+" w!! でスーパーユーザーとして保存
+cmap w!! w !sudo tee > /dev/null %
+
 " History
 set history=10000
 

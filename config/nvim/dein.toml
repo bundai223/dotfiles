@@ -3,6 +3,7 @@
 [[plugins]]
 repo = 'liuchengxu/vim-which-key'
 hook_source = '''
+  " nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
   nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
   set timeoutlen=300
 
@@ -18,17 +19,22 @@ hook_source = '''
         \   'g': { 'name': '+git config' },
         \   'm': { 'name': '+memo' },
         \   't': { 'name': '+tmux' },
-        \   'v': {
-        \     'name': '+vim config',
-        \     'p': 'plugin'
-        \   },
+        \   'v': { 'name': '+neovim config' },
         \   'z': { 'name': '+zsh config' },
         \ }
+        \ }
+  let g:which_key_map['l'] = {
+        \ 'name': '+language_server',
+        \ 'c': [ 'LanguageClient_contextMenu()', 'contextMenu' ],
+        \ 'd': [ 'LanguageClient#textDocument_definition()', 'definision' ],
+        \ 'f': [ 'LanguageClient#textDocument_formatting()', 'formatting' ],
+        \ 'h': [ 'LanguageClient#textDocument_hover()', 'hover' ],
+        \ 'r': [ 'LanguageClient#textDocument_rename()', 'rename' ],
         \ }
   let g:which_key_map['/'] = {
         \ 'name': ':+search',
         \ }
-  " call which_key#register('<Space>', "g:which_key_map")
+  call which_key#register('<Space>', "g:which_key_map")
   " let g:which_key_vertical = 1 # floating
 '''
 
@@ -985,6 +991,15 @@ on_i  = 1
 repo  = 'yuku-t/vim-ref-ri'
 on_ft = 'ruby'
 
+# [[plugins]]
+# repo    = 'osyo-manga/vim-monster'
+# depends = 'deoplete.nvim'
+# on_i    = 1
+# on_ft   = 'ruby'
+# hook_post_source = '''
+#   let g:monster#completion#solargraph#backend = "async_solargraph_suggest"
+# '''
+
 [[plugins]]
 repo    = 'todesking/ruby_hl_lvar.vim'
 # on_ft   = 'ruby'
@@ -1016,6 +1031,9 @@ on_ft   = 'typescript'
 [[plugins]]
 repo    = 'peitalin/vim-jsx-typescript'
 on_ft   = 'typescript'
+hook_add = '''
+  autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+'''
 
 [[plugins]]
 repo    = 'skywind3000/asyncrun.vim'

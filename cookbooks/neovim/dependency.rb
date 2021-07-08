@@ -36,6 +36,20 @@ EOS
   end
 end
 
+# pip3
+%w[
+  neovim-remote
+].each do |pip|
+  # cmds =
+  execute "pip3 install --upgrade --user #{pip}" do
+    user node[:user]
+    only_if 'which pip3'
+  end
+end
+
+
+
+
 # Node.js
 execute 'yarn global add neovim' do
   user node[:user]

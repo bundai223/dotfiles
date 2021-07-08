@@ -26,7 +26,7 @@ if [ "$current_remote_url" ]; then
   if [ -z "$local_name" ]; then
     name="$(git config --get-urlmatch user.name $current_remote_url)"
     if [ "$name" ]; then
-      echo git config --local user.name "$name"
+      git config --local user.name "$name"
     fi
   fi
 
@@ -34,7 +34,7 @@ if [ "$current_remote_url" ]; then
   if [ -z "$local_email" ]; then
     email="$(git config --get-urlmatch user.email $current_remote_url)"
     if [ "$email" ]; then
-      echo git config --local user.email "$email"
+      git config --local user.email "$email"
     fi
   fi
 else

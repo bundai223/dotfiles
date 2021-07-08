@@ -229,6 +229,7 @@ p() {
 
   $FILTER_CMD $pecoopts | while read LINE; do $@ $LINE; done
 }
+
 alias ls='colorls'
 alias o='git ls-files | p open'
 alias c='ghq list -p | p cd'
@@ -480,4 +481,3 @@ which direnv >/dev/null && eval "$(direnv hook zsh)"
 # if (which zsprof > /dev/null) ; then
 #   zprof | less
 # fi
-

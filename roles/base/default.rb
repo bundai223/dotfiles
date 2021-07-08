@@ -7,7 +7,8 @@ node.reverse_merge!({
 include_cookbook 'sudo_nopassword'
 include_cookbook 'dotfiles'
 include_cookbook 'git'
-include_cookbook 'perl' if not %w(ubuntu debian).include?(node[:platform])
+include_cookbook 'perl'
+# include_cookbook 'perl' if not %w(ubuntu debian).include?(node[:platform])
 include_cookbook 'ruby' # git hookスクリプトで必要なので先にインストールする'
 include_cookbook 'go'
 include_cookbook 'ghq'
