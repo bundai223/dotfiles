@@ -63,6 +63,7 @@ $apps | % { scoop install $_ }
 Install-Module posh-git -Scope CurrentUser
 Install-Module oh-my-posh -Scope CurrentUser
 Install-Module -Name PSReadLine -RequiredVersion 2.1.0
+Install-Module ZLocation -Scope CurrentUser
 
 mkdir -Force -p ${HOME}/repos/github.com/bundai223/
 git clone https://github.com/bundai223/dotfiles.git ${HOME}/repos/github.com/bundai223/dotfiles
