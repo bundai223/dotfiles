@@ -62,7 +62,6 @@ $apps | % { scoop install $_ }
 # install powershell module
 Install-Module posh-git -Scope CurrentUser
 Install-Module oh-my-posh -Scope CurrentUser
-<<<<<<< HEAD
 Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -Force -SkipPublisherCheck
 
 mkdir -Force -p ${HOME}/repos/github.com/bundai223/
