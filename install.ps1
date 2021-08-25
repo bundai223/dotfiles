@@ -65,6 +65,7 @@ Install-Module oh-my-posh -Scope CurrentUser
 Install-Module -Name PSReadLine -RequiredVersion 2.1.0
 Install-Module ZLocation -Scope CurrentUser
 
+ssh-keygen -t ed25519 -C "bundai223@gmail.com"
 mkdir -Force -p ${HOME}/repos/github.com/bundai223/
 git clone https://github.com/bundai223/dotfiles.git ${HOME}/repos/github.com/bundai223/dotfiles
 
