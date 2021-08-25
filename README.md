@@ -13,6 +13,7 @@ curl https://raw.githubusercontent.com/bundai223/dotfiles/main/install | bash -s
 ### For Windows
 
 ```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 iwr -useb https://raw.githubusercontent.com/bundai223/dotfiles/main/install.ps1 | iex
 ```
 
