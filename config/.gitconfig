@@ -4,10 +4,10 @@
 [core]
 	attributesfile = ~/repos/github.com/bundai223/dotfiles/config/git/.gitattributes_global
 	excludesfile   = ~/repos/github.com/bundai223/dotfiles/config/git/.gitignore_global
-	autocrlf = false
+	autocrlf = input
 	quotepath = false
 	precomposeunicode = true
-  commentChar = ";"
+	commentChar = ";"
 
 [user "ssh://git@gitlab.com/"]
 	name = Daiji NISHIMURA
