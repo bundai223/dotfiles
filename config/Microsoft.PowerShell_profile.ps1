@@ -144,3 +144,14 @@ Set-PoshPrompt -Theme paradox # oh my posh v3
 
 # WSLのユーザ変更メソッド
 Function WSL-SetDefaultUser ($distro, $user) { Get-ItemProperty Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss\*\ DistributionName | Where-Object -Property DistributionName -eq $distro | Set-ItemProperty -Name DefaultUid -Value ((wsl -d $distro -u $user -e id -u) | Out-String); };
+
+# define function
+function Get-NetworkAddress ([Parameter(Mandatory, ValueFromPipelineByPropertyName)][string]$IPAddress, [Parameter(Mandatory, ValueFromPipelineByPropertyName)][int]$PrefixLength) {
+    process {
+        [pscustomobject]@{
+            Addr = $IPAddress;
+            Prfx = $PrefixLength;
+            NwAddr = [ipaddress]::Parse($IPAddress).Address -band [uint64][BitConverter]::ToUInt32([System.Linq.Enumerable]::Reverse([BitConverter]::GetBytes([uint32](0xFFFFFFFFL -shl (32 - $PrefixLength) -band 0xFFFFFFFFL))), 0);
+        };
+    }
+}
