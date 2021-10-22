@@ -142,4 +142,4 @@ dotfile '.config/Code/User/settings.json'
 dotfile '.ctags'
 dotfile '.config/ctags'
 dotfile '.conkyrc'
-dotfile '.gemrc'
+# dotfile '.gemrc' # 追加したいオプションができるまでなし
