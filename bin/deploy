@@ -13,8 +13,8 @@ mitamae() {
   cmd="bin/mitamae local --shell /bin/bash -l debug lib/recipe_helper.rb $cookbooks"
   case "$(uname)" in
     "Darwin")  bin/mitamae local $cookbooks ;;
-    *) $cmd ;;
-    # *) sudo -i bash -c "cd $(pwd) && $cmd" ;;
+    # *) $cmd ;;
+    *) sudo -i bash -c "cd $(pwd) && $cmd" ;;
   esac
 }
 

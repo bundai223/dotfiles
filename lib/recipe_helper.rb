@@ -125,9 +125,11 @@ end
 
 define :get_repo, build: nil do
   reponame = params[:name]
+  user = params[:user].nil? ? ENV['SUDO_USER'] || ENV['USER'] : node[:user]
 
   execute "get_repo #{reponame}" do
-    command "ghq get -p #{reponame}"
+    command "source ~/.asdf/asdf.sh; ghq get -p #{reponame}"
+    user user
   end
 
   unless params[:build].nil?

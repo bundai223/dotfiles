@@ -1,21 +1,21 @@
 if node['is_wsl']
-  execute 'apt purge -y ebtables' do
+  execute 'sudo apt purge -y ebtables' do
     command <<-EOL
-      rm /var/lib/dpkg/info/ebtables.prerm
-      apt purge -y ebtables
+      sudo rm /var/lib/dpkg/info/ebtables.prerm
+      sudo apt purge -y ebtables
     EOL
 
     only_if 'test -e /var/lib/dpkg/info/ebtables.prerm'
   end
 end
 
-execute 'apt purge -y nano' do
+execute 'sudo apt purge -y nano' do
   only_if 'which nano'
 end
 
-include_cookbook 'genie' if node['is_wsl']
-execute 'apt update'
-execute 'apt upgrade -y'
+# include_cookbook 'genie' if node['is_wsl']
+execute 'sudo apt update'
+execute 'sudo apt upgrade -y'
 
 # for nokogiri for rails
 package 'build-essential'
@@ -48,7 +48,7 @@ execute 'locale-gen ja_JP.UTF-8'
 if node[:is_wsl]
   execute 'remove libpulse0'  do
     command <<-EOL
-    apt purge -y libpulse0
+    sudo apt purge -y libpulse0
     EOL
   end
 end

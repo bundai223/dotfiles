@@ -5,10 +5,10 @@ set -eu
 ## setup mitamae
 if [ "$(uname)" == 'Darwin' ]; then
   OS='Mac'
-  MITAMAE_URL=https://github.com/itamae-kitchen/mitamae/releases/download/v1.5.6/mitamae-x86_64-darwin
+  MITAMAE_URL=https://github.com/itamae-kitchen/mitamae/releases/download/v1.12.7/mitamae-x86_64-darwin
 elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
   OS='Linux'
-  MITAMAE_URL=https://github.com/itamae-kitchen/mitamae/releases/download/v1.5.6/mitamae-x86_64-linux
+  MITAMAE_URL=https://github.com/itamae-kitchen/mitamae/releases/download/v1.12.7/mitamae-x86_64-linux
   if test -f /etc/os-release; then
     if grep 'Arch Linux' /etc/os-release>/dev/null; then
       which unzip >/dev/null 2>&1 || sudo pacman -S --noconfirm unzip
