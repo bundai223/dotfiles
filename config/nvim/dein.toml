@@ -280,22 +280,22 @@ hook_add = '''
     \ 'description': 'Edit your git config'
     \ }
   let s:menus.git.file_candidates = [
-    \ ['gitconfig shared',  g:pub_repos_path . '/dotfiles/config/.gitconfig' ],
-    \ ['gitignore shared',  g:pub_repos_path . '/dotfiles/config/git/.gitignore_global' ],
+    \ ['gitconfig shared',  g:github_repos_path . '/dotfiles/config/.gitconfig' ],
+    \ ['gitignore shared',  g:github_repos_path . '/dotfiles/config/git/.gitignore_global' ],
     \ ['gitconfig', '~/.gitconfig'],
-    \ ['gitattributes',     g:pub_repos_path . '/dotfiles/config/git/.gitattributes_global' ],
-    \ ['template',          g:pub_repos_path . '/dotfiles/config/git/templates' ],
+    \ ['gitattributes',     g:github_repos_path . '/dotfiles/config/git/.gitattributes_global' ],
+    \ ['template',          g:github_repos_path . '/dotfiles/config/git/templates' ],
     \ ]
 
   let s:menus.nvim = {
     \ 'description': 'Edit your import nvim configuration'
     \ }
   let s:menus.nvim.file_candidates = [
-    \ ['init.vim shared', g:pub_repos_path . '/dotfiles/config/nvim/init.vim'],
+    \ ['init.vim shared', g:github_repos_path . '/dotfiles/config/nvim/init.vim'],
     \ ['init.vim',        '~/.config/nvim/init.vim'],
     \ ['ginit.vim',       '~/.config/nvim/ginit.vim'],
     \ ['dein.toml',       g:dein_toml],
-    \ ['snippets',        g:pub_repos_path . '/mysnip'],
+    \ ['snippets',        g:github_repos_path . '/mysnip'],
     \ ]
 
   let s:zsh_config_path = g:dotfiles_config_path . '/zsh'
@@ -321,20 +321,20 @@ hook_add = '''
     \ 'description': 'Edit your import tmux configuration'
     \ }
   let s:menus.tmux.file_candidates = [
-    \ ['tmux.conf',      g:pub_repos_path . '/dotfiles/config/.tmux.conf'],
-    \ ['tmux.conf osx',  g:pub_repos_path . '/dotfiles/config/tmux/.tmux.conf_osx'],
-    \ ['tmux.conf unix', g:pub_repos_path . '/dotfiles/config/tmux/.tmux.conf_unix'],
-    \ ['tmux.conf wsl', g:pub_repos_path . '/dotfiles/config/tmux/.tmux.conf_wsl'],
+    \ ['tmux.conf',      g:github_repos_path . '/dotfiles/config/.tmux.conf'],
+    \ ['tmux.conf osx',  g:github_repos_path . '/dotfiles/config/tmux/.tmux.conf_osx'],
+    \ ['tmux.conf unix', g:github_repos_path . '/dotfiles/config/tmux/.tmux.conf_unix'],
+    \ ['tmux.conf wsl', g:github_repos_path . '/dotfiles/config/tmux/.tmux.conf_wsl'],
     \ ]
 
   let s:menus.powerline = {
     \ 'description': 'Edit your import powerline configuration'
     \ }
   let s:menus.powerline.file_candidates = [
-    \ ['powerline config', g:pub_repos_path . '/dotfiles/config/.config/powerline/config.json'],
-    \ ['powerline colors', g:pub_repos_path . '/dotfiles/config/.config/powerline/colors.json'],
-    \ ['themes',           g:pub_repos_path . '/dotfiles/config/.config/powerline/themes'],
-    \ ['tmux themes',      g:pub_repos_path . '/dotfiles/config/.config/powerline/themes/tmux'],
+    \ ['powerline config', g:github_repos_path . '/dotfiles/config/.config/powerline/config.json'],
+    \ ['powerline colors', g:github_repos_path . '/dotfiles/config/.config/powerline/colors.json'],
+    \ ['themes',           g:github_repos_path . '/dotfiles/config/.config/powerline/themes'],
+    \ ['tmux themes',      g:github_repos_path . '/dotfiles/config/.config/powerline/themes/tmux'],
     \ ]
 
   call denite#custom#var('menu', 'menus', s:menus)
@@ -342,16 +342,16 @@ hook_add = '''
   " vim-which-key対応に伴い統一テスト
   let s:zsh_config_path = g:dotfiles_config_path . '/zsh'
   nnoremap <silent> <leader>fem  :execute ":e " . g:memo_dir . "/ChangeLog"<CR>
-  nnoremap <silent> <leader>fegsc :execute ":e " . g:pub_repos_path . "/dotfiles/config/.gitconfig"<CR>
-  nnoremap <silent> <leader>fegsi :execute ":e " . g:pub_repos_path . "/dotfiles/config/git/.gitignore_global"<CR>
+  nnoremap <silent> <leader>fegsc :execute ":e " . g:github_repos_path . "/dotfiles/config/.gitconfig"<CR>
+  nnoremap <silent> <leader>fegsi :execute ":e " . g:github_repos_path . "/dotfiles/config/git/.gitignore_global"<CR>
   nnoremap <silent> <leader>fegc  :execute ":e " . "~/.gitconfig"<CR>
-  nnoremap <silent> <leader>fega  :execute ":e " . g:pub_repos_path . "/dotfiles/config/git/.gitattributes_global"<CR>
-  nnoremap <silent> <leader>fegt  :execute ":e " . g:pub_repos_path . "/dotfiles/config/git/templates"<CR>
-  nnoremap <silent> <leader>fevsi :execute ":e " . g:pub_repos_path . "/dotfiles/config/nvim/init.vim"<CR>
+  nnoremap <silent> <leader>fega  :execute ":e " . g:github_repos_path . "/dotfiles/config/git/.gitattributes_global"<CR>
+  nnoremap <silent> <leader>fegt  :execute ":e " . g:github_repos_path . "/dotfiles/config/git/templates"<CR>
+  nnoremap <silent> <leader>fevsi :execute ":e " . g:github_repos_path . "/dotfiles/config/nvim/init.vim"<CR>
   nnoremap <silent> <leader>fevi  :execute ":e " . "~/.config/nvim/init.vim"<CR>
   nnoremap <silent> <leader>fevg  :execute ":e " . "~/.config/nvim/ginit.vim"<CR>
   nnoremap <silent> <leader>fevp  :execute ":e " . g:dein_toml<CR>
-  nnoremap <silent> <leader>fevt  :execute ":e " . g:pub_repos_path . "/mysnip"<CR>
+  nnoremap <silent> <leader>fevt  :execute ":e " . g:github_repos_path . "/mysnip"<CR>
   nnoremap <silent> <leader>fezsr :execute ":e " . g:dotfiles_config_path . "/.zshrc"<CR>
   nnoremap <silent> <leader>fezr  :execute ":e " . "~/.zshrc"<CR>
   nnoremap <silent> <leader>fezro :execute ":e " . s:zsh_config_path . "/.zshrc_osx"<CR>
@@ -364,14 +364,14 @@ hook_add = '''
   nnoremap <silent> <leader>fezew :execute ":e " . s:zsh_config_path . "/.zshenv_wsl"<CR>
   nnoremap <silent> <leader>fezp  :execute ":e " . s:zsh_config_path . "/.zshrc.plugin"<CR>
   nnoremap <silent> <leader>fezu  :execute ":e " . s:zsh_config_path . "/zsh-utils"<CR>
-  nnoremap <silent> <leader>fetc  :execute ":e " . g:pub_repos_path . "/dotfiles/config/.tmux.conf"<CR>
-  nnoremap <silent> <leader>feto  :execute ":e " . g:pub_repos_path . "/dotfiles/config/tmux/.tmux.conf_osx"<CR>
-  nnoremap <silent> <leader>fetu  :execute ":e " . g:pub_repos_path . "/dotfiles/config/tmux/.tmux.conf_unix"<CR>
-  nnoremap <silent> <leader>fetw  :execute ":e " . g:pub_repos_path . "/dotfiles/config/tmux/.tmux.conf_wsl"<CR>
-  nnoremap <silent> <leader>fepc  :execute ":e " . g:pub_repos_path . "/dotfiles/config/.config/powerline/config.json"<CR>
-  nnoremap <silent> <leader>fepl  :execute ":e " . g:pub_repos_path . "/dotfiles/config/.config/powerline/colors.json"<CR>
-  nnoremap <silent> <leader>fept  :execute ":e " . g:pub_repos_path . "/dotfiles/config/.config/powerline/themes"<CR>
-  nnoremap <silent> <leader>feptt :execute ":e " . g:pub_repos_path . "/dotfiles/config/.config/powerline/themes/tmux"<CR>
+  nnoremap <silent> <leader>fetc  :execute ":e " . g:github_repos_path . "/dotfiles/config/.tmux.conf"<CR>
+  nnoremap <silent> <leader>feto  :execute ":e " . g:github_repos_path . "/dotfiles/config/tmux/.tmux.conf_osx"<CR>
+  nnoremap <silent> <leader>fetu  :execute ":e " . g:github_repos_path . "/dotfiles/config/tmux/.tmux.conf_unix"<CR>
+  nnoremap <silent> <leader>fetw  :execute ":e " . g:github_repos_path . "/dotfiles/config/tmux/.tmux.conf_wsl"<CR>
+  nnoremap <silent> <leader>fepc  :execute ":e " . g:github_repos_path . "/dotfiles/config/.config/powerline/config.json"<CR>
+  nnoremap <silent> <leader>fepl  :execute ":e " . g:github_repos_path . "/dotfiles/config/.config/powerline/colors.json"<CR>
+  nnoremap <silent> <leader>fept  :execute ":e " . g:github_repos_path . "/dotfiles/config/.config/powerline/themes"<CR>
+  nnoremap <silent> <leader>feptt :execute ":e " . g:github_repos_path . "/dotfiles/config/.config/powerline/themes/tmux"<CR>
 '''
 depends = ['vim-clap', 'denite-converter-prioritize-basename']
 

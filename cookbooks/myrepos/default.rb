@@ -11,7 +11,7 @@ myrepos = [
   'bundai223/powerline-ext-tmux',
   'bundai223/blog.bundai223',
   'bundai223/bundai223.github.io',
-  'git@gitlab.com:bundai223/private-memo.git'
+  'bundai223/private-memo.git'
 ]
 myrepos.each { |name| get_repo name }
 
@@ -30,7 +30,7 @@ end
 # install_font "#{node[:home]}/repos/gitlab.com/bundai223/RictyDiminished-for-Powerline/Ricty_Diminished_Oblique_for_Powerline.ttf"
 
 blog_repo_path = '~/repos/github.com/bundai223/blog.bundai223'
-obsidian_vault_path = '~/repos/gitlab.com/bundai223/private-memo/obsidian/work'
+obsidian_vault_path = '~/repos/github.com/bundai223/private-memo/obsidian/work'
 execute "ln -s #{blog_repo_path} #{obsidian_vault_path}/blog" do
   not_if "test -e #{obsidian_vault_path}/blog"
   user user
