@@ -911,6 +911,7 @@ hook_add = '''
         \   'sh': ['shellcheck'],
         \   'bash': ['shellcheck'],
         \   'ruby': ['rubocop'],
+        \   'ruby.rspec': ['rubocop'],
         \   'js': ['eslint'],
         \   'ts': ['eslint'],
         \   'jsx': ['eslint'],
@@ -1292,6 +1293,10 @@ hook_source = '''
       \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
       \ }))
 '''
+
+[[plugins]]
+repo = 'rhysd/vim-lsp-ale'
+depends = ['ale', 'vim-lsp']
 
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
