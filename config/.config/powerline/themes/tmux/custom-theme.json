@@ -2,7 +2,7 @@
 	"segments": {
     "left": [
 			{
-				"function": "powerline_ext_tmux.segments.global.mouse_mode",
+				"function": "powerline_ext_tmux.segments.mouse_mode",
 				"priority": 50
 			}
     ],

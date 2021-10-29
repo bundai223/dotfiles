@@ -432,7 +432,7 @@ autoload -Uz colors && colors
 #   #source ${PERSONAL_ZSH_DIR}/themes/rprompt_vcsinfo.zsh # rprompt
 # fi
 
-source ~/.local/lib/python3.9/site-packages/powerline/bindings/zsh/powerline.zsh
+source ~/.local/lib/python3.10/site-packages/powerline/bindings/zsh/powerline.zsh
 
 #}}}
 

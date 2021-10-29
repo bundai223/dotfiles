@@ -3,3 +3,7 @@ wheel
 setuptools
 neovim
 neovim-remote
+powerline-status
+powerline-gitstatus
+python-language-server
+
