@@ -64,6 +64,9 @@ hook_add = '''
   autocmd FileType clap_input inoremap <silent> <buffer> <C-n> <C-R>=clap#navigation#linewise('down')<CR>
   autocmd FileType clap_input inoremap <silent> <buffer> <C-p> <C-R>=clap#navigation#linewise('up')<CR>
 '''
+hook_source = '''
+  let g:clap_enable_icon = 1
+'''
 
 [[plugins]]
 repo = 'markwu/vim-mrufiles'
@@ -199,8 +202,8 @@ hook_add = '''
   nnoremap <silent> [denite]f   :<C-u>DeniteBufferDir file/rec<CR>
   " nnoremap <silent> [denite]p   :<C-u>Denite file/rec/git<CR>
   nnoremap <silent> [denite]p   :<C-u>Clap gfiles<CR>
-  nnoremap <silent> [denite]m   :<C-u>Denite file_mru<CR>
-  " nnoremap <silent> <leader>/m   :<C-u>Clap mrufiles<CR>
+  " nnoremap <silent> [denite]m   :<C-u>Denite file_mru<CR>
+  nnoremap <silent> [denite]m   :<C-u>Clap mrufiles<CR>
   nnoremap <silent> [denite]o   :<C-u>Denite -no-quit -wrap outline<CR>
   " nnoremap <silent> [denite]gr   :<C-u>Denite -auto-action=preview grep<CR>
   nnoremap <silent> [denite]gr   :<C-u>Clap grep<CR>
@@ -374,6 +377,9 @@ hook_add = '''
   nnoremap <silent> <leader>feptt :execute ":e " . g:github_repos_path . "/dotfiles/config/.config/powerline/themes/tmux"<CR>
 '''
 depends = ['vim-clap', 'denite-converter-prioritize-basename']
+
+[[plugins]]
+repo = 'zacharied/denite-nerdfont'
 
 [[plugins]]
 repo = 'hrsh7th/denite-converter-prioritize-basename'
@@ -1100,22 +1106,21 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'ryanoasis/vim-devicons'
-
-[[plugins]]
 repo = 'lambdalisue/fern.vim'
 # on_cmd = ['Fern']
 hook_add = '''
   nnoremap <silent> <leader>f<Space> :Fern . -reveal=% -drawer<CR>
 '''
 hook_source = '''
-  let g:fern#renderer = "devicons"
+  let g:fern#renderer = "nerdfont"
 '''
-depends = ['fern-renderer-devicons.vim', 'FixCursorHold.nvim']
+depends = ['fern-renderer-nerdfont.vim', 'FixCursorHold.nvim']
 
 [[plugins]]
-repo = 'lambdalisue/fern-renderer-devicons.vim'
-depends = ['vim-devicons']
+repo = 'lambdalisue/nerdfont.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
 
 [[plugins]]
 repo = 'antoinemadec/FixCursorHold.nvim'
@@ -1232,7 +1237,8 @@ hook_add = '''
     \     'workspace_config': {
     \       'yaml': {
     \         'schemas': {
-    \           'https://raw.githubusercontent.com/docker/compose/master/compose/config/config_schema_v3.4.json': '/docker-compose.yml',
+    \           'https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json': '/docker-compose.yml',
+    \           'https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/gitlab-ci.json': '/.gitlab-ci.yml',
     \           'https://d33vqc0rt9ld30.cloudfront.net/latest/gzip/CloudFormationResourceSpecification.json': ['*.cf.yaml', '*.cf.yml', 'cloud*formation/*.yaml', 'cloud*formation/*.yml'],
     \         },
     \         'customTags': [
