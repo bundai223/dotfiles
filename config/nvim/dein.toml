@@ -1009,7 +1009,7 @@ on_ft = 'ruby'
 
 [[plugins]]
 repo    = 'todesking/ruby_hl_lvar.vim'
-# on_ft   = 'ruby'
+on_ft   = 'ruby'
 # hook_post_source = '''
 #   silent! execute 'doautocmd FileType' &filetype
 # '''
@@ -1190,16 +1190,16 @@ hook_source = '''
       \ }))
 '''
 
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete-file.vim'
-hook_source = '''
-  autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-      \ 'name': 'file',
-      \ 'allowlist': ['*'],
-      \ 'priority': 10,
-      \ 'completor': function('asyncomplete#sources#file#completor')
-      \ }))
-'''
+# [[plugins]]
+# repo = 'prabirshrestha/asyncomplete-file.vim'
+# hook_source = '''
+#   autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+#      \ 'name': 'file',
+#      \ 'allowlist': ['*'],
+#      \ 'priority': 10,
+#      \ 'completor': function('asyncomplete#sources#file#completor')
+#      \ }))
+# '''
 
 [[plugins]]
 repo = 'htlsne/asyncomplete-look'
@@ -1238,7 +1238,7 @@ hook_add = '''
     \       'yaml': {
     \         'schemas': {
     \           'https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json': '/docker-compose.yml',
-    \           'https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/gitlab-ci.json': '/.gitlab-ci.yml',
+    \           'https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json': '/.gitlab-ci.yml',
     \           'https://d33vqc0rt9ld30.cloudfront.net/latest/gzip/CloudFormationResourceSpecification.json': ['*.cf.yaml', '*.cf.yml', 'cloud*formation/*.yaml', 'cloud*formation/*.yml'],
     \         },
     \         'customTags': [
@@ -1367,3 +1367,6 @@ hook_post_source = '''
       imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
   endfunction
 '''
+
+[[plugins]]
+repo = 'mattn/benchvimrc-vim.git'
