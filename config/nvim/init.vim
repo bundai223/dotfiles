@@ -13,6 +13,10 @@ set listchars=tab:»-,trail:･,nbsp:⍽,extends:»,precedes:«
 set showtabline=2
 
 set termguicolors " terminalでもTrue Colorを使えるようにする
+" $TERMがxterm以外のときは以下を設定する必要がある。
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum" " 文字色
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum" " 背景色
+
 set pumblend=10
 
 set textwidth=0

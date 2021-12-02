@@ -29,8 +29,6 @@
 #        .: 通常のファイルのみ残す
 #
 #************************************************************************** }}}
-# profiling
-# zmodload zsh/zprof && zprof
 
 #---------------------------------------------
 # 基本の設定
@@ -73,6 +71,13 @@ autoload -U compinit
 compinit -u
 
 typeset -U path PATH
+
+# cdの関連
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+zstyle ':chpwd:*' recent-dirs-max 5000
+zstyle ':chpwd:*' recent-dirs-default yes
+zstyle ':completion:*' recent-dirs-insert both
 
 ## LS_COLORSを設定しておく
 #export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
@@ -399,10 +404,6 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 # ref) http://qiita.com/ken11_/items/1304c2eecc2657ac6265
 alias t='tmux_start'
 alias tm='tmux_multissh'
-alias t-source='tmux source-file'
-alias t-basicpane='tmux source-file ~/.config/tmux/session'
-alias t-kw='tmux kill-window'
-alias t-ks='tmux kill-session'
 #}}}
 
 # plugin
@@ -414,7 +415,7 @@ fi
 # Load utility scripts. {{{
 utils_dir=~/repos/github.com/bundai223/dotfiles/config/zsh/zsh-utils
 source $utils_dir/scripts/functions.zsh
-source_scripts_in_tree $utils_dir
+# source_scripts_in_tree $utils_dir
 # }}}
 
 # Prompt setting {{{
@@ -458,20 +459,8 @@ if [ -n "$TMUX" ]; then
   add-zsh-hook chpwd update_tmux_cwd
 fi
 
-# for hyperterm
-#precmd() {
-#  pwd=$(pwd)
-#  cwd=${pwd##*/}
-#  print -Pn "\e]0;$cwd\a"
-#}
-#
-#preexec() {
-#  if overridden; then return; fi
-#  printf "\033]0;%s\a" "${1%% *} | $cwd"
-#}
-
 # OPAM configuration
-. ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # direnv
 which direnv >/dev/null && eval "$(direnv hook zsh)"
