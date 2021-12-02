@@ -172,7 +172,7 @@ cnoremap <C-n> <Down>
 
 " Expand 単語境界入力
 " https://github.com/cohama/.vim/blob/master/.vimrc
-cnoremap <C-W> <C-\>eToggleWordBounds(getcmdtype(), getcmdline())<CR>
+" cnoremap <C-W> <C-\>eToggleWordBounds(getcmdtype(), getcmdline())<CR>
 function! ToggleWordBounds(type, line)
   if a:type == '/' || a:type == '?'
     if a:line =~# '^\\<.*\\>$'
