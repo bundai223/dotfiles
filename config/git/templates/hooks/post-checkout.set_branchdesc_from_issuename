@@ -10,7 +10,7 @@
 #   REDMINE_API_KEY: REDMINEのapi access key
 #
 # いい感じに一覧で見るコマンド
-# git config --list | grep '=#' | sed 's/^branch\.\(.*\)\.description=\(#[0-9]*\) \(.*\)$/\1 \x1b[32m\2\x1b[0m \3/g'']]
+# git config --list | grep '^branch\..*description=' | sed 's/^branch\.\(.*\)\.description=\(.*#[0-9]*\) \(.*\)$/\1 \x1b[32m\2\x1b[0m \3/g'
 
 use Encode;
 use JSON;
@@ -87,13 +87,15 @@ sub get_issue_url {
   return "${REDMINE_URL}/issues/${issue_id}";
 }
 
-sub get_subject {
+sub get_ticket_name {
   ($issue_id) = @_;
   my $baseurl = get_issue_url($issue_id);
   my $uri = "${baseurl}.json?key=${API_KEY}";
   my $json = get($uri) or die "Couldn't get {$uri}!";
   my $hash = decode_json($json);
-  return $hash->{'issue'}->{'subject'};
+  my $subject = $hash->{'issue'}->{'subject'};
+  my $tracker = $hash->{'issue'}->{'tracker'}->{'name'};
+  return "${tracker} #${issue_id} ${subject}";
 }
 
 if ($description ne '') {
@@ -101,11 +103,10 @@ if ($description ne '') {
   print "\033[35m${description}\033[0m\n";
   print "\033[32m${issue_url}\033[0m\n";
 } else {
-  my $subject = get_subject($issue_id);
+  my $ticket_name = get_ticket_name($issue_id);
   my $issue_url = get_issue_url($issue_id);
-  # shellcmd("git config --local branch.${branch_name}.description \"${issue_url}\n    ${subject}\"");
-  shellcmd("git config --local branch.${branch_name}.description '#${issue_id} ${subject}'");
-  print "Add description: ${branch_name} \033[35m${subject}\033[0m\n";
+  shellcmd("git config --local branch.${branch_name}.description '${ticket_name}'");
+  print "Add description: ${branch_name} \033[35m${ticket_name}\033[0m\n";
   print "\033[32m${issue_url}\033[0m\n";
 }
 
