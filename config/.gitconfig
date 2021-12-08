@@ -3,7 +3,7 @@
 
 [core]
 	attributesfile = ~/repos/github.com/bundai223/dotfiles/config/git/.gitattributes_global
-	excludesfile   = ~/repos/github.com/bundai223/dotfiles/config/git/.gitignore_global
+	excludesfile   = ~/repos/github.com/bundai223/dotfiles/config/git/.gitignore_global # defaultは~/.config/git/ignore
 	autocrlf = input
 	quotepath = false
 	precomposeunicode = true

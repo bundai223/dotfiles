@@ -42,3 +42,7 @@ bindkey '^x^P' zaw-process
 
 # refs 
 # https://qiita.com/GeneralD/items/7aad84a6560206dc6e45
+
+
+# autosuggest
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(do_enter $ZSH_AUTOSUGGEST_CLEAR_WIDGETS)
