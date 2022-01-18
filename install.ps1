@@ -25,7 +25,6 @@ $unknown_buckets = @(
   @{name = 'wangzq'; url = 'https://github.com/wangzq/scoop-bucket'}
 )
 $apps = @(
-  'googlechrome',
   'ghq',
   'brave',
   'vivaldi',
