@@ -42,6 +42,7 @@ $apps = @(
   'pwsh',
   'sudo',
   'vim',
+  'vcredist',
   'windows-terminal',
   'obsidian'
 )
