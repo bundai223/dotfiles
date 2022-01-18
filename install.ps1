@@ -29,7 +29,6 @@ $apps = @(
   'brave',
   'vivaldi',
   '7zip',
-  'keypirinha',
   'bitwarden',
   'vcxsrv',
   'phraseexpress',
@@ -71,11 +70,9 @@ git clone https://github.com/bundai223/dotfiles.git ${HOME}/repos/github.com/bun
 # symlink
 mkdir -Force -p "$HOME\AppData\Local\Microsoft\Windows Terminal"
 mkdir -Force -p "$HOME\Documents\PowerShell"
-mkdir -Force -p "$HOME\scoop\persist\keypirinha\portable\Profile"
 
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\WindowsTerminal\settings.json" -Path "$HOME\AppData\Local\Microsoft\Windows Terminal" -Name settings.json -ItemType SymbolicLink
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\Microsoft.PowerShell_profile.ps1" -Path "$HOME\Documents\PowerShell" -Name Microsoft.PowerShell_profile.ps1 -ItemType SymbolicLink
-New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\keypirinha\Profile\User" -Path "$HOME\scoop\persist\keypirinha\portable\Profile" -Name User -ItemType SymbolicLink
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\.gitconfig" -Path "$HOME\" -Name .gitconfig -ItemType SymbolicLink
 
 # Storeアプリインストールしてちょ
