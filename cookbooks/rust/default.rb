@@ -1,7 +1,16 @@
-user = node['user']
-home = node['home']
+# include_recipe './dependency.rb'
+include_cookbook './asdf'
 
-include_cookbook 'asdf'
+# node.reverse_merge!({
+#   rust: {
+#     version: '10.13.0',
+#   }
+# })
+
+version = 'latest'
+version = node[:rust][:version] unless node[:rust].nil?
+user = node[:user]
+home = node[:home]
 
 remote_file "#{home}/.default-cargo-crates" do
   source 'files/.default-cargo-crates'
@@ -11,19 +20,21 @@ end
 
 execute 'install asdf-rust' do
   user user
-  command <<EOC
-source /etc/profile.d/asdf.sh
-asdf plugin-add rust https://github.com/code-lever/asdf-rust.git
-EOC
+  command <<-EOCMD
+    source /etc/profile.d/asdf.sh
+    asdf plugin-add rust https://github.com/code-lever/asdf-rust.git
+  EOCMD
   not_if "test -d #{home}/.asdf/plugins/rust"
 end
-execute 'install rust' do
-  user user
-  command <<EOC
-source /etc/profile.d/asdf.sh
-asdf install rust latest
-asdf global rust $(asdf list rust)
-asdf reshim rust
-EOC
-  not_if 'which rustup'
+
+[
+  { cmd: 'asdf plugin add rust', not_if: 'asdf plugin list | grep rust' },
+  { cmd: "asdf install rust #{version}", not_if: "asdf list rust | grep #{version}" },
+  { cmd: "asdf global rust #{version}", not_if: 'which rustc' },
+  { cmd: 'asdf reshim rust' }
+].each do |op|
+  source_asdf_and_execute op[:cmd] do
+    user user
+    not_if_ op[:not_if] unless op[:not_if].nil?
+  end
 end
