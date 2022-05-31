@@ -57,3 +57,9 @@ execute 'yarn global add neovim' do
 end
 
 go_get 'github.com/tennashi/vimalter'
+
+# if arch package 'fd'
+package 'fd-find'
+execute 'ln -s $(which fdfind) ~/.local/bin/fd' do
+  user node[:user]
+end

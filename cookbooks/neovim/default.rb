@@ -12,7 +12,6 @@ def neovim_make_install
       if [ -e build ]; then
         rm -r build
       fi
-      make clean
       make -j4 CMAKE_BUILD_TYPE=Release
       make && sudo make install
     EOCMD

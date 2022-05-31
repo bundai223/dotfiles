@@ -20,11 +20,12 @@ return require('packer').startup(function(use)
   -- Lua Library
   -- use({ "nvim-lua/popup.nvim", module = "popup" })
   use({ "nvim-lua/plenary.nvim" }) -- do not lazy load
-  -- use({ "tami5/sqlite.lua", module = "sqlite" })
+  use({ "tami5/sqlite.lua", module = "sqlite" })
   -- use({ "MunifTanjim/nui.nvim", module = "nui" })
 
   --------------------------------
   -- ColorScheme
+  local colorscheme = "iceberg.vim"
   -- local colorscheme = "nightfox.nvim"
   -- use({
   --   "EdenEast/nightfox.nvim",
@@ -236,6 +237,16 @@ return require('packer').startup(function(use)
     after = "nvim-cmp",
     config = function()
       -- require("rc/pluginconfig/cmp-dictionary")
+      require("cmp_dictionary").setup({
+        dic = {
+          ["*"] = "/usr/share/dict/words",
+        },
+        first_case_insensitive = true,
+        document = true,
+      })
+      require("cmp_dictionary").update() -- THIS
+      -- OR
+      -- vim.cmd("CmpDictionaryUpdate")
     end,
   })
   -- use({ "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" })
@@ -280,4 +291,156 @@ return require('packer').startup(function(use)
       end
     end,
   })
-end)
+
+  --------------------------------
+  -- LSP's UI
+  -- use {'nvim-lua/lsp-status.nvim', after = 'nvim-lspconfig'}
+  -- use {
+  --   'nvim-lua/lsp_extensions.nvim',
+  --   after = 'nvim-lsp-installer',
+  --   config = function() require 'rc/pluginconfig/lsp_extensions' end
+  -- }
+  use({
+    "tami5/lspsaga.nvim",
+    after = "nvim-lsp-installer",
+    config = function()
+      -- require("rc/pluginconfig/lspsaga")
+      local lspsaga = require("lspsaga")
+      lspsaga.setup({ -- defaults ...
+      debug = false,
+      use_saga_diagnostic_sign = true,
+      -- diagnostic sign
+      error_sign = "",
+      warn_sign = "",
+      hint_sign = "",
+      infor_sign = "",
+      diagnostic_header_icon = "   ",
+      -- code action title icon
+      code_action_icon = " ",
+      code_action_prompt = { enable = true, sign = true, sign_priority = 40, virtual_text = true },
+      finder_definition_icon = "  ",
+      finder_reference_icon = "  ",
+      max_preview_lines = 10,
+      finder_action_keys = {
+        open = "o",
+        vsplit = "s",
+        split = "i",
+        quit = "q",
+        scroll_down = "<C-f>",
+        scroll_up = "<C-b>",
+      },
+      code_action_keys = { quit = "q", exec = "<CR>" },
+      rename_action_keys = { quit = "<C-c>", exec = "<CR>" },
+      definition_preview_icon = "  ",
+      border_style = "single",
+      rename_prompt_prefix = "➤",
+      server_filetype_map = {},
+      diagnostic_prefix_format = "%d. ",
+    })
+  end
+})
+use({
+  "folke/lsp-colors.nvim",
+  module = "lsp-colors",
+})
+use({
+  "j-hui/fidget.nvim",
+  after = "nvim-lsp-installer",
+  config = function()
+    -- require("rc/pluginconfig/fidget")
+    require("fidget").setup({
+      sources = { -- Sources to configure
+      ["null-ls"] = { -- Name of source
+      ignore = true, -- Ignore notifications from this source
+    },
+  },
+})
+    end,
+  })
+
+  --------------------------------------------------------------
+  -- FuzzyFinders
+
+  --------------------------------
+  -- telescope.nvim
+  use({
+    "nvim-telescope/telescope.nvim",
+    -- requires = { { "nvim-lua/plenary.nvim", opt = true }, { "nvim-lua/popup.nvim", opt = true } },
+    after = { colorscheme },
+    -- event = "VimEnter",
+    config = function()
+      -- require("rc/pluginconfig/telescope")
+      require("telescope").setup({
+        defaults = {
+          -- Default configuration for telescope goes here:
+          -- config_key = value,
+          mappings = {
+            i = {
+              -- map actions.which_key to <C-h> (default: <C-/>)
+              -- actions.which_key shows the mappings for your picker,
+              -- e.g. git_{create, delete, ...}_branch for the git_branches picker
+              ["<C-h>"] = "which_key"
+            }
+          }
+        },
+        pickers = {
+          -- Default configuration for builtin pickers goes here:
+          -- picker_name = {
+            --   picker_config_key = value,
+            --   ...
+            -- }
+            -- Now the picker_config_key will be applied every time you call this
+            -- builtin picker
+          },
+          extensions = {
+            -- Your extension configuration goes here:
+            -- extension_name = {
+              --   extension_config_key = value,
+              -- }
+              -- please take a look at the readme of the extension you want to configure
+            }
+          })
+        end,
+      })
+      use({
+        "nvim-telescope/telescope-frecency.nvim",
+        after = { "telescope.nvim" },
+        config = function()
+          require("telescope").load_extension("frecency")
+        end,
+      })
+      use({
+        "nvim-telescope/telescope-packer.nvim",
+        after = { "telescope.nvim" },
+        config = function()
+          require("telescope").load_extension("packer")
+        end,
+      })
+
+      --------------------------------
+      -- Treesitter
+      use({
+        "nvim-treesitter/nvim-treesitter",
+        after = { colorscheme },
+        -- event = "VimEnter",
+        run = ":TSUpdate",
+        config = function()
+          -- require("rc/pluginconfig/nvim-treesitter")
+        end,
+      })
+      use({ "yioneko/nvim-yati", after = "nvim-treesitter" })
+
+      --------------------------------------------------------------
+      -- Appearance
+
+      --------------------------------
+      -- Statusline
+      use({
+        "nvim-lualine/lualine.nvim",
+        after = colorscheme,
+        requires = { "kyazdani42/nvim-web-devicons", opt = true },
+        config = function()
+          -- require("rc/pluginconfig/lualine")
+        end,
+      })
+    end)
