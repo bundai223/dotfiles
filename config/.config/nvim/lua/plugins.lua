@@ -23,6 +23,13 @@ return require('packer').startup(function(use)
   use({ "tami5/sqlite.lua", module = "sqlite" })
   -- use({ "MunifTanjim/nui.nvim", module = "nui" })
 
+  use({
+    "tyru/caw.vim",
+    config = function()
+      vim.api.nvim_set_keymap("n", "[myleader]c", "<Plug>(caw:hatpos:toggle)", {})
+      vim.api.nvim_set_keymap("v", "[myleader]c", "<Plug>(caw:hatpos:toggle)", {})
+    end
+  })
   --------------------------------
   -- ColorScheme
   local colorscheme = "iceberg.vim"
@@ -441,6 +448,34 @@ use({
         requires = { "kyazdani42/nvim-web-devicons", opt = true },
         config = function()
           -- require("rc/pluginconfig/lualine")
+        end,
+      })
+
+      --------------------------------
+      -- Scrollbar
+      use({
+        "petertriho/nvim-scrollbar",
+        requires = { { "kevinhwang91/nvim-hlslens", opt = true } },
+        after = { colorscheme, "nvim-hlslens" },
+        config = function()
+          -- require("rc/pluginconfig/nvim-scrollbar")
+          require("scrollbar").setup({
+            show = true,
+            set_highlights = true,
+          })
+        end,
+      })
+
+      --------------------------------------------------------------
+      -- Search
+
+      --------------------------------
+      -- Find
+      use({
+        "kevinhwang91/nvim-hlslens",
+        event = "VimEnter",
+        config = function()
+          -- require("rc/pluginconfig/nvim-hlslens")
         end,
       })
     end)
