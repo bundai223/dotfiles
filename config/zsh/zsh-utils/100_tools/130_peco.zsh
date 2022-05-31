@@ -17,9 +17,11 @@ peco_gitmodified() {
 }
 
 # http://k0kubun.hatenablog.com/entry/2014/07/06/033336
-alias -g B='`git branch | $FILTER_CMD | sed -e "s/^\*[ ]*//g"`'
-alias -g BR='`git branch -r | $FILTER_CMD| sed -e "s/^\*[ ]*//g"`'
-alias -g BALL='`git branch -a | $FILTER_CMD| sed -e "s/^\*[ ]*//g"`'
+# git branchはsortしたら*でちょうどいいところに来た
+# 次点は git branch | sed -n '/\*/=' とか
+alias -g B='`git branch | sort -r | $FILTER_CMD | sed -e "s/^\*[ ]*//g"`'
+alias -g BR='`git branch -r | sort -r | $FILTER_CMD| sed -e "s/^\*[ ]*//g"`'
+alias -g BALL='`git branch -a | sort -r | $FILTER_CMD| sed -e "s/^\*[ ]*//g"`'
 alias -g T='`git tag | $FILTER_CMD`'
 alias -g C='`git log --oneline | $FILTER_CMD| sed -e "s/^.*\* *\([a-f0-9]*\) .*/\1/g" -e "s/^[\|/ ]*$//g"`'
 # alias -g C='`git log --oneline | $FILTER_CMD| cut -d" " -f1`'
