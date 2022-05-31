@@ -38,3 +38,15 @@ end
     not_if_ op[:not_if] unless op[:not_if].nil?
   end
 end
+
+# あとでおいだす
+[
+  'mkdir ~/.local/share/mocword',
+  'wget https://github.com/high-moctane/mocword-data/releases/download/eng20200217/mocword.sqlite.gz -O ~/.local/share/mocword/mocword.sqlite.gz',
+  'gunzip ~/.local/share/mocword/mocword.sqlite.gz'
+].each do |cmd|
+  execute cmd do
+    user user
+    not_if 'test -f ~/.local/share/mocword/mocword.sqlite'
+  end
+end
