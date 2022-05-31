@@ -7,6 +7,7 @@ def neovim_make_install
       cd $BASEPATH
 
       git clone https://github.com/neovim/neovim.git
+      git pull
       cd neovim
       if [ -e build ]; then
         rm -r build
