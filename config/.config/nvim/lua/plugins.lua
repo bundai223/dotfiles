@@ -21,7 +21,7 @@ return require('packer').startup(function(use)
   -- use({ "nvim-lua/popup.nvim", module = "popup" })
   use({ "nvim-lua/plenary.nvim" }) -- do not lazy load
   use({ "tami5/sqlite.lua", module = "sqlite" })
-  -- use({ "MunifTanjim/nui.nvim", module = "nui" })
+  use({ "MunifTanjim/nui.nvim", module = "nui" })
 
   use({
     "tyru/caw.vim",
@@ -283,11 +283,30 @@ return require('packer').startup(function(use)
       require("nvim-lsp-installer").setup({})
 
       local lspconfig = require("lspconfig")
+      lspconfig.sumneko_lua.setup({
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { 'vim' }
+            },
+            workspace = {
+              -- Make the server aware of Neovim runtime files
+              -- library = vim.api.nvim_get_runtime_file("", true),
+              preloadFileSize = 500,
+              -- very slow
+              -- library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = { enable = false },
+          },
+        },
+      })
 
       local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
       local servers = require("nvim-lsp-installer").get_installed_servers()
       for _, server in ipairs(servers) do
-        local opts = { capabilities = capabilities, on_attach = on_attach }
+        -- local opts = { capabilities = capabilities, on_attach = on_attach }
+        local opts = { capabilities = capabilities }
         -- use rust-tools
         if server.name == "rust_analyzer" then
           require("rust-tools").setup({ server = opts })
@@ -314,57 +333,56 @@ return require('packer').startup(function(use)
       -- require("rc/pluginconfig/lspsaga")
       local lspsaga = require("lspsaga")
       lspsaga.setup({ -- defaults ...
-      debug = false,
-      use_saga_diagnostic_sign = true,
-      -- diagnostic sign
-      error_sign = "",
-      warn_sign = "",
-      hint_sign = "",
-      infor_sign = "",
-      diagnostic_header_icon = "   ",
-      -- code action title icon
-      code_action_icon = " ",
-      code_action_prompt = { enable = true, sign = true, sign_priority = 40, virtual_text = true },
-      finder_definition_icon = "  ",
-      finder_reference_icon = "  ",
-      max_preview_lines = 10,
-      finder_action_keys = {
-        open = "o",
-        vsplit = "s",
-        split = "i",
-        quit = "q",
-        scroll_down = "<C-f>",
-        scroll_up = "<C-b>",
-      },
-      code_action_keys = { quit = "q", exec = "<CR>" },
-      rename_action_keys = { quit = "<C-c>", exec = "<CR>" },
-      definition_preview_icon = "  ",
-      border_style = "single",
-      rename_prompt_prefix = "➤",
-      server_filetype_map = {},
-      diagnostic_prefix_format = "%d. ",
-    })
-  end
-})
-use({
-  "folke/lsp-colors.nvim",
-  module = "lsp-colors",
-})
-use({
-  "j-hui/fidget.nvim",
-  after = "nvim-lsp-installer",
-  config = function()
-    -- require("rc/pluginconfig/fidget")
-    require("fidget").setup({
-      sources = { -- Sources to configure
-      ["null-ls"] = { -- Name of source
-      ignore = true, -- Ignore notifications from this source
-    },
-  },
-})
+        debug = false,
+        use_saga_diagnostic_sign = true,
+        -- diagnostic sign
+        error_sign = "",
+        warn_sign = "",
+        hint_sign = "",
+        infor_sign = "",
+        diagnostic_header_icon = "   ",
+        -- code action title icon
+        code_action_icon = " ",
+        code_action_prompt = { enable = true, sign = true, sign_priority = 40, virtual_text = true },
+        finder_definition_icon = "  ",
+        finder_reference_icon = "  ",
+        max_preview_lines = 10,
+        finder_action_keys = {
+          open = "o",
+          vsplit = "s",
+          split = "i",
+          quit = "q",
+          scroll_down = "<C-f>",
+          scroll_up = "<C-b>",
+        },
+        code_action_keys = { quit = "q", exec = "<CR>" },
+        rename_action_keys = { quit = "<C-c>", exec = "<CR>" },
+        definition_preview_icon = "  ",
+        border_style = "single",
+        rename_prompt_prefix = "➤",
+        server_filetype_map = {},
+        diagnostic_prefix_format = "%d. ",
+      })
+    end
+  })
+  use({
+    "folke/lsp-colors.nvim",
+    module = "lsp-colors",
+  })
+  use({
+    "j-hui/fidget.nvim",
+    after = "nvim-lsp-installer",
+    config = function()
+      -- require("rc/pluginconfig/fidget")
+      require("fidget").setup({
+        sources = { -- Sources to configure
+          ["null-ls"] = { -- Name of source
+            ignore = true, -- Ignore notifications from this source
+          },
+        },
+      })
     end,
   })
-
   --------------------------------------------------------------
   -- FuzzyFinders
 
@@ -379,83 +397,141 @@ use({
       -- require("rc/pluginconfig/telescope")
       require("telescope").setup({
         defaults = {
-          -- Default configuration for telescope goes here:
-          -- config_key = value,
           mappings = {
             i = {
-              -- map actions.which_key to <C-h> (default: <C-/>)
-              -- actions.which_key shows the mappings for your picker,
-              -- e.g. git_{create, delete, ...}_branch for the git_branches picker
               ["<C-h>"] = "which_key"
             }
           }
         },
         pickers = {
-          -- Default configuration for builtin pickers goes here:
-          -- picker_name = {
-            --   picker_config_key = value,
-            --   ...
-            -- }
-            -- Now the picker_config_key will be applied every time you call this
-            -- builtin picker
-          },
-          extensions = {
-            -- Your extension configuration goes here:
-            -- extension_name = {
-              --   extension_config_key = value,
-              -- }
-              -- please take a look at the readme of the extension you want to configure
-            }
-          })
-        end,
+        },
+        extensions = {
+        }
       })
-      use({
-        "nvim-telescope/telescope-frecency.nvim",
-        after = { "telescope.nvim" },
-        config = function()
-          require("telescope").load_extension("frecency")
-        end,
-      })
-      use({
-        "nvim-telescope/telescope-packer.nvim",
-        after = { "telescope.nvim" },
-        config = function()
-          require("telescope").load_extension("packer")
-        end,
-      })
+    end,
+  })
+  use({
+    "nvim-telescope/telescope-frecency.nvim",
+    after = { "telescope.nvim" },
+    config = function()
+      require("telescope").load_extension("frecency")
+    end,
+  })
+  use({
+    "nvim-telescope/telescope-packer.nvim",
+    after = { "telescope.nvim" },
+    config = function()
+      require("telescope").load_extension("packer")
+    end,
+  })
 
-      --------------------------------
-      -- Treesitter
-      use({
-        "nvim-treesitter/nvim-treesitter",
-        after = { colorscheme },
-        -- event = "VimEnter",
-        run = ":TSUpdate",
-        config = function()
-          -- require("rc/pluginconfig/nvim-treesitter")
-          require'nvim-treesitter.configs'.setup {
-            highlight = {
-              enable = true,
-              disable = {},
-            },
-          }
-        end,
-      })
-      use({ "yioneko/nvim-yati", after = "nvim-treesitter" })
+  --------------------------------
+  -- Treesitter
+  use({
+    "nvim-treesitter/nvim-treesitter",
+    after = { colorscheme },
+    -- event = "VimEnter",
+    run = ":TSUpdate",
+    config = function()
+      -- require("rc/pluginconfig/nvim-treesitter")
+      require'nvim-treesitter.configs'.setup {
+        highlight = {
+          enable = true,
+          disable = {},
+        },
+      }
+    end,
+  })
+  use({ "yioneko/nvim-yati", after = "nvim-treesitter" })
 
-      --------------------------------------------------------------
-      -- Appearance
+  --------------------------------------------------------------
+  -- Appearance
 
-      --------------------------------
-      -- Statusline
-      use({
-        "nvim-lualine/lualine.nvim",
-        after = colorscheme,
-        requires = { "kyazdani42/nvim-web-devicons", opt = true },
-        config = function()
-          -- require("rc/pluginconfig/lualine")
-        end,
-      })
+  --------------------------------
+  -- Statusline
+  use({
+    "nvim-lualine/lualine.nvim",
+    after = colorscheme,
+    requires = { "kyazdani42/nvim-web-devicons", opt = true },
+    config = function()
+      -- require("rc/pluginconfig/lualine")
+      require('lualine').setup()
+    end,
+  })
+
+  --------------------------------
+  -- Bufferline
+  if not vim.g.vscode then
+    use({
+      "akinsho/bufferline.nvim",
+      after = colorscheme,
+      config = function()
+        -- require("rc/pluginconfig/bufferline")
+        vim.cmd([[hi TabLineSel guibg=#ddc7a1]])
+
+        require("bufferline").setup({
+          options = {
+            numbers = function(opts)
+              return string.format("%s", opts.ordinal)
+            end,
+            -- NOTE: this plugin is designed with this icon in mind,
+            -- and so changing this is NOT recommended, this is intended
+            -- as an escape hatch for people who cannot bear it for whatever reason
+            -- indicator_icon = '▎',
+            -- buffer_close_icon = '',
+            -- modified_icon = '●',
+            -- close_icon = '',
+            -- left_trunc_marker = '',
+            -- right_trunc_marker = '',
+            -- max_name_length = 18,
+            -- max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
+            -- tab_size = 18,
+            -- diagnostics = false,
+            -- diagnostics_indicator = function(count, level, diagnostics_dict, context)
+              --   return "(" .. count .. ")"
+              -- end,
+              -- NOTE: this will be called a lot so don't do any heavy processing here
+              custom_filter = function(buf_number)
+                -- filter out filetypes you don't want to see
+                if vim.bo[buf_number].filetype == "qf" then
+                  return false
+                end
+                if vim.bo[buf_number].buftype == "terminal" then
+                  return false
+                end
+                -- -- filter out by buffer name
+                if vim.fn.bufname(buf_number) == "" or vim.fn.bufname(buf_number) == "[No Name]" then
+                  return false
+                end
+                if vim.fn.bufname(buf_number) == "[dap-repl]" then
+                  return false
+                end
+                -- -- filter out based on arbitrary rules
+                -- -- e.g. filter out vim wiki buffer from tabline in your work repo
+                -- if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
+                --   return true
+                -- end
+                return true
+              end,
+              -- offsets = {
+                --   {filetype = "NvimTree", text = "File Explorer", text_align = "left" | "center" | "right"}
+                -- },
+                -- show_buffer_icons = true,
+                show_buffer_close_icons = false,
+                show_close_icon = false,
+                -- show_tab_indicators = true
+                -- persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+                -- can also be a table containing 2 custom separators
+                -- [focused and unfocused]. eg: { '|', '|' }
+                -- separator_style = "thick",
+                enforce_regular_tabs = true,
+                -- always_show_bufferline = true
+                -- sort_by = 'relative_directory'
+              },
+            })
+          end,
+        })
+      end
 
       --------------------------------
       -- Scrollbar
@@ -484,4 +560,14 @@ use({
           -- require("rc/pluginconfig/nvim-hlslens")
         end,
       })
+
+      use {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v2.x",
+        requires = {
+          "nvim-lua/plenary.nvim",
+          "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+          "MunifTanjim/nui.nvim",
+        }
+      }
     end)
