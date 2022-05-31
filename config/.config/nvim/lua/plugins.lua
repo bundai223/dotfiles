@@ -32,26 +32,26 @@ return require('packer').startup(function(use)
   })
   --------------------------------
   -- ColorScheme
-  local colorscheme = "iceberg.vim"
-  -- local colorscheme = "nightfox.nvim"
-  -- use({
-  --   "EdenEast/nightfox.nvim",
-  --   event = { "VimEnter", "ColorSchemePre" },
-  --   config = function()
-  --     -- require("rc/pluginconfig/nightfox")
-  --     require('nightfox').setup({
-  --       options = {}
-  --     })
-  --     vim.cmd([[ colorscheme nightfox ]])
-  --   end,
-  -- })
-
+  -- local colorscheme = "iceberg.vim"
+  local colorscheme = "nightfox.nvim"
   use({
-    'cocopon/iceberg.vim',
+    "EdenEast/nightfox.nvim",
+    event = { "VimEnter", "ColorSchemePre" },
     config = function()
-      vim.cmd([[ colorscheme iceberg ]])
-    end
+      -- require("rc/pluginconfig/nightfox")
+      require('nightfox').setup({
+        options = {}
+      })
+      vim.cmd([[ colorscheme nightfox ]])
+    end,
   })
+
+  -- use({
+  --   'cocopon/iceberg.vim',
+  --   config = function()
+  --     vim.cmd([[ colorscheme iceberg ]])
+  --   end
+  -- })
 
   --------------------------------
   -- Font
@@ -433,6 +433,12 @@ use({
         run = ":TSUpdate",
         config = function()
           -- require("rc/pluginconfig/nvim-treesitter")
+          require'nvim-treesitter.configs'.setup {
+            highlight = {
+              enable = true,
+              disable = {},
+            },
+          }
         end,
       })
       use({ "yioneko/nvim-yati", after = "nvim-treesitter" })
