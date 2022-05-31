@@ -350,10 +350,6 @@ nnoremap <silent> <leader>gg :vimgrep '' %<left><left><left>
 " ========================================
 " packer
 " ========================================
-" opt ディレクトリに packer.nvim をクローン
-if !isdirectory(s:dein_dir)
-  execute '!git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/opt/packer.nvim'
-endif
 :lua require('plugins')
 
 " ========================================
