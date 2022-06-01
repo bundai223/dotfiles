@@ -141,8 +141,9 @@ end
 
 define :go_get do
   reponame = params[:name]
+  version = 'latest'
 
-  execute "#{node[:go_root]}/go get #{reponame}" do
+  execute "#{node[:go_root]}/go install #{reponame}@#{version}" do
     user node[:user]
   end
 end
