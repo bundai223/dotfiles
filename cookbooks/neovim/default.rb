@@ -7,12 +7,12 @@ define :neovim_make_install do
       cd $BASEPATH
 
       git clone https://github.com/neovim/neovim.git
+      git pull
       cd neovim
       git pull
       if [ -e build ]; then
         rm -r build
       fi
-      make clean
       make -j4 CMAKE_BUILD_TYPE=Release
       make && sudo make install
     EOCMD

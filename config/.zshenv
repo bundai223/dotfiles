@@ -36,7 +36,6 @@ export ZSH_HISTORY_KEYBIND_ARROW_DOWN="^n"
 export PATH=${PERSONAL_ZSH_DIR}/functions:$PATH
 
 # plugins
-export ZPLUG_HOME=${REPOS_ROOT}/github.com/zplug/zplug
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
 
 # ローカル用設定を読み込む

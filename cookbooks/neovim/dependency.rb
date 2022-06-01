@@ -9,10 +9,10 @@ package 'cmake'
 # gem_package 'neovim'
 execute 'gem install --user-install neovim' do
   user node[:user]
-  command <<-EOS
-. /etc/profile.d/asdf.sh
-gem install --user-install neovim
-EOS
+  command <<-EOCMD
+  . /etc/profile.d/asdf.sh
+  gem install --user-install neovim
+  EOCMD
 end
 
 # pip =
@@ -27,10 +27,10 @@ end
     execute "#{pipcmd} install --upgrade --user #{pip}" do
       user node[:user]
 
-      command <<-EOS
-. /etc/profile.d/asdf.sh
-#{pipcmd} install --upgrade --user #{pip}
-EOS
+      command <<-EOCMD
+        . /etc/profile.d/asdf.sh
+        #{pipcmd} install --upgrade --user #{pip}
+      EOCMD
       only_if ". /etc/profile.d/asdf.sh; which #{pipcmd}"
     end
   end
@@ -47,16 +47,19 @@ end
   end
 end
 
-
-
-
 # Node.js
 execute 'yarn global add neovim' do
   user node[:user]
-  command <<-EOS
-. /etc/profile.d/asdf.sh
-yarn global add neovim
-EOS
+  command <<-EOCMD
+    . /etc/profile.d/asdf.sh
+    yarn global add neovim
+  EOCMD
 end
 
 go_get 'github.com/tennashi/vimalter'
+
+# if arch package 'fd'
+package 'fd-find'
+execute 'ln -s $(which fdfind) ~/.local/bin/fd' do
+  user node[:user]
+end

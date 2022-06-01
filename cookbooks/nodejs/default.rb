@@ -20,7 +20,6 @@ end
 
 [
   { cmd: 'asdf plugin add nodejs', not_if: 'asdf plugin list | grep nodejs' },
-  { cmd: "bash -c '${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-keyring'", not_if: 'which nodejs' },
   { cmd: "asdf install nodejs #{version}", not_if: "asdf list nodejs | grep #{version}" },
   { cmd: "asdf global nodejs #{version}", not_if: 'which nodejs' }
 ].each do |op|

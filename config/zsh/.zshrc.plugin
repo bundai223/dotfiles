@@ -1,35 +1,34 @@
 # vim: set ft=zsh:
 # antigen scripts
-ghq list | grep zplug/zplug >/dev/null 2>&1 || ghq get zplug/zplug
+plugin_manager_name=zdharma-continuum/zinit
+ghq list | grep ${plugin_manager_name} >/dev/null 2>&1 || ghq get $plugin_manager_name
 
-source $ZPLUG_HOME/init.zsh
+ZINIT_HOME=${REPOS_ROOT}/github.com/zdharma-continuum/zinit
 
-# zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-zplug "zsh-users/zsh-autosuggestions", hook-load: "ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(do_enter $ZSH_AUTOSUGGEST_CLEAR_WIDGETS)"
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zsh-users/zsh-history-substring-search"
-zplug "RobSis/zsh-completion-generator", if:"GENCOMPL_FPATH=$HOME/.zsh/complete"
-zplug "Tarrasch/zsh-functional" # each map filter fold
-zplug "willghatch/zsh-hooks"
-zplug "unixorn/warhol.plugin.zsh" # ansi
-zplug "mollifier/zload"
+source $ZINIT_HOME/zinit.zsh
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
-zplug "GeneralD/zsh-aliases-colorls"
-zplug "GeneralD/b3b7c2290db941ad5b2a5e3eb50e1e9e", from:gist, use:"expand-or-complete-with-dots.zsh", if:"WAITING_DOTS='···'"
+zinit light "zsh-users/zsh-autosuggestions"
+zinit light "zsh-users/zsh-completions"
+zinit light "zsh-users/zsh-syntax-highlighting"
+zinit light "zsh-users/zsh-history-substring-search"
+# zplug "RobSis/zsh-completion-generator", if:"GENCOMPL_FPATH=$HOME/.zsh/complete"
+# zinit light "Tarrasch/zsh-functional" # each map filter fold
+# zinit light "willghatch/zsh-hooks"
+# zplug "unixorn/warhol.plugin.zsh" # ansi
+# zplug "mollifier/zload"
 
-zplug "docker/cli", use:"contrib/completion/zsh/_docker", lazy:true
-
-zplug "zsh-users/zaw"
-zplug "GeneralD/zaw-src-directory", on:"zsh-users/zaw", defer:2
-zplug "GeneralD/zaw-src-bitbucket", on:"zsh-users/zaw", defer:2
-zplug "GeneralD/zaw-src-github", on:"zsh-users/zaw", defer:2
-zplug "GeneralD/zaw-src-ghq", on:"zsh-users/zaw", on:"Tarrasch/zsh-functional", defer:2
-zplug "GeneralD/zaw-src-package-managers", on:"zsh-users/zaw", defer:2
-
-# Install plugins if there are plugins that have not been installed
-zplug check --verbose || zplug install
-zplug load
+# zplug "GeneralD/zsh-aliases-colorls"
+# zplug "GeneralD/b3b7c2290db941ad5b2a5e3eb50e1e9e", from:gist, use:"expand-or-complete-with-dots.zsh", if:"WAITING_DOTS='···'"
+# 
+# zplug "docker/cli", use:"contrib/completion/zsh/_docker", lazy:true
+# 
+zinit light "zsh-users/zaw"
+zinit light "GeneralD/zaw-src-directory" # on:"zsh-users/zaw", defer:2
+zinit light "GeneralD/zaw-src-github" #, on:"zsh-users/zaw", defer:2
+# zinit light "GeneralD/zaw-src-ghq" #, on:"zsh-users/zaw", on:"Tarrasch/zsh-functional", defer:2
+zinit light "GeneralD/zaw-src-package-managers" #, on:"zsh-users/zaw", defer:2
 
 ## zaw
 bindkey '^x^x' zaw
@@ -43,3 +42,7 @@ bindkey '^x^P' zaw-process
 
 # refs 
 # https://qiita.com/GeneralD/items/7aad84a6560206dc6e45
+
+
+# autosuggest
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(do_enter $ZSH_AUTOSUGGEST_CLEAR_WIDGETS)

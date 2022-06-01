@@ -1,6 +1,5 @@
 # tmux
 
-
 # tmux起動
 tmux_start()
 {
@@ -14,7 +13,7 @@ tmux_start()
     return 1
   fi
 
-  if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -v attached; then
+  if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -v attached > /dev/null 2>&1; then
     # detached session exists
     tmux -2 attach -d && echo "tmux attached session "
   else

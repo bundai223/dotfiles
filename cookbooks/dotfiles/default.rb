@@ -141,5 +141,6 @@ dotfile '.spacemacs.d'
 dotfile '.config/Code/User/settings.json'
 dotfile '.ctags'
 dotfile '.config/ctags'
+dotfile '.config/nvim/lua'
 dotfile '.conkyrc'
 # dotfile '.gemrc' # 追加したいオプションができるまでなし
