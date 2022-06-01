@@ -67,8 +67,7 @@ zstyle ':completion:*:manuals' separate-sections true
 # fpathの設定が終わってから補完有効設定を行う
 # ref : http://yonchu.hatenablog.com/entry/20120415/1334506855
 # 補完有効
-autoload -U compinit
-compinit -u
+autoload -Uz compinit && compinit -u
 
 typeset -U path PATH
 

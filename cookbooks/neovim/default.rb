@@ -1,6 +1,6 @@
 include_recipe 'dependency.rb'
 
-def neovim_make_install
+define :neovim_make_install do
   execute 'install neovim' do
     command <<-EOCMD
       BASEPATH=/usr/src
@@ -8,6 +8,7 @@ def neovim_make_install
 
       git clone https://github.com/neovim/neovim.git
       cd neovim
+      git pull
       if [ -e build ]; then
         rm -r build
       fi
@@ -33,7 +34,7 @@ when 'debian', 'ubuntu', 'mint'
   package 'curl'
   package 'doxygen'
 
-  neovim_make_install
+  neovim_make_install :install
 
 when 'fedora', 'redhat', 'amazon'
   package 'libtool'
@@ -46,7 +47,7 @@ when 'fedora', 'redhat', 'amazon'
   package 'pkgconfig'
   package 'unzip'
 
-  neovim_make_install
+  neovim_make_install :install
 
 when 'osx', 'darwin'
   package 'nvim'
