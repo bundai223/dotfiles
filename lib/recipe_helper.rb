@@ -7,10 +7,10 @@
       home = ENV['HOME']
       group = 'staff'
     when 'arch'
-      home = %x[cat /etc/passwd | grep #{user} | awk -F: '!/nologin/{print $(NF-1)}'].strip
+      home = %x[cat /etc/passwd | grep '^#{user}:' | awk -F: '!/nologin/{print $(NF-1)}'].strip
       group = user
     else
-      home = %x[cat /etc/passwd | grep #{user} | awk -F: '!/nologin/{print $(NF-1)}'].strip
+      home = %x[cat /etc/passwd | grep '^#{user}:' | awk -F: '!/nologin/{print $(NF-1)}'].strip
       group = user
     end
 
