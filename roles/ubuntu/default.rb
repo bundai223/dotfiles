@@ -45,10 +45,10 @@ include_role('base')
 
 execute 'locale-gen ja_JP.UTF-8'
 
-if node[:is_wsl]
-  execute 'remove libpulse0'  do
-    command <<-EOL
-    sudo apt purge -y libpulse0
-    EOL
-  end
-end
+# if node[:is_wsl]
+#   execute 'remove libpulse0'  do
+#     command <<-EOL
+#     sudo apt purge -y libpulse0
+#     EOL
+#   end
+# end

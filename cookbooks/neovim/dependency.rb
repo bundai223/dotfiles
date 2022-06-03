@@ -56,10 +56,24 @@ execute 'yarn global add neovim' do
   EOCMD
 end
 
-go_get 'github.com/tennashi/vimalter'
+# go_get 'github.com/tennashi/vimalter'
+execute 'install vimalter' do
+  command <<-EOCMD
+    mkdir work_vimalter
+    cd work_vimalter
+    wget https://github.com/tennashi/vimalter/releases/download/0.1.0/vimalter_0.1.0_Linux_64-bit.tar.gz -O vimalter.tar.gz
+    tar xfz  vimalter.tar.gz
+    mv vimalter ~/.local/bin
+    cd ..
+    rm -rf work_vimalter
+  EOCMD
+  user node[:user]
+  not_if 'test -f ~/.local/bin/vimalter'
+end
 
 # if arch package 'fd'
 package 'fd-find'
 execute 'ln -s $(which fdfind) ~/.local/bin/fd' do
   user node[:user]
+  not_if 'test -f ~/.local/bin/fd'
 end
