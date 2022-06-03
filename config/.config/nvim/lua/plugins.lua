@@ -138,10 +138,7 @@ return require('packer').startup(function(use)
         --   { name = 'nvim_lsp_signature_help' },
         -- })
         sources = cmp.config.sources({
-          { name = "copilot", priority = 90 }, -- For luasnip users.
           { name = "nvim_lsp", priority = 100 },
-          { name = "cmp_tabnine", priority = 30 },
-          { name = "luasnip", priority = 20 }, -- For luasnip users.
           { name = "path", priority = 100 },
           { name = "emoji", insert = true, priority = 60 },
           { name = "nvim_lua", priority = 50 },
@@ -152,7 +149,7 @@ return require('packer').startup(function(use)
           { name = "spell", priority = 40 },
           { name = "calc", priority = 50 },
           { name = "treesitter", priority = 30 },
-          { name = "mocword", priority = 60 },
+          { name = "mocword", priority = 10 },
           { name = "dictionary", keyword_length = 2, priority = 10 },
         }),
       })
