@@ -161,12 +161,22 @@ return require('packer').startup(function(use)
         }
       })
       -- `:` cmdline setup.
+      -- exclusively for :, without !, uses the default keyword_length
       cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
           { name = 'path' }
         }, {
-          { name = 'cmdline' }
+          { name = 'cmdline', keyword_pattern=[=[[^[:blank:]\!]*]=], keyword_length=3 }
+        })
+      })
+      --- for :!, sets keyword_length to 3
+      cmp.setup.cmdline(':!', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          { name = 'cmdline', keyword_length=3 }
         })
       })
     end,
@@ -297,6 +307,13 @@ return require('packer').startup(function(use)
             telemetry = { enable = false },
           },
         },
+      })
+      lspconfig.solargraph.setup({
+        settings = {
+          solargraph = {
+            diagnotics = true
+          }
+        }
       })
 
       local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -575,7 +592,10 @@ return require('packer').startup(function(use)
           "nvim-lua/plenary.nvim",
           "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
           "MunifTanjim/nui.nvim",
-        }
+        },
+        config = function ()
+          vim.api.nvim_set_keymap("n", "<Leader>f<Space>", "<Cmd>Neotree %:p:h:h %p<CR>", { noremap = true })
+        end,
       }
       --------------------------------
       -- Manual

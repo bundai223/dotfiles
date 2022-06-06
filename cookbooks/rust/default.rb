@@ -30,7 +30,7 @@ end
 [
   { cmd: 'asdf plugin add rust', not_if: 'asdf plugin list | grep rust' },
   { cmd: "asdf install rust #{version}", not_if: "asdf list rust | grep #{version}" },
-  { cmd: "asdf global rust #{version}", not_if: 'which rustc' },
+  { cmd: "asdf global rust #{version}" },
   { cmd: 'asdf reshim rust' }
 ].each do |op|
   source_asdf_and_execute op[:cmd] do
