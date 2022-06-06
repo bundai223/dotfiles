@@ -1,3 +1,4 @@
+# vim: set ft=zsh:
 source ~/repos/github.com/bundai223/dotfiles/config/.zshrc
 <% if node[:platform] == 'osx' or node[:platform] == 'darwin' -%>
 source ~/repos/github.com/bundai223/dotfiles/config/zsh/.zshrc_osx
@@ -7,3 +8,19 @@ source ~/repos/github.com/bundai223/dotfiles/config/zsh/.zshrc_unix
 source ~/repos/github.com/bundai223/dotfiles/config/zsh/.zshrc_wsl
   <%- end -%>
 <% end -%>
+
+#########################################
+# ssh-agent
+/usr/bin/keychain -q --nogui ~/.ssh/id_rsa
+
+source ~/.keychain/${HOST}-sh
+#########################################
+
+<%- if node[:is_wsl] -%>
+alias explorer='/mnt/c/Windows/explorer.exe'
+<%- end -%>
+
+# profiling
+if (which zprof > /dev/null 2>&1) ;then
+  # zprof
+fi
