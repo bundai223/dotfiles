@@ -2,11 +2,11 @@
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
   execute 'add repo' do
-    command <<-EOCMD
-      sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-      wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-      apt-get update
-    EOCMD
+    # command <<-EOCMD
+    #   sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+    #   wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    #   apt-get update
+    # EOCMD
 
     not_if 'test -f /etc/apt/sources.list.d/google.list'
   end

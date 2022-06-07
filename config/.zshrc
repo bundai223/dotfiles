@@ -261,7 +261,7 @@ alias ag='ag -S'
 
 # docker
 alias d='docker'; compdef d=docker
-alias dc='UID=$(id -u) GID=$(id -g) docker compose'; compdef dc=docker-compose
+alias dc='UID=$(id -u) GID=$(id -g) docker compose'
 alias docker_rm_images='docker images -qf dangling=true | xargs docker rmi'
 alias docker_rm_containers='docker ps -aqf status=exited | xargs docker rm -v' # rm with volumes
 alias docker_rm_volumes='docker volume ls -qf dangling=true | xargs docker volume rm'

@@ -1,5 +1,6 @@
-export LIBGL_ALWAYS_INDIRECT=1
-export DISPLAY=localhost:0.0
+# export LIBGL_ALWAYS_INDIRECT=1
+# export DISPLAY=localhost:0.0
+export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
 
 export PATH=/mnt/c/tools/win32yank-x64/:$PATH
 unsetopt BG_NICE
@@ -7,3 +8,5 @@ export PATH="$PATH:/mnt/c/tools/bin:/mnt/c/Program Files/Docker/Docker/resources
 
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
+
+export WINHOME=$(/mnt/c/Windows/System32/hostname.exe | sed -e 's/-//g' -e 's///g')
