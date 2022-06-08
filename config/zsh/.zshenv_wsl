@@ -4,9 +4,9 @@ export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
 
 export PATH=/mnt/c/tools/win32yank-x64/:$PATH
 unsetopt BG_NICE
-export PATH="$PATH:/mnt/c/tools/bin:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin"
+export PATH="$PATH:/mnt/c/tools/bin"
 
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
 
-export WINHOME=$(/mnt/c/Windows/System32/hostname.exe | sed -e 's/-//g' -e 's///g')
+# export WINHOME=/mnt/c/Users/$(/mnt/c/Windows/System32/hostname.exe | sed -e 's/-//g' -e 's///g')

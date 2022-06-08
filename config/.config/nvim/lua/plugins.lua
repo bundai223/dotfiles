@@ -597,6 +597,14 @@ return require('packer').startup(function(use)
           vim.api.nvim_set_keymap("n", "<Leader>f<Space>", "<Cmd>Neotree %:p:h:h %p<CR>", { noremap = true })
         end,
       }
+
+      --------------------------------
+      -- text object
+      use({ "nvim-treesitter/nvim-treesitter-textobjects", after = { "nvim-treesitter" } })
+
+      --------------------------------
+      -- operator
+
       --------------------------------
       -- Manual
       use({
