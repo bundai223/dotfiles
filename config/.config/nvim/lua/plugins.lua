@@ -594,7 +594,7 @@ return require('packer').startup(function(use)
           "MunifTanjim/nui.nvim",
         },
         config = function ()
-          vim.api.nvim_set_keymap("n", "<Leader>f<Space>", "<Cmd>Neotree %:p:h:h %p<CR>", { noremap = true })
+          vim.api.nvim_set_keymap("n", "<leader>f<Space>", "<Cmd>Neotree %:p:h:h %p<CR>", { noremap = true, silent = true })
         end,
       }
 
