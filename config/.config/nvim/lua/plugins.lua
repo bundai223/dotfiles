@@ -600,7 +600,30 @@ return require('packer').startup(function(use)
 
       --------------------------------
       -- text object
-      use({ "nvim-treesitter/nvim-treesitter-textobjects", after = { "nvim-treesitter" } })
+      use({
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        after = { "nvim-treesitter" },
+        config = function()
+          require'nvim-treesitter.configs'.setup {
+            textobjects = {
+              select = {
+                enable = true,
+
+                -- automatically jump forward to text obj, similar to targets.vim
+                lookahead = true,
+
+                keymaps = {
+                  -- You can use the capture groups defined in textobjects.scm
+                  ["af"] = "@function.outer",
+                  ["if"] = "@function.inner",
+                  ["ac"] = "@class.outer",
+                  ["ic"] = "@class.inner"
+                }
+              }
+            }
+          }
+        end,
+      })
 
       --------------------------------
       -- operator
