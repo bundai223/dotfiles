@@ -311,7 +311,7 @@ return require('packer').startup(function(use)
       lspconfig.solargraph.setup({
         settings = {
           solargraph = {
-            diagnotics = true
+            diagnostics = false
           }
         }
       })
@@ -685,6 +685,56 @@ return require('packer').startup(function(use)
 
           vim.api.nvim_set_keymap("n", "<Leader><CR>", "<Cmd>WhichKey \\ <CR>", { noremap = true })
           vim.api.nvim_set_keymap("n", "[FuzzyFinder]<CR>", "<Cmd>WhichKey [FuzzyFinder]<CR>", { noremap = true })
+        end,
+      })
+
+      --------------------------------
+      -- Lint
+      use({
+        "jose-elias-alvarez/null-ls.nvim",
+        after = "nvim-lsp-installer",
+        config = function()
+          -- require("rc/pluginconfig/null-ls")
+
+          local null_ls = require("null-ls")
+
+          local function file_exists(fname)
+            local stat = vim.loop.fs_stat(vim.fn.expand(fname))
+            return (stat and stat.type) or false
+          end
+          local ignored_filetypes = {
+            "TelescopePrompt",
+            "diff",
+            "gitcommit",
+            "unite",
+            "qf",
+            "help",
+            "markdown",
+            "minimap",
+            "packer",
+            "dashboard",
+            "telescope",
+            "lsp-installer",
+            "lspinfo",
+            "NeogitCommitMessage",
+            "NeogitCommitView",
+            "NeogitGitCommandHistory",
+            "NeogitLogView",
+            "NeogitNotification",
+            "NeogitPopup",
+            "NeogitStatus",
+            "NeogitStatusNew",
+            "aerial",
+            "null-ls-info",
+          }
+
+          local sources = {
+            null_ls.builtins.diagnostics.shellcheck,
+            -- null_ls.builtins.diagnostics.rubocop,
+          }
+          null_ls.setup({
+            sources = sources,
+          })
         end,
       })
     end)
