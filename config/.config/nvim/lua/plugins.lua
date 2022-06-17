@@ -398,6 +398,17 @@ return require('packer').startup(function(use)
       })
     end,
   })
+
+  use({
+    "folke/trouble.nvim",
+    after = { "nvim-lsp-installer" },
+    config = function()
+      -- https://github.com/yutkat/dotfiles/blob/main/.config/nvim/lua/rc/pluginconfig/trouble.lua
+      -- require("rc/pluginconfig/trouble")
+
+      require("trouble").setup({})
+    end,
+  })
   --------------------------------------------------------------
   -- FuzzyFinders
 
