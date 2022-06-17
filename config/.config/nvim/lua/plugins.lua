@@ -139,6 +139,7 @@ return require('packer').startup(function(use)
         -- })
         sources = cmp.config.sources({
           { name = "nvim_lsp", priority = 100 },
+          { name = 'vsnip' }, -- For vsnip users.
           { name = "path", priority = 100 },
           { name = "emoji", insert = true, priority = 60 },
           { name = "nvim_lua", priority = 50 },
@@ -729,7 +730,11 @@ return require('packer').startup(function(use)
           }
 
           local sources = {
+            null_ls.builtins.diagnostics.cfn_lint,
+            null_ls.builtins.diagnostics.markdownlint,
             null_ls.builtins.diagnostics.shellcheck,
+            null_ls.builtins.diagnostics.yamllint,
+            null_ls.builtins.diagnostics.zsh,
             -- null_ls.builtins.diagnostics.rubocop,
           }
           null_ls.setup({
@@ -737,4 +742,6 @@ return require('packer').startup(function(use)
           })
         end,
       })
+
+      use "hrsh7th/vim-vsnip"
     end)

@@ -9,3 +9,4 @@ vim-language-server
 eslint-plugin-vue
 neovim
 yarn
+markdownlint-cli

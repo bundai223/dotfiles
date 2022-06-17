@@ -6,4 +6,5 @@ neovim-remote
 powerline-status
 powerline-gitstatus
 python-language-server
-
+yamllint
+cfn-lint
