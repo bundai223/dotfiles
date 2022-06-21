@@ -32,26 +32,27 @@ return require('packer').startup(function(use)
   })
   --------------------------------
   -- ColorScheme
-  -- local colorscheme = "iceberg.vim"
-  local colorscheme = "nightfox.nvim"
+  local colorscheme = "iceberg.vim"
+  -- local colorscheme = "nightfox.nvim"
+  -- use({
+  --   "EdenEast/nightfox.nvim",
+  --   event = { "VimEnter", "ColorSchemePre" },
+  --   config = function()
+  --     -- require("rc/pluginconfig/nightfox")
+  --     require('nightfox').setup({
+  --       options = {}
+  --     })
+  --     vim.cmd([[ colorscheme nightfox ]])
+  --   end,
+  -- })
+
   use({
-    "EdenEast/nightfox.nvim",
+    'cocopon/iceberg.vim',
     event = { "VimEnter", "ColorSchemePre" },
     config = function()
-      -- require("rc/pluginconfig/nightfox")
-      require('nightfox').setup({
-        options = {}
-      })
-      vim.cmd([[ colorscheme nightfox ]])
-    end,
+      vim.cmd([[ colorscheme iceberg ]])
+    end
   })
-
-  -- use({
-  --   'cocopon/iceberg.vim',
-  --   config = function()
-  --     vim.cmd([[ colorscheme iceberg ]])
-  --   end
-  -- })
 
   --------------------------------
   -- Font
@@ -285,30 +286,13 @@ return require('packer').startup(function(use)
     "williamboman/nvim-lsp-installer",
     -- requires = { { "RRethy/vim-illuminate", opt = true }, { "simrat39/rust-tools.nvim", opt = true } },
     -- after = { "nvim-lspconfig", "vim-illuminate", "nlsp-settings.nvim", "rust-tools.nvim" },
-    after = { "nvim-lspconfig"},
+    after = { "nvim-lspconfig" },
     config = function()
+      -- https://github.com/yutkat/dotfiles/blob/91c57ee62856ea314093a52f3d47a627965877f5/.config/nvim/lua/rc/pluginconfig/nvim-lsp-installer.lua
       -- require("rc/pluginconfig/nvim-lsp-installer")
       require("nvim-lsp-installer").setup({})
 
       local lspconfig = require("lspconfig")
-      lspconfig.sumneko_lua.setup({
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { 'vim' }
-            },
-            workspace = {
-              -- Make the server aware of Neovim runtime files
-              -- library = vim.api.nvim_get_runtime_file("", true),
-              preloadFileSize = 500,
-              -- very slow
-              -- library = vim.api.nvim_get_runtime_file("", true),
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = { enable = false },
-          },
-        },
-      })
       lspconfig.solargraph.setup({
         settings = {
           solargraph = {
@@ -325,6 +309,21 @@ return require('packer').startup(function(use)
         -- use rust-tools
         if server.name == "rust_analyzer" then
           require("rust-tools").setup({ server = opts })
+          lspconfig[server.name].setup(opts)
+        elseif server.name == "sumneko_lua" then
+          local has_lua_dev, lua_dev = pcall(require, "lua-dev")
+          if has_lua_dev then
+            local luadev = lua_dev.setup({
+              library = {
+                vimruntime = true,
+                types = true,
+                plugins = { "nvim-treesitter", "plenary.nvim" },
+              },
+              runtime_path = false,
+              lspconfig = opts,
+            })
+            lspconfig[server.name].setup(luadev)
+          end
         else
           lspconfig[server.name].setup(opts)
         end
@@ -410,7 +409,7 @@ return require('packer').startup(function(use)
     end,
   })
   --------------------------------------------------------------
-  -- FuzzyFinders
+  -- FuzzyFinder
 
   --------------------------------
   -- telescope.nvim
@@ -471,6 +470,9 @@ return require('packer').startup(function(use)
     config = function()
       -- require("rc/pluginconfig/nvim-treesitter")
       require'nvim-treesitter.configs'.setup {
+        matchup = {
+          enable = true,
+        },
         highlight = {
           enable = true,
           disable = {},
@@ -586,6 +588,11 @@ return require('packer').startup(function(use)
 
       --------------------------------------------------------------
       -- Search
+      use({
+        "andymass/vim-matchup",
+        config = function()
+        end
+      })
 
       --------------------------------
       -- Find
@@ -651,19 +658,21 @@ return require('packer').startup(function(use)
       })
       use({
         "folke/which-key.nvim",
+        -- after = { "telescope.nvim" }, -- # [FuzzyFinders]が欲しいため
         event = "VimEnter",
         config = function()
           -- require("rc/pluginconfig/which-key")
-          require("which-key").setup({
+          local wk = require("which-key")
+          wk.setup({
             plugins = {
               marks = false, -- shows a list of your marks on ' and `
               registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
               -- the presets plugin, adds help for a bunch of default keybindings in Neovim
               -- No actual key bindings are created
               presets = {
-                operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+                operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
                 motions = false, -- adds help for motions
-                text_objects = false, -- help for text objects triggered after entering an operator
+                text_objects = true, -- help for text objects triggered after entering an operator
                 windows = false, -- default bindings on <c-w>
                 nav = false, -- misc bindings to work with windows
                 z = false, -- bindings for folds, spelling and others prefixed with z
@@ -691,12 +700,32 @@ return require('packer').startup(function(use)
             },
             hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
             show_help = true, -- show help message on the command line when the popup is visible
-            -- triggers = "auto", -- automatically setup triggers
-            triggers = { "<Leader>" }, -- or specify a list manually
+            triggers = "auto", -- automatically setup triggers
+            -- triggers = { "<Leader>", "[FuzzyFinder]" }, -- or specify a list manually
           })
 
-          vim.api.nvim_set_keymap("n", "<Leader><CR>", "<Cmd>WhichKey \\ <CR>", { noremap = true })
+          vim.api.nvim_set_keymap("n", "<leader><CR>", "<Cmd>WhichKey <CR>", { noremap = true })
           vim.api.nvim_set_keymap("n", "[FuzzyFinder]<CR>", "<Cmd>WhichKey [FuzzyFinder]<CR>", { noremap = true })
+          vim.api.nvim_set_keymap("n", "[myleader]<CR>", "<Cmd>WhichKey [myleader]<CR>", { noremap = true })
+
+          wk.register({
+            f = {
+              name = 'file',
+              e = {
+                n = {
+                  name = 'nvim',
+                  i = { ':e ~/.config/nvim/init.vim<cr>', 'init.vim' },
+                  p = { ':e ~/.config/nvim/lua/plugins.lua<cr>', 'packer conf' },
+                },
+                t = { ':e ~/.tmux.conf<cr>', 'tmux conf' },
+                z = {
+                  name = 'zsh',
+                  e = { ':e ~/.zshenv<cr>', 'zshenv' },
+                  r = { ':e ~/.zshrc<cr>', 'zshrc' },
+                }
+              }
+            }
+          }, { prefix = "<leader>" })
         end,
       })
 
@@ -755,4 +784,40 @@ return require('packer').startup(function(use)
       })
 
       use "hrsh7th/vim-vsnip"
+
+      --------------------------------
+      -- New Features
+      use({
+        'kana/vim-submode',
+        config = function()
+          vim.api.nvim_set_var('submode_timeout', 1000000)
+          vim.api.nvim_set_var('submode_keep_leaving_key', 1)
+
+          -- " http://d.hatena.ne.jp/thinca/20130131/1359567419
+          -- " https://gist.github.com/thinca/1518874
+          -- " Window size mode.
+          vim.fn['submode#enter_with']('winsize', 'n', '', '<C-w>>', '<C-w>>')
+          vim.fn['submode#enter_with']('winsize', 'n', '', '<C-w><', '<C-w><')
+          vim.fn['submode#enter_with']('winsize', 'n', '', '<C-w>+', '<C-w>+')
+          vim.fn['submode#enter_with']('winsize', 'n', '', '<C-w>-', '<C-w>-')
+          vim.fn['submode#map']('winsize', 'n', '', '>', '<C-w>>')
+          vim.fn['submode#map']('winsize', 'n', '', '<', '<C-w><')
+          vim.fn['submode#map']('winsize', 'n', '', '+', '<C-w>+')
+          vim.fn['submode#map']('winsize', 'n', '', '-', '<C-w>-')
+
+          -- " Tab move mode.
+          vim.fn['submode#enter_with']('tabmove', 'n', '', 'gt', 'gt')
+          vim.fn['submode#enter_with']('tabmove', 'n', '', 'gT', 'gT')
+          vim.fn['submode#map']('tabmove', 'n', '', 't', 'gt')
+          vim.fn['submode#map']('tabmove', 'n', '', 'T', 'gT')
+        end
+      })
+      --------------------------------
+      -- Neovim Lua development
+      -- do not customize K mapping
+      -- use({ "tjdevries/nlua.nvim", event = "VimEnter" })
+      -- use({ "tjdevries/manillua.nvim", event = "VimEnter" })
+      use({ "bfredl/nvim-luadev", event = "VimEnter" })
+      use({ "folke/lua-dev.nvim", module = "lua-dev" })
+      use({ "wadackel/nvim-syntax-info", cmd = { "SyntaxInfo" } })
     end)
