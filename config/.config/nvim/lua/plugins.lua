@@ -376,32 +376,23 @@ return require('packer').startup(function(use)
     "williamboman/nvim-lsp-installer",
     -- requires = { { "RRethy/vim-illuminate", opt = true }, { "simrat39/rust-tools.nvim", opt = true } },
     -- after = { "nvim-lspconfig", "vim-illuminate", "nlsp-settings.nvim", "rust-tools.nvim" },
-    after = { "nvim-lspconfig" },
+    after = { "nvim-lspconfig", "nvim-navic" },
     config = function()
       -- https://github.com/yutkat/dotfiles/blob/91c57ee62856ea314093a52f3d47a627965877f5/.config/nvim/lua/rc/pluginconfig/nvim-lsp-installer.lua
       -- require("rc/pluginconfig/nvim-lsp-installer")
       require("nvim-lsp-installer").setup({})
 
       local lspconfig = require("lspconfig")
-      lspconfig.solargraph.setup({
-        settings = {
-          solargraph = {
-            diagnostics = false
-          }
-        }
-      })
-
-      -- local navic = require('nvim-navic')
-      -- local on_attach = function(client, bufnr)
-      --   navic.attach(client, bufnr)
-      -- end
+      local navic = require('nvim-navic')
+      local on_attach = function(client, bufnr)
+        navic.attach(client, bufnr)
+      end
 
       local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
       local servers = require("nvim-lsp-installer").get_installed_servers()
       for _, server in ipairs(servers) do
         local opts = { capabilities = capabilities, on_attach = on_attach }
-        -- local opts = { capabilities = capabilities }
-        -- use rust-tools
+
         if server.name == "rust_analyzer" then
           require("rust-tools").setup({ server = opts })
           lspconfig[server.name].setup(opts)
@@ -630,22 +621,16 @@ return require('packer').startup(function(use)
   -- Statusline
   use({
     "nvim-lualine/lualine.nvim",
-    after = colorscheme,
+    after = { colorscheme, 'nvim-navic' },
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
     config = function()
       -- require("rc/pluginconfig/lualine")
-      local function is_available_navic()
-        local ok, _ = pcall(require, "nvim-navic")
-        if not ok then
-          return false
-        end
-        return require("nvim-navic").is_available
-      end
+      local navic = require("nvim-navic")
 
       require('lualine').setup({
         sections = {
           lualine_c = {
-            { 'require("nvim-navic").get_location()', cond = is_available_navic },
+            { navic.get_location, cond = navic.is_available_navic },
           }
         }
       })
