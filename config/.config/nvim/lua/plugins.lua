@@ -434,7 +434,7 @@ return require('packer').startup(function(use)
       -- require("rc/pluginconfig/lspsaga")
       local lspsaga = require("lspsaga")
 
-      -- lspsaga.setup({ -- defaults ...
+      lspsaga.init_lsp_saga({
       --   debug = false,
       --   use_saga_diagnostic_sign = true,
       --   -- diagnostic sign
@@ -460,11 +460,11 @@ return require('packer').startup(function(use)
       --   code_action_keys = { quit = "q", exec = "<CR>" },
       --   rename_action_keys = { quit = "<C-c>", exec = "<CR>" },
       --   definition_preview_icon = "  ",
-      --   border_style = "single",
+        -- border_style = "single",
       --   rename_prompt_prefix = "➤",
       --   server_filetype_map = {},
       --   diagnostic_prefix_format = "%d. ",
-      -- })
+      })
 
       -- mapping
       vim.api.nvim_set_keymap("n", "<leader>lf", "<Cmd>Lspsaga lsp_finder<CR>", { silent = true, noremap = true })
@@ -474,6 +474,7 @@ return require('packer').startup(function(use)
       vim.api.nvim_set_keymap("n", "<leader>lp", "<Cmd>Lspsaga preview_definition<CR>", { silent = true })
       vim.api.nvim_set_keymap("n", "<leader>lld", "<Cmd>Lspsaga show_line_diagnostics<CR>", { silent = true, noremap = true })
       vim.api.nvim_set_keymap("n", "<leader>lhd", "<Cmd>Lspsaga hover_doc<CR>", { silent = true })
+      vim.api.nvim_set_keymap("n", "<Space>?", "<Cmd>Lspsaga hover_doc<CR>", { silent = true })
     end
   })
 
@@ -931,57 +932,113 @@ return require('packer').startup(function(use)
 
   --------------------------------
   -- Lint
-  -- use({
-  --   "jose-elias-alvarez/null-ls.nvim",
-  --   after = "nvim-lsp-installer",
-  --   config = function()
-  --     -- require("rc/pluginconfig/null-ls")
-  --
-  --     local null_ls = require("null-ls")
-  --
-  --     -- local function file_exists(fname)
-  --     --   local stat = vim.loop.fs_stat(vim.fn.expand(fname))
-  --     --   return (stat and stat.type) or false
-  --     -- end
-  --     -- local ignored_filetypes = {
-  --     --   "TelescopePrompt",
-  --     --   "diff",
-  --     --   "gitcommit",
-  --     --   "unite",
-  --     --   "qf",
-  --     --   "help",
-  --     --   "markdown",
-  --     --   "minimap",
-  --     --   "packer",
-  --     --   "dashboard",
-  --     --   "telescope",
-  --     --   "lsp-installer",
-  --     --   "lspinfo",
-  --     --   "NeogitCommitMessage",
-  --     --   "NeogitCommitView",
-  --     --   "NeogitGitCommandHistory",
-  --     --   "NeogitLogView",
-  --     --   "NeogitNotification",
-  --     --   "NeogitPopup",
-  --     --   "NeogitStatus",
-  --     --   "NeogitStatusNew",
-  --     --   "aerial",
-  --     --   "null-ls-info",
-  --     -- }
-  --
-  --     local sources = {
-  --       null_ls.builtins.diagnostics.cfn_lint,
-  --       null_ls.builtins.diagnostics.markdownlint,
-  --       null_ls.builtins.diagnostics.shellcheck,
-  --       null_ls.builtins.diagnostics.yamllint,
-  --       null_ls.builtins.diagnostics.zsh,
-  --       -- null_ls.builtins.diagnostics.rubocop,
-  --     }
-  --     null_ls.setup({
-  --       sources = sources,
-  --     })
-  --   end,
-  -- })
+  use({
+    "jose-elias-alvarez/null-ls.nvim",
+    after = "nvim-lsp-installer",
+    config = function()
+      -- require("rc/pluginconfig/null-ls")
+
+      local null_ls = require("null-ls")
+
+      -- local function file_exists(fname)
+      --   local stat = vim.loop.fs_stat(vim.fn.expand(fname))
+      --   return (stat and stat.type) or false
+      -- end
+      local ignored_filetypes = {
+        "TelescopePrompt",
+        "diff",
+        "gitcommit",
+        "unite",
+        "qf",
+        "help",
+        "markdown",
+        "minimap",
+        "packer",
+        "dashboard",
+        "telescope",
+        "lsp-installer",
+        "lspinfo",
+        "NeogitCommitMessage",
+        "NeogitCommitView",
+        "NeogitGitCommandHistory",
+        "NeogitLogView",
+        "NeogitNotification",
+        "NeogitPopup",
+        "NeogitStatus",
+        "NeogitStatusNew",
+        "aerial",
+        "null-ls-info",
+      }
+
+      local sources = {
+        null_ls.builtins.formatting.trim_whitespace.with({
+          disabled_filetypes = ignored_filetypes,
+          runtime_condition = function()
+            local count = tonumber(vim.api.nvim_exec("execute 'silent! %s/\\v\\s+$//gn'", true):match("%w+"))
+            if count then
+              return vim.fn.confirm("Whitespace found, delete it?", "&No\n&Yes", 1, "Question") == 2
+            end
+          end,
+        }),
+        null_ls.builtins.diagnostics.cfn_lint,
+        null_ls.builtins.diagnostics.markdownlint,
+        null_ls.builtins.diagnostics.yamllint,
+        null_ls.builtins.diagnostics.zsh,
+        -- null_ls.builtins.diagnostics.rubocop,
+        null_ls.builtins.formatting.prettier.with({
+          condition = function()
+            return vim.fn.executable("prettier") > 0
+          end,
+        }),
+        null_ls.builtins.diagnostics.eslint.with({
+          condition = function()
+            return vim.fn.executable("eslint") > 0
+          end,
+        }),
+        null_ls.builtins.formatting.shfmt.with({
+          condition = function()
+            return vim.fn.executable("shfmt") > 0
+          end,
+        }),
+        null_ls.builtins.diagnostics.shellcheck.with({
+          condition = function()
+            return vim.fn.executable("shellcheck") > 0
+          end,
+        }),
+        null_ls.builtins.formatting.markdownlint.with({
+          condition = function()
+            return vim.fn.executable("markdownlint") > 0
+          end,
+        }),
+      }
+      local lsp_formatting = function(bufnr)
+        vim.lsp.buf.format({
+          filter = function(client)
+            return client.name ~= "tsserver"
+          end,
+          bufnr = bufnr,
+        })
+      end
+      local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
+      local on_attach = function(client, bufnr)
+        if client.supports_method("textDocument/formatting") then
+          vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+          vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+              lsp_formatting(bufnr)
+            end,
+            once = false,
+          })
+        end
+      end
+      null_ls.setup({
+        sources = sources,
+        on_attach = on_attach
+      })
+    end,
+  })
 
   use "hrsh7th/vim-vsnip"
 
@@ -1154,6 +1211,132 @@ return require('packer').startup(function(use)
       }
     end
   }
+
+  -- terminmal拡張
+  use ({
+    'akinsho/toggleterm.nvim',
+    config = function()
+      require("toggleterm").setup({
+        -- size can be a number or function which is passed the current terminal
+        size = function(term)
+          if term.direction == "horizontal" then
+            return vim.fn.float2nr(vim.o.lines * 0.25)
+          elseif term.direction == "vertical" then
+            return vim.o.columns * 0.4
+          end
+        end,
+        open_mapping = [[<c-z>]],
+        hide_numbers = true, -- hide the number column in toggleterm buffers
+        shade_filetypes = {},
+        shade_terminals = true,
+        shading_factor = "1", -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+        start_in_insert = false,
+        insert_mappings = true, -- whether or not the open mapping applies in insert mode
+        persist_size = false,
+        direction = "float",
+        close_on_exit = false, -- close the terminal window when the process exits
+        shell = vim.o.shell, -- change the default shell
+        -- This field is only relevant if direction is set to 'float'
+        float_opts = {
+          -- The border key is *almost* the same as 'nvim_win_open'
+          -- see :h nvim_win_open for details on borders however
+          -- the 'curved' border is a custom border type
+          -- not natively supported but implemented in this plugin.
+          border = "single",
+          width = math.floor(vim.o.columns * 0.9),
+          height = math.floor(vim.o.lines * 0.9),
+          winblend = 3,
+          highlights = { border = "ColorColumn", background = "ColorColumn" },
+        },
+      })
+
+      vim.api.nvim_set_keymap("n", "<C-z>", '<Cmd>execute v:count1 . "ToggleTerm"<CR>', { noremap = true, silent = true })
+
+      vim.g.toglleterm_win_num = vim.fn.winnr()
+      local groupname = "vimrc_toggleterm"
+      vim.api.nvim_create_augroup(groupname, { clear = true })
+      vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter", "BufEnter" }, {
+        group = groupname,
+        pattern = "term://*/zsh;#toggleterm#*",
+        callback = function()
+          vim.cmd([[startinsert]])
+        end,
+        once = false,
+      })
+      vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
+        group = groupname,
+        pattern = "term://*#toggleterm#[^9]",
+        callback = function()
+          vim.keymap.set("n", "<Esc>", "<Cmd>exe 'ToggleTerm'<CR>", { noremap = true, silent = true, buffer = true })
+        end,
+        once = false,
+      })
+      vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
+        group = groupname,
+        pattern = "term://*#toggleterm#[^9]",
+        callback = function()
+          vim.keymap.set(
+            "t",
+            "<C-z>",
+            "<C-\\><C-n>:exe 'ToggleTerm'<CR>",
+            { noremap = true, silent = true, buffer = true }
+          )
+        end,
+        once = false,
+      })
+      vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
+        group = groupname,
+        pattern = "term://*#toggleterm#*",
+        callback = function()
+          vim.keymap.set("n", "gf", function()
+            local function go_to_file_from_terminal()
+              local r = vim.fn.expand("<cfile>")
+              if vim.fn.filereadable(vim.fn.expand(r)) ~= 0 then
+                return r
+              end
+              vim.cmd([[normal! j]])
+              local r1 = vim.fn.expand("<cfile>")
+              if vim.fn.filereadable(vim.fn.expand(r .. r1)) ~= 0 then
+                return r .. r1
+              end
+              vim.cmd([[normal! 2k]])
+              local r2 = vim.fn.expand("<cfile>")
+              if vim.fn.filereadable(vim.fn.expand(r2 .. r)) ~= 0 then
+                return r2 .. r
+              end
+              vim.cmd([[normal! j]])
+              return r
+            end
+            local function open_file_with_line_col(file, word)
+              local f = vim.fn.findfile(file)
+              local num = vim.fn.matchstr(word, file .. ":" .. "\zsd*\ze")
+              if vim.fn.empty(f) ~= 1 then
+                vim.cmd([[ wincmd p ]])
+                vim.fn.execute("e " .. f)
+                if vim.fn.empty(num) ~= 1 then
+                  vim.fn.execute(num)
+                  local col = vim.fn.matchstr(word, file .. ":\\d*:" .. "\\zs\\d*\\ze")
+                  if vim.fn.empty(col) ~= 1 then
+                    vim.fn.execute("normal! " .. col .. "|")
+                  end
+                end
+              end
+            end
+            local function toggle_term_open_in_normal_window()
+              local file = go_to_file_from_terminal()
+              local word = vim.fn.expand("<cWORD>")
+              if vim.fn.has_key(vim.api.nvim_win_get_config(vim.fn.win_getid()), "anchor") ~= 0 then
+                vim.cmd([[ToggleTerm]])
+              end
+              open_file_with_line_col(file, word)
+            end
+            toggle_term_open_in_normal_window()
+          end, { noremap = true, silent = true, buffer = true })
+        end,
+        once = false,
+      })
+    end
+  })
 
   --------------------------------
   -- Neovim Lua development
