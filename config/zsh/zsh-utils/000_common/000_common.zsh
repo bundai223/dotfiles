@@ -15,15 +15,16 @@ sum() {
 
 
 ls_sshhost() {
-  awk '
-  tolower($1)=="host" {
-  for (i=2; i<=NF; i++) {
-    if ($i !~ "[*?]") {
-      print $i
-    }
-  }
-}
-' ~/.ssh/config | sort
+#   awk '
+#   tolower($1)=="host" {
+#   for (i=2; i<=NF; i++) {
+#     if ($i !~ "[*?]") {
+#       print $i
+#     }
+#   }
+# }
+# ' ~/.ssh/config | sort
+  grep -E "^Host " ~/.ssh/config | sed -e 's/Host[ ]*//g'
 }
 
 ls_ip() {
