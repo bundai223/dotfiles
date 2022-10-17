@@ -1,7 +1,10 @@
+-- 参考: https://zenn.dev/yutakatay/articles/neovim-plugins-2022
+--       https://github.com/yutkat/dotfiles/blob/main/.config/nvim/lua/rc/pluginlist.lua
+
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-	vim.api.nvim_command("silent !git clone --depth 1 https://github.com/wbthomason/packer.nvim " .. install_path)
+  vim.api.nvim_command("silent !git clone --depth 1 https://github.com/wbthomason/packer.nvim " .. install_path)
 end
 
 -- Only required if you have packer configured as `opt`
@@ -17,7 +20,7 @@ vim.cmd([[
 
 return require('packer').startup(function(use)
   -- Packer can manage itself
-  use({'wbthomason/packer.nvim', opt = true })
+  use({ 'wbthomason/packer.nvim', opt = true })
 
   --------------------------------
   -- Vim script Library
@@ -86,7 +89,7 @@ return require('packer').startup(function(use)
       -- vim.cmd([[set completeopt=menu,menuone,noselect]])
       vim.g.completeopt = "menu,menuone,noselect"
 
-      local cmp = require'cmp'
+      local cmp = require 'cmp'
       local types = require("cmp.types")
       -- local luasnip = require("luasnip")
       local has_words_before = function()
@@ -169,8 +172,8 @@ return require('packer').startup(function(use)
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
-            -- elseif luasnip.jumpable(-1) then
-            --   luasnip.jump(-1)
+              -- elseif luasnip.jumpable(-1) then
+              --   luasnip.jump(-1)
             else
               fallback()
             end
@@ -243,7 +246,7 @@ return require('packer').startup(function(use)
         sources = cmp.config.sources({
           { name = 'path' }
         }, {
-          { name = 'cmdline', keyword_pattern=[=[[^[:blank:]\!]*]=], keyword_length=3 }
+          { name = 'cmdline', keyword_pattern = [=[[^[:blank:]\!]*]=], keyword_length = 3 }
         })
       })
       --- for :!, sets keyword_length to 3
@@ -252,7 +255,7 @@ return require('packer').startup(function(use)
         sources = cmp.config.sources({
           { name = 'path' }
         }, {
-          { name = 'cmdline', keyword_length=3 }
+          { name = 'cmdline', keyword_length = 3 }
         })
       })
     end,
@@ -314,7 +317,7 @@ return require('packer').startup(function(use)
   use({ "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" })
   use({ "hrsh7th/cmp-nvim-lsp-document-symbol", after = "nvim-cmp" })
   use({ "hrsh7th/cmp-buffer", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-cmdline", after = "nvim-cmp"})
+  use({ "hrsh7th/cmp-cmdline", after = "nvim-cmp" })
   use({ "hrsh7th/cmp-path", after = "nvim-cmp" })
   use({ "hrsh7th/cmp-omni", after = "nvim-cmp" })
   use({ "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" })
@@ -363,7 +366,7 @@ return require('packer').startup(function(use)
         if log_level == vim.log.levels.ERROR then
           vim.api.nvim_err_writeln(msg)
         else
-          vim.api.nvim_echo({{msg}}, true, {})
+          vim.api.nvim_echo({ { msg } }, true, {})
         end
       end
 
@@ -396,8 +399,44 @@ return require('packer').startup(function(use)
         if server.name == "rust_analyzer" then
           require("rust-tools").setup({ server = opts })
           lspconfig[server.name].setup(opts)
+        elseif server.name == "yamlls" then
+          lspconfig[server.name].setup(opts)
+
+          local schemas = {}
+          schemas["AWS CloudFormation"] = { "*.yml", "*.yml", "cloudformation/*.yml" }
+
+          lspconfig.yamlls.setup({
+            yaml = {
+              customTags = {
+                "!Ref",
+                "!Sub scalar",
+                "!Sub sequence",
+                "!Join sequence",
+                "!FindInMap sequence",
+                "!GetAtt scalar",
+                "!GetAtt sequence",
+                "!Base64 mapping",
+                "!GetAZs",
+                "!Select scalar",
+                "!Select sequence",
+                "!Split sequence",
+                "!ImportValue",
+                "!Condition",
+                "!Equals sequence",
+                "!And",
+                "!If",
+                "!Not",
+                "!Or"
+              },
+              -- https://www.schemastore.org/json/
+              schemas = schemas,
+              schemaStore = {
+                enable = true
+              }
+            }
+          })
         elseif server.name == "sumneko_lua" then
-          local has_lua_dev, lua_dev = pcall(require, "lua-dev")
+          local has_lua_dev, lua_dev = pcall(require, "neodev")
           if has_lua_dev then
             local luadev = lua_dev.setup({
               library = {
@@ -435,44 +474,45 @@ return require('packer').startup(function(use)
       local lspsaga = require("lspsaga")
 
       lspsaga.init_lsp_saga({
-      --   debug = false,
-      --   use_saga_diagnostic_sign = true,
-      --   -- diagnostic sign
-      --   error_sign = "",
-      --   warn_sign = "",
-      --   hint_sign = "",
-      --   infor_sign = "",
-      --   diagnostic_header_icon = "   ",
-      --   -- code action title icon
-      --   code_action_icon = " ",
-      --   code_action_prompt = { enable = true, sign = true, sign_priority = 40, virtual_text = true },
-      --   finder_definition_icon = "  ",
-      --   finder_reference_icon = "  ",
-      --   max_preview_lines = 10,
-      --   finder_action_keys = {
-      --     open = "o",
-      --     vsplit = "s",
-      --     split = "i",
-      --     quit = "q",
-      --     scroll_down = "<C-f>",
-      --     scroll_up = "<C-b>",
-      --   },
-      --   code_action_keys = { quit = "q", exec = "<CR>" },
-      --   rename_action_keys = { quit = "<C-c>", exec = "<CR>" },
-      --   definition_preview_icon = "  ",
+        --   debug = false,
+        --   use_saga_diagnostic_sign = true,
+        --   -- diagnostic sign
+        --   error_sign = "",
+        --   warn_sign = "",
+        --   hint_sign = "",
+        --   infor_sign = "",
+        --   diagnostic_header_icon = "   ",
+        --   -- code action title icon
+        --   code_action_icon = " ",
+        --   code_action_prompt = { enable = true, sign = true, sign_priority = 40, virtual_text = true },
+        --   finder_definition_icon = "  ",
+        --   finder_reference_icon = "  ",
+        --   max_preview_lines = 10,
+        --   finder_action_keys = {
+        --     open = "o",
+        --     vsplit = "s",
+        --     split = "i",
+        --     quit = "q",
+        --     scroll_down = "<C-f>",
+        --     scroll_up = "<C-b>",
+        --   },
+        --   code_action_keys = { quit = "q", exec = "<CR>" },
+        --   rename_action_keys = { quit = "<C-c>", exec = "<CR>" },
+        --   definition_preview_icon = "  ",
         -- border_style = "single",
-      --   rename_prompt_prefix = "➤",
-      --   server_filetype_map = {},
-      --   diagnostic_prefix_format = "%d. ",
+        --   rename_prompt_prefix = "➤",
+        --   server_filetype_map = {},
+        --   diagnostic_prefix_format = "%d. ",
       })
 
       -- mapping
       vim.api.nvim_set_keymap("n", "<leader>lf", "<Cmd>Lspsaga lsp_finder<CR>", { silent = true, noremap = true })
-      vim.api.nvim_set_keymap("n", "<leader>lca", "<Cmd>Lspsaga code_action<CR>", { silent = true, noremap = true })
-      vim.api.nvim_set_keymap("v", "<leader>lca", "<Cmd>Lspsaga range_code_action<CR>", { silent = true, noremap = true })
+      -- vim.api.nvim_set_keymap("n", "<leader>lca", "<Cmd>Lspsaga code_action<CR>", { silent = true, noremap = true }) -- actions-preview.nvimにまかせた
+      -- vim.api.nvim_set_keymap("<Cmd>Lspsaga range_code_action<CR>", "<leader>lca", "v", { silent = true, noremap = true })
       vim.api.nvim_set_keymap("n", "<leader>lr", "<Cmd>Lspsaga rename<CR>", { silent = true, noremap = true })
-      vim.api.nvim_set_keymap("n", "<leader>lp", "<Cmd>Lspsaga preview_definition<CR>", { silent = true })
-      vim.api.nvim_set_keymap("n", "<leader>lld", "<Cmd>Lspsaga show_line_diagnostics<CR>", { silent = true, noremap = true })
+      vim.api.nvim_set_keymap("n", "<leader>lp", "<Cmd>Lspsaga peek_definition<CR>", { silent = true })
+      vim.api.nvim_set_keymap("n", "<leader>lld", "<Cmd>Lspsaga show_line_diagnostics<CR>",
+        { silent = true, noremap = true })
       vim.api.nvim_set_keymap("n", "<leader>lhd", "<Cmd>Lspsaga hover_doc<CR>", { silent = true })
       vim.api.nvim_set_keymap("n", "<Space>?", "<Cmd>Lspsaga hover_doc<CR>", { silent = true })
     end
@@ -508,6 +548,23 @@ return require('packer').startup(function(use)
       require("trouble").setup({})
     end,
   })
+
+  use({
+    "aznhe21/actions-preview.nvim",
+    config = function()
+      -- vim.api.nvim_set_keymap("n", "<leader>lca", "<Cmd>Lspsaga code_action<CR>", { silent = true, noremap = true })
+      vim.keymap.set({ "v", "n" }, "<leader>lca", require("actions-preview").code_actions)
+    end
+    })
+
+  use {
+    'kosayoda/nvim-lightbulb',
+    requires = 'antoinemadec/FixCursorHold.nvim',
+    config = function()
+      lightbulb = require('nvim-lightbulb')
+      lightbulb.setup({ autocmd = {enabled = true}})
+    end
+  }
   --------------------------------------------------------------
   -- FuzzyFinder
 
@@ -569,7 +626,7 @@ return require('packer').startup(function(use)
     run = ":TSUpdate",
     config = function()
       -- require("rc/pluginconfig/nvim-treesitter")
-      require'nvim-treesitter.configs'.setup {
+      require 'nvim-treesitter.configs'.setup {
         matchup = {
           enable = true,
         },
@@ -611,9 +668,9 @@ return require('packer').startup(function(use)
     requires = "nvim-lua/plenary.nvim",
     config = function()
       require("todo-comments").setup {
-      --   -- your configuration comes here
-      --   -- or leave it empty to use the default settings
-      --   -- refer to the configuration section below
+        --   -- your configuration comes here
+        --   -- or leave it empty to use the default settings
+        --   -- refer to the configuration section below
       }
     end
   }
@@ -772,7 +829,7 @@ return require('packer').startup(function(use)
         nearest_only = true,
       })
 
-      local kopts = {noremap = true, silent = true}
+      local kopts = { noremap = true, silent = true }
 
       vim.api.nvim_set_keymap('n', 'n',
         [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
@@ -788,10 +845,10 @@ return require('packer').startup(function(use)
       --   vim.api.nvim_set_keymap("x", "*", [[<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>]], {})
       --   vim.api.nvim_set_keymap("x", "g*", [[<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>]], {})
       -- else
-        vim.api.nvim_set_keymap("n", "*", [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
-        vim.api.nvim_set_keymap("n", "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
-        vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
-        vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.api.nvim_set_keymap("n", "*", [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.api.nvim_set_keymap("n", "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
       -- end
     end,
   })
@@ -811,7 +868,7 @@ return require('packer').startup(function(use)
       "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
     },
-    config = function ()
+    config = function()
       vim.api.nvim_set_keymap("n", "<leader>f<Space>", "<Cmd>Neotree %:p:h:h %p<CR>", { noremap = true, silent = true })
     end,
   }
@@ -822,7 +879,7 @@ return require('packer').startup(function(use)
     "nvim-treesitter/nvim-treesitter-textobjects",
     after = { "nvim-treesitter" },
     config = function()
-      require'nvim-treesitter.configs'.setup {
+      require 'nvim-treesitter.configs'.setup {
         textobjects = {
           select = {
             enable = true,
@@ -932,113 +989,113 @@ return require('packer').startup(function(use)
 
   --------------------------------
   -- Lint
-  use({
-    "jose-elias-alvarez/null-ls.nvim",
-    after = "nvim-lsp-installer",
-    config = function()
-      -- require("rc/pluginconfig/null-ls")
-
-      local null_ls = require("null-ls")
-
-      -- local function file_exists(fname)
-      --   local stat = vim.loop.fs_stat(vim.fn.expand(fname))
-      --   return (stat and stat.type) or false
-      -- end
-      local ignored_filetypes = {
-        "TelescopePrompt",
-        "diff",
-        "gitcommit",
-        "unite",
-        "qf",
-        "help",
-        "markdown",
-        "minimap",
-        "packer",
-        "dashboard",
-        "telescope",
-        "lsp-installer",
-        "lspinfo",
-        "NeogitCommitMessage",
-        "NeogitCommitView",
-        "NeogitGitCommandHistory",
-        "NeogitLogView",
-        "NeogitNotification",
-        "NeogitPopup",
-        "NeogitStatus",
-        "NeogitStatusNew",
-        "aerial",
-        "null-ls-info",
-      }
-
-      local sources = {
-        null_ls.builtins.formatting.trim_whitespace.with({
-          disabled_filetypes = ignored_filetypes,
-          runtime_condition = function()
-            local count = tonumber(vim.api.nvim_exec("execute 'silent! %s/\\v\\s+$//gn'", true):match("%w+"))
-            if count then
-              return vim.fn.confirm("Whitespace found, delete it?", "&No\n&Yes", 1, "Question") == 2
-            end
-          end,
-        }),
-        null_ls.builtins.diagnostics.cfn_lint,
-        null_ls.builtins.diagnostics.markdownlint,
-        null_ls.builtins.diagnostics.yamllint,
-        null_ls.builtins.diagnostics.zsh,
-        -- null_ls.builtins.diagnostics.rubocop,
-        null_ls.builtins.formatting.prettier.with({
-          condition = function()
-            return vim.fn.executable("prettier") > 0
-          end,
-        }),
-        null_ls.builtins.diagnostics.eslint.with({
-          condition = function()
-            return vim.fn.executable("eslint") > 0
-          end,
-        }),
-        null_ls.builtins.formatting.shfmt.with({
-          condition = function()
-            return vim.fn.executable("shfmt") > 0
-          end,
-        }),
-        null_ls.builtins.diagnostics.shellcheck.with({
-          condition = function()
-            return vim.fn.executable("shellcheck") > 0
-          end,
-        }),
-        null_ls.builtins.formatting.markdownlint.with({
-          condition = function()
-            return vim.fn.executable("markdownlint") > 0
-          end,
-        }),
-      }
-      local lsp_formatting = function(bufnr)
-        vim.lsp.buf.format({
-          filter = function(client)
-            return client.name ~= "tsserver"
-          end,
-          bufnr = bufnr,
-        })
-      end
-      local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
-      local on_attach = function(client, bufnr)
-        if client.supports_method("textDocument/formatting") then
-          vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-          vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-            group = augroup,
-            buffer = bufnr,
-            callback = function()
-              lsp_formatting(bufnr)
-            end,
-            once = false,
-          })
-        end
-      end
-      null_ls.setup({
-        sources = sources,
-        on_attach = on_attach
-      })
-    end,
-  })
+  -- use({
+  --   "jose-elias-alvarez/null-ls.nvim",
+  --   after = "nvim-lsp-installer",
+  --   config = function()
+  --     require("rc/pluginconfig/null-ls")
+  --
+  --     local null_ls = require("null-ls")
+  --
+  --     -- local function file_exists(fname)
+  --     --   local stat = vim.loop.fs_stat(vim.fn.expand(fname))
+  --     --   return (stat and stat.type) or false
+  --     -- end
+  --     local ignored_filetypes = {
+  --       "TelescopePrompt",
+  --       "diff",
+  --       "gitcommit",
+  --       "unite",
+  --       "qf",
+  --       "help",
+  --       "markdown",
+  --       "minimap",
+  --       "packer",
+  --       "dashboard",
+  --       "telescope",
+  --       "lsp-installer",
+  --       "lspinfo",
+  --       "NeogitCommitMessage",
+  --       "NeogitCommitView",
+  --       "NeogitGitCommandHistory",
+  --       "NeogitLogView",
+  --       "NeogitNotification",
+  --       "NeogitPopup",
+  --       "NeogitStatus",
+  --       "NeogitStatusNew",
+  --       "aerial",
+  --       "null-ls-info",
+  --     }
+  --
+  --     local sources = {
+  --       null_ls.builtins.formatting.trim_whitespace.with({
+  --         disabled_filetypes = ignored_filetypes,
+  --         runtime_condition = function()
+  --           local count = tonumber(vim.api.nvim_exec("execute 'silent! %s/\\v\\s+$//gn'", true):match("%w+"))
+  --           if count then
+  --             return vim.fn.confirm("Whitespace found, delete it?", "&No\n&Yes", 1, "Question") == 2
+  --           end
+  --         end,
+  --       }),
+  --       null_ls.builtins.diagnostics.cfn_lint,
+  --       null_ls.builtins.diagnostics.markdownlint,
+  --       null_ls.builtins.diagnostics.yamllint,
+  --       null_ls.builtins.diagnostics.zsh,
+  --       -- null_ls.builtins.diagnostics.rubocop,
+  --       null_ls.builtins.formatting.prettier.with({
+  --         condition = function()
+  --           return vim.fn.executable("prettier") > 0
+  --         end,
+  --       }),
+  --       null_ls.builtins.diagnostics.eslint.with({
+  --         condition = function()
+  --           return vim.fn.executable("eslint") > 0
+  --         end,
+  --       }),
+  --       null_ls.builtins.formatting.shfmt.with({
+  --         condition = function()
+  --           return vim.fn.executable("shfmt") > 0
+  --         end,
+  --       }),
+  --       null_ls.builtins.diagnostics.shellcheck.with({
+  --         condition = function()
+  --           return vim.fn.executable("shellcheck") > 0
+  --         end,
+  --       }),
+  --       null_ls.builtins.formatting.markdownlint.with({
+  --         condition = function()
+  --           return vim.fn.executable("markdownlint") > 0
+  --         end,
+  --       }),
+  --     }
+  --     local lsp_formatting = function(bufnr)
+  --       vim.lsp.buf.format({
+  --         filter = function(client)
+  --           return client.name ~= "tsserver"
+  --         end,
+  --         bufnr = bufnr,
+  --       })
+  --     end
+  --     local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
+  --     local on_attach = function(client, bufnr)
+  --       if client.supports_method("textDocument/formatting") then
+  --         vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+  --         vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  --           group = augroup,
+  --           buffer = bufnr,
+  --           callback = function()
+  --             lsp_formatting(bufnr)
+  --           end,
+  --           once = false,
+  --         })
+  --       end
+  --     end
+  --     null_ls.setup({
+  --       sources = sources,
+  --       on_attach = on_attach
+  --     })
+  --   end,
+  -- })
 
   use "hrsh7th/vim-vsnip"
 
@@ -1207,13 +1264,13 @@ return require('packer').startup(function(use)
     config = function()
       require('auto-session').setup {
         log_level = 'info',
-        auto_session_suppress_dirs = {'~/', '~/Projects'}
+        auto_session_suppress_dirs = { '~/', '~/Projects' }
       }
     end
   }
 
   -- terminmal拡張
-  use ({
+  use({
     'akinsho/toggleterm.nvim',
     config = function()
       require("toggleterm").setup({
@@ -1307,6 +1364,7 @@ return require('packer').startup(function(use)
               vim.cmd([[normal! j]])
               return r
             end
+
             local function open_file_with_line_col(file, word)
               local f = vim.fn.findfile(file)
               local num = vim.fn.matchstr(word, file .. ":" .. "\zsd*\ze")
@@ -1322,6 +1380,7 @@ return require('packer').startup(function(use)
                 end
               end
             end
+
             local function toggle_term_open_in_normal_window()
               local file = go_to_file_from_terminal()
               local word = vim.fn.expand("<cWORD>")
@@ -1330,6 +1389,7 @@ return require('packer').startup(function(use)
               end
               open_file_with_line_col(file, word)
             end
+
             toggle_term_open_in_normal_window()
           end, { noremap = true, silent = true, buffer = true })
         end,
@@ -1344,6 +1404,6 @@ return require('packer').startup(function(use)
   -- use({ "tjdevries/nlua.nvim", event = "VimEnter" })
   -- use({ "tjdevries/manillua.nvim", event = "VimEnter" })
   use({ "bfredl/nvim-luadev", event = "VimEnter" })
-  use({ "folke/lua-dev.nvim", module = "lua-dev" })
+  use({ "folke/neodev.nvim", module = "neodev" })
   use({ "wadackel/nvim-syntax-info", cmd = { "SyntaxInfo" } })
 end)
