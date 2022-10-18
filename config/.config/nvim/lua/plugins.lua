@@ -78,12 +78,16 @@ return require('packer').startup(function(use)
   --------------------------------
   -- Auto Completion
   use({
+    "windwp/nvim-autopairs"
+  })
+
+  use({
     "hrsh7th/nvim-cmp",
-    -- requires = {
-    --   { "L3MON4D3/LuaSnip", opt = true, event = "VimEnter" },
-    --   { "windwp/nvim-autopairs", opt = true, event = "VimEnter" },
-    -- },
-    -- after = { "LuaSnip", "nvim-autopairs" },
+    requires = {
+      { "L3MON4D3/LuaSnip", opt = true, event = "VimEnter" },
+      { "windwp/nvim-autopairs", opt = true, event = "VimEnter" },
+    },
+    after = { "LuaSnip", "nvim-autopairs" },
     config = function()
       -- require("rc/pluginconfig/nvim-cmp")
       -- vim.cmd([[set completeopt=menu,menuone,noselect]])
@@ -91,7 +95,7 @@ return require('packer').startup(function(use)
 
       local cmp = require 'cmp'
       local types = require("cmp.types")
-      -- local luasnip = require("luasnip")
+      local luasnip = require("luasnip")
       local has_words_before = function()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
@@ -129,8 +133,8 @@ return require('packer').startup(function(use)
         },
         snippet = {
           expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-            -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+            -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+            require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
             -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
             -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
           end,
@@ -160,8 +164,8 @@ return require('packer').startup(function(use)
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
-              -- elseif luasnip.expand_or_jumpable() then
-              -- 	luasnip.expand_or_jump()
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
             elseif has_words_before() then
               cmp.complete()
             else
@@ -172,29 +176,27 @@ return require('packer').startup(function(use)
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
-              -- elseif luasnip.jumpable(-1) then
-              --   luasnip.jump(-1)
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
             else
               fallback()
             end
           end, { "i", "s" }),
 
           ["<C-Down>"] = cmp.mapping(function(fallback)
-            fallback()
-            -- if luasnip.expand_or_jumpable() then
-            --   luasnip.expand_or_jump()
-            -- else
-            --   fallback()
-            -- end
+            if luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
+            else
+              fallback()
+            end
           end, { "i", "s" }),
 
           ["<C-Up>"] = cmp.mapping(function(fallback)
-            fallback()
-            -- if luasnip.jumpable(-1) then
-            --   luasnip.jump(-1)
-            -- else
-            --   fallback()
-            -- end
+            if luasnip.jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
           end, { "i", "s" }),
           ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
           ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
@@ -218,6 +220,7 @@ return require('packer').startup(function(use)
         sources = cmp.config.sources({
           { name = "nvim_lsp", priority = 100 },
           { name = 'vsnip' }, -- For vsnip users.
+          { name = 'luasnip' }, -- For LuaSnip users.
           { name = "path", priority = 100 },
           { name = "emoji", insert = true, priority = 60 },
           { name = "nvim_lua", priority = 50 },
@@ -342,7 +345,7 @@ return require('packer').startup(function(use)
       -- vim.cmd("CmpDictionaryUpdate")
     end,
   })
-  -- use({ "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" })
+  use({ "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" })
   -- use({
   --   "tzachar/cmp-tabnine",
   --   run = "./install.sh",
@@ -391,22 +394,22 @@ return require('packer').startup(function(use)
         navic.attach(client, bufnr)
       end
 
-      local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+      local default_capabilities = require("cmp_nvim_lsp").default_capabilities()
       local servers = require("nvim-lsp-installer").get_installed_servers()
       for _, server in ipairs(servers) do
-        local opts = { capabilities = capabilities, on_attach = on_attach }
+        local opts = { capabilities = default_capabilities, on_attach = on_attach }
 
         if server.name == "rust_analyzer" then
           require("rust-tools").setup({ server = opts })
           lspconfig[server.name].setup(opts)
         elseif server.name == "yamlls" then
-          lspconfig[server.name].setup(opts)
-
-          local schemas = {}
-          schemas["AWS CloudFormation"] = { "*.yml", "*.yml", "cloudformation/*.yml" }
+          -- lspconfig[server.name].setup(opts)
 
           lspconfig.yamlls.setup({
-            yaml = {
+            capabilities = default_capabilities,
+            on_attach = on_attach,
+            settings = {
+            yamlls = {
               customTags = {
                 "!Ref",
                 "!Sub scalar",
@@ -429,26 +432,25 @@ return require('packer').startup(function(use)
                 "!Or"
               },
               -- https://www.schemastore.org/json/
-              schemas = schemas,
+              schemas = {
+                ["AWS CloudFormation"] = { "*.cf.{yml,yaml}", "*.{yml,yaml}", "cloudformation/*.{yml,yaml}" },
+                ["docker-compose.yml"] = { "docker-compose.{yml,yaml}", "docker-compose*.{yml,yaml}" },
+                -- ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = { "docker-compose.yml", "docker-compose*.yml" },
+                ["gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
+                ["openapi.json"] = "*api*.{yml,yaml}",
+              },
               schemaStore = {
                 enable = true
               }
-            }
+            }}
           })
         elseif server.name == "sumneko_lua" then
-          local has_lua_dev, lua_dev = pcall(require, "neodev")
+          local has_lua_dev, neodev = pcall(require, "neodev")
           if has_lua_dev then
-            local luadev = lua_dev.setup({
-              library = {
-                vimruntime = true,
-                types = true,
-                plugins = { "nvim-treesitter", "plenary.nvim" },
-              },
-              runtime_path = false,
-              lspconfig = opts,
-            })
-            lspconfig[server.name].setup(luadev)
+            -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+            neodev.setup({})
           end
+          lspconfig[server.name].setup(opts)
         else
           lspconfig[server.name].setup(opts)
         end
@@ -561,7 +563,7 @@ return require('packer').startup(function(use)
     'kosayoda/nvim-lightbulb',
     requires = 'antoinemadec/FixCursorHold.nvim',
     config = function()
-      lightbulb = require('nvim-lightbulb')
+      local lightbulb = require('nvim-lightbulb')
       lightbulb.setup({ autocmd = {enabled = true}})
     end
   }
@@ -1097,7 +1099,12 @@ return require('packer').startup(function(use)
   --   end,
   -- })
 
-  use "hrsh7th/vim-vsnip"
+  use ({
+    'L3MON4D3/LuaSnip',
+    config = function()
+			require("plugin_config/LuaSnip")
+    end
+  })
 
   --------------------------------
   -- Runner
@@ -1397,6 +1404,15 @@ return require('packer').startup(function(use)
       })
     end
   })
+
+  -- UI Library
+	use({
+		"stevearc/dressing.nvim",
+		event = "VimEnter",
+		config = function()
+			require("plugin_config/dressing")
+		end,
+	})
 
   --------------------------------
   -- Neovim Lua development
