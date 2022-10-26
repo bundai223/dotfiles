@@ -1,20 +1,22 @@
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
-  package 'aspell'
-  package 'aspell-en'
+  include_cookbook 'aspell'
 
   package 'emacs'
 when 'fedora', 'redhat', 'amazon'
+  raise NotImplementedError
 when 'osx', 'darwin'
+  raise NotImplementedError
 when 'arch'
   include_cookbook 'yay'
-  package 'aspell'
-  package 'aspell-en'
+  include_cookbook 'aspell'
   yay 'cmigemo'
 
   package 'emacs'
 when 'opensuse'
+  raise NotImplementedError
 else
+  raise NotImplementedError
 end
 
 get_repo 'kenjimyzk/spacemacs-japanese'
@@ -29,12 +31,4 @@ end
 execute 'ln -s ~/repos/github.com/kenjimyzk/spacemacs-japanese ~/.config/spacemacs/layers/japanese' do
   user node[:user]
   not_if 'test -L ~/.config/spacemacs/layers/japanese'
-end
-
-file "#{node[:home]}/.aspell.conf" do
-  action :create
-  owner node[:user]
-  group node[:group]
-
-  content "lang en_US"
 end

@@ -15,19 +15,40 @@ mk_cookbook()
   entrypoint=$cookbook/default.rb
 
   test -e $cookbook || mkdir -p $cookbook
-  test -e $dependency || touch $dependency
+  test -e $dependency || cat <<EOF > $dependency
+case node[:platform]
+when 'arch'
+  raise NotImplementedError
+when 'osx', 'darwin'
+  raise NotImplementedError
+when 'fedora', 'redhat', 'amazon'
+  raise NotImplementedError
+when 'debian', 'ubuntu', 'mint'
+  raise NotImplementedError
+when 'opensuse'
+  raise NotImplementedError
+else
+  raise NotImplementedError
+end
+EOF
+
   test -e $entrypoint || cat <<EOF > $entrypoint
 include_recipe 'dependency.rb'
 
 case node[:platform]
 when 'arch'
+  raise NotImplementedError
 when 'osx', 'darwin'
+  raise NotImplementedError
 when 'fedora', 'redhat', 'amazon'
+  raise NotImplementedError
 when 'debian', 'ubuntu', 'mint'
+  raise NotImplementedError
 when 'opensuse'
+  raise NotImplementedError
 else
+  raise NotImplementedError
 end
-
 EOF
 }
 

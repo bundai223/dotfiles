@@ -26,6 +26,7 @@ mydir "#{home}/.config/zsh/z"
 mydir "#{home}/.config/nvim"
 mydir "#{home}/.config/spacemacs/layers"
 mydir "#{home}/.config/Code/User"
+mydir "#{home}/.config/dictionary"
 mydir "#{home}/repos"
 
 remote_file "#{home}/.gitconfig" do
@@ -133,7 +134,6 @@ execute 'git init' do
   only_if "test -e #{home}/repos/github.com/bundai223/dotfiles"
 end
 
-
 dotfile '.config/pip'
 dotfile '.config/powerline'
 dotfile '.spacemacs'
@@ -144,3 +144,10 @@ dotfile '.config/ctags'
 dotfile '.config/nvim/lua'
 dotfile '.conkyrc'
 # dotfile '.gemrc' # 追加したいオプションができるまでなし
+
+include_cookbook 'aspell'
+execute "aspell -d en dump master | aspell -l en expand > #{home}/.config/dictionary/my.dict" do
+  user user
+  cwd "#{home}/.config/dictionary"
+  not_if "test -e #{home}/.config/dictionary/my.dict"
+end

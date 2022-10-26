@@ -335,7 +335,8 @@ return require('packer').startup(function(use)
       -- require("rc/pluginconfig/cmp-dictionary")
       require("cmp_dictionary").setup({
         dic = {
-          ["*"] = "/usr/share/dict/words",
+          -- ["*"] = "/usr/share/dict/words",
+          ["*"] = "~/.config/dictionary/my.dict",
         },
         first_case_insensitive = true,
         document = true,
@@ -403,47 +404,46 @@ return require('packer').startup(function(use)
           require("rust-tools").setup({ server = opts })
           lspconfig[server.name].setup(opts)
         elseif server.name == "yamlls" then
-          -- lspconfig[server.name].setup(opts)
-
-          lspconfig.yamlls.setup({
+          lspconfig[server.name].setup{
             capabilities = default_capabilities,
             on_attach = on_attach,
             settings = {
-            yamlls = {
-              customTags = {
-                "!Ref",
-                "!Sub scalar",
-                "!Sub sequence",
-                "!Join sequence",
-                "!FindInMap sequence",
-                "!GetAtt scalar",
-                "!GetAtt sequence",
-                "!Base64 mapping",
-                "!GetAZs",
-                "!Select scalar",
-                "!Select sequence",
-                "!Split sequence",
-                "!ImportValue",
-                "!Condition",
-                "!Equals sequence",
-                "!And",
-                "!If",
-                "!Not",
-                "!Or"
-              },
-              -- https://www.schemastore.org/json/
-              schemas = {
-                ["AWS CloudFormation"] = { "*.cf.{yml,yaml}", "*.{yml,yaml}", "cloudformation/*.{yml,yaml}" },
-                ["docker-compose.yml"] = { "docker-compose.{yml,yaml}", "docker-compose*.{yml,yaml}" },
-                -- ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = { "docker-compose.yml", "docker-compose*.yml" },
-                ["gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
-                ["openapi.json"] = "*api*.{yml,yaml}",
-              },
-              schemaStore = {
-                enable = true
+              yaml = {
+                -- trace = {
+                --   server = "verbose"
+                -- },
+                customTags = {
+                  "!Ref",
+                  "!Sub scalar",
+                  "!Sub sequence",
+                  "!Join sequence",
+                  "!FindInMap sequence",
+                  "!GetAtt scalar",
+                  "!GetAtt sequence",
+                  "!Base64 mapping",
+                  "!GetAZs",
+                  "!Select scalar",
+                  "!Select sequence",
+                  "!Split sequence",
+                  "!ImportValue",
+                  "!Condition",
+                  "!Equals sequence",
+                  "!And",
+                  "!If",
+                  "!Not",
+                  "!Or"
+                },
+                -- https://www.schemastore.org/json/
+                schemas = {
+                  -- ["AWS CloudFormation"] = { "*.cf.{yml,yaml}", "*.{yml,yaml}", "cloudformation/*.{yml,yaml}" },
+                  ["docker-compose.yml"] = { "docker-compose.{yml,yaml}", "docker-compose*.{yml,yaml}" },
+                  -- ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = { "docker-compose.yml", "docker-compose*.yml" },
+                  ["gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
+                  ["openapi.json"] = "*api*.{yml,yaml}",
+                },
               }
-            }}
-          })
+            }
+          }
         elseif server.name == "sumneko_lua" then
           local has_lua_dev, neodev = pcall(require, "neodev")
           if has_lua_dev then
@@ -602,6 +602,7 @@ return require('packer').startup(function(use)
       vim.api.nvim_set_keymap("n", "[FuzzyFinder]b", "<Cmd>Telescope buffers<CR>", { noremap = true, silent = true })
       vim.api.nvim_set_keymap("n", "[FuzzyFinder]p", "<Cmd>Telescope git_files<CR>", { noremap = true, silent = true })
       vim.api.nvim_set_keymap("n", "[FuzzyFinder]m", "<Cmd>Telescope frecency<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap("n", "[FuzzyFinder]n", "<Cmd>Telescope notify<CR>", { noremap = true, silent = true })
     end,
   })
   use({
@@ -974,7 +975,8 @@ return require('packer').startup(function(use)
           e = {
             n = {
               name = 'nvim',
-              i = { ':e ~/.config/nvim/init.vim<cr>', 'init.vim' },
+              i = { ':e ~/repos/github.com/bundai223/dotfiles/config/nvim/init.vim<cr>', 'init.vim' },
+              l = { ':e ~/.config/nvim/init.vim<cr>', 'local init.vim' },
               p = { ':e ~/.config/nvim/lua/plugins.lua<cr>', 'packer conf' },
             },
             t = { ':e ~/.tmux.conf<cr>', 'tmux conf' },
@@ -1414,6 +1416,13 @@ return require('packer').startup(function(use)
 		end,
 	})
 
+  use({
+    'rcarriga/nvim-notify',
+    event = 'VimEnter',
+    config = function()
+      require('plugin_config/nvim-notify')
+    end
+  })
   --------------------------------
   -- Neovim Lua development
   -- do not customize K mapping
