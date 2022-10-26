@@ -74,5 +74,5 @@ Session.vim
 
 .solargraph.yml
 /tags
-.nvim/
+/.nvim/*
 .envrc

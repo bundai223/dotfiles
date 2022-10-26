@@ -104,6 +104,10 @@ return require('packer').startup(function(use)
         return vim.api.nvim_replace_termcodes(str, true, true, true)
       end
 
+      local cmppath_option = {
+        trailing_slash = false,
+        label_trailing_slash = true
+      }
       -- Global setup.
       cmp.setup({
         formatting = {
@@ -203,25 +207,11 @@ return require('packer').startup(function(use)
           ["<C-q>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
           ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         },
-        -- sources = cmp.config.sources({
-        --   { name = 'nvim_lsp', priority = 100 },
-        --   { name = 'vsnip' }, -- For vsnip users.
-        --   -- { name = 'luasnip' }, -- For luasnip users.
-        --   -- { name = 'snippy' }, -- For snippy users.
-        --   -- { name = 'ultisnips' }, -- For ultisnips users.
-        -- }, {
-        --   { name = 'buffer' },
-        --   -- { name = 'emoji' },
-        --   { name = 'path', priority = 100 },
-        --   { name = 'omni' },
-        --   { name = 'nvim_lua' },
-        --   { name = 'nvim_lsp_signature_help' },
-        -- })
         sources = cmp.config.sources({
           { name = "nvim_lsp", priority = 100 },
           { name = 'vsnip' }, -- For vsnip users.
           { name = 'luasnip' }, -- For LuaSnip users.
-          { name = "path", priority = 100 },
+          { name = "path", priority = 100, option = cmppath_option },
           { name = "emoji", insert = true, priority = 60 },
           { name = "nvim_lua", priority = 50 },
           { name = "nvim_lsp_signature_help", priority = 80 },
@@ -236,27 +226,33 @@ return require('packer').startup(function(use)
         }),
       })
       -- `/` cmdline setup.
-      cmp.setup.cmdline('/', {
+      local search_config = {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
           { name = 'buffer' }
         }
-      })
+      }
+      cmp.setup.cmdline('/', search_config)
+      cmp.setup.cmdline('?', search_config)
+
       -- `:` cmdline setup.
       -- exclusively for :, without !, uses the default keyword_length
       cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = 'path' }
-        }, {
-          { name = 'cmdline', keyword_pattern = [=[[^[:blank:]\!]*]=], keyword_length = 3 }
-        })
+        sources = cmp.config.sources(
+          {
+            { name = 'path', option = cmppath_option }
+          }
+          ,{
+            { name = 'cmdline', keyword_pattern = [=[[^[:blank:]\!]*]=], keyword_length = 3 }
+          }
+        )
       })
       --- for :!, sets keyword_length to 3
       cmp.setup.cmdline(':!', {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
-          { name = 'path' }
+          { name = 'path', option = cmppath_option }
         }, {
           { name = 'cmdline', keyword_length = 3 }
         })
@@ -426,6 +422,7 @@ return require('packer').startup(function(use)
                   "!Select sequence",
                   "!Split sequence",
                   "!ImportValue",
+                  "!ImportValue sequence",
                   "!Condition",
                   "!Equals sequence",
                   "!And",
@@ -435,7 +432,7 @@ return require('packer').startup(function(use)
                 },
                 -- https://www.schemastore.org/json/
                 schemas = {
-                  -- ["AWS CloudFormation"] = { "*.cf.{yml,yaml}", "*.{yml,yaml}", "cloudformation/*.{yml,yaml}" },
+                  -- ["AWS CloudFormation"] = { "*.cf.{yml,yaml}", "*.{yml,yaml}", "cloud*formation/*.{yml,yaml}" },
                   ["docker-compose.yml"] = { "docker-compose.{yml,yaml}", "docker-compose*.{yml,yaml}" },
                   -- ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = { "docker-compose.yml", "docker-compose*.yml" },
                   ["gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
@@ -601,6 +598,7 @@ return require('packer').startup(function(use)
       vim.api.nvim_set_keymap("n", "[FuzzyFinder]f", "<Cmd>Telescope find_files<CR>", { noremap = true, silent = true })
       vim.api.nvim_set_keymap("n", "[FuzzyFinder]b", "<Cmd>Telescope buffers<CR>", { noremap = true, silent = true })
       vim.api.nvim_set_keymap("n", "[FuzzyFinder]p", "<Cmd>Telescope git_files<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap("n", "[FuzzyFinder]g", "<Cmd>Telescope live_grep<CR>", { noremap = true, silent = true })
       vim.api.nvim_set_keymap("n", "[FuzzyFinder]m", "<Cmd>Telescope frecency<CR>", { noremap = true, silent = true })
       vim.api.nvim_set_keymap("n", "[FuzzyFinder]n", "<Cmd>Telescope notify<CR>", { noremap = true, silent = true })
     end,
