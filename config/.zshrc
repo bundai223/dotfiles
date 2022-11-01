@@ -189,14 +189,9 @@ bindkey " " magic-space
 setopt noflowcontrol
 bindkey '^Q' show_buffer_stack
 
-
+#########################################
 # Show ls & git status when pressed only enter.
-# ref) http://qiita.com/yuyuchu3333/items/e9af05670c95e2cc5b4d
-function do_enter() {
-  if [ -n "$BUFFER" ]; then
-    zle accept-line
-    return 0
-  fi
+function ls_and_git_status() {
   echo
   ls -FG
   # ls_abbrev
@@ -208,13 +203,52 @@ function do_enter() {
 
   echo
   echo
+}
+
+# expand global aliases by space
+# http://blog.patshead.com/2012/11/automatically-expaning-zsh-global-aliases---simplified.html
+globalias() {
+  if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
+    zle _expand_alias
+    # zle expand-word
+  fi
+  zle self-insert
+}
+
+zle -N globalias
+
+bindkey " " globalias
+
+function expand_alias() {
+  zle _expand_alias
+  zle expand-word
+}
+
+# Enter時のコールバック
+# ref) http://qiita.com/yuyuchu3333/items/e9af05670c95e2cc5b4d
+function do_enter() {
+  # 何か入力があればそれを実行して終わり
+  if [ -n "$BUFFER" ]; then
+    expand_alias
+    zle accept-line
+    return 0
+  fi
+
+  # emptyでreturn key入力時は
+  #   ls
+  #   git status
+  # してあげる
+  ls_and_git_status
+
   zle reset-prompt
   return 0
 }
+
 zle -N do_enter
 bindkey '^m' do_enter
 
 
+#########################################
 # Alias
 if [[ $OSTYPE != darwin* ]]; then
   open() {
@@ -386,6 +420,14 @@ function man (){
     man "$@"
 }
 #}}}
+
+# ctrl + x -> d
+# 日付挿入
+function print_date() {
+  zle -U `date "+%Y%m%d"`
+}
+zle -N print_date
+bindkey "^Xd" print_date
 
 # neovim-remoteでneovimのカレントディレクトリを移動
 function nvcd (){

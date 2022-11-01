@@ -21,6 +21,9 @@ set pumblend=10
 
 set textwidth=0
 
+" 行番号
+set number
+
 " release autogroup in MyAutoCmd
 augroup MyAutoCmd
   autocmd!
