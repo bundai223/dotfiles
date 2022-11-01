@@ -207,29 +207,29 @@ function ls_and_git_status() {
 
 # expand global aliases by space
 # http://blog.patshead.com/2012/11/automatically-expaning-zsh-global-aliases---simplified.html
-globalias() {
-  if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
-    zle _expand_alias
-    # zle expand-word
-  fi
-  zle self-insert
-}
-
-zle -N globalias
-
-bindkey " " globalias
-
-function expand_alias() {
-  zle _expand_alias
-  zle expand-word
-}
+# globalias() {
+#   if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
+#     zle _expand_alias
+#     # zle expand-word
+#   fi
+#   zle self-insert
+# }
+#
+# zle -N globalias
+#
+# bindkey " " globalias
+#
+# function expand_alias() {
+#   zle _expand_alias
+#   zle expand-word
+# }
 
 # Enter時のコールバック
 # ref) http://qiita.com/yuyuchu3333/items/e9af05670c95e2cc5b4d
 function do_enter() {
   # 何か入力があればそれを実行して終わり
   if [ -n "$BUFFER" ]; then
-    expand_alias
+    # expand_alias
     zle accept-line
     return 0
   fi

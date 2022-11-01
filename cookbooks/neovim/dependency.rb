@@ -56,6 +56,9 @@ execute 'yarn global add neovim' do
   EOCMD
 end
 
+# include_cookbook 'perl'
+# execute 'cpanm Neovim::Ext'
+
 # go_get 'github.com/tennashi/vimalter'
 execute 'install vimalter' do
   command <<-EOCMD
