@@ -169,7 +169,7 @@ return require('packer').startup(function(use)
             if cmp.visible() then
               cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
+              luasnip.expand_or_jump()
             elseif has_words_before() then
               cmp.complete()
             else
@@ -181,7 +181,7 @@ return require('packer').startup(function(use)
             if cmp.visible() then
               cmp.select_prev_item()
             elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
+              luasnip.jump(-1)
             else
               fallback()
             end
@@ -243,9 +243,9 @@ return require('packer').startup(function(use)
           {
             { name = 'path', option = cmppath_option }
           }
-          ,{
-            { name = 'cmdline', keyword_pattern = [=[[^[:blank:]\!]*]=], keyword_length = 3 }
-          }
+          , {
+          { name = 'cmdline', keyword_pattern = [=[[^[:blank:]\!]*]=], keyword_length = 3 }
+        }
         )
       })
       --- for :!, sets keyword_length to 3
@@ -323,7 +323,7 @@ return require('packer').startup(function(use)
   use({ "hrsh7th/cmp-emoji", after = "nvim-cmp" })
   use({ "hrsh7th/cmp-calc", after = "nvim-cmp" })
   use({ "f3fora/cmp-spell", after = "nvim-cmp" })
-  use({ "yutkat/cmp-mocword", after = "nvim-cmp" })
+  -- use({ "yutkat/cmp-mocword", after = "nvim-cmp" })
   use({
     "uga-rosa/cmp-dictionary",
     after = "nvim-cmp",
@@ -400,7 +400,7 @@ return require('packer').startup(function(use)
           require("rust-tools").setup({ server = opts })
           lspconfig[server.name].setup(opts)
         elseif server.name == "yamlls" then
-          lspconfig[server.name].setup{
+          lspconfig[server.name].setup {
             capabilities = default_capabilities,
             on_attach = on_attach,
             settings = {
@@ -433,7 +433,8 @@ return require('packer').startup(function(use)
                 -- https://www.schemastore.org/json/
                 schemas = {
                   -- ["AWS CloudFormation"] = { "*.cf.{yml,yaml}", "*.{yml,yaml}", "cloud*formation/*.{yml,yaml}" },
-                  ["/home/nishimura/repos/github.com/bundai223/goformation/schema/cloudformation.schema.json"] = { "*.cf.{yml,yaml}", "*.{yml,yaml}", "cloud*formation/*.{yml,yaml}" },
+                  ["/home/nishimura/repos/github.com/bundai223/goformation/schema/cloudformation.schema.json"] = { "*.cf.{yml,yaml}",
+                    "*.{yml,yaml}", "cloud*formation/*.{yml,yaml}" },
                   ["docker-compose.yml"] = { "docker-compose.{yml,yaml}", "docker-compose*.{yml,yaml}" },
                   -- ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = { "docker-compose.yml", "docker-compose*.yml" },
                   ["gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
@@ -555,14 +556,14 @@ return require('packer').startup(function(use)
       -- vim.api.nvim_set_keymap("n", "<leader>lca", "<Cmd>Lspsaga code_action<CR>", { silent = true, noremap = true })
       vim.keymap.set({ "v", "n" }, "<leader>lca", require("actions-preview").code_actions)
     end
-    })
+  })
 
   use {
     'kosayoda/nvim-lightbulb',
     requires = 'antoinemadec/FixCursorHold.nvim',
     config = function()
       local lightbulb = require('nvim-lightbulb')
-      lightbulb.setup({ autocmd = {enabled = true}})
+      lightbulb.setup({ autocmd = { enabled = true } })
     end
   }
   --------------------------------------------------------------
@@ -996,14 +997,14 @@ return require('packer').startup(function(use)
     "jose-elias-alvarez/null-ls.nvim",
     after = "nvim-lsp-installer",
     config = function()
-			require("plugin_config/null-ls")
+      require("plugin_config/null-ls")
     end,
   })
 
-  use ({
+  use({
     'L3MON4D3/LuaSnip',
     config = function()
-			require("plugin_config/LuaSnip")
+      require("plugin_config/LuaSnip")
     end
   })
 
@@ -1307,13 +1308,13 @@ return require('packer').startup(function(use)
   })
 
   -- UI Library
-	use({
-		"stevearc/dressing.nvim",
-		event = "VimEnter",
-		config = function()
-			require("plugin_config/dressing")
-		end,
-	})
+  use({
+    "stevearc/dressing.nvim",
+    event = "VimEnter",
+    config = function()
+      require("plugin_config/dressing")
+    end,
+  })
 
   use({
     'rcarriga/nvim-notify',

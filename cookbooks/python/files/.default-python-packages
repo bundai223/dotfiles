@@ -8,3 +8,4 @@ powerline-gitstatus
 python-language-server
 yamllint
 cfn-lint
+vim-vint

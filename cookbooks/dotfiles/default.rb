@@ -82,7 +82,7 @@ if node[:is_wsl]
   cmds = [
     "cp -r /mnt/c/.ssh/* #{home}/.ssh/",
     "chown #{user}:#{group} #{home}/.ssh/*",
-    "chmod 600 #{home}/.ssh/*",
+    "chmod 600 #{home}/.ssh/*"
   ]
 
   cmds.each do |cmd|
@@ -99,7 +99,7 @@ file "#{home}/.ssh/known_hosts" do
   not_if "test -e #{home}/.ssh/known_hosts"
 end
 
-ssh_targets = %w(gitlab.com github.com)
+ssh_targets = %w[gitlab.com github.com]
 ssh_targets.each do |target|
   execute "ssh-keygen -R #{target}" do
     user user
@@ -142,6 +142,7 @@ dotfile '.config/Code/User/settings.json'
 dotfile '.ctags'
 dotfile '.config/ctags'
 dotfile '.config/nvim/lua'
+dotfile '.config/yamllint'
 dotfile '.conkyrc'
 # dotfile '.gemrc' # 追加したいオプションができるまでなし
 

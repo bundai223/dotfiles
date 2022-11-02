@@ -356,45 +356,6 @@ nnoremap <silent> <leader>gg :vimgrep '' %<left><left><left>
 :lua require('plugins')
 
 " ========================================
-" " Plugins by dein
-" if &compatible
-"   set nocompatible
-" endif
-" if &runtimepath !~# '/dein.vim'
-"   call MkDir(g:plugin_dir)
-" 
-"   if !isdirectory(s:dein_dir)
-"     execute '!curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer_dein.sh'
-"     execute '!sh installer_dein.sh '. g:plugin_dir
-"     execute '!rm installer_dein.sh'
-" 
-"   endif
-"   execute 'set runtimepath^=' . fnamemodify(s:dein_dir, 'p')
-"   " set runtimepath+=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
-" endif
-" 
-" if dein#load_state(expand(s:dein_dir))
-"   call dein#begin(expand(g:plugin_dir))
-" 
-"   call dein#load_toml(g:dein_toml, {})
-" 
-"   call dein#end()
-"   call dein#save_state()
-" endif
-" 
-" filetype plugin indent on
-" syntax enable
-" 
-" " vimprocをを先にインストール
-" if dein#check_install(['vimproc.vim'])
-"   call dein#install(['vimproc.vim'])
-" endif
-" 
-" if dein#check_install()
-"   call dein#install()
-" endif
-
-" ========================================
 
 """ racer
 set hidden

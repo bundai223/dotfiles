@@ -10,3 +10,4 @@ eslint-plugin-vue
 neovim
 yarn
 markdownlint-cli
+shellcheck

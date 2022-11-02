@@ -1,0 +1,8 @@
+---
+extends: relaxed
+
+rules:
+  line-length:
+    max: 200
+
+# vim: set ft=yaml :
