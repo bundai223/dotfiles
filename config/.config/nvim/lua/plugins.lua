@@ -41,6 +41,14 @@ return require('packer').startup(function(use)
       vim.api.nvim_set_keymap("v", "[myleader]c", "<Plug>(caw:hatpos:toggle)", {})
     end
   })
+
+  -- use({
+  --   'numToStr/Comment.nvim',
+  --   config = function()
+  --     require('plugin_config/Comment')
+  --   end
+  -- })
+
   --------------------------------
   -- ColorScheme
   local colorscheme = "iceberg.vim"
@@ -78,7 +86,10 @@ return require('packer').startup(function(use)
   --------------------------------
   -- Auto Completion
   use({
-    "windwp/nvim-autopairs"
+    "windwp/nvim-autopairs",
+    config = function()
+      require('nvim-autopairs').setup {}
+    end
   })
 
   use({
@@ -377,7 +388,10 @@ return require('packer').startup(function(use)
   })
   use({
     "williamboman/nvim-lsp-installer",
-    -- requires = { { "RRethy/vim-illuminate", opt = true }, { "simrat39/rust-tools.nvim", opt = true } },
+    requires = {
+      { "RRethy/vim-illuminate", opt = true },
+      { "simrat39/rust-tools.nvim", opt = true }
+    },
     -- after = { "nvim-lspconfig", "vim-illuminate", "nlsp-settings.nvim", "rust-tools.nvim" },
     after = { "nvim-lspconfig", "nvim-navic" },
     config = function()
@@ -628,27 +642,44 @@ return require('packer').startup(function(use)
     -- event = "VimEnter",
     run = ":TSUpdate",
     config = function()
-      -- require("rc/pluginconfig/nvim-treesitter")
-      require 'nvim-treesitter.configs'.setup {
-        matchup = {
-          enable = true,
-        },
-        highlight = {
-          enable = true,
-          disable = {},
-        },
-      }
+      require("plugin_config/nvim-treesitter")
     end,
+  })
+  use({
+    'RRethy/nvim-treesitter-endwise',
+    after = "nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require('plugin_config/nvim-treesitter-endwise')
+    end
   })
 
   use({
     "yioneko/nvim-yati",
     after = "nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter"
     -- requires = "nvim-treesitter/nvim-treesitter",
+    -- config = function()
+    --   require("nvim-treesitter.configs").setup {
+    --     yati = { enable = true },
+    --   }
+    -- end
+  })
+
+  --------------------------------
+  -- text object
+  use({
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    after = { "nvim-treesitter" },
+  })
+
+  --------------------------------
+  -- operator
+  -- use 'mopp/vim-operator-convert-case'
+  use({
+    'kylechui/nvim-surround',
     config = function()
-      require("nvim-treesitter.configs").setup {
-        yati = { enable = true },
-      }
+      require('plugin_config/nvim-surround')
     end
   })
 
@@ -665,6 +696,8 @@ return require('packer').startup(function(use)
 
   -- highlightするやつ
   use "t9md/vim-quickhl"
+
+  use "RRethy/vim-illuminate"
 
   use {
     "folke/todo-comments.nvim",
@@ -875,37 +908,6 @@ return require('packer').startup(function(use)
       vim.api.nvim_set_keymap("n", "<leader>f<Space>", "<Cmd>Neotree %:p:h:h %p<CR>", { noremap = true, silent = true })
     end,
   }
-
-  --------------------------------
-  -- text object
-  use({
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    after = { "nvim-treesitter" },
-    config = function()
-      require 'nvim-treesitter.configs'.setup {
-        textobjects = {
-          select = {
-            enable = true,
-
-            -- automatically jump forward to text obj, similar to targets.vim
-            lookahead = true,
-
-            keymaps = {
-              -- You can use the capture groups defined in textobjects.scm
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = "@class.inner"
-            }
-          }
-        }
-      }
-    end,
-  })
-
-  --------------------------------
-  -- operator
-  -- use 'mopp/vim-operator-convert-case'
 
   --------------------------------
   -- Manual
@@ -1331,4 +1333,10 @@ return require('packer').startup(function(use)
   use({ "bfredl/nvim-luadev", event = "VimEnter" })
   use({ "folke/neodev.nvim", module = "neodev" })
   use({ "wadackel/nvim-syntax-info", cmd = { "SyntaxInfo" } })
+  use({
+    'simrat39/rust-tools.nvim',
+    config = function()
+      require('plugin_config/rust-tools')
+    end
+  })
 end)

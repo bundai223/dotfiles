@@ -425,3 +425,10 @@ let g:changelog_username   = 'bundai223  <bundai223@gmail.com>'
 set isfname+={,}
 
 set mouse=a
+
+" https://neovide.dev/features.html
+if exists("g:neovide")
+  " Put anything you want to happen only in Neovide here
+  " gui for neovide
+  let g:neovide_cursor_vfx_mode = 'wireframe'
+endif
