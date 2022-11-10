@@ -430,5 +430,6 @@ set mouse=a
 if exists("g:neovide")
   " Put anything you want to happen only in Neovide here
   " gui for neovide
+  " let g:neovide_no_idle = v:true
   let g:neovide_cursor_vfx_mode = 'wireframe'
 endif

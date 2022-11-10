@@ -448,7 +448,7 @@ return require('packer').startup(function(use)
                 schemas = {
                   -- ["AWS CloudFormation"] = { "*.cf.{yml,yaml}", "*.{yml,yaml}", "cloud*formation/*.{yml,yaml}" },
                   ["/home/nishimura/repos/github.com/bundai223/goformation/schema/cloudformation.schema.json"] = { "*.cf.{yml,yaml}",
-                    "*.{yml,yaml}", "cloud*formation/*.{yml,yaml}" },
+                    "cloud*formation/*.{yml,yaml}" },
                   ["docker-compose.yml"] = { "docker-compose.{yml,yaml}", "docker-compose*.{yml,yaml}" },
                   -- ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = { "docker-compose.yml", "docker-compose*.yml" },
                   ["gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
