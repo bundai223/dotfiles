@@ -365,7 +365,9 @@ return require('packer').startup(function(use)
   -- Language Server Protocol(LSP)
   use({
     "neovim/nvim-lspconfig",
-    after = { "cmp-nvim-lsp" },
+    after = {
+      "cmp-nvim-lsp",
+    },
     config = function()
       -- require("rc/pluginconfig/nvim-lspconfig")
       -- https://github.com/Pocco81/TheSupercalifragilisticexpialidociousDots/blob/main/.config/nvim/lua/nvdope/initialization/lsp/lspconfig.lua#L97-107
@@ -386,90 +388,37 @@ return require('packer').startup(function(use)
       -- vim.api.nvim_set_keymap("n", "<leader>lK", "<Cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true })
     end,
   })
+
   use({
-    "williamboman/nvim-lsp-installer",
+    'williamboman/mason.nvim',
+    config = function()
+      require("mason").setup({})
+    end
+  })
+
+  use({
+    'williamboman/mason-lspconfig.nvim',
     requires = {
-      { "RRethy/vim-illuminate", opt = true },
       { "simrat39/rust-tools.nvim", opt = true }
     },
-    -- after = { "nvim-lspconfig", "vim-illuminate", "nlsp-settings.nvim", "rust-tools.nvim" },
-    after = { "nvim-lspconfig", "nvim-navic" },
+    after = {
+      "nvim-lspconfig",
+      "nlsp-settings.nvim",
+      "nvim-navic"
+    },
     config = function()
-      -- https://github.com/yutkat/dotfiles/blob/91c57ee62856ea314093a52f3d47a627965877f5/.config/nvim/lua/rc/pluginconfig/nvim-lsp-installer.lua
-      -- require("rc/pluginconfig/nvim-lsp-installer")
-      require("nvim-lsp-installer").setup({})
+      require('plugin_config/mason-lspconfig')
+    end
+  })
 
-      local lspconfig = require("lspconfig")
-      local navic = require('nvim-navic')
-      local on_attach = function(client, bufnr)
-        navic.attach(client, bufnr)
-      end
-
-      local default_capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local servers = require("nvim-lsp-installer").get_installed_servers()
-      for _, server in ipairs(servers) do
-        local opts = { capabilities = default_capabilities, on_attach = on_attach }
-
-        if server.name == "rust_analyzer" then
-          require("rust-tools").setup({ server = opts })
-          lspconfig[server.name].setup(opts)
-        elseif server.name == "yamlls" then
-          lspconfig[server.name].setup {
-            capabilities = default_capabilities,
-            on_attach = on_attach,
-            settings = {
-              yaml = {
-                -- trace = {
-                --   server = "verbose"
-                -- },
-                customTags = {
-                  "!Ref",
-                  "!Sub scalar",
-                  "!Sub sequence",
-                  "!Join sequence",
-                  "!FindInMap sequence",
-                  "!GetAtt scalar",
-                  "!GetAtt sequence",
-                  "!Base64 mapping",
-                  "!GetAZs",
-                  "!Select scalar",
-                  "!Select sequence",
-                  "!Split sequence",
-                  "!ImportValue",
-                  "!ImportValue sequence",
-                  "!Condition",
-                  "!Equals sequence",
-                  "!And",
-                  "!If",
-                  "!Not",
-                  "!Or"
-                },
-                -- https://www.schemastore.org/json/
-                schemas = {
-                  -- ["AWS CloudFormation"] = { "*.cf.{yml,yaml}", "*.{yml,yaml}", "cloud*formation/*.{yml,yaml}" },
-                  ["/home/nishimura/repos/github.com/bundai223/goformation/schema/cloudformation.schema.json"] = { "*.cf.{yml,yaml}",
-                    "cloud*formation/*.{yml,yaml}" },
-                  ["docker-compose.yml"] = { "docker-compose.{yml,yaml}", "docker-compose*.{yml,yaml}" },
-                  -- ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = { "docker-compose.yml", "docker-compose*.yml" },
-                  ["gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
-                  ["openapi.json"] = "*api*.{yml,yaml}",
-                },
-              }
-            }
-          }
-        elseif server.name == "sumneko_lua" then
-          local has_lua_dev, neodev = pcall(require, "neodev")
-          if has_lua_dev then
-            -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
-            neodev.setup({})
-          end
-          lspconfig[server.name].setup(opts)
-        else
-          lspconfig[server.name].setup(opts)
-        end
-        vim.cmd([[ do User LspAttachBuffers ]])
-      end
-    end,
+  use({
+    'tamago324/nlsp-settings.nvim',
+    after = {
+      'nvim-lspconfig'
+    },
+    config = function()
+      require('plugin_config/nlsp-settings')
+    end
   })
 
   --------------------------------
@@ -477,13 +426,13 @@ return require('packer').startup(function(use)
   -- use {'nvim-lua/lsp-status.nvim', after = 'nvim-lspconfig'}
   -- use {
   --   'nvim-lua/lsp_extensions.nvim',
-  --   after = 'nvim-lsp-installer',
+  --   after = 'mason.nvim',
   --   config = function() require 'rc/pluginconfig/lsp_extensions' end
   -- }
   use({
     "glepnir/lspsaga.nvim",
     branch = "main",
-    after = "nvim-lsp-installer",
+    after = "mason.nvim",
     config = function()
       -- require("rc/pluginconfig/lspsaga")
       local lspsaga = require("lspsaga")
@@ -540,7 +489,7 @@ return require('packer').startup(function(use)
 
   use({
     "j-hui/fidget.nvim",
-    after = "nvim-lsp-installer",
+    after = "mason.nvim",
     config = function()
       -- require("rc/pluginconfig/fidget")
       require("fidget").setup({
@@ -555,7 +504,7 @@ return require('packer').startup(function(use)
 
   use({
     "folke/trouble.nvim",
-    after = { "nvim-lsp-installer" },
+    after = { "mason.nvim" },
     config = function()
       -- https://github.com/yutkat/dotfiles/blob/main/.config/nvim/lua/rc/pluginconfig/trouble.lua
       -- require("rc/pluginconfig/trouble")
@@ -997,7 +946,7 @@ return require('packer').startup(function(use)
   -- Lint
   use({
     "jose-elias-alvarez/null-ls.nvim",
-    after = "nvim-lsp-installer",
+    after = "mason.nvim",
     config = function()
       require("plugin_config/null-ls")
     end,
