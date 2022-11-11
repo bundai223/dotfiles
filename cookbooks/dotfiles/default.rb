@@ -142,6 +142,7 @@ dotfile '.config/Code/User/settings.json'
 dotfile '.ctags'
 dotfile '.config/ctags'
 dotfile '.config/nvim/lua'
+dotfile '.config/nvim/nlsp-settings'
 dotfile '.config/yamllint'
 dotfile '.conkyrc'
 # dotfile '.gemrc' # 追加したいオプションができるまでなし
