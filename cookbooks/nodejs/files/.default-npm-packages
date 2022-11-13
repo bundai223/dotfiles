@@ -11,3 +11,4 @@ neovim
 yarn
 markdownlint-cli
 shellcheck
+@devcontainers/cli
