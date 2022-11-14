@@ -929,6 +929,7 @@ return require('packer').startup(function(use)
               i = { ':e ~/repos/github.com/bundai223/dotfiles/config/nvim/init.vim<cr>', 'init.vim' },
               l = { ':e ~/.config/nvim/init.vim<cr>', 'local init.vim' },
               p = { ':e ~/.config/nvim/lua/plugins.lua<cr>', 'packer conf' },
+              P = { ':e ~/.local/share/nvim/site/pack/packer<cr>', 'packer plugins' },
             },
             t = { ':e ~/.tmux.conf<cr>', 'tmux conf' },
             z = {
@@ -1288,4 +1289,20 @@ return require('packer').startup(function(use)
       require('plugin_config/rust-tools')
     end
   })
+
+  --------------------------------
+  --
+  use({
+    'esensar/nvim-dev-container',
+    requires = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('plugin_config/nvim-dev-container')
+    end
+  })
+  -- use({
+  --   'jamestthompson3/nvim-remote-containers',
+  --   config = function()
+  --     require('plugin_config/nvim-remote-containers')
+  --   end
+  -- })
 end)
