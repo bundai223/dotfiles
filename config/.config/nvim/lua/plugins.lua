@@ -920,10 +920,17 @@ return require('packer').startup(function(use)
       vim.api.nvim_set_keymap("n", "[FuzzyFinder]<CR>", "<Cmd>WhichKey [FuzzyFinder]<CR>", { noremap = true })
       vim.api.nvim_set_keymap("n", "[myleader]<CR>", "<Cmd>WhichKey [myleader]<CR>", { noremap = true })
 
+      -- for dir in io.popen([[git config --list | grep -i include | sed 's/^.*=//g']]):lines() do print(dir) end
+      -- git config --list | grep -i 'init.templatedir\|core.attributesfile\|core.excludesfile'
+
       wk.register({
         f = {
           name = 'file',
           e = {
+            g = {
+              name = 'git',
+              c = { ':e ~/.gitconfig<cr>', '~/.gitconfig' },
+            },
             n = {
               name = 'nvim',
               i = { ':e ~/repos/github.com/bundai223/dotfiles/config/nvim/init.vim<cr>', 'init.vim' },
@@ -931,11 +938,18 @@ return require('packer').startup(function(use)
               p = { ':e ~/.config/nvim/lua/plugins.lua<cr>', 'packer conf' },
               P = { ':e ~/.local/share/nvim/site/pack/packer<cr>', 'packer plugins' },
             },
+            p = {
+              name = 'powerline',
+              c = { ':e ~/.config/powerline/config.json<cr>', 'config.json' },
+              l = { ':e ~/.config/powerline/colors.json<cr>', 'color.json' },
+              t = { ':e ~/.config/powerline/themes<cr>', 'themes' },
+            },
             t = { ':e ~/.tmux.conf<cr>', 'tmux conf' },
             z = {
               name = 'zsh',
               e = { ':e ~/.zshenv<cr>', 'zshenv' },
               r = { ':e ~/.zshrc<cr>', 'zshrc' },
+              u = { ':e ~/repos/github.com/bundai223/dotfiles/config/zsh/zsh-utils<cr>', 'utils' },
             }
           }
         }

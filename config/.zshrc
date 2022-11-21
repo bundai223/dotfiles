@@ -474,7 +474,8 @@ autoload -Uz colors && colors
 #   #source ${PERSONAL_ZSH_DIR}/themes/rprompt_vcsinfo.zsh # rprompt
 # fi
 
-source ~/.local/lib/python3.10/site-packages/powerline/bindings/zsh/powerline.zsh
+# source ~/.local/lib/python3.10/site-packages/powerline/bindings/zsh/powerline.zsh
+source $(pip show -f powerline-status | grep Location | awk '{print $2}')/powerline/bindings/zsh/powerline.zsh
 
 #}}}
 
