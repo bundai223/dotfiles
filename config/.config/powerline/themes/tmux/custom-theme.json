@@ -1,35 +1,39 @@
 {
-	"segments": {
+  "segments": {
     "left": [
-			{
-				"function": "powerline_ext_tmux.segments.mouse_mode",
-				"priority": 50
-			}
+      {
+        "function": "powerline_ext_tmux.segments.mouse_mode",
+        "priority": 50
+      }
     ],
-		"right": [
-			{
-				"function": "powerline.segments.common.sys.system_load",
-				"priority": 50
-			},
-			{
-				"function": "powerline_sky_color_clock.sky_color_clock"
-			},
-			{
-				"function": "powerline_sky_color_clock.sky_color_clock",
-				"name": "time",
-				"before": "⌚",
-				"args": {
-					"format": "%H:%M",
-					"istime": true
-				}
-			},
-			{
-				"function": "powerline.segments.common.net.hostname"
-			},
-			{
-				"function": "powerline.segments.common.env.user",
-				"priority": 30
-			}
-		]
-	}
+    "right": [
+      {
+        "function": "powerline.segments.common.sys.system_load",
+        "priority": 50
+      },
+      {
+        "function": "powerline_sky_color_clock.sky_color_clock",
+        "name": "date",
+        "args": {
+          "format": "%Y/%m/%d"
+        }
+      },
+      {
+        "function": "powerline_sky_color_clock.sky_color_clock",
+        "name": "time",
+        "before": "⌚",
+        "args": {
+          "format": "%H:%M",
+          "istime": true
+        }
+      },
+      {
+        "function": "powerline.segments.common.net.hostname"
+      },
+      {
+        "function": "powerline.segments.common.env.user",
+        "priority": 10
+      }
+    ]
+  }
 }
