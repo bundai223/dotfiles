@@ -100,176 +100,10 @@ return require('packer').startup(function(use)
     },
     after = { "LuaSnip", "nvim-autopairs" },
     config = function()
-      -- require("rc/pluginconfig/nvim-cmp")
-      -- vim.cmd([[set completeopt=menu,menuone,noselect]])
-      vim.g.completeopt = "menu,menuone,noselect"
-
-      local cmp = require 'cmp'
-      local types = require("cmp.types")
-      local luasnip = require("luasnip")
-      local has_words_before = function()
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-      end
-      local t = function(str)
-        return vim.api.nvim_replace_termcodes(str, true, true, true)
-      end
-
-      local cmppath_option = {
-        trailing_slash = false,
-        label_trailing_slash = true
-      }
-      -- Global setup.
-      cmp.setup({
-        formatting = {
-          -- fields = {'abbr', 'kind', 'menu'},
-          format = require("lspkind").cmp_format({
-            with_text = true,
-            menu = {
-              buffer = "[Buffer]",
-              nvim_lsp = "[LSP]",
-              cmp_tabnine = "[TabNine]",
-              copilot = "[Copilot]",
-              luasnip = "[LuaSnip]",
-              nvim_lua = "[Lua]",
-              latex_symbols = "[LaTeX]",
-              path = "[Path]",
-              omni = "[Omni]",
-              spell = "[Spell]",
-              emoji = "[Emoji]",
-              calc = "[Calc]",
-              rg = "[Rg]",
-              treesitter = "[TS]",
-              dictionary = "[Dictionary]",
-              mocword = "[mocword]",
-              cmdline_history = "[History]",
-            },
-          }),
-        },
-        snippet = {
-          expand = function(args)
-            -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-            require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-            -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
-            -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-          end,
-        },
-        window = {
-          -- completion = cmp.config.window.bordered(),
-          -- documentation = cmp.config.window.bordered(),
-        },
-        mapping = {
-          ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-          ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-          ["<Up>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-            else
-              vim.api.nvim_feedkeys(t("<Up>"), "n", true)
-            end
-          end, { "i" }),
-          ["<Down>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-            else
-              vim.api.nvim_feedkeys(t("<Down>"), "n", true)
-            end
-          end, { "i" }),
-
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            elseif has_words_before() then
-              cmp.complete()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-
-          ["<C-Down>"] = cmp.mapping(function(fallback)
-            if luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-
-          ["<C-Up>"] = cmp.mapping(function(fallback)
-            if luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-          ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-          ["<C-q>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
-          ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        },
-        sources = cmp.config.sources({
-          { name = "nvim_lsp", priority = 100 },
-          { name = 'vsnip' }, -- For vsnip users.
-          { name = 'luasnip' }, -- For LuaSnip users.
-          { name = "path", priority = 100, option = cmppath_option },
-          { name = "emoji", insert = true, priority = 60 },
-          { name = "nvim_lua", priority = 50 },
-          { name = "nvim_lsp_signature_help", priority = 80 },
-        }, {
-          { name = "buffer", priority = 50 },
-          { name = "omni", priority = 40 },
-          { name = "spell", priority = 40 },
-          { name = "calc", priority = 50 },
-          { name = "treesitter", priority = 30 },
-          { name = "mocword", priority = 10 },
-          { name = "dictionary", keyword_length = 2, priority = 10 },
-        }),
-      })
-      -- `/` cmdline setup.
-      local search_config = {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = 'buffer' }
-        }
-      }
-      cmp.setup.cmdline('/', search_config)
-      cmp.setup.cmdline('?', search_config)
-
-      -- `:` cmdline setup.
-      -- exclusively for :, without !, uses the default keyword_length
-      cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources(
-          {
-            { name = 'path', option = cmppath_option }
-          }
-          , {
-          { name = 'cmdline', keyword_pattern = [=[[^[:blank:]\!]*]=], keyword_length = 3 }
-        }
-        )
-      })
-      --- for :!, sets keyword_length to 3
-      cmp.setup.cmdline(':!', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = 'path', option = cmppath_option }
-        }, {
-          { name = 'cmdline', keyword_length = 3 }
-        })
-      })
+      require("plugin_config/nvim-cmp")
     end,
   })
+
   use({
     "onsails/lspkind-nvim",
     module = "lspkind",
@@ -581,6 +415,14 @@ return require('packer').startup(function(use)
     config = function()
       require("telescope").load_extension("packer")
     end,
+  })
+
+  use({
+    'nvim-telescope/telescope-media-files.nvim',
+    after = { "telescope.nvim" },
+    config = function()
+      require("telescope").load_extension("media_files")
+    end
   })
 
   --------------------------------
@@ -1148,128 +990,7 @@ return require('packer').startup(function(use)
   use({
     'akinsho/toggleterm.nvim',
     config = function()
-      require("toggleterm").setup({
-        -- size can be a number or function which is passed the current terminal
-        size = function(term)
-          if term.direction == "horizontal" then
-            return vim.fn.float2nr(vim.o.lines * 0.25)
-          elseif term.direction == "vertical" then
-            return vim.o.columns * 0.4
-          end
-        end,
-        open_mapping = [[<c-z>]],
-        hide_numbers = true, -- hide the number column in toggleterm buffers
-        shade_filetypes = {},
-        shade_terminals = true,
-        shading_factor = "1", -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
-        start_in_insert = false,
-        insert_mappings = true, -- whether or not the open mapping applies in insert mode
-        persist_size = false,
-        direction = "float",
-        close_on_exit = false, -- close the terminal window when the process exits
-        shell = vim.o.shell, -- change the default shell
-        -- This field is only relevant if direction is set to 'float'
-        float_opts = {
-          -- The border key is *almost* the same as 'nvim_win_open'
-          -- see :h nvim_win_open for details on borders however
-          -- the 'curved' border is a custom border type
-          -- not natively supported but implemented in this plugin.
-          border = "single",
-          width = math.floor(vim.o.columns * 0.9),
-          height = math.floor(vim.o.lines * 0.9),
-          winblend = 3,
-          highlights = { border = "ColorColumn", background = "ColorColumn" },
-        },
-      })
-
-      vim.api.nvim_set_keymap("n", "<C-z>", '<Cmd>execute v:count1 . "ToggleTerm"<CR>', { noremap = true, silent = true })
-
-      vim.g.toglleterm_win_num = vim.fn.winnr()
-      local groupname = "vimrc_toggleterm"
-      vim.api.nvim_create_augroup(groupname, { clear = true })
-      vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter", "BufEnter" }, {
-        group = groupname,
-        pattern = "term://*/zsh;#toggleterm#*",
-        callback = function()
-          vim.cmd([[startinsert]])
-        end,
-        once = false,
-      })
-      vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
-        group = groupname,
-        pattern = "term://*#toggleterm#[^9]",
-        callback = function()
-          vim.keymap.set("n", "<Esc>", "<Cmd>exe 'ToggleTerm'<CR>", { noremap = true, silent = true, buffer = true })
-        end,
-        once = false,
-      })
-      vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
-        group = groupname,
-        pattern = "term://*#toggleterm#[^9]",
-        callback = function()
-          vim.keymap.set(
-            "t",
-            "<C-z>",
-            "<C-\\><C-n>:exe 'ToggleTerm'<CR>",
-            { noremap = true, silent = true, buffer = true }
-          )
-        end,
-        once = false,
-      })
-      vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
-        group = groupname,
-        pattern = "term://*#toggleterm#*",
-        callback = function()
-          vim.keymap.set("n", "gf", function()
-            local function go_to_file_from_terminal()
-              local r = vim.fn.expand("<cfile>")
-              if vim.fn.filereadable(vim.fn.expand(r)) ~= 0 then
-                return r
-              end
-              vim.cmd([[normal! j]])
-              local r1 = vim.fn.expand("<cfile>")
-              if vim.fn.filereadable(vim.fn.expand(r .. r1)) ~= 0 then
-                return r .. r1
-              end
-              vim.cmd([[normal! 2k]])
-              local r2 = vim.fn.expand("<cfile>")
-              if vim.fn.filereadable(vim.fn.expand(r2 .. r)) ~= 0 then
-                return r2 .. r
-              end
-              vim.cmd([[normal! j]])
-              return r
-            end
-
-            local function open_file_with_line_col(file, word)
-              local f = vim.fn.findfile(file)
-              local num = vim.fn.matchstr(word, file .. ":" .. "\zsd*\ze")
-              if vim.fn.empty(f) ~= 1 then
-                vim.cmd([[ wincmd p ]])
-                vim.fn.execute("e " .. f)
-                if vim.fn.empty(num) ~= 1 then
-                  vim.fn.execute(num)
-                  local col = vim.fn.matchstr(word, file .. ":\\d*:" .. "\\zs\\d*\\ze")
-                  if vim.fn.empty(col) ~= 1 then
-                    vim.fn.execute("normal! " .. col .. "|")
-                  end
-                end
-              end
-            end
-
-            local function toggle_term_open_in_normal_window()
-              local file = go_to_file_from_terminal()
-              local word = vim.fn.expand("<cWORD>")
-              if vim.fn.has_key(vim.api.nvim_win_get_config(vim.fn.win_getid()), "anchor") ~= 0 then
-                vim.cmd([[ToggleTerm]])
-              end
-              open_file_with_line_col(file, word)
-            end
-
-            toggle_term_open_in_normal_window()
-          end, { noremap = true, silent = true, buffer = true })
-        end,
-        once = false,
-      })
+      require('plugin_config/toggleterm')
     end
   })
 
@@ -1289,6 +1010,12 @@ return require('packer').startup(function(use)
       require('plugin_config/nvim-notify')
     end
   })
+
+  -- use({
+  --   'Furkanzmc/zettelkasten.nvim',
+  --   config = function() require('plugin_config/zettelkasten_nvim') end
+  -- })
+
   --------------------------------
   -- Neovim Lua development
   -- do not customize K mapping
@@ -1306,13 +1033,13 @@ return require('packer').startup(function(use)
 
   --------------------------------
   --
-  use({
-    'esensar/nvim-dev-container',
-    requires = { 'nvim-treesitter/nvim-treesitter' },
-    config = function()
-      require('plugin_config/nvim-dev-container')
-    end
-  })
+  -- use({
+  --   'esensar/nvim-dev-container',
+  --   requires = { 'nvim-treesitter/nvim-treesitter' },
+  --   config = function()
+  --     require('plugin_config/nvim-dev-container')
+  --   end
+  -- })
   -- use({
   --   'jamestthompson3/nvim-remote-containers',
   --   config = function()
