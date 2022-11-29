@@ -315,9 +315,11 @@ EOUSAGE
   if [ -n "$TMUX" ]; then
     # paneを新規で開いてattach
     # 抜けたらpane閉じてみる
-    tmux split-window -v -c "#{pane_current_path}"
+    # tmux split-window -v -c "#{pane_current_path}"
     tmux select-pane -T "🐳 ${container_name}: C+p,C+q"
-    tmux send-keys "docker attach $container_name; exit" C-m
+    docker attach $container_name
+
+    tmux select-pane -T $(hostname)
   else
     docker attach $container_name
   fi
@@ -509,6 +511,7 @@ which direnv >/dev/null && eval "$(direnv hook zsh)"
 
 [[ "$COLORTERM" == (24bit|truecolor) || "${terminfo[colors]}" -eq '16777216' ]] || zmodload zsh/nearcolor
 
-# if (which zsprof > /dev/null) ; then
-#   zprof | less
-# fi
+# profiler utility
+function zsh-profiler() {
+  ZSHRC_PROFILE=1 zsh -i -c zprof
+}

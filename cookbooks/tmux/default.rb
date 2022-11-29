@@ -1,6 +1,6 @@
 include_recipe 'dependency.rb'
 
-version = '3.2'
+version = '3.3a'
 
 case node[:platform]
 when 'debian', 'ubuntu', 'mint', 'fedora', 'redhat', 'amazon'
@@ -31,5 +31,4 @@ when 'osx', 'darwin'
 when 'arch'
   package 'tmux'
 when 'opensuse'
-else
 end

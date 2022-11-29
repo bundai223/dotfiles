@@ -21,9 +21,9 @@ zinit light "zsh-users/zsh-history-substring-search"
 
 # zplug "GeneralD/zsh-aliases-colorls"
 # zplug "GeneralD/b3b7c2290db941ad5b2a5e3eb50e1e9e", from:gist, use:"expand-or-complete-with-dots.zsh", if:"WAITING_DOTS='···'"
-# 
+#
 # zplug "docker/cli", use:"contrib/completion/zsh/_docker", lazy:true
-# 
+#
 zinit light "zsh-users/zaw"
 zinit light "GeneralD/zaw-src-directory" # on:"zsh-users/zaw", defer:2
 zinit light "GeneralD/zaw-src-github" #, on:"zsh-users/zaw", defer:2
@@ -40,7 +40,7 @@ bindkey '^x^F' zaw-git-files
 bindkey '^x^P' zaw-process
 # bindkey '^x^A' zaw-tmux
 
-# refs 
+# refs
 # https://qiita.com/GeneralD/items/7aad84a6560206dc6e45
 
 
