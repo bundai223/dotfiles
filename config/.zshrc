@@ -303,7 +303,7 @@ alias docker_rm_compose_containers='docker compose rm -fv'
 
 function dcattach() {
   service=$1
-  container_name=$(docker compose ps | grep "[-_]${service}[-_]" | awk '{print $1}')
+  container_name=$(docker compose ps ${service} | sed '1d' | awk '{print $1}')
 
   how_to_detach=$(cat << EOUSAGE
 Attaching: ${container_name}!
