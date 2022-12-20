@@ -8,18 +8,33 @@
     ],
     "right": [
       {
+        "function": "powerline.segments.common.env.environment",
+        "args": {
+          "variable": "OPEN_WEATHER_API_KEY"
+        }
+      },
+      {
         "function": "powerline.segments.common.sys.system_load",
         "priority": 50
       },
       {
-        "function": "powerline_sky_color_clock.sky_color_clock",
+        "function": "powerline_owmweather.weather",
+        "args": {
+          "show": "condition,temp,humidity",
+          "humidity_format": "{humidity:.0f}",
+          "post_humidity": "% ",
+          "openweathermap_api_key": "OPEN_WEATHER_API_KEY"
+        }
+      },
+      {
+        "function": "powerline.segments.common.time.date",
         "name": "date",
         "args": {
           "format": "%Y/%m/%d"
         }
       },
       {
-        "function": "powerline_sky_color_clock.sky_color_clock",
+        "function": "powerline.segments.common.time.date",
         "name": "time",
         "before": "⌚",
         "args": {
