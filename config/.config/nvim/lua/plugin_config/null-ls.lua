@@ -63,6 +63,15 @@ local sources = {
       return vim.fn.executable("shellcheck") > 0
     end,
   }),
+  null_ls.builtins.diagnostics.textlint.with({
+    filetypes = {
+      "markdown"
+    },
+    condition = function()
+      return vim.fn.executable("textlint") > 0
+    end,
+  }),
+
 
   -- formatter
   null_ls.builtins.formatting.trim_whitespace.with({

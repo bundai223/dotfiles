@@ -145,6 +145,7 @@ dotfile '.config/nvim/lua'
 dotfile '.config/nvim/nlsp-settings'
 dotfile '.config/yamllint'
 dotfile '.conkyrc'
+dotfile '.textlintrc'
 # dotfile '.gemrc' # 追加したいオプションができるまでなし
 
 include_cookbook 'aspell'
@@ -152,4 +153,11 @@ execute "aspell -d en dump master | aspell -l en expand > #{home}/.config/dictio
   user user
   cwd "#{home}/.config/dictionary"
   not_if "test -e #{home}/.config/dictionary/my.dict"
+end
+
+mydir "#{home}/.prh-rules/media"
+execute 'wget -q https://raw.githubusercontent.com/prh/rules/master/media/WEB%2BDB_PRESS.yml' do
+  user user
+  cwd "#{home}/.prh-rules/media/"
+  not_if "test -e #{home}/.prh-rules/media/WEB+DB_PRESS.yml"
 end
