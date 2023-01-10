@@ -1,13 +1,13 @@
 return {
   s("modeline", {
-    t("vim: "),
+    t({ "vim: " }),
     i(1, { "set ft=hoge ff=dos" }),
-    t(" :"),
+    t({ " :" }),
   }),
   s("all/shebang", {
-    t("#! "),
+    t({ "#! " }),
     i(0),
-    t("", ""),
+    t({ "", "" }),
     i(1)
   }),
   s({
