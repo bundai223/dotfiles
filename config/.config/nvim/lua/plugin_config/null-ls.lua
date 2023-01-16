@@ -88,11 +88,11 @@ local sources = {
       return vim.fn.executable("prisma-fmt") > 0
     end,
   }),
-  null_ls.builtins.formatting.prettier.with({
-    condition = function()
-      return vim.fn.executable("prettier") > 0
-    end,
-  }),
+  -- null_ls.builtins.formatting.prettier.with({
+  --   condition = function()
+  --     return vim.fn.executable("prettier") > 0
+  --   end,
+  -- }),
   null_ls.builtins.formatting.shfmt.with({
     condition = function()
       return vim.fn.executable("shfmt") > 0
@@ -109,11 +109,18 @@ local sources = {
 -- attach
 ------------------------------------------
 local lsp_formatting = function(bufnr)
+  -- vim.api.nvim_buf_get_var(bufnr, 'hogepiyo')
+  -- vim.g.auto_format == 1
+  if vim.g.auto_format == 0 then
+    return
+  end
+
   vim.lsp.buf.format({
+    bufnr = bufnr,
     filter = function(client)
       return client.name ~= "tsserver"
     end,
-    bufnr = bufnr,
+    timeout_ms = 5000,
   })
 end
 
@@ -136,7 +143,7 @@ end
 -- setup
 ------------------------------------------
 null_ls.setup({
-  debug = true,
+  -- debug = true,
+  on_attach = on_attach,
   sources = sources,
-  on_attach = on_attach
 })
