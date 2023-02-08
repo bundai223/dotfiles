@@ -86,6 +86,12 @@ augroup MyAutoCmd
   autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript
 augroup END
 
+" terraformで保存時にformat
+augroup MyAutoCmd
+  autocmd BufWritePre *.tfvars lua vim.lsp.buf.format()
+  autocmd BufWritePre *.tf lua vim.lsp.buf.format()
+augroup END
+
 " 分割方向を指定
 set splitbelow
 "set splitright
