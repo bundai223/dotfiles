@@ -234,6 +234,18 @@ mason_lspconfig.setup_handlers({
       -- }
       -- return opts
     end,
+    ['terraformls'] = function(server_name)
+      -- terraform
+      lspconfig[server_name].setup {
+          capabilities = default_capabilities,
+          on_attach = on_attach,
+          settings = {
+              terraform = {
+                  path = "/home/nishimura/repos/github.com/bundai223/terminal-tools/bin/terraform"
+              }
+          }
+      }
+    end,
     ['yamlls'] = function(server_name)
       -- yaml-language-server
       lspconfig[server_name].setup {
