@@ -11,7 +11,8 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
   -- Main Wsl
   table.insert(launch_menu, {
     label = 'Ubuntu 22.04',
-    args = { 'wsl.exe', '~ -d Ubuntu-22.04 --' }
+    -- args = { 'wsl.exe', '~ -d Ubuntu-22.04 --' }
+    args = { 'wsl.exe', '~' }
   })
 
   -- Main Powershell
