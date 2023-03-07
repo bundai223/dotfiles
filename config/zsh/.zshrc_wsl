@@ -1,4 +1,5 @@
 #.local_zshrc
+alias explorer='/mnt/c/Windows/explorer.exe'
+alias zeal="${WINHOME}/scoop/shims/zeal.exe"
 
-# path setting
 #
