@@ -14,7 +14,7 @@ local opts = { capabilities = default_capabilities, on_attach = on_attach }
 
 mason_lspconfig.setup_handlers({
   function(server_name)
-    print(server_name)
+    -- print(server_name)
     lspconfig[server_name].setup(opts)
   end,
   ['rust_analyzer'] = function(server_name)
