@@ -88,8 +88,8 @@ augroup END
 
 " terraformで保存時にformat
 augroup MyAutoCmd
-  autocmd BufWritePre *.tfvars lua vim.lsp.buf.format()
-  autocmd BufWritePre *.tf lua vim.lsp.buf.format()
+  autocmd BufWritePre *.tfvars lua vim.lsp.buf.format({ timeout_ms = 10000 })
+  autocmd BufWritePre *.tf lua vim.lsp.buf.format({ timeout_ms = 10000 })
 augroup END
 
 " 分割方向を指定
