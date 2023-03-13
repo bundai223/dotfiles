@@ -9,6 +9,10 @@ require("telescope").setup({
   pickers = {
   },
   extensions = {
+    file_browser = {
+      theme = 'ivy',
+      hijack_netrw = true
+    }
   }
 })
 

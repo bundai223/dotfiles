@@ -54,6 +54,10 @@ vim.api.nvim_set_keymap("n", "[myleader]<CR>", "<Cmd>WhichKey [myleader]<CR>", {
 
 wk.register(
   {
+    b = {
+      name = 'buffers',
+      l = { ':Telescope buffers<cr>', 'listup buffers' },
+    },
     f = {
       name = 'file',
       e = {
@@ -83,7 +87,14 @@ wk.register(
           r = { ':e ~/.zshrc<cr>', 'zshrc' },
           u = { ':e ~/repos/github.com/bundai223/dotfiles/config/zsh/zsh-utils<cr>', 'utils' },
         }
-      }
+      },
+      f = { ':Telescope find_files<cr>', 'find files' },
+      g = { ':Telescope git_files<cr>', 'git files' },
+      r = { ':Telescope oldfiles<cr>', 'list mru' },
+    },
+    g = {
+      name = 'grep',
+      r = { ':Telescope live_grep', 'grep' },
     },
     l = {
       name = 'Language Server Protocol'

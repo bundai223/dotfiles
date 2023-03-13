@@ -369,6 +369,17 @@ return require('packer').startup(function(use)
     end
   })
 
+  -- packer
+  use {
+    "nvim-telescope/telescope-file-browser.nvim",
+    after = { "telescope.nvim" },
+    requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+    config = function()
+      require("telescope").load_extension("file_browser")
+      print('browser')
+    end
+  }
+
   --------------------------------
   -- Treesitter
   use({
