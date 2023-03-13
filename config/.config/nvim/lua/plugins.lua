@@ -658,6 +658,27 @@ return require('packer').startup(function(use)
     end,
   }
 
+  -- use {
+  --   'nvim-tree/nvim-tree.lua',
+  --   requires = {
+  --     'nvim-tree/nvim-web-devicons', -- optional, for file icons
+  --   },
+  --   tag = 'nightly',                 -- optional, updated every week. (see issue #1193)
+  --   config = function()
+  --     -- lua
+  --     require("nvim-tree").setup({
+  --       sync_root_with_cwd = true,
+  --       respect_buf_cwd = true,
+  --       update_focused_file = {
+  --         enable = true,
+  --         update_root = true
+  --       },
+  --     })
+  --
+  --     vim.api.nvim_set_keymap("n", "<leader>f<Space>", "<Cmd>NvimTreeOpen<CR>", { noremap = true, silent = true })
+  --   end
+  -- }
+
   --------------------------------
   -- Manual
   use({

@@ -5,19 +5,24 @@ vim.o.timeoutlen = 300
 local wk = require("which-key")
 wk.setup({
   plugins = {
-    marks = false,     -- shows a list of your marks on ' and `
-    registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+    marks = true,     -- shows a list of your marks on ' and `
+    registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
     -- the presets plugin, adds help for a bunch of default keybindings in Neovim
     -- No actual key bindings are created
     presets = {
       operators = true,    -- adds help for operators like d, y, ... and registers them for motion / text object completion
-      motions = true,      -- adds help for motions
+      motions = true,
       text_objects = true, -- help for text objects triggered after entering an operator
-      windows = false,     -- default bindings on <c-w>
+      windows = true,      -- default bindings on <c-w>
       nav = true,          -- misc bindings to work with windows
-      z = false,           -- bindings for folds, spelling and others prefixed with z
-      g = false,           -- bindings for prefixed with g
+      z = true,            -- bindings for folds, spelling and others prefixed with z
+      g = true,            -- bindings for prefixed with g
     },
+    -- z=でspell suggestion
+    spelling = {
+      enabled = true,
+      suggestions = 20
+    }
   },
   -- add operators that will trigger motion and text object completion
   -- to enable all native operators, set the preset / operators plugin above
@@ -38,6 +43,7 @@ wk.setup({
     width = { min = 20, max = 50 },                                             -- min and max width of the columns
     spacing = 3,                                                                -- spacing between columns
   },
+  ignore_missing = false,                                                       -- enable this to hide mappings for which you didn't specify a label
   hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
   show_help = true,                                                             -- show help message on the command line when the popup is visible
   show_keys = true,                                                             -- show the currently pressed key and its label as a message in the command line
@@ -90,11 +96,11 @@ wk.register(
       },
       f = { ':Telescope find_files<cr>', 'find files' },
       g = { ':Telescope git_files<cr>', 'git files' },
-      r = { ':Telescope oldfiles<cr>', 'list mru' },
+      m = { ':Telescope oldfiles<cr>', 'list mru' },
     },
     g = {
       name = 'grep',
-      r = { ':Telescope live_grep', 'grep' },
+      r = { ':Telescope live_grep<cr>', 'grep' },
     },
     l = {
       name = 'Language Server Protocol'
