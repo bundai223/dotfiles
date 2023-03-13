@@ -103,7 +103,8 @@ wk.register(
       r = { ':Telescope live_grep<cr>', 'grep' },
     },
     l = {
-      name = 'Language Server Protocol'
+      name = 'Language Server Protocol',
+      o = { ':SymbolsOutline<cr>', 'toggle outline' },
     }
   },
   { prefix = "<leader>" }

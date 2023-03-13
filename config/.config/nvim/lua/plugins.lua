@@ -376,7 +376,6 @@ return require('packer').startup(function(use)
     requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     config = function()
       require("telescope").load_extension("file_browser")
-      print('browser')
     end
   }
 
@@ -558,6 +557,14 @@ return require('packer').startup(function(use)
   use {
     "SmiteshP/nvim-navic",
     requires = "neovim/nvim-lspconfig"
+  }
+
+  -- https://github.com/simrat39/symbols-outline.nvim
+  use {
+    "simrat39/symbols-outline.nvim",
+    config = function()
+      require('symbols-outline').setup()
+    end
   }
 
   --------------------------------
