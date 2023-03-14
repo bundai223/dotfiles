@@ -35,7 +35,7 @@ return require('packer').startup(function(use)
   use({ "MunifTanjim/nui.nvim", module = "nui" })
 
   use({
-    "tyru/caw.vim",
+    "dshoreman/caw.vim",
     config = function()
       vim.api.nvim_set_keymap("n", "[myleader]c", "<Plug>(caw:hatpos:toggle)", {})
       vim.api.nvim_set_keymap("v", "[myleader]c", "<Plug>(caw:hatpos:toggle)", {})
@@ -391,6 +391,14 @@ return require('packer').startup(function(use)
     end,
   })
   use({
+    'nvim-treesitter/playground',
+    after = "nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require('plugin_config/nvim-treesitter-playground')
+    end
+  })
+  use({
     'RRethy/nvim-treesitter-endwise',
     after = "nvim-treesitter",
     requires = "nvim-treesitter/nvim-treesitter",
@@ -410,7 +418,14 @@ return require('packer').startup(function(use)
     --   }
     -- end
   })
-
+  use({
+    'nvim-treesitter/nvim-treesitter-context',
+    after = "nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      -- require('plugin_config/nvim-treesitter-context')
+    end
+  })
   --------------------------------
   -- text object
   use({
@@ -563,7 +578,10 @@ return require('packer').startup(function(use)
   use {
     "simrat39/symbols-outline.nvim",
     config = function()
-      require('symbols-outline').setup()
+      local opts = {
+        autofold_depth = 2,
+      }
+      require('symbols-outline').setup(opts)
     end
   }
 
