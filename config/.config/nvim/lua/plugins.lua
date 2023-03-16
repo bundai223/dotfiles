@@ -340,12 +340,15 @@ return require('packer').startup(function(use)
   use({
     "nvim-telescope/telescope.nvim",
     -- requires = { { "nvim-lua/plenary.nvim", opt = true }, { "nvim-lua/popup.nvim", opt = true } },
-    after = { colorscheme },
+    requires = { "nvim-telescope/telescope-live-grep-args.nvim" },
+    after = { colorscheme, },
     -- event = "VimEnter",
     config = function()
       require("plugin_config/telescope")
+      require("telescope").load_extension("live_grep_args")
     end,
   })
+
   use({
     "nvim-telescope/telescope-frecency.nvim",
     after = { "telescope.nvim" },
@@ -378,6 +381,13 @@ return require('packer').startup(function(use)
       require("telescope").load_extension("file_browser")
     end
   }
+
+  use({
+    'nvim-telescope/telescope-live-grep-args.nvim',
+    config = function()
+      -- require('plugin_config/telescope-live-grep-args.nvim')
+    end
+  })
 
   --------------------------------
   -- Treesitter

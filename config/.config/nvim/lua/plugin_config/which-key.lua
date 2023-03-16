@@ -105,7 +105,8 @@ wk.register(
     },
     ["/"] = {
       name = 'search',
-      g = { ':Telescope live_grep<cr>', 'live grep' },
+      -- g = { ':Telescope live_grep<cr>', 'live grep' },
+      g = { '::lua require("telescope").extensions.live_grep_args.live_grep_args()<cr>', 'live grep' },
       r = { ':noh<cr>', 'clear highlight' },
     },
   },
