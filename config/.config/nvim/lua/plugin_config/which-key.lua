@@ -98,14 +98,16 @@ wk.register(
       g = { ':Telescope git_files<cr>', 'git files' },
       m = { ':Telescope oldfiles<cr>', 'list mru' },
     },
-    g = {
-      name = 'grep',
-      r = { ':Telescope live_grep<cr>', 'grep' },
-    },
+    g = { ':lua _lazygit_toggle()<CR>', 'lazygit' },
     l = {
       name = 'Language Server Protocol',
       o = { ':SymbolsOutline<cr>', 'toggle outline' },
-    }
+    },
+    ["/"] = {
+      name = 'search',
+      g = { ':Telescope live_grep<cr>', 'live grep' },
+      r = { ':noh<cr>', 'clear highlight' },
+    },
   },
   { prefix = "<leader>" }
 )
