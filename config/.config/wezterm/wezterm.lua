@@ -87,7 +87,7 @@ return {
     "HackGenNerd Console",
   },
   font_size = 12.0,
-  color_scheme = "iceberg-dark",   -- 自分の好きなテーマ探す https://wezfurlong.org/wezterm/colorschemes/index.html
+  color_scheme = "iceberg-dark", -- 自分の好きなテーマ探す https://wezfurlong.org/wezterm/colorschemes/index.html
   hide_tab_bar_if_only_one_tab = false,
   adjust_window_size_when_changing_font_size = false,
   ------------------------------------------
