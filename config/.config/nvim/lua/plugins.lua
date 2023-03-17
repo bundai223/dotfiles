@@ -30,12 +30,12 @@ return require('packer').startup(function(use)
   --------------------------------
   -- Lua Library
   -- use({ "nvim-lua/popup.nvim", module = "popup" })
-  use({ "nvim-lua/plenary.nvim" })     -- do not lazy load
+  use({ "nvim-lua/plenary.nvim" }) -- do not lazy load
   use({ "tami5/sqlite.lua", module = "sqlite" })
   use({ "MunifTanjim/nui.nvim", module = "nui" })
 
   use({
-    "tyru/caw.vim",
+    "dshoreman/caw.vim",
     config = function()
       vim.api.nvim_set_keymap("n", "[myleader]c", "<Plug>(caw:hatpos:toggle)", {})
       vim.api.nvim_set_keymap("v", "[myleader]c", "<Plug>(caw:hatpos:toggle)", {})
@@ -180,7 +180,7 @@ return require('packer').startup(function(use)
         first_case_insensitive = true,
         document = true,
       })
-      require("cmp_dictionary").update()       -- THIS
+      require("cmp_dictionary").update() -- THIS
       -- OR
       -- vim.cmd("CmpDictionaryUpdate")
     end,
@@ -296,9 +296,9 @@ return require('packer').startup(function(use)
       -- require("rc/pluginconfig/fidget")
       require("fidget").setup({
         sources = {
-                                       -- Sources to configure
-          ["null-ls"] = {              -- Name of source
-            ignore = true,             -- Ignore notifications from this source
+          -- Sources to configure
+          ["null-ls"] = {  -- Name of source
+            ignore = true, -- Ignore notifications from this source
           },
         },
       })
@@ -340,42 +340,15 @@ return require('packer').startup(function(use)
   use({
     "nvim-telescope/telescope.nvim",
     -- requires = { { "nvim-lua/plenary.nvim", opt = true }, { "nvim-lua/popup.nvim", opt = true } },
-    after = { colorscheme },
+    requires = { "nvim-telescope/telescope-live-grep-args.nvim" },
+    after = { colorscheme, },
     -- event = "VimEnter",
     config = function()
-      -- require("rc/pluginconfig/telescope")
-      require("telescope").setup({
-        defaults = {
-          mappings = {
-            i = {
-              ["<C-h>"] = "which_key"
-            }
-          }
-        },
-        pickers = {
-        },
-        extensions = {
-        }
-      })
-
-      -- nmap <C-u> [denite]
-      vim.api.nvim_set_keymap("n", "[FuzzyFinder]", "<Nop>", { noremap = true, silent = true })
-      vim.api.nvim_set_keymap("v", "[FuzzyFinder]", "<Nop>", { noremap = true, silent = true })
-      vim.api.nvim_set_keymap("n", "z", "[FuzzyFinder]", {})
-      vim.api.nvim_set_keymap("v", "z", "[FuzzyFinder]", {})
-      vim.api.nvim_set_keymap("n", "[FuzzyFinder]f", "<Cmd>Telescope find_files<CR>",
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap("n", "[FuzzyFinder]b", "<Cmd>Telescope buffers<CR>",
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap("n", "[FuzzyFinder]p", "<Cmd>Telescope git_files<CR>",
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap("n", "[FuzzyFinder]g", "<Cmd>Telescope live_grep<CR>",
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap("n", "[FuzzyFinder]m", "<Cmd>Telescope frecency<CR>",
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap("n", "[FuzzyFinder]n", "<Cmd>Telescope notify<CR>", { noremap = true, silent = true })
+      require("plugin_config/telescope")
+      require("telescope").load_extension("live_grep_args")
     end,
   })
+
   use({
     "nvim-telescope/telescope-frecency.nvim",
     after = { "telescope.nvim" },
@@ -399,6 +372,23 @@ return require('packer').startup(function(use)
     end
   })
 
+  -- packer
+  use {
+    "nvim-telescope/telescope-file-browser.nvim",
+    after = { "telescope.nvim" },
+    requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+    config = function()
+      require("telescope").load_extension("file_browser")
+    end
+  }
+
+  use({
+    'nvim-telescope/telescope-live-grep-args.nvim',
+    config = function()
+      -- require('plugin_config/telescope-live-grep-args.nvim')
+    end
+  })
+
   --------------------------------
   -- Treesitter
   use({
@@ -409,6 +399,14 @@ return require('packer').startup(function(use)
     config = function()
       require("plugin_config/nvim-treesitter")
     end,
+  })
+  use({
+    'nvim-treesitter/playground',
+    after = "nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require('plugin_config/nvim-treesitter-playground')
+    end
   })
   use({
     'RRethy/nvim-treesitter-endwise',
@@ -430,7 +428,14 @@ return require('packer').startup(function(use)
     --   }
     -- end
   })
-
+  use({
+    'nvim-treesitter/nvim-treesitter-context',
+    after = "nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      -- require('plugin_config/nvim-treesitter-context')
+    end
+  })
   --------------------------------
   -- text object
   use({
@@ -579,6 +584,17 @@ return require('packer').startup(function(use)
     requires = "neovim/nvim-lspconfig"
   }
 
+  -- https://github.com/simrat39/symbols-outline.nvim
+  use {
+    "simrat39/symbols-outline.nvim",
+    config = function()
+      local opts = {
+        autofold_depth = 2,
+      }
+      require('symbols-outline').setup(opts)
+    end
+  }
+
   --------------------------------
   -- Scrollbar
   use({
@@ -668,7 +684,7 @@ return require('packer').startup(function(use)
     branch = "v2.x",
     requires = {
       "nvim-lua/plenary.nvim",
-      "kyazdani42/nvim-web-devicons",         -- not strictly required, but recommended
+      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
     },
     config = function()
@@ -676,6 +692,27 @@ return require('packer').startup(function(use)
         { noremap = true, silent = true })
     end,
   }
+
+  -- use {
+  --   'nvim-tree/nvim-tree.lua',
+  --   requires = {
+  --     'nvim-tree/nvim-web-devicons', -- optional, for file icons
+  --   },
+  --   tag = 'nightly',                 -- optional, updated every week. (see issue #1193)
+  --   config = function()
+  --     -- lua
+  --     require("nvim-tree").setup({
+  --       sync_root_with_cwd = true,
+  --       respect_buf_cwd = true,
+  --       update_focused_file = {
+  --         enable = true,
+  --         update_root = true
+  --       },
+  --     })
+  --
+  --     vim.api.nvim_set_keymap("n", "<leader>f<Space>", "<Cmd>NvimTreeOpen<CR>", { noremap = true, silent = true })
+  --   end
+  -- }
 
   --------------------------------
   -- Manual
@@ -692,87 +729,7 @@ return require('packer').startup(function(use)
     -- after = { "telescope.nvim" }, -- # [FuzzyFinders]が欲しいため
     event = "VimEnter",
     config = function()
-      -- require("rc/pluginconfig/which-key")
-      local wk = require("which-key")
-      wk.setup({
-        plugins = {
-          marks = false,               -- shows a list of your marks on ' and `
-          registers = false,           -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-          -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-          -- No actual key bindings are created
-          presets = {
-            operators = true,                -- adds help for operators like d, y, ... and registers them for motion / text object completion
-            motions = false,                 -- adds help for motions
-            text_objects = true,             -- help for text objects triggered after entering an operator
-            windows = false,                 -- default bindings on <c-w>
-            nav = false,                     -- misc bindings to work with windows
-            z = false,                       -- bindings for folds, spelling and others prefixed with z
-            g = false,                       -- bindings for prefixed with g
-          },
-        },
-        -- add operators that will trigger motion and text object completion
-        -- to enable all native operators, set the preset / operators plugin above
-        operators = { gc = "Comments" },
-        icons = {
-          breadcrumb = "»",          -- symbol used in the command line area that shows your active key combo
-          separator = "➜",          -- symbol used between a key and it's label
-          group = "+",                -- symbol prepended to a group
-        },
-        window = {
-          border = "none",                    -- none, single, double, shadow
-          position = "bottom",                -- bottom, top
-          margin = { 1, 0, 1, 0 },            -- extra window margin [top, right, bottom, left]
-          padding = { 2, 2, 2, 2 },           -- extra window padding [top, right, bottom, left]
-        },
-        layout = {
-          height = { min = 4, max = 25 },                                                     -- min and max height of the columns
-          width = { min = 20, max = 50 },                                                     -- min and max width of the columns
-          spacing = 3,                                                                        -- spacing between columns
-        },
-        hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " },         -- hide mapping boilerplate
-        show_help = true,                                                                     -- show help message on the command line when the popup is visible
-        triggers = "auto",                                                                    -- automatically setup triggers
-        -- triggers = { "<Leader>", "[FuzzyFinder]" }, -- or specify a list manually
-      })
-
-      vim.api.nvim_set_keymap("n", "<leader><CR>", "<Cmd>WhichKey <CR>", { noremap = true })
-      vim.api.nvim_set_keymap("n", "[FuzzyFinder]<CR>", "<Cmd>WhichKey [FuzzyFinder]<CR>", { noremap = true })
-      vim.api.nvim_set_keymap("n", "[myleader]<CR>", "<Cmd>WhichKey [myleader]<CR>", { noremap = true })
-
-      -- for dir in io.popen([[git config --list | grep -i include | sed 's/^.*=//g']]):lines() do print(dir) end
-      -- git config --list | grep -i 'init.templatedir\|core.attributesfile\|core.excludesfile'
-
-      wk.register({
-        f = {
-          name = 'file',
-          e = {
-            g = {
-              name = 'git',
-              c = { ':e ~/.gitconfig<cr>', '~/.gitconfig' },
-            },
-            n = {
-              name = 'nvim',
-              i = { ':e ~/repos/github.com/bundai223/dotfiles/config/nvim/init.vim<cr>', 'init.vim' },
-              l = { ':e ~/.config/nvim/init.vim<cr>', 'local init.vim' },
-              p = { ':e ~/.config/nvim/lua/plugins.lua<cr>', 'packer conf' },
-              P = { ':e ~/.local/share/nvim/site/pack/packer<cr>', 'packer plugins' },
-            },
-            p = {
-              name = 'powerline',
-              c = { ':e ~/.config/powerline/config.json<cr>', 'config.json' },
-              l = { ':e ~/.config/powerline/colors.json<cr>', 'color.json' },
-              t = { ':e ~/.config/powerline/themes<cr>', 'themes' },
-            },
-            t = { ':e ~/.tmux.conf<cr>', 'tmux conf' },
-            z = {
-              name = 'zsh',
-              e = { ':e ~/.zshenv<cr>', 'zshenv' },
-              r = { ':e ~/.zshrc<cr>', 'zshrc' },
-              u = { ':e ~/repos/github.com/bundai223/dotfiles/config/zsh/zsh-utils<cr>', 'utils' },
-            }
-          }
-        }
-      }, { prefix = "<leader>" })
+      require("plugin_config/which-key")
     end,
   })
 
@@ -886,11 +843,11 @@ return require('packer').startup(function(use)
     "klen/nvim-config-local",
     config = function()
       require("config-local").setup({
-        config_files = { ".nvim/local.vim", ".nvim/local.lua" },         -- Config file patterns to load (lua supported)
-        hashfile = vim.fn.stdpath("data") .. "/config-local",            -- Where the plugin keeps files data
-        autocommands_create = true,                                      -- Create autocommands (VimEnter, DirectoryChanged)
-        commands_create = true,                                          -- Create commands (ConfigSource, ConfigEdit, ConfigTrust, ConfigIgnore)
-        silent = false,                                                  -- Disable plugin messages (Config loaded/ignored)
+        config_files = { ".nvim/local.vim", ".nvim/local.lua" }, -- Config file patterns to load (lua supported)
+        hashfile = vim.fn.stdpath("data") .. "/config-local",    -- Where the plugin keeps files data
+        autocommands_create = true,                              -- Create autocommands (VimEnter, DirectoryChanged)
+        commands_create = true,                                  -- Create commands (ConfigSource, ConfigEdit, ConfigTrust, ConfigIgnore)
+        silent = false,                                          -- Disable plugin messages (Config loaded/ignored)
       })
     end,
   })

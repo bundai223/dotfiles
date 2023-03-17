@@ -354,7 +354,7 @@ nnoremap <silent> bn :bnext<CR>
 inoremap <S-Tab> <C-D>
 
 " grep
-nnoremap <silent> <leader>gg :vimgrep '' %<left><left><left>
+" nnoremap <silent> <leader>gg :vimgrep '' %<left><left><left>
 
 " ========================================
 " packer

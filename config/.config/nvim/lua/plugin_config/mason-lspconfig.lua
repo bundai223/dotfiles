@@ -6,6 +6,7 @@ local lspconfig = require("lspconfig")
 local mason_lspconfig = require("mason-lspconfig")
 local navic = require('nvim-navic')
 local on_attach = function(client, bufnr)
+  -- vim.pretty_print(client)
   navic.attach(client, bufnr)
 end
 

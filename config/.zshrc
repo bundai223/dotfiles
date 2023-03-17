@@ -70,6 +70,7 @@ zstyle ':completion:*:manuals' separate-sections true
 # fpathの設定が終わってから補完有効設定を行う
 # ref : http://yonchu.hatenablog.com/entry/20120415/1334506855
 # 補完有効
+autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit -u
 
 typeset -U path PATH
@@ -107,6 +108,11 @@ zstyle ':completion:*:*files' ignored-patterns '*?.o' '*?.pyc' '*\~'
 # ls,rmはすべてを補完
 zstyle ':completion:*:ls:*' ignored-patterns
 zstyle ':completion:*:rm:*' ignored-patterns
+
+# aws cli
+if (test -e /usr/local/bin/aws_completer); then
+  complete -C '/usr/local/bin/aws_completer' aws
+fi
 
 # }}}
 

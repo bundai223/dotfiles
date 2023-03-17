@@ -82,10 +82,12 @@ if node[:is_wsl]
   cmds = [
     "cp -r /mnt/c/.ssh/* #{home}/.ssh/",
     "chown #{user}:#{group} #{home}/.ssh/*",
-    "chmod 600 #{home}/.ssh/*"
+    "find #{home}/.ssh -type f | xargs chmod 600",
+    "find #{home}/.ssh -type d | xargs chmod 700"
   ]
 
   cmds.each do |cmd|
+    user user
     execute cmd do
       only_if 'test -d /mnt/c/.ssh'
     end
@@ -143,6 +145,7 @@ dotfile '.ctags'
 dotfile '.config/ctags'
 dotfile '.config/nvim/lua'
 dotfile '.config/nvim/nlsp-settings'
+dotfile '.config/lazygit/config.yml'
 dotfile '.config/yamllint'
 dotfile '.config/wezterm'
 dotfile '.conkyrc'
