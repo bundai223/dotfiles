@@ -144,6 +144,7 @@ dotfile '.config/ctags'
 dotfile '.config/nvim/lua'
 dotfile '.config/nvim/nlsp-settings'
 dotfile '.config/yamllint'
+dotfile '.config/wezterm'
 dotfile '.conkyrc'
 dotfile '.textlintrc'
 # dotfile '.gemrc' # 追加したいオプションができるまでなし
