@@ -525,3 +525,8 @@ which direnv >/dev/null && eval "$(direnv hook zsh)"
 function zsh-profiler() {
   ZSHRC_PROFILE=1 zsh -i -c zprof
 }
+
+# https://qiita.com/Rasukarusan/items/61f435bf899dc99d7e79#%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%88%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92finder%E3%81%A7%E9%96%8B%E3%81%8Foo%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89
+alias myip='curl ifconfig.io -4'
+
+alias tenki='curl -4 http://wttr.in/kanagawa'
