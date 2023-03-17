@@ -29,6 +29,9 @@
 #        .: 通常のファイルのみ残す
 #
 #************************************************************************** }}}
+if [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ]; then
+   zcompile ~/.zshrc
+fi
 
 #---------------------------------------------
 # 基本の設定
@@ -483,7 +486,8 @@ autoload -Uz colors && colors
 # fi
 
 # source ~/.local/lib/python3.10/site-packages/powerline/bindings/zsh/powerline.zsh
-source $(pip show -f powerline-status | grep Location | awk '{print $2}')/powerline/bindings/zsh/powerline.zsh
+# export PIP_SITE_LOCATION=$(pip show -f powerline-status | grep Location | awk '{print $2}')
+source ${PIP_SITE_LOCATION}/powerline/bindings/zsh/powerline.zsh
 
 #}}}
 

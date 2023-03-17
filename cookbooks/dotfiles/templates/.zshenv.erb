@@ -1,3 +1,9 @@
+# profiling
+# .zshrcの一番始めに記載すること
+if [ "$ZSHRC_PROFILE" != "" ]; then
+  zmodload zsh/zprof && zprof > /dev/null
+fi
+
 source ~/repos/github.com/bundai223/dotfiles/config/.zshenv
 <% if node[:platform] == 'osx' or node[:platform] == 'darwin' -%>
 source ~/repos/github.com/bundai223/dotfiles/config/zsh/.zshenv_osx
@@ -7,3 +13,20 @@ source ~/repos/github.com/bundai223/dotfiles/config/zsh/.zshenv_unix
 source ~/repos/github.com/bundai223/dotfiles/config/zsh/.zshenv_wsl
   <%- end -%>
 <% end -%>
+
+# for asdf
+# source /etc/profile.d/asdf.sh
+# fpath=(${ASDF_DIR}/completions $fpath)
+
+# For X11
+# if [[ -z "${DISPLAY}" ]];then
+#   export DISPLAY=$(hostname).local:0.0
+# fi
+
+# export MOCWORD_DATA=~/.local/share/mocword/mocword.sqlite
+
+export PIP_SITE_LOCATION=
+if [[ -z "${PIP_SITE_LOCATION}" ]]; then
+  export PIP_SITE_LOCATION=$(pip show -f powerline-status | grep Location | awk '{print $2}')
+  echo "Please set env: export PIP_SITE_LOCATION=$PIP_SITE_LOCATION"
+fi

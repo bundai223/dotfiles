@@ -147,6 +147,7 @@ dotfile '.config/nvim/lua'
 dotfile '.config/nvim/nlsp-settings'
 dotfile '.config/lazygit/config.yml'
 dotfile '.config/yamllint'
+dotfile '.config/wezterm'
 dotfile '.conkyrc'
 dotfile '.textlintrc'
 # dotfile '.gemrc' # 追加したいオプションができるまでなし

@@ -963,6 +963,14 @@ return require('packer').startup(function(use)
     end
   })
 
+  -- Vue.js
+  use({
+    'leafOfTree/vim-vue-plugin',
+    config = function()
+      require('plugin_config/vim-vue-plugin')
+    end,
+    ft = { 'vue' }
+  })
   --------------------------------
   --
   -- use({
