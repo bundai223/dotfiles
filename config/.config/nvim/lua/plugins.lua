@@ -30,7 +30,7 @@ return require('packer').startup(function(use)
   --------------------------------
   -- Lua Library
   -- use({ "nvim-lua/popup.nvim", module = "popup" })
-  use({ "nvim-lua/plenary.nvim" }) -- do not lazy load
+  use({ "nvim-lua/plenary.nvim" })     -- do not lazy load
   use({ "tami5/sqlite.lua", module = "sqlite" })
   use({ "MunifTanjim/nui.nvim", module = "nui" })
 
@@ -95,7 +95,7 @@ return require('packer').startup(function(use)
   use({
     "hrsh7th/nvim-cmp",
     requires = {
-      { "L3MON4D3/LuaSnip", opt = true, event = "VimEnter" },
+      { "L3MON4D3/LuaSnip",      opt = true, event = "VimEnter" },
       { "windwp/nvim-autopairs", opt = true, event = "VimEnter" },
     },
     after = { "LuaSnip", "nvim-autopairs" },
@@ -180,7 +180,7 @@ return require('packer').startup(function(use)
         first_case_insensitive = true,
         document = true,
       })
-      require("cmp_dictionary").update() -- THIS
+      require("cmp_dictionary").update()       -- THIS
       -- OR
       -- vim.cmd("CmpDictionaryUpdate")
     end,
@@ -296,9 +296,9 @@ return require('packer').startup(function(use)
       -- require("rc/pluginconfig/fidget")
       require("fidget").setup({
         sources = {
-          -- Sources to configure
-          ["null-ls"] = { -- Name of source
-            ignore = true, -- Ignore notifications from this source
+                                       -- Sources to configure
+          ["null-ls"] = {              -- Name of source
+            ignore = true,             -- Ignore notifications from this source
           },
         },
       })
@@ -668,7 +668,7 @@ return require('packer').startup(function(use)
     branch = "v2.x",
     requires = {
       "nvim-lua/plenary.nvim",
-      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+      "kyazdani42/nvim-web-devicons",         -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
     },
     config = function()
@@ -696,42 +696,42 @@ return require('packer').startup(function(use)
       local wk = require("which-key")
       wk.setup({
         plugins = {
-          marks = false, -- shows a list of your marks on ' and `
-          registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+          marks = false,               -- shows a list of your marks on ' and `
+          registers = false,           -- shows your registers on " in NORMAL or <C-r> in INSERT mode
           -- the presets plugin, adds help for a bunch of default keybindings in Neovim
           -- No actual key bindings are created
           presets = {
-            operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
-            motions = false, -- adds help for motions
-            text_objects = true, -- help for text objects triggered after entering an operator
-            windows = false, -- default bindings on <c-w>
-            nav = false, -- misc bindings to work with windows
-            z = false, -- bindings for folds, spelling and others prefixed with z
-            g = false, -- bindings for prefixed with g
+            operators = true,                -- adds help for operators like d, y, ... and registers them for motion / text object completion
+            motions = false,                 -- adds help for motions
+            text_objects = true,             -- help for text objects triggered after entering an operator
+            windows = false,                 -- default bindings on <c-w>
+            nav = false,                     -- misc bindings to work with windows
+            z = false,                       -- bindings for folds, spelling and others prefixed with z
+            g = false,                       -- bindings for prefixed with g
           },
         },
         -- add operators that will trigger motion and text object completion
         -- to enable all native operators, set the preset / operators plugin above
         operators = { gc = "Comments" },
         icons = {
-          breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-          separator = "➜", -- symbol used between a key and it's label
-          group = "+", -- symbol prepended to a group
+          breadcrumb = "»",          -- symbol used in the command line area that shows your active key combo
+          separator = "➜",          -- symbol used between a key and it's label
+          group = "+",                -- symbol prepended to a group
         },
         window = {
-          border = "none", -- none, single, double, shadow
-          position = "bottom", -- bottom, top
-          margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
-          padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+          border = "none",                    -- none, single, double, shadow
+          position = "bottom",                -- bottom, top
+          margin = { 1, 0, 1, 0 },            -- extra window margin [top, right, bottom, left]
+          padding = { 2, 2, 2, 2 },           -- extra window padding [top, right, bottom, left]
         },
         layout = {
-          height = { min = 4, max = 25 }, -- min and max height of the columns
-          width = { min = 20, max = 50 }, -- min and max width of the columns
-          spacing = 3, -- spacing between columns
+          height = { min = 4, max = 25 },                                                     -- min and max height of the columns
+          width = { min = 20, max = 50 },                                                     -- min and max width of the columns
+          spacing = 3,                                                                        -- spacing between columns
         },
-        hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
-        show_help = true, -- show help message on the command line when the popup is visible
-        triggers = "auto", -- automatically setup triggers
+        hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " },         -- hide mapping boilerplate
+        show_help = true,                                                                     -- show help message on the command line when the popup is visible
+        triggers = "auto",                                                                    -- automatically setup triggers
         -- triggers = { "<Leader>", "[FuzzyFinder]" }, -- or specify a list manually
       })
 
@@ -886,11 +886,11 @@ return require('packer').startup(function(use)
     "klen/nvim-config-local",
     config = function()
       require("config-local").setup({
-        config_files = { ".nvim/local.vim", ".nvim/local.lua" }, -- Config file patterns to load (lua supported)
-        hashfile = vim.fn.stdpath("data") .. "/config-local", -- Where the plugin keeps files data
-        autocommands_create = true, -- Create autocommands (VimEnter, DirectoryChanged)
-        commands_create = true, -- Create commands (ConfigSource, ConfigEdit, ConfigTrust, ConfigIgnore)
-        silent = false, -- Disable plugin messages (Config loaded/ignored)
+        config_files = { ".nvim/local.vim", ".nvim/local.lua" },         -- Config file patterns to load (lua supported)
+        hashfile = vim.fn.stdpath("data") .. "/config-local",            -- Where the plugin keeps files data
+        autocommands_create = true,                                      -- Create autocommands (VimEnter, DirectoryChanged)
+        commands_create = true,                                          -- Create commands (ConfigSource, ConfigEdit, ConfigTrust, ConfigIgnore)
+        silent = false,                                                  -- Disable plugin messages (Config loaded/ignored)
       })
     end,
   })
@@ -1014,7 +1014,6 @@ return require('packer').startup(function(use)
     end,
     ft = { 'vue' }
   })
-
   --------------------------------
   --
   -- use({
