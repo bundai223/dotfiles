@@ -236,18 +236,18 @@ mason_lspconfig.setup_handlers({
     -- }
     -- return opts
   end,
-    ['terraformls'] = function(server_name)
-      -- terraform
-      lspconfig[server_name].setup {
-          capabilities = default_capabilities,
-          on_attach = on_attach,
-          settings = {
-              terraform = {
-                  path = "/home/nishimura/repos/github.com/bundai223/terminal-tools/bin/terraform"
-              }
-          }
+  ['terraformls'] = function(server_name)
+    -- terraform
+    lspconfig[server_name].setup {
+      capabilities = default_capabilities,
+      on_attach = on_attach,
+      settings = {
+        terraform = {
+          path = "/home/nishimura/repos/github.com/bundai223/terminal-tools/bin/terraform"
+        }
       }
-    end,
+    }
+  end,
   ['yamlls'] = function(server_name)
     -- yaml-language-server
     lspconfig[server_name].setup {
@@ -296,6 +296,14 @@ mason_lspconfig.setup_handlers({
         }
       }
     }
+  end,
+  ['volar'] = function(server_name)
+    local opts = {
+      capabilities = default_capabilities,
+      on_attach = on_attach,
+      filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }
+    }
+    lspconfig[server_name].setup(opts)
   end,
   ['lua_ls'] = function(server_name)
     -- lua-language-server

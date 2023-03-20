@@ -99,9 +99,15 @@ wk.register(
       m = { ':Telescope oldfiles<cr>', 'list mru' },
     },
     g = { ':lua _lazygit_toggle()<CR>', 'lazygit' },
+    h = { 'help on vertical splitting.' },
+    H = { 'help by cursor word on vertical splitting.' },
     l = {
       name = 'Language Server Protocol',
       o = { ':SymbolsOutline<cr>', 'toggle outline' },
+    },
+    t = {
+      name = 'terminal',
+      t = { ':ToggleTerm<cr>', 'ToggleTerm' }
     },
     ["/"] = {
       name = 'search',
