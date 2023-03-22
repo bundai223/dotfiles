@@ -13,7 +13,7 @@ Set-ExecutionPolicy RemoteSigned -scope CurrentUser
 wsl --set-default-version 2
 
 # install scoop
-Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+# Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
 
 $known_buckets = @(
   'extras'
@@ -30,21 +30,19 @@ $apps = @(
   'vivaldi',
   '7zip',
   'bitwarden',
-  'phraseexpress',
   'screentogif',
-  'vscode',
+  'screentogif',
   'zeal',
-  # 'thilmera7',
   'ctrl2cap',
-  # 'buttercup',
   # 'screenpresso',
   # 'screeninfo', # https://v2.rakuchinn.jp/
   'pwsh',
   'sudo',
   'vim',
+  'neovim',
   'vcredist',
-  'windows-terminal',
-  'obsidian'
+  'obsidian',
+  'wezterm'
 )
   
 # add bucekts
@@ -61,17 +59,19 @@ Install-Module oh-my-posh -Scope CurrentUser
 Install-Module -Name PSReadLine -RequiredVersion 2.1.0
 Install-Module ZLocation -Scope CurrentUser
 
-ssh-keygen -t ed25519 -C "bundai223@gmail.com"
+# ssh-keygen -t ed25519 -C "bundai223@gmail.com"
 mkdir -Force -p ${HOME}/repos/github.com/bundai223/
 git clone https://github.com/bundai223/dotfiles.git ${HOME}/repos/github.com/bundai223/dotfiles
 
 # symlink
 mkdir -Force -p "$HOME\AppData\Local\Microsoft\Windows Terminal"
 mkdir -Force -p "$HOME\Documents\PowerShell"
+mkdir -Force -p "$HOME\.config"
 
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\WindowsTerminal\settings.json" -Path "$HOME\AppData\Local\Microsoft\Windows Terminal" -Name settings.json -ItemType SymbolicLink
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\Microsoft.PowerShell_profile.ps1" -Path "$HOME\Documents\PowerShell" -Name Microsoft.PowerShell_profile.ps1 -ItemType SymbolicLink
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\.gitconfig" -Path "$HOME\" -Name .gitconfig -ItemType SymbolicLink
+New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\.config\wezterm" -Path "$HOME\.config\" -Name wezterm -ItemType SymbolicLink
 
 # Storeアプリインストールしてちょ
 echo '* Please install store apps.'
