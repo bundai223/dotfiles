@@ -108,8 +108,22 @@ local sources = {
 ------------------------------------------
 -- attach
 ------------------------------------------
+local disable_formatting_servers = {
+  'tsserver',
+  'volar'
+}
+
+local function has_value(tab, val)
+  for _, value in ipairs(tab) do
+    if value == val then
+      return true
+    end
+  end
+
+  return false
+end
+
 local lsp_formatting = function(bufnr)
-  -- vim.api.nvim_buf_get_var(bufnr, 'hogepiyo')
   -- vim.g.auto_format == 1
   if vim.g.auto_format == 0 then
     return
@@ -118,7 +132,8 @@ local lsp_formatting = function(bufnr)
   vim.lsp.buf.format({
     bufnr = bufnr,
     filter = function(client)
-      return client.name ~= "tsserver"
+      return not has_value(disable_formatting_servers, client.name)
+      -- return client.name ~= "tsserver"
     end,
     timeout_ms = 5000,
   })
