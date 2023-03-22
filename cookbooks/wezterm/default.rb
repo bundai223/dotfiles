@@ -10,8 +10,9 @@ when 'fedora', 'redhat', 'amazon'
 when 'debian', 'ubuntu', 'mint'
   execute 'install wezterm from repo' do
     command <<~EOCMD
-      filename=wezterm-20221119-145034-49b9839f.Ubuntu22.04.deb
-      depurl=https://github.com/wez/wezterm/releases/download/20221119-145034-49b9839f/$filename
+      tag=20230320-124340-559cb7b0
+      filename=wezterm-${tag}.Ubuntu22.04.deb
+      depurl=https://github.com/wez/wezterm/releases/download/${tag}/$filename
       curl -LO $depurl
       sudo apt install -y ./${filename}
       rm -f ./${filename}
