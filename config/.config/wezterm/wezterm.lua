@@ -1,12 +1,12 @@
 local wezterm = require 'wezterm';
 local keybinds = require("keybinds")
-local default_prog = {}
+require("on")
 
 ------------------------------------------
 -- Launch Menu
+local default_prog = {}
 
 local launch_menu = {}
-
 if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
   -- Main Wsl
   table.insert(launch_menu, {
@@ -73,13 +73,14 @@ default_prog = launch_menu[1].args
 return {
   ------------------------------------------
   -- General
-  default_cwd = '~',
+  -- default_cwd = '~',
   -- wsl_domains = wsl_domains,
   default_prog = default_prog,
   launch_menu = launch_menu,
   use_ime = true,
   ------------------------------------------
   -- Appearance
+  window_decorations = 'RESIZE', -- OSの制御バー消す
   -- font = wezterm.font("HackGenNerd Console"), -- 自分の好きなフォントいれる
   -- font = wezterm.font("Fira Code"), -- 自分の好きなフォントいれる
   font = wezterm.font_with_fallback {
