@@ -6,12 +6,24 @@ local lspconfig = require("lspconfig")
 local mason_lspconfig = require("mason-lspconfig")
 local navic = require('nvim-navic')
 local on_attach = function(client, bufnr)
-  -- vim.pretty_print(client)
+  local function buf_set_keymap(...)
+    vim.api.nvim_buf_set_keymap(bufnr, ...)
+  end
+
+  local function buf_set_option(...)
+    vim.api.nvim_buf_set_option(bufnr, ...)
+  end
+
+  -- Enable completion triggered by <c-x><c-o>
+  buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+
   navic.attach(client, bufnr)
 end
 
 local default_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local opts = { capabilities = default_capabilities, on_attach = on_attach }
+
+-- vim.print(default_capabilities)
 
 mason_lspconfig.setup_handlers({
   function(server_name)
