@@ -13,10 +13,11 @@ Set-ExecutionPolicy RemoteSigned -scope CurrentUser
 wsl --set-default-version 2
 
 # install scoop
-# Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
 
 $known_buckets = @(
-  'extras'
+  'extras',
+  'nerd-fonts'
 )
 $unknown_buckets = @(
   @{name = 'bundai223'; url = 'https://github.com/bundai223/scoop-for-jp'},
@@ -25,6 +26,7 @@ $unknown_buckets = @(
   @{name = 'wangzq'; url = 'https://github.com/wangzq/scoop-bucket'}
 )
 $apps = @(
+  'firacode',
   'ghq',
   'brave',
   'vivaldi',
@@ -59,7 +61,7 @@ Install-Module oh-my-posh -Scope CurrentUser
 Install-Module -Name PSReadLine -RequiredVersion 2.1.0
 Install-Module ZLocation -Scope CurrentUser
 
-# ssh-keygen -t ed25519 -C "bundai223@gmail.com"
+ssh-keygen -t ed25519 -C "bundai223@gmail.com"
 mkdir -Force -p ${HOME}/repos/github.com/bundai223/
 git clone https://github.com/bundai223/dotfiles.git ${HOME}/repos/github.com/bundai223/dotfiles
 
