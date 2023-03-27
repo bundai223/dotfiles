@@ -17,16 +17,18 @@ mydir "#{home}/.ssh" do
 end
 
 mydir "#{home}/.config"
-mydir "#{home}/.local"
-mydir "#{home}/.local/bin"
-mydir "#{home}/.local/themes"
-mydir "#{home}/.local/icons"
 mydir "#{home}/.config/git"
 mydir "#{home}/.config/zsh/z"
 mydir "#{home}/.config/nvim"
 mydir "#{home}/.config/spacemacs/layers"
 mydir "#{home}/.config/Code/User"
 mydir "#{home}/.config/dictionary"
+mydir "#{home}/.config/lazygit"
+mydir "#{home}/.local"
+mydir "#{home}/.local/bin"
+mydir "#{home}/.local/themes"
+mydir "#{home}/.local/icons"
+
 mydir "#{home}/repos"
 
 remote_file "#{home}/.gitconfig" do
