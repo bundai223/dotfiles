@@ -70,7 +70,7 @@ end
 default_prog = launch_menu[1].args
 -- default_prog = { 'wsl.exe', '-d Ubuntu-22.04'}
 
-return {
+local config = {
   ------------------------------------------
   -- General
   -- default_cwd = '~',
@@ -89,6 +89,8 @@ return {
   },
   font_size = 12.0,
   color_scheme = "iceberg-dark", -- 自分の好きなテーマ探す https://wezfurlong.org/wezterm/colorschemes/index.html
+  -- window_background_opacity = 0.8,
+  -- text_background_opacity = 1.0,
   hide_tab_bar_if_only_one_tab = false,
   adjust_window_size_when_changing_font_size = false,
   ------------------------------------------
@@ -98,3 +100,5 @@ return {
   keys = keybinds.create_keybinds(),
   key_tables = keybinds.key_tables,
 }
+
+return config
