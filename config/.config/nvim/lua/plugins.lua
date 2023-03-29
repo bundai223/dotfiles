@@ -266,21 +266,7 @@ return require('packer').startup(function(use)
     branch = "main",
     after = "mason.nvim",
     config = function()
-      -- require("rc/pluginconfig/lspsaga")
-      local lspsaga = require("lspsaga")
-
-      require('lspsaga').setup({})
-
-      -- mapping
-      vim.api.nvim_set_keymap("n", "<leader>lf", "<Cmd>Lspsaga lsp_finder<CR>", { silent = true, noremap = true })
-      -- vim.api.nvim_set_keymap("n", "<leader>lca", "<Cmd>Lspsaga code_action<CR>", { silent = true, noremap = true }) -- actions-preview.nvimにまかせた
-      -- vim.api.nvim_set_keymap("<Cmd>Lspsaga range_code_action<CR>", "<leader>lca", "v", { silent = true, noremap = true })
-      vim.api.nvim_set_keymap("n", "<leader>lr", "<Cmd>Lspsaga rename<CR>", { silent = true, noremap = true })
-      vim.api.nvim_set_keymap("n", "<leader>lp", "<Cmd>Lspsaga peek_definition<CR>", { silent = true })
-      vim.api.nvim_set_keymap("n", "<leader>lld", "<Cmd>Lspsaga show_line_diagnostics<CR>",
-        { silent = true, noremap = true })
-      vim.api.nvim_set_keymap("n", "<leader>lhd", "<Cmd>Lspsaga hover_doc<CR>", { silent = true })
-      vim.api.nvim_set_keymap("n", "<Space>?", "<Cmd>Lspsaga hover_doc<CR>", { silent = true })
+      require("plugin_config/lspsaga")
     end
   })
 
@@ -971,6 +957,14 @@ return require('packer').startup(function(use)
     end,
     ft = { 'vue' }
   })
+
+  use {
+    'kkoomen/vim-doge',
+    run = ':call doge#install()',
+    config = function()
+      require('plugin_config/vim-doge')
+    end
+  }
   --------------------------------
   --
   -- use({

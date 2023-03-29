@@ -64,6 +64,10 @@ wk.register(
       name = 'buffers',
       l = { ':Telescope buffers<cr>', 'listup buffers' },
     },
+    d = {
+      name = 'doc',
+      g = { 'Generate document' }
+    },
     f = {
       name = 'file',
       e = {
