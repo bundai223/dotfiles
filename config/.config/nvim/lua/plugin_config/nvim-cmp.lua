@@ -16,6 +16,14 @@ local cmppath_option = {
   trailing_slash = false,
   label_trailing_slash = true
 }
+
+-- https://github.com/zbirenbaum/copilot-cmp#tab-completion-configuration-highly-recommended
+-- local has_words_before = function()
+--   if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+--   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+--   return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+-- end
+
 -- Global setup.
 cmp.setup({
   formatting = {
@@ -72,10 +80,9 @@ cmp.setup({
         vim.api.nvim_feedkeys(t("<Down>"), "n", true)
       end
     end, { "i" }),
-
     ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
+      if cmp.visible() and has_words_before() then
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
       elseif has_words_before() then
@@ -84,7 +91,6 @@ cmp.setup({
         fallback()
       end
     end, { "i", "s" }),
-
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
@@ -94,7 +100,6 @@ cmp.setup({
         fallback()
       end
     end, { "i", "s" }),
-
     ["<C-Down>"] = cmp.mapping(function(fallback)
       if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
@@ -102,7 +107,6 @@ cmp.setup({
         fallback()
       end
     end, { "i", "s" }),
-
     ["<C-Up>"] = cmp.mapping(function(fallback)
       if luasnip.jumpable(-1) then
         luasnip.jump(-1)
@@ -113,25 +117,30 @@ cmp.setup({
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
     ["<C-q>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
-    ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ["<CR>"] = cmp.mapping.confirm({
+      -- this is the important line
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = false,
+    }),
   },
   sources = cmp.config.sources(
     {
-      { name = "nvim_lsp", priority = 100 },
-      { name = 'vsnip' }, -- For vsnip users.
+      { name = "copilot",                 priority = 100 },
+      { name = "nvim_lsp",                priority = 100 },
+      { name = 'vsnip' },   -- For vsnip users.
       { name = 'luasnip' }, -- For LuaSnip users.
-      { name = "path", priority = 100, option = cmppath_option },
-      { name = "emoji", insert = true, priority = 60 },
-      { name = "nvim_lua", priority = 50 },
+      { name = "path",                    priority = 100, option = cmppath_option },
+      { name = "emoji",                   insert = true,  priority = 60 },
+      { name = "nvim_lua",                priority = 50 },
       { name = "nvim_lsp_signature_help", priority = 80 },
     },
     {
-      { name = "buffer", priority = 50 },
+      { name = "buffer",     priority = 50 },
       -- { name = "omni", priority = 40 },
-      { name = "spell", priority = 40 },
-      { name = "calc", priority = 50 },
+      { name = "spell",      priority = 40 },
+      { name = "calc",       priority = 50 },
       { name = "treesitter", priority = 30 },
-      { name = "mocword", priority = 10 },
+      { name = "mocword",    priority = 10 },
       { name = "dictionary", keyword_length = 2, priority = 10 },
     }
   ),
@@ -155,8 +164,8 @@ cmp.setup.cmdline(':', {
       { name = 'path', option = cmppath_option }
     }
     , {
-    { name = 'cmdline', keyword_pattern = [=[[^[:blank:]\!]*]=], keyword_length = 3 }
-  }
+      { name = 'cmdline', keyword_pattern = [=[[^[:blank:]\!]*]=], keyword_length = 3 }
+    }
   )
 })
 --- for :!, sets keyword_length to 3

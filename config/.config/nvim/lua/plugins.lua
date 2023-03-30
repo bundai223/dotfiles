@@ -149,8 +149,11 @@ return require('packer').startup(function(use)
           Event = "",
           Operator = "",
           TypeParameter = "",
+          Copilot = "",
         },
       })
+
+      vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
     end,
   })
 
@@ -965,6 +968,27 @@ return require('packer').startup(function(use)
       require('plugin_config/vim-doge')
     end
   }
+
+  use({
+    'zbirenbaum/copilot.lua',
+    -- cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      })
+    end,
+  })
+
+  use {
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end
+  }
+
   --------------------------------
   --
   -- use({
