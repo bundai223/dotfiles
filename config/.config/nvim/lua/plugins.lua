@@ -98,7 +98,11 @@ return require('packer').startup(function(use)
       { "L3MON4D3/LuaSnip",      opt = true, event = "VimEnter" },
       { "windwp/nvim-autopairs", opt = true, event = "VimEnter" },
     },
-    after = { "LuaSnip", "nvim-autopairs", "copilot-cmp" },
+    after = {
+      "LuaSnip",
+      "nvim-autopairs",
+      "copilot-cmp"
+    },
     config = function()
       require("plugin_config/nvim-cmp")
     end,
