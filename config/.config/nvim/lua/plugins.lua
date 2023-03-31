@@ -98,7 +98,7 @@ return require('packer').startup(function(use)
       { "L3MON4D3/LuaSnip",      opt = true, event = "VimEnter" },
       { "windwp/nvim-autopairs", opt = true, event = "VimEnter" },
     },
-    after = { "LuaSnip", "nvim-autopairs" },
+    after = { "LuaSnip", "nvim-autopairs", "copilot-cmp" },
     config = function()
       require("plugin_config/nvim-cmp")
     end,
@@ -972,7 +972,6 @@ return require('packer').startup(function(use)
   use({
     'zbirenbaum/copilot.lua',
     -- cmd = "Copilot",
-    event = "InsertEnter",
     config = function()
       require("copilot").setup({
         suggestion = { enabled = false },
