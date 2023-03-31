@@ -101,7 +101,21 @@ return require('packer').startup(function(use)
     after = {
       "LuaSnip",
       "nvim-autopairs",
-      "copilot-cmp"
+      "copilot-cmp",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
+      "hrsh7th/cmp-nvim-lsp-document-symbol",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-omni",
+      "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-emoji",
+      "hrsh7th/cmp-calc",
+      "f3fora/cmp-spell",
+      "uga-rosa/cmp-dictionary",
+      "saadparwaiz1/cmp_luasnip",
+      "ray-x/cmp-treesitter",
     },
     config = function()
       require("plugin_config/nvim-cmp")
@@ -162,21 +176,20 @@ return require('packer').startup(function(use)
   })
 
   -- sources
-  use({ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-nvim-lsp-document-symbol", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-buffer", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-cmdline", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-path", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-omni", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-emoji", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-calc", after = "nvim-cmp" })
-  use({ "f3fora/cmp-spell", after = "nvim-cmp" })
-  -- use({ "yutkat/cmp-mocword", after = "nvim-cmp" })
+  use({ "hrsh7th/cmp-nvim-lsp" })
+  use({ "hrsh7th/cmp-nvim-lsp-signature-help" })
+  use({ "hrsh7th/cmp-nvim-lsp-document-symbol" })
+  use({ "hrsh7th/cmp-buffer" })
+  use({ "hrsh7th/cmp-cmdline" })
+  use({ "hrsh7th/cmp-path" })
+  use({ "hrsh7th/cmp-omni" })
+  use({ "hrsh7th/cmp-nvim-lua" })
+  use({ "hrsh7th/cmp-emoji" })
+  use({ "hrsh7th/cmp-calc" })
+  use({ "f3fora/cmp-spell" })
+  -- use({ "yutkat/cmp-mocword" })
   use({
     "uga-rosa/cmp-dictionary",
-    after = "nvim-cmp",
     config = function()
       -- require("rc/pluginconfig/cmp-dictionary")
       require("cmp_dictionary").setup({
@@ -192,13 +205,13 @@ return require('packer').startup(function(use)
       -- vim.cmd("CmpDictionaryUpdate")
     end,
   })
-  use({ "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" })
+  use({ "saadparwaiz1/cmp_luasnip" })
   -- use({
   --   "tzachar/cmp-tabnine",
   --   run = "./install.sh",
   --   after = "nvim-cmp",
   -- })
-  use({ "ray-x/cmp-treesitter", after = "nvim-cmp" })
+  use({ "ray-x/cmp-treesitter" })
 
   --------------------------------
   -- Language Server Protocol(LSP)
