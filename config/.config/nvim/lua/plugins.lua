@@ -254,7 +254,7 @@ return require('packer').startup(function(use)
       { "simrat39/rust-tools.nvim", opt = true }
     },
     after = {
-      "neoconf.lua",
+      -- "neoconf.lua",
       "nlsp-settings.nvim",
       "nvim-lspconfig",
       "nvim-navic"
@@ -1006,12 +1006,17 @@ return require('packer').startup(function(use)
     end
   }
 
+  -- use({
+  --   'folke/neoconf.nvim',
+  --   config = function()
+  --     require('neoconf').setup({})
+  --   end
+  -- })
+
   use({
-    'folke/neoconf.nvim',
-    config = function()
-      require('neoconf').setup({})
-    end
+    'noprompt/vim-yardoc',
   })
+
   --------------------------------
   --
   -- use({
