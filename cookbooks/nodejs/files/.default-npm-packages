@@ -10,7 +10,6 @@ eslint-plugin-vue
 neovim
 yarn
 markdownlint-cli
-shellcheck
 @devcontainers/cli
 textlint
 textlint-rule-prh
