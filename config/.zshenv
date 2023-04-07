@@ -10,12 +10,12 @@ fpath=($fpath ${PERSONAL_ZSH_DIR}/functions/completions(N-/))
 # export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 path=(${PERSONAL_ZSH_DIR}/functions(N-/) $path)
 
-GITHUB_TOKEN_PATH=~/.config/git/github_token
-if [ -f $GITHUB_TOKEN_PATH ]; then
-    export HOMEBREW_GITHUB_API_TOKEN=`cat $GITHUB_TOKEN_PATH`
-else
-    echo "Please access: https://github.com/settings/tokens and put token to $GITHUB_TOKEN_PATH."
-fi
+# GITHUB_TOKEN_PATH=~/.config/git/github_token
+# if [ -f $GITHUB_TOKEN_PATH ]; then
+#     export HOMEBREW_GITHUB_API_TOKEN=`cat $GITHUB_TOKEN_PATH`
+# else
+#     echo "Please access: https://github.com/settings/tokens and put token to $GITHUB_TOKEN_PATH."
+# fi
 
 export ZSH_HISTORY_FILE="$HOME/.config/zsh/zsh_histroy.db"
 # peco などと組み合わせて検索するためのキーバインド
