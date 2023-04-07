@@ -1,6 +1,6 @@
 include_recipe 'dependency.rb'
 
-version = '0.9.4'
+version = '1.1.16'
 appname = 'Obsidian'
 
 user = node[:user]
@@ -11,12 +11,8 @@ when 'arch'
 when 'osx', 'darwin'
 when 'fedora', 'redhat', 'amazon'
 when 'debian', 'ubuntu', 'mint'
-  appimage_url = "https://github.com/obsidianmd/obsidian-releases/releases/download/v#{version}/Obsidian-#{version}.AppImage"
-
-  install_appimage appname do
+  execute "snap install --classic obsidian" do
     user user
-    url appimage_url
-    version version
   end
 when 'opensuse'
 else
