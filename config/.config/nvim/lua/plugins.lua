@@ -98,7 +98,25 @@ return require('packer').startup(function(use)
       { "L3MON4D3/LuaSnip",      opt = true, event = "VimEnter" },
       { "windwp/nvim-autopairs", opt = true, event = "VimEnter" },
     },
-    after = { "LuaSnip", "nvim-autopairs" },
+    after = {
+      "LuaSnip",
+      "nvim-autopairs",
+      "copilot-cmp",
+      "cmp-nvim-lsp",
+      "cmp-nvim-lsp-signature-help",
+      "cmp-nvim-lsp-document-symbol",
+      "cmp-buffer",
+      "cmp-cmdline",
+      "cmp-path",
+      "cmp-omni",
+      "cmp-nvim-lua",
+      "cmp-emoji",
+      "cmp-calc",
+      "cmp-spell",
+      "cmp-dictionary",
+      "cmp_luasnip",
+      "cmp-treesitter",
+    },
     config = function()
       require("plugin_config/nvim-cmp")
     end,
@@ -149,27 +167,29 @@ return require('packer').startup(function(use)
           Event = "",
           Operator = "",
           TypeParameter = "",
+          Copilot = "",
         },
       })
+
+      vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
     end,
   })
 
   -- sources
-  use({ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-nvim-lsp-document-symbol", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-buffer", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-cmdline", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-path", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-omni", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-emoji", after = "nvim-cmp" })
-  use({ "hrsh7th/cmp-calc", after = "nvim-cmp" })
-  use({ "f3fora/cmp-spell", after = "nvim-cmp" })
-  -- use({ "yutkat/cmp-mocword", after = "nvim-cmp" })
+  use({ "hrsh7th/cmp-nvim-lsp" })
+  use({ "hrsh7th/cmp-nvim-lsp-signature-help" })
+  use({ "hrsh7th/cmp-nvim-lsp-document-symbol" })
+  use({ "hrsh7th/cmp-buffer" })
+  use({ "hrsh7th/cmp-cmdline" })
+  use({ "hrsh7th/cmp-path" })
+  use({ "hrsh7th/cmp-omni" })
+  use({ "hrsh7th/cmp-nvim-lua" })
+  use({ "hrsh7th/cmp-emoji" })
+  use({ "hrsh7th/cmp-calc" })
+  use({ "f3fora/cmp-spell" })
+  -- use({ "yutkat/cmp-mocword" })
   use({
     "uga-rosa/cmp-dictionary",
-    after = "nvim-cmp",
     config = function()
       -- require("rc/pluginconfig/cmp-dictionary")
       require("cmp_dictionary").setup({
@@ -185,13 +205,13 @@ return require('packer').startup(function(use)
       -- vim.cmd("CmpDictionaryUpdate")
     end,
   })
-  use({ "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" })
+  use({ "saadparwaiz1/cmp_luasnip" })
   -- use({
   --   "tzachar/cmp-tabnine",
   --   run = "./install.sh",
   --   after = "nvim-cmp",
   -- })
-  use({ "ray-x/cmp-treesitter", after = "nvim-cmp" })
+  use({ "ray-x/cmp-treesitter" })
 
   --------------------------------
   -- Language Server Protocol(LSP)
@@ -234,8 +254,9 @@ return require('packer').startup(function(use)
       { "simrat39/rust-tools.nvim", opt = true }
     },
     after = {
-      "nvim-lspconfig",
+      -- "neoconf.lua",
       "nlsp-settings.nvim",
+      "nvim-lspconfig",
       "nvim-navic"
     },
     config = function()
@@ -965,6 +986,37 @@ return require('packer').startup(function(use)
       require('plugin_config/vim-doge')
     end
   }
+
+  use({
+    'zbirenbaum/copilot.lua',
+    -- cmd = "Copilot",
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      })
+    end,
+  })
+
+  use {
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end
+  }
+
+  -- use({
+  --   'folke/neoconf.nvim',
+  --   config = function()
+  --     require('neoconf').setup({})
+  --   end
+  -- })
+
+  use({
+    'noprompt/vim-yardoc',
+  })
+
   --------------------------------
   --
   -- use({
