@@ -42,11 +42,7 @@ let g:dotfiles_config_path = g:dotfiles_path . '/config'
 let s:backupdir            = s:conf_root . '/backup'
 let s:swapdir              = s:conf_root . '/swp'
 let s:undodir              = s:conf_root . '/undo'
-let g:plugin_dir           = s:conf_root . '/dein' " home/.config/nvim/dein
-let s:dein_dir             = g:plugin_dir . '/repos/github.com/Shougo/dein.vim'
-let g:dein_toml            = g:github_repos_path . '/dotfiles/config/nvim/dein.toml'
-let g:memo_dir             = g:github_repos_path . '/private-memo'
-let g:outher_package_path = s:conf_root . '/tools'
+let g:outher_package_path  = s:conf_root . '/tools'
 
 function! MkDir(dirpath)
   if !isdirectory(a:dirpath)
@@ -357,7 +353,7 @@ inoremap <S-Tab> <C-D>
 " nnoremap <silent> <leader>gg :vimgrep '' %<left><left><left>
 
 " ========================================
-" packer
+" plugin
 " ========================================
 :lua require('plugins')
 
@@ -373,8 +369,6 @@ augroup MyAutoCmd
   autocmd BufNewFile,BufRead *_spec.rb setl filetype=ruby.rspec
   autocmd FileType ruby setlocal iskeyword+=?
   autocmd FileType ruby.rspec setlocal number
-  autocmd FileType ruby setlocal dictionary+=~/.config/nvim/dein/repos/github.com/pocke/dicts/ruby.dict
-  autocmd FileType javascript,ruby setlocal dictionary+=~/.config/nvim/dein/repos/github.com/pocke/dicts/jquery.dict
 
   "autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
   autocmd FileType vue setlocal iskeyword+=$
@@ -393,11 +387,6 @@ augroup MyAutoCmd
   autocmd FileType markdown setl shiftwidth=4
   autocmd FileType markdown setl expandtab
 augroup END
-
-" memo
-if !isdirectory(g:memo_dir)
-  execute '!ghq get -p bundai223/private-memo.git'
-endif
 
 augroup MyAutoCmd
   autocmd FileType changelog setlocal modelines=0

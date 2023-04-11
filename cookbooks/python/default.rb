@@ -25,11 +25,7 @@ execute 'install python' do
 VER=#{python_version}
 . #{home}/.asdf/asdf.sh
 asdf install python ${VER}
-if [ ${VER} = 'latest' ]; then
-asdf global python $(asdf list python)
-else
 asdf global python ${VER}
-fi
 EOS
   not_if "test -d #{home}/.asdf/shims/python"
 end
