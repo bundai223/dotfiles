@@ -44,10 +44,10 @@ local plugins = {
 
   --------------------------------
   -- Lua Library
-  { "nvim-lua/popup.nvim" },
-  { "nvim-lua/plenary.nvim" },
-  { "tami5/sqlite.lua" },
-  { "MunifTanjim/nui.nvim" },
+  { "nvim-lua/popup.nvim", lazy = false },
+  { "nvim-lua/plenary.nvim", lazy = false },
+  { "tami5/sqlite.lua", lazy = false },
+  { "MunifTanjim/nui.nvim", lazy = false },
 
   {
     "dshoreman/caw.vim",
@@ -334,15 +334,15 @@ local plugins = {
 					require("telescope").load_extension("ui-select")
 				end,
 			},
-			{
-				"nvim-telescope/telescope-smart-history.nvim",
-				config = function()
-					require("telescope").load_extension("smart_history")
-				end,
-				build = function()
-					os.execute("mkdir -p " .. vim.fn.stdpath("state") .. "databases/")
-				end,
-			},
+			-- {
+			-- 	"nvim-telescope/telescope-smart-history.nvim",
+			-- 	config = function()
+			-- 		require("telescope").load_extension("smart_history")
+			-- 	end,
+			-- 	build = function()
+			-- 		os.execute("mkdir -p " .. vim.fn.stdpath("state") .. "databases/")
+			-- 	end,
+			-- },
 			{ "nvim-telescope/telescope-symbols.nvim" },
 			{
 				"debugloop/telescope-undo.nvim",
