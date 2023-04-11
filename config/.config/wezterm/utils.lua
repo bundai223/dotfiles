@@ -39,8 +39,8 @@ end
 
 function M.convert_home_dir(path)
   local cwd = path
-  local home = os.getenv("HOME")
-  cwd = cwd:gsub("^" .. home .. "/", "~/")
+  -- local home = os.getenv("HOME")
+  -- cwd = cwd:gsub("^" .. home .. "/", "~/")
   if cwd == "" then
     return path
   end
