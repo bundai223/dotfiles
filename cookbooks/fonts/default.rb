@@ -9,6 +9,7 @@ when 'osx', 'darwin'
 when 'fedora', 'redhat', 'amazon'
   # not implemented
 when 'debian', 'ubuntu', 'mint'
+  package 'fonts-firacode'
   package 'fonts-noto-cjk'
   package 'fonts-noto-cjk-extra'
 when 'opensuse'
