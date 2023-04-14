@@ -394,7 +394,7 @@ augroup MyAutoCmd
   autocmd FileType changelog setlocal textwidth=0
 augroup END
 
-if system('uname -a | grep -i Microsoft') != ""
+if system('uname -a') =~ "Microsoft"
   let g:clipboard = {
         \   'name': 'myClipboard',
         \   'copy': {
