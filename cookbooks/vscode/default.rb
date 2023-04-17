@@ -26,3 +26,11 @@ when 'debian', 'ubuntu', 'mint'
 when 'opensuse'
 else
 end
+
+
+user = node[:user]
+home = node[:home]
+
+directory "#{home}/.config/Code" do
+  owner user
+end

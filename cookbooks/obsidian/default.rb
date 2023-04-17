@@ -11,9 +11,7 @@ when 'arch'
 when 'osx', 'darwin'
 when 'fedora', 'redhat', 'amazon'
 when 'debian', 'ubuntu', 'mint'
-  execute "snap install --classic obsidian" do
-    user user
-  end
+  execute "snap install --classic obsidian"
 when 'opensuse'
 else
   # nothing

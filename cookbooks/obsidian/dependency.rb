@@ -4,7 +4,8 @@ when 'arch'
 when 'osx', 'darwin'
 when 'fedora', 'redhat', 'amazon'
 when 'debian', 'ubuntu', 'mint'
-  include_cookbook 'appimage_setting'
+  # include_cookbook 'appimage_setting'
+  package 'snapd'
 when 'opensuse'
 else
 end
