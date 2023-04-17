@@ -615,6 +615,15 @@ local plugins = {
     end,
   },
 
+  --------------------------------
+  -- Lint
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    config = function()
+      require("plugin_config/null-ls")
+    end,
+  },
+
 	--------------------------------
 	-- Command
 	{
@@ -747,15 +756,6 @@ require("lazy").setup(merge_lists(plugins, local_plugins), {
 --   })
 -- 
 -- 
---   --------------------------------
---   -- Lint
---   use({
---     "jose-elias-alvarez/null-ls.nvim",
---     after = "mason.nvim",
---     config = function()
---       require("plugin_config/null-ls")
---     end,
---   })
 -- 
 --   --------------------------------
 --   -- Runner
