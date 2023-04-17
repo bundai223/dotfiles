@@ -11,7 +11,10 @@ execute "git clone https://github.com/asdf-vm/asdf.git #{home}/.asdf" do
 end
 
 file '/etc/profile.d/asdf.sh' do
-  content "source #{home}/.asdf/asdf.sh"
+  content <<EOCONTENT
+  export ASDF_DIR=~/.asdf
+  source ~/.asdf/asdf.sh
+EOCONTENT
   not_if 'test -e /etc/profile.d/asdf.sh'
   mode '644'
 end
@@ -24,9 +27,6 @@ define :source_asdf_and_execute, user: nil, not_if_: nil, not_if: nil, only_if_:
   user_ = params[:user]
   not_if_ = params[:not_if] || params[:not_if_]
   only_if_ = params[:only_if] || params[:only_if_]
-  # p "AAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-  # p params.inspect
-  # p "BBBBBBBBBBBBBBBBBBBBBBBBBBBB"
 
   execute cmd_ do
     user user_ unless user_.nil?
