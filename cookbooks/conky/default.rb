@@ -7,9 +7,6 @@ when 'osx', 'darwin'
 when 'fedora', 'redhat', 'amazon'
 when 'debian', 'ubuntu', 'mint'
   package 'conky-all'
-
-  package 'conky-manager'
-  package 'conky-manager-extra'
 when 'opensuse'
 else
 end
