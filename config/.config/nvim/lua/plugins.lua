@@ -682,7 +682,7 @@ local plugins = {
 
   {
     'kkoomen/vim-doge',
-    build = 'doge#install()',
+    build = 'call doge#install()',
 		event = "VimEnter",
     config = function()
       require('plugin_config/vim-doge')
