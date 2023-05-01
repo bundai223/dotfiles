@@ -289,68 +289,77 @@ local plugins = {
   --------------------------------
   -- telescope.nvim
   {
+    "nvim-telescope/telescope-file-browser.nvim",
+    event = "VimEnter",
+    config = function()
+      require("telescope").load_extension("file_browser")
+    end,
+    enabled = function()
+      return vim.fn.executable("ueberzug")
+    end,
+  },
+  {
+    "LinArcX/telescope-changes.nvim",
+    event = "VimEnter",
+    config = function()
+      require("telescope").load_extension("changes")
+    end,
+  },
+  {
+    "nvim-telescope/telescope-frecency.nvim",
+    event = "VimEnter",
+    config = function()
+      require("telescope").load_extension("frecency")
+    end,
+  },
+  {
+    'nvim-telescope/telescope-media-files.nvim',
+    event = "VimEnter",
+    config = function()
+      require("telescope").load_extension("media_files")
+    end
+  },
+  {
+    'nvim-telescope/telescope-live-grep-args.nvim',
+    event = "VimEnter",
+    config = function()
+      require("telescope").load_extension("live_grep_args")
+    end
+  },
+  {
+    "nvim-telescope/telescope-ui-select.nvim",
+    event = "VimEnter",
+    config = function()
+      require("telescope").load_extension("ui-select")
+    end,
+  },
+  -- {
+  -- 	"nvim-telescope/telescope-smart-history.nvim",
+  -- 	config = function()
+  -- 		require("telescope").load_extension("smart_history")
+  -- 	end,
+  -- 	build = function()
+  -- 		os.execute("mkdir -p " .. vim.fn.stdpath("state") .. "databases/")
+  -- 	end,
+  -- },
+  {
+    "nvim-telescope/telescope-symbols.nvim",
+    event = "VimEnter",
+  },
+  {
+    "debugloop/telescope-undo.nvim",
+    event = "VimEnter",
+    config = function()
+      require("telescope").load_extension("undo")
+    end,
+  },
+
+  {
     "nvim-telescope/telescope.nvim",
     event = "VimEnter",
     config = function()
       require("plugin_config/telescope")
     end,
-    dependencies = {
-			{
-				"LinArcX/telescope-changes.nvim",
-				config = function()
-					require("telescope").load_extension("changes")
-				end,
-			},
-      {
-        "nvim-telescope/telescope-frecency.nvim",
-        config = function()
-          require("telescope").load_extension("frecency")
-        end,
-      },
-      {
-        "nvim-telescope/telescope-file-browser.nvim",
-        config = function()
-          require("telescope").load_extension("file_browser")
-        end,
-        enabled = function()
-          return vim.fn.executable("ueberzug")
-        end,
-      },
-      {
-        'nvim-telescope/telescope-media-files.nvim',
-        config = function()
-          require("telescope").load_extension("media_files")
-        end
-      },
-      {
-        'nvim-telescope/telescope-live-grep-args.nvim',
-        config = function()
-          require("telescope").load_extension("live_grep_args")
-        end
-      },
-			{
-				"nvim-telescope/telescope-ui-select.nvim",
-				config = function()
-					require("telescope").load_extension("ui-select")
-				end,
-			},
-			-- {
-			-- 	"nvim-telescope/telescope-smart-history.nvim",
-			-- 	config = function()
-			-- 		require("telescope").load_extension("smart_history")
-			-- 	end,
-			-- 	build = function()
-			-- 		os.execute("mkdir -p " .. vim.fn.stdpath("state") .. "databases/")
-			-- 	end,
-			-- },
-			{ "nvim-telescope/telescope-symbols.nvim" },
-			{
-				"debugloop/telescope-undo.nvim",
-				config = function()
-					require("telescope").load_extension("undo")
-				end,
-			},
-    }
   },
 
   --------------------------------
@@ -457,6 +466,14 @@ local plugins = {
         set_highlights = true,
       })
     end,
+  },
+
+  {
+    "xiyaowong/transparent.nvim",
+    event = "VimEnter",
+    config = function ()
+      require("plugin_config/transparent")
+    end
   },
 
   --------------------------------
