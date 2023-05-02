@@ -115,6 +115,7 @@
   prjroot = rev-parse --show-toplevel
   dotgit = rev-parse --git-dir
   current-branch = !git branch | grep '*' | sed 's/* //'
+  rm-merged-branch = !git branch --merged | grep -v '*' | xargs git branch -D
 
   # log
 	# logは試行錯誤中

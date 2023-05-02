@@ -84,6 +84,7 @@ augroup END
 
 " terraformで保存時にformat
 augroup MyAutoCmd
+  autocmd BufNewFile,BufRead *.tf set filetype=terraform
   autocmd BufWritePre *.tfvars lua vim.lsp.buf.format({ timeout_ms = 10000 })
   autocmd BufWritePre *.tf lua vim.lsp.buf.format({ timeout_ms = 10000 })
 augroup END

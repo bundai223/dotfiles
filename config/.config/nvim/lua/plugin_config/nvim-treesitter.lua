@@ -33,6 +33,9 @@ require 'nvim-treesitter.configs'.setup {
     default_lazy = true
   },
   indent = {
-    enable = false
+    enable = true
+  },
+  rainbow = {
+    enable = true
   }
 }

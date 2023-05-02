@@ -499,13 +499,6 @@ local plugins = {
     end,
   },
 
-	----------------------------------
-	---- Syntax
-  {
-    "hashivim/vim-terraform",
-		event = "VimEnter",
-  },
-
 	--------------------------------
 	-- Highlight
   {

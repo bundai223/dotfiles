@@ -10,3 +10,5 @@ export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
 
 # export WINHOME=/mnt/c/Users/$(/mnt/c/Windows/System32/hostname.exe | sed -e 's/-//g' -e 's///g')
+
+export BROWSER=open_browser_wsl.sh
