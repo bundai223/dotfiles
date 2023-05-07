@@ -1,7 +1,4 @@
 -- local lga_actions = require("telescope-live-grep-args.actions")
-
-print("telescope")
-
 require("telescope").setup({
   -- shorten_path = true,
   defaults = {
