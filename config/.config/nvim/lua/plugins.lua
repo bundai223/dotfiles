@@ -713,6 +713,16 @@ local plugins = {
       require('plugin_config/submode')
     end
   },
+
+  --------------------------------
+  -- Debugger
+  {
+    'mfussenegger/nvim-dap',
+		event = "VimEnter",
+    config = function()
+    end
+  },
+
 }
 
 local function merge_lists(t1, t2)
