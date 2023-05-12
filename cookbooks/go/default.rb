@@ -2,7 +2,8 @@
 
 include_cookbook 'asdf'
 
-version = 'latest'
+# version = 'latest'
+version = '1.20'
 
 user = node['user']
 home = node['home']
