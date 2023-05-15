@@ -3,39 +3,39 @@
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"--single-branch",
-		"https://github.com/folke/lazy.nvim.git",
-		lazypath,
-	})
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "--single-branch",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath,
+  })
 end
 vim.opt.runtimepath:prepend(lazypath)
 
 ----------------------------------------------------------------
 ---- Load local plugins
 local function load_local_plugins()
-	if vim.fn.filereadable(vim.fn.expand("~/.nvim_pluginlist_local.lua")) == 1 then
-		return dofile(vim.fn.expand("~/.nvim_pluginlist_local.lua"))
-	end
+  if vim.fn.filereadable(vim.fn.expand("~/.nvim_pluginlist_local.lua")) == 1 then
+    return dofile(vim.fn.expand("~/.nvim_pluginlist_local.lua"))
+  end
 end
 local local_plugins = load_local_plugins() or {}
 
 local plugins = {
-	-- ------------------------------------------------------------
-	-- Installer
-	{ "folke/lazy.nvim" },
+  -- ------------------------------------------------------------
+  -- Installer
+  { "folke/lazy.nvim" },
 
-	-- External package Installer
-	{
-		"williamboman/mason.nvim",
-		event = "BufReadPre",
-		config = function()
+  -- External package Installer
+  {
+    "williamboman/mason.nvim",
+    event = "BufReadPre",
+    config = function()
       require("mason").setup({})
-		end,
-	},
+    end,
+  },
 
   --------------------------------
   -- Vim script Library
@@ -77,16 +77,16 @@ local plugins = {
     end,
   },
 
-	-- {
+  -- {
  --    -- ambiguous chara
-	-- 	"delphinus/cellwidths.nvim",
-	-- 	event = "BufEnter",
-	-- 	config = function()
-	-- 		require("cellwidths").setup({
-	-- 			name = "default",
-	-- 		})
-	-- 	end,
-	-- },
+  --   "delphinus/cellwidths.nvim",
+  --   event = "BufEnter",
+  --   config = function()
+  --     require("cellwidths").setup({
+  --       name = "default",
+  --     })
+  --   end,
+  -- },
 
   --------------------------------
   -- UI Library
@@ -121,7 +121,8 @@ local plugins = {
 
   {
     "hrsh7th/nvim-cmp",
-    event = "VimEnter",
+    -- event = "VimEnter",
+    event = "InsertEnter",
     config = function()
       require("plugin_config/nvim-cmp")
     end,
@@ -135,12 +136,12 @@ local plugins = {
       { "dmitmel/cmp-cmdline-history" },
       { "hrsh7th/cmp-path" },
       { "hrsh7th/cmp-omni" },
-			{
-				"zbirenbaum/copilot-cmp",
-				config = function()
-					require("copilot_cmp").setup()
-				end,
-			},
+      {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+          require("copilot_cmp").setup()
+        end,
+      },
       { "hrsh7th/cmp-nvim-lua" },
       { "hrsh7th/cmp-emoji" },
       { "hrsh7th/cmp-calc" },
@@ -164,10 +165,10 @@ local plugins = {
         end,
       },
       { "saadparwaiz1/cmp_luasnip" },
-      {
-        "tzachar/cmp-tabnine",
-        build = "./install.sh",
-      },
+      -- {
+      --   "tzachar/cmp-tabnine",
+      --   build = "./install.sh",
+      -- },
       { "ray-x/cmp-treesitter" },
       {
         "onsails/lspkind-nvim",
@@ -273,18 +274,18 @@ local plugins = {
     }
   },
 
-	--------------------------------
-	-- AI completion
-	{
-		"zbirenbaum/copilot.lua",
-		-- cmd = { "Copilot" },
-		event = "InsertEnter",
-		config = function()
-			vim.defer_fn(function()
-				require("plugin_config/copilot")
-			end, 100)
-		end,
-	},
+  --------------------------------
+  -- AI completion
+  {
+    "zbirenbaum/copilot.lua",
+    -- cmd = { "Copilot" },
+    event = "InsertEnter",
+    config = function()
+      vim.defer_fn(function()
+        require("plugin_config/copilot")
+      end, 100)
+    end,
+  },
 
   --------------------------------
   -- telescope.nvim
@@ -334,13 +335,13 @@ local plugins = {
     end,
   },
   -- {
-  -- 	"nvim-telescope/telescope-smart-history.nvim",
-  -- 	config = function()
-  -- 		require("telescope").load_extension("smart_history")
-  -- 	end,
-  -- 	build = function()
-  -- 		os.execute("mkdir -p " .. vim.fn.stdpath("state") .. "databases/")
-  -- 	end,
+  --   "nvim-telescope/telescope-smart-history.nvim",
+  --   config = function()
+  --     require("telescope").load_extension("smart_history")
+  --   end,
+  --   build = function()
+  --     os.execute("mkdir -p " .. vim.fn.stdpath("state") .. "databases/")
+  --   end,
   -- },
   {
     "nvim-telescope/telescope-symbols.nvim",
@@ -372,87 +373,87 @@ local plugins = {
       require("plugin_config/nvim-treesitter")
     end,
     dependencies = {
-			{ "JoosepAlviste/nvim-ts-context-commentstring" }, -- TODO: cawとかぶってるやつ
-			{ "nvim-treesitter/nvim-treesitter-refactor" }, -- TODO:
-			{ "nvim-treesitter/nvim-tree-docs" }, -- TODO:
-			{ "vigoux/architext.nvim" }, -- TODO: 現時点ではむずすぎる印象。substituteを独自クエリでやるやつ
-			{ "yioneko/nvim-yati" }, -- treesitterのindent plugin
+      { "JoosepAlviste/nvim-ts-context-commentstring" }, -- TODO: cawとかぶってるやつ
+      { "nvim-treesitter/nvim-treesitter-refactor" }, -- TODO:
+      { "nvim-treesitter/nvim-tree-docs" }, -- TODO:
+      { "vigoux/architext.nvim" }, -- TODO: 現時点ではむずすぎる印象。substituteを独自クエリでやるやつ
+      { "yioneko/nvim-yati" }, -- treesitterのindent plugin
     }
   },
 
-	--------------------------------
-	-- Treesitter UI customize
-	{
-		"mrjones2014/nvim-ts-rainbow",
-		event = "BufReadPost",
-		config = function()
-			-- patch https://github.com/nvim-treesitter/nvim-treesitter/issues/1124
-			vim.cmd("e!")
-		end,
-	},
-	-- { "haringsrob/nvim_context_vt", event = "BufReadPost" },
-	{
-		"m-demare/hlargs.nvim",
-		event = "VimEnter",
-		config = function()
+  --------------------------------
+  -- Treesitter UI customize
+  {
+    "mrjones2014/nvim-ts-rainbow",
+    event = "BufReadPost",
+    config = function()
+      -- patch https://github.com/nvim-treesitter/nvim-treesitter/issues/1124
+      vim.cmd("e!")
+    end,
+  },
+  -- { "haringsrob/nvim_context_vt", event = "BufReadPost" },
+  {
+    "m-demare/hlargs.nvim",
+    event = "VimEnter",
+    config = function()
       require('hlargs').setup()
-		end,
-	},
+    end,
+  },
   {
     'nvim-treesitter/playground',
-		event = "VimEnter",
+    event = "VimEnter",
     config = function()
       require('plugin_config/nvim-treesitter-playground')
     end
   },
   {
     'RRethy/nvim-treesitter-endwise',
-		event = "VimEnter",
+    event = "VimEnter",
     config = function()
       require('plugin_config/nvim-treesitter-endwise')
     end
   },
   {
     'nvim-treesitter/nvim-treesitter-context',
-		cmd = { "TSContextEnable" },
-		config = function()
-			require("treesitter-context").setup({})
-		end
+    cmd = { "TSContextEnable" },
+    config = function()
+      require("treesitter-context").setup({})
+    end
   },
 
-	--------------------------------
-	-- Treesitter textobject & operator
-	{ "nvim-treesitter/nvim-treesitter-textobjects", event = "VimEnter" },
-	-- {
-	-- 	"chrisgrieser/nvim-various-textobjs",
-	-- 	event = "VimEnter",
-	-- 	config = function()
-	-- 		require("rc/pluginconfig/nvim-various-textobjs")
-	-- 	end,
-	-- },
-	-- incremental-selection
-	-- { "RRethy/nvim-treesitter-textsubjects", after = { "nvim-treesitter" } },
-	-- {
-	-- 	"mizlan/iswap.nvim",
-	-- 	event = "VimEnter",
-	-- 	config = function()
-	-- 		require("rc/pluginconfig/iswap")
-	-- 	end,
-	-- },
-	-- {
-	-- 	"mfussenegger/nvim-treehopper",
-	-- 	event = "VimEnter",
-	-- 	config = function()
-	-- 		require("rc/pluginconfig/nvim-treehopper")
-	-- 	end,
-	-- },
-	-- {
-	-- 	"David-Kunz/treesitter-unit",
-	-- 	event = "VimEnter",
-	-- 	config = function()
-	-- 		require("rc/pluginconfig/treesitter-unit")
-	-- 	end,
-	-- },
+  --------------------------------
+  -- Treesitter textobject & operator
+  { "nvim-treesitter/nvim-treesitter-textobjects", event = "VimEnter" },
+  -- {
+  --   "chrisgrieser/nvim-various-textobjs",
+  --   event = "VimEnter",
+  --   config = function()
+  --     require("rc/pluginconfig/nvim-various-textobjs")
+  --   end,
+  -- },
+  -- incremental-selection
+  -- { "RRethy/nvim-treesitter-textsubjects", after = { "nvim-treesitter" } },
+  -- {
+  --   "mizlan/iswap.nvim",
+  --   event = "VimEnter",
+  --   config = function()
+  --     require("rc/pluginconfig/iswap")
+  --   end,
+  -- },
+  -- {
+  --   "mfussenegger/nvim-treehopper",
+  --   event = "VimEnter",
+  --   config = function()
+  --     require("rc/pluginconfig/nvim-treehopper")
+  --   end,
+  -- },
+  -- {
+  --   "David-Kunz/treesitter-unit",
+  --   event = "VimEnter",
+  --   config = function()
+  --     require("rc/pluginconfig/treesitter-unit")
+  --   end,
+  -- },
 
   --------------------------------------------------------------
   -- Appearance
@@ -499,26 +500,26 @@ local plugins = {
     end,
   },
 
-	--------------------------------
-	-- Highlight
+  --------------------------------
+  -- Highlight
   {
     "RRethy/vim-illuminate",
-		event = "VimEnter",
+    event = "VimEnter",
   },
-	-- {
-	-- 	"xiyaowong/nvim-cursorword",
-	-- 	event = "VimEnter",
-	-- 	config = function()
-	-- 		require("rc/pluginconfig/nvim-cursorword")
-	-- 	end,
-	-- },
+  -- {
+  --   "xiyaowong/nvim-cursorword",
+  --   event = "VimEnter",
+  --   config = function()
+  --     require("rc/pluginconfig/nvim-cursorword")
+  --   end,
+  -- },
   {
     "t9md/vim-quickhl",
-		event = "VimEnter",
+    event = "VimEnter",
   },
   {
     "folke/todo-comments.nvim",
-		event = "VimEnter",
+    event = "VimEnter",
     config = function()
       require("todo-comments").setup {
         --   -- your configuration comes here
@@ -532,14 +533,14 @@ local plugins = {
   -- https://github.com/simrat39/symbols-outline.nvim
   {
     "simrat39/symbols-outline.nvim",
-		event = "VimEnter",
+    event = "VimEnter",
     config = function()
       require("plugin_config/symbols-outline")
     end
   },
 
-	--------------------------------
-	-- Sidebar
+  --------------------------------
+  -- Sidebar
   -- {
   --   "GustavoKatel/sidebar.nvim",
   --   cmd = { "SidebarNvimToggle" },
@@ -548,15 +549,15 @@ local plugins = {
   --   end,
   -- },
 
-	--------------------------------
-	-- Window Separators
-	{
-		"nvim-zh/colorful-winsep.nvim",
-		event = "VimEnter",
-		config = function()
-			require("plugin_config/colorful-winsep")
-		end,
-	},
+  --------------------------------
+  -- Window Separators
+  {
+    "nvim-zh/colorful-winsep.nvim",
+    event = "VimEnter",
+    config = function()
+      require("plugin_config/colorful-winsep")
+    end,
+  },
 
   --------------------------------
   -- Menu
@@ -571,17 +572,17 @@ local plugins = {
   --------------------------------
   -- operator
   -- use 'mopp/vim-operator-convert-case'
-	{
-		"gbprod/substitute.nvim",
-		event = "VimEnter",
-		config = function()
-			require("plugin_config/substitute")
-		end,
-	},
+  {
+    "gbprod/substitute.nvim",
+    event = "VimEnter",
+    config = function()
+      require("plugin_config/substitute")
+    end,
+  },
 
   {
     'kylechui/nvim-surround',
-		event = "VimEnter",
+    event = "VimEnter",
     config = function()
       require('plugin_config/nvim-surround')
     end
@@ -591,7 +592,7 @@ local plugins = {
   -- Search
   {
     "andymass/vim-matchup",
-		event = "VimEnter",
+    event = "VimEnter",
     config = function()
     end
   },
@@ -605,19 +606,19 @@ local plugins = {
       require("plugin_config/nvim-hlslens")
     end,
   },
-	-- {
-	-- 	"rapan931/lasterisk.nvim",
-	-- 	event = "VimEnter",
-	-- 	config = function()
-	-- 		require("rc/pluginconfig/lasterisk")
-	-- 	end,
-	-- },
+  -- {
+  --   "rapan931/lasterisk.nvim",
+  --   event = "VimEnter",
+  --   config = function()
+  --     require("rc/pluginconfig/lasterisk")
+  --   end,
+  -- },
 
   --------------------------------
   -- Filer
   {
     "nvim-neo-tree/neo-tree.nvim",
-		event = "VimEnter",
+    event = "VimEnter",
     branch = "main",
     config = function()
       vim.api.nvim_set_keymap("n", "<leader>f<Space>", "<Cmd>Neotree %:p:h:h %p<CR>",
@@ -634,32 +635,32 @@ local plugins = {
     end,
   },
 
-	--------------------------------
-	-- Command
-	{
-		"jghauser/mkdir.nvim",
-		event = "VimEnter",
-		config = function()
-			require("mkdir")
-		end,
-	},
+  --------------------------------
+  -- Command
+  {
+    "jghauser/mkdir.nvim",
+    event = "VimEnter",
+    config = function()
+      require("mkdir")
+    end,
+  },
 
-	--------------------------------
+  --------------------------------
   -- Terminal
   {
     'akinsho/toggleterm.nvim',
-		event = "VimEnter",
+    event = "VimEnter",
     config = function()
       require('plugin_config/toggleterm')
     end
   },
-	{
-		"yutkat/term-gf.nvim",
-		event = "VimEnter",
-		config = function()
-			require("term-gf").setup()
-		end,
-	},
+  {
+    "yutkat/term-gf.nvim",
+    event = "VimEnter",
+    config = function()
+      require("term-gf").setup()
+    end,
+  },
 
   -- register一覧
   { 'tversteeg/registers.nvim' },
@@ -684,7 +685,7 @@ local plugins = {
   -- Vue.js
   {
     'leafOfTree/vim-vue-plugin',
-		event = "VimEnter",
+    event = "VimEnter",
     config = function()
       require('plugin_config/vim-vue-plugin')
     end,
@@ -693,7 +694,7 @@ local plugins = {
   {
     'kkoomen/vim-doge',
     build = ':call doge#install()',
-		event = "VimEnter",
+    event = "VimEnter",
     config = function()
       require('plugin_config/vim-doge')
     end
@@ -701,14 +702,14 @@ local plugins = {
 
   {
     'noprompt/vim-yardoc',
-		event = "VimEnter",
+    event = "VimEnter",
   },
 
   --------------------------------
   -- New Features
   {
     'kana/vim-submode',
-		event = "VimEnter",
+    event = "VimEnter",
     config = function()
       require('plugin_config/submode')
     end
@@ -718,7 +719,7 @@ local plugins = {
   -- Debugger
   {
     'mfussenegger/nvim-dap',
-		event = "VimEnter",
+    event = "VimEnter",
     config = function()
     end
   },
@@ -726,23 +727,23 @@ local plugins = {
 }
 
 local function merge_lists(t1, t2)
-	local result = {}
-	for _, v in pairs(t1) do
-		table.insert(result, v)
-	end
-	for _, v in pairs(t2) do
-		table.insert(result, v)
-	end
-	return result
+  local result = {}
+  for _, v in pairs(t1) do
+    table.insert(result, v)
+  end
+  for _, v in pairs(t2) do
+    table.insert(result, v)
+  end
+  return result
 end
 
 require("lazy").setup(merge_lists(plugins, local_plugins), {
-	defaults = {
-		lazy = true, -- should plugins be lazy-loaded?
-	},
-	dev = {
-		path = vim.fn.stdpath("data") .. "/dev",
-	},
+  defaults = {
+    lazy = true, -- should plugins be lazy-loaded?
+  },
+  dev = {
+    path = vim.fn.stdpath("data") .. "/dev",
+  },
 })
 
 -- return require('packer').startup(function(use)

@@ -5,8 +5,9 @@ local cmp = require 'cmp'
 local types = require("cmp.types")
 local luasnip = require("luasnip")
 local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+	local unpack = unpack or table.unpack ---@diagnostic disable-line: deprecated
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -64,8 +65,8 @@ cmp.setup({
     -- documentation = cmp.config.window.bordered(),
   },
   mapping = {
-    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+    -- ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+    -- ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
     ["<Up>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
@@ -81,16 +82,21 @@ cmp.setup({
       end
     end, { "i" }),
     ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() and has_words_before() then
-        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
+      if cmp.visible() then
+        cmp.select_next_item()
       elseif has_words_before() then
         cmp.complete()
       else
         fallback()
       end
     end, { "i", "s" }),
+    -- ["<Tab>"] = vim.schedule_wrap(function(fallback)
+    --   if cmp.visible() and has_words_before() then
+    --     cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+    --   else
+    --     fallback()
+    --   end
+    -- end),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
@@ -123,25 +129,27 @@ cmp.setup({
       select = false,
     }),
   },
+  -- sources[]はindexが低いほど優先度が高い
+  -- 優先される結果が見えている間、group_indexが大きいsourceは見えない
   sources = cmp.config.sources(
     {
-      { name = "copilot",                 priority = 100 },
-      { name = "nvim_lsp",                priority = 100 },
-      { name = 'vsnip' },   -- For vsnip users.
+      { name = "copilot" },
+      { name = "nvim_lsp" },
+      -- { name = 'vsnip' },   -- For vsnip users.
       { name = 'luasnip' }, -- For LuaSnip users.
-      { name = "path",                    priority = 100, option = cmppath_option },
-      { name = "emoji",                   insert = true,  priority = 60 },
-      { name = "nvim_lua",                priority = 50 },
-      { name = "nvim_lsp_signature_help", priority = 80 },
+      { name = "path", option = cmppath_option },
+      { name = "emoji", insert = true },
+      { name = "nvim_lua" },
+      -- { name = "nvim_lsp_signature_help" },
     },
     {
-      { name = "buffer",     priority = 50 },
-      -- { name = "omni", priority = 40 },
-      { name = "spell",      priority = 40 },
-      { name = "calc",       priority = 50 },
-      { name = "treesitter", priority = 30 },
-      { name = "mocword",    priority = 10 },
-      { name = "dictionary", keyword_length = 2, priority = 10 },
+      { name = "buffer" },
+      -- { name = "omni" },
+      { name = "spell" },
+      { name = "calc" },
+      { name = "treesitter" },
+      { name = "mocword" },
+      { name = "dictionary", keyword_length = 2 },
     }
   ),
   sorting = {
@@ -195,3 +203,21 @@ cmp.setup.cmdline(':!', {
     { name = 'cmdline', keyword_length = 3 }
   })
 })
+
+-- appearance
+-- " gray
+vim.api.nvim_exec("highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080", false)
+-- " blue
+vim.api.nvim_exec("highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6", false)
+vim.api.nvim_exec("highlight! link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch", false)
+-- " light blue
+vim.api.nvim_exec("highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE", false)
+vim.api.nvim_exec("highlight! link CmpItemKindInterface CmpItemKindVariable", false)
+vim.api.nvim_exec("highlight! link CmpItemKindText CmpItemKindVariable", false)
+-- " pink
+vim.api.nvim_exec("highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0", false)
+vim.api.nvim_exec("highlight! link CmpItemKindMethod CmpItemKindFunction", false)
+-- " front
+vim.api.nvim_exec("highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4", false)
+vim.api.nvim_exec("highlight! link CmpItemKindProperty CmpItemKindKeyword", false)
+vim.api.nvim_exec("highlight! link CmpItemKindUnit CmpItemKindKeyword", false)
