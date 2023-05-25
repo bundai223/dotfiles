@@ -12,6 +12,7 @@ set list
 set listchars=tab:»-,trail:･,nbsp:⍽,extends:»,precedes:«
 set showtabline=2
 
+set guifont=Fira\ Code:h12
 set termguicolors " terminalでもTrue Colorを使えるようにする
 " $TERMがxterm以外のときは以下を設定する必要がある。
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum" " 文字色

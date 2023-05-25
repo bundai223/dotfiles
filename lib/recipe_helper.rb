@@ -148,6 +148,33 @@ define :go_get do
   end
 end
 
+# githubから直接バイナリを取得してインストール
+define :get_bin_github_release, version: nil, version_cmd: nil, version_str: nil, release_artifact_url: nil do
+  target_name = params[:name]
+  version = params[:version]
+  version_cmd = params[:version_cmd]
+  version_str = params[:version_str]
+  release_url = params[:release_artifact_url]
+
+  execute "install #{target_name}" do
+    command <<-EOCMD
+      WORKDIR=work_#{version}
+
+      cur=$(pwd)
+      mkdir -p ${WORKDIR}
+      cd ${WORKDIR}
+
+      wget #{release_url} -O #{target_name}
+
+      install #{target_name} /usr/local/bin/#{target_name}
+      cd ${cur}
+      rm -rf ${WORKDIR}
+    EOCMD
+
+    not_if "test -e /usr/local/bin/#{target_name} && test \"$(#{version_cmd})\" = \"#{version_str}\""
+  end
+end
+
 define :yay do
   name = params[:name]
 

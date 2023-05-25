@@ -353,7 +353,7 @@ alias gf='git flow'; compdef gf=git-flow
 #   docker run -e AWS_PROFILE=$AWS_PROFILE -e AWS_REGION=$AWS_REGION -it --rm -v $(pwd):/aws -v ~/.aws:/root/.aws amazon/aws-cli $@
 # }
 alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
-alias hadolint="docker run -i --rm hadolint/hadolint"
+# alias hadolint="docker run -i --rm hadolint/hadolint"
 alias marp='docker run --rm --init -v $(pwd):/workdir -w /workdir -e LANG=$LANG -p 8080:8080 marpteam/marp-cli'
 alias mysql='mycli'
 alias owasp='docker run -v $(pwd):/zap/wrk/:rw -t --rm owasp/zap2docker-stable zap-baseline.py ' # -t https://coupa-staging-nowaf.ai-q.biz/XkEgFLFJHaHUZn_pxeQn/contact/top -r testreport.html

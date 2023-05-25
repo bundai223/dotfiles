@@ -71,6 +71,15 @@ local sources = {
       return vim.fn.executable("textlint") > 0
     end,
   }),
+  null_ls.builtins.diagnostics.hadolint.with({
+    filetypes = {
+      "dockerfile"
+    },
+    condition = function()
+      return vim.fn.executable("hadolint") > 0
+    end,
+  }),
+
 
 
   -- formatter
