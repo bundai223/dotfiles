@@ -44,10 +44,10 @@ local plugins = {
 
   --------------------------------
   -- Lua Library
-  { "nvim-lua/popup.nvim", lazy = false },
+  { "nvim-lua/popup.nvim",   lazy = false },
   { "nvim-lua/plenary.nvim", lazy = false },
-  { "tami5/sqlite.lua", lazy = false },
-  { "MunifTanjim/nui.nvim", lazy = false },
+  { "tami5/sqlite.lua",      lazy = false },
+  { "MunifTanjim/nui.nvim",  lazy = false },
 
   {
     "dshoreman/caw.vim",
@@ -78,7 +78,7 @@ local plugins = {
   },
 
   -- {
- --    -- ambiguous chara
+  --    -- ambiguous chara
   --   "delphinus/cellwidths.nvim",
   --   event = "BufEnter",
   --   config = function()
@@ -374,10 +374,10 @@ local plugins = {
     end,
     dependencies = {
       { "JoosepAlviste/nvim-ts-context-commentstring" }, -- TODO: cawとかぶってるやつ
-      { "nvim-treesitter/nvim-treesitter-refactor" }, -- TODO:
-      { "nvim-treesitter/nvim-tree-docs" }, -- TODO:
-      { "vigoux/architext.nvim" }, -- TODO: 現時点ではむずすぎる印象。substituteを独自クエリでやるやつ
-      { "yioneko/nvim-yati" }, -- treesitterのindent plugin
+      { "nvim-treesitter/nvim-treesitter-refactor" },    -- TODO:
+      { "nvim-treesitter/nvim-tree-docs" },              -- TODO:
+      { "vigoux/architext.nvim" },                       -- TODO: 現時点ではむずすぎる印象。substituteを独自クエリでやるやつ
+      { "yioneko/nvim-yati" },                           -- treesitterのindent plugin
     }
   },
 
@@ -472,7 +472,7 @@ local plugins = {
   {
     "xiyaowong/transparent.nvim",
     event = "VimEnter",
-    config = function ()
+    config = function()
       require("plugin_config/transparent")
     end
   },
@@ -630,6 +630,7 @@ local plugins = {
   -- Lint
   {
     "jose-elias-alvarez/null-ls.nvim",
+    event = "VimEnter",
     config = function()
       require("plugin_config/null-ls")
     end,
@@ -663,7 +664,10 @@ local plugins = {
   },
 
   -- register一覧
-  { 'tversteeg/registers.nvim' },
+  {
+    'tversteeg/registers.nvim',
+    event = "VimEnter",
+  },
 
   -- snippet
   {
@@ -680,7 +684,10 @@ local plugins = {
     "bfredl/nvim-luadev",
     event = "VimEnter"
   },
-  { "wadackel/nvim-syntax-info" },
+  {
+    "wadackel/nvim-syntax-info",
+    event = "VimEnter"
+  },
 
   -- Vue.js
   {
@@ -723,7 +730,6 @@ local plugins = {
     config = function()
     end
   },
-
 }
 
 local function merge_lists(t1, t2)
@@ -765,7 +771,7 @@ require("lazy").setup(merge_lists(plugins, local_plugins), {
 --     end,
 --     after = { "nvim-treesitter" },
 --   })
--- 
+--
 --   --------------------------------
 --   -- Manual
 --   use({
@@ -775,9 +781,9 @@ require("lazy").setup(merge_lists(plugins, local_plugins), {
 --       -- vim.cmd("source ~/.config/nvim/rc/pluginconfig/vim-ref.vim")
 --     end,
 --   })
--- 
--- 
--- 
+--
+--
+--
 --   --------------------------------
 --   -- Runner
 --   -- use ({
@@ -786,7 +792,7 @@ require("lazy").setup(merge_lists(plugins, local_plugins), {
 --   --     require('nvim-test').setup()
 --   --   end
 --   -- })
--- 
+--
 --   --------------------------------
 --   -- Code jump
 --   use({
@@ -814,12 +820,12 @@ require("lazy").setup(merge_lists(plugins, local_plugins), {
 --           end,
 --           camelToSneak = function(inputString)
 --             local pathParts = {}
--- 
+--
 --             -- cut along the path separators
 --             inputString:gsub("%w+[^/]", function(str)
 --               table.insert(pathParts, str)
 --             end)
--- 
+--
 --             -- transform to kebap inside of the path fragments
 --             for i, part in pairs(pathParts) do
 --               local camelParts = {}
@@ -828,18 +834,18 @@ require("lazy").setup(merge_lists(plugins, local_plugins), {
 --               end)
 --               pathParts[i] = table.concat(camelParts, "_")
 --             end
--- 
+--
 --             -- rejoin the whole thing
 --             return table.concat(pathParts, "/")
 --           end,
 --           sneakToSneak = function(inputString)
 --             local pathParts = {}
--- 
+--
 --             -- cut along the path separators
 --             inputString:gsub("[%w-_]+[^/]", function(str)
 --               table.insert(pathParts, str)
 --             end)
--- 
+--
 --             -- transform to kebap inside of the path fragments
 --             for i, part in pairs(pathParts) do
 --               local tmp = ""
@@ -848,7 +854,7 @@ require("lazy").setup(merge_lists(plugins, local_plugins), {
 --               end
 --               pathParts[i] = tmp
 --             end
--- 
+--
 --             -- rejoin the whole thing
 --             return table.concat(pathParts, "/")
 --           end,
@@ -856,7 +862,7 @@ require("lazy").setup(merge_lists(plugins, local_plugins), {
 --       })
 --     end,
 --   })
--- 
+--
 --   --------------------------------
 --   -- Project
 --   -- use {'ygm2/rooter.nvim', event = "VimEnter"}
@@ -879,7 +885,7 @@ require("lazy").setup(merge_lists(plugins, local_plugins), {
 --       })
 --     end,
 --   })
--- 
+--
 --   use({
 --     'kristijanhusak/line-notes.nvim',
 --     config = function()
@@ -888,7 +894,7 @@ require("lazy").setup(merge_lists(plugins, local_plugins), {
 --       })
 --     end
 --   })
--- 
+--
 --   -- session保存
 --   use {
 --     'rmagatti/auto-session',
