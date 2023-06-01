@@ -103,8 +103,11 @@ wk.register(
       m = { ':Telescope oldfiles<cr>', 'list mru' },
     },
     g = { ':lua _lazygit_toggle()<CR>', 'lazygit' },
-    h = { 'help on vertical splitting.' },
-    H = { 'help by cursor word on vertical splitting.' },
+    h = {
+      h = { ':Telescope help_tags<cr>', 'help tags' },
+      v = { ':vert bel help ', 'help on vertical splitting.' },
+    },
+    H = { ':vert bel help <C-r><C-w><cr>', 'help by cursor word on vertical splitting.' },
     l = {
       name = 'Language Server Protocol',
       o = { ':SymbolsOutline<cr>', 'toggle outline' },

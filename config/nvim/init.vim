@@ -299,8 +299,9 @@ cnoremap <C-g> <Esc>
 tnoremap <silent> <Esc> <C-\><C-n>
 
 " Easy to help
-nnoremap <leader>h :<C-u>vert bel help<Space>
-nnoremap <leader>H :<C-u>vert bel help<Space><C-r><C-w><CR>
+" moved to which key
+" nnoremap <leader>h :<C-u>vert bel help<Space>
+" nnoremap <leader>H :<C-u>vert bel help<Space><C-r><C-w><CR>
 
 " カレントパスをバッファに合わせる
 nnoremap <silent><leader>cd :<C-u>lcd %:h<CR>:pwd<CR>

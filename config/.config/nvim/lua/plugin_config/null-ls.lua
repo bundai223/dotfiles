@@ -170,4 +170,5 @@ null_ls.setup({
   -- debug = true,
   on_attach = on_attach,
   sources = sources,
+  diagnostics_format = "#{m} #{s}: (#{c})",
 })
