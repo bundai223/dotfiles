@@ -646,6 +646,13 @@ local plugins = {
     end,
   },
 
+  {
+    'mattn/vim-findroot',
+    event = "VimEnter",
+    config = function()
+    end
+  },
+
   --------------------------------
   -- Terminal
   {
@@ -863,8 +870,8 @@ require("lazy").setup(merge_lists(plugins, local_plugins), {
 --     end,
 --   })
 --
---   --------------------------------
---   -- Project
+--------------------------------
+-- Project
 --   -- use {'ygm2/rooter.nvim', event = "VimEnter"}
 --   use({
 --     "ahmedkhalf/project.nvim",
