@@ -58,6 +58,14 @@ mason_lspconfig.setup_handlers({
         },
         url = "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
       },
+      {
+        -- https://github.com/LuaLS/lua-language-server/wiki/Configuration-File#json-schema
+        description = "luals",
+        fileMatch = {
+          ".luarc.json"
+        },
+        url = "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+      },
     }
 
     local extended_schemas = extend(schemas, default_schemas)
@@ -81,7 +89,6 @@ mason_lspconfig.setup_handlers({
       -- },
     })
     -- lspconfig[server_name].setup(opts)
-
 
     -- local schemas = {
     --   {
@@ -302,7 +309,7 @@ mason_lspconfig.setup_handlers({
             ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = {
               "docker-compose.yml",
               "docker-compose*.yml" },
-            ["gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
+            ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = ".gitlab-ci.{yml,yaml}",
             ["openapi.json"] = "*api*.{yml,yaml}",
           },
         }
@@ -324,6 +331,22 @@ mason_lspconfig.setup_handlers({
       -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
       neodev.setup({})
     end
+    local opts = {
+      capabilities = default_capabilities,
+      on_attach = on_attach,
+      log_level = 1,
+      settings = {
+        Lua = {
+          workspace = {
+            library = {
+              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+              "${3rd}/luv/library",
+            },
+          },
+        }
+      }
+    }
     lspconfig[server_name].setup(opts)
   end
 })
