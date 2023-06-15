@@ -729,13 +729,13 @@ local plugins = {
     end
   },
 
-  {
-    'mvllow/modes.nvim',
-    event = "VimEnter",
-    config = function()
-      require('plugin_config/modes')
-    end
-  },
+  -- {
+  --   'mvllow/modes.nvim',
+  --   event = "VimEnter",
+  --   config = function()
+  --     require('plugin_config/modes')
+  --   end
+  -- },
 
   --------------------------------
   -- Debugger
