@@ -1,6 +1,20 @@
 -- 参考: https://zenn.dev/yutakatay/articles/neovim-plugins-2022
 --       https://github.com/yutkat/dotfiles/blob/main/.config/nvim/lua/rc/pluginlist.lua
 
+------------------------------------------
+-- statuslineをsplitしても1つにする設定
+vim.opt.fillchars = {
+  horiz     = '━',
+  horizup   = '┻',
+  horizdown = '┳',
+  vert      = '┃',
+  vertleft  = '┫',
+  vertright = '┣',
+  verthoriz = '╋',
+}
+vim.opt.laststatus = 3
+------------------------------------------
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
