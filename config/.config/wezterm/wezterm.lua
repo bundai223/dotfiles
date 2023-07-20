@@ -88,8 +88,22 @@ local config = {
     "HackGenNerd Console",
   },
   font_size = 12.0,
-  color_scheme = "iceberg-dark", -- 自分の好きなテーマ探す https://wezfurlong.org/wezterm/colorschemes/index.html
-  window_background_opacity = 0.8,
+  -- color_scheme = "iceberg-dark", -- 自分の好きなテーマ探す https://wezfurlong.org/wezterm/colorschemes/index.html
+  color_scheme = "nord", -- 自分の好きなテーマ探す https://wezfurlong.org/wezterm/colorschemes/index.html
+  -- window_background_opacity = 0.8,
+  -- window_frame = {
+  --   inactive_titlebar_bg = '#353535',
+  --   active_titlebar_bg = '#2b2042',
+  --   inactive_titlebar_fg = '#cccccc',
+  --   active_titlebar_fg = '#ffffff',
+  --   inactive_titlebar_border_bottom = '#2b2042',
+  --   active_titlebar_border_bottom = '#2b2042',
+  --   button_fg = '#cccccc',
+  --   button_bg = '#2b2042',
+  --   button_hover_fg = '#ffffff',
+  --   button_hover_bg = '#3b3052',
+  -- },
+
   text_background_opacity = 1.0,
   hide_tab_bar_if_only_one_tab = false,
   adjust_window_size_when_changing_font_size = false,
