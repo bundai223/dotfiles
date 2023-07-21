@@ -91,6 +91,13 @@ wk.register(
           t = { ':e ~/.config/powerline/themes<cr>', 'themes' },
         },
         t = { ':e ~/.tmux.conf<cr>', 'tmux conf' },
+        w = {
+          name = 'wezterm',
+          c = { ':e ~/repos/github.com/bundai223/dotfiles/config/.config/wezterm/wezterm.lua<cr>', 'wezterm.lua' },
+          o = { ':e ~/repos/github.com/bundai223/dotfiles/config/.config/wezterm/on.lua<cr>', 'on.lua' },
+          k = { ':e ~/repos/github.com/bundai223/dotfiles/config/.config/wezterm/keybinds.lua<cr>', 'keybinds.lua' },
+          u = { ':e ~/repos/github.com/bundai223/dotfiles/config/.config/wezterm/utils.lua<cr>', 'utils.lua' },
+        },
         z = {
           name = 'zsh',
           e = { ':e ~/.zshenv<cr>', 'zshenv' },
