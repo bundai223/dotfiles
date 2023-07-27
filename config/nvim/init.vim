@@ -1,6 +1,7 @@
 set encoding=utf-8
 scriptencoding utf-8
 set fileencoding=utf-8
+set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
 
 " 不可視文字の表示
 set list
@@ -371,6 +372,7 @@ set foldlevel=100
 augroup MyAutoCmd
   autocmd BufNewFile,BufRead *_spec.rb setl filetype=ruby.rspec
   autocmd FileType ruby setlocal iskeyword+=?
+  autocmd FileType ruby let g:auto_format=0
   autocmd FileType ruby.rspec setlocal number
 
   "autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css

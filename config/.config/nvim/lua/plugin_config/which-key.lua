@@ -74,7 +74,11 @@ wk.register(
         name = "edit conf",
         g = {
           name = 'git',
+          a = { ':e ~/repos/github.com/bundai223/dotfiles/config/git/.gitattributes_global<cr>', '~/.gitattributes' },
+          g = { ':e ~/repos/github.com/bundai223/dotfiles/config/.gitconfig<cr>', '.gitconfig base' },
           c = { ':e ~/.gitconfig<cr>', '~/.gitconfig' },
+          i = { ':e ~/repos/github.com/bundai223/dotfiles/config/git/.gitignore_global<cr>', '~/.gitconfig' },
+          t = { ':e ~/repos/github.com/bundai223/dotfiles/config/git/templates<cr>', '~/.gitconfig' },
         },
         n = {
           name = 'nvim',
