@@ -1,7 +1,7 @@
 set encoding=utf-8
 scriptencoding utf-8
 set fileencoding=utf-8
-set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 
 " 不可視文字の表示
 set list
