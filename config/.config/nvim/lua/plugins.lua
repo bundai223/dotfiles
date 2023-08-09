@@ -258,6 +258,7 @@ local plugins = {
   {
     -- いい感じにlspの起動を右下に表示するやつ
     "j-hui/fidget.nvim",
+    tag = "legacy",
     event = "VimEnter",
     config = function()
       require("plugin_config/fidget")
