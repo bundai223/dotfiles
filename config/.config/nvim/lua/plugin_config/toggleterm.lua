@@ -27,7 +27,7 @@ require("toggleterm").setup({
     border = "single",
     width = math.floor(vim.o.columns * 0.9),
     height = math.floor(vim.o.lines * 0.9),
-    winblend = 3,
+    -- winblend = 3, # blendするとコピペで裏の文字がコピーされる
     highlights = { border = "ColorColumn", background = "ColorColumn" },
   },
 })
