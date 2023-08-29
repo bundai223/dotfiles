@@ -7,7 +7,6 @@ define :neovim_make_install do
       cd $BASEPATH
 
       git clone https://github.com/neovim/neovim.git
-      git pull
       cd neovim
       git pull
       if [ -e build ]; then
