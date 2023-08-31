@@ -136,7 +136,7 @@ local plugins = {
   {
     "hrsh7th/nvim-cmp",
     -- event = "VimEnter",
-    event = "InsertEnter",
+    event = { "InsertEnter", "CmdlineEnter" },
     config = function()
       require("plugin_config/nvim-cmp")
     end,
@@ -723,7 +723,8 @@ local plugins = {
   {
     'kkoomen/vim-doge',
     build = ':call doge#install()',
-    event = "VimEnter",
+    -- event = "VimEnter",
+    lazy = false,
     config = function()
       require('plugin_config/vim-doge')
     end
