@@ -26,7 +26,3 @@ source ~/repos/github.com/bundai223/dotfiles/config/zsh/.zshenv_wsl
 # export MOCWORD_DATA=~/.local/share/mocword/mocword.sqlite
 
 export PIP_SITE_LOCATION=
-if [[ -z "${PIP_SITE_LOCATION}" ]]; then
-  export PIP_SITE_LOCATION=$(pip show -f powerline-status | grep Location | awk '{print $2}')
-  echo "Please set env: export PIP_SITE_LOCATION=$PIP_SITE_LOCATION"
-fi

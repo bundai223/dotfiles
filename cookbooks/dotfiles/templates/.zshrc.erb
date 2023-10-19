@@ -1,4 +1,10 @@
 # vim: set ft=zsh:
+
+if [[ -z "${PIP_SITE_LOCATION}" ]]; then
+  export PIP_SITE_LOCATION=$(pip show -f powerline-status | grep Location | awk '{print $2}')
+  echo "Please set env: export PIP_SITE_LOCATION=$PIP_SITE_LOCATION"
+fi
+
 source ~/repos/github.com/bundai223/dotfiles/config/.zshrc
 <% if node[:platform] == 'osx' or node[:platform] == 'darwin' -%>
 source ~/repos/github.com/bundai223/dotfiles/config/zsh/.zshrc_osx

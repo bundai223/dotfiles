@@ -45,3 +45,13 @@ file '/etc/shells' do
     content << '/usr/local/bin/zsh'
   end
 end
+
+file '/etc/zprofile' do
+  content <<EOCONTENT
+for i in /etc/profile.d/*.sh ; do
+    [ -r $i ] && source $i
+done
+EOCONTENT
+  not_if 'test -e /etc/zprofile'
+  mode '644'
+end
