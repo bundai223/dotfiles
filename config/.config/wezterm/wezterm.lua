@@ -111,6 +111,7 @@ local config = {
   -- Key Binding
   -- timeout_milliseconds defaults to 1000 and can be omitted
   leader = { key = 's', mods = 'CTRL', timeout_milliseconds = 1001 },
+  disable_default_key_bindings = true,
   keys = keybinds.create_keybinds(),
   key_tables = keybinds.key_tables,
 }
