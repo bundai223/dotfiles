@@ -3,8 +3,8 @@ $ErrorActionPreference = 'Stop'
 # windows powershellじゃないと動かなさそう
 Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe
 
-# winget install Microsoft.PowerToys wez.wezterm Microsoft.PowerShell Microsoft.WindowsTerminal Obsidian.Obsidian
 winget install --silent Microsoft.PowerToys Microsoft.WindowsTerminal Microsoft.VisualStudioCode Amazon.NoSQLWorkbench
+winget install --silent Buttercup.Buttercup KeeWeb.KeeWeb win32yank
 winget install JanDeDobbeleer.OhMyPosh -s winget
 
 wsl --install 
