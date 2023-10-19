@@ -62,6 +62,7 @@ wk.register(
   {
     b = {
       name = 'buffers',
+      d = { ':bdelete<cr>', 'delete current buffer' },
       l = { ':Telescope buffers<cr>', 'listup buffers' },
     },
     d = {
