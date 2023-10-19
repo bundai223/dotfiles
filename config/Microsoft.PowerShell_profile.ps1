@@ -138,9 +138,7 @@ Import-Module ZLocation
 
 # powerline for powershell
 Import-Module posh-git
-Import-Module oh-my-posh
-# Set-Theme Paradox # oh my posh v2
-Set-PoshPrompt -Theme paradox # oh my posh v3
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\paradox.omp.json" | Invoke-Expression
 
 # WSLのユーザ変更メソッド
 Function WSL-SetDefaultUser ($distro, $user) { Get-ItemProperty Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss\*\ DistributionName | Where-Object -Property DistributionName -eq $distro | Set-ItemProperty -Name DefaultUid -Value ((wsl -d $distro -u $user -e id -u) | Out-String); };
