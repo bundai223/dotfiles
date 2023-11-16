@@ -269,7 +269,8 @@ M.tmux_keybinds = {
   { key = "p", mods = "LEADER",      action = act({ ActivateTabRelative = -1 }) },
   { key = "n", mods = "LEADER",      action = act({ ActivateTabRelative = 1 }) },
   -- tab management
-  { key = "c", mods = "LEADER",      action = act({ SpawnTab = "CurrentPaneDomain" }) }, -- create tab
+  -- { key = "c", mods = "LEADER",      action = act({ SpawnTab = "CurrentPaneDomain" }) }, -- create tab
+  { key = "c", mods = "LEADER",      action = act.ShowLauncher }, -- create tab
   { key = "k", mods = "LEADER|CTRL", action = act({ CloseCurrentTab = { confirm = true } }) },
   -- copy mode
   {

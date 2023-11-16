@@ -12,6 +12,7 @@ New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\WindowsTermina
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\Microsoft.PowerShell_profile.ps1" -Path "$HOME\Documents\PowerShell" -Name Microsoft.PowerShell_profile.ps1 -ItemType SymbolicLink
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\.gitconfig" -Path "$HOME\" -Name .gitconfig -ItemType SymbolicLink
 New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\.config\wezterm" -Path "$HOME\.config\" -Name wezterm -ItemType SymbolicLink
+New-Item -Value "$HOME\repos\github.com\bundai223\dotfiles\config\CorvusSKK" -Path "$HOME\AppData\Roaming\" -Name CorvusSKK -ItemType SymbolicLink
 
 # wingetデデキルヨ
 # Storeアプリインストールしてちょ
