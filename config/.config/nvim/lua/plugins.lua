@@ -393,6 +393,7 @@ local plugins = {
       { "nvim-treesitter/nvim-tree-docs" },              -- TODO:
       { "vigoux/architext.nvim" },                       -- TODO: 現時点ではむずすぎる印象。substituteを独自クエリでやるやつ
       { "yioneko/nvim-yati" },                           -- treesitterのindent plugin
+      { "theHamsta/nvim-treesitter-pairs" }              -- %で移動するpairsの定義
     }
   },
 
