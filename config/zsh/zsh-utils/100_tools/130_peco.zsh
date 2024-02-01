@@ -15,22 +15,3 @@ peco_history() {
 peco_gitmodified() {
   git status --short | $FILTER_CMD | sed s/"^..."//
 }
-
-# http://k0kubun.hatenablog.com/entry/2014/07/06/033336
-# git branchはsortしたら*でちょうどいいところに来た
-# 次点は git branch | sed -n '/\*/=' とか
-alias -g B='`git branch | sort -r | $FILTER_CMD | sed -e "s/^\*[ ]*//g"`'
-alias -g BR='`git branch -r | sort -r | $FILTER_CMD| sed -e "s/^\*[ ]*//g"`'
-alias -g BALL='`git branch -a | sort -r | $FILTER_CMD| sed -e "s/^\*[ ]*//g"`'
-alias -g T='`git tag | $FILTER_CMD`'
-alias -g C='`git log --oneline | $FILTER_CMD| sed -e "s/^.*\* *\([a-f0-9]*\) .*/\1/g" -e "s/^[\|/ ]*$//g"`'
-# alias -g C='`git log --oneline | $FILTER_CMD| cut -d" " -f1`'
-alias -g CALL='`git log --decorate --branches --all --graph --oneline --all | $FILTER_CMD| sed -e "s/^.*\* *\([a-f0-9]*\) .*/\1/g" -e "s/^[\|/ ]*$//g"`'
-alias -g F='`git ls-files | $FILTER_CMD`'
-# alias -g K='`bundle exec kitchen list | tail -n +2 | $FILTER_CMD| cut -d" " -f1`'
-# alias -g P='`docker ps | tail -n +2 | $FILTER_CMD| cut -d" " -f1`'
-alias -g R='`git reflog | $FILTER_CMD| cut -d" " -f1`'
-# alias -g V='`vagrant box list | $FILTER_CMD| cut -d" " -f1`'
-#
-alias -g TM='`tmux list-sessions`'
-alias -g HIST='`peco_history`'

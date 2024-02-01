@@ -378,6 +378,25 @@ alias -g WW='| wc'
 alias -g XX='| xargs'
 alias -g PP='| peco'
 
+# http://k0kubun.hatenablog.com/entry/2014/07/06/033336
+# git branchはsortしたら*でちょうどいいところに来た
+# 次点は git branch | sed -n '/\*/=' とか
+alias -g B='`git branch | sort -r | $FILTER_CMD | sed -e "s/^\*[ ]*//g"`'
+alias -g BR='`git branch -r | sort -r | $FILTER_CMD| sed -e "s/^\*[ ]*//g"`'
+alias -g BALL='`git branch -a | sort -r | $FILTER_CMD| sed -e "s/^\*[ ]*//g"`'
+alias -g T='`git tag | $FILTER_CMD`'
+alias -g C='`git log --oneline | $FILTER_CMD| sed -e "s/^.*\* *\([a-f0-9]*\) .*/\1/g" -e "s/^[\|/ ]*$//g"`'
+# alias -g C='`git log --oneline | $FILTER_CMD| cut -d" " -f1`'
+alias -g CALL='`git log --decorate --branches --all --graph --oneline --all | $FILTER_CMD| sed -e "s/^.*\* *\([a-f0-9]*\) .*/\1/g" -e "s/^[\|/ ]*$//g"`'
+alias -g F='`git ls-files | $FILTER_CMD`'
+# alias -g K='`bundle exec kitchen list | tail -n +2 | $FILTER_CMD| cut -d" " -f1`'
+# alias -g P='`docker ps | tail -n +2 | $FILTER_CMD| cut -d" " -f1`'
+alias -g R='`git reflog | $FILTER_CMD| cut -d" " -f1`'
+# alias -g V='`vagrant box list | $FILTER_CMD| cut -d" " -f1`'
+#
+alias -g TM='`tmux list-sessions`'
+alias -g HIST='`peco_history`'
+
 # alias v="vagrant"
 function va() {
   if [[ $# -gt 0 ]]; then
@@ -465,9 +484,9 @@ if [ -f ${PERSONAL_ZSH_DIR}/.zshrc.plugin ]; then
 fi
 
 # Load utility scripts. {{{
-utils_dir=~/repos/github.com/bundai223/dotfiles/config/zsh/zsh-utils
-source $utils_dir/scripts/functions.zsh
-source_scripts_in_tree $utils_dir
+# utils_dir=~/repos/github.com/bundai223/dotfiles/config/zsh/zsh-utils
+# source ~/repos/github.com/bundai223/dotfiles/config/zsh/zsh-utils/scripts/functions.zsh
+# source_scripts_in_tree $utils_dir
 # }}}
 
 # Prompt setting {{{
@@ -528,6 +547,18 @@ function zsh-profiler() {
 
 # 配下のdirectoryに移動するcd
 alias cdd='source $(which cdd_cmd)'
+
+cd_repos() {
+  if [ -n "$1" ]; then
+    pth=$(ghq list --full-path | sed "s#${HOME}#~#"| fzf -q $1 | sed "s#~#${HOME}#") # fzf -q querystring
+    # pth=$(ghq list --full-path | sed "s#${HOME}#~#"| peco --query $1 | sed "s#~#${HOME}#") # fzf -q querystring
+  else
+    pth=$(ghq list --full-path | sed "s#${HOME}#~#"| $FILTER_CMD | sed "s#~#${HOME}#")
+  fi
+  if [ -n "$pth" ]; then
+    eval "cd $pth"
+  fi
+}
 
 # https://qiita.com/Rasukarusan/items/61f435bf899dc99d7e79#%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%88%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92finder%E3%81%A7%E9%96%8B%E3%81%8Foo%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89
 alias myip='curl ifconfig.io -4'

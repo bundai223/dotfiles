@@ -1,0 +1,21 @@
+#!/bin/bin/env zsh
+
+if [ $# -eq 0 ]; then
+  echo "usage"
+  echo " git_status_all [search word]"
+  return 1
+fi
+
+CURDIR=$(pwd)
+search_word=$1
+
+for repo in $(ghq list -p | grep $search_word); do
+  cd $repo
+  hostname=$(basename $(cd ../..;pwd))
+  reposname=$(basename $(pwd))
+
+  git fetch 1>/dev/null 2>&1
+  linenum=$(git status --short | wc -l)
+  echo "$linenum $hostname:$username/$reposname"
+  cd $CURDIR
+done
