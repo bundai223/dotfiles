@@ -1,3 +1,5 @@
+# https://github.com/apple/pkl.git
+
 include_recipe 'dependency.rb'
 
 case node["kernel"]["machine"]
