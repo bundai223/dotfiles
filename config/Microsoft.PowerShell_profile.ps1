@@ -137,6 +137,7 @@ function gsw {
 Import-Module ZLocation
 
 # powerline for powershell
+$env:POSH_THEMES_PATH="~/AppData/Local/Programs/oh-my-posh/themes"
 Import-Module posh-git
 oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\paradox.omp.json" | Invoke-Expression
 

@@ -104,6 +104,7 @@ local config = {
   --   button_hover_fg = '#ffffff',
   --   button_hover_bg = '#3b3052',
   -- },
+  front_end = "OpenGL",
 
   text_background_opacity = 1.0,
   hide_tab_bar_if_only_one_tab = false,
