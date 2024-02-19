@@ -86,6 +86,7 @@ wk.register(
           c = { ':e ~/.local/share/nvim/site/pack/packer<cr>', 'packer plugins cache' },
           i = { ':e ~/repos/github.com/bundai223/dotfiles/config/nvim/init.vim<cr>', 'init.vim' },
           l = { ':e ~/.config/nvim/init.vim<cr>', 'local init.vim' },
+          g = { ':e ~/.config/nvim/ginit.vim<cr>', 'local ginit.vim' },
           p = { ':e ~/.config/nvim/lua/plugins.lua<cr>', 'packer conf' },
           P = { ':e ~/.config/nvim/lua/plugin_config<cr>', 'packer plugins' },
         },
