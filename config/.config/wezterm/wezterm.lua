@@ -86,6 +86,7 @@ local config = {
   font = wezterm.font_with_fallback {
     'Fira Code',
     "HackGenNerd Console",
+    "Symbols Nerd Font Mono"
   },
   font_size = 12.0,
   -- color_scheme = "iceberg-dark", -- 自分の好きなテーマ探す https://wezfurlong.org/wezterm/colorschemes/index.html

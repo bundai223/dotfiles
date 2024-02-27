@@ -278,6 +278,7 @@ p() {
 }
 
 alias ls='colorls'
+alias ls_font='fc-list'
 alias o='git ls-files | p open'
 alias c='ghq list -p | p cd'
 alias h='history -i'; compdef h=history
