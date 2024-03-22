@@ -38,19 +38,18 @@
 
 [alias]
   # ショートカット系
-	ps = push					# ステータスを短く。ブランチ名付き
-	pl = pull					# ステータスを短く。ブランチ名付き
-	st = status --short --branch					# ステータスを短く。ブランチ名付き
-	sh = show
+	ps = push
+	pl = pull
 	ft = fetch
 	ad = add
 	chk = checkout
+	st = status --short --branch					# ステータスを短く。ブランチ名付き
+	sh = show
 	sw = switch
 	cm = commit
 	df = diff
 	lg = log
 	gr = grep
-
 	tg = tag
 	br = branch
 

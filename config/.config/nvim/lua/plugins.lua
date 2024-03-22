@@ -403,8 +403,8 @@ local plugins = {
     "mrjones2014/nvim-ts-rainbow",
     event = "BufReadPost",
     config = function()
-      -- patch https://github.com/nvim-treesitter/nvim-treesitter/issues/1124
-      vim.cmd("e!")
+      -- -- patch https://github.com/nvim-treesitter/nvim-treesitter/issues/1124
+      -- vim.cmd("e!")
     end,
   },
   -- { "haringsrob/nvim_context_vt", event = "BufReadPost" },
