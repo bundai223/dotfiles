@@ -403,14 +403,6 @@ local plugins = {
 
   --------------------------------
   -- Treesitter UI customize
-  {
-    "mrjones2014/nvim-ts-rainbow",
-    event = "BufReadPost",
-    config = function()
-      -- -- patch https://github.com/nvim-treesitter/nvim-treesitter/issues/1124
-      -- vim.cmd("e!")
-    end,
-  },
   -- { "haringsrob/nvim_context_vt", event = "BufReadPost" },
   {
     "m-demare/hlargs.nvim",
@@ -495,6 +487,26 @@ local plugins = {
     config = function()
       require("plugin_config/transparent")
     end
+  },
+
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "VimEnter",
+    main = "ibl",
+    opts = {},
+    config = function()
+      require('plugin_config/indent-blankline')
+    end,
+    dependencies = {
+      'hiphish/rainbow-delimiters.nvim',
+    }
+  },
+
+  {
+    "hiphish/rainbow-delimiters.nvim",
+    config = function()
+      require('plugin_config/rainbow-delimiters')
+    end,
   },
 
   --------------------------------
@@ -751,6 +763,12 @@ local plugins = {
   {
     'noprompt/vim-yardoc',
     event = "VimEnter",
+  },
+
+  {
+    -- 動かない
+    'hashivim/vim-terraform',
+    -- ft = "terraform"
   },
 
   --------------------------------
