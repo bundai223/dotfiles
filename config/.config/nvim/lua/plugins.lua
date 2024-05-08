@@ -84,12 +84,12 @@ local plugins = {
 
   --------------------------------
   -- Font
-  {
-    "kyazdani42/nvim-web-devicons",
-    enabled = function()
-      return not os.getenv("DISABLE_DEVICONS") or os.getenv("DISABLE_DEVICONS") == "false"
-    end,
-  },
+  -- {
+  --   "kyazdani42/nvim-web-devicons",
+  --   enabled = function()
+  --     return not os.getenv("DISABLE_DEVICONS") or os.getenv("DISABLE_DEVICONS") == "false"
+  --   end,
+  -- },
 
   -- {
   --    -- ambiguous chara
@@ -218,6 +218,10 @@ local plugins = {
       },
       {
         "SmiteshP/nvim-navic",
+        config = function()
+          require('plugin_config/nvim-navic')
+        end
+
       },
       { "folke/neodev.nvim" },
       {
@@ -501,6 +505,15 @@ local plugins = {
     config = function()
       require("plugin_config/lualine")
     end,
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+      {
+        "SmiteshP/nvim-navic",
+        config = function()
+          require('plugin_config/nvim-navic')
+        end
+      },
+    },
   },
 
   --------------------------------
@@ -514,6 +527,10 @@ local plugins = {
     config = function()
       require("plugin_config/bufferline")
     end,
+    dependencies = {
+      'nvim-tree/nvim-web-devicons'
+    },
+    version = "*"
   },
 
   --------------------------------

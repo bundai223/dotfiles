@@ -4,7 +4,6 @@
 
 local lspconfig = require("lspconfig")
 local mason_lspconfig = require("mason-lspconfig")
-local navic = require('nvim-navic')
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -17,7 +16,9 @@ local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
+  local navic = require('nvim-navic')
   navic.attach(client, bufnr)
+  print(navic.is_available())
 end
 
 local default_capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -308,7 +309,6 @@ mason_lspconfig.setup_handlers({
           },
           -- https://www.schemastore.org/json/
           schemas = {
-            -- ["AWS CloudFormation"] = { "*.cf.{yml,yaml}", "*.{yml,yaml}", "cloud*formation/*.{yml,yaml}" },
             ["/home/nishimura/repos/github.com/bundai223/goformation/schema/cloudformation.schema.json"] = {
               "*.cf.{yml,yaml}",
               "cloud*formation/*.{yml,yaml}" },
