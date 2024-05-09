@@ -143,8 +143,8 @@ local plugins = {
     dependencies = {
       { "hrsh7th/cmp-nvim-lsp" },
       -- Duplicate popups.
-      -- { "hrsh7th/cmp-nvim-lsp-signature-help" },
-      { "hrsh7th/cmp-nvim-lsp-document-symbol" },
+      { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+      { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-cmdline" },
       { "dmitmel/cmp-cmdline-history" },
@@ -190,7 +190,6 @@ local plugins = {
           require("plugin_config/lspkind-nvim")
         end
       },
-
     }
   },
 
@@ -491,22 +490,27 @@ local plugins = {
 
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = "VimEnter",
     main = "ibl",
     opts = {},
+    event = "VimEnter",
+    -- lazy = false,
     config = function()
       require('plugin_config/indent-blankline')
     end,
     dependencies = {
-      'hiphish/rainbow-delimiters.nvim',
+      "hiphish/rainbow-delimiters.nvim",
     }
   },
 
   {
     "hiphish/rainbow-delimiters.nvim",
-    config = function()
-      require('plugin_config/rainbow-delimiters')
-    end,
+    -- event = "VimEnter",
+    -- config = function()
+    --   require('plugin_config/rainbow-delimiters')
+    -- end,
+    -- dependencies = {
+    --   "lukas-reineke/indent-blankline.nvim",
+    -- }
   },
 
   --------------------------------
@@ -768,7 +772,7 @@ local plugins = {
   {
     -- 動かない
     'hashivim/vim-terraform',
-    -- ft = "terraform"
+    ft = "terraform"
   },
 
   --------------------------------

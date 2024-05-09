@@ -369,6 +369,9 @@ set hidden
 set foldmethod=indent
 set foldlevel=100
 
+set modeline
+set modelines=2
+
 augroup MyAutoCmd
   autocmd BufNewFile,BufRead *_spec.rb setl filetype=ruby.rspec
   autocmd FileType ruby setlocal iskeyword+=?

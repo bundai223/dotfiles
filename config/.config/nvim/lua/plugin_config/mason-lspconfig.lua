@@ -18,7 +18,6 @@ local on_attach = function(client, bufnr)
 
   local navic = require('nvim-navic')
   navic.attach(client, bufnr)
-  print(navic.is_available())
 end
 
 local default_capabilities = require("cmp_nvim_lsp").default_capabilities()
