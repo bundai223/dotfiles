@@ -67,8 +67,10 @@ local plugins = {
     "dshoreman/caw.vim",
     event = "VimEnter",
     config = function()
-      vim.api.nvim_set_keymap("n", "[myleader]c", "<Plug>(caw:hatpos:toggle)", {})
       vim.api.nvim_set_keymap("v", "[myleader]c", "<Plug>(caw:hatpos:toggle)", {})
+      vim.api.nvim_set_keymap("n", "[myleader]c", "<Plug>(caw:hatpos:toggle)", {})
+      vim.api.nvim_set_keymap("v", "<C-_>", "<Plug>(caw:hatpos:toggle)", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap("n", "<C-_>", "<Plug>(caw:hatpos:toggle)", { noremap = true, silent = true })
     end
   },
 
