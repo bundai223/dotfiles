@@ -2,6 +2,8 @@
 case node[:platform]
 when 'debian', 'ubuntu', 'mint'
   package 'avahi-daemon'
+  package 'avahi-utils'
+  package 'libnss-mdns'
 
   # for wsl
   service 'dbus' do
