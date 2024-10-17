@@ -650,13 +650,13 @@ local plugins = {
 
   --------------------------------
   -- Find
-  {
-    "kevinhwang91/nvim-hlslens",
-    event = "VimEnter",
-    config = function()
-      require("plugin_config/nvim-hlslens")
-    end,
-  },
+  -- {
+  --   "kevinhwang91/nvim-hlslens",
+  --   event = "VimEnter",
+  --   config = function()
+  --     require("plugin_config/nvim-hlslens")
+  --   end,
+  -- },
   -- {
   --   "rapan931/lasterisk.nvim",
   --   event = "VimEnter",

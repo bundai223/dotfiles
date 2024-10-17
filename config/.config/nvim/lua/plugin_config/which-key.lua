@@ -24,31 +24,23 @@ wk.setup({
       suggestions = 20
     }
   },
-  -- add operators that will trigger motion and text object completion
-  -- to enable all native operators, set the preset / operators plugin above
-  operators = { gc = "Comments" },
   icons = {
     breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
     separator = "➜", -- symbol used between a key and it's label
-    group = "+",      -- symbol prepended to a group
+    group = "+", -- symbol prepended to a group
   },
-  window = {
+  win = {
     border = "none",          -- none, single, double, shadow
-    position = "bottom",      -- bottom, top
-    margin = { 1, 0, 1, 0 },  -- extra window margin [top, right, bottom, left]
     padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
   },
   layout = {
-    height = { min = 4, max = 25 },                                             -- min and max height of the columns
-    width = { min = 20, max = 50 },                                             -- min and max width of the columns
-    spacing = 3,                                                                -- spacing between columns
+    height = { min = 4, max = 25 }, -- min and max height of the columns
+    width = { min = 20, max = 50 }, -- min and max width of the columns
+    spacing = 3,                    -- spacing between columns
   },
-  ignore_missing = false,                                                       -- enable this to hide mappings for which you didn't specify a label
-  hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
-  show_help = true,                                                             -- show help message on the command line when the popup is visible
-  show_keys = true,                                                             -- show the currently pressed key and its label as a message in the command line
-  triggers = "auto",                                                            -- automatically setup triggers
-  -- triggers = { "<Leader>", "[FuzzyFinder]" }, -- or specify a list manually
+  -- hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
+  show_help = true, -- show help message on the command line when the popup is visible
+  show_keys = true, -- show the currently pressed key and its label as a message in the command line
 })
 
 vim.api.nvim_set_keymap("n", "<leader><CR>", "<Cmd>WhichKey <CR>", { noremap = true })
@@ -58,83 +50,55 @@ vim.api.nvim_set_keymap("n", "[myleader]<CR>", "<Cmd>WhichKey [myleader]<CR>", {
 -- for dir in io.popen([[git config --list | grep -i include | sed 's/^.*=//g']]):lines() do print(dir) end
 -- git config --list | grep -i 'init.templatedir\|core.attributesfile\|core.excludesfile'
 
-wk.register(
+wk.add(
   {
-    b = {
-      name = 'buffers',
-      d = { ':bdelete<cr>', 'delete current buffer' },
-      l = { ':Telescope buffers<cr>', 'listup buffers' },
-    },
-    d = {
-      name = 'doc',
-      g = { 'Generate document' }
-    },
-    f = {
-      name = 'file',
-      e = {
-        name = "edit conf",
-        g = {
-          name = 'git',
-          a = { ':e ~/repos/github.com/bundai223/dotfiles/config/git/.gitattributes_global<cr>', '~/.gitattributes' },
-          g = { ':e ~/repos/github.com/bundai223/dotfiles/config/.gitconfig<cr>', '.gitconfig base' },
-          c = { ':e ~/.gitconfig<cr>', '~/.gitconfig' },
-          i = { ':e ~/repos/github.com/bundai223/dotfiles/config/git/.gitignore_global<cr>', '~/.gitconfig' },
-          t = { ':e ~/repos/github.com/bundai223/dotfiles/config/git/templates<cr>', '~/.gitconfig' },
-        },
-        n = {
-          name = 'nvim',
-          c = { ':e ~/.local/share/nvim/site/pack/packer<cr>', 'packer plugins cache' },
-          i = { ':e ~/repos/github.com/bundai223/dotfiles/config/nvim/init.vim<cr>', 'init.vim' },
-          l = { ':e ~/.config/nvim/init.vim<cr>', 'local init.vim' },
-          g = { ':e ~/.config/nvim/ginit.vim<cr>', 'local ginit.vim' },
-          p = { ':e ~/.config/nvim/lua/plugins.lua<cr>', 'packer conf' },
-          P = { ':e ~/.config/nvim/lua/plugin_config<cr>', 'packer plugins' },
-        },
-        p = {
-          name = 'powerline',
-          c = { ':e ~/.config/powerline/config.json<cr>', 'config.json' },
-          l = { ':e ~/.config/powerline/colors.json<cr>', 'color.json' },
-          t = { ':e ~/.config/powerline/themes<cr>', 'themes' },
-        },
-        t = { ':e ~/.tmux.conf<cr>', 'tmux conf' },
-        w = {
-          name = 'wezterm',
-          c = { ':e ~/repos/github.com/bundai223/dotfiles/config/.config/wezterm/wezterm.lua<cr>', 'wezterm.lua' },
-          o = { ':e ~/repos/github.com/bundai223/dotfiles/config/.config/wezterm/on.lua<cr>', 'on.lua' },
-          k = { ':e ~/repos/github.com/bundai223/dotfiles/config/.config/wezterm/keybinds.lua<cr>', 'keybinds.lua' },
-          u = { ':e ~/repos/github.com/bundai223/dotfiles/config/.config/wezterm/utils.lua<cr>', 'utils.lua' },
-        },
-        z = {
-          name = 'zsh',
-          e = { ':e ~/.zshenv<cr>', 'zshenv' },
-          r = { ':e ~/.zshrc<cr>', 'zshrc' },
-          u = { ':e ~/repos/github.com/bundai223/dotfiles/config/zsh/zsh-utils<cr>', 'utils' },
-        }
-      },
-      f = { ':Telescope find_files<cr>', 'find files' },
-      g = { ':Telescope git_files<cr>', 'git files' },
-      m = { ':Telescope oldfiles<cr>', 'list mru' },
-    },
-    g = { ':lua _lazygit_toggle()<CR>', 'lazygit' },
-    h = {
-      h = { ':Telescope help_tags<cr>', 'help tags' },
-      v = { ':vert bel help ', 'help on vertical splitting.' },
-    },
-    H = { ':vert bel help <C-r><C-w><cr>', 'help by cursor word on vertical splitting.' },
-    l = {
-      name = 'Language Server Protocol',
-      o = { ':SymbolsOutline<cr>', 'toggle outline' },
-    },
-    t = {
-      name = 'terminal',
-      t = { ':ToggleTerm<cr>', 'ToggleTerm' }
-    },
-    ["/"] = {
-      name = 'search',
-      -- g = { ':Telescope live_grep<cr>', 'live grep' },
-      g = { '::lua require("telescope").extensions.live_grep_args.live_grep_args()<cr>', 'live grep' },
-      r = { ':noh<cr>', 'clear highlight' },
-    },
-  },
-  { prefix = "<leader>" }
+    { "<leader>/",    group = "search" },
+    { "<leader>/g",   '::lua require("telescope").extensions.live_grep_args.live_grep_args()<cr>',        desc = "live grep" },
+    { "<leader>/r",   ":noh<cr>",                                                                         desc = "clear highlight" },
+    { "<leader>H",    ":vert bel help <C-r><C-w><cr>",                                                    desc = "help by cursor word on vertical splitting." },
+    { "<leader>b",    group = "buffers" },
+    { "<leader>bd",   ":bdelete<cr>",                                                                     desc = "delete current buffer" },
+    { "<leader>bl",   ":Telescope buffers<cr>",                                                           desc = "listup buffers" },
+    { "<leader>d",    group = "doc" },
+    { "<leader>dg",   desc = "Generate document" },
+    { "<leader>f",    group = "file" },
+    { "<leader>fe",   group = "edit conf" },
+    { "<leader>feg",  group = "git" },
+    { "<leader>fega", ":e ~/repos/github.com/bundai223/dotfiles/config/git/.gitattributes_global<cr>",    desc = "~/.gitattributes" },
+    { "<leader>fegc", ":e ~/.gitconfig<cr>",                                                              desc = "~/.gitconfig" },
+    { "<leader>fegg", ":e ~/repos/github.com/bundai223/dotfiles/config/.gitconfig<cr>",                   desc = ".gitconfig base" },
+    { "<leader>fegi", ":e ~/repos/github.com/bundai223/dotfiles/config/git/.gitignore_global<cr>",        desc = "~/.gitconfig" },
+    { "<leader>fegt", ":e ~/repos/github.com/bundai223/dotfiles/config/git/templates<cr>",                desc = "~/.gitconfig" },
+    { "<leader>fen",  group = "nvim" },
+    { "<leader>fenP", ":e ~/.config/nvim/lua/plugin_config<cr>",                                          desc = "packer plugins" },
+    { "<leader>fenc", ":e ~/.local/share/nvim/site/pack/packer<cr>",                                      desc = "packer plugins cache" },
+    { "<leader>feng", ":e ~/.config/nvim/ginit.vim<cr>",                                                  desc = "local ginit.vim" },
+    { "<leader>feni", ":e ~/repos/github.com/bundai223/dotfiles/config/nvim/init.vim<cr>",                desc = "init.vim" },
+    { "<leader>fenl", ":e ~/.config/nvim/init.vim<cr>",                                                   desc = "local init.vim" },
+    { "<leader>fenp", ":e ~/.config/nvim/lua/plugins.lua<cr>",                                            desc = "packer conf" },
+    { "<leader>fep",  group = "powerline" },
+    { "<leader>fepc", ":e ~/.config/powerline/config.json<cr>",                                           desc = "config.json" },
+    { "<leader>fepl", ":e ~/.config/powerline/colors.json<cr>",                                           desc = "color.json" },
+    { "<leader>fept", ":e ~/.config/powerline/themes<cr>",                                                desc = "themes" },
+    { "<leader>fet",  ":e ~/.tmux.conf<cr>",                                                              desc = "tmux conf" },
+    { "<leader>few",  group = "wezterm" },
+    { "<leader>fewc", ":e ~/repos/github.com/bundai223/dotfiles/config/.config/wezterm/wezterm.lua<cr>",  desc = "wezterm.lua" },
+    { "<leader>fewk", ":e ~/repos/github.com/bundai223/dotfiles/config/.config/wezterm/keybinds.lua<cr>", desc = "keybinds.lua" },
+    { "<leader>fewo", ":e ~/repos/github.com/bundai223/dotfiles/config/.config/wezterm/on.lua<cr>",       desc = "on.lua" },
+    { "<leader>fewu", ":e ~/repos/github.com/bundai223/dotfiles/config/.config/wezterm/utils.lua<cr>",    desc = "utils.lua" },
+    { "<leader>fez",  group = "zsh" },
+    { "<leader>feze", ":e ~/.zshenv<cr>",                                                                 desc = "zshenv" },
+    { "<leader>fezr", ":e ~/.zshrc<cr>",                                                                  desc = "zshrc" },
+    { "<leader>fezu", ":e ~/repos/github.com/bundai223/dotfiles/config/zsh/zsh-utils<cr>",                desc = "utils" },
+    { "<leader>ff",   ":Telescope find_files<cr>",                                                        desc = "find files" },
+    { "<leader>fg",   ":Telescope git_files<cr>",                                                         desc = "git files" },
+    { "<leader>fm",   ":Telescope oldfiles<cr>",                                                          desc = "list mru" },
+    { "<leader>g",    ":lua _lazygit_toggle()<CR>",                                                       desc = "lazygit" },
+    { "<leader>hh",   ":Telescope help_tags<cr>",                                                         desc = "help tags" },
+    { "<leader>hv",   ":vert bel help ",                                                                  desc = "help on vertical splitting." },
+    { "<leader>l",    group = "Language Server Protocol" },
+    { "<leader>lo",   ":SymbolsOutline<cr>",                                                              desc = "toggle outline" },
+    { "<leader>t",    group = "terminal" },
+    { "<leader>tt",   ":ToggleTerm<cr>",                                                                  desc = "ToggleTerm" },
+  }
 )
