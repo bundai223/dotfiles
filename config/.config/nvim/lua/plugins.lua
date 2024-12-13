@@ -680,7 +680,7 @@ local plugins = {
   --------------------------------
   -- Lint
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     event = "VimEnter",
     config = function()
       require("plugin_config/null-ls")

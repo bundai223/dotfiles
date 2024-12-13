@@ -2,7 +2,8 @@ include_recipe './dependency.rb'
 
 user = node[:user]
 home = node[:home]
-python_version = 'latest'
+# python_version = 'latest'
+python_version = '3.13.0'
 
 remote_file "#{home}/.default-python-packages" do
   source 'files/.default-python-packages'
@@ -22,6 +23,7 @@ end
 execute 'install python' do
   user user
   command <<-EOS
+export MSGPACK_PUREPYTHON=1
 VER=#{python_version}
 . #{home}/.asdf/asdf.sh
 asdf install python ${VER}
