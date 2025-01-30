@@ -4,20 +4,25 @@ include_recipe 'dependency.rb'
 
 user = node[:user]
 home = node[:home]
+version = "0.16.0"
 
-execute "git clone https://github.com/asdf-vm/asdf.git #{home}/.asdf" do
+url = "https://github.com/asdf-vm/asdf/releases/download/v#{version}/asdf-v#{version}-linux-amd64.tar.gz"
+
+execute "install asdf" do
   user user
-  not_if "test -e #{home}/.asdf"
+  not_if "asdf --version | grep #{version}"
+
+  command <<EOCMD
+  # curl -o asdf.tar.gz #{url}
+  pwd
+  tar xfz asdf.tar.gz
+  sudo mv asdf /usr/local/bin
+  rm asdf.tar.gz
+
+  asdf reshim
+EOCMD
 end
 
-file '/etc/profile.d/asdf.sh' do
-  content <<EOCONTENT
-  export ASDF_DIR=~/.asdf
-  source ~/.asdf/asdf.sh
-EOCONTENT
-  not_if 'test -e /etc/profile.d/asdf.sh'
-  mode '644'
-end
 
 # utilities
 # asdfへpathとおしつつexecute
@@ -30,10 +35,9 @@ define :source_asdf_and_execute, user: nil, not_if_: nil, not_if: nil, only_if_:
 
   execute cmd_ do
     user user_ unless user_.nil?
-    not_if "source /etc/profile.d/asdf.sh && #{not_if_}" unless not_if_.nil?
-    only_if "source /etc/profile.d/asdf.sh && #{only_if_}" unless only_if_.nil?
+    not_if "#{not_if_}" unless not_if_.nil?
+    only_if "#{only_if_}" unless only_if_.nil?
     command <<EOCMD
-      source /etc/profile.d/asdf.sh
       #{cmd_}
 EOCMD
   end
