@@ -302,7 +302,7 @@ local plugins = {
     event = "InsertEnter",
     config = function()
       vim.defer_fn(function()
-        require("plugin_config/copilot")
+        -- require("plugin_config/copilot")
       end, 100)
     end,
   },
