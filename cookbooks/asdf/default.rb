@@ -4,7 +4,7 @@ include_recipe 'dependency.rb'
 
 user = node[:user]
 home = node[:home]
-version = "0.16.0"
+version = "0.18.0"
 
 url = "https://github.com/asdf-vm/asdf/releases/download/v#{version}/asdf-v#{version}-linux-amd64.tar.gz"
 
@@ -13,7 +13,7 @@ execute "install asdf" do
   not_if "asdf --version | grep #{version}"
 
   command <<EOCMD
-  # curl -o asdf.tar.gz #{url}
+  wget -O ./asdf.tar.gz #{url}
   pwd
   tar xfz asdf.tar.gz
   sudo mv asdf /usr/local/bin
