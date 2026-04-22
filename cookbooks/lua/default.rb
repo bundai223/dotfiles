@@ -16,7 +16,7 @@ execute 'install asdf-lua' do
   user user
   command <<-EOCMD
     source /etc/profile.d/asdf.sh
-    asdf plugin-add lua
+    asdf plugin add lua
   EOCMD
   not_if "test -d #{home}/.asdf/plugins/lua"
 end
@@ -24,7 +24,7 @@ end
 [
   { cmd: 'asdf plugin add lua', not_if: 'asdf plugin list | grep lua' },
   { cmd: "asdf install lua #{version}", not_if: "asdf list lua | grep #{version}" },
-  { cmd: "asdf global lua #{version}" },
+  { cmd: "asdf set lua #{version}" },
   { cmd: 'asdf reshim lua' }
 ].each do |op|
   source_asdf_and_execute op[:cmd] do

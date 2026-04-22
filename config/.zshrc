@@ -277,7 +277,7 @@ p() {
   $FILTER_CMD $pecoopts | while read LINE; do $@ $LINE; done
 }
 
-alias ls='colorls'
+# alias ls='colorls'
 alias ls_font='fc-list'
 alias o='git ls-files | p open'
 alias c='ghq list -p | p cd'
