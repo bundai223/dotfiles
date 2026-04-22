@@ -27,10 +27,8 @@ export MSGPACK_PUREPYTHON=1
 VER=#{python_version}
 . #{home}/.asdf/asdf.sh
 asdf install python ${VER}
-asdf global python ${VER}
+#asdf global python ${VER}
+asdf set -u python ${VER}
 EOS
   not_if "test -d #{home}/.asdf/shims/python"
 end
-
-
-

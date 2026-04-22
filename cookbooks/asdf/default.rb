@@ -23,6 +23,19 @@ execute "install asdf" do
 EOCMD
 end
 
+file "/etc/profile.d/asdf.sh" do
+  content <<-EOS
+# for asdf
+export ASDF_DIR=~/.asdf
+export ASDF_DATA_DIR=~/.asdf
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
+EOS
+  owner user
+  group group
+  not_if "test -e /etc/profile.d/asdf.sh"
+end
+
+
 
 # utilities
 # asdfへpathとおしつつexecute
@@ -38,6 +51,7 @@ define :source_asdf_and_execute, user: nil, not_if_: nil, not_if: nil, only_if_:
     not_if "#{not_if_}" unless not_if_.nil?
     only_if "#{only_if_}" unless only_if_.nil?
     command <<EOCMD
+      . /etc/profile.d/asdf.sh
       #{cmd_}
 EOCMD
   end

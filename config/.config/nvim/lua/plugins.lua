@@ -296,16 +296,16 @@ local plugins = {
 
   --------------------------------
   -- AI completion
-  {
-    "zbirenbaum/copilot.lua",
-    -- cmd = { "Copilot" },
-    event = "InsertEnter",
-    config = function()
-      vim.defer_fn(function()
-        require("plugin_config/copilot")
-      end, 100)
-    end,
-  },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   -- cmd = { "Copilot" },
+  --   event = "InsertEnter",
+  --   config = function()
+  --     vim.defer_fn(function()
+  --       require("plugin_config/copilot")
+  --     end, 100)
+  --   end,
+  -- },
 
   --------------------------------
   -- telescope.nvim
