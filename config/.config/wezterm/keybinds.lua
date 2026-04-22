@@ -232,8 +232,11 @@ local act = wezterm.action
 ---------------------------------------------------------------
 M.tmux_keybinds = {
   -- create pane
-  { key = '|', mods = 'LEADER|SHIFT', action = act({ SplitHorizontal = { domain = 'CurrentPaneDomain' } }) },
-  { key = '_', mods = 'LEADER|SHIFT', action = act({ SplitVertical = { domain = 'CurrentPaneDomain' } }) },
+  -- { key = '|', mods = 'LEADER|SHIFT', action = act({ SplitHorizontal = { domain = 'CurrentPaneDomain' } }) },
+  -- { key = '_', mods = 'LEADER|SHIFT', action = act({ SplitVertical = { domain = 'CurrentPaneDomain' } }) },
+  { key = '|', mods = 'LEADER|SHIFT', action = wezterm.action.EmitEvent('pane-launcher-h') },
+  { key = '_', mods = 'LEADER|SHIFT', action = wezterm.action.EmitEvent('pane-launcher-v') },
+
   -- move pane
   { key = "h", mods = "LEADER",       action = act({ ActivatePaneDirection = "Left" }) },
   { key = "l", mods = "LEADER",       action = act({ ActivatePaneDirection = "Right" }) },
@@ -306,6 +309,7 @@ M.tmux_keybinds = {
 }
 
 M.default_keybinds = {
+  { key = ",",   mods = "CMD|CTRL",       action = wezterm.action.SpawnCommandInNewTab({ args = { "nvim", os.getenv("WEZTERM_CONFIG_FILE") } }) },
   { key = 'Tab', mods = 'CTRL',           action = act.ActivateTabRelative(1) },
   { key = 'Tab', mods = 'SHIFT|CTRL',     action = act.ActivateTabRelative(-1) },
   -- { key = 'Enter',      mods = 'ALT',            action = act.ToggleFullScreen },

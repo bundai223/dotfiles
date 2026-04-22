@@ -6,6 +6,9 @@
 ,*
 .personal/
 
+### VSCode
+.history/*
+
 ### tags
 # tags
 GTAGS

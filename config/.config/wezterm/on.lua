@@ -200,6 +200,7 @@ local hacky_user_commands = {
   end,
 }
 
+
 wezterm.on("user-var-changed", function(window, pane, name, value)
   if name == "hacky-user-command" then
     local cmd_context = wezterm.json_parse(value)

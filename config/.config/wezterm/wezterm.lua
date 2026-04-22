@@ -30,23 +30,23 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
 
   -- Find installed visual studio version(s) and add their compilation
   -- environment command prompts to the menu
-  for _, vsvers in
-  ipairs(
-    wezterm.glob('Microsoft Visual Studio/20*', 'C:/Program Files (x86)')
-  )
-  do
-    local year = vsvers:gsub('Microsoft Visual Studio/', '')
-    table.insert(launch_menu, {
-      label = 'x64 Native Tools VS ' .. year,
-      args = {
-        'cmd.exe',
-        '/k',
-        'C:/Program Files (x86)/'
-        .. vsvers
-        .. '/BuildTools/VC/Auxiliary/Build/vcvars64.bat',
-      },
-    })
-  end
+  -- for _, vsvers in
+  -- ipairs(
+  --   wezterm.glob('Microsoft Visual Studio/20*', 'C:/Program Files (x86)')
+  -- )
+  -- do
+  --   local year = vsvers:gsub('Microsoft Visual Studio/', '')
+  --   table.insert(launch_menu, {
+  --     label = 'x64 Native Tools VS ' .. year,
+  --     args = {
+  --       'cmd.exe',
+  --       '/k',
+  --       'C:/Program Files (x86)/'
+  --       .. vsvers
+  --       .. '/BuildTools/VC/Auxiliary/Build/vcvars64.bat',
+  --     },
+  --   })
+  -- end
 else
   table.insert(launch_menu, {
     label = 'Zsh',
@@ -91,6 +91,7 @@ local config = {
   font_size = 12.0,
   -- color_scheme = "iceberg-dark", -- 自分の好きなテーマ探す https://wezfurlong.org/wezterm/colorschemes/index.html
   color_scheme = "nord", -- 自分の好きなテーマ探す https://wezfurlong.org/wezterm/colorschemes/index.html
+  window_background_opacity = nil,
   -- window_background_opacity = 0.8,
   -- window_frame = {
   --   inactive_titlebar_bg = '#353535',
@@ -104,7 +105,7 @@ local config = {
   --   button_hover_fg = '#ffffff',
   --   button_hover_bg = '#3b3052',
   -- },
-  front_end = "OpenGL",
+  -- front_end = "OpenGL",
 
   text_background_opacity = 1.0,
   hide_tab_bar_if_only_one_tab = false,
@@ -117,5 +118,43 @@ local config = {
   keys = keybinds.create_keybinds(),
   key_tables = keybinds.key_tables,
 }
+
+-- debug
+-- local launch_menu = wezterm.config.launch_menu
+wezterm.log_info(wezterm.to_string(config.launch_menu))
+
+-- 便利処理
+-- pane分割しつつlaunch_menuを選択する
+local function split_launcher(direction)
+  return function(window, pane)
+    local choices = {}
+    for i, item in ipairs(launch_menu) do
+      choices[i] = { label = item.label, id = tostring(i) }
+    end
+  
+    window:perform_action(
+      wezterm.action.InputSelector {
+  
+        action = wezterm.action_callback(function(window, pane, item)
+          local cmd = launch_menu[tonumber(item)]
+          window:perform_action(
+            wezterm.action.SplitPane {
+              direction = direction,
+              command = { args = cmd.args },
+            },
+            pane
+          )
+        end),
+        title = "Launch in pane",
+        choices = choices,
+      },
+      pane
+    )
+  end
+end
+
+wezterm.on('pane-launcher-h', split_launcher('Right'))
+wezterm.on('pane-launcher-v', split_launcher('Down'))
+
 
 return config
