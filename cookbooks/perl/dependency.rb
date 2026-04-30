@@ -4,6 +4,7 @@ when 'arch'
 
   yay 'cpanminus'
 when 'osx', 'darwin'
+  package 'cpanm'
 when 'fedora', 'redhat', 'amazon'
 when 'debian', 'ubuntu', 'mint'
   package 'libssl-dev'
