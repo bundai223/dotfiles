@@ -16,7 +16,7 @@ home = node[:home]
   { cmd: 'asdf plugin add haskell https://github.com/asdf-community/asdf-haskell.git',
     not_if: 'asdf plugin list | grep haskell' },
   { cmd: "asdf install haskell #{version}", not_if: "asdf list haskell | grep #{version}" },
-  { cmd: "asdf global haskell #{version}", not_if: 'which haskell' }
+  { cmd: "asdf set haskell #{version}", not_if: 'which haskell' }
 ].each do |op|
   source_asdf_and_execute op[:cmd] do
     user user
