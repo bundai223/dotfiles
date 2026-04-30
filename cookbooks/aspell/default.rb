@@ -5,7 +5,7 @@ when 'arch'
   package 'aspell'
   package 'aspell-en'
 when 'osx', 'darwin'
-  raise NotImplementedError
+  package 'aspell'
 when 'fedora', 'redhat', 'amazon'
   raise NotImplementedError
 when 'debian', 'ubuntu', 'mint'
