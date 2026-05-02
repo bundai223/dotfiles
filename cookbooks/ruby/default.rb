@@ -27,9 +27,11 @@ VER=#{ruby_version}
 . /etc/profile.d/asdf.sh
 asdf install ruby ${VER}
 if [ ${VER} = 'latest' ]; then
-  asdf set ruby $(asdf list ruby)
+  asdf set ruby latest
+  asdf set -u ruby latest
 else
   asdf set ruby ${VER}
+  asdf set -u ruby ${VER}
 fi
 asdf reshim ruby
 EOS
