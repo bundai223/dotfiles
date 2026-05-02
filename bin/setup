@@ -1,6 +1,5 @@
 #!/bin/bash
-#MITAMAE_VER=v2.0.0
-MITAMAE_VER=v1.12.7
+MITAMAE_VER=v2.0.0
 
 set -eu
 
@@ -36,7 +35,12 @@ if [ ! -e bin ]; then
   mkdir -p bin
 fi
 
-if [ ! -e bin/mitamae ]; then
+CURRENT_MITAMAE_VER=''
+if [ -x bin/mitamae ]; then
+  CURRENT_MITAMAE_VER=$(bin/mitamae version 2>/dev/null | awk '{print $2}' || true)
+fi
+
+if [ "${CURRENT_MITAMAE_VER}" != "${MITAMAE_VER}" ]; then
   curl -s -L ${MITAMAE_URL} -o bin/mitamae
   chmod +x bin/mitamae
 fi
