@@ -1,5 +1,6 @@
 include_cookbook 'ruby'
 include_cookbook 'python'
+include_cookbook 'uv'
 include_cookbook 'yarn'
 include_cookbook 'ghq'
 
@@ -15,36 +16,27 @@ execute 'gem install --user-install neovim' do
   EOCMD
 end
 
-# pip =
-%w[
-  neovim
-  neovim-remote
-].each do |pip|
-  # cmds =
-  %w[
-    pip pip
-  ].each do |pipcmd|
-    execute "#{pipcmd} install --upgrade --user #{pip}" do
-      user node[:user]
+neovim_python = "#{node[:home]}/.local/share/venvs/neovim"
+uv = "PATH=#{node[:home]}/.local/bin:$PATH uv"
 
-      command <<-EOCMD
-        . /etc/profile.d/asdf.sh
-        #{pipcmd} install --upgrade --user #{pip}
-      EOCMD
-      only_if ". /etc/profile.d/asdf.sh; which #{pipcmd}"
-    end
-  end
+directory "#{node[:home]}/.local/share" do
+  owner node[:user]
+  group node[:group]
 end
 
-# pip3
-%w[
-  neovim-remote
-].each do |pip|
-  # cmds =
-  execute "pip3 install --upgrade --user #{pip}" do
-    user node[:user]
-    only_if 'which pip3'
-  end
+directory "#{node[:home]}/.local/share/venvs" do
+  owner node[:user]
+  group node[:group]
+end
+
+execute 'install neovim python provider' do
+  user node[:user]
+  command <<-EOCMD
+    . /etc/profile.d/asdf.sh
+    #{uv} venv #{neovim_python}
+    #{uv} pip install --python #{neovim_python}/bin/python pynvim neovim-remote
+  EOCMD
+  not_if "test -x #{neovim_python}/bin/python && #{neovim_python}/bin/python -c 'import pynvim'"
 end
 
 # Node.js
@@ -74,9 +66,18 @@ execute 'install vimalter' do
   not_if 'test -f ~/.local/bin/vimalter'
 end
 
-# if arch package 'fd'
-package 'fd-find'
-execute 'ln -s $(which fdfind) ~/.local/bin/fd' do
-  user node[:user]
-  not_if 'test -f ~/.local/bin/fd'
+case node[:platform]
+when 'arch'
+when 'osx', 'darwin'
+  package "fd"
+when 'fedora', 'redhat', 'amazon'
+when 'debian', 'ubuntu', 'mint'
+  # if arch package 'fd'
+  package 'fd-find'
+  execute 'ln -s $(which fdfind) ~/.local/bin/fd' do
+    user node[:user]
+    not_if 'test -f ~/.local/bin/fd'
+  end
+when 'opensuse'
+else
 end

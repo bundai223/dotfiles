@@ -1,5 +1,6 @@
 include_cookbook 'dotfiles'
 include_cookbook 'ghq'
+include_cookbook 'uv'
 
 repos = %w[
   dylanaraps/neofetch
@@ -12,17 +13,29 @@ repos = %w[
 ]
 repos.each { |name| get_repo name }
 
-pip_pkgs = %w[
-  powerline-status
-  powerline-gitstatus
-  python-language-server
-]
-%w[pip pip3].each do |pip|
-  pip_pkgs.each do |pkg|
-    execute ". /etc/profile.d/asdf.sh; #{pip} install #{pkg}" do
-      user node[:user]
-      only_if ". /etc/profile.d/asdf.sh; which #{pip}>/dev/null"
-    end
+uv = "PATH=#{node[:home]}/.local/bin:$PATH uv"
+
+execute 'uv tool install powerline-status' do
+  user node[:user]
+  command "#{uv} tool install powerline-status --with powerline-gitstatus"
+  not_if 'PATH=~/.local/bin:$PATH which powerline'
+end
+
+execute 'uv tool install python-language-server' do
+  user node[:user]
+  command "#{uv} tool install python-language-server"
+  not_if 'PATH=~/.local/bin:$PATH which pyls'
+end
+
+{
+  'yamllint' => 'yamllint',
+  'cfn-lint' => 'cfn-lint',
+  'vim-vint' => 'vint',
+}.each do |pkg, executable|
+  execute "uv tool install #{pkg}" do
+    user node[:user]
+    command "#{uv} tool install #{pkg}"
+    not_if "PATH=~/.local/bin:$PATH which #{executable}"
   end
 end
 

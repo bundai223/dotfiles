@@ -1,4 +1,5 @@
 include_recipe './dependency.rb'
+include_cookbook 'uv'
 
 user = node[:user]
 home = node[:home]

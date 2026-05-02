@@ -45,6 +45,7 @@ let s:backupdir            = s:conf_root . '/backup'
 let s:swapdir              = s:conf_root . '/swp'
 let s:undodir              = s:conf_root . '/undo'
 let g:outher_package_path  = s:conf_root . '/tools'
+let g:python3_host_prog    = expand('~/.local/share/venvs/neovim/bin/python')
 
 function! MkDir(dirpath)
   if !isdirectory(a:dirpath)

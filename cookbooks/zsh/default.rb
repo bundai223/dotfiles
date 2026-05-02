@@ -44,6 +44,7 @@ file '/etc/shells' do
   block do |content|
     content << '/usr/local/bin/zsh'
   end
+  user "root"
 end
 
 file '/etc/zprofile' do
