@@ -128,7 +128,7 @@ define :get_repo, build: nil do
   user = params[:user].nil? ? ENV['SUDO_USER'] || ENV['USER'] : node[:user]
 
   execute "get_repo #{reponame}" do
-    command "source /etc/profile.d/asdf.sh; ghq get -p #{reponame}"
+    command "id; source /etc/profile.d/asdf.sh; ghq get -p #{reponame}"
     user user
   end
 

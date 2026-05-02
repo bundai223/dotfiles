@@ -16,7 +16,7 @@ home = node[:home]
   { cmd: 'asdf plugin add deno https://github.com/asdf-community/asdf-deno.git',
     not_if: 'asdf plugin list | grep deno' },
   { cmd: "asdf install deno #{version}", not_if: "asdf list deno | grep #{version}" },
-  { cmd: "asdf set deno #{version}", not_if: 'which deno' }
+  { cmd: "asdf set -u deno #{version}", not_if: 'which deno' }
 ].each do |op|
   source_asdf_and_execute op[:cmd] do
     user user
