@@ -15,7 +15,7 @@ execute 'install asdf-ruby' do
   user user
   command <<-EOS
 . /etc/profile.d/asdf.sh
-asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
+asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
 EOS
   not_if "test -d #{home}/.asdf/plugins/ruby"
 end
@@ -27,9 +27,11 @@ VER=#{ruby_version}
 . /etc/profile.d/asdf.sh
 asdf install ruby ${VER}
 if [ ${VER} = 'latest' ]; then
-  asdf global ruby $(asdf list ruby)
+  asdf set ruby latest
+  asdf set -u ruby latest
 else
-  asdf global ruby ${VER}
+  asdf set ruby ${VER}
+  asdf set -u ruby ${VER}
 fi
 asdf reshim ruby
 EOS

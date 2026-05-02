@@ -2,25 +2,35 @@
 
 include_recipe 'dependency.rb'
 
-user = node[:user]
-home = node[:home]
-version = "0.18.0"
+case node[:platform]
+when 'osx', 'darwin'
+  package "asdf"
+else
+  user = node[:user]
+  home = node[:home]
+  version = "0.18.0"
 
-url = "https://github.com/asdf-vm/asdf/releases/download/v#{version}/asdf-v#{version}-linux-amd64.tar.gz"
+  url = "https://github.com/asdf-vm/asdf/releases/download/v#{version}/asdf-v#{version}-linux-amd64.tar.gz"
 
-execute "install asdf" do
-  user user
-  not_if "asdf --version | grep #{version}"
+  execute "install asdf" do
+    user user
+    not_if "asdf --version | grep #{version}"
 
-  command <<EOCMD
-  wget -O ./asdf.tar.gz #{url}
-  pwd
-  tar xfz asdf.tar.gz
-  sudo mv asdf /usr/local/bin
-  rm asdf.tar.gz
+    command <<EOCMD
+wget -O ./asdf.tar.gz #{url}
+pwd
+tar xfz asdf.tar.gz
+sudo mv asdf /usr/local/bin
+rm asdf.tar.gz
 
-  asdf reshim
+asdf reshim
 EOCMD
+  end
+end
+
+directory "/etc/profile.d" do
+  user "root"
+  mode "777"
 end
 
 file "/etc/profile.d/asdf.sh" do
@@ -34,8 +44,6 @@ EOS
   group group
   not_if "test -e /etc/profile.d/asdf.sh"
 end
-
-
 
 # utilities
 # asdfへpathとおしつつexecute

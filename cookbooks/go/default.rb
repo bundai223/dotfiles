@@ -12,7 +12,7 @@ execute 'install asdf-golang' do
   user user
   command <<EOCMD
   . /etc/profile.d/asdf.sh
-  asdf plugin-add golang https://github.com/kennyp/asdf-golang.git
+  asdf plugin add golang https://github.com/kennyp/asdf-golang.git
 EOCMD
   not_if "test -d #{home}/.asdf/plugins/golang"
 end
@@ -24,9 +24,9 @@ execute 'install golang' do
   . /etc/profile.d/asdf.sh
   asdf install golang ${VER}
   if [ ${VER} = 'latest' ]; then
-    asdf global golang $(asdf list golang)
+    asdf set golang $(asdf list golang)
   else
-    asdf global golang ${VER}
+    asdf set golang ${VER}
   fi
   asdf reshim golang
 EOCMD

@@ -28,5 +28,12 @@ when 'arch'
 
 when 'fedora', 'redhat', 'amazon'
 when 'osx', 'darwin'
+  %w(
+    libffi
+    libyaml
+    openssl
+    zlib
+  ).each {|p| package p }
+
 when 'opensuse'
 end

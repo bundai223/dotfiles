@@ -132,6 +132,12 @@ execute 'mysql user add for auth_socket' do
   EOL
 end
 
-execute 'pip install mycli' do
-  not_if 'which mycli'
+include_cookbook 'uv'
+
+uv = "PATH=#{node[:home]}/.local/bin:$PATH uv"
+
+execute 'uv tool install mycli' do
+  user node[:user]
+  command "#{uv} tool install mycli"
+  not_if 'PATH=~/.local/bin:$PATH which mycli'
 end

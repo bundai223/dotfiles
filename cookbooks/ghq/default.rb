@@ -23,9 +23,9 @@ execute 'install ghq' do
   . /etc/profile.d/asdf.sh
   asdf install ghq ${VER}
   if [ ${VER} = 'latest' ]; then
-    asdf global ghq $(asdf list ghq)
+    asdf set ghq $(asdf list ghq)
   else
-    asdf global ghq ${VER}
+    asdf set ghq ${VER}
   fi
   asdf reshim ghq
 EOCMD
