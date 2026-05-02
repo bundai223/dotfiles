@@ -16,7 +16,7 @@
 
     repos = "#{home}/repos"
     dotfile_repos = "#{repos}/github.com/bundai223/dotfiles"
-    is_wsl = run_command('uname -a | grep -i Microsoft', error: false).exit_status == 0
+    is_wsl = run_command('if uname -a | grep -i Microsoft >/dev/null; then echo yes; else echo no; fi').stdout.strip == 'yes'
 
     node.reverse_merge!(
       user: user,
@@ -70,8 +70,8 @@
   end
 
   def has_package?(name)
-    result = run_command("dpkg-query -f '${Status}' -W #{name.shellescape} | grep -E '^(install|hold) ok installed$'", error: false)
-    result.exit_status == 0
+    result = run_command("if dpkg-query -f '${Status}' -W #{name.shellescape} | grep -E '^(install|hold) ok installed$' >/dev/null; then echo yes; else echo no; fi")
+    result.stdout.strip == 'yes'
   end
 
   def sudo(user)
@@ -128,7 +128,7 @@ define :get_repo, build: nil do
   user = params[:user].nil? ? ENV['SUDO_USER'] || ENV['USER'] : node[:user]
 
   execute "get_repo #{reponame}" do
-    command "source ~/.asdf/asdf.sh; ghq get -p #{reponame}"
+    command "id; source /etc/profile.d/asdf.sh; ghq get -p #{reponame}"
     user user
   end
 

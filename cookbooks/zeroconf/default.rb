@@ -21,7 +21,7 @@ when 'opensuse'
 else
 end
 
-unless node[:is_wsl]
+if node[:is_wsl] == false && node[:platform] != 'osx' && node[:platform] != 'darwin'
   service 'avahi-daemon' do
     action [:start, :enable]
   end

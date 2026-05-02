@@ -24,7 +24,7 @@ end
 [
   { cmd: 'asdf plugin add lua', not_if: 'asdf plugin list | grep lua' },
   { cmd: "asdf install lua #{version}", not_if: "asdf list lua | grep #{version}" },
-  { cmd: "asdf set lua #{version}" },
+  { cmd: "asdf set -u lua #{version}" },
   { cmd: 'asdf reshim lua' }
 ].each do |op|
   source_asdf_and_execute op[:cmd] do

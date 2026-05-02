@@ -24,9 +24,9 @@ execute 'install golang' do
   . /etc/profile.d/asdf.sh
   asdf install golang ${VER}
   if [ ${VER} = 'latest' ]; then
-    asdf set golang $(asdf list golang)
+    asdf set -u golang $(asdf list golang)
   else
-    asdf set golang ${VER}
+    asdf set -u golang ${VER}
   fi
   asdf reshim golang
 EOCMD

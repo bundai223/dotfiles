@@ -38,21 +38,23 @@ when 'opensuse'
 else
 end
 
-file '/etc/shells' do
-  action :edit
-  not_if 'grep /usr/local/bin/zsh /etc/shells > /dev/null'
-  block do |content|
-    content << '/usr/local/bin/zsh'
+unless %w[osx darwin].include?(node[:platform])
+  file '/etc/shells' do
+    action :edit
+    not_if 'grep /usr/local/bin/zsh /etc/shells > /dev/null'
+    block do |content|
+      content << '/usr/local/bin/zsh'
+    end
+    user "root"
   end
-  user "root"
-end
 
-file '/etc/zprofile' do
-  content <<EOCONTENT
+  file '/etc/zprofile' do
+    content <<EOCONTENT
 for i in /etc/profile.d/*.sh ; do
     [ -r $i ] && source $i
 done
 EOCONTENT
-  not_if 'test -e /etc/zprofile'
-  mode '644'
+    not_if 'test -e /etc/zprofile'
+    mode '644'
+  end
 end
