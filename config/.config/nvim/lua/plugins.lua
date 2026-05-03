@@ -394,7 +394,7 @@ local plugins = {
     end,
     dependencies = {
       { "JoosepAlviste/nvim-ts-context-commentstring" }, -- TODO: cawとかぶってるやつ
-      { "nvim-treesitter/nvim-treesitter-refactor" },    -- TODO:
+      { "nvim-treesitter/nvim-treesitter-locals" },    -- TODO:
       { "nvim-treesitter/nvim-tree-docs" },              -- TODO:
       { "vigoux/architext.nvim" },                       -- TODO: 現時点ではむずすぎる印象。substituteを独自クエリでやるやつ
       { "yioneko/nvim-yati" },                           -- treesitterのindent plugin
@@ -724,7 +724,10 @@ local plugins = {
   -- register一覧
   {
     'tversteeg/registers.nvim',
-    event = "VimEnter",
+    url = "https://codeberg.org/fosk/registers.nvim.git",
+    cmd = "Registers",
+    config = true,
+    name = "registers"
   },
 
   -- snippet
