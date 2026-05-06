@@ -387,18 +387,15 @@ local plugins = {
   -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost" },
+    lazy = false,
+    branch = "main",
     build = ":TSUpdate",
     config = function()
       require("plugin_config/nvim-treesitter")
     end,
     dependencies = {
       { "JoosepAlviste/nvim-ts-context-commentstring" }, -- TODO: cawとかぶってるやつ
-      { "nvim-treesitter/nvim-treesitter-locals" },    -- TODO:
-      { "nvim-treesitter/nvim-tree-docs" },              -- TODO:
       { "vigoux/architext.nvim" },                       -- TODO: 現時点ではむずすぎる印象。substituteを独自クエリでやるやつ
-      { "yioneko/nvim-yati" },                           -- treesitterのindent plugin
-      { "theHamsta/nvim-treesitter-pairs" }              -- %で移動するpairsの定義
     }
   },
 
@@ -413,20 +410,6 @@ local plugins = {
     end,
   },
   {
-    'nvim-treesitter/playground',
-    event = "VimEnter",
-    config = function()
-      require('plugin_config/nvim-treesitter-playground')
-    end
-  },
-  {
-    'RRethy/nvim-treesitter-endwise',
-    event = "VimEnter",
-    config = function()
-      require('plugin_config/nvim-treesitter-endwise')
-    end
-  },
-  {
     'nvim-treesitter/nvim-treesitter-context',
     cmd = { "TSContextEnable" },
     config = function()
@@ -436,7 +419,32 @@ local plugins = {
 
   --------------------------------
   -- Treesitter textobject & operator
-  { "nvim-treesitter/nvim-treesitter-textobjects", event = "VimEnter" },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
+    event = "VimEnter",
+    config = function()
+      require("nvim-treesitter-textobjects").setup({
+        select = {
+          lookahead = true,
+        },
+      })
+
+      local select = require("nvim-treesitter-textobjects.select")
+      vim.keymap.set({ "x", "o" }, "af", function()
+        select.select_textobject("@function.outer", "textobjects")
+      end)
+      vim.keymap.set({ "x", "o" }, "if", function()
+        select.select_textobject("@function.inner", "textobjects")
+      end)
+      vim.keymap.set({ "x", "o" }, "ac", function()
+        select.select_textobject("@class.outer", "textobjects")
+      end)
+      vim.keymap.set({ "x", "o" }, "ic", function()
+        select.select_textobject("@class.inner", "textobjects")
+      end)
+    end,
+  },
   -- {
   --   "chrisgrieser/nvim-various-textobjs",
   --   event = "VimEnter",
@@ -682,8 +690,12 @@ local plugins = {
   {
     "nvimtools/none-ls.nvim",
     event = "VimEnter",
+    dependencies = {
+      { "nvimtools/none-ls-extras.nvim" },
+      { "gbprod/none-ls-shellcheck.nvim" },
+    },
     config = function()
-      require("plugin_config/null-ls")
+      require("plugin_config/none-ls")
     end,
   },
 

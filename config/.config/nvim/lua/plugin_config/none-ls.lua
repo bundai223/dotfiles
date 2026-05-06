@@ -1,4 +1,4 @@
-local null_ls = require("null-ls")
+local none_ls = require("null-ls")
 
 -- local function file_exists(fname)
 --   local stat = vim.loop.fs_stat(vim.fn.expand(fname))
@@ -32,38 +32,38 @@ local ignored_filetypes = {
 
 local sources = {
   -- diagnostics
-  null_ls.builtins.diagnostics.cfn_lint.with({
+  none_ls.builtins.diagnostics.cfn_lint.with({
     condition = function()
       return vim.fn.executable("cfn_lint") > 0
     end,
   }),
-  null_ls.builtins.diagnostics.yamllint.with({
+  none_ls.builtins.diagnostics.yamllint.with({
     condition = function()
       return vim.fn.executable("yamllint") > 0
     end,
   }),
-  null_ls.builtins.diagnostics.zsh.with({
+  none_ls.builtins.diagnostics.zsh.with({
     condition = function()
       return vim.fn.executable("zsh") > 0
     end,
   }),
-  null_ls.builtins.diagnostics.vint.with({
+  none_ls.builtins.diagnostics.vint.with({
     condition = function()
       return vim.fn.executable("vint") > 0
     end,
   }),
-  -- null_ls.builtins.diagnostics.rubocop,
-  null_ls.builtins.diagnostics.eslint.with({
-    condition = function()
-      return vim.fn.executable("eslint") > 0
-    end,
-  }),
-  null_ls.builtins.diagnostics.shellcheck.with({
+  -- none_ls.builtins.diagnostics.rubocop,
+  -- require("none-ls.diagnostics.eslint").with({
+  --   condition = function()
+  --     return vim.fn.executable("eslint") > 0
+  --   end,
+  -- }),
+  require("none-ls-shellcheck.diagnostics").with({
     condition = function()
       return vim.fn.executable("shellcheck") > 0
     end,
   }),
-  null_ls.builtins.diagnostics.textlint.with({
+  none_ls.builtins.diagnostics.textlint.with({
     filetypes = {
       "markdown"
     },
@@ -71,7 +71,7 @@ local sources = {
       return vim.fn.executable("textlint") > 0
     end,
   }),
-  null_ls.builtins.diagnostics.hadolint.with({
+  none_ls.builtins.diagnostics.hadolint.with({
     filetypes = {
       "dockerfile"
     },
@@ -83,7 +83,7 @@ local sources = {
 
 
   -- formatter
-  null_ls.builtins.formatting.trim_whitespace.with({
+  require("none-ls.formatting.trim_whitespace").with({
     disabled_filetypes = ignored_filetypes,
     runtime_condition = function()
       local count = tonumber(vim.api.nvim_exec("execute 'silent! %s/\\v\\s+$//gn'", true):match("%w+"))
@@ -92,22 +92,22 @@ local sources = {
       end
     end,
   }),
-  null_ls.builtins.formatting.prismaFmt.with({
+  none_ls.builtins.formatting.prisma_format.with({
     condition = function()
       return vim.fn.executable("prisma-fmt") > 0
     end,
   }),
-  -- null_ls.builtins.formatting.prettier.with({
+  -- none_ls.builtins.formatting.prettier.with({
   --   condition = function()
   --     return vim.fn.executable("prettier") > 0
   --   end,
   -- }),
-  null_ls.builtins.formatting.shfmt.with({
+  none_ls.builtins.formatting.shfmt.with({
     condition = function()
       return vim.fn.executable("shfmt") > 0
     end,
   }),
-  null_ls.builtins.formatting.markdownlint.with({
+  none_ls.builtins.formatting.markdownlint.with({
     condition = function()
       return vim.fn.executable("markdownlint") > 0
     end,
@@ -166,7 +166,7 @@ end
 ------------------------------------------
 -- setup
 ------------------------------------------
-null_ls.setup({
+none_ls.setup({
   -- debug = true,
   on_attach = on_attach,
   sources = sources,
