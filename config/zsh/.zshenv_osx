@@ -1,13 +1,8 @@
 #.zshenv
 BREW_PATH=`/opt/homebrew/bin/brew --prefix`
 
-# for FBX path setting
-FBXSDK_ROOT=/Applications/Autodesk/FBX\ SDK/2013.3/
-
 # path setting
-export EDITOR=nvimalter
 # export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-export SHELL=${BREW_PATH}/bin/zsh
 
 # for homebrew
 PATH=$HOME/.nodebrew/current/bin:$PATH
@@ -15,8 +10,6 @@ PATH=${BREW_PATH}/bin:$PATH
 PATH=~/.cabal/bin:$PATH
 PATH=~/tools/bin:$PATH
 #for android
-PATH=${ANDROID_HOME}/tools:$PATH
-PATH=${ANDROID_HOME}/platform-tools:$PATH
 
 export GOROOT=${BREW_PATH}/opt/go/libexec
 export GOPATH=~/go
