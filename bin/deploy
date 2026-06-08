@@ -20,6 +20,7 @@ mitamae() {
 if [ "$#" = "0" ]; then
   mitamae lib/recipe.rb
 else
-  # echo "mitamae $(./bin/normalize_cookbooks $@)"
-  mitamae $(./bin/normalize_cookbooks $@)
+  # cookbook名の解決に失敗したら（typo等）、エラー文を引数として渡さずここで止める
+  cookbooks=$(./bin/normalize_cookbooks "$@") || exit 1
+  mitamae $cookbooks
 fi

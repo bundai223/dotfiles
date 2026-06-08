@@ -24,6 +24,7 @@ mydir "#{home}/.config/spacemacs/layers"
 mydir "#{home}/.config/Code/User"
 mydir "#{home}/.config/dictionary"
 mydir "#{home}/.config/lazygit"
+mydir "#{home}/.claude"
 mydir "#{home}/.local"
 mydir "#{home}/.local/bin"
 mydir "#{home}/.local/themes"
@@ -152,6 +153,11 @@ dotfile '.config/yamllint'
 dotfile '.config/wezterm'
 dotfile '.conkyrc'
 dotfile '.textlintrc'
+# Claude Code global config (settings.json and state/secret files like
+# projects/, sessions/, history.jsonl, .credentials.json are intentionally
+# NOT managed here)
+dotfile '.claude/statusline-powerline.js'
+dotfile '.claude/skills'
 # dotfile '.gemrc' # 追加したいオプションができるまでなし
 
 include_cookbook 'aspell'

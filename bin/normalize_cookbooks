@@ -1,24 +1,30 @@
 #!/usr/bin/env perl
 use utf8;
+use strict;
+use warnings;
 
 my @raw_cookbooks = @ARGV;
 
 if (!@raw_cookbooks) {
-  print 'need cookbooks!';
+  print STDERR "need cookbooks!\n";
   exit 1;
 }
 
-foreach my $raw(@raw_cookbooks) {
+# 解決したcookbookパスはまとめてから一度に出力する。
+# エラーはSTDERRに出し、STDOUTには成功時のパスのみを流す
+# （bin/deployがSTDOUTをmitamaeの引数として使うため、エラー文を混ぜない）。
+my @resolved;
+foreach my $raw (@raw_cookbooks) {
   if (-f "$raw") {
-    print "$raw ";
+    push @resolved, $raw;
   } elsif (-f "$raw.rb") {
-    print "$raw.rb ";
+    push @resolved, "$raw.rb";
   } elsif (-f "$raw/default.rb") {
-    print "$raw/default.rb ";
+    push @resolved, "$raw/default.rb";
   } else {
-    print "please check cookbook name. : ${raw}";
+    print STDERR "please check cookbook name. : ${raw}\n";
     exit 1;
   }
 }
 
-print "\n"
+print join(' ', @resolved), "\n";

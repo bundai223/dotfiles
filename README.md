@@ -59,6 +59,7 @@ bin/deploy cookbooks/zsh/default.rb
 - `config/.gitconfig` -> `~/.gitconfig`
 - `config/.config/nvim` -> `~/.config/nvim`
 - `config/.config/wezterm` -> `~/.config/wezterm`
+- `config/.claude/statusline-powerline.js` -> `~/.claude/statusline-powerline.js`（`skills`も同様。`settings.json`や状態ファイル・秘密情報は管理対象外）
 - `config/zsh` -> zsh関連設定から参照
 - `config/WindowsTerminal/settings.json` -> Windows Terminal設定
 
