@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+set -u
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+work_dir="${TMPDIR:-/tmp}/dotfiles-nvim-check"
+report_dir="$repo_root/tmp/nvim-maintenance"
+timestamp="$(date '+%Y%m%d-%H%M%S')"
+report="$report_dir/$timestamp.log"
+
+mkdir -p "$work_dir/cache" "$work_dir/state" "$report_dir"
+
+if ! command -v nvim >/dev/null 2>&1; then
+  echo "PATHにnvimが見つかりません" >&2
+  exit 127
+fi
+
+run_check() {
+  local name="$1"
+  shift
+
+  printf '\n== %s ==\n' "$name"
+  "$@" 2>&1
+  local result=$?
+  printf '終了コード: %s\n' "$result"
+  return "$result"
+}
+
+{
+  printf 'Neovimメンテナンス診断レポート\n'
+  printf '生成日時: %s\n' "$(date '+%Y-%m-%d %H:%M:%S %z')"
+  printf 'リポジトリ: %s\n' "$repo_root"
+  printf '設定: %s\n' "${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
+  printf '\n== バージョン ==\n'
+  nvim --version
+
+  startup_result=0
+  health_result=0
+  XDG_CACHE_HOME="$work_dir/cache" XDG_STATE_HOME="$work_dir/state" \
+    run_check 起動 nvim --headless '+qa' || startup_result=$?
+  XDG_CACHE_HOME="$work_dir/cache" XDG_STATE_HOME="$work_dir/state" \
+    run_check ヘルスチェック nvim --headless '+checkhealth' '+silent write! '"$work_dir/health.txt" '+qa' || health_result=$?
+
+  if [[ -f "$work_dir/health.txt" ]]; then
+    printf '\n== checkhealth出力 ==\n'
+    cat "$work_dir/health.txt"
+  fi
+
+  printf '\n== 概要 ==\n'
+  printf '起動の終了コード: %s\n' "$startup_result"
+  printf 'ヘルスチェックの終了コード: %s\n' "$health_result"
+  exit "$startup_result"
+} | tee "$report"
+result=${PIPESTATUS[0]}
+
+printf '\nレポート: %s\n' "$report"
+exit "$result"

@@ -12,3 +12,5 @@ Keypirinha.history
 .claude/settings.local.json
 config/.claude/skills/context-load/
 config/.claude/skills/update-doc/
+nvim.log
+tmp/

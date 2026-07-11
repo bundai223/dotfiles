@@ -67,6 +67,10 @@ bin/deploy cookbooks/zsh/default.rb
 
 新しい環境構築処理を追加する場合は、原則として`cookbooks/<name>/default.rb`を追加し、必要に応じて`dependency.rb`を分けます。標準環境に含めたい場合は`roles/base/default.rb`または対象OSのroleから`include_cookbook '<name>'`で読み込んでください。
 
+継続利用するツールを正式に導入するときは、ツールごとに専用cookbookを作成します。
+評価中または一時的に試している段階ではcookbookの追加は任意ですが、継続利用を決めた
+時点で専用cookbookへ移してください。
+
 ## For Developer.
 
 ### Windows install script is old. Is `install.ps1` cached?

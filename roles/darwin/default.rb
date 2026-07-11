@@ -2,6 +2,7 @@ execute 'brew update'
 execute 'brew upgrade'
 
 include_role 'base'
+include_cookbook 'cmux'
 
 # osx
 package 'wget'
