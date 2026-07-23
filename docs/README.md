@@ -28,3 +28,4 @@ ADRは次のルールで運用します。
 
 - [Neovimメンテナンス](nvim-maintenance.md)
 - [アーキテクチャ決定記録](ADR/README.md)
+- [一時タスク](tasks/README.md)
