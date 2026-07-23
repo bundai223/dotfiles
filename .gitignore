@@ -10,3 +10,5 @@ Keypirinha.history
 .env
 .luarc.json
 .claude/settings.local.json
+config/.claude/skills/context-load/
+config/.claude/skills/update-doc/
