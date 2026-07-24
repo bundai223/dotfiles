@@ -20,7 +20,8 @@
 ## ドキュメント運用（LLM wiki方式）
 
 - 構造と基準の正本は `wiki/SCHEMA.md` とする。
-- セッション開始時は `/context-load`、作業の区切り・push前は `/update-doc` を実行する。
+- 実装予定の `/load-wiki-as-context` をセッション開始時に、`/update-wiki` を
+  作業の区切り・push前に実行する。実装までは `wiki/SCHEMA.md` の手順を手動で行う。
 - 新しい情報は必ず `raw/`（不変記録）を経由して `wiki/pages/` に蒸留する。
 
 ## 一時タスク

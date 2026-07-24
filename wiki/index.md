@@ -5,7 +5,7 @@
 | ジャンル | 内容 | ページ数 |
 |---|---|---|
 | [user-experiences](pages/user-experiences/index.md) | ツール・設定の使用感、ハマりどころの体験記録 | 0 |
-| [architecture](pages/architecture/index.md) | リポジトリ構成（cookbooks / roles / lib / deploy）の設計知見 | 1 |
+| [architecture](pages/architecture/index.md) | リポジトリ構成（cookbooks / roles / lib / deploy）の設計知見 | 2 |
 | [security](pages/security/index.md) | 秘密情報の扱い、gitleaks / git-secrets の運用 | 0 |
 | [infrastructure](pages/infrastructure/index.md) | 実行基盤の知見（mitamae、WSL2、各 OS のパッケージ事情） | 0 |
 | [templates](pages/templates/index.md) | 定型パターン（cookbook の書き方など） | 1 |

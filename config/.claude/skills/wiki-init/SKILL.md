@@ -6,7 +6,8 @@ description: LLM wiki 方式（raw/ + wiki/ の 2 層ドキュメント）の骨
 # LLM wiki 骨組みの導入
 
 現在のリポジトリに LLM wiki 方式（記録層 `raw/` + 蒸留層 `wiki/`）の骨組みを生成する。
-運用は導入後、セッション開始時の `/context-load` と区切りの `/update-doc` で回す。
+運用は導入後、セッション開始時の `/load-wiki-as-context` と区切りの
+`/update-wiki` で回す。両スキルが未実装の場合は `wiki/SCHEMA.md` の手順を手動で行う。
 
 ## 前提チェック
 
@@ -61,7 +62,8 @@ issues/ = `YYYY-MM-DD_番号/`）。ここを根拠に wiki/pages/ へ蒸留す�
 ## ドキュメント運用（LLM wiki 方式）
 
 - 構造と基準の正本: `wiki/SCHEMA.md`
-- セッション開始時は `/context-load`、作業の区切り・push 前は `/update-doc` を実行する
+- 実装予定の `/load-wiki-as-context` をセッション開始時に、`/update-wiki` を
+  作業の区切り・push 前に実行する。実装までは `wiki/SCHEMA.md` の手順を手動で行う
 - 新しい情報は必ず `raw/`（不変記録）を経由して `wiki/pages/` に蒸留する
 ```
 

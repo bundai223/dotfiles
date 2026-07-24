@@ -13,3 +13,4 @@
 ## タスク一覧
 
 - [Neovimメンテナンスと復旧](nvim-maintenance.md) - 進行中
+- [LLM Wiki運用スキルの実装](llm-wiki-skills.md) - 進行中
