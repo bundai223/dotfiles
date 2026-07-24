@@ -79,6 +79,19 @@ const T = {
   month:   { fg: 252, bg: 240 },
 };
 
+// effort レベル別テーマ（低いほど地味・高いほど強い色）
+function effortTheme(level) {
+  switch (level) {
+    case 'low':    return { fg: 252, bg: 240 };  // グレー
+    case 'medium': return { fg: 231, bg: 31  };  // 青
+    case 'high':   return { fg: 235, bg: 172 };  // オレンジ
+    case 'xhigh':  return { fg: 231, bg: 133 };  // 紫
+    case 'ultracode': return { fg: 231, bg: 128 };  // 濃紫（xhigh + workflow）
+    case 'max':    return { fg: 231, bg: 160 };  // 赤
+    default:       return { fg: 252, bg: 240 };
+  }
+}
+
 // vim モード別テーマ（NORMAL/INSERT/VISUAL 等。mode 文字列で背景色を切替）
 function modeTheme(mode) {
   switch (mode) {
@@ -99,7 +112,7 @@ const BAR_FILL_CRIT = 196;    // 赤（>=100%）
 const BAR_EMPTY = 240;        // 空セルのドット
 
 const EMPTY_INPUT = {
-  model: 'unknown', vimMode: '', usedPct: 0, totalTokens: 0, contextSize: 0,
+  model: 'unknown', vimMode: '', effort: '', usedPct: 0, totalTokens: 0, contextSize: 0,
   projectDir: '', sessionCost: 0, apiDurationMs: 0,
 };
 
@@ -240,6 +253,7 @@ function parseInput(raw) {
     return {
       model: (j.model && (j.model.display_name || j.model.id)) || 'unknown',
       vimMode: (j.vim && j.vim.mode) || '',
+      effort: (j.effort && j.effort.level) || '',
       usedPct,
       totalTokens: Math.round(usedPct / 100 * contextSize),
       contextSize,
@@ -571,6 +585,11 @@ function buildLine1(input) {
 
   // モデル名
   segs.push({ ...T.model, text: input.model });
+
+  // effort レベル（stdin に含まれる場合のみ・レベル別配色）
+  if (input.effort) {
+    segs.push({ ...effortTheme(input.effort), text: '🧠 ' + input.effort });
+  }
 
   // コンテキストバー（バーの後はセグメント文字色へ戻す）
   const pct = input.usedPct;
