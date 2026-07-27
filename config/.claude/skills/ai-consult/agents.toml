@@ -1,0 +1,42 @@
+# consult.py 設定ファイル
+# argv の "{prompt}" が実プロンプトに置換される。
+#   - "{prompt}" があれば引数として渡す (shell を介さないので長文・記号も安全)
+#   - "{prompt}" が無ければプロンプトを stdin に流す
+# 同じCLIバイナリでも --model を変えれば別エージェントとして何体でも登録できる。
+
+rounds  = 2
+lang    = "ja"
+timeout = 300
+
+# ---- 例1: 同一CLI・別モデル対戦 (Claude Fable 5 vs Sonnet 4.6) ----
+[[agent]]
+name   = "Claude-Fable5"
+argv   = ["claude", "-p", "--model", "claude-fable-5", "{prompt}"]
+stance = "深い推論で前提そのものを疑う役。"
+
+[[agent]]
+name   = "Claude-Sonnet46"
+argv   = ["claude", "-p", "--model", "claude-sonnet-4-6", "{prompt}"]
+stance = "実務・コスト・速度重視で現実解を出す役。"
+
+# ---- 例2: Codex (モデルと reasoning effort を指定) ----
+[[agent]]
+name   = "Codex"
+argv   = ["codex", "exec", "--ephemeral", "-m", "gpt-5.4", "{prompt}"]
+stance = "技術・攻めの視点。実装可能性と代替案の広さを重視する。"
+# reasoning effort も指定する場合:
+# argv = ["codex", "exec", "--ephemeral",
+#         "-c", "model=gpt-5.4", "-c", "model_reasoning_effort=high", "{prompt}"]
+
+# ---- 例3: OpenCode (モデルは provider/model 形式・プロンプトは末尾位置引数) ----
+# 注意: opencode run は stdin 非対応なので {prompt} 引数方式が必須。
+#       相談用途では read-only の plan エージェント推奨 (許可待ちハング回避)。
+# [[agent]]
+# name   = "OpenCode"
+# argv   = ["opencode", "run", "--agent", "plan",
+#           "--model", "anthropic/claude-sonnet-4-6", "{prompt}"]
+# stance = "第三者的にコスト・保守性で異論を出す。"
+
+[summarizer]
+name = "Claude-Fable5"
+argv = ["claude", "-p", "--model", "claude-fable-5", "{prompt}"]

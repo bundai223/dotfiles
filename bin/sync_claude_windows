@@ -1,0 +1,79 @@
+#!/bin/bash
+# WSL側の ~/.claude から llm-wiki 関連の skills / hooks を
+# Windows側 %USERPROFILE%\.claude へ展開する（WSL上で実行する）。
+#
+# exoloop由来のスキル（context-load / update-doc）は dotfiles にコミットしない方針
+# （raw/decisions/0001）のため、git 同期ではなくこのスクリプトでコピーする。
+# 再実行可（冪等）。settings.json への hook 登録は未登録の場合のみ追記する。
+set -eu
+
+SKILLS=(wiki-init context-load update-doc)
+SRC_SKILLS="$HOME/.claude/skills"
+SRC_HOOKS="$HOME/.claude/hooks/llm-wiki"
+
+# Windowsプロファイル検出（ユーザー名とプロファイルフォルダ名が異なる場合があるため USERPROFILE を使う）
+WINPROF=$(cmd.exe /c "echo %USERPROFILE%" 2>/dev/null | tr -d '\r\n')
+if [ -z "$WINPROF" ]; then
+  echo "error: Windowsプロファイルを取得できません（WSL上で実行してください）" >&2
+  exit 1
+fi
+DST_CLAUDE="$(wslpath "$WINPROF")/.claude"
+WIN_CLAUDE="$WINPROF\\.claude"
+if [ ! -d "$DST_CLAUDE" ]; then
+  echo "error: $DST_CLAUDE がありません" >&2
+  exit 1
+fi
+
+# skills（llm-wiki関連のみ。Windows側の他スキルには触らない）
+for s in "${SKILLS[@]}"; do
+  if [ ! -d "$SRC_SKILLS/$s" ]; then
+    echo "skip skill: $s (WSL側に無い)"
+    continue
+  fi
+  mkdir -p "$DST_CLAUDE/skills/$s"
+  cp -r "$SRC_SKILLS/$s/." "$DST_CLAUDE/skills/$s/"
+  echo "sync skill: $s"
+done
+
+# hooks（PowerShell移植版のみ）
+mkdir -p "$DST_CLAUDE/hooks/llm-wiki"
+cp "$SRC_HOOKS"/*.ps1 "$DST_CLAUDE/hooks/llm-wiki/"
+echo "sync hooks: llm-wiki/*.ps1"
+
+# settings.json へ hook 登録（llm-wiki のエントリが無いイベントにのみ追記）
+python3 - "$DST_CLAUDE/settings.json" "$WIN_CLAUDE" <<'PYEOF'
+import json, shutil, sys
+
+path, winbase = sys.argv[1], sys.argv[2]
+with open(path, encoding='utf-8') as f:
+    settings = json.load(f)
+hooks = settings.setdefault('hooks', {})
+
+def ensure(event, matcher, script):
+    cmd = ('powershell -NoProfile -ExecutionPolicy Bypass -File "%s\\hooks\\llm-wiki\\%s"'
+           % (winbase, script))
+    for group in hooks.setdefault(event, []):
+        for h in group.get('hooks', []):
+            if 'llm-wiki' in h.get('command', ''):
+                if h['command'] != cmd:
+                    h['command'] = cmd
+                    return 'update'
+                return None
+    hooks[event].append({'matcher': matcher,
+                         'hooks': [{'type': 'command', 'command': cmd, 'timeout': 10}]})
+    return 'add'
+
+changes = [r for r in (ensure('SessionStart', '', 'session-start.ps1'),
+                       ensure('PreToolUse', 'Bash', 'push-gate.ps1'),
+                       ensure('Stop', '', 'stop-remind.ps1')) if r]
+if changes:
+    shutil.copy(path, path + '.llm-wiki.bak')
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump(settings, f, ensure_ascii=False, indent=2)
+        f.write('\n')
+    print('settings.json: hook登録を更新 (%d件, バックアップ: settings.json.llm-wiki.bak)' % len(changes))
+else:
+    print('settings.json: 登録済み（変更なし）')
+PYEOF
+
+echo "done: $DST_CLAUDE"
