@@ -12,5 +12,5 @@
 | [reviews](pages/reviews/index.md) | 変更レビューで得た指摘・観点 | 0 |
 | [concepts](pages/concepts/index.md) | 概念整理 | 1 |
 | [entities](pages/entities/index.md) | 依存する外部ツール・サービスの実体情報 | 0 |
-| [tools](pages/tools/index.md) | 導入ツールの選定理由・比較・運用ノウハウ | 2 |
+| [tools](pages/tools/index.md) | 導入ツールの選定理由・比較・運用ノウハウ | 3 |
 | [environments](pages/environments/index.md) | マシン / OS 環境ごとのセットアップ知見 | 0 |

@@ -1,5 +1,6 @@
--- require("nvim-notify").setup({})
-vim.notify = require("notify")
+local notify = require("notify")
+notify.setup({})
+vim.notify = notify
 vim.keymap.set("n", "<BS>", function()
 	for _, win in ipairs(vim.api.nvim_list_wins()) do
 		local buf = vim.api.nvim_win_get_buf(win)

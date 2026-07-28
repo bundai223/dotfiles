@@ -117,6 +117,7 @@ local plugins = {
   {
     'rcarriga/nvim-notify',
     event = 'BufReadPre',
+    cmd = { "Notifications", "NotificationsClear" },
     config = function()
       require('plugin_config/nvim-notify')
     end
@@ -173,7 +174,6 @@ local plugins = {
               ["*"] = "~/.config/dictionary/my.dict",
             },
             first_case_insensitive = true,
-            document = true,
           })
           require("cmp_dictionary").update() -- THIS
           -- OR
@@ -225,18 +225,6 @@ local plugins = {
 
       },
       { "folke/neodev.nvim" },
-      {
-        'simrat39/rust-tools.nvim',
-        config = function()
-          require('plugin_config/rust-tools')
-        end
-      },
-      {
-        'tamago324/nlsp-settings.nvim',
-        config = function()
-          require('plugin_config/nlsp-settings')
-        end
-      },
 
     },
   },
@@ -589,12 +577,11 @@ local plugins = {
   },
 
   -- Context Parse
-  -- https://github.com/simrat39/symbols-outline.nvim
   {
-    "simrat39/symbols-outline.nvim",
-    event = "VimEnter",
+    "hedyhli/outline.nvim",
+    cmd = { "Outline", "OutlineOpen" },
     config = function()
-      require("plugin_config/symbols-outline")
+      require("plugin_config/outline")
     end
   },
 

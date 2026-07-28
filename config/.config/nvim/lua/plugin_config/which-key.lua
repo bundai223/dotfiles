@@ -97,7 +97,7 @@ wk.add(
     { "<leader>hh",   ":Telescope help_tags<cr>",                                                         desc = "help tags" },
     { "<leader>hv",   ":vert bel help ",                                                                  desc = "help on vertical splitting." },
     { "<leader>l",    group = "Language Server Protocol" },
-    { "<leader>lo",   ":SymbolsOutline<cr>",                                                              desc = "toggle outline" },
+    { "<leader>lo",   ":Outline<cr>",                                                                     desc = "toggle outline" },
     { "<leader>t",    group = "terminal" },
     { "<leader>tt",   ":ToggleTerm<cr>",                                                                  desc = "ToggleTerm" },
   }

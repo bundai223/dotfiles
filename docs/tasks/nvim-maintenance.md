@@ -1,7 +1,7 @@
 # Neovimメンテナンスと復旧
 
 - ステータス: 進行中
-- 最終更新日: 2026-07-12
+- 最終更新日: 2026-07-28
 
 ## 目的
 
@@ -15,6 +15,13 @@ Neovimの通常利用時に発生するエラーを解消し、プラグイン�
 - [x] lazy.nvimの遅延ロードを考慮した二層テスト方針をADR 0001として記録
 - [x] 現在のNeovimバージョンが `0.12.4` であることを確認
 - [x] ヘッドレスでの初期起動が終了コード `0` であることを確認
+- [x] `cmp-dictionary` の古いdocumentオプションを削除
+- [x] `symbols-outline.nvim` を後継の `outline.nvim` へ移行
+- [x] `nlsp-settings.nvim` を削除し、JSON schema設定を既存のSchemaStoreへ集約
+- [x] `vim.lsp.buf_get_clients()` の非推奨警告が出ないことを再現手順で確認
+- [x] `mason-lspconfig.nvim 2.2.0` に合わせて `vim.lsp.config()` 方式へ移行
+- [x] 更新停止中の `rust-tools.nvim` を削除し、標準の `rust_analyzer` 設定へ移行
+- [x] ファイルを開く前でも `:Notifications` と `:NotificationsClear` を利用可能に修正
 
 ## 未完了
 
@@ -40,11 +47,13 @@ Neovimの通常利用時に発生するエラーを解消し、プラグイン�
 
 ## 次に行う作業
 
-1. 全ロードテストとシナリオテストの実装対象を、現在のlazy.nvim定義から抽出する。
-2. 通常起動時のエラーを、操作手順とともに診断レポートへ収集できるようにする。
-3. 現在の `~/.config/nvim/lazy-lock.json` を確認し、リポジトリへの配置方法を決める。
+1. 今回修正した補完とアウトラインを通常画面で対話的に確認する。
+2. 全ロードテストとシナリオテストの実装対象を、現在のlazy.nvim定義から抽出する。
+3. 通常起動時のエラーを、操作手順とともに診断レポートへ収集できるようにする。
+4. 現在の `~/.config/nvim/lazy-lock.json` を確認し、リポジトリへの配置方法を決める。
 
 ## 関連文書
 
 - [Neovimメンテナンス手順](../nvim-maintenance.md)
 - [ADR 0001: lazy.nvimの遅延ロードを考慮した二層テスト](../ADR/0001-test-lazy-loaded-neovim-plugins-in-two-layers.md)
+- [2026-07-28 Neovimエラー復旧記録](../../raw/conversations/2026-07-28_Neovimエラー復旧.md)
