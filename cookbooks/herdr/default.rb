@@ -23,3 +23,15 @@ when 'opensuse'
 else
   raise NotImplementedError
 end
+
+# herdr-browser: ペイン内にヘッドレスChromiumを描画しCDPで外部ツールから
+# 操作できるようにする公式プラグイン。https://github.com/ogulcancelik/herdr-browser
+# 本体のプラグイン管理(herdr plugin install)で導入する。実行にはbunが必要。
+# 導入済みならplugin listに出るため再インストールしない。
+execute 'install herdr-browser plugin' do
+  user node['user']
+
+  command 'herdr="$(command -v herdr || echo "$HOME/.local/bin/herdr")"; "$herdr" plugin install ogulcancelik/herdr-browser --yes'
+
+  not_if %(herdr="$(command -v herdr || echo "$HOME/.local/bin/herdr")"; "$herdr" plugin list --plugin official.browser --json 2>/dev/null | grep -q '"plugin_id":"official.browser"')
+end

@@ -5,3 +5,5 @@
 - 2026-07-28 [Update] neovim: mason-lspconfig 2.xへの移行を追記（raw/conversations/2026-07-28_Neovimエラー復旧.md）
 - 2026-07-28 [Update] neovim: Notificationsの遅延ロード条件を追記（raw/conversations/2026-07-28_Neovimエラー復旧.md）
 - 2026-07-28 [Update] neovim: nvim-notifyのsetup要件を追記（raw/conversations/2026-07-28_Neovimエラー復旧.md）
+- 2026-07-30 [Create] herdr-browser: 接続フロー・運用ノウハウ・WSL+WezTerm制約（raw/conversations/2026-07-30_herdr-browser動作確認.md）
+- 2026-07-30 [Update] herdr-browser: cookbooks/herdrへのインストール追記を反映（raw/conversations/2026-07-30_herdr-browser動作確認.md）
