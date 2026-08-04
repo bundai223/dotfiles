@@ -5,6 +5,7 @@
 .local.vimrc
 ,*
 .personal/
+private_docs
 
 ### VSCode
 .history/*
