@@ -71,6 +71,32 @@ lazy.nvimはrtpリセット時のlibdirを「`<prefix>/lib64` があればそち
 （`config/.config/nvim/lua/plugins.lua` の `nvim_lib_dirs()`）。
 自前でパーサを入れていると症状が出ないため、パーサを入れ直すまで気付きにくい。
 
+## lazy-lock.json の固定先が古いとプラグインが壊れる
+
+ロック先の旧コミットと現在のリモートで「同じパスが通常ファイル / サブモジュール」と
+食い違っていると、lazyのcheckoutが中断する。このとき**作業ツリーだけ書き換わった
+中途半端な状態が残る**ため、`module '...' not found` のような症状になる。
+
+```
+fatal: could not reset submodule index
+error: The following untracked working tree files would be overwritten by checkout
+```
+
+`git restore .` で一時的に直っても、次の `Lazy update` で再発する。
+プラグインディレクトリごと削除してクリーンに入れ直し、`lazy-lock.json` を
+新しいコミットへ進める。
+
+## パーサが無いfiletypeでプラグインが落ちる
+
+nvimは途中から、パーサが無いとき `vim.treesitter.get_parser` がエラーではなく
+**nilを返す**ようになった（neovim commit `fd1e019`）。この変更前のプラグインは
+nilをそのまま参照して落ちる。`~/.gitconfig`（`git_config`）のように
+パーサを入れていないfiletypeで初めて表面化する。
+
+プラグイン側を新しくするのが本筋。切り分けでは、ヘッドレス起動だと
+`VimEnter` 依存のプラグインがロードされず再現しない点に注意する
+（`Lazy! load <plugin>` で明示的にロードして再現させる）。
+
 ## lua_ls の workspace.library
 
 配列形式で書く。ハッシュ形式（`[path] = true`）と混ぜると
