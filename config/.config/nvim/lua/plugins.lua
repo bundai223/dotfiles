@@ -818,11 +818,32 @@ local function merge_lists(t1, t2)
   return result
 end
 
+-- nvim同梱のtreesitterパーサが置かれているディレクトリを列挙する。
+-- lazy.nvimはrtpをリセットする際に libdir を `<prefix>/lib64` が存在すればそちら、
+-- 無ければ `<prefix>/lib` と決め打ちする。/usr/local/lib64 だけが存在して
+-- パーサの実体は /usr/local/lib/nvim にある環境ではlib64側と誤判定され、
+-- 同梱パーサがrtpから丸ごと消えてtreesitterが動かなくなる。
+local function nvim_lib_dirs()
+  local prefix = vim.fn.fnamemodify(vim.v.progpath, ":p:h:h")
+  local dirs = {}
+  for _, dir in ipairs({ prefix .. "/lib/nvim", prefix .. "/lib64/nvim" }) do
+    if vim.uv.fs_stat(dir) then
+      table.insert(dirs, dir)
+    end
+  end
+  return dirs
+end
+
 require("lazy").setup(merge_lists(plugins, local_plugins), {
   defaults = {
     lazy = true, -- should plugins be lazy-loaded?
   },
   dev = {
     path = vim.fn.stdpath("data") .. "/dev",
+  },
+  performance = {
+    rtp = {
+      paths = nvim_lib_dirs(),
+    },
   },
 })

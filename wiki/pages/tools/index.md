@@ -4,5 +4,6 @@
 |---|---|---|
 | [herdr](herdr.md) | herdrの導入・更新・運用 | 2026-07-23 |
 | [herdr-browser](herdr-browser.md) | herdrペイン内Chromiumプラグインの接続フローと運用ノウハウ | 2026-07-30 |
-| [neovim](neovim.md) | Neovimのメンテナンスと互換性対応 | 2026-07-28 |
+| [neovim](neovim.md) | Neovimのメンテナンスと互換性対応 | 2026-08-04 |
 | [opencode-go](opencode-go.md) | OpenCode Goの料金・制約・安全な評価方針 | 2026-07-24 |
+| [tree-sitter-cli](tree-sitter-cli.md) | 導入方法とGLIBC制約（prebuiltが使えない理由） | 2026-08-04 |

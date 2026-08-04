@@ -18,6 +18,7 @@ include_cookbook 'yarn'
 include_cookbook 'rust'
 
 # include_cookbook 'tmux'
+include_cookbook 'tree-sitter' # nvim-treesitterのパーサビルドに必要なのでneovimより先に入れる
 include_cookbook 'neovim'
 include_cookbook 'zsh'
 # include_cookbook 'mysql'

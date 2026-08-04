@@ -115,9 +115,12 @@ vim.lsp.config("lua_ls", {
   settings = {
     Lua = {
       workspace = {
+        -- 配列とハッシュを混ぜるとnvimがLspNotifyのdataへ変換できず
+        -- 「Invalid 'data': Cannot convert given Lua table」で落ちるため、
+        -- lua_lsが受け付ける配列形式に統一する。
         library = {
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-          [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+          vim.fn.expand("$VIMRUNTIME/lua"),
+          vim.fn.expand("$VIMRUNTIME/lua/vim/lsp"),
           "${3rd}/luv/library",
         },
       },

@@ -2,11 +2,12 @@
 title: Neovim — メンテナンスと互換性対応
 genre: tools
 summary: 起動エラーを先に再現し、古い設定形式と更新停止プラグインを対象単位で修正する。
-updated: 2026-07-28
+updated: 2026-08-04
 confidence: high
 status: active
 sources:
   - raw/conversations/2026-07-28_Neovimエラー復旧.md
+  - raw/conversations/2026-08-04_Neovim起動エラー復旧.md
 ---
 
 # Neovim
@@ -33,3 +34,45 @@ sources:
   両コマンドは登録されない。
 - `E348: No string under cursor` は、文字列のない位置で `*` や `#` を実行した場合の
   Neovim本体の標準メッセージであり、プラグイン障害ではない。
+
+## 起動エラーの切り分け順序
+
+起動エラーは1つ直すと次が現れることがある。前のエラーが後のエラーを隠している
+だけなので、1つずつ直しては再現を取り直す。
+
+1. **プラグインの作業ツリー破損を疑う** — `module '...' not found` が出たら、
+   まず `git -C <plugin-dir> status --short`。lazy.nvimの更新が中断すると
+   新旧ファイルが混在し、`git restore .` で直る。
+2. **treesitterのパーサとクエリの整合** — `Invalid field name` はクエリが新しく
+   パーサが古い。`Parser could not be created` はパーサが見つかっていない。
+3. **rtpにパーサディレクトリが残っているか** — `nvim_get_runtime_file('parser/<lang>.so', true)`
+   で実際に読まれる場所を確認する。
+4. **LSPへ渡す設定テーブルの形** — 配列とハッシュを混ぜたLuaテーブルは
+   `Invalid 'data': Cannot convert given Lua table` になる。
+
+## nvim-treesitter（mainブランチ）
+
+- パーサのビルドに `tree-sitter` CLIを使う。必要な最小バージョンは
+  `lua/nvim-treesitter/health.lua` の `TREE_SITTER_MIN_VER` にある。
+  導入は [tree-sitter-cli](tree-sitter-cli.md) を参照。
+- パーサの配置先は `setup({ install_dir = ... })` で決まる。旧 `master` ブランチは
+  プラグインディレクトリ配下の `parser/` に置いていたため、移行後もそれが残っていると
+  rtp上で先に見つかり新しい配置先を隠す。移行時は旧 `parser/` `parser-info/` を消す。
+- ヘッドレスで `require('nvim-treesitter').install({...}):wait(n)` を使うと
+  ダウンロードから進まない。`:TSInstall <langs>` + `sleep` で待つ。
+
+## lazy.nvim が nvim 同梱パーサを rtp から落とす
+
+lazy.nvimはrtpリセット時のlibdirを「`<prefix>/lib64` があればそちら、無ければ
+`<prefix>/lib`」で決める。`/usr/local/lib64` が存在し、かつnvimのパーサが
+`/usr/local/lib/nvim` にある環境では同梱パーサが丸ごとrtpから消える。
+
+`lazy.setup` の `performance.rtp.paths` に実在する側を明示的に足して回避する
+（`config/.config/nvim/lua/plugins.lua` の `nvim_lib_dirs()`）。
+自前でパーサを入れていると症状が出ないため、パーサを入れ直すまで気付きにくい。
+
+## lua_ls の workspace.library
+
+配列形式で書く。ハッシュ形式（`[path] = true`）と混ぜると
+`workspace/didChangeConfiguration` の送信時に
+`Invalid 'data': Cannot convert given Lua table` で落ちる。

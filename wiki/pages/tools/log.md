@@ -7,3 +7,5 @@
 - 2026-07-28 [Update] neovim: nvim-notifyのsetup要件を追記（raw/conversations/2026-07-28_Neovimエラー復旧.md）
 - 2026-07-30 [Create] herdr-browser: 接続フロー・運用ノウハウ・WSL+WezTerm制約（raw/conversations/2026-07-30_herdr-browser動作確認.md）
 - 2026-07-30 [Update] herdr-browser: cookbooks/herdrへのインストール追記を反映（raw/conversations/2026-07-30_herdr-browser動作確認.md）
+- 2026-08-04 [Update] neovim: 起動エラーの切り分け順序・nvim-treesitter main・lazy.nvimのlibdir誤判定・lua_lsのlibrary形式を追記（raw/conversations/2026-08-04_Neovim起動エラー復旧.md）
+- 2026-08-04 [Create] tree-sitter-cli: 導入方法とGLIBC制約、~/.local/binへ配置する理由（raw/conversations/2026-08-04_Neovim起動エラー復旧.md）
